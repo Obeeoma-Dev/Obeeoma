@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import obeeomaLogo from './assets/obeeomalogoicon2.svg'
-import obeeomawordlogo from './assets/obeeomalogoword1.svg'
+// import obeeomalogoicon from 
+// import obeeomawordlogo from './assets/'
 import './App.css'
 
 function App() {
@@ -9,12 +9,12 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
+        {/* <a href="https://vite.dev" target="_blank">
           <img src={obeeomawordlogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={obeeomaLogo} className="logo react" alt="React logo" />
-        </a>
+          <img src={obeeomalogoicon} className="logo react" alt="React logo" />
+        </a> */}
       </div>
       <h1>Vite + React</h1>
       <div className="card">
