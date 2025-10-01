@@ -114,17 +114,12 @@ jobs:
             exit 1
           fi
 
-
-
-
-
       # Save build folder as artifact for deployment
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: obeeoma-app-build
           path: ./dist
-
 
   # ----------------
   # 4. DEPLOY TO RENDER
@@ -144,7 +139,6 @@ jobs:
         with:
           name: obeeoma-app-build
           path: ./dist
-
 
       # Trigger a new Render deployment
       - name: Deploy to Render
