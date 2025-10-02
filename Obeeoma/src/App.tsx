@@ -1,17 +1,18 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Toaster } from "./components/ui/sonner"; // Only import what's exported
+import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Pages
-import Index from "./pages/Index"; // Use default import since Index is default exported
+import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
 import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import NotFound from "./pages/NotFound";
+import EmployerDashboard from "./pages/EmployerDashboard";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,9 @@ export default function App(): React.ReactElement {
 
             {/* Employee dashboard */}
             <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+
+            {/* Employer dashboard */}
+            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
 
             {/* Index page */}
             <Route path="/index" element={<Index />} />
