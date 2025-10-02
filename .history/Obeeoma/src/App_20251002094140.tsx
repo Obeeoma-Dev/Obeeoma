@@ -1,7 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Pages
 import Index from "./pages/Index";
@@ -15,6 +14,7 @@ import EmployerDashboard from "./pages/EmployerDashboard";
 
 const queryClient = new QueryClient();
 
+<<<<<<< HEAD
 export default function App(): React.ReactElement {
   return (
     <QueryClientProvider client={queryClient}>
@@ -48,3 +48,22 @@ export default function App(): React.ReactElement {
     </QueryClientProvider>
   );
 }
+=======
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default App;
+>>>>>>> d2dc92664313f645b137fbcc611c71b357db9c59
