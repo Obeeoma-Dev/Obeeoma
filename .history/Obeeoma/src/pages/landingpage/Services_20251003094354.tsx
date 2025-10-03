@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText, Brain, Users, Calendar, TrendingUp, Brain as BrainIcon, Heart, CheckCircle2 } from "lucide-react";
-import image3 from "../assets/Images/image3.png";
+import image3 from "@/assets/Images/image3.png";
 
 const Services = () => {
   const services = [

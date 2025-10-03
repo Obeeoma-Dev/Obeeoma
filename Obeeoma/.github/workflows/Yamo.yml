@@ -19,43 +19,39 @@ jobs:
     name: Lint & Format Check
     runs-on: ubuntu-latest
     steps:
-      # Get the source code
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Setup Node.js
+      # Step 2: Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # Install dependencies exactly from package-lock.json
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Run ESLint auto-fix
-      - name: Run ESLint Auto-Fix
-        run: npx eslint src --fix
-
-      # Run Prettier auto-fix
-      - name: Run Prettier Auto-Fix
-        run: npx prettier --write "src/**/*.{js,jsx}"
-
-      # Check ESLint errors that couldn't be fixed automatically
-      - name: Check ESLint Remaining Errors
+      # Step 4: Run ESLint checks (fail if issues exist)
+      - name: Run ESLint Check
         run: npx eslint src
 
-      # Check Prettier formatting that couldn't be fixed automatically
-      - name: Check Prettier Formatting
-        run: npx prettier --check "src/**/*.{js,jsx}"
+      # Step 5: Run Prettier checks (fail if formatting issues exist)
+      - name: Run Prettier Check
+        run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
 
-  # --------------
+      # Step 6: TypeScript compile check (fail on type errors)
+      - name: TypeScript Compile Check
+        run: npx tsc --noEmit
+
+  # ----------------
   # 2. TESTING JOB
-  # --------------
+  # ----------------
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    needs: lint # only run tests if lint job succeeds
+    needs: lint # only run tests if lint passes
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -68,12 +64,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Run tests with coverage; disable watch mode for CI
+      # Run tests and generate coverage report
       - name: Run Tests with Coverage
         run: npm test -- --coverage --watchAll=false
 
-      # Save coverage report as GitHub artifact
-      - name: Upload coverage report
+      # Upload coverage report as artifact for later inspection
+      - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
@@ -100,13 +96,10 @@ jobs:
 
       # Build production-ready React app
       - name: Build React App
-        run: |
-          echo "Running build..."
-          npm run build
-          echo "Build finished."
+        run: npm run build
 
       # Safety check: ensure build folder exists before uploading
-      - name: Verify dist folder exists
+      - name: Verify Build Folder Exists
         run: |
           BUILD_PATH="./dist"
           if [ ! -d "$BUILD_PATH" ]; then
@@ -115,7 +108,7 @@ jobs:
           fi
 
       # Save build folder as artifact for deployment
-      - name: Upload build artifacts
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: obeeoma-app-build
@@ -133,14 +126,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Download build artifact produced in the build step
-      - name: Download build artifacts
+      # Download verified build artifact from CI
+      - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
           name: obeeoma-app-build
           path: ./dist
 
-      # Trigger a new Render deployment
+      # Trigger Render deployment using Render API key
       - name: Deploy to Render
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
