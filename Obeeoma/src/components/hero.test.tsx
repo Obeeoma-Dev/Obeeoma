@@ -15,62 +15,62 @@ import Hero from "./Hero";
  * wrapped in a MemoryRouter, so navigation works in tests.
  */
 const renderHero = () =>
-  render(
-    <MemoryRouter>
-      <Hero />
-    </MemoryRouter>
-  );
+    render(
+        <MemoryRouter>
+            <Hero />
+        </MemoryRouter>
+    );
 
 describe("Hero Component", () => {
-  // Test 1: check if component renders without crashing
-  it("renders heading text correctly", () => {
-    renderHero();
+    // Test 1: check if component renders without crashing
+    it("renders heading text correctly", () => {
+        renderHero();
 
-    // Look for heading text that contains "Start Your journey"
-    expect(screen.getByText(/Start Your journey/i)).toBeInTheDocument();
-  });
-
-  // Test 2: check that both buttons render with correct text
-  it("renders Sign Up and Sign In buttons", () => {
-    renderHero();
-
-    // Verify Sign Up button is there
-    expect(
-      screen.getByText("Sign up for my organization")
-    ).toBeInTheDocument();
-
-    // Verify Sign In button is there
-    expect(screen.getByText("Sign In")).toBeInTheDocument();
-  });
-
-  // Test 3: check that all badges render
-  it("renders all badges correctly", () => {
-    renderHero();
-
-    // List of expected badge texts
-    const badges = [
-      "Mental Health Assessments",
-      "Skills Learning",
-      "Feedback",
-      "EAP",
-    ];
-
-    // Loop through and check each badge exists in the DOM
-    badges.forEach((badgeText) => {
-      expect(screen.getByText(badgeText)).toBeInTheDocument();
+        // Look for heading text that contains "Start Your journey"
+        expect(screen.getByText(/Start Your journey/i)).toBeInTheDocument();
     });
-  });
 
-  // Test 4: check that hero section is rendered with background image
-  it("renders the hero section with a background image", () => {
-    renderHero();
+    // Test 2: check that both buttons render with correct text
+    it("renders Sign Up and Sign In buttons", () => {
+        renderHero();
 
-    // Grab the section by role (region) - make sure you add role="region" in Hero.tsx
-    const heroSection = screen.getByRole("region");
+        // Verify Sign Up button is there
+        expect(
+            screen.getByText("Sign up for my organization")
+        ).toBeInTheDocument();
 
-    // Expect the style to include a background image (mocked by Jest as test-file-stub)
-    expect(heroSection).toHaveStyle(
-      `background-image: url(${expect.stringContaining("test-file-stub")})`
-    );
-  });
+        // Verify Sign In button is there
+        expect(screen.getByText("Sign In")).toBeInTheDocument();
+    });
+
+    // Test 3: check that all badges render
+    it("renders all badges correctly", () => {
+        renderHero();
+
+        // List of expected badge texts
+        const badges = [
+            "Mental Health Assessments",
+            "Skills Learning",
+            "Feedback",
+            "EAP",
+        ];
+
+        // Loop through and check each badge exists in the DOM
+        badges.forEach((badgeText) => {
+            expect(screen.getByText(badgeText)).toBeInTheDocument();
+        });
+    });
+
+    // Test 4: check that hero section is rendered with background image
+    it("renders the hero section with a background image", () => {
+        renderHero();
+
+        // Grab the inner div that has the backgroundImage
+        const heroBgDiv = screen.getByTestId("hero-background");
+
+        // Check that the backgroundImage style contains the mocked string
+        expect(heroBgDiv.style.backgroundImage).toContain("test-file-stub");
+    });
+
+
 });
