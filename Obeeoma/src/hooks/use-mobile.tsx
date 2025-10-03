@@ -1,27 +1,33 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import { useState, useEffect } from "react";
 
-const queryClient = new QueryClient();
+/**
+ * useIsMobile
+ * 
+ * Custom React hook to detect if the current screen width
+ * matches a mobile device (default breakpoint: 768px).
+ *
+ * Returns:
+ *  - isMobile: boolean → true if viewport width < 768px
+ */
+export function useIsMobile(breakpoint: number = 768) {
+  // State to track if the screen is mobile size
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  useEffect(() => {
+    // Function to check window width
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < breakpoint);
+    };
 
-export default App;
+    // Add resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Run once on mount to set initial value
+    handleResize();
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]); // Dependency: breakpoint changes if passed as prop
+
+  return isMobile;
+}

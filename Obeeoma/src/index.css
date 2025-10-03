@@ -1,11 +1,16 @@
-import "tailwindcss/preflight"
-@tailwind components;
-@tailwind utilities;
+/* src/index.css */
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
 
+/* -----------------------------------------------
+   Tailwind v4 import (single import)
+----------------------------------------------- */
+@import "tailwindcss";
+
+
+/* ---------------------------------------------------
+   Design system variables
+   All colors MUST be HSL to match Tailwind config
+--------------------------------------------------- */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -43,9 +48,11 @@ All colors MUST be HSL.
       hsl(160 84% 39% / 0.5),
       hsl(160 60% 25% / 0.65)
     );
+
     --card-shadow:
       0 4px 6px -1px hsl(220 13% 91% / 0.1),
       0 2px 4px -1px hsl(220 13% 91% / 0.06);
+
     --card-shadow-lg:
       0 10px 15px -3px hsl(220 13% 91% / 0.1),
       0 4px 6px -2px hsl(220 13% 91% / 0.05);
@@ -60,6 +67,7 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Dark mode overrides */
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -106,12 +114,19 @@ All colors MUST be HSL.
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+/* ---------------------------------------------------
+   Apply global base styles
+   Using direct CSS instead of `@apply border-border`
+   This avoids build errors and is professional
+--------------------------------------------------- */
+/* * {
+  border: 1px solid hsl(var(--border)); 
+} */
 
-  body {
-    @apply bg-background text-foreground;
-  }
+body {
+  background-color: hsl(var(--background)); /* Body background from design system */
+  color: hsl(var(--foreground)); /* Body text color from design system */
+  font-family: system-ui, sans-serif; /* Base font */
+  margin: 0;
+  padding: 0;
 }
