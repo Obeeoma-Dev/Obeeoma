@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Building2, Users, BarChart3 } from "lucide-react";
-import happyPersonImage from "@/assets/Images/professional-worker.png";
+import happyPersonImage from "../../assets/Images/professional-worker.png";
 const HowItWorks = () => {
     const steps = [
         {

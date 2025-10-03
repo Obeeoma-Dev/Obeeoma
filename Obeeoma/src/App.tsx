@@ -23,7 +23,7 @@ export default function App(): React.ReactElement {
         <BrowserRouter>
           <Routes>
             {/* Default route */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/" element={<Navigate to="/Index" replace />} />
 
             {/* Auth routes */}
             <Route path="/login" element={<Login />} />

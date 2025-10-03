@@ -74,3 +74,6 @@ describe("Hero Component", () => {
 
 
 });
+
+/* Removed custom expect function to allow Jest/RTL expect to work */
+

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [role, setRole] = useState<"Client" | "Organization">("Client");
@@ -13,23 +12,39 @@ const Login: React.FC = () => {
           <p className="text-gray-600 mb-6">Welcome back to Obeeoma</p>
 
           <form className="space-y-4">
-            <input type="email" placeholder="Email address" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
-            <input type="password" placeholder="Password" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
+            <input
+              type="email"
+              placeholder="Email address"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
+            />
 
             <div className="flex items-center space-x-4">
               <button
                 type="button"
                 onClick={() => setRole("Client")}
-                className={`px-4 py-2 rounded-lg ${role === "Client" ? "bg-green-100 text-green-700" : "bg-gray-100"}`}
+                className={`px-4 py-2 rounded-lg ${
+                  role === "Client"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-gray-100"
+                }`}
               >
-                Client
+                Employer
               </button>
               <button
                 type="button"
                 onClick={() => setRole("Organization")}
-                className={`px-4 py-2 rounded-lg ${role === "Organization" ? "bg-green-100 text-green-700" : "bg-gray-100"}`}
+                className={`px-4 py-2 rounded-lg ${
+                  role === "Organization"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-gray-100"
+                }`}
               >
-                Organization
+                Employee
               </button>
             </div>
 
@@ -38,30 +53,34 @@ const Login: React.FC = () => {
                 <input type="checkbox" className="rounded" />
                 <span>Remember me</span>
               </label>
-              <Link to="/reset-password" className="text-green-600 text-sm hover:underline">
+              {/* No router, just plain text or placeholder link */}
+              <a href="#" className="text-green-600 text-sm hover:underline">
                 Forgot your password?
-              </Link>
+              </a>
             </div>
 
-            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+            <button
+              type="submit"
+              className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+            >
               Sign in
             </button>
           </form>
 
           <p className="mt-4 text-center text-gray-600">
             Don’t have an account?{" "}
-            <Link to="/register" className="text-green-600 font-medium hover:underline">
+            <a href="#" className="text-green-600 font-medium hover:underline">
               Create an account
-            </Link>
+            </a>
           </p>
         </div>
 
         {/* Right Side */}
-        <div className="p-8 bg-green-50 flex flex-col justify-center">
+        <div className="p-8 bg-green-50">
           <h3 className="text-xl font-semibold mb-4">Welcome Back</h3>
           <p className="text-gray-600 mb-4">
-            Sign in to access your personalized mental health dashboard, connect with your care team,
-            and continue your wellness journey.
+            Sign in to access your personalized mental health dashboard,
+            connect with your care team, and continue your wellness journey.
           </p>
           <ul className="space-y-2 text-gray-700">
             <li>✔ Access your care plan</li>
