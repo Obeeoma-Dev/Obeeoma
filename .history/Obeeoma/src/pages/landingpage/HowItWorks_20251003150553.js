@@ -1,6 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Building2, Users, BarChart3 } from "lucide-react";
+<<<<<<< HEAD
+import happyPersonImage from "../../assets/Images/professional-worker.png";
+=======
 import happyPersonImage from "@/assets/Images/professional-worker.png";
+>>>>>>> 0625a07dda717cadb4821efcc497060fe62f6081
 const HowItWorks = () => {
     const steps = [
         {
