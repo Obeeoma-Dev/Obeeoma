@@ -5,7 +5,7 @@
    Tailwind v4 import (single import)
 ----------------------------------------------- */
 @import "tailwindcss";
-
+@plugin "daisyui";
 
 /* ---------------------------------------------------
    Design system variables

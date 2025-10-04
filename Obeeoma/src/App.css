@@ -1,4 +1,5 @@
-@import "tailwindcss";
+/* Only custom styles for your App component */
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

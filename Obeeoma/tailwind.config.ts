@@ -1,5 +1,6 @@
 // tailwind.config.ts
 import type { Config } from "tailwindcss";
+import daisyui from "daisyui"; //  import daisyui
 
 /**
  * Tailwind CSS v4 configuration
@@ -27,7 +28,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [], // No extra plugins needed now
+  plugins: [daisyui], // Enabaling daisyui
 };
 
 export default config;

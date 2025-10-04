@@ -21,4 +21,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"), // Import like "@/components/Button"
     },
   },
+  server: {
+    fs: {
+      strict: false,
+    },
+  },
 });
