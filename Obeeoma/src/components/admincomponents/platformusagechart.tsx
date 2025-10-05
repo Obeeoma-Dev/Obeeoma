@@ -1,7 +1,7 @@
 // Chart component for displaying weekly platform usage trends
 
 import React, { useState } from 'react';
-import { ChartDataPoint } from '../types/dashboard';
+import { ChartDataPoint } from '../../types/dashboard';
 
 /**
  * PlatformUsageChart component displays a line chart showing weekly platform usage

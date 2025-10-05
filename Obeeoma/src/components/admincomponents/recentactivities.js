@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import ActivityItem from './ActivityItem';
+import ActivityItem from './activityitem';
 /**
  * RecentActivities component displays a list of recent system activities
  * Shows various types of events with timestamps and details

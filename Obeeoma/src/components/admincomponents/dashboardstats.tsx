@@ -1,14 +1,20 @@
 // Dashboard statistics section with overview cards
 
 import React from 'react';
-import StatCard from './StatCard';
-import { StatCardData } from '../types/dashboard';
+import StatCard from './statCard';
+import { StatCardData } from '../../types/dashboard';
 
 /**
  * DashboardStats component displays the top-level metrics in a grid layout
  * Shows key performance indicators like organizations, clients, revenue, and calls
  */
-const DashboardStats: React.FC = () => {
+interface DashboardStatsProps {
+  stats: StatCardData[];
+}
+
+const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
+  // ...same layout
+};
   // Array of stat card data to display
   const stats: StatCardData[] = [
     {

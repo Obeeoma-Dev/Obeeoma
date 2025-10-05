@@ -2,7 +2,7 @@
 
 import React from 'react';
 import * as Icons from 'lucide-react';
-import { StatCardData } from '../types/dashboard';
+import { StatCardData } from '../../types/dashboard';
 
 /**
  * Props interface for the StatCard component

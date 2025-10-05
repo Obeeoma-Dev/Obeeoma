@@ -21,7 +21,7 @@ const App = () => (
           <Route path="/employer-dashboard" element={<Pages.EmployerDashboard />} />
 
           {/* System Admin Dashboard */}
-          <Route path="/system-admin" element={<Pages.Systemadmin />}>
+          <Route path="/system-admin" element={<Pages.Dashboard />}>
             <Route index element={<Pages.Overview />} />
             <Route path="organizations" element={<Pages.Organizations />} />
             {/* Add other routes here */}

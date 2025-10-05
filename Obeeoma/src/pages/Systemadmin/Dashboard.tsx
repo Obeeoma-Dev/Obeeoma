@@ -5,8 +5,52 @@ import Sidebar from '../../components/admincomponents/sidebar';
 import Header from '../../components/admincomponents/header';
 import DashboardStats from '../../components/admincomponents/dashboardstats';
 import PlatformUsageChart from '../../components/admincomponents/platformusagechart';
-import RecentActivities from '../../components/admincomponents/platformusagechart';
+import RecentActivities from '../../components/admincomponents/recentactivities';
 import BottomMetrics from '../../components/admincomponents/bottommetrics';
+
+import { ActivityItem } from '../../types/dashboard';
+
+const recentActivityData: ActivityItem[] = [
+  {
+    id: '1',
+    type: 'New Organization',
+    details: 'Wellness Centre Inc. joined the platform',
+    time: '2 hours ago',
+    icon: 'Building2',
+    iconColor: 'bg-emerald-50',
+  },
+  // ...add the rest of your activities here
+];
+
+import { BottomMetricCard } from '../../types/dashboard';
+
+const bottomMetricData: BottomMetricCard[] = [
+  {
+    id: '1',
+    title: 'Organizations',
+    value: '42',
+    subtitle: 'Active organizations',
+    linkText: 'View all organizations',
+    icon: 'Building2',
+    color: 'emerald',
+  },
+  // ...add the rest
+];
+
+import { StatCardData } from '../../types/dashboard';
+
+const dashboardStatsData: StatCardData[] = [
+  {
+    id: '1',
+    title: 'Total Organizations',
+    value: '42',
+    change: '+3 this month',
+    icon: 'Building2',
+    iconColor: 'bg-emerald-50',
+  },
+  // ...add the rest
+];
+
 
 /**
  * Dashboard component is the main container for the entire admin dashboard
@@ -29,16 +73,16 @@ const Dashboard: React.FC = () => {
           {/* Content container with padding */}
           <div className="p-8">
             {/* Top stats section with 4 metric cards */}
-            <DashboardStats />
+            <DashboardStats stats={dashboardStatsData} />
 
             {/* Chart section showing weekly platform usage trends */}
             <PlatformUsageChart />
 
             {/* Recent activities list with timeline */}
-            <RecentActivities />
+            <RecentActivities activities={recentActivityData} />
 
             {/* Bottom metrics section with 4 detailed metric cards */}
-            <BottomMetrics />
+            <BottomMetrics metrics={bottomMetricData} />
           </div>
         </main>
       </div>

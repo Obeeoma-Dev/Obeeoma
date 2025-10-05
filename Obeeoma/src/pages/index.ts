@@ -5,7 +5,7 @@ export { default as Index } from "./Home"; // Home page component
 export { default as EmployerDashboard } from "./EmployerDashboard";
 
 // Admin dashboard.
-export { default as Systemadmin } from "./Systemadmin/systemadmin";
+export { default as Dashboard } from "./Systemadmin/Dashboard";
 // Admin subpages. 
 export { default as Overview } from "./Systemadmin/overview";
 export { default as Organizations } from "./Systemadmin/organizations";

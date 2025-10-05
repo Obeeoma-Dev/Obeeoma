@@ -1,14 +1,18 @@
 // Component displaying recent system activities
 
 import React from 'react';
-import ActivityItem from './ActivityItem';
-import { ActivityItem as ActivityItemType } from '../types/dashboard';
+import ActivityItem from './activityitem';
+import { ActivityItem as ActivityItemType } from '../../types/dashboard';
 
 /**
  * RecentActivities component displays a list of recent system activities
  * Shows various types of events with timestamps and details
  */
-const RecentActivities: React.FC = () => {
+interface RecentActivitiesProps {
+  activities: ActivityItemType[];
+}
+
+const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
   // Array of recent activity data
   const activities: ActivityItemType[] = [
     {

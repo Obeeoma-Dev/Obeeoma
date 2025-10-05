@@ -2,7 +2,7 @@
 
 import React from 'react';
 import * as Icons from 'lucide-react';
-import { ActivityItem as ActivityItemType } from '../types/dashboard';
+import { ActivityItem as ActivityItemType } from '../../types/dashboard';
 
 /**
  * Props interface for the ActivityItem component

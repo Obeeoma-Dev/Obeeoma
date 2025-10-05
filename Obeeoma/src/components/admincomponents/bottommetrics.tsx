@@ -2,13 +2,19 @@
 
 import React from 'react';
 import * as Icons from 'lucide-react';
-import { BottomMetricCard } from '../types/dashboard';
+import { BottomMetricCard } from '../../types/dashboard';
 
 /**
  * BottomMetrics component displays four metric cards at the bottom of the dashboard
  * Each card shows a key metric with a link to view more details
  */
-const BottomMetrics: React.FC = () => {
+interface BottomMetricsProps {
+  metrics: BottomMetricCard[];
+}
+
+const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
+  // ...same layout
+};
   // Array of metric card data
   const metrics: BottomMetricCard[] = [
     {

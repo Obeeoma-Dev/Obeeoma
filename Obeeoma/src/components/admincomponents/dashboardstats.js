@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import StatCard from './StatCard';
+import StatCard from './statCard';
 /**
  * DashboardStats component displays the top-level metrics in a grid layout
  * Shows key performance indicators like organizations, clients, revenue, and calls
