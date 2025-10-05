@@ -23,20 +23,20 @@ const Hero = () => {
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6 leading-tight">
           Start Your journey to<br className="hidden sm:block" />better mental health
         </h1>
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 mb-8 sm:mb-12 max-w-3xl mx-auto px-4">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-8 sm:mb-12 max-w-3xl mx-auto px-4">
           Obeeoma provides comprehensive mental health services with a personalized approach to help you achieve emotional well-being and resilience.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 px-4">
+        <div className="flex flex-col sm:flex-row items-cente justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 px-4">
           <Button
             variant="hero"
             size="lg"
             className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6"
-            onClick={() => navigate("/employer-dashboard")}
-          >
+            onClick={() => navigate("/signup")} >
             Sign up for my organization
           </Button>
-          <Button variant="outline" size="lg" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6">
+          <Button variant="outline" size="lg" className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6"
+          onClick={() => navigate("/login")}>
             Sign In
           </Button>
         </div>
