@@ -8,13 +8,22 @@ const Navigation = () => {
         <div className="flex items-center gap-12">
           <img src={logo} alt="Obeeoma Logo" className="h-8 w-auto" />
           <div className="hidden md:flex items-center gap-8">
-            <a href="#learn" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <a
+              href="#learn"
+              className="text-sm font-medium text-white hover:text-[#3CB371] transition-colors"
+            >
               Resources
             </a>
-            <a href="#pricing" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <a
+              href="#pricing"
+              className="text-sm font-medium text-white hover:text-[#3CB371] transition-colors"
+            >
               Pricing
             </a>
-            <a href="#benefits" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+            <a
+              href="#benefits"
+              className="text-sm font-medium text-white hover:text-[#3CB371] transition-colors"
+            >
               Benefits
             </a>
           </div>

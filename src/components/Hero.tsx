@@ -13,15 +13,12 @@ const Hero = () => {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
-        data-testid="hero-background"
-      >
-        <div className="absolute inset-0" style={{ background: 'var(--hero-gradient)' }} />
+        data-testid="hero-background">
+        <div className="absolute inset-0 bg-[#3CB371]/30" />
       </div>
-
-
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6 leading-tight">
-          Start Your journey to<br className="hidden sm:block" />better mental health
+          Start Your journey to <br className="hidden sm:block" />better mental health
         </h1>
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-8 sm:mb-12 max-w-3xl mx-auto px-4">
           Obeeoma provides comprehensive mental health services with a personalized approach to help you achieve emotional well-being and resilience.
