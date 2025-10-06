@@ -9,10 +9,18 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <Hero />
-      <HowItWorks />
-      <Services />
-      <Features />
+      <main>
+        <Hero />
+        <section id="features" className="section-bg py-5">
+          <Features />
+        </section>
+        <section id="howitworks" className="section-bg-dark text-white py-5">
+          <HowItWorks />
+        </section>
+        <section id="services" className="section-bg py-5">
+          <Services />
+        </section>
+      </main>
       <Footer />
     </div>
   );

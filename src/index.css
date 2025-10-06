@@ -1,16 +1,213 @@
-/* src/index.css */
+/* -------------------------------------------------------
+   Obeeoma Design System — Bootstrap Edition
+   Unified brand colors (#3CB371 green, #ff4d4d red)
+   Smooth transitions + section polish
+------------------------------------------------------- */
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* -----------------------------------------------
+   CSS Variables — override Bootstrap defaults
+----------------------------------------------- */
+:root {
+  /* Brand palette */
+  --obeeoma-green: #3CB371;
+  --obeeoma-green-dark: #2E8B57;
+  --obeeoma-red: #ff4d4d;
+  --obeeoma-red-dark: #cc0000;
+  --obeeoma-bg: #ffffff;
+  --obeeoma-text: #222222;
+  --obeeoma-muted: #6c757d;
+
+  /* Hero overlay gradient */
+  --hero-gradient: linear-gradient(
+    135deg,
+    rgba(60, 179, 113, 0.45),
+    rgba(60, 179, 113, 0.75)
+  );
+
+  /* Border radius and shadow */
+  --bs-border-radius: 0.75rem;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --card-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* -----------------------------------------------
+   Global Page Styling
+----------------------------------------------- */
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background-color: var(--obeeoma-bg);
+  color: var(--obeeoma-text);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--obeeoma-green);
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+}
+a:hover {
+  color: var(--obeeoma-green-dark);
+}
+
+/* -----------------------------------------------
+   Hero Section Styling
+----------------------------------------------- */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-gradient);
+  z-index: 1;
+}
+
+.hero-section .hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.hero-section .hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 1.5rem;
+}
+
+.hero-section h1 {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.2;
+}
+.hero-section p {
+  color: #ff4d4d;
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* -----------------------------------------------
+   Gradient Buttons
+----------------------------------------------- */
+.btn-green-gradient {
+  background: linear-gradient(135deg, var(--obeeoma-green), var(--obeeoma-green-dark));
+  color: #fff !important;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  transition: opacity 0.3s ease-in-out;
+}
+.btn-green-gradient:hover {
+  opacity: 0.9;
+}
+
+.btn-red-gradient {
+  background: linear-gradient(135deg, var(--obeeoma-red), var(--obeeoma-red-dark));
+  color: #fff !important;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  transition: opacity 0.3s ease-in-out;
+}
+.btn-red-gradient:hover {
+  opacity: 0.9;
+}
+
+/* -----------------------------------------------
+   Navbar and Footer Styling
+----------------------------------------------- */
+.navbar {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+  color: var(--obeeoma-green) !important;
+  font-weight: 600;
+}
+.nav-link {
+  color: var(--obeeoma-text) !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--obeeoma-green) !important;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 3rem 0;
+  color: var(--obeeoma-muted);
+}
+footer h5 {
+  color: var(--obeeoma-green);
+  margin-bottom: 1rem;
+}
+footer a {
+  color: var(--obeeoma-muted);
+  text-decoration: none;
+}
+footer a:hover {
+  color: var(--obeeoma-green);
+}
+
+/* -----------------------------------------------
+   Cards and Features
+----------------------------------------------- */
+.feature-card {
+  background-color: #fff;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-lg);
+}
+
+/* -----------------------------------------------
+   Responsive Tweaks
+----------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.25rem;
+  }
+  .hero-section p {
+    font-size: 1.125rem;
+  }
+}
+
+
+/**src/index.css
 
 
 /* -----------------------------------------------
    Tailwind v4 import (single import)
 ----------------------------------------------- */
-@import "tailwindcss";
+/* @import "tailwindcss"; */
 
 
 /* ---------------------------------------------------
    Design system variables
    All colors MUST be HSL to match Tailwind config
---------------------------------------------------- */
+--------------------------------------------------- 
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -67,7 +264,7 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  /* Dark mode overrides */
+  /* Dark mode overrides 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -121,12 +318,13 @@
 --------------------------------------------------- */
 /* * {
   border: 1px solid hsl(var(--border)); 
-} */
+} 
 
 body {
   background-color: hsl(var(--background)); /* Body background from design system */
-  color: hsl(var(--foreground)); /* Body text color from design system */
-  font-family: system-ui, sans-serif; /* Base font */
-  margin: 0;
+/*  color: hsl(var(--foreground));  Body text color from design system */
+/*  font-family: system-ui, sans-serif;  Base font */
+/*  margin: 0;
   padding: 0;
 }
+*/

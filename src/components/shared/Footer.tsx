@@ -1,69 +1,55 @@
-const Footer = () => {
-  const footerSections = [
-    {
-      title: "About Obeeoma",
-      links: [
-        "Why we started and our goals",
-        "Insights on the future of mental healthcare",
-        "Info on our privacy and how we secure user information",
-      ],
-    },
-    {
-      title: "For Employers",
-      links: ["How it works", "Pricing", "Partners", "Get Started"],
-    },
-    {
-      title: "For Employees",
-      links: ["Sign in", "Privacy Policy", "Terms of Use", "Get Connected"],
-    },
-    {
-      title: "Company",
-      links: ["About us", "Blog", "Careers", "Contact"],
-    },
-  ];
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-300 py-16 mt-16">
-      <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-          <div className="lg:col-span-1">
-            <h2 className="text-3xl font-bold text-white mb-4">Obeeoma</h2>
-            <p className="text-sm mb-4">
-              We're dedicated to democratizing access to mental health resources.
+    <footer className="text-light py-5 mt-5"
+      style={{ background: "linear-gradient(135deg, #3CB371, #00A859, #ff4d4d)",}}>
+      <div className="container">
+        <div className="row gy-4">
+          <div className="col-lg-4">
+            <h4 className="fw-bold mb-3">Obeeoma</h4>
+            <p className="small opacity-75">
+              Empowering mental wellness in Africa by connecting employers and
+              employees with tailored mental health solutions.
             </p>
-            <p className="text-xs opacity-70">
-              © 2025 Obeeoma. All Rights Reserved.
-            </p>
+            <p className="small mb-0 opacity-75">© 2025 Obeeoma. All Rights Reserved.</p>
           </div>
 
-          {footerSections.map((section, index) => (
-            <div key={index}>
-              <h3 className="font-semibold text-white mb-4">{section.title}</h3>
-              <ul className="space-y-3">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <a
-                      href="/employer-dashboard"
-                      className="text-sm text-gray-400 hover:text-green-400 transition-colors"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          <div className="col-6 col-lg-2">
+            <h6 className="fw-semibold mb-3">Company</h6>
+            <ul className="list-unstyled small">
+              <li><a href="#about" className="text-white text-decoration-none opacity-75">About</a></li>
+              <li><a href="#blog" className="text-white text-decoration-none opacity-75">Blog</a></li>
+              <li><a href="#careers" className="text-white text-decoration-none opacity-75">Careers</a></li>
+              <li><a href="#contact" className="text-white text-decoration-none opacity-75">Contact</a></li>
+            </ul>
+          </div>
+
+          <div className="col-6 col-lg-3">
+            <h6 className="fw-semibold mb-3">Employers</h6>
+            <ul className="list-unstyled small">
+              <li><a href="#features" className="text-white text-decoration-none opacity-75">Features</a></li>
+              <li><a href="#pricing" className="text-white text-decoration-none opacity-75">Pricing</a></li>
+              <li><a href="#partners" className="text-white text-decoration-none opacity-75">Partners</a></li>
+              <li><a href="/signup" className="text-white text-decoration-none opacity-75">Get Started</a></li>
+            </ul>
+          </div>
+
+          <div className="col-lg-3">
+            <h6 className="fw-semibold mb-3">Follow Us</h6>
+            <div className="d-flex gap-3">
+              <a href="#" className="text-white fs-5"><i className="bi bi-facebook"></i></a>
+              <a href="#" className="text-white fs-5"><i className="bi bi-twitter"></i></a>
+              <a href="#" className="text-white fs-5"><i className="bi bi-linkedin"></i></a>
+              <a href="#" className="text-white fs-5"><i className="bi bi-instagram"></i></a>
             </div>
-          ))}
+          </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-700">
-          <div className="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-400">
-            <p>© 2025 Obeeoma. All Rights Reserved.</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-green-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-green-400 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-green-400 transition-colors">Contact Us</a>
-            </div>
-          </div>
+        <hr className="my-4 border-light opacity-25" />
+        <div className="text-center small opacity-75">
+          Built with ❤️ for wellbeing and purpose.
         </div>
       </div>
     </footer>
