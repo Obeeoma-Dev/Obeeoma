@@ -79,7 +79,7 @@ export default function App(): React.ReactElement {
         <Toaster />
         <BrowserRouter>
           {/* AuthProvider wraps all routes to provide auth context */}
-          <AuthProvider>
+          {/* <AuthProvider> */}
             <Routes>
               {/* === PUBLIC ROUTES === */}
               {/* These routes are accessible to everyone */}
@@ -92,16 +92,16 @@ export default function App(): React.ReactElement {
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
-              <Route element={<ProtectedRoute />}>
+              {/* <Route element={<ProtectedRoute />}>
                 <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
                 <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-              </Route>
+              </Route> */}
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </AuthProvider>
+          {/* </AuthProvider> */}
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
