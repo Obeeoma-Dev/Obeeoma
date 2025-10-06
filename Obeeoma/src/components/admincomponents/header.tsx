@@ -47,7 +47,7 @@ const Header: React.FC = () => {
               {/* Admin label */}
               <div className="text-xs text-gray-500">Dr.</div>
               {/* Admin name */}
-              <div className="text-sm font-medium text-gray-900">System Admin Comestro</div>
+              <div className="text-sm font-medium text-gray-900"> Obeeoma System Admin </div>
             </div>
             {/* User avatar circle */}
             <div className="bg-emerald-500 w-10 h-10 rounded-full flex items-center justify-center">
