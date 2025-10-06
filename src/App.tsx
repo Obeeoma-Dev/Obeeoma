@@ -56,8 +56,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import your AuthProvider and ProtectedRoute
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
+// import { AuthProvider } from "./context/AuthContext";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
 
 // Pages
