@@ -1,71 +1,174 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Alert,
+  Form as BootstrapForm,
+  InputGroup,
+  Spinner,
+} from "react-bootstrap";
+
+type Role = "Employee" | "Employer";
+
+const validationSchema = Yup.object({
+  aliasName: Yup.string().required("Alias Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().min(6, "Minimum 6 characters").required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm Password is required"),
+});
 
 const Register: React.FC = () => {
-  const [role, setRole] = useState<"Client" | "Organization">("Client");
+  const [role, setRole] = useState<Role>("Employee");
+
+  const initialValues = {
+    aliasName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+
+  const handleSubmit = (values: typeof initialValues) => {
+    // Submit registration with values and role
+    console.log("Register submitted:", { ...values, role });
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow-md rounded-lg overflow-hidden">
+    <Container fluid className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+      <Row className="shadow bg-white rounded-lg overflow-hidden w-100" style={{ maxWidth: 900 }}>
         {/* Left Side */}
-        <div className="p-8">
-          <h2 className="text-2xl font-semibold mb-2">Create your account</h2>
-          <p className="text-gray-600 mb-6">
+        <Col md={6} className="p-4">
+          <h2 className="mb-3">Create your account</h2>
+          <p className="mb-4 text-muted">
             Join our community of mental health professionals and patients
           </p>
 
-          <form className="space-y-4">
-            <input type="text" placeholder="Full Name" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
-            <input type="email" placeholder="Email address" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
-            <input type="password" placeholder="Password" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
-            <input type="password" placeholder="Confirm Password" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
+          <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
+            {({ handleSubmit, handleChange, values, touched, errors }) => (
+              <FormikForm noValidate onSubmit={handleSubmit}>
+                <InputGroup className="mb-3" size="lg">
+                  <InputGroup.Text id="aliasName-label">Alias Name</InputGroup.Text>
+                  <BootstrapForm.Control
+                    type="text"
+                    name="aliasName"
+                    value={values.aliasName}
+                    onChange={handleChange}
+                    isInvalid={!!touched.aliasName && !!errors.aliasName}
+                    aria-describedby="aliasName-label"
+                  />
+                  <BootstrapForm.Control.Feedback type="invalid">
+                    <ErrorMessage name="aliasName" />
+                  </BootstrapForm.Control.Feedback>
+                </InputGroup>
 
-            <div className="flex items-center space-x-4">
-              <span>I am a:</span>
-              <button
-                type="button"
-                onClick={() => setRole("Client")}
-                className={`px-4 py-2 rounded-lg ${role === "Client" ? "bg-green-100 text-green-700" : "bg-gray-100"}`}
-              >
-                Client
-              </button>
-              <button
-                type="button"
-                onClick={() => setRole("Organization")}
-                className={`px-4 py-2 rounded-lg ${role === "Organization" ? "bg-green-100 text-green-700" : "bg-gray-100"}`}
-              >
-                Organization
-              </button>
-            </div>
+                <InputGroup className="mb-3" size="lg">
+                  <InputGroup.Text id="email-label">Email</InputGroup.Text>
+                  <BootstrapForm.Control
+                    type="email"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    isInvalid={!!touched.email && !!errors.email}
+                    aria-describedby="email-label"
+                  />
+                  <BootstrapForm.Control.Feedback type="invalid">
+                    <ErrorMessage name="email" />
+                  </BootstrapForm.Control.Feedback>
+                </InputGroup>
 
-            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              Create Account
-            </button>
-          </form>
+                <InputGroup className="mb-3" size="lg">
+                  <InputGroup.Text id="password-label">Password</InputGroup.Text>
+                  <BootstrapForm.Control
+                    type="password"
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    isInvalid={!!touched.password && !!errors.password}
+                    aria-describedby="password-label"
+                  />
+                  <BootstrapForm.Control.Feedback type="invalid">
+                    <ErrorMessage name="password" />
+                  </BootstrapForm.Control.Feedback>
+                </InputGroup>
 
-          <p className="mt-4 text-center text-gray-600">
+                <InputGroup className="mb-4" size="lg">
+                  <InputGroup.Text id="confirmPassword-label">Confirm Password</InputGroup.Text>
+                  <BootstrapForm.Control
+                    type="password"
+                    name="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    isInvalid={!!touched.confirmPassword && !!errors.confirmPassword}
+                    aria-describedby="confirmPassword-label"
+                  />
+                  <BootstrapForm.Control.Feedback type="invalid">
+                    <ErrorMessage name="confirmPassword" />
+                  </BootstrapForm.Control.Feedback>
+                </InputGroup>
+
+                <BootstrapForm.Group className="mb-4">
+                  <BootstrapForm.Label>I am an:</BootstrapForm.Label>
+                  <div>
+                    <BootstrapForm.Check
+                      type="radio"
+                      id="roleEmployee"
+                      label="Employee"
+                      name="role"
+                      value="Employee"
+                      checked={role === "Employee"}
+                      onChange={() => setRole("Employee")}
+                      inline
+                    />
+                    <BootstrapForm.Check
+                      type="radio"
+                      id="roleEmployer"
+                      label="Employer"
+                      name="role"
+                      value="Employer"
+                      checked={role === "Employer"}
+                      onChange={() => setRole("Employer")}
+                      inline
+                    />
+                  </div>
+                </BootstrapForm.Group>
+
+                <Button type="submit" variant="success" size="lg" className="w-100">
+                  Create Account
+                </Button>
+              </FormikForm>
+            )}
+          </Formik>
+
+          <p className="mt-3 text-center text-muted">
             Already have an account?{" "}
-            <Link to="/login" className="text-green-600 font-medium hover:underline">
+            <Link to="/login" className="text-success fw-semibold">
               Sign in
             </Link>
           </p>
-        </div>
+        </Col>
 
         {/* Right Side */}
-        <div className="p-8 bg-green-50 flex flex-col justify-center">
-          <h3 className="text-xl font-semibold mb-4">Begin Your Wellness Journey</h3>
-          <p className="text-gray-600 mb-4">
-            Creating an account gives you access to personalized mental health resources,
-            secure communication with healthcare providers, and tools to track your progress.
+        <Col md={6} className="bg-light-green p-4 d-flex flex-column justify-content-center">
+          <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
+          <p className="text-muted mb-4">
+            Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers,
+            and tools to track your progress.
           </p>
-          <ul className="space-y-2 text-gray-700">
+          <ul className="text-secondary">
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>
           </ul>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

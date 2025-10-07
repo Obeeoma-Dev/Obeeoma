@@ -43,7 +43,7 @@ export const authAPI = {
         return response;
     },
     register: async (credentials) => {
-        const response = await api.post('/api/auth/register/', {
+        const response = await api.post('/v1/auth/register/', {
             username: credentials.username,
             email: credentials.email,
             password: credentials.password,

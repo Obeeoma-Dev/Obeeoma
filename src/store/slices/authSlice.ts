@@ -31,8 +31,18 @@ export const registerUser = createAsyncThunk(
 );
 
 
+const getUserFromStorage = () => {
+  const rawUser = localStorage.getItem('user');
+  if (!rawUser || rawUser === 'undefined') return null;
+  try {
+    return JSON.parse(rawUser);
+  } catch (err) {
+    return null;
+  }
+};
+
 const initialState: AuthState = {
-  user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null,
+  user: getUserFromStorage(),
   token: localStorage.getItem('token'),
   isLoading: false,
   error: null,

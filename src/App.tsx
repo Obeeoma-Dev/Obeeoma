@@ -44,11 +44,12 @@ export default function App(): React.ReactElement {
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
               {/* <Route element={<ProtectedRoute />}>
-                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+                
                 <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               </Route> */}
 

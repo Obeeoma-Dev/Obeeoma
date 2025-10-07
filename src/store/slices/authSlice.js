@@ -22,8 +22,19 @@ export const registerUser = createAsyncThunk('auth/register', async (credentials
         return rejectWithValue(error.response?.data?.detail || 'Registration failed');
     }
 });
+const getUserFromStorage = () => {
+    const rawUser = localStorage.getItem('user');
+    if (!rawUser || rawUser === 'undefined')
+        return null;
+    try {
+        return JSON.parse(rawUser);
+    }
+    catch (err) {
+        return null;
+    }
+};
 const initialState = {
-    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+    user: getUserFromStorage(),
     token: localStorage.getItem('token'),
     isLoading: false,
     error: null,
