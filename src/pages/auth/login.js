@@ -1,48 +1,24 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-const Login = () => {
-    const [role, setRole] = useState("Client");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import React from 'react';
+import { Formik, Form } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Card, Button, Alert, Form as BootstrapForm, Spinner } from 'react-bootstrap';
+import { loginUser, clearError } from './../../store/slices/authSlice';
+import { loginValidationSchema } from './../../validation/authValidation';
+const LoginForm = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("http://127.0.0.1:8000/api/v1/auth/login/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                }),
-            });
-            const isJson = response.headers.get("content-type")?.includes("application/json");
-            const data = isJson ? await response.json() : null;
-            if (!response.ok) {
-                console.error("Login failed:", response.status, data);
-                const message = (data && (data.detail || data.message)) || `Login failed (${response.status})`;
-                throw new Error(message);
-            }
-            // Save token to localStorage (if using JWT)
-            if (data?.access)
-                localStorage.setItem("accessToken", data.access);
-            if (data?.refresh)
-                localStorage.setItem("refreshToken", data.refresh);
-            // Redirect to employee dashboard
-            console.debug("Login successful, navigating to /employee-dashboard");
-            navigate("/employee-dashboard", { replace: true });
-        }
-        catch (err) {
-            const message = err instanceof Error ? err.message : "Network error. Please try again.";
-            setError(message);
-        }
+    const { isLoading, error } = useSelector((state) => state.auth);
+    const handleSubmit = (values) => {
+        dispatch(loginUser({
+            ...values,
+            onSuccess: () => navigate('/employee-dashboard')
+        }));
     };
-    return (_jsx("div", { className: "min-h-screen flex items-center justify-center bg-gray-50", children: _jsxs("div", { className: "max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow-md rounded-lg overflow-hidden", children: [_jsxs("div", { className: "p-8", children: [_jsx("h2", { className: "text-2xl font-semibold mb-2", children: "Sign in to your account" }), _jsx("p", { className: "text-gray-600 mb-6", children: "Welcome back to Obeeoma" }), error && (_jsx("div", { className: "bg-red-100 text-red-700 p-2 rounded mb-4", children: error })), _jsxs("form", { className: "space-y-4", onSubmit: handleLogin, children: [_jsx(Form.Control, { placeholder: "123", "aria-label": "Username", "aria-describedby": "basic-addon1" }), _jsx("input", { id: "password", type: "password", placeholder: "Password", value: password, onChange: (e) => setPassword(e.target.value), className: "w-full px-4 py-2 border rounded-lg focus:outline-none", required: true }), _jsxs("div", { className: "flex items-center space-x-4", children: [_jsx("button", { type: "button", onClick: () => setRole("Client"), className: `px-4 py-2 rounded-lg ${role === "Client" ? "bg-green-100 text-green-700" : "bg-gray-100"}`, children: "Employer" }), _jsx("button", { type: "button", onClick: () => setRole("Organization"), className: `px-4 py-2 rounded-lg ${role === "Organization" ? "bg-green-100 text-green-700" : "bg-gray-100"}`, children: "Employee" })] }), _jsxs("div", { className: "flex justify-between items-center", children: [_jsxs("label", { htmlFor: "rememberMe", className: "flex items-center space-x-2", children: [_jsx("input", { id: "rememberMe", type: "checkbox", className: "rounded" }), _jsx("span", { children: "Remember me" })] }), _jsx("a", { href: "#", className: "text-green-600 text-sm hover:underline", children: "Forgot your password?" })] }), _jsx(Button, { type: "submit", variant: "primary", children: "Sign in" })] }), _jsxs("p", { className: "mt-4 text-center text-gray-600", children: ["Don\u2019t have an account?", " ", _jsx("a", { href: "#", className: "text-green-600 font-medium hover:underline", children: "Create an account" })] })] }), _jsxs("div", { className: "p-8 bg-green-50", children: [_jsx("h3", { className: "text-xl font-semibold mb-4", children: "Welcome Back" }), _jsx("p", { className: "text-gray-600 mb-4", children: "Sign in to access your personalized mental health dashboard, connect with your care team, and continue your wellness journey." }), _jsxs("ul", { className: "space-y-2 text-gray-700", children: [_jsx("li", { children: "\u2714 Access your care plan" }), _jsx("li", { children: "\u2714 Schedule appointments" }), _jsx("li", { children: "\u2714 Message your care team" })] })] })] }) }));
+    React.useEffect(() => {
+        dispatch(clearError());
+    }, [dispatch]);
+    return (_jsx(Container, { className: "mt-5", children: _jsx(Row, { className: "justify-content-center", children: _jsx(Col, { md: 6, lg: 4, children: _jsx(Card, { children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "text-center mb-4", children: "Login" }), error && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => dispatch(clearError()), children: error })), _jsx(Formik, { initialValues: { username: '', password: '' }, validationSchema: loginValidationSchema, onSubmit: handleSubmit, children: ({ values, errors, touched, handleChange, handleBlur }) => (_jsxs(Form, { children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "Username" }), _jsx(BootstrapForm.Control, { type: "text", name: "username", value: values.username, onChange: handleChange, onBlur: handleBlur, isInvalid: touched.username && !!errors.username, placeholder: "Enter your username" }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.username })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "Password" }), _jsx(BootstrapForm.Control, { type: "password", name: "password", value: values.password, onChange: handleChange, onBlur: handleBlur, isInvalid: touched.password && !!errors.password, placeholder: "Enter your password" }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.password })] }), _jsx(Button, { variant: "primary", type: "submit", className: "w-100", disabled: isLoading, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Logging in..."] })) : ('Login') })] })) })] }) }) }) }) }));
 };
-export default Login;
+export default LoginForm;
