@@ -1,10 +1,41 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button, Row, Col } from "react-bootstrap";
 import heroImage from "@/assets/Images/headerimage.png";
 import { useNavigate } from "react-router-dom";
+import "@/index.css";
 const Hero = () => {
     const navigate = useNavigate();
-    return (_jsxs("section", { role: "region", className: "relative min-h-screen flex items-center justify-center overflow-hidden", children: [_jsx("div", { className: "absolute inset-0 bg-cover bg-center", style: { backgroundImage: `url(${heroImage})` }, "data-testid": "hero-background", children: _jsx("div", { className: "absolute inset-0 bg-[#3CB371]/30" }) }), _jsxs("div", { className: "relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center", children: [_jsxs("h1", { className: "text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-4 sm:mb-6 leading-tight", children: ["Start Your journey to ", _jsx("br", { className: "hidden sm:block" }), "better mental health"] }), _jsx("p", { className: "text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-8 sm:mb-12 max-w-3xl mx-auto px-4", children: "Obeeoma provides comprehensive mental health services with a personalized approach to help you achieve emotional well-being and resilience." }), _jsxs("div", { className: "flex flex-col sm:flex-row items-cente justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 px-4", children: [_jsx(Button, { variant: "hero", size: "lg", className: "w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6", onClick: () => navigate("/signup"), children: "Sign up for my organization" }), _jsx(Button, { variant: "outline", size: "lg", className: "w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6", onClick: () => navigate("/login"), children: "Sign In" })] }), _jsxs("div", { className: "flex flex-wrap items-center justify-center gap-3", children: [_jsx(Badge, { variant: "secondary", className: "px-4 py-2 text-sm bg-background/90 backdrop-blur-sm", children: "Mental Health Assessments" }), _jsx(Badge, { variant: "secondary", className: "px-4 py-2 text-sm bg-background/90 backdrop-blur-sm", children: "Skills Learning" }), _jsx(Badge, { variant: "secondary", className: "px-4 py-2 text-sm bg-background/90 backdrop-blur-sm", children: "Feedback" }), _jsx(Badge, { variant: "secondary", className: "px-4 py-2 text-sm bg-background/90 backdrop-blur-sm", children: "EAP" })] })] })] }));
+    return (_jsxs("section", { className: "hero-section d-flex align-items-center", style: {
+            position: "relative",
+            minHeight: "85vh",
+            backgroundImage: `url(${heroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            color: "#fff",
+        }, children: [_jsx("div", { style: {
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    background: "linear-gradient(135deg, rgba(60, 179, 113, 0.8), rgba(0, 168, 89, 0.8), rgba(255, 77, 77, 0.8))",
+                    zIndex: 1,
+                } }), _jsx("div", { className: "hero-content container text-center text-lg-start", style: { position: "relative", zIndex: 2, paddingTop: "4rem" }, children: _jsxs(Row, { className: "align-items-center", children: [_jsxs(Col, { lg: 6, className: "mb-5 mb-lg-0", children: [_jsx("h1", { className: "fw-bold display-5 mb-3", children: "Start Your Journey to Better Mental Health" }), _jsx("p", { className: "lead mb-4", style: { color: "rgba(255, 255, 255, 0.9)", fontSize: "1.25rem" }, children: "Obeeoma provides comprehensive mental health services with a personalized approach to help you achieve emotional well-being and resilience." }), _jsxs("div", { className: "d-flex flex-column flex-sm-row justify-content-center gap-3", children: [_jsx(Button, { size: "lg", className: "px-5 py-3 fw-semibold", style: {
+                                                background: "linear-gradient(90deg, #3CB371 0%, #ff4d4d 100%)",
+                                                border: "none",
+                                                color: "#fff",
+                                                transition: "opacity 0.3s ease",
+                                            }, onClick: () => navigate("/signup"), onMouseEnter: e => (e.currentTarget.style.opacity = "0.85"), onMouseLeave: e => (e.currentTarget.style.opacity = "1"), children: "Sign up for my organization" }), _jsx(Button, { variant: "outline-light", className: "rounded-pill px-5 py-3 fw-semibold", style: {
+                                                borderColor: "rgba(255, 77, 77, 0.9)",
+                                                color: "rgba(255, 77, 77, 0.9)",
+                                                transition: "background-color 0.3s ease, color 0.3s ease",
+                                            }, onClick: () => navigate("/login"), onMouseEnter: e => {
+                                                e.currentTarget.style.backgroundColor = "rgba(255, 77, 77, 0.9)";
+                                                e.currentTarget.style.color = "#fff";
+                                            }, onMouseLeave: e => {
+                                                e.currentTarget.style.backgroundColor = "transparent";
+                                                e.currentTarget.style.color = "rgba(255, 77, 77, 0.9)";
+                                            }, children: "Sign In" })] })] }), _jsx(Col, { lg: 6, className: "text-center", children: _jsx("img", { src: heroImage, alt: "Obeeoma workplace support", className: "img-fluid rounded-4 shadow-lg d-lg-none" }) })] }) })] }));
 };
 export default Hero;

@@ -1,27 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import "bootstrap/dist/css/bootstrap.min.css";
 const Footer = () => {
-    const footerSections = [
-        {
-            title: "About Obeeoma",
-            links: [
-                "Why we started and our goals",
-                "Insights on the future of mental healthcare",
-                "Info on our privacy and how we secure user information",
-            ],
-        },
-        {
-            title: "For Employers",
-            links: ["How it works", "Pricing", "Partners", "Get Started"],
-        },
-        {
-            title: "For Employees",
-            links: ["Sign in", "Privacy Policy", "Terms of Use", "Get Connected"],
-        },
-        {
-            title: "Company",
-            links: ["About us", "Blog", "Careers", "Contact"],
-        },
-    ];
-    return (_jsx("footer", { className: "bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-gray-300 py-16 mt-16", children: _jsxs("div", { className: "container mx-auto px-6", children: [_jsxs("div", { className: "grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12", children: [_jsxs("div", { className: "lg:col-span-1", children: [_jsx("h2", { className: "text-3xl font-bold text-white mb-4", children: "Obeeoma" }), _jsx("p", { className: "text-sm mb-4", children: "We're dedicated to democratizing access to mental health resources." }), _jsx("p", { className: "text-xs opacity-70", children: "\u00A9 2025 Obeeoma. All Rights Reserved." })] }), footerSections.map((section, index) => (_jsxs("div", { children: [_jsx("h3", { className: "font-semibold text-white mb-4", children: section.title }), _jsx("ul", { className: "space-y-3", children: section.links.map((link, linkIndex) => (_jsx("li", { children: _jsx("a", { href: "/employer-dashboard", className: "text-sm text-gray-400 hover:text-green-400 transition-colors", children: link }) }, linkIndex))) })] }, index)))] }), _jsx("div", { className: "pt-8 border-t border-gray-700", children: _jsxs("div", { className: "flex flex-wrap justify-between items-center gap-4 text-sm text-gray-400", children: [_jsx("p", { children: "\u00A9 2025 Obeeoma. All Rights Reserved." }), _jsxs("div", { className: "flex gap-6", children: [_jsx("a", { href: "#", className: "hover:text-green-400 transition-colors", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "hover:text-green-400 transition-colors", children: "Terms of Service" }), _jsx("a", { href: "#", className: "hover:text-green-400 transition-colors", children: "Contact Us" })] })] }) })] }) }));
+    return (_jsx("footer", { className: "text-light py-5 mt-5", style: { background: "linear-gradient(135deg, #3CB371, #00A859, #ff4d4d)", }, children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "row gy-4", children: [_jsxs("div", { className: "col-lg-4", children: [_jsx("h4", { className: "fw-bold mb-3", children: "Obeeoma" }), _jsx("p", { className: "small opacity-75", children: "Empowering mental wellness in Africa by connecting employers and employees with tailored mental health solutions." }), _jsx("p", { className: "small mb-0 opacity-75", children: "\u00A9 2025 Obeeoma. All Rights Reserved." })] }), _jsxs("div", { className: "col-6 col-lg-2", children: [_jsx("h6", { className: "fw-semibold mb-3", children: "Company" }), _jsxs("ul", { className: "list-unstyled small", children: [_jsx("li", { children: _jsx("a", { href: "#about", className: "text-white text-decoration-none opacity-75", children: "About" }) }), _jsx("li", { children: _jsx("a", { href: "#blog", className: "text-white text-decoration-none opacity-75", children: "Blog" }) }), _jsx("li", { children: _jsx("a", { href: "#careers", className: "text-white text-decoration-none opacity-75", children: "Careers" }) }), _jsx("li", { children: _jsx("a", { href: "#contact", className: "text-white text-decoration-none opacity-75", children: "Contact" }) })] })] }), _jsxs("div", { className: "col-6 col-lg-3", children: [_jsx("h6", { className: "fw-semibold mb-3", children: "Employers" }), _jsxs("ul", { className: "list-unstyled small", children: [_jsx("li", { children: _jsx("a", { href: "#features", className: "text-white text-decoration-none opacity-75", children: "Features" }) }), _jsx("li", { children: _jsx("a", { href: "#pricing", className: "text-white text-decoration-none opacity-75", children: "Pricing" }) }), _jsx("li", { children: _jsx("a", { href: "#partners", className: "text-white text-decoration-none opacity-75", children: "Partners" }) }), _jsx("li", { children: _jsx("a", { href: "/signup", className: "text-white text-decoration-none opacity-75", children: "Get Started" }) })] })] }), _jsxs("div", { className: "col-lg-3", children: [_jsx("h6", { className: "fw-semibold mb-3", children: "Follow Us" }), _jsxs("div", { className: "d-flex gap-3", children: [_jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-facebook" }) }), _jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-twitter" }) }), _jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-linkedin" }) }), _jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-instagram" }) })] })] })] }), _jsx("hr", { className: "my-4 border-light opacity-25" }), _jsx("div", { className: "text-center small opacity-75", children: "Built with \u2764\uFE0F for wellbeing and purpose." })] }) }));
 };
 export default Footer;

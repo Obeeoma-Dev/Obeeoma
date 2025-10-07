@@ -1,27 +1,13 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Building2, Users, BarChart3 } from "lucide-react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import happyPersonImage from "../../assets/Images/professional-worker.png";
 const HowItWorks = () => {
     const steps = [
-        {
-            number: "1",
-            icon: Building2,
-            title: "Sign up your company",
-            description: "Register your organization - it's fast",
-        },
-        {
-            number: "2",
-            icon: Users,
-            title: "Invite Employees",
-            description: "Send invitations to your team members to access mental health support",
-        },
-        {
-            number: "3",
-            icon: BarChart3,
-            title: "Track Anonymized Insights",
-            description: "Keep tabs on usage, monitor progress, and gain high-level insights into wellbeing trends across your teams",
-        },
+        { icon: Building2, title: "Register Your Company", desc: "Get started in minutes and set up your workplace hub." },
+        { icon: Users, title: "Invite Employees", desc: "Give your team instant access to mental health tools." },
+        { icon: BarChart3, title: "Track Progress", desc: "View insights and see how your people are improving." },
     ];
-    return (_jsx("section", { className: "py-24 bg-background", children: _jsxs("div", { className: "container mx-auto px-6", children: [_jsxs("div", { className: "text-center mb-16", children: [_jsx("h2", { className: "text-4xl font-bold mb-4", children: "How it works for Employers" }), _jsx("p", { className: "text-xl text-muted-foreground", children: "3 simple steps" })] }), _jsxs("div", { className: "grid md:grid-cols-2 gap-12 items-center", children: [_jsx("div", { className: "space-y-12", children: steps.map((step, index) => (_jsxs("div", { className: "flex gap-6 items-start", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx("div", { className: "w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xl", children: step.number }) }), _jsxs("div", { children: [_jsxs("div", { className: "flex items-center gap-3 mb-2", children: [_jsx(step.icon, { className: "w-5 h-5 text-primary" }), _jsx("h3", { className: "text-xl font-semibold", children: step.title })] }), _jsx("p", { className: "text-muted-foreground", children: step.description })] })] }, index))) }), _jsx("div", { className: "relative", children: _jsx("img", { src: happyPersonImage, alt: "Happy person", className: "rounded-3xl shadow-2xl w-full object-cover" }) })] })] }) }));
+    return (_jsx("section", { className: "section-bg-dark text-white py-5", children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "text-center mb-5", children: [_jsx("h2", { className: "fw-bold", children: "How It Works" }), _jsx("p", { className: "text-light opacity-75", children: "Three simple steps to start empowering wellbeing at work" })] }), _jsxs("div", { className: "row align-items-center", children: [_jsx("div", { className: "col-md-6 mb-4 mb-md-0", children: _jsx("img", { src: happyPersonImage, alt: "Happy worker", className: "img-fluid rounded-4 shadow-lg" }) }), _jsx("div", { className: "col-md-6", children: steps.map((s, i) => (_jsxs("div", { className: "d-flex align-items-start mb-4", children: [_jsx("div", { className: "me-3 p-3 rounded-circle bg-light text-success", children: _jsx(s.icon, { size: 24 }) }), _jsxs("div", { children: [_jsx("h5", { className: "fw-semibold", children: s.title }), _jsx("p", { className: "text-light opacity-75 mb-0", children: s.desc })] })] }, i))) })] })] }) }));
 };
 export default HowItWorks;
