@@ -28,7 +28,7 @@ const Hero = () => {
           bottom: 0,
           left: 0,
           background:
-            "linear-gradient(135deg, rgba(60, 179, 113, 0.8), rgba(0, 168, 89, 0.8), rgba(255, 77, 77, 0.8))",
+            ("#3CB371, 0.02)"), // Light green overlay
           zIndex: 1,
         }}
       ></div>
@@ -56,7 +56,7 @@ const Hero = () => {
                 className="px-5 py-3 fw-semibold"
                 style={{
                   background:
-                    "linear-gradient(90deg, #3CB371 0%, #ff4d4d 100%)",
+                    "#3CB371",
                   border: "none",
                   color: "#fff",
                   transition: "opacity 0.3s ease",
