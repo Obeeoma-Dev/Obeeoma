@@ -54,7 +54,7 @@ const LoginPage = () => {
         resetForm();
         // redirect or navigate after success
         // navigate("/dashboard");
-      } catch (error) {
+      } catch (error: any) {
         setServerError(error.message);
       } finally {
         setSubmitting(false);
