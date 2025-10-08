@@ -9,7 +9,6 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "@/assets/Images/obeeomalogoicon4.png";
-
 const LoginPage = () => {
   const [role, setRole] = useState("Client");
 
@@ -18,7 +17,7 @@ const LoginPage = () => {
       {/* Header */}
       <header className="d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-white">
         <div className="d-flex align-items-center">
-          <img src={logo} alt="ologo" width="35" className="me-2" />
+          <img src="" alt="ologo" width="35" className="me-2" />
           <div>
             <h5 className="m-0 text-success fw-semibold">Obeeoma</h5>
             <small className="text-muted">A Happy Heart</small>

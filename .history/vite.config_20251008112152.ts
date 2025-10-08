@@ -19,7 +19,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"), // Import like "@/components/Button"
-      
     },
   },
 });
