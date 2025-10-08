@@ -28,10 +28,8 @@ const Hero = () => {
             <h1 className="fw-bold display-5 mb-3">
               Start Your Journey to Better Mental Health
             </h1>
-            <p
-              className="lead mb-4"
-              style={{ color: "rgba(255, 255, 255, 0.9)", fontSize: "1.25rem" }}
-            >
+            <p className="lead mb-4"
+              style={{ color: "rgba(255, 255, 255, 0.9)", fontSize: "1.25rem" }}>
               Obeeoma professional mental health service.
             </p>
             <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
@@ -52,10 +50,8 @@ const Hero = () => {
                 style={{
                   borderColor: "rgba(77, 255, 77, 0.9)",
                   color: "rgba(77, 255, 77, 0.9)",
-                  transition: "background-color 0.3s ease, color 0.3s ease",
-                }}
-                onClick={() => navigate("/login")}
-              >
+                  transition: "background-color 0.3s ease, color 0.3s ease",}}
+                onClick={() => navigate("/login")}>
                 Sign In
               </Button>
             </div>
