@@ -1,24 +1,11 @@
-import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import React from 'react';
-import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Card, Button, Alert, Form as BootstrapForm, Spinner } from 'react-bootstrap';
-import { loginUser, clearError } from './../../store/slices/authSlice';
-import { loginValidationSchema } from './../../validation/authValidation';
-const LoginForm = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { isLoading, error } = useSelector((state) => state.auth);
-    const handleSubmit = (values) => {
-        dispatch(loginUser({
-            ...values,
-            onSuccess: () => navigate('/employee-dashboard')
-        }));
-    };
-    React.useEffect(() => {
-        dispatch(clearError());
-    }, [dispatch]);
-    return (_jsx(Container, { className: "mt-5", children: _jsx(Row, { className: "justify-content-center", children: _jsx(Col, { md: 6, lg: 4, children: _jsx(Card, { children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "text-center mb-4", children: "Login" }), error && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => dispatch(clearError()), children: error })), _jsx(Formik, { initialValues: { username: '', password: '' }, validationSchema: loginValidationSchema, onSubmit: handleSubmit, children: ({ values, errors, touched, handleChange, handleBlur }) => (_jsxs(Form, { children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "Username" }), _jsx(BootstrapForm.Control, { type: "text", name: "username", value: values.username, onChange: handleChange, onBlur: handleBlur, isInvalid: touched.username && !!errors.username, placeholder: "Enter your username" }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.username })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "Password" }), _jsx(BootstrapForm.Control, { type: "password", name: "password", value: values.password, onChange: handleChange, onBlur: handleBlur, isInvalid: touched.password && !!errors.password, placeholder: "Enter your password" }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.password })] }), _jsx(Button, { variant: "primary", type: "submit", className: "w-100", disabled: isLoading, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Logging in..."] })) : ('Login') })] })) })] }) }) }) }) }));
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from "react";
+import { Container, Card, Form, Button, ToggleButtonGroup, ToggleButton, } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+const LoginPage = () => {
+    const [role, setRole] = useState("Client");
+    return (_jsxs("div", { className: "min-vh-100 d-flex flex-column justify-content-between bg-light", children: [_jsxs("header", { className: "d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-white", children: [_jsxs("div", { className: "d-flex align-items-center", children: [_jsx("img", { src: "/assets/Images/obeeomalogoicon4.png", alt: "/assets/Images/obeeomalogoicon4.png", width: "35", className: "me-2" }), _jsxs("div", { children: [_jsx("h5", { className: "m-0 text-success fw-semibold", children: "Obeeoma" }), _jsx("small", { className: "text-muted", children: "A Happy Heart" })] })] }), _jsx(Button, { variant: "success", className: "rounded-pill px-4", children: _jsx("a", { href: "signup", className: "text-success text-decoration-none small", children: "Create Account" }) })] }), _jsx(Container, { className: "d-flex justify-content-center align-items-center flex-grow-1", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: { maxWidth: "480px", width: "100%" }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", children: "Sign in to your account" }), _jsx("p", { className: "text-center text-muted mb-4", children: "Welcome back to Obeeoma" }), _jsxs(Form, { children: [_jsx(Form.Group, { className: "mb-3", controlId: "username", children: _jsx(Form.Control, { type: "text", placeholder: "Username", className: "py-2 border-success border-opacity-25" }) }), _jsx(Form.Group, { className: "mb-3", controlId: "password", children: _jsx(Form.Control, { type: "password", placeholder: "Password", className: "py-2 border-success border-opacity-25" }) }), _jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsxs(ToggleButtonGroup, { type: "radio", name: "role", value: role, onChange: setRole, children: [_jsx(ToggleButton, { id: "employee", value: "Employee", variant: role === "Employee" ? "success" : "outline-success", className: "px-3 py-1", children: "Employee" }), _jsx(ToggleButton, { id: "employer", value: "Employer", variant: role === "Employer"
+                                                            ? "success"
+                                                            : "outline-success", className: "px-3 py-1", children: "Employer" })] }), _jsx("a", { href: "reset-password-signin ", className: "text-success text-decoration-none small", children: "Forgot password?" })] }), _jsx(Form.Check, { type: "checkbox", label: "Remember me", className: "mb-3 text-muted" }), _jsx(Button, { variant: "success", type: "submit", className: "w-100 mb-3 py-2 fw-semibold", children: "Sign in" }), _jsxs("div", { className: "text-center", children: [_jsx("span", { className: "text-muted", children: "Don\u2019t have an account? " }), _jsx("a", { href: "/signup", className: "text-success text-decoration-none fw-semibold", children: "Create an account" })] })] })] }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", children: ["\u00A9 2025 Obeeoma. All rights reserved. \u00A0", _jsx("a", { href: "#", className: "text-decoration-none text-success", children: "Privacy Policy" }), " ", "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-decoration-none text-success", children: "Terms of Service" }), " ", "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-decoration-none text-success", children: "Contact Us" })] })] }));
 };
-export default LoginForm;
+export default LoginPage;

@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 
+
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
@@ -18,6 +19,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerDashboard";
+import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 
 import { Provider, useSelector } from 'react-redux';
@@ -48,6 +50,8 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/subscription" element={<Subscription />} />
+
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
