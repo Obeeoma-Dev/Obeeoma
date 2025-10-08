@@ -21,7 +21,10 @@ import EmployerDashboard from "./pages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 
 import { Provider, useSelector } from 'react-redux';
-import { store, RootState } from './../src/store/store'
+import { store, RootState } from './../src/store/store';
+
+// pages/System admin import.
+import  Dashboard  from "./pages/Systemadmin/Dashboard";
 
 
 
@@ -52,6 +55,7 @@ export default function App(): React.ReactElement {
                 
                 <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               </Route> */}
+              <Route path="/system-admin" element={<Dashboard />} />
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
