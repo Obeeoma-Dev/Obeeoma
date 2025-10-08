@@ -160,7 +160,7 @@ const Register: React.FC = () => {
             Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers,
             and tools to track your progress.
           </p>
-          <ul className="text-secondary">
+          <ul className="text-secondary" style={{ listStyle: "none" }}>
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>
