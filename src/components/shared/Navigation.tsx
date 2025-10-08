@@ -7,14 +7,15 @@ const Navigation = () => (
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-between">
         <Nav className="me-auto">
+          <Navbar.Brand href="#">
+            <img src={logo} alt="Obeeoma" height="40" />
+          </Navbar.Brand>
           <Nav.Link href="/employer-dashboard" className="text-white">Pricing</Nav.Link>
           <Nav.Link href="#pricing" className="text-white">Features</Nav.Link>
           <Nav.Link href="#benefits" className="text-white">Benefits</Nav.Link>
         </Nav>
         <Button variant="light" className="rounded-pill px-4">About Obeeoma</Button>
-        <Navbar.Brand href="#">
-        <img src={logo} alt="Obeeoma" height="40" />
-      </Navbar.Brand>
+        
       </Navbar.Collapse>
     </Container>
   </Navbar>

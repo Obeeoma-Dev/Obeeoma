@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Footer = () => {
   return (
     <footer className="text-light py-5 mt-5"
-      style={{ background: "linear-gradient(135deg, #3CB371, #00A859, #ff4d4d)",}}>
+      style={{ background: "linear-gradient(135deg, #3CB371, #00A859)",}}>
       <div className="container">
         <div className="row gy-4">
           <div className="col-lg-4">
