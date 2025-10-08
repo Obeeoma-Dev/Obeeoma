@@ -28,7 +28,7 @@ const Hero = () => {
           bottom: 0,
           left: 0,
           background:
-            ("#3CB371, 0.02)"), // Light green overlay
+            ("#f5f5f5, 0.02)"), // Light overlay
           zIndex: 1,
         }}
       ></div>
