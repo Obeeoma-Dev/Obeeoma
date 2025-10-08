@@ -13,9 +13,7 @@ const Navigation = () => (
           <Nav.Link href="/employer-dashboard" className="text-white">Pricing</Nav.Link>
           <Nav.Link href="#pricing" className="text-white">Features</Nav.Link>
           <Nav.Link href="#benefits" className="text-white">Benefits</Nav.Link>
-        </Nav>
-        <Button variant="light" className="rounded-pill px-4">About Obeeoma</Button>
-        
+        </Nav>        
       </Navbar.Collapse>
     </Container>
   </Navbar>
