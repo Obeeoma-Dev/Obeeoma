@@ -22,8 +22,8 @@
   /* Hero overlay gradient */
   --hero-gradient: linear-gradient(
     135deg,
-    rgba(60, 179, 113, 0.15),
-    rgba(60, 179, 113, 0.25)
+    rgba(60, 179, 113, 0.02),
+    rgba(60, 179, 113, 0.04)
   );
 
   /* Border radius and shadow */
