@@ -1,6 +1,8 @@
 import React from "react";
 import {
   Container,
+  Row,
+  Col,
   Card,
   Button,
   Nav,
@@ -40,7 +42,7 @@ const SubscriptionPage: React.FC = () => {
           <Nav.Link className="text-dark mb-2">🏅 Rewards</Nav.Link>
           <Nav.Link
             className="text-success bg-success bg-opacity-10 fw-semibold rounded px-3 py-2 mb-2"
->
+
             💳 Subscription
           </Nav.Link>
         </Nav>

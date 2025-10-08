@@ -1,6 +1,8 @@
 import React from "react";
 import {
   Container,
+  ,
+  Col,
   Card,
   Button,
   Nav,
