@@ -17,11 +17,11 @@ import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
-import EmployerDashboard from "./pages/EmployerDashboard";
+// import EmployerDashboard from "./pages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 
-import { Provider, useSelector } from 'react-redux';
-import { store, RootState } from './../src/store/store';
+import { Provider } from 'react-redux';
+import { store } from './../src/store/store';
 
 // pages/System admin import.
 import  Dashboard  from "./pages/Systemadmin/Dashboard";

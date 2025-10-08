@@ -36,7 +36,7 @@ const getUserFromStorage = () => {
   if (!rawUser || rawUser === 'undefined') return null;
   try {
     return JSON.parse(rawUser);
-  } catch (err) {
+  } catch {
     return null;
   }
 };

@@ -17,8 +17,10 @@ interface ActivityItemProps {
  * Used in the Recent Activities list to show system events
  */
 const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
+    
     // Dynamically get the icon component from lucide-react
-    const IconComponent = (Icons as any)[data.icon] || Icons.Activity;
+    const IconComponent: typeof Icons.Activity =
+        (Icons as unknown as Record<string, typeof Icons.Activity>)[data.icon] || Icons.Activity;
 
     return (
         // Container for the activity item with hover effect

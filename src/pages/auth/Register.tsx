@@ -6,12 +6,9 @@ import {
   Container,
   Row,
   Col,
-  Card,
   Button,
-  Alert,
   Form as BootstrapForm,
-  InputGroup,
-  Spinner,
+  InputGroup,  
 } from "react-bootstrap";
 
 type Role = "Employee" | "Employer";

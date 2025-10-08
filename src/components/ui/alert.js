@@ -1,24 +1,32 @@
+// Enable client-side rendering for this component
+"use client";
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cva } from "class-variance-authority";
+// Import utility to merge class names conditionally
 import { cn } from "@/lib/utils";
-const alertVariants = cva("relative w-full rounded-lg border px-4 py-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current", {
-    variants: {
-        variant: {
-            default: "bg-card text-card-foreground",
-            destructive: "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
-        },
-    },
-    defaultVariants: {
-        variant: "default",
-    },
-});
-function Alert({ className, variant, ...props }) {
-    return (_jsx("div", { "data-slot": "alert", role: "alert", className: cn(alertVariants({ variant }), className), ...props }));
+// Import styling variants from separate file to satisfy ESLint
+import { alertVariants } from "./alert.styles";
+// Define the Alert component
+function Alert({ className, // Optional custom class name
+variant, // Variant type (e.g. default, destructive)
+...props // Other div props
+ }) {
+    return (_jsx("div", { "data-slot": "alert" // Custom data attribute for targeting/styling
+        , role: "alert" // Accessibility role
+        , className: cn(alertVariants({ variant }), className), ...props }));
 }
+// Define the AlertTitle component
 function AlertTitle({ className, ...props }) {
-    return (_jsx("div", { "data-slot": "alert-title", className: cn("col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight", className), ...props }));
+    return (_jsx("div", { "data-slot": "alert-title" // Slot for targeting/styling
+        , className: cn("col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight", // Default styles
+        className // Merge with custom class
+        ), ...props }));
 }
+// Define the AlertDescription component
 function AlertDescription({ className, ...props }) {
-    return (_jsx("div", { "data-slot": "alert-description", className: cn("text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed", className), ...props }));
+    return (_jsx("div", { "data-slot": "alert-description" // Slot for targeting/styling
+        , className: cn("text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed", // Default styles
+        className // Merge with custom class
+        ), ...props }));
 }
+// Export all components for use in other files
 export { Alert, AlertTitle, AlertDescription };

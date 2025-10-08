@@ -29,7 +29,7 @@ const getUserFromStorage = () => {
     try {
         return JSON.parse(rawUser);
     }
-    catch (err) {
+    catch {
         return null;
     }
 };

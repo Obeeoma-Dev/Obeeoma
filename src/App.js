@@ -14,6 +14,7 @@ import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
+// import EmployerDashboard from "./pages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 import { Provider } from 'react-redux';
 import { store } from './../src/store/store';
