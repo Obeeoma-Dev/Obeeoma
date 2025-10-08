@@ -56,8 +56,7 @@ const Hero = () => {
           </Col>
           <Col lg={6} className="text-center">
             {/* Hide the image on large screens since background covers */}
-            <img
-              src={heroImage}
+            <img src={heroImage}
               alt="Obeeoma workplace support"
               className="img-fluid rounded-4 shadow-lg d-lg-none"
             />

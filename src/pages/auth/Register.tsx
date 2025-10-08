@@ -17,7 +17,7 @@ import {
 type Role = "Employee" | "Employer";
 
 const validationSchema = Yup.object({
-  aliasName: Yup.string().required("Alias Name is required"),
+  userName: Yup.string().required("User name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().min(6, "Minimum 6 characters").required("Password is required"),
   confirmPassword: Yup.string()
@@ -29,7 +29,7 @@ const Register: React.FC = () => {
   const [role, setRole] = useState<Role>("Employee");
 
   const initialValues = {
-    aliasName: "",
+    userName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -54,17 +54,17 @@ const Register: React.FC = () => {
             {({ handleSubmit, handleChange, values, touched, errors }) => (
               <FormikForm noValidate onSubmit={handleSubmit}>
                 <BootstrapForm.Group className="mb-3">
-                  <BootstrapForm.Label>Alias Name</BootstrapForm.Label>
+                  <BootstrapForm.Label>User Name</BootstrapForm.Label>
                   <BootstrapForm.Control
                     type="text"
-                    name="aliasName"
-                    value={values.aliasName}
+                    name="userName"
+                    value={values.userName}
                     onChange={handleChange}
-                    isInvalid={!!touched.aliasName && !!errors.aliasName}
-                    aria-describedby="aliasName-label"
+                    isInvalid={!!touched.userName && !!errors.userName}
+                    aria-describedby="userName-label"
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    <ErrorMessage name="aliasName" />
+                    <ErrorMessage name="User Name" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
                 <BootstrapForm.Group className="mb-3">

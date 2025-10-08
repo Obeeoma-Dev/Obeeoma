@@ -41,7 +41,7 @@ const LoginPage = () => {
 
       try {
         // Example API call:
-        const res = await fetch("https://gf.onrender.com/api/login", {
+        const res = await fetch("https://obeeoma.onrender.com/api/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ ...values, role }),
@@ -152,18 +152,14 @@ const LoginPage = () => {
                     id="employer"
                     value="Employer"
                     variant={
-                      role === "Employer" ? "success" : "outline-success"
-                    }
-                    className="px-3 py-1"
-                  >
+                      role === "Employer" ? "success" : "outline-success" }
+                    className="px-3 py-1" >
                     Employer
                   </ToggleButton>
                 </ToggleButtonGroup>
 
-                <a
-                  href="reset-password-signin"
-                  className="text-success text-decoration-none small"
-                >
+                <a href="reset-password-signin"
+                  className="text-success text-decoration-none small" >
                   Forgot password?
                 </a>
               </div>
