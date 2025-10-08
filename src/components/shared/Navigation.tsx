@@ -10,8 +10,8 @@ const Navigation = () => (
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-between">
         <Nav className="me-auto">
-          <Nav.Link href="#learn" className="text-white">Resources</Nav.Link>
-          <Nav.Link href="#pricing" className="text-white">Pricing</Nav.Link>
+          <Nav.Link href="/employer-dashboard" className="text-white">Pricing</Nav.Link>
+          <Nav.Link href="#pricing" className="text-white">Features</Nav.Link>
           <Nav.Link href="#benefits" className="text-white">Benefits</Nav.Link>
         </Nav>
         <Button variant="light" className="rounded-pill px-4">Create Account</Button>
