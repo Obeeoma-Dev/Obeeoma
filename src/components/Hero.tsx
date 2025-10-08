@@ -33,8 +33,7 @@ const Hero = () => {
               Obeeoma professional mental health service.
             </p>
             <div className="d-flex flex-column flex-sm-row justify-content-center gap-3">
-              <Button
-                variant="outline-light"
+              <Button variant="outline-light"
                 className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
                   borderColor: "rgba(77, 255, 77, 0.9)",
@@ -44,8 +43,7 @@ const Hero = () => {
                 onClick={() => navigate("/signup")}>
                 Sign up for my organization
               </Button>
-              <Button
-                variant="outline-light"
+              <Button variant="outline-light"
                 className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
                   borderColor: "rgba(77, 255, 77, 0.9)",
