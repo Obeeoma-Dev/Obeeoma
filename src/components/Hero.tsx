@@ -27,16 +27,12 @@ const Hero = () => {
           right: 0,
           bottom: 0,
           left: 0,
-          background:
-            ("#f5f5f5, 0.02)"), // Light overlay
           zIndex: 1,
-        }}
-      ></div>
+        }}></div>
 
       <div
         className="hero-content container text-center text-lg-start"
-        style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }}
-      >
+        style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }}>
         <Row className="align-items-center">
           <Col lg={6} className="mb-5 mb-lg-0">
             <h1 className="fw-bold display-5 mb-3">
