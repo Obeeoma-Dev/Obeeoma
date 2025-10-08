@@ -13,7 +13,6 @@ const Footer = () => {
               Empowering mental wellness in Africa by connecting employers and
               employees with tailored mental health solutions.
             </p>
-            <p className="small mb-0 opacity-75">© 2025 Obeeoma. All Rights Reserved.</p>
           </div>
 
           <div className="col-6 col-lg-2">
@@ -49,7 +48,7 @@ const Footer = () => {
 
         <hr className="my-4 border-light opacity-25" />
         <div className="text-center small opacity-75">
-          Built with ❤️ for wellbeing and purpose.
+          <p className="small mb-0 opacity-75">Built with ❤️ for wellbeing and purpose.  |  © 2025 Obeeoma. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

@@ -21,12 +21,12 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerDashboard";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
+// pages/System admin import.
+import  SysAdminDashboard  from "./pages/Systemadmin/Dashboard";
 
 import { Provider, useSelector } from 'react-redux';
 import { store, RootState } from './../src/store/store';
 
-// pages/System admin import.
-import  Dashboard  from "./pages/Systemadmin/Dashboard";
 
 
 
@@ -52,14 +52,14 @@ export default function App(): React.ReactElement {
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/subscription" element={<Subscription />} />
 
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
               {/* <Route element={<ProtectedRoute />}>
                 
-                <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               </Route> */}
-              <Route path="/system-admin" element={<Dashboard />} />
+              <Route path="/system-admin" element={<SysAdminDashboard />} />
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
