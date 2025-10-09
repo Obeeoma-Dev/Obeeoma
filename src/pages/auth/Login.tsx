@@ -9,14 +9,23 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "@/assets/Images/obeeomalogoicon4.png";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./../../store/store";
-import { loginUser, clearError } from "./../../store/slices/authSlice";
-import { loginValidationSchema } from "./../../validation/authValidation";
+import { AppDispatch, RootState } from "../../store/store";
+import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { Formik } from "formik";
+
+const validationSchema = Yup.object({
+  username: Yup.string()
+    .min(3, "Username must be at least 3 characters")
+    .required("Username is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +41,7 @@ const LoginPage: React.FC = () => {
     dispatch(
       loginUser({
         ...values,
+        role,
         onSuccess: () => navigate("/employee-dashboard"),
       })
     );
@@ -42,7 +52,7 @@ const LoginPage: React.FC = () => {
       {/* Header */}
       <header className="d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-white">
         <div className="d-flex align-items-center">
-          <img src={logo} alt="ologo" width="35" className="me-2" />
+          <img src={logo} alt="Obeeoma Logo" width="35" className="me-2" />
           <div>
             <h5 className="m-0 text-success fw-semibold">Obeeoma</h5>
             <small className="text-muted">A Happy Heart</small>
@@ -52,7 +62,10 @@ const LoginPage: React.FC = () => {
 
       {/* Center Form */}
       <Container className="d-flex justify-content-center align-items-center flex-grow-1">
-        <Card className="shadow-sm border-0 p-4" style={{ maxWidth: "480px", width: "100%" }}>
+        <Card
+          className="shadow-sm border-0 p-4"
+          style={{ maxWidth: "480px", width: "100%" }}
+        >
           <Card.Body>
             <h3 className="text-center mb-2 fw-semibold text-dark">
               Sign in to your account
@@ -73,7 +86,7 @@ const LoginPage: React.FC = () => {
 
             <Formik
               initialValues={{ username: "", password: "" }}
-              validationSchema={loginValidationSchema}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {({ handleChange, handleSubmit, values, errors, touched }) => (

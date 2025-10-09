@@ -1,14 +1,7 @@
-/* -------------------------------------------------------
-   Obeeoma Design System — Bootstrap Edition
-   Unified brand colors (#3CB371 green, #ff4d4d red)
-   Smooth transitions + section polish
-------------------------------------------------------- */
-
 @import "bootstrap/dist/css/bootstrap.min.css";
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 /* -----------------------------------------------
-   CSS Variables — override Bootstrap defaults
------------------------------------------------ */
+   CSS Variables*/
 :root {
   /* Brand palette */
   --obeeoma-green: #3CB371;

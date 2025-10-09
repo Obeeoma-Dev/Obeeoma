@@ -59,10 +59,8 @@ const Services = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="grid sm:grid-cols-2 gap-6">
             {services.map((service, index) => (
-              <Card 
-                key={index} 
-                className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20"
-              >
+              <Card key={index} 
+                className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                     <service.icon className="w-6 h-6 text-primary" />
@@ -76,11 +74,8 @@ const Services = () => {
 
           <div className="relative lg:pl-12">
             <div className="absolute inset-0 bg-primary/5 rounded-3xl -z-10 transform translate-x-8 translate-y-8"></div>
-            <img 
-              src={image3} 
-              alt="Professional working" 
-              className="rounded-3xl shadow-2xl w-full object-cover"
-            />
+            <img  src={image3} alt="Professional working" 
+              className="rounded-3xl shadow-2xl w-full object-cover" />
           </div>
         </div>
       </div>
