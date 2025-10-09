@@ -21,10 +21,13 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
+import Organisation from "./pages/Systemadmin/organizations";
+
+// System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
-import { Provider, useSelector } from "react-redux";
-import { store, RootState } from "./../src/store/store";
+import { Provider } from "react-redux";
+import { store } from "./../src/store/store";
 
 const queryClient = new QueryClient();
 
@@ -53,10 +56,8 @@ export default function App(): React.ReactElement {
                 element={<EmployeeDashboard />}
               />
               <Route path="/subscription" element={<Subscription />} />
-              <Route
-                path="/employer-dashboard"
-                element={<EmployerDashboard />}
-              />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/system-admin/organisation" element={<Organisation />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
@@ -68,6 +69,7 @@ export default function App(): React.ReactElement {
                 path="/system-admin/settings-overview"
                 element={<AdminSettings />}
               />
+              
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}

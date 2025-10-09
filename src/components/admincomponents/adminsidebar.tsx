@@ -1,36 +1,19 @@
-// Import React and necessary hooks
-import React, { useState } from "react";
+// src/components/Sidebar.tsx
 
-// Import Bootstrap layout components
-import { Nav, Button, Container, Row, Col } from "react-bootstrap";
-
-// Import icons from lucide-react
-import * as Icons from "lucide-react";
-
-// Import navigation hook from React Router
-import { useNavigate } from "react-router-dom";
+import React from "react"; // React core
+import { Nav, Button, Container, Row, Col } from "react-bootstrap"; // Bootstrap layout
+import * as Icons from "lucide-react"; // Icon set
+import { useNavigate, useLocation } from "react-router-dom"; // Routing hooks
 
 /**
- * Interface for sidebar menu items
- */
-interface MenuItem {
-  id: string; // Unique identifier
-  label: string; // Display label
-  icon: string; // Icon name from lucide-react
-}
-
-/**
- * Sidebar component provides navigation for different sections of the dashboard
+ * Sidebar component provides navigation for system admin dashboard
  */
 const Sidebar: React.FC = () => {
-  // Hook to programmatically navigate between routes
-  const navigate = useNavigate();
-
-  // State to track which menu item is currently active
-  const [activeItem, setActiveItem] = useState<string>("overview");
+  const navigate = useNavigate(); // Hook to navigate programmatically
+  const location = useLocation(); // Hook to get current route
 
   // Define sidebar menu items
-  const menuItems: MenuItem[] = [
+  const menuItems = [
     { id: "overview", label: "Overview", icon: "LayoutDashboard" },
     { id: "organizations", label: "Organizations", icon: "Building2" },
     { id: "client-engagement", label: "Client Engagement", icon: "Users" },
@@ -40,25 +23,26 @@ const Sidebar: React.FC = () => {
     { id: "reports", label: "Reports", icon: "BarChart3" },
   ];
 
-  // Handle menu item click and navigate to corresponding route
-  const handleMenuClick = (id: string): void => {
-    setActiveItem(id);
-    navigate(`/system-admin/${id}`); // Redirect to route like /system-admin/overview
+  // Extract current path segment to determine active item
+  const currentPath = location.pathname.split("/")[2]; // e.g., /system-admin/organizations → "organizations"
+
+  // Navigate to selected menu item
+  const handleMenuClick = (id: string) => {
+    navigate(`/system-admin/${id}`);
   };
 
-  // Handle settings button click
-  const handleSettingsClick = (): void => {
-    navigate("/system-admin/settings-overview"); // Redirect to admin settings overview
+  // Navigate to settings
+  const handleSettingsClick = () => {
+    navigate("/system-admin/settings-overview");
   };
 
-  // Handle logout button click
-  const handleLogoutClick = (): void => {
+  // Navigate to login (logout)
+  const handleLogoutClick = () => {
     console.log("Logging out...");
-    navigate("/login"); // Redirect to login page
+    navigate("/login");
   };
 
   return (
-    // Sidebar container with vertical layout and pinned bottom actions
     <div
       style={{
         width: "250px",
@@ -67,10 +51,10 @@ const Sidebar: React.FC = () => {
         borderRight: "1px solid #dee2e6",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between", // Push bottom actions down
+        justifyContent: "space-between", // Push bottom buttons down
       }}
     >
-      {/* Logo section */}
+      {/* Top branding */}
       <Container className="py-4 border-bottom">
         <Row className="align-items-center">
           <Col xs="auto">
@@ -87,15 +71,9 @@ const Sidebar: React.FC = () => {
       {/* Navigation menu */}
       <Nav className="flex-column px-3 py-4">
         {menuItems.map((item) => {
-          const IconComponent =
-            (
-              Icons as unknown as Record<
-                string,
-                React.FC<{ size?: number; color?: string }>
-              >
-            )[item.icon] || Icons.Circle;
+          const IconComponent = (Icons[item.icon as keyof typeof Icons] || Icons.Circle) as React.FC<{ size?: number }>;
 
-          const isActive = activeItem === item.id;
+          const isActive = currentPath === item.id;
 
           return (
             <Nav.Item key={item.id} className="mb-2">
@@ -119,7 +97,7 @@ const Sidebar: React.FC = () => {
         })}
       </Nav>
 
-      {/* Bottom actions pinned to bottom */}
+      {/* Settings and Logout buttons */}
       <div className="px-3 py-3 border-top">
         <Button
           variant="outline-secondary"
