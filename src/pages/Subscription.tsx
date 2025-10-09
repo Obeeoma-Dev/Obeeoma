@@ -7,12 +7,12 @@ import {
   Navbar,
   ListGroup,
 } from "react-bootstrap";
-import {
-  CheckCircleFill,
-  Bell,
-  ChatDots,
-  Gear,
-} from "react-bootstrap-icons";
+import { 
+  BsCheckCircleFill,
+  BsBell, 
+  BsChatDots, 
+  BsGear 
+} from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SubscriptionPage: React.FC = () => {
@@ -47,7 +47,7 @@ const SubscriptionPage: React.FC = () => {
 
         <div className="mt-auto pt-3 border-top">
           <Nav.Link className="text-muted">
-            <Gear className="me-2" /> Settings
+            <BsGear className="me-2" /> Settings
           </Nav.Link>
         </div>
       </div>
@@ -66,8 +66,8 @@ const SubscriptionPage: React.FC = () => {
             </div>
 
             <div className="d-flex align-items-center">
-              <Bell className="me-3 text-secondary" />
-              <ChatDots className="me-3 text-secondary" />
+              <BsBell className="me-3 text-secondary" />
+              <BsChatDots className="me-3 text-secondary" />
               <div className="d-flex align-items-center">
                 <div className="me-2 text-end">
                   <div className="fw-semibold small">Emma Wilson</div>
@@ -135,23 +135,23 @@ const SubscriptionPage: React.FC = () => {
             <h6 className="fw-bold mb-3">Current Plan Features</h6>
             <ListGroup variant="flush">
               <ListGroup.Item className="border-0 ps-0">
-                <CheckCircleFill className="text-success me-2" />
+                <BsCheckCircleFill className="text-success me-2" />
                 Unlimited access to all resources
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <CheckCircleFill className="text-success me-2" />
+                <BsCheckCircleFill className="text-success me-2" />
                 Personalized AI recommendations
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <CheckCircleFill className="text-success me-2" />
+                <BsCheckCircleFill className="text-success me-2" />
                 Weekly therapist sessions
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <CheckCircleFill className="text-success me-2" />
+                <BsCheckCircleFill className="text-success me-2" />
                 Priority support
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <CheckCircleFill className="text-success me-2" />
+                <BsCheckCircleFill className="text-success me-2" />
                 Progress tracking and reports
               </ListGroup.Item>
             </ListGroup>
