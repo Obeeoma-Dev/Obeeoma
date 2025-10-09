@@ -12,7 +12,7 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../assets/Images/obeeomalogoicon4.png";
+import logo from "@/assets/Images/obeeomalogoicon4.png";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
@@ -27,11 +27,11 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
-  const [role, setRole] = useState<string>("Employee");
+  const [role, setRole] = useState("Employee");
 
   useEffect(() => {
     dispatch(clearError());
@@ -41,7 +41,7 @@ const LoginPage = () => {
     dispatch(
       loginUser({
         ...values,
-        
+        role,
         onSuccess: () => navigate("/employee-dashboard"),
       })
     );

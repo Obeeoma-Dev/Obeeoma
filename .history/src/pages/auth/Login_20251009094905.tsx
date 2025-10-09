@@ -41,7 +41,7 @@ const LoginPage = () => {
     dispatch(
       loginUser({
         ...values,
-        
+        role,
         onSuccess: () => navigate("/employee-dashboard"),
       })
     );
