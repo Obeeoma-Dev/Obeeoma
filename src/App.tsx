@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 
+
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
@@ -17,14 +18,15 @@ import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
-// import EmployerDashboard from "./pages/EmployerDashboard";
+import EmployerDashboard from "./pages/EmployerDashboard";
+import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
-
-import { Provider } from 'react-redux';
-import { store } from './../src/store/store';
-
 // pages/System admin import.
-import  Dashboard  from "./pages/Systemadmin/Dashboard";
+import  SysAdminDashboard  from "./pages/Systemadmin/Dashboard";
+
+import { Provider, useSelector } from 'react-redux';
+import { store, RootState } from './../src/store/store';
+
 
 
 
@@ -48,14 +50,15 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/subscription" element={<Subscription />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
               {/* <Route element={<ProtectedRoute />}>
                 
-                <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               </Route> */}
-              <Route path="/system-admin" element={<Dashboard />} />
+              <Route path="/system-admin" element={<SysAdminDashboard />} />
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
