@@ -23,8 +23,8 @@ import NotFound from "./pages/NotFound";
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
-import { Provider, useSelector } from "react-redux";
-import { store, RootState } from "./../src/store/store";
+import { Provider } from "react-redux";
+import { store } from "./../src/store/store";
 
 const queryClient = new QueryClient();
 

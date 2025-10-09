@@ -36,16 +36,16 @@ const AccountForm: React.FC = () => {
       // Simulated delay using setTimeout
       setTimeout(() => {
         const defaultValues: AccountData = {
-          fullName: "Dr. Reacheal Lucia",
-          email: "reacheal.lucia@obeema.com",
+          fullName: "Dr. Racheal Lucia",
+          email: "racheal.lucia@obeema.com",
           role: "System Administrator",
           phone: "(555) 123-4567",
-          bio: "Dr. Reacheal is a system administrator with over 10 years of experience in mental health care.",
+          bio: "Dr. Racheal is a system administrator with over 10 years of experience in mental health care.",
         };
         setFormData(defaultValues);
         setLoading(false); // Stop loading once data is set
       }, 1000); // 1 second delay
-    } catch (err) {
+    } catch (_err) {
       setError("Failed to load account data.");
       setLoading(false);
     }
