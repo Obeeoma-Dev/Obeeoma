@@ -5,6 +5,22 @@ import {
   RegisterCredentials,
 } from "./../../types/auth";
 import { authAPI } from "../../api/apiConfig";
+import axios, { AxiosError } from "axios";
+
+// Helper function to extract error message
+const getErrorMessage = (error: unknown): string => {
+  if (axios.isAxiosError(AxiosError)) {
+    return (
+      (AxiosError.response?.data as { detail?: string })?.detail ||
+      AxiosError.message ||
+      "An unknown error occurred"
+    );
+  }
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return "An unexpected error occurred";
+};
 
 // Login
 export const loginUser = createAsyncThunk(
@@ -15,10 +31,10 @@ export const loginUser = createAsyncThunk(
   ) => {
     try {
       const response = await authAPI.login(credentials);
-      credentials.onSuccess?.(); // Call the success callback
+      credentials.onSuccess?.();
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.detail || "Login failed");
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -32,12 +48,10 @@ export const registerUser = createAsyncThunk(
   ) => {
     try {
       const response = await authAPI.register(credentials);
-      credentials.onSuccess?.(); // Call the success callback
+      credentials.onSuccess?.();
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(
-        error.response?.data?.detail || "Registration failed",
-      );
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
     }
   },
 );
@@ -86,7 +100,6 @@ const authSlice = createSlice({
         state.token = action.payload.access || action.payload.token;
         state.error = null;
 
-        // Store in localStorage
         localStorage.setItem(
           "token",
           action.payload.access || action.payload.token,
@@ -97,6 +110,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload as string;
       })
+
       // Register
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
@@ -108,7 +122,6 @@ const authSlice = createSlice({
         state.token = action.payload.access || action.payload.token;
         state.error = null;
 
-        // Store in localStorage
         localStorage.setItem(
           "token",
           action.payload.access || action.payload.token,
