@@ -1,17 +1,53 @@
 import React from "react";
-import { FileText, Brain, Users, Calendar, TrendingUp, Heart, CheckCircle2 } from "lucide-react";
+import {
+  FileText,
+  Brain,
+  Users,
+  Calendar,
+  TrendingUp,
+  Heart,
+  CheckCircle2,
+} from "lucide-react";
 import image3 from "@/assets/Images/image3.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Services = () => {
   const services = [
-    { icon: FileText, title: "Simple Plan", desc: "One clear plan with transparent pricing." },
-    { icon: Brain, title: "Mood Tracking", desc: "Track your emotions and mental health daily." },
-    { icon: Users, title: "Crisis Support", desc: "Instant help whenever you need it most." },
-    { icon: Calendar, title: "Check-ins", desc: "Stay on top of your wellness with guided reviews." },
-    { icon: TrendingUp, title: "Skill Building", desc: "Grow with evidence-based resilience tools." },
-    { icon: Heart, title: "Assessments", desc: "Learn more about yourself through regular self-checks." },
-    { icon: CheckCircle2, title: "Unified Portal", desc: "Everything you need, all in one easy place." },
+    {
+      icon: FileText,
+      title: "Simple Plan",
+      desc: "One clear plan with transparent pricing.",
+    },
+    {
+      icon: Brain,
+      title: "Mood Tracking",
+      desc: "Track your emotions and mental health daily.",
+    },
+    {
+      icon: Users,
+      title: "Crisis Support",
+      desc: "Instant help whenever you need it most.",
+    },
+    {
+      icon: Calendar,
+      title: "Check-ins",
+      desc: "Stay on top of your wellness with guided reviews.",
+    },
+    {
+      icon: TrendingUp,
+      title: "Skill Building",
+      desc: "Grow with evidence-based resilience tools.",
+    },
+    {
+      icon: Heart,
+      title: "Assessments",
+      desc: "Learn more about yourself through regular self-checks.",
+    },
+    {
+      icon: CheckCircle2,
+      title: "Unified Portal",
+      desc: "Everything you need, all in one easy place.",
+    },
   ];
 
   return (
@@ -19,11 +55,17 @@ const Services = () => {
       <div className="container">
         <div className="text-center mb-5">
           <h2 className="fw-bold text-primary">Our Core Services</h2>
-          <p className="text-muted">Powerful tools to help you and your organization thrive mentally.</p>
+          <p className="text-muted">
+            Powerful tools to help you and your organization thrive mentally.
+          </p>
         </div>
         <div className="row align-items-center">
           <div className="col-lg-5 mb-4 mb-lg-0">
-            <img src={image3} alt="Professional working" className="img-fluid rounded-4 shadow-lg" />
+            <img
+              src={image3}
+              alt="Professional working"
+              className="img-fluid rounded-4 shadow-lg"
+            />
           </div>
           <div className="col-lg-7">
             <div className="row g-4">

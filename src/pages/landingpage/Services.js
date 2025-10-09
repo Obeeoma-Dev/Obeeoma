@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Card, CardContent } from "@/components/ui/card";
-import { FileText, Brain, Users, Calendar, TrendingUp, Brain as BrainIcon, Heart, CheckCircle2 } from "lucide-react";
+import { FileText, Brain, Users, Calendar, TrendingUp, Brain as BrainIcon, Heart, CheckCircle2, } from "lucide-react";
 import image3 from "@/assets/Images/image3.png";
 const Services = () => {
     const services = [
