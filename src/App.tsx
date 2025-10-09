@@ -51,7 +51,6 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/subscription" element={<Subscription />} />
-
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
 
               {/* === PROTECTED ROUTES === */}
