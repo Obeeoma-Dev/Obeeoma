@@ -1,31 +1,35 @@
-// Import React and required Bootstrap components
+// Import React and necessary hooks
 import React, { useState } from 'react';
+
+// Import Bootstrap layout components
 import { Nav, Button, Container, Row, Col } from 'react-bootstrap';
 
 // Import icons from lucide-react
 import * as Icons from 'lucide-react';
 
+// Import navigation hook from React Router
+import { useNavigate } from 'react-router-dom';
+
 /**
  * Interface for sidebar menu items
  */
 interface MenuItem {
-  /** Unique identifier for the menu item */
-  id: string;
-  /** Display label for the menu item */
-  label: string;
-  /** Icon name from lucide-react */
-  icon: string;
+  id: string; // Unique identifier
+  label: string; // Display label
+  icon: string; // Icon name from lucide-react
 }
 
 /**
  * Sidebar component provides navigation for different sections of the dashboard
- * Uses React Bootstrap layout and styling
  */
 const Sidebar: React.FC = () => {
+  // Hook to programmatically navigate between routes
+  const navigate = useNavigate();
+
   // State to track which menu item is currently active
   const [activeItem, setActiveItem] = useState<string>('overview');
 
-  // Array of main navigation menu items
+  // Define sidebar menu items
   const menuItems: MenuItem[] = [
     { id: 'overview', label: 'Overview', icon: 'LayoutDashboard' },
     { id: 'organizations', label: 'Organizations', icon: 'Building2' },
@@ -36,19 +40,34 @@ const Sidebar: React.FC = () => {
     { id: 'reports', label: 'Reports', icon: 'BarChart3' },
   ];
 
-  // Handler to update active menu item
+  // Handle menu item click and navigate to corresponding route
   const handleMenuClick = (id: string): void => {
     setActiveItem(id);
+    navigate(`/system-admin/${id}`); // Redirect to route like /system-admin/overview
+  };
+
+  // Handle settings button click
+  const handleSettingsClick = (): void => {
+    navigate('/system-admin'); // Redirect to admin settings overview
+  };
+
+  // Handle logout button click
+  const handleLogoutClick = (): void => {
+    console.log('Logging out...');
+    navigate('/login'); // Redirect to login page
   };
 
   return (
-    // Sidebar container with fixed width and vertical layout
+    // Sidebar container with vertical layout and pinned bottom actions
     <div
       style={{
         width: '250px',
         height: '100vh',
         backgroundColor: '#f8f9fa',
         borderRight: '1px solid #dee2e6',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between', // Push bottom actions down
       }}
     >
       {/* Logo section */}
@@ -69,7 +88,11 @@ const Sidebar: React.FC = () => {
       <Nav className="flex-column px-3 py-4">
         {menuItems.map((item) => {
           const IconComponent =
-            ((Icons as unknown) as Record<string, React.FC<{ size?: number; color?: string }>>)[item.icon] || Icons.Circle;
+            ((Icons as unknown) as Record<
+              string,
+              React.FC<{ size?: number; color?: string }>
+            >)[item.icon] || Icons.Circle;
+
           const isActive = activeItem === item.id;
 
           return (
@@ -77,8 +100,9 @@ const Sidebar: React.FC = () => {
               <Button
                 variant={isActive ? 'light' : 'outline-light'}
                 onClick={() => handleMenuClick(item.id)}
-                className={`w-100 d-flex align-items-center gap-3 text-start ${isActive ? 'fw-semibold border-start border-success' : ''
-                  }`}
+                className={`w-100 d-flex align-items-center gap-3 text-start ${
+                  isActive ? 'fw-semibold border-start border-success' : ''
+                }`}
                 style={{
                   backgroundColor: isActive ? '#ffffff' : 'transparent',
                   borderColor: isActive ? '#198754' : 'transparent',
@@ -93,13 +117,21 @@ const Sidebar: React.FC = () => {
         })}
       </Nav>
 
-      {/* Bottom actions */}
+      {/* Bottom actions pinned to bottom */}
       <div className="px-3 py-3 border-top">
-        <Button variant="outline-secondary" className="w-100 d-flex align-items-center gap-3 mb-2 text-start">
+        <Button
+          variant="outline-secondary"
+          className="w-100 d-flex align-items-center gap-3 mb-2 text-start"
+          onClick={handleSettingsClick}
+        >
           <Icons.Settings size={18} />
           <span className="small">Settings</span>
         </Button>
-        <Button variant="outline-secondary" className="w-100 d-flex align-items-center gap-3 text-start">
+        <Button
+          variant="outline-secondary"
+          className="w-100 d-flex align-items-center gap-3 text-start"
+          onClick={handleLogoutClick}
+        >
           <Icons.LogOut size={18} />
           <span className="small">Log Out</span>
         </Button>

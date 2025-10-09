@@ -23,6 +23,8 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import  SysAdminDashboard  from "./pages/Systemadmin/Dashboard";
+import AdminSettings from "./pages/Systemadmin/adminsettings";
+
 
 import { Provider, useSelector } from 'react-redux';
 import { store, RootState } from './../src/store/store';
@@ -59,6 +61,7 @@ export default function App(): React.ReactElement {
                 
               </Route> */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
+              <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
