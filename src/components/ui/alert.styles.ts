@@ -12,13 +12,14 @@ export const alertVariants = cva(
         default: "bg-card text-card-foreground",
 
         // Destructive alert styling (e.g. errors)
-        destructive: "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
+        destructive:
+          "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
       },
     },
     defaultVariants: {
       variant: "default", // Default variant if none is specified
     },
-  }
+  },
 );
 
 // Export the type for variant props to use in components

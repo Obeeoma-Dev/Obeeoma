@@ -1,4 +1,12 @@
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 
 const chartData = [
   { week: "Week 1", usage: 3000 },
@@ -12,7 +20,9 @@ const chartData = [
 const Overview = () => {
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800">System Admin Overview</h1>
+      <h1 className="text-2xl font-bold text-gray-800">
+        System Admin Overview
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded shadow">
@@ -41,7 +51,13 @@ const Overview = () => {
             <XAxis dataKey="week" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="usage" stroke="#22c55e" strokeWidth={2} dot={false} />
+            <Line
+              type="monotone"
+              dataKey="usage"
+              stroke="#22c55e"
+              strokeWidth={2}
+              dot={false}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

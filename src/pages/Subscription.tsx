@@ -7,12 +7,7 @@ import {
   Navbar,
   ListGroup,
 } from "react-bootstrap";
-import { 
-  BsCheckCircleFill,
-  BsBell, 
-  BsChatDots, 
-  BsGear 
-} from "react-icons/bs";
+import { BsCheckCircleFill, BsBell, BsChatDots, BsGear } from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SubscriptionPage: React.FC = () => {
@@ -38,9 +33,7 @@ const SubscriptionPage: React.FC = () => {
           <Nav.Link className="text-dark mb-2">📈 My Progress</Nav.Link>
           <Nav.Link className="text-dark mb-2">🎯 My Programs</Nav.Link>
           <Nav.Link className="text-dark mb-2">🏅 Rewards</Nav.Link>
-          <Nav.Link
-            className="text-success bg-success bg-opacity-10 fw-semibold rounded px-3 py-2 mb-2"
->
+          <Nav.Link className="text-success bg-success bg-opacity-10 fw-semibold rounded px-3 py-2 mb-2">
             💳 Subscription
           </Nav.Link>
         </Nav>
@@ -71,11 +64,12 @@ const SubscriptionPage: React.FC = () => {
               <div className="d-flex align-items-center">
                 <div className="me-2 text-end">
                   <div className="fw-semibold small">Emma Wilson</div>
-                  <div className="text-muted small">
-                    Member since Oct 2022
-                  </div>
+                  <div className="text-muted small">Member since Oct 2022</div>
                 </div>
-                <div className="rounded-circle bg-success text-white fw-bold d-flex align-items-center justify-content-center" style={{ width: "35px", height: "35px" }}>
+                <div
+                  className="rounded-circle bg-success text-white fw-bold d-flex align-items-center justify-content-center"
+                  style={{ width: "35px", height: "35px" }}
+                >
                   E
                 </div>
               </div>
@@ -91,7 +85,10 @@ const SubscriptionPage: React.FC = () => {
           <div className="border-bottom mb-4">
             <Nav variant="tabs" defaultActiveKey="overview">
               <Nav.Item>
-                <Nav.Link eventKey="overview" className="text-success fw-semibold">
+                <Nav.Link
+                  eventKey="overview"
+                  className="text-success fw-semibold"
+                >
                   Overview
                 </Nav.Link>
               </Nav.Item>
@@ -111,7 +108,9 @@ const SubscriptionPage: React.FC = () => {
                 <div>
                   <h5 className="fw-bold mb-1">
                     Premium Plan{" "}
-                    <span className="badge bg-success bg-opacity-75">Active</span>
+                    <span className="badge bg-success bg-opacity-75">
+                      Active
+                    </span>
                   </h5>
                   <div className="text-muted small">
                     Next billing date: <strong>October 15, 2023</strong>
@@ -171,7 +170,10 @@ const SubscriptionPage: React.FC = () => {
                     <div className="text-muted small">Expires 12/24</div>
                   </div>
                 </div>
-                <a href="#" className="text-success fw-semibold text-decoration-none">
+                <a
+                  href="#"
+                  className="text-success fw-semibold text-decoration-none"
+                >
                   Change
                 </a>
               </div>

@@ -1,12 +1,12 @@
 // Import React and required Bootstrap components
-import React from 'react';
-import { Card, Badge } from 'react-bootstrap';
+import React from "react";
+import { Card, Badge } from "react-bootstrap";
 
 // Import icons from lucide-react
-import * as Icons from 'lucide-react';
+import * as Icons from "lucide-react";
 
 // Import the StatCardData type
-import { StatCardData } from './admindashboard';
+import { StatCardData } from "./admindashboard";
 
 /**
  * Props interface for the StatCard component
@@ -26,28 +26,36 @@ interface StatCardProps {
  */
 const StatCard: React.FC<StatCardProps> = ({ data }) => {
   // Determine if the change is positive (starts with '+') for conditional styling
-  const isPositive = data.change.startsWith('+');
+  const isPositive = data.change.startsWith("+");
 
   // Dynamically get the icon component from lucide-react
-  const IconComponent =
-    (Icons[data.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{ size?: number; color?: string }>;
+  const IconComponent = (Icons[data.icon as keyof typeof Icons] ??
+    Icons.Activity) as React.FC<{ size?: number; color?: string }>;
 
   // Set icon color based on change direction
-  const iconColor = isPositive ? '#059669' : '#dc3545'; // emerald vs red
+  const iconColor = isPositive ? "#059669" : "#dc3545"; // emerald vs red
 
   // Set badge variant and text color
-  const badgeVariant = isPositive ? 'success' : 'danger';
+  const badgeVariant = isPositive ? "success" : "danger";
 
   return (
     // Bootstrap Card container
-    <Card className="shadow-sm border-0" role="region" aria-label={`Stat card for ${data.title}`}>
+    <Card
+      className="shadow-sm border-0"
+      role="region"
+      aria-label={`Stat card for ${data.title}`}
+    >
       <Card.Body>
         {/* Top section: icon and change badge */}
         <div className="d-flex justify-content-between align-items-start mb-3">
           {/* Icon container with background color */}
           <div
             className={`rounded p-2 d-flex align-items-center justify-content-center ${data.iconColor}`}
-            style={{ backgroundColor: '#e6f4ea', width: '40px', height: '40px' }}
+            style={{
+              backgroundColor: "#e6f4ea",
+              width: "40px",
+              height: "40px",
+            }}
           >
             <IconComponent size={20} color={iconColor} />
           </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -8,8 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Import your AuthProvider and ProtectedRoute
 // import { AuthProvider } from "./context/AuthContext";
 // import ProtectedRoute from "./components/ProtectedRoute";
-
-
 
 // Pages
 import Index from "./pages/Index";
@@ -22,15 +20,11 @@ import EmployerDashboard from "./pages/EmployerDashboard";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
-import  SysAdminDashboard  from "./pages/Systemadmin/Dashboard";
+import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
-
-import { Provider, useSelector } from 'react-redux';
-import { store, RootState } from './../src/store/store';
-
-
-
+import { Provider, useSelector } from "react-redux";
+import { store, RootState } from "./../src/store/store";
 
 const queryClient = new QueryClient();
 
@@ -50,10 +44,19 @@ export default function App(): React.ReactElement {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
-              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route
+                path="/reset-password-signin"
+                element={<ResetPasswordSignin />}
+              />
+              <Route
+                path="/employee-dashboard"
+                element={<EmployeeDashboard />}
+              />
               <Route path="/subscription" element={<Subscription />} />
-              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route
+                path="/employer-dashboard"
+                element={<EmployerDashboard />}
+              />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
@@ -61,7 +64,10 @@ export default function App(): React.ReactElement {
                 
               </Route> */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
-              <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
+              <Route
+                path="/system-admin/settings-overview"
+                element={<AdminSettings />}
+              />
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}

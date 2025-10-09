@@ -1,10 +1,10 @@
 // Import React and required Bootstrap components
-import React from 'react';
-import { Card, Table } from 'react-bootstrap';
+import React from "react";
+import { Card, Table } from "react-bootstrap";
 
 // Import the ActivityItem component and its type
-import ActivityItem from './activityitem';
-import { ActivityItem as ActivityItemType } from './admindashboard';
+import ActivityItem from "./activityitem";
+import { ActivityItem as ActivityItemType } from "./admindashboard";
 
 /**
  * Props interface for RecentActivities component
@@ -23,7 +23,9 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
     // Card container for the section
     <Card className="mb-4 shadow-sm border-0">
       {/* Card header with section title */}
-      <Card.Header className="bg-white fw-bold fs-5">Recent Activities</Card.Header>
+      <Card.Header className="bg-white fw-bold fs-5">
+        Recent Activities
+      </Card.Header>
 
       {/* Card body containing the table and activity items */}
       <Card.Body>

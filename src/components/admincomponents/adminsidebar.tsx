@@ -1,14 +1,14 @@
 // Import React and necessary hooks
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 // Import Bootstrap layout components
-import { Nav, Button, Container, Row, Col } from 'react-bootstrap';
+import { Nav, Button, Container, Row, Col } from "react-bootstrap";
 
 // Import icons from lucide-react
-import * as Icons from 'lucide-react';
+import * as Icons from "lucide-react";
 
 // Import navigation hook from React Router
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 /**
  * Interface for sidebar menu items
@@ -27,17 +27,17 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
 
   // State to track which menu item is currently active
-  const [activeItem, setActiveItem] = useState<string>('overview');
+  const [activeItem, setActiveItem] = useState<string>("overview");
 
   // Define sidebar menu items
   const menuItems: MenuItem[] = [
-    { id: 'overview', label: 'Overview', icon: 'LayoutDashboard' },
-    { id: 'organizations', label: 'Organizations', icon: 'Building2' },
-    { id: 'client-engagement', label: 'Client Engagement', icon: 'Users' },
-    { id: 'ai-management', label: 'AI Management', icon: 'Brain' },
-    { id: 'hotline-activity', label: 'Hotline Activity', icon: 'Phone' },
-    { id: 'subscriptions', label: 'Subscriptions', icon: 'CreditCard' },
-    { id: 'reports', label: 'Reports', icon: 'BarChart3' },
+    { id: "overview", label: "Overview", icon: "LayoutDashboard" },
+    { id: "organizations", label: "Organizations", icon: "Building2" },
+    { id: "client-engagement", label: "Client Engagement", icon: "Users" },
+    { id: "ai-management", label: "AI Management", icon: "Brain" },
+    { id: "hotline-activity", label: "Hotline Activity", icon: "Phone" },
+    { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
+    { id: "reports", label: "Reports", icon: "BarChart3" },
   ];
 
   // Handle menu item click and navigate to corresponding route
@@ -48,26 +48,26 @@ const Sidebar: React.FC = () => {
 
   // Handle settings button click
   const handleSettingsClick = (): void => {
-    navigate('/system-admin'); // Redirect to admin settings overview
+    navigate("/system-admin/settings-overview"); // Redirect to admin settings overview
   };
 
   // Handle logout button click
   const handleLogoutClick = (): void => {
-    console.log('Logging out...');
-    navigate('/login'); // Redirect to login page
+    console.log("Logging out...");
+    navigate("/login"); // Redirect to login page
   };
 
   return (
     // Sidebar container with vertical layout and pinned bottom actions
     <div
       style={{
-        width: '250px',
-        height: '100vh',
-        backgroundColor: '#f8f9fa',
-        borderRight: '1px solid #dee2e6',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between', // Push bottom actions down
+        width: "250px",
+        height: "100vh",
+        backgroundColor: "#f8f9fa",
+        borderRight: "1px solid #dee2e6",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between", // Push bottom actions down
       }}
     >
       {/* Logo section */}
@@ -88,25 +88,27 @@ const Sidebar: React.FC = () => {
       <Nav className="flex-column px-3 py-4">
         {menuItems.map((item) => {
           const IconComponent =
-            ((Icons as unknown) as Record<
-              string,
-              React.FC<{ size?: number; color?: string }>
-            >)[item.icon] || Icons.Circle;
+            (
+              Icons as unknown as Record<
+                string,
+                React.FC<{ size?: number; color?: string }>
+              >
+            )[item.icon] || Icons.Circle;
 
           const isActive = activeItem === item.id;
 
           return (
             <Nav.Item key={item.id} className="mb-2">
               <Button
-                variant={isActive ? 'light' : 'outline-light'}
+                variant={isActive ? "light" : "outline-light"}
                 onClick={() => handleMenuClick(item.id)}
                 className={`w-100 d-flex align-items-center gap-3 text-start ${
-                  isActive ? 'fw-semibold border-start border-success' : ''
+                  isActive ? "fw-semibold border-start border-success" : ""
                 }`}
                 style={{
-                  backgroundColor: isActive ? '#ffffff' : 'transparent',
-                  borderColor: isActive ? '#198754' : 'transparent',
-                  color: isActive ? '#198754' : '#212529',
+                  backgroundColor: isActive ? "#ffffff" : "transparent",
+                  borderColor: isActive ? "#198754" : "transparent",
+                  color: isActive ? "#198754" : "#212529",
                 }}
               >
                 <IconComponent size={18} />

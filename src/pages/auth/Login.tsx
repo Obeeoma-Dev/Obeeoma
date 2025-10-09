@@ -95,7 +95,9 @@ const LoginPage = () => {
             </p>
 
             {serverError && <Alert variant="danger">{serverError}</Alert>}
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
+            {successMessage && (
+              <Alert variant="success">{successMessage}</Alert>
+            )}
 
             <Form noValidate onSubmit={formik.handleSubmit}>
               <Form.Group className="mb-3" controlId="username">
@@ -152,14 +154,18 @@ const LoginPage = () => {
                     id="employer"
                     value="Employer"
                     variant={
-                      role === "Employer" ? "success" : "outline-success" }
-                    className="px-3 py-1" >
+                      role === "Employer" ? "success" : "outline-success"
+                    }
+                    className="px-3 py-1"
+                  >
                     Employer
                   </ToggleButton>
                 </ToggleButtonGroup>
 
-                <a href="reset-password-signin"
-                  className="text-success text-decoration-none small" >
+                <a
+                  href="reset-password-signin"
+                  className="text-success text-decoration-none small"
+                >
                   Forgot password?
                 </a>
               </div>
