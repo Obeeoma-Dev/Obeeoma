@@ -1,10 +1,10 @@
 // Import React and required Bootstrap layout components
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Row, Col } from "react-bootstrap";
 
 // Import the StatCard component and its data type
-import StatCard from './statCard';
-import { StatCardData } from './admindashboard';
+import StatCard from "./statCard";
+import { StatCardData } from "./admindashboard";
 
 /**
  * Props interface for DashboardStats component

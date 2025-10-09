@@ -1,21 +1,25 @@
 import React, { useState } from "react";
+// React Router for navigation
 import { Link } from "react-router-dom";
+// Formik for form state management and validation
 import { Formik, Form as FormikForm, ErrorMessage } from "formik";
+// Yup for schema validation
 import * as Yup from "yup";
+// Bootstrap components for styling
 import {
   Container,
   Row,
   Col,
-  Card,
   Button,
-  Alert,
   Form as BootstrapForm,
   ToggleButton,
   ToggleButtonGroup,
 } from "react-bootstrap";
 
+// Define allowed roles
 type Role = "Employee" | "Employer";
 
+// Validation schema using Yup
 const validationSchema = Yup.object({
   userName: Yup.string().required("User name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -28,8 +32,10 @@ const validationSchema = Yup.object({
 });
 
 const Register: React.FC = () => {
+  // Role state for toggle buttons
   const [role, setRole] = useState<Role>("Employee");
 
+  // Initial form values
   const initialValues = {
     userName: "",
     email: "",
@@ -37,6 +43,7 @@ const Register: React.FC = () => {
     confirmPassword: "",
   };
 
+  // Handle form submission
   const handleSubmit = (values: typeof initialValues) => {
     console.log("Register submitted:", { ...values, role });
   };
@@ -50,7 +57,7 @@ const Register: React.FC = () => {
         className="shadow bg-white rounded-lg overflow-hidden w-100"
         style={{ maxWidth: 900 }}
       >
-        {/* Left Side */}
+        {/* Left Side: Form */}
         <Col md={6} className="p-4">
           <h2 className="mb-3">Create your account</h2>
           <p className="mb-4 text-muted">
@@ -64,7 +71,7 @@ const Register: React.FC = () => {
           >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
               <FormikForm noValidate onSubmit={handleSubmit}>
-                {/* Alias Name */}
+                {/* User Name Field */}
                 <BootstrapForm.Group className="mb-3">
                   <BootstrapForm.Label>User Name</BootstrapForm.Label>
                   <BootstrapForm.Control
@@ -73,14 +80,13 @@ const Register: React.FC = () => {
                     value={values.userName}
                     onChange={handleChange}
                     isInvalid={!!touched.userName && !!errors.userName}
-                    aria-describedby="userName-label"
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    <ErrorMessage name="User Name" />
+                    <ErrorMessage name="userName" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
 
-                {/* Email */}
+                {/* Email Field */}
                 <BootstrapForm.Group className="mb-3">
                   <BootstrapForm.Label>Email</BootstrapForm.Label>
                   <BootstrapForm.Control
@@ -91,11 +97,11 @@ const Register: React.FC = () => {
                     isInvalid={!!touched.email && !!errors.email}
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    {errors.email}
+                    <ErrorMessage name="email" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
 
-                {/* Password */}
+                {/* Password Field */}
                 <BootstrapForm.Group className="mb-3">
                   <BootstrapForm.Label>Password</BootstrapForm.Label>
                   <BootstrapForm.Control
@@ -106,11 +112,11 @@ const Register: React.FC = () => {
                     isInvalid={!!touched.password && !!errors.password}
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    {errors.password}
+                    <ErrorMessage name="password" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
 
-                {/* Confirm Password */}
+                {/* Confirm Password Field */}
                 <BootstrapForm.Group className="mb-4">
                   <BootstrapForm.Label>Confirm Password</BootstrapForm.Label>
                   <BootstrapForm.Control
@@ -123,7 +129,7 @@ const Register: React.FC = () => {
                     }
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    {errors.confirmPassword}
+                    <ErrorMessage name="confirmPassword" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
 
@@ -133,7 +139,7 @@ const Register: React.FC = () => {
                     type="radio"
                     name="role"
                     value={role}
-                    onChange={(val) => setRole(val)}
+                    onChange={(val: Role) => setRole(val)}
                   >
                     <ToggleButton
                       id="employee"
@@ -158,7 +164,7 @@ const Register: React.FC = () => {
                   </ToggleButtonGroup>
                 </div>
 
-                {/* Submit */}
+                {/* Submit Button */}
                 <Button
                   type="submit"
                   variant="success"
@@ -171,6 +177,7 @@ const Register: React.FC = () => {
             )}
           </Formik>
 
+          {/* Link to Login */}
           <p className="mt-3 text-center text-muted">
             Already have an account?{" "}
             <Link to="/Login" className="text-success fw-semibold">
@@ -179,7 +186,7 @@ const Register: React.FC = () => {
           </p>
         </Col>
 
-        {/* Right Side */}
+        {/* Right Side: Info Panel */}
         <Col
           md={6}
           className="bg-success bg-opacity-25 p-4 d-flex flex-column justify-content-center"

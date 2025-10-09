@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Table } from 'react-bootstrap';
+import { Card, Table } from "react-bootstrap";
 // Import the ActivityItem component and its type
-import ActivityItem from './activityitem';
+import ActivityItem from "./activityitem";
 /**
  * RecentActivities component displays a list of recent system activities
  * Uses React Bootstrap Card and Table layout

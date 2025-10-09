@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from "react-bootstrap";
 // Import the StatCard component and its data type
-import StatCard from './statCard';
+import StatCard from "./statCard";
 /**
  * DashboardStats component displays top-level metrics
  * Uses React Bootstrap grid layout to render StatCard components

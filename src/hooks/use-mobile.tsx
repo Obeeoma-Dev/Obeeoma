@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 /**
  * useIsMobile
- * 
+ *
  * Custom React hook to detect if the current screen width
  * matches a mobile device (default breakpoint: 768px).
  *
