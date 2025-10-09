@@ -34,14 +34,14 @@ const SubscriptionPage: React.FC = () => {
         <Nav className="flex-column">
           <Nav.Link className="text-dark mb-2"> Dashboard</Nav.Link>
           <Nav.Link className="text-dark mb-2"> AI Assistant</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> Resources</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> My Progress</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> My Programs</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> Rewards</Nav.Link>
+          <Nav.Link className="text-dark mb-2">📚 Resources</Nav.Link>
+          <Nav.Link className="text-dark mb-2">📈 My Progress</Nav.Link>
+          <Nav.Link className="text-dark mb-2">🎯 My Programs</Nav.Link>
+          <Nav.Link className="text-dark mb-2">🏅 Rewards</Nav.Link>
           <Nav.Link
             className="text-success bg-success bg-opacity-10 fw-semibold rounded px-3 py-2 mb-2"
 >
-             Subscription
+            💳 Subscription
           </Nav.Link>
         </Nav>
 

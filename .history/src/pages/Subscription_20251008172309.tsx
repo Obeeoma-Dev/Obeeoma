@@ -41,7 +41,7 @@ const SubscriptionPage: React.FC = () => {
           <Nav.Link
             className="text-success bg-success bg-opacity-10 fw-semibold rounded px-3 py-2 mb-2"
 >
-             Subscription
+            💳 Subscription
           </Nav.Link>
         </Nav>
 
