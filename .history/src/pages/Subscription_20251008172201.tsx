@@ -7,12 +7,12 @@ import {
   Navbar,
   ListGroup,
 } from "react-bootstrap";
-import { 
-  BsCheckCircleFill,
-  BsBell, 
-  BsChatDots, 
-  BsGear 
-} from "react-icons/bs";
+import {
+  CheckCircleFill,
+  Bell,
+  ChatDots,
+  Gear,
+} from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SubscriptionPage: React.FC = () => {
@@ -33,21 +33,21 @@ const SubscriptionPage: React.FC = () => {
 
         <Nav className="flex-column">
           <Nav.Link className="text-dark mb-2"> Dashboard</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> AI Assistant</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> Resources</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> My Progress</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> My Programs</Nav.Link>
-          <Nav.Link className="text-dark mb-2"> Rewards</Nav.Link>
+          <Nav.Link className="text-dark mb-2">🤖 AI Assistant</Nav.Link>
+          <Nav.Link className="text-dark mb-2">📚 Resources</Nav.Link>
+          <Nav.Link className="text-dark mb-2">📈 My Progress</Nav.Link>
+          <Nav.Link className="text-dark mb-2">🎯 My Programs</Nav.Link>
+          <Nav.Link className="text-dark mb-2">🏅 Rewards</Nav.Link>
           <Nav.Link
             className="text-success bg-success bg-opacity-10 fw-semibold rounded px-3 py-2 mb-2"
 >
-             Subscription
+            💳 Subscription
           </Nav.Link>
         </Nav>
 
         <div className="mt-auto pt-3 border-top">
           <Nav.Link className="text-muted">
-            <BsGear className="me-2" /> Settings
+            <Gear className="me-2" /> Settings
           </Nav.Link>
         </div>
       </div>
@@ -66,8 +66,8 @@ const SubscriptionPage: React.FC = () => {
             </div>
 
             <div className="d-flex align-items-center">
-              <BsBell className="me-3 text-secondary" />
-              <BsChatDots className="me-3 text-secondary" />
+              <Bell className="me-3 text-secondary" />
+              <ChatDots className="me-3 text-secondary" />
               <div className="d-flex align-items-center">
                 <div className="me-2 text-end">
                   <div className="fw-semibold small">Emma Wilson</div>
@@ -135,23 +135,23 @@ const SubscriptionPage: React.FC = () => {
             <h6 className="fw-bold mb-3">Current Plan Features</h6>
             <ListGroup variant="flush">
               <ListGroup.Item className="border-0 ps-0">
-                <BsCheckCircleFill className="text-success me-2" />
+                <CheckCircleFill className="text-success me-2" />
                 Unlimited access to all resources
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <BsCheckCircleFill className="text-success me-2" />
+                <CheckCircleFill className="text-success me-2" />
                 Personalized AI recommendations
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <BsCheckCircleFill className="text-success me-2" />
+                <CheckCircleFill className="text-success me-2" />
                 Weekly therapist sessions
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <BsCheckCircleFill className="text-success me-2" />
+                <CheckCircleFill className="text-success me-2" />
                 Priority support
               </ListGroup.Item>
               <ListGroup.Item className="border-0 ps-0">
-                <BsCheckCircleFill className="text-success me-2" />
+                <CheckCircleFill className="text-success me-2" />
                 Progress tracking and reports
               </ListGroup.Item>
             </ListGroup>

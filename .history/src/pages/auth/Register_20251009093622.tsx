@@ -17,7 +17,7 @@ import {
 type Role = "Employee" | "Employer";
 
 const validationSchema = Yup.object({
-  userName: Yup.string().required("User name is required"),
+  aliasName: Yup.string().required("Alias Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .min(6, "Minimum 6 characters")
@@ -31,7 +31,7 @@ const Register: React.FC = () => {
   const [role, setRole] = useState<Role>("Employee");
 
   const initialValues = {
-    userName: "",
+    aliasName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -66,17 +66,16 @@ const Register: React.FC = () => {
               <FormikForm noValidate onSubmit={handleSubmit}>
                 {/* Alias Name */}
                 <BootstrapForm.Group className="mb-3">
-                  <BootstrapForm.Label>User Name</BootstrapForm.Label>
+                  <BootstrapForm.Label>Alias Name</BootstrapForm.Label>
                   <BootstrapForm.Control
                     type="text"
-                    name="userName"
-                    value={values.userName}
+                    name="aliasName"
+                    value={values.aliasName}
                     onChange={handleChange}
-                    isInvalid={!!touched.userName && !!errors.userName}
-                    aria-describedby="userName-label"
+                    isInvalid={!!touched.aliasName && !!errors.aliasName}
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    <ErrorMessage name="User Name" />
+                    {errors.aliasName}
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
 
@@ -190,7 +189,7 @@ const Register: React.FC = () => {
             resources, secure communication with healthcare providers, and tools
             to track your progress.
           </p>
-          <ul className="text-secondary" style={{ listStyle: "none" }}>
+          <ul className="text-secondary">
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>
