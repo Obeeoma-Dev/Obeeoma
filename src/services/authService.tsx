@@ -1,8 +1,8 @@
 import api from "./api";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
-// Interfaces remain the same
+// Interfaces
 export interface TokenResponse {
   access_token: string;
   refresh_token?: string;
@@ -15,7 +15,7 @@ export interface CurrentUser {
 }
 
 export interface Credentials {
-  username: string; // or email
+  username: string;
   password: string;
 }
 
@@ -24,9 +24,15 @@ export interface UserData extends Credentials {
   last_name?: string;
 }
 
+export interface ErrorResponse {
+  detail?: string;
+  message?: string;
+  [key: string]: unknown;
+}
+
 export interface AuthAPI {
   login: (credentials: Credentials) => Promise<TokenResponse>;
-  register: (userData: UserData) => Promise<any>;
+  register: (userData: UserData) => Promise<TokenResponse>;
   getCurrentUser: () => Promise<CurrentUser>;
   logout: () => void;
 }
@@ -46,35 +52,38 @@ export const authAPI: AuthAPI = {
         }
       }
       return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error.response.data;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && AxiosError.response) {
+        throw AxiosError.response.data as ErrorResponse;
       }
-      throw error;
+      throw new Error("Login failed");
     }
   },
 
-  register: async (userData: UserData): Promise<any> => {
+  register: async (userData: UserData): Promise<TokenResponse> => {
     try {
-      const response = await api.post("auth/register/", userData);
+      const response = await api.post<TokenResponse>(
+        "auth/register/",
+        userData,
+      );
       return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error.response.data;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && AxiosError.response) {
+        throw AxiosError.response.data as ErrorResponse;
       }
-      throw error;
+      throw new Error("Registration failed");
     }
   },
 
   getCurrentUser: async (): Promise<CurrentUser> => {
     try {
-      const response = await api.get<CurrentUser>("/auth/user");
+      const response = await api.get<CurrentUser>("auth/user/");
       return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error.response.data;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && AxiosError.response) {
+        throw AxiosError.response.data as ErrorResponse;
       }
-      throw error;
+      throw new Error("Failed to fetch user");
     }
   },
 
