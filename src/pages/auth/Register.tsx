@@ -202,7 +202,7 @@ const Register: React.FC = () => {
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>
-          </ol>
+          </ul>
         </Col>
       </Row>
     </Container>
