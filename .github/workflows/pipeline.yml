@@ -41,6 +41,10 @@ jobs:
       - name: Run Prettier Check
         run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
 
+      # Step 5b: Run Prettier checks (fail if formatting issues exist)
+      - name: Format code with Prettier
+        run: npx prettier --write .
+        
       # Step 6: TypeScript compile check (fail on type errors)
       - name: TypeScript Compile Check
         run: npx tsc --noEmit
