@@ -1,4 +1,3 @@
-// src/components/admincomponents/organisationcomponents/organisationTable.tsx
 import React from "react";
 import { Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";

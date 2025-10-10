@@ -1,4 +1,3 @@
-// src/components/admincomponents/OrganizationStats.tsx
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
 

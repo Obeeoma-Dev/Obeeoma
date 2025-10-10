@@ -1,4 +1,3 @@
-// src/components/admincomponents/OrganizationCharts.tsx
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { Line, Bar } from "react-chartjs-2";
