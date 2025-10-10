@@ -1,5 +1,5 @@
 import api from "./api";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 export const authAPI = {
     login: async (credentials) => {
@@ -14,10 +14,10 @@ export const authAPI = {
             return response.data;
         }
         catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                throw error.response.data;
+            if (axios.isAxiosError(error) && AxiosError.response) {
+                throw AxiosError.response.data;
             }
-            throw error;
+            throw new Error("Login failed");
         }
     },
     register: async (userData) => {
@@ -26,22 +26,22 @@ export const authAPI = {
             return response.data;
         }
         catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                throw error.response.data;
+            if (axios.isAxiosError(error) && AxiosError.response) {
+                throw AxiosError.response.data;
             }
-            throw error;
+            throw new Error("Registration failed");
         }
     },
     getCurrentUser: async () => {
         try {
-            const response = await api.get("/auth/user");
+            const response = await api.get("auth/user/");
             return response.data;
         }
         catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                throw error.response.data;
+            if (axios.isAxiosError(error) && AxiosError.response) {
+                throw AxiosError.response.data;
             }
-            throw error;
+            throw new Error("Failed to fetch user");
         }
     },
     logout: () => {
