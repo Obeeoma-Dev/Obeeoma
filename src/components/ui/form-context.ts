@@ -1,20 +1,20 @@
 import * as React from "react";
 import { type FieldPath, type FieldValues, useFormContext, useFormState } from "react-hook-form";
 
-type FormFieldContextValue<
+export type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
   name: TName;
 };
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
+export const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 );
 
-const FormItemContext = React.createContext<{ id: string }>({} as { id: string });
+export const FormItemContext = React.createContext<{ id: string }>({} as { id: string });
 
-const useFormField = () => {
+export function useFormField() {
   const fieldContext = React.useContext(FormFieldContext);
   const itemContext = React.useContext(FormItemContext);
   const { getFieldState } = useFormContext();
@@ -35,6 +35,4 @@ const useFormField = () => {
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
   };
-};
-
-export { FormFieldContext, useFormField, FormItemContext };
+}
