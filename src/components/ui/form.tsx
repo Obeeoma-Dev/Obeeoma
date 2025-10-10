@@ -1,45 +1,78 @@
+// ---------------------------------------------------------
+// This file defines and exports only React components
+// ---------------------------------------------------------
+
 "use client";
 
 import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import { Controller, FormProvider, type ControllerProps } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
+} from "react-hook-form";
 
+// Utility for conditional class names
 import { cn } from "@/lib/utils";
+
+// Shadcn/UI label component
 import { Label } from "@/components/ui/label";
 
-import { FormFieldContext, useFormField, FormItemContext } from "./form-context";
+// Import contexts only (NOT the hook directly)
+import { FormFieldContext, FormItemContext } from "./form-context";
 
+// Import the hook indirectly from its new file
+import { useFormField } from "./use-Form-Field";
+
+// ---------------------------------------------------------
+// FORM PROVIDER
+// Wraps react-hook-form's FormProvider for convenience
+// ---------------------------------------------------------
 const Form = FormProvider;
 
-const FormField = <
+// ---------------------------------------------------------
+// FORM FIELD
+// Wrapper around Controller that provides context for each field
+// ---------------------------------------------------------
+function FormField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
+>(props: ControllerProps<TFieldValues, TName>) {
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>
       <Controller {...props} />
     </FormFieldContext.Provider>
   );
-};
+}
 
-function FormItem({ className, ...props }: React.ComponentProps<"div">) {
-  const id = React.useId();
+// ---------------------------------------------------------
+// FORM ITEM
+// Provides unique ID context for form fields and layout wrapper
+// ---------------------------------------------------------
+function FormItem({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  const id = React.useId(); // generates unique, stable id for accessibility
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div
-        data-slot="form-item"
-        className={cn("grid gap-2", className)}
-        {...props}
-      />
+      <div data-slot="form-item" className={cn("grid gap-2", className)} {...props} />
     </FormItemContext.Provider>
   );
 }
 
-function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+// ---------------------------------------------------------
+// FORM LABEL
+// Uses our custom hook to access field error state and IDs
+// ---------------------------------------------------------
+function FormLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof LabelPrimitive.Root>) {
   const { error, formItemId } = useFormField();
 
   return (
@@ -53,21 +86,36 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
   );
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+// ---------------------------------------------------------
+// FORM CONTROL
+// Handles input/slot rendering with correct ARIA attributes
+// ---------------------------------------------------------
+function FormControl(props: React.ComponentProps<typeof Slot>) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
 
   return (
     <Slot
       data-slot="form-control"
       id={formItemId}
-      aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
+      aria-describedby={
+        !error
+          ? `${formDescriptionId}`
+          : `${formDescriptionId} ${formMessageId}`
+      }
       aria-invalid={!!error}
       {...props}
     />
   );
 }
 
-function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
+// ---------------------------------------------------------
+// FORM DESCRIPTION
+// Displays small muted text under the form field
+// ---------------------------------------------------------
+function FormDescription({
+  className,
+  ...props
+}: React.ComponentProps<"p">) {
   const { formDescriptionId } = useFormField();
 
   return (
@@ -80,13 +128,19 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   );
 }
 
-function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
+// ---------------------------------------------------------
+// FORM MESSAGE
+// Displays validation message when field has error
+// ---------------------------------------------------------
+function FormMessage({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message ?? "") : props.children;
+  const body = error ? String(error?.message ?? "") : children;
 
-  if (!body) {
-    return null;
-  }
+  if (!body) return null;
 
   return (
     <p
@@ -100,13 +154,16 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   );
 }
 
+// ---------------------------------------------------------
+// EXPORTS
+// Export only components to pass ESLint.
+// ---------------------------------------------------------
 export {
-  useFormField,
   Form,
+  FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormDescription,
   FormMessage,
-  FormField,
 };
