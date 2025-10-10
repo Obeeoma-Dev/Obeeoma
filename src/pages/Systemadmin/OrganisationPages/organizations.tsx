@@ -1,4 +1,3 @@
-// src/pages/Systemadmin/organizations.tsx
 import React from "react";
 import { Container } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
