@@ -26,7 +26,7 @@ const Sidebar: React.FC = () => {
   // Extract current path segment to determine active item
   const currentPath = location.pathname.split("/")[2]; // e.g., /system-admin/organizations → "organizations"
 
-  // Navigate to selected menu item
+  // Navigate to selected menu item.
   const handleMenuClick = (id: string) => {
     navigate(`/system-admin/${id}`);
   };

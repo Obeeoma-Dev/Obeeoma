@@ -21,7 +21,8 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
-import Organisation from "./pages/Systemadmin/organizations";
+import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
+import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
@@ -57,7 +58,8 @@ export default function App(): React.ReactElement {
               />
               <Route path="/subscription" element={<Subscription />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-              <Route path="/system-admin/organisation" element={<Organisation />} />
+              <Route path="/system-admin/organizations" element={<Organisation />} />
+              <Route path="/systemadmin/organizations/:id" element={<OrganisationDetails />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
@@ -69,7 +71,7 @@ export default function App(): React.ReactElement {
                 path="/system-admin/settings-overview"
                 element={<AdminSettings />}
               />
-              
+
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
