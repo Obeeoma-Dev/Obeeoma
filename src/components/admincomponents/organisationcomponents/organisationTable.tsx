@@ -18,7 +18,9 @@ interface OrganizationTableProps {
 }
 
 // Table component to display organizations
-const OrganizationTable: React.FC<OrganizationTableProps> = ({ organizations }) => {
+const OrganizationTable: React.FC<OrganizationTableProps> = ({
+  organizations,
+}) => {
   return (
     <Table striped bordered hover responsive className="mt-3">
       <thead className="table-success">
@@ -42,7 +44,9 @@ const OrganizationTable: React.FC<OrganizationTableProps> = ({ organizations }) 
             <td>
               {/* Link to the organization details page */}
               <Link to={`/systemadmin/organizations/${org.id}`}>
-                <Button variant="outline-success" size="sm">View Details</Button>
+                <Button variant="outline-success" size="sm">
+                  View Details
+                </Button>
               </Link>
             </td>
           </tr>

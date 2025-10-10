@@ -57,9 +57,18 @@ export default function App(): React.ReactElement {
                 element={<EmployeeDashboard />}
               />
               <Route path="/subscription" element={<Subscription />} />
-              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-              <Route path="/system-admin/organizations" element={<Organisation />} />
-              <Route path="/systemadmin/organizations/:id" element={<OrganisationDetails />} />
+              <Route
+                path="/employer-dashboard"
+                element={<EmployerDashboard />}
+              />
+              <Route
+                path="/system-admin/organizations"
+                element={<Organisation />}
+              />
+              <Route
+                path="/systemadmin/organizations/:id"
+                element={<OrganisationDetails />}
+              />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
@@ -71,7 +80,6 @@ export default function App(): React.ReactElement {
                 path="/system-admin/settings-overview"
                 element={<AdminSettings />}
               />
-
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}

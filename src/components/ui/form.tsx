@@ -52,15 +52,16 @@ function FormField<
 // FORM ITEM
 // Provides unique ID context for form fields and layout wrapper
 // ---------------------------------------------------------
-function FormItem({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   const id = React.useId(); // generates unique, stable id for accessibility
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div data-slot="form-item" className={cn("grid gap-2", className)} {...props} />
+      <div
+        data-slot="form-item"
+        className={cn("grid gap-2", className)}
+        {...props}
+      />
     </FormItemContext.Provider>
   );
 }
@@ -91,7 +92,8 @@ function FormLabel({
 // Handles input/slot rendering with correct ARIA attributes
 // ---------------------------------------------------------
 function FormControl(props: React.ComponentProps<typeof Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
+  const { error, formItemId, formDescriptionId, formMessageId } =
+    useFormField();
 
   return (
     <Slot
@@ -112,10 +114,7 @@ function FormControl(props: React.ComponentProps<typeof Slot>) {
 // FORM DESCRIPTION
 // Displays small muted text under the form field
 // ---------------------------------------------------------
-function FormDescription({
-  className,
-  ...props
-}: React.ComponentProps<"p">) {
+function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   const { formDescriptionId } = useFormField();
 
   return (

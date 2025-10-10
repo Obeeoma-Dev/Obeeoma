@@ -1,14 +1,7 @@
 // src/components/admincomponents/organisationcomponents/OrganizationDetails.tsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  Container,
-  Card,
-  Row,
-  Col,
-  Button,
-  ListGroup,
-} from "react-bootstrap";
+import { Container, Card, Row, Col, Button, ListGroup } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import Header from "../../../components/admincomponents/adminheader";
@@ -101,10 +94,18 @@ const OrganizationDetails: React.FC = () => {
           <Card className="mb-4">
             <Card.Body>
               <Row>
-                <Col><strong>Admin:</strong> {org.admin}</Col>
-                <Col><strong>Clients:</strong> {org.clients}</Col>
-                <Col><strong>Programs:</strong> {org.programs}</Col>
-                <Col><strong>Last Active:</strong> {org.lastActive}</Col>
+                <Col>
+                  <strong>Admin:</strong> {org.admin}
+                </Col>
+                <Col>
+                  <strong>Clients:</strong> {org.clients}
+                </Col>
+                <Col>
+                  <strong>Programs:</strong> {org.programs}
+                </Col>
+                <Col>
+                  <strong>Last Active:</strong> {org.lastActive}
+                </Col>
               </Row>
             </Card.Body>
           </Card>
@@ -114,10 +115,18 @@ const OrganizationDetails: React.FC = () => {
             <Card.Header>Wellness Center Inc. Details</Card.Header>
             <Card.Body>
               <Row>
-                <Col><strong>ID:</strong> {org.id}</Col>
-                <Col><strong>Subscription Plan:</strong> {org.subscription}</Col>
-                <Col><strong>Status:</strong> {org.status}</Col>
-                <Col><strong>Created:</strong> {org.created}</Col>
+                <Col>
+                  <strong>ID:</strong> {org.id}
+                </Col>
+                <Col>
+                  <strong>Subscription Plan:</strong> {org.subscription}
+                </Col>
+                <Col>
+                  <strong>Status:</strong> {org.status}
+                </Col>
+                <Col>
+                  <strong>Created:</strong> {org.created}
+                </Col>
               </Row>
               <Row className="mt-3">
                 <Col>

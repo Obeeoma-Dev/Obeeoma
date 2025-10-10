@@ -18,7 +18,9 @@ type SidebarContextType = {
 
 // Create the SidebarContext with a default value of null.
 // We'll throw an error if someone tries to use it outside the provider.
-export const SidebarContext = React.createContext<SidebarContextType | null>(null);
+export const SidebarContext = React.createContext<SidebarContextType | null>(
+  null,
+);
 
 // Custom React Hook to easily access SidebarContext values.
 // Instead of calling React.useContext(SidebarContext) directly everywhere,

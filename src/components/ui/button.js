@@ -3,7 +3,11 @@ import { Slot } from "@radix-ui/react-slot";
 import { buttonVariants } from "./button.styles";
 import { cn } from "@/lib/utils";
 function Button({ className, variant, size, asChild = false, ...props }) {
-    const Comp = asChild ? Slot : "button";
-    return (_jsx(Comp, { "data-slot": "button", className: cn(buttonVariants({ variant, size, className })), ...props }));
+  const Comp = asChild ? Slot : "button";
+  return _jsx(Comp, {
+    "data-slot": "button",
+    className: cn(buttonVariants({ variant, size, className })),
+    ...props,
+  });
 }
 export { Button, buttonVariants };

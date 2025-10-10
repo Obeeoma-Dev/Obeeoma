@@ -71,7 +71,8 @@ const Sidebar: React.FC = () => {
       {/* Navigation menu */}
       <Nav className="flex-column px-3 py-4">
         {menuItems.map((item) => {
-          const IconComponent = (Icons[item.icon as keyof typeof Icons] || Icons.Circle) as React.FC<{ size?: number }>;
+          const IconComponent = (Icons[item.icon as keyof typeof Icons] ||
+            Icons.Circle) as React.FC<{ size?: number }>;
 
           const isActive = currentPath === item.id;
 

@@ -37,7 +37,7 @@ export function Sidebar({ children }: { children: React.ReactNode }) {
       // Apply dynamic class based on whether sidebar is open or closed
       className={cn(
         "fixed left-0 top-0 h-full transition-all duration-300 bg-gray-900 text-white shadow-lg z-50",
-        isOpen ? "translate-x-0" : `-translate-x-[${SIDEBAR_WIDTH}]`
+        isOpen ? "translate-x-0" : `-translate-x-[${SIDEBAR_WIDTH}]`,
       )}
       style={{ width: SIDEBAR_WIDTH }}
     >
@@ -63,14 +63,25 @@ export function SidebarTrigger() {
         stroke="currentColor"
         viewBox="0 0 24 24"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 6h16M4 12h16M4 18h16"
+        />
       </svg>
     </button>
   );
 }
 
 // SidebarGroup — optional grouping for sidebar items
-export function SidebarGroup({ title, children }: { title: string; children: React.ReactNode }) {
+export function SidebarGroup({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="mt-4">
       <h3 className="px-4 text-xs uppercase text-gray-400">{title}</h3>
@@ -80,7 +91,13 @@ export function SidebarGroup({ title, children }: { title: string; children: Rea
 }
 
 // SidebarItem — individual clickable item
-export function SidebarItem({ label, onClick }: { label: string; onClick?: () => void }) {
+export function SidebarItem({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick?: () => void;
+}) {
   return (
     <button
       onClick={onClick}
