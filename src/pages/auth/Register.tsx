@@ -17,7 +17,7 @@ import {
 type Role = "Employee" | "Employer";
 
 const validationSchema = Yup.object({
-  aliasName: Yup.string().required("Alias Name is required"),
+  userName: Yup.string().required("User Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().min(6, "Minimum 6 characters").required("Password is required"),
   confirmPassword: Yup.string()
@@ -29,7 +29,7 @@ const Register: React.FC = () => {
   const [role, setRole] = useState<Role>("Employee");
 
   const initialValues = {
-    aliasName: "",
+    userName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -57,14 +57,14 @@ const Register: React.FC = () => {
                   <InputGroup.Text id="aliasName-label">Alias Name</InputGroup.Text>
                   <BootstrapForm.Control
                     type="text"
-                    name="aliasName"
-                    value={values.aliasName}
+                    name="userName"
+                    value={values.userName}
                     onChange={handleChange}
-                    isInvalid={!!touched.aliasName && !!errors.aliasName}
+                    isInvalid={!!touched.userName && !!errors.userName}
                     aria-describedby="aliasName-label"
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
-                    <ErrorMessage name="aliasName" />
+                    <ErrorMessage name="userName" />
                   </BootstrapForm.Control.Feedback>
                 </InputGroup>
 
@@ -161,11 +161,11 @@ const Register: React.FC = () => {
             Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers,
             and tools to track your progress.
           </p>
-          <ul className="text-secondary">
+          <ol className="text-secondary">
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>
-          </ul>
+          </ol>
         </Col>
       </Row>
     </Container>
