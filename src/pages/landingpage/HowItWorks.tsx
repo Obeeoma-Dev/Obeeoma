@@ -5,9 +5,21 @@ import happyPersonImage from "../../assets/Images/professional-worker.png";
 
 const HowItWorks = () => {
   const steps = [
-    { icon: Building2, title: "Register Your Company", desc: "Get started in minutes and set up your workplace hub." },
-    { icon: Users, title: "Invite Employees", desc: "Give your team instant access to mental health tools." },
-    { icon: BarChart3, title: "Track Progress", desc: "View insights and see how your people are improving." },
+    {
+      icon: Building2,
+      title: "Register Your Company",
+      desc: "Get started in minutes and set up your workplace hub.",
+    },
+    {
+      icon: Users,
+      title: "Invite Employees",
+      desc: "Give your team instant access to mental health tools.",
+    },
+    {
+      icon: BarChart3,
+      title: "Track Progress",
+      desc: "View insights and see how your people are improving.",
+    },
   ];
 
   return (
@@ -15,11 +27,17 @@ const HowItWorks = () => {
       <div className="container">
         <div className="text-center mb-5">
           <h2 className="fw-bold">How It Works</h2>
-          <p className="text-light opacity-75">Three simple steps to start empowering wellbeing at work</p>
+          <p className="text-light opacity-75">
+            Three simple steps to start empowering wellbeing at work
+          </p>
         </div>
         <div className="row align-items-center">
           <div className="col-md-6 mb-4 mb-md-0">
-            <img src={happyPersonImage} alt="Happy worker" className="img-fluid rounded-4 shadow-lg" />
+            <img
+              src={happyPersonImage}
+              alt="Happy worker"
+              className="img-fluid rounded-4 shadow-lg"
+            />
           </div>
           <div className="col-md-6">
             {steps.map((s, i) => (

@@ -1,42 +1,68 @@
 import React from "react";
+import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const ResetPassword: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow-md rounded-lg overflow-hidden">
-        {/* Left Side */}
-        <div className="p-8">
-          <h2 className="text-2xl font-semibold mb-2">Reset Password to Sign in</h2>
-          <p className="text-gray-600 mb-6">Send code to email</p>
+    <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+      <Card
+        className="shadow-lg border-0 overflow-hidden"
+        style={{ maxWidth: "900px", width: "100%" }}
+      >
+        <Row className="g-0">
+          {/* Left Side */}
+          <Col md={6} className="p-5 bg-white">
+            <h2 className="fw-semibold mb-2">Reset Password to Sign in</h2>
+            <p className="text-muted mb-4">Send code to email</p>
 
-          <form className="space-y-4">
-            <input type="email" placeholder="Email address" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
+            <Form>
+              <Form.Group className="mb-4" controlId="formEmail">
+                <Form.Control
+                  type="email"
+                  placeholder="Email address"
+                  className="py-2"
+                />
+              </Form.Group>
 
-            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              Send me a code
-            </button>
-          </form>
+              <Button
+                type="submit"
+                variant="success"
+                className="w-100 py-2 fw-semibold"
+              >
+                Send code
+              </Button>
+            </Form>
 
-          <p className="mt-4 text-center text-gray-600">
-            Didn’t receive any code?{" "}
-            <button className="text-green-600 hover:underline">Send code again</button>
-          </p>
-        </div>
+            <p className="text-center text-muted mt-4">
+              Didn’t receive any code?{" "}
+              <Button
+                variant="link"
+                className="p-0 text-success text-decoration-none"
+              >
+                Send code again
+              </Button>
+            </p>
+          </Col>
 
-        {/* Right Side */}
-        <div className="p-8 bg-green-50 flex flex-col justify-center">
-          <h3 className="text-xl font-semibold mb-4">Reset & Continue</h3>
-          <p className="text-gray-600 mb-4">
-            Sign in to access your personalized mental health dashboard, connect with your care team,
-            and continue your wellness journey.
-          </p>
-          <ul className="space-y-2 text-gray-700">
-            <li>✔ Access your care plan</li>
-            <li>✔ Trigger crisis hotlines</li>
-            <li>✔ Get easy assessment through Sana</li>
-          </ul>
-        </div>
-      </div>
+          {/* Right Side */}
+          <Col
+            md={6}
+            className="p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10"
+          >
+            <h3 className="fw-semibold mb-4">Reset & Continue</h3>
+            <p className="text-muted mb-3">
+              Sign in to access your personalized mental health dashboard,
+              connect with your care team, and continue your wellness journey.
+            </p>
+
+            <ul className="list-unstyled text-secondary mb-0">
+              <li className="mb-2">✔ Access your care plan</li>
+              <li className="mb-2">✔ Trigger crisis hotlines</li>
+              <li>✔ Get easy assessment through Sana</li>
+            </ul>
+          </Col>
+        </Row>
+      </Card>
     </div>
   );
 };

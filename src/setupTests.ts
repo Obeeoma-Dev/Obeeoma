@@ -1,10 +1,18 @@
 // setupTests.ts
 
-// This import adds helpful matchers like `toBeInTheDocument`, `toHaveStyle`, etc.
+// Import matchers from jest-dom for extended assertions
 import "@testing-library/jest-dom";
 
 // Polyfill TextEncoder/TextDecoder for Jest (needed by react-router)
 import { TextEncoder, TextDecoder } from "util";
 
-(global as any).TextEncoder = TextEncoder;
-(global as any).TextDecoder = TextDecoder as any;
+// Add explicit types for Node.js global
+declare global {
+  // eslint-disable-next-line no-var
+  var TextEncoder: typeof TextEncoder;
+  // eslint-disable-next-line no-var
+  var TextDecoder: typeof TextDecoder;
+}
+
+globalThis.TextEncoder = TextEncoder;
+globalThis.TextDecoder = TextDecoder;

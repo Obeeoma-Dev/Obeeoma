@@ -1,46 +1,48 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
+// Enable client-side rendering (Next.js specific directive)
+"use client";
 
+// Import React for JSX and component definitions
+import * as React from "react";
+
+// Import Slot from Radix for polymorphic rendering
+import { Slot } from "@radix-ui/react-slot";
+
+// Import utility to conditionally merge class names
 import { cn } from "@/lib/utils";
 
-const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
-  {
-    variants: {
-      variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive:
-          "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline:
-          "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  },
-);
+// Import badge styling variants and their type alias
+import { badgeVariants, BadgeVariantProps } from "./badge.styles";
 
+/**
+ * Props for the Badge component
+ * Combines native span props, variant styling, and optional Slot rendering
+ */
+type BadgeProps = React.ComponentProps<"span"> &
+  BadgeVariantProps & {
+    asChild?: boolean; // If true, render as Slot instead of span
+  };
+
+/**
+ * Badge component — renders a styled span or Slot element
+ * Uses CVA for styling variants and Radix Slot for polymorphism
+ */
 function Badge({
-  className,
-  variant,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"span"> &
-  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+  className, // Optional custom class
+  variant, // Style variant (e.g. default, secondary)
+  asChild = false, // Whether to render as Slot or span
+  ...props // Other native span props
+}: BadgeProps) {
+  // Choose the element type based on asChild flag
   const Comp = asChild ? Slot : "span";
 
   return (
     <Comp
-      data-slot="badge"
-      className={cn(badgeVariants({ variant }), className)}
-      {...props}
+      data-slot="badge" // Custom data attribute for targeting/styling
+      className={cn(badgeVariants({ variant }), className)} // Merge variant styles with custom class
+      {...props} // Spread remaining props like id, aria-label, etc.
     />
   );
 }
 
-export { Badge, badgeVariants };
+// Export the Badge component for use in other files
+export { Badge };

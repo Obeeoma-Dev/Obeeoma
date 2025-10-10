@@ -1,23 +1,81 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { ACCESS_TOKEN } from '../constants';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  InternalAxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
+import { store } from "../store/store"; // 👈 adjust path if your store is elsewhere
+import { logout } from "../store/slices/authSlice";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
-// Create the Axios instance with the base URL
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+// Create base Axios instance
+const api: AxiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Use an interceptor to add the token to every request
-api.interceptors.request.use(
-    (config: InternalAxiosRequestConfig) => {
-        const token = localStorage.getItem(ACCESS_TOKEN);
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error: AxiosError) => {
-        return Promise.reject(error);
+// --- Helper: Refresh access token ---
+async function refreshAccessToken(): Promise<string | null> {
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+  if (!refreshToken) return null;
+
+  try {
+    const response = await axios.post<{ access_token: string }>(
+      `${import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/"}auth/token/refresh/`,
+      { refresh: refreshToken }
+    );
+
+    const newAccessToken = response.data.access_token;
+    if (newAccessToken) {
+      localStorage.setItem(ACCESS_TOKEN, newAccessToken);
+      return newAccessToken;
     }
+    return null;
+  } catch (error) {
+    console.error("Token refresh failed:", error);
+    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(REFRESH_TOKEN);
+    return null;
+  }
+}
+
+// --- Request Interceptor ---
+api.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem(ACCESS_TOKEN);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error: AxiosError) => Promise.reject(error)
+);
+
+// --- Response Interceptor: Auto-refresh + Redux logout ---
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+
+    // Token expired? Try refresh
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const newAccessToken = await refreshAccessToken();
+      if (newAccessToken) {
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return api(originalRequest);
+      }
+
+      // Refresh failed → dispatch logout
+      store.dispatch(logout());
+      return Promise.reject(error);
+    }
+
+    return Promise.reject(error);
+  }
 );
 
 export default api;

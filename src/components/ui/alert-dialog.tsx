@@ -1,33 +1,52 @@
 "use client";
 
+// Import React and Radix AlertDialog primitives
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
+// Import utility for merging class names
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 
-function AlertDialog({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
+// Import styling logic from separate file to satisfy ESLint
+import {
+  alertDialogButtonClass,
+  alertDialogCancelClass,
+} from "./alert-dialog-styles";
+
+/**
+ * Root component that wraps the entire alert dialog
+ */
+function AlertDialog(
+  props: React.ComponentProps<typeof AlertDialogPrimitive.Root>,
+) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
 }
 
-function AlertDialogTrigger({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
+/**
+ * Trigger component that opens the alert dialog
+ */
+function AlertDialogTrigger(
+  props: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>,
+) {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
   );
 }
 
-function AlertDialogPortal({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) {
+/**
+ * Portal component for rendering dialog outside DOM hierarchy
+ */
+function AlertDialogPortal(
+  props: React.ComponentProps<typeof AlertDialogPrimitive.Portal>,
+) {
   return (
     <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
   );
 }
 
+/**
+ * Overlay component that dims the background
+ */
 function AlertDialogOverlay({
   className,
   ...props
@@ -44,6 +63,9 @@ function AlertDialogOverlay({
   );
 }
 
+/**
+ * Content component that holds the dialog box
+ */
 function AlertDialogContent({
   className,
   ...props
@@ -63,6 +85,9 @@ function AlertDialogContent({
   );
 }
 
+/**
+ * Header section of the dialog
+ */
 function AlertDialogHeader({
   className,
   ...props
@@ -76,6 +101,9 @@ function AlertDialogHeader({
   );
 }
 
+/**
+ * Footer section with action buttons
+ */
 function AlertDialogFooter({
   className,
   ...props
@@ -92,6 +120,9 @@ function AlertDialogFooter({
   );
 }
 
+/**
+ * Title text of the dialog
+ */
 function AlertDialogTitle({
   className,
   ...props
@@ -105,6 +136,9 @@ function AlertDialogTitle({
   );
 }
 
+/**
+ * Description text of the dialog
+ */
 function AlertDialogDescription({
   className,
   ...props
@@ -118,30 +152,37 @@ function AlertDialogDescription({
   );
 }
 
+/**
+ * Action button (e.g. Confirm)
+ */
 function AlertDialogAction({
   className,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Action>) {
   return (
     <AlertDialogPrimitive.Action
-      className={cn(buttonVariants(), className)}
+      className={cn(alertDialogButtonClass, className)}
       {...props}
     />
   );
 }
 
+/**
+ * Cancel button
+ */
 function AlertDialogCancel({
   className,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Cancel>) {
   return (
     <AlertDialogPrimitive.Cancel
-      className={cn(buttonVariants({ variant: "outline" }), className)}
+      className={cn(alertDialogCancelClass, className)}
       {...props}
     />
   );
 }
 
+// Export all components
 export {
   AlertDialog,
   AlertDialogPortal,
