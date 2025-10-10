@@ -25,6 +25,7 @@ const Register = () => {
     // Initial form values
     const initialValues = {
         userName: "",
+        userName: "",
         email: "",
         password: "",
         confirmPassword: "",
