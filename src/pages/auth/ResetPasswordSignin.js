@@ -2,6 +2,95 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Row, Col, Form, Button, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 const ResetPassword = () => {
-    return (_jsx("div", { className: "d-flex align-items-center justify-content-center min-vh-100 bg-light", children: _jsx(Card, { className: "shadow-lg border-0 overflow-hidden", style: { maxWidth: "900px", width: "100%" }, children: _jsxs(Row, { className: "g-0", children: [_jsxs(Col, { md: 6, className: "p-5 bg-white", children: [_jsx("h2", { className: "fw-semibold mb-2", children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4", children: "Send code to email" }), _jsxs(Form, { children: [_jsx(Form.Group, { className: "mb-4", controlId: "formEmail", children: _jsx(Form.Control, { type: "email", placeholder: "Email address", className: "py-2" }) }), _jsx(Button, { type: "submit", variant: "success", className: "w-100 py-2 fw-semibold", children: "Send code" })] }), _jsxs("p", { className: "text-center text-muted mt-4", children: ["Didn\u2019t receive any code?", " ", _jsx(Button, { variant: "link", className: "p-0 text-success text-decoration-none", children: "Send code again" })] })] }), _jsxs(Col, { md: 6, className: "p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10", children: [_jsx("h3", { className: "fw-semibold mb-4", children: "Reset & Continue" }), _jsx("p", { className: "text-muted mb-3", children: "Sign in to access your personalized mental health dashboard, connect with your care team, and continue your wellness journey." }), _jsxs("ul", { className: "list-unstyled text-secondary mb-0", children: [_jsx("li", { className: "mb-2", children: "\u2714 Access your care plan" }), _jsx("li", { className: "mb-2", children: "\u2714 Trigger crisis hotlines" }), _jsx("li", { children: "\u2714 Get easy assessment through Sana" })] })] })] }) }) }));
+  return _jsx("div", {
+    className:
+      "d-flex align-items-center justify-content-center min-vh-100 bg-light",
+    children: _jsx(Card, {
+      className: "shadow-lg border-0 overflow-hidden",
+      style: { maxWidth: "900px", width: "100%" },
+      children: _jsxs(Row, {
+        className: "g-0",
+        children: [
+          _jsxs(Col, {
+            md: 6,
+            className: "p-5 bg-white",
+            children: [
+              _jsx("h2", {
+                className: "fw-semibold mb-2",
+                children: "Reset Password to Sign in",
+              }),
+              _jsx("p", {
+                className: "text-muted mb-4",
+                children: "Send code to email",
+              }),
+              _jsxs(Form, {
+                children: [
+                  _jsx(Form.Group, {
+                    className: "mb-4",
+                    controlId: "formEmail",
+                    children: _jsx(Form.Control, {
+                      type: "email",
+                      placeholder: "Email address",
+                      className: "py-2",
+                    }),
+                  }),
+                  _jsx(Button, {
+                    type: "submit",
+                    variant: "success",
+                    className: "w-100 py-2 fw-semibold",
+                    children: "Send code",
+                  }),
+                ],
+              }),
+              _jsxs("p", {
+                className: "text-center text-muted mt-4",
+                children: [
+                  "Didn\u2019t receive any code?",
+                  " ",
+                  _jsx(Button, {
+                    variant: "link",
+                    className: "p-0 text-success text-decoration-none",
+                    children: "Send code again",
+                  }),
+                ],
+              }),
+            ],
+          }),
+          _jsxs(Col, {
+            md: 6,
+            className:
+              "p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10",
+            children: [
+              _jsx("h3", {
+                className: "fw-semibold mb-4",
+                children: "Reset & Continue",
+              }),
+              _jsx("p", {
+                className: "text-muted mb-3",
+                children:
+                  "Sign in to access your personalized mental health dashboard, connect with your care team, and continue your wellness journey.",
+              }),
+              _jsxs("ul", {
+                className: "list-unstyled text-secondary mb-0",
+                children: [
+                  _jsx("li", {
+                    className: "mb-2",
+                    children: "\u2714 Access your care plan",
+                  }),
+                  _jsx("li", {
+                    className: "mb-2",
+                    children: "\u2714 Trigger crisis hotlines",
+                  }),
+                  _jsx("li", {
+                    children: "\u2714 Get easy assessment through Sana",
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      }),
+    }),
+  });
 };
 export default ResetPassword;
