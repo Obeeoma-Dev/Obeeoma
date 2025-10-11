@@ -1,8 +1,8 @@
-// tailwind.config.ts
-import type { Config } from "tailwindcss";
+// .config.ts
+import type { Config } from "css";
 
 /**
- * Tailwind CSS v4 configuration
+ *  CSS v4 configuration
  * - Fully TypeScript
  * - Scans all TS/TSX files in src
  * - Extends theme with your design system
@@ -11,7 +11,7 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: [
     "./index.html",
-    "./src/**/*.{ts,tsx,js,jsx}", // Tailwind scans all React TS/TSX files
+    "./src/**/*.{ts,tsx,js,jsx}", //  scans all React TS/TSX files
   ],
   theme: {
     extend: {

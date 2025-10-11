@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Login.tsx
-// A responsive React + TypeScript login component with Tailwind CSS.
+// A responsive React + TypeScript login component with  CSS.
 
 export default function Login(): JSX.Element {
   const [username, setUsername] = useState("");
