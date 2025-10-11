@@ -22,6 +22,7 @@ type Role = "Employee" | "Employer";
 // Validation schema using Yup
 const validationSchema = Yup.object({
   userName: Yup.string().required("User name is required"),
+  userName: Yup.string().required("User Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .min(6, "Minimum 6 characters")
@@ -197,7 +198,7 @@ const Register: React.FC = () => {
             resources, secure communication with healthcare providers, and tools
             to track your progress.
           </p>
-          <ul className="text-secondary" style={{ listStyle: "none" }}>
+          <ul className="text-secondary">
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>

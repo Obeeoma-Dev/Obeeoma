@@ -6,7 +6,7 @@ import path from "path";
 /**
  * Vite configuration
  * - React plugin for JSX/TSX and HMR
- * - Tailwind CSS plugin v4
+ * -  CSS plugin v4
  * - Path alias "@" for cleaner imports
  */
 

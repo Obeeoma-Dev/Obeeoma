@@ -104,6 +104,11 @@ function FormControl(props: React.ComponentProps<typeof Slot>) {
           ? `${formDescriptionId}`
           : `${formDescriptionId} ${formMessageId}`
       }
+      aria-describedby={
+        !error
+          ? `${formDescriptionId}`
+          : `${formDescriptionId} ${formMessageId}`
+      }
       aria-invalid={!!error}
       {...props}
     />
@@ -139,6 +144,7 @@ function FormMessage({
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? "") : children;
 
+  if (!body) return null;
   if (!body) return null;
 
   return (
