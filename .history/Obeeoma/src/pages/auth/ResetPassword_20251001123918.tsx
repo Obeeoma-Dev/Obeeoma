@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // ResetPasswordSignIn.tsx
-// A responsive React + TypeScript reset password sign-in component with Tailwind CSS.
+// A responsive React + TypeScript reset password sign-in component with  CSS.
 
 export default function ResetPasswordSignIn(): React.FC | JSX.Element {
   const [email, setEmail] = useState("");
