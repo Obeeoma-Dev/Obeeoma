@@ -1,60 +1,36 @@
-import type { Config } from "@jest/types";
+import type { Config } from "jest";
 
-/**
- * Jest configuration for a React + TypeScript + Vite project.
- * This ensures:
- *  - TypeScript/TSX files are transformed correctly using ts-jest
- *  - CSS and image imports don’t break tests
- *  - Module alias "@" maps to your src directory
- *  - React DOM environment (jsdom) is used
- */
-const config: Config.InitialOptions = {
-  // Use ts-jest preset to handle TypeScript and TSX files
-  preset: "ts-jest",
+const config: Config = {
+  // Transform JS/TS with Babel
+  transform: {
+    "^.+\\.(ts|tsx|js|jsx)$": "babel-jest",
+  },
 
-  // Simulate a browser-like environment (needed for React components)
+  // Test environment simulating browser
   testEnvironment: "jsdom",
 
-  // Recognized file extensions for modules
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  // Recognize these extensions
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
 
-  // Transform rules tell Jest how to process different file types
-  transform: {
-    // Use ts-jest to compile .ts and .tsx files
-    "^.+\\.(ts|tsx)$": "ts-jest",
-  },
-
-  // Tell Jest which modules inside node_modules to ignore during transformation
-  transformIgnorePatterns: [
-    // Allow react-router-dom (ESM) to be transformed if necessary
-    "node_modules/(?!react-router-dom)",
-  ],
-
-  // Map special import paths and mock non-JS modules
+  // Mock paths and assets
   moduleNameMapper: {
-    // Path alias: allows using "@/something" instead of long relative paths
-    "^@/(.*)$": "<rootDir>/src/$1",
-
-    // Mock all CSS/SCSS imports so Jest doesn’t try to read CSS files
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-
-    // Mock static asset imports like images or fonts
-    "\\.(gif|ttf|eot|svg|png|jpg|jpeg|webp)$":
-      "<rootDir>/__mocks__/fileMock.ts",
+    "^@/(.*)$": "<rootDir>/src/$1",              // Alias "@"
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Mock CSS
+    "\\.(png|jpg|jpeg|gif|webp|svg|ttf|eot)$": "<rootDir>/__mocks__/fileMock.ts", // Mock images
   },
 
-  // Files to load before running tests — good for setting up Testing Library
+  // Ignore these folders
+  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/build/"],
+
+  // Setup files like jest-dom
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
 
-  // Ignore build folders when running tests
-  testPathIgnorePatterns: ["/node_modules/", "/dist/"],
+  // Coverage config
+  collectCoverageFrom: ["src/**/*.{ts,tsx,js,jsx}", "!src/**/*.d.ts", "!src/**/index.{ts,tsx}"],
+  coverageDirectory: "<rootDir>/coverage",
+  coverageReporters: ["text", "lcov", "json-summary"],
 
-  // Collect coverage info from your src folder
-  collectCoverageFrom: ["src/**/*.{ts,tsx,js,jsx}"],
-
-  // Coverage report output format
-  coverageReporters: ["text", "lcov"],
+  verbose: true,
 };
 
-// Export the configuration object
 export default config;

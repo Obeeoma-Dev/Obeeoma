@@ -3,5 +3,5 @@
  * Jest mock for image and static asset imports.
  * This ensures tests don't break when importing images, fonts, or media files.
  */
-const fileMock: string = "test-file-stub";
-export default fileMock;
+export default "test-file-stub";
+

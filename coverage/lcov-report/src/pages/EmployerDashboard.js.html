@@ -1,0 +1,322 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/pages/EmployerDashboard.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/pages</a> EmployerDashboard.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/18</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/8</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Users, FileCheck, TrendingUp, AlertTriangle, LayoutDashboard, Users as UsersIcon, CreditCard, Settings, Search, Bell, Menu, X, } from "lucide-react";
+import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend, } from "recharts";
+import { useNavigate } from "react-router-dom";
+const EmployerDashboard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+    const [isSidebarOpen, setIsSidebarOpen] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+    const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+    const statsData = <span class="cstat-no" title="statement not covered" >[</span>
+        {
+            title: "Total Employees",
+            value: "4",
+            description: "Active employees in the system",
+            icon: Users,
+            iconBg: "bg-primary",
+        },
+        {
+            title: "Total Tests",
+            value: "6",
+            description: "Tests completed",
+            icon: FileCheck,
+            iconBg: "bg-blue-500",
+        },
+        {
+            title: "Average Score",
+            value: "61%",
+            description: "Average wellness score",
+            icon: TrendingUp,
+            iconBg: "bg-amber-500",
+        },
+        {
+            title: "At Risk",
+            value: "0",
+            description: "Departments with risk factors",
+            icon: AlertTriangle,
+            iconBg: "bg-red-500",
+        },
+    ];
+    const testsByType = <span class="cstat-no" title="statement not covered" >[</span>
+        { name: "Well-being Check", value: 2 },
+        { name: "Burnout Risk", value: 1 },
+    ];
+    const testsByDepartment = <span class="cstat-no" title="statement not covered" >[</span>
+        { name: "Marketing", value: 25, color: "#10b981" },
+        { name: "HR", value: 25, color: "#60a5fa" },
+        { name: "Finance", value: 25, color: "#f59e0b" },
+        { name: "Engineering", value: 25, color: "#ef4444" },
+    ];
+    const recentActivity = <span class="cstat-no" title="statement not covered" >[</span>
+        {
+            text: "A new wellness test was completed in",
+            department: "Engineering",
+            time: "2 hours ago",
+        },
+        {
+            text: "Department Marketing completed monthly assessments",
+            department: "",
+            time: "1 day ago",
+        },
+        {
+            text: "New wellness resources added to the platform",
+            department: "",
+            time: "2 days ago",
+        },
+    ];
+    const menuItems = <span class="cstat-no" title="statement not covered" >[</span>
+        { icon: LayoutDashboard, label: "Overview", active: true },
+        { icon: UsersIcon, label: "Employees", active: false },
+        { icon: CreditCard, label: "Subscription", active: false },
+        { icon: Settings, label: "Settings", active: false },
+    ];
+<span class="cstat-no" title="statement not covered" >    return (_jsxs("div", { className: "min-h-screen bg-muted/30", children: [isSidebarOpen &amp;&amp; (_jsx("div", { className: "fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden", onClick: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setIsSidebarOpen(false) </span>})), _jsxs("aside", { className: `fixed top-0 left-0 h-full bg-background border-r border-border w-64 z-50 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`, children: [_jsxs("div", { className: "p-6 flex items-center justify-between", children: [_jsxs("button", { onClick: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate("/"),</span> className: "flex items-center gap-2", children: [_jsx("div", { className: "w-10 h-10 rounded-full bg-primary flex items-center justify-center", children: _jsx("span", { className: "text-primary-foreground font-bold text-lg", children: "O" }) }), _jsx("span", { className: "text-xl font-bold text-primary", children: "Obeeoma" })] }), _jsx("button", { onClick: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setIsSidebarOpen(false),</span> className: "lg:hidden", children: _jsx(X, { className: "w-5 h-5" }) })] }), _jsxs("nav", { className: "px-4 mt-8", children: [_jsx("p", { className: "text-xs text-muted-foreground mb-4 px-3", children: "Menu" }), menuItems.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; (<span class="cstat-no" title="statement not covered" >_jsxs("button", { className: `w-full flex items-center gap-3 px-3 py-3 rounded-lg mb-2 transition-colors ${item.active</span></span>
+                                    ? "bg-primary/10 text-primary"
+                                    : "text-foreground hover:bg-muted"}`, children: [_jsx(item.icon, { className: "w-5 h-5" }), _jsx("span", { className: "font-medium", children: item.label })] }, item.label)))] })] }), _jsxs("div", { className: "lg:ml-64", children: [_jsxs("header", { className: "bg-background border-b border-border px-4 sm:px-6 py-4 flex items-center justify-between sticky top-0 z-30", children: [_jsx("button", { onClick: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setIsSidebarOpen(true),</span> className: "lg:hidden p-2", children: _jsx(Menu, { className: "w-6 h-6" }) }), _jsx("div", { className: "flex-1 max-w-xl mx-4", children: _jsxs("div", { className: "relative", children: [_jsx(Search, { className: "absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" }), _jsx(Input, { type: "search", placeholder: "Search...", className: "pl-10 bg-muted/50" })] }) }), _jsxs("button", { className: "relative p-2", children: [_jsx(Bell, { className: "w-5 h-5" }), _jsx("span", { className: "absolute top-1 right-1 w-2 h-2 bg-primary rounded-full" })] })] }), _jsxs("main", { className: "p-4 sm:p-6 lg:p-8", children: [_jsx("h1", { className: "text-2xl sm:text-3xl font-bold mb-6", children: "Organization Overview" }), _jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6", children: statsData.map(<span class="fstat-no" title="function not covered" >(s</span>tat) =&gt; (<span class="cstat-no" title="statement not covered" >_jsx(Card, { className: "hover:shadow-lg transition-shadow", children: _jsx(CardContent, { className: "p-6", children: _jsxs("div", { className: "flex items-start gap-4", children: [_jsx("div", { className: `${stat.iconBg} w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0`, children: _jsx(stat.icon, { className: "w-6 h-6 text-white" }) }), _jsxs("div", { className: "flex-1 min-w-0", children: [_jsx("p", { className: "text-sm text-muted-foreground mb-1", children: stat.title }), _jsx("p", { className: "text-3xl font-bold mb-1", children: stat.value }), _jsx("p", { className: "text-xs text-muted-foreground", children: stat.description })] })] }) }) }, stat.title))</span>) }), _jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6", children: [_jsx(Card, { children: _jsxs(CardContent, { className: "p-6", children: [_jsx("h3", { className: "text-lg font-semibold mb-6", children: "Tests by Type" }), _jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(BarChart, { data: testsByType, children: [_jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "hsl(var(--border))" }), _jsx(XAxis, { dataKey: "name", tick: { fill: "hsl(var(--foreground))" } }), _jsx(YAxis, { tick: { fill: "hsl(var(--foreground))" } }), _jsx(Bar, { dataKey: "value", fill: "hsl(var(--primary))", radius: [8, 8, 0, 0] })] }) })] }) }), _jsx(Card, { children: _jsxs(CardContent, { className: "p-6", children: [_jsx("h3", { className: "text-lg font-semibold mb-6", children: "Tests by Department" }), _jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(PieChart, { children: [_jsx(Pie, { data: testsByDepartment, cx: "50%", cy: "50%", labelLine: false, label: <span class="fstat-no" title="function not covered" >({</span> name, value }) =&gt; <span class="cstat-no" title="statement not covered" >`${name}: ${value}%`,</span> outerRadius: 80, fill: "#8884d8", dataKey: "value", children: testsByDepartment.map(<span class="fstat-no" title="function not covered" >(e</span>ntry, index) =&gt; (<span class="cstat-no" title="statement not covered" >_jsx(Cell, { fill: entry.color }, `cell-${index}`))</span>) }), _jsx(Legend, {})] }) })] }) })] }), _jsx(Card, { children: _jsxs(CardContent, { className: "p-6", children: [_jsxs("div", { className: "flex items-center justify-between mb-6", children: [_jsx("h3", { className: "text-lg font-semibold", children: "Recent Activity" }), _jsx(Button, { variant: "ghost", className: "text-primary hover:text-primary", children: "View All" })] }), _jsx("div", { className: "space-y-4", children: recentActivity.map(<span class="fstat-no" title="function not covered" >(a</span>ctivity, index) =&gt; (<span class="cstat-no" title="statement not covered" >_jsxs("div", { className: "flex items-start gap-4 py-3 border-b last:border-0", children: [_jsx("div", { className: "w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" }), _jsx("div", { className: "flex-1", children: _jsxs("p", { className: "text-sm", children: [activity.text, " ", activity.department &amp;&amp; (_jsx("span", { className: "font-medium", children: activity.department }))] }) }), _jsx("span", { className: "text-xs text-muted-foreground whitespace-nowrap", children: activity.time })] }, index))</span>) })] }) })] })] })] }));
+};
+export default EmployerDashboard;
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-10-11T10:54:05.192Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

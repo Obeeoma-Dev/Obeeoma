@@ -1,0 +1,199 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/pages/auth/Register.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/pages/auth</a> Register.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/9</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/7</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useState } from "react";
+// React Router for navigation
+import { Link } from "react-router-dom";
+// Formik for form state management and validation
+import { Formik, Form as FormikForm, ErrorMessage } from "formik";
+// Yup for schema validation
+import * as Yup from "yup";
+// Bootstrap components for styling
+import { Container, Row, Col, Button, Form as BootstrapForm, ToggleButton, ToggleButtonGroup, } from "react-bootstrap";
+// Validation schema using Yup
+const validationSchema = <span class="cstat-no" title="statement not covered" >Yup.object({</span>
+    userName: Yup.string().required("User name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+        .min(6, "Minimum 6 characters")
+        .required("Password is required"),
+    confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords must match")
+        .required("Confirm Password is required"),
+});
+const Register = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+    // Role state for toggle buttons
+    const [role, setRole] = <span class="cstat-no" title="statement not covered" >useState("Employee");</span>
+    // Initial form values
+    const initialValues = <span class="cstat-no" title="statement not covered" >{</span>
+        userName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    };
+    // Handle form submission
+    const handleSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(v</span>alues) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        console.log("Register submitted:", { ...values, role });</span>
+    };
+<span class="cstat-no" title="statement not covered" >    return (_jsx(Container, { fluid: true, className: "min-vh-100 d-flex align-items-center justify-content-center bg-light", children: _jsxs(Row, { className: "shadow bg-white rounded-lg overflow-hidden w-100", style: { maxWidth: 900 }, children: [_jsxs(Col, { md: 6, className: "p-4", children: [_jsx("h2", { className: "mb-3", children: "Create your account" }), _jsx("p", { className: "mb-4 text-muted", children: "Join our community of mental health professionals and patients" }), _jsx(Formik, { validationSchema: validationSchema, initialValues: initialValues, onSubmit: handleSubmit, children: <span class="fstat-no" title="function not covered" >({</span> handleSubmit, handleChange, values, touched, errors }) =&gt; (<span class="cstat-no" title="statement not covered" >_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "User Name" }), _jsx(BootstrapForm.Control, { type: "text", name: "userName", value: values.userName, onChange: handleChange, isInvalid: !!touched.userName &amp;&amp; !!errors.userName }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "userName" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "Email" }), _jsx(BootstrapForm.Control, { type: "email", name: "email", value: values.email, onChange: handleChange, isInvalid: !!touched.email &amp;&amp; !!errors.email }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Label, { children: "Password" }), _jsx(BootstrapForm.Control, { type: "password", name: "password", value: values.password, onChange: handleChange, isInvalid: !!touched.password &amp;&amp; !!errors.password }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "password" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Label, { children: "Confirm Password" }), _jsx(BootstrapForm.Control, { type: "password", name: "confirmPassword", value: values.confirmPassword, onChange: handleChange, isInvalid: !!touched.confirmPassword &amp;&amp; !!errors.confirmPassword }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "confirmPassword" }) })] }), _jsx("div", { className: "d-flex justify-content-between align-items-center mb-4", children: _jsxs(ToggleButtonGroup, { type: "radio", name: "role", value: role, onChange: <span class="fstat-no" title="function not covered" >(v</span>al) =&gt; <span class="cstat-no" title="statement not covered" >setRole(val),</span> children: [_jsx(ToggleButton, { id: "employee", value: "Employee", variant: role === "Employee" ? "success" : "outline-success", className: "px-3 py-1", children: "Employee" }), _jsx(ToggleButton, { id: "employer", value: "Employer", variant: role === "Employer" ? "success" : "outline-success", className: "px-3 py-1", children: "Employer" })] }) }), _jsx(Button, { type: "submit", variant: "success", size: "lg", className: "w-100", children: "Create Account" })] }))</span> }), _jsxs("p", { className: "mt-3 text-center text-muted", children: ["Already have an account?", " ", _jsx(Link, { to: "/Login", className: "text-success fw-semibold", children: "Sign in" })] })] }), _jsxs(Col, { md: 6, className: "bg-success bg-opacity-25 p-4 d-flex flex-column justify-content-center", children: [_jsx("h3", { className: "mb-4 fw-semibold", children: "Begin Your Wellness Journey" }), _jsx("p", { className: "text-muted mb-4", children: "Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers, and tools to track your progress." }), _jsxs("ul", { className: "text-secondary", style: { listStyle: "none" }, children: [_jsx("li", { children: "\u2714 Personalized care plans" }), _jsx("li", { children: "\u2714 Secure messaging with providers" }), _jsx("li", { children: "\u2714 Progress tracking tools" })] })] })] }) }));</span>
+};
+export default Register;
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-10-11T10:54:05.192Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    

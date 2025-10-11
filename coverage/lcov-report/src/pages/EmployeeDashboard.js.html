@@ -1,0 +1,157 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/pages/EmployeeDashboard.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/pages</a> EmployeeDashboard.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/3</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/3</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Card, Button, Nav, Navbar, Alert, ListGroup, Badge, Dropdown, Image, } from "react-bootstrap";
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, LineChart, Line, Tooltip, ResponsiveContainer, } from "recharts";
+const weeklyData = <span class="cstat-no" title="statement not covered" >[</span>
+    { day: "Mon", minutes: 20 },
+    { day: "Tue", minutes: 35 },
+    { day: "Wed", minutes: 30 },
+    { day: "Thu", minutes: 45 },
+    { day: "Fri", minutes: 18 },
+    { day: "Sat", minutes: 33 },
+    { day: "Sun", minutes: 28 },
+];
+const moodTrend = <span class="cstat-no" title="statement not covered" >[</span>
+    { week: "Week 1", mood: 2 },
+    { week: "Week 2", mood: 1 },
+    { week: "Week 3", mood: 3 },
+    { week: "Week 4", mood: 4 },
+    { week: "Week 5", mood: 5 },
+    { week: "Week 6", mood: 4 },
+];
+export default function <span class="fstat-no" title="function not covered" >EmployeeDashboard(</span>) {
+<span class="cstat-no" title="statement not covered" >    return (_jsx(Container, { fluid: true, className: "bg-light min-vh-100 p-0", children: _jsxs(Row, { className: "g-0", children: [_jsxs(Col, { md: 2, className: "bg-white shadow-sm p-3", children: [_jsx("h4", { className: "text-success fw-bold mb-4 text-center", children: "Obeeoma" }), _jsxs(Nav, { className: "flex-column", children: [_jsx(Nav.Link, { as: Link, to: "#", className: "text-success fw-semibold", children: "Dashboard" }), _jsx(Nav.Link, { as: Link, to: "/AiAssistant", children: "AI Assistant" }), _jsx(Nav.Link, { as: Link, to: "/Resources", children: "Resources" }), _jsx(Nav.Link, { as: Link, to: "/MyProgress", children: "My Progress" }), _jsx(Nav.Link, { as: Link, to: "/MyPrograms", children: "My Programs" }), _jsx(Nav.Link, { as: Link, to: "/Rewards", children: "Rewards" }), _jsx(Nav.Link, { as: Link, to: "/Subscription", children: "Subscription" })] }), _jsx("hr", {}), _jsx(Nav.Link, { as: Link, to: "/Settings", className: "text-muted", children: "\u2699\uFE0F Settings" })] }), _jsxs(Col, { md: 10, className: "p-4", children: [_jsxs(Navbar, { className: "mb-4 d-flex justify-content-between align-items-center", children: [_jsx("h4", { className: "mb-0", children: "Welcome back, Emma!" }), _jsxs("div", { className: "d-flex align-items-center gap-3", children: [_jsxs(Dropdown, { children: [_jsx(Dropdown.Toggle, { variant: "light", id: "dropdown-basic", children: "\uD83D\uDD14" }), _jsxs(Dropdown.Menu, { className: "shadow-sm p-3", style: { width: 280 }, children: [_jsx("p", { className: "fw-semibold mb-2", children: "Notifications" }), _jsxs(ListGroup, { variant: "flush", children: [_jsxs(ListGroup.Item, { children: ["New session available in Anxiety Management", " ", _jsx(Badge, { bg: "secondary", pill: true, children: "2h ago" })] }), _jsxs(ListGroup.Item, { children: ["You earned a 7-day streak badge!", " ", _jsx(Badge, { bg: "secondary", pill: true, children: "1d ago" })] }), _jsxs(ListGroup.Item, { children: ["New recommended resource", " ", _jsx(Badge, { bg: "secondary", pill: true, children: "2d ago" })] })] }), _jsx("div", { className: "text-end mt-2", children: _jsx(Link, { to: "#", className: "text-success small", children: "View all notifications \u2192" }) })] })] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Image, { roundedCircle: true, width: 40, height: 40, src: "https://via.placeholder.com/40", alt: "profile", className: "me-2" }), _jsxs("div", { children: [_jsx("strong", { children: "Builder" }), _jsx("div", { className: "text-muted small", children: "Patient Dashboard" })] })] })] })] }), _jsx(Alert, { variant: "success", children: "\u2705 You\u2019re making great progress! You completed 3 activities this week, 40% more than last week." }), _jsxs(Row, { className: "g-3 mb-4", children: [_jsx(Col, { md: 3, children: _jsx(Card, { className: "text-center shadow-sm", children: _jsxs(Card.Body, { children: [_jsx("h5", { children: "7 days" }), _jsx(Card.Text, { className: "text-muted", children: "Current Streak" })] }) }) }), _jsx(Col, { md: 3, children: _jsx(Card, { className: "text-center shadow-sm", children: _jsxs(Card.Body, { children: [_jsx("h5", { children: "5h 23m" }), _jsx(Card.Text, { className: "text-muted", children: "Time in Programs" })] }) }) })] }), _jsxs(Row, { className: "g-3 mb-4", children: [_jsx(Col, { md: 6, children: _jsx(Card, { className: "shadow-sm", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Weekly Engagement (minutes)" }), _jsx(ResponsiveContainer, { width: "100%", height: 200, children: _jsxs(BarChart, { data: weeklyData, children: [_jsx(CartesianGrid, { strokeDasharray: "3 3" }), _jsx(XAxis, { dataKey: "day" }), _jsx(YAxis, {}), _jsx(Tooltip, {}), _jsx(Bar, { dataKey: "minutes", fill: "#198754" })] }) })] }) }) }), _jsx(Col, { md: 6, children: _jsx(Card, { className: "shadow-sm", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Mood Trend (1\u20135 scale)" }), _jsx(ResponsiveContainer, { width: "100%", height: 200, children: _jsxs(LineChart, { data: moodTrend, children: [_jsx(CartesianGrid, { strokeDasharray: "3 3" }), _jsx(XAxis, { dataKey: "week" }), _jsx(YAxis, {}), _jsx(Tooltip, {}), _jsx(Line, { type: "monotone", dataKey: "mood", stroke: "#198754", strokeWidth: 2 })] }) })] }) }) })] }), _jsxs(Row, { className: "g-3", children: [_jsx(Col, { md: 6, children: _jsx(Card, { className: "shadow-sm", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Today\u2019s Plan" }), _jsxs("div", { className: "mb-3 border-bottom pb-2", children: [_jsx("h6", { children: "Anxiety Management: Session 4" }), _jsx("p", { className: "text-muted small", children: "Breathing techniques for acute anxiety" }), _jsx(Button, { variant: "success", size: "sm", children: "Start Session" })] }), _jsxs("div", { children: [_jsx("h6", { children: "Daily Mood Check-in" }), _jsx("p", { className: "text-muted small", children: "Track your mood and symptoms" }), _jsx(Button, { variant: "primary", size: "sm", children: "Check In" })] })] }) }) }), _jsx(Col, { md: 6, children: _jsx(Card, { className: "shadow-sm", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Recommended for You" }), _jsxs("div", { className: "mb-3 border-bottom pb-2", children: [_jsx("h6", { children: "5-Minute Calming Exercise" }), _jsx("p", { className: "text-muted small", children: "Quick technique for stress relief" }), _jsx(Link, { to: "#", className: "text-success small", children: "View \u2192" })] }), _jsxs("div", { children: [_jsx("h6", { children: "Understanding Anxiety Triggers" }), _jsx("p", { className: "text-muted small", children: "Learn to identify your personal triggers" }), _jsx(Link, { to: "#", className: "text-success small", children: "View \u2192" })] })] }) }) })] })] })] }) }));</span>
+}
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-10-11T10:54:05.192Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
