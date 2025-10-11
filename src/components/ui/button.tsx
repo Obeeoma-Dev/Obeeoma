@@ -32,4 +32,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 // A name for debugging and dev tools
 Button.displayName = "Button";
 
-export { Button};
+export { Button };

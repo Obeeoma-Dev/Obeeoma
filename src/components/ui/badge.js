@@ -11,15 +11,19 @@ import { badgeVariants } from "./badge.styles";
  * Badge component — renders a styled span or Slot element
  * Uses CVA for styling variants and Radix Slot for polymorphism
  */
-function Badge({ className, // Optional custom class
-variant, // Style variant (e.g. default, secondary)
-asChild = false, // Whether to render as Slot or span
-...props // Other native span props
- }) {
-    // Choose the element type based on asChild flag
-    const Comp = asChild ? Slot : "span";
-    return (_jsx(Comp, { "data-slot": "badge" // Custom data attribute for targeting/styling
-        , className: cn(badgeVariants({ variant }), className), ...props }));
+function Badge({
+  className, // Optional custom class
+  variant, // Style variant (e.g. default, secondary)
+  asChild = false, // Whether to render as Slot or span
+  ...props // Other native span props
+}) {
+  // Choose the element type based on asChild flag
+  const Comp = asChild ? Slot : "span";
+  return _jsx(Comp, {
+    "data-slot": "badge", // Custom data attribute for targeting/styling
+    className: cn(badgeVariants({ variant }), className),
+    ...props,
+  });
 }
 // Export the Badge component for use in other files
 export { Badge };

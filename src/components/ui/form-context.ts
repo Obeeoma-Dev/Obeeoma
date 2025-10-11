@@ -17,11 +17,9 @@ export const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 );
 
-
 const FormItemContext = React.createContext<{ id: string }>(
   {} as { id: string },
 );
-
 
 export function useFormField() {
   const fieldContext = React.useContext(FormFieldContext);
