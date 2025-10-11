@@ -133,7 +133,7 @@ export default function EmployeeDashboard(): React.ReactElement {
                   className="me-2"
                 />
                 <div>
-                  <strong>Builder</strong>
+                  <strong>Billy</strong>
                   <div className="text-muted small">Patient Dashboard</div>
                 </div>
               </div>
