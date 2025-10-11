@@ -7,8 +7,7 @@ import {
 
 import { cn } from "@/lib/utils";
 
-// ✅ FIXED: Import `buttonVariants` from its correct source
-import { Button } from "@/components/ui/button";
+// FIXED: Import `buttonVariants` from its correct source
 import { buttonVariants } from "@/components/ui/button.styles";
 
 // Pagination root component: wraps the entire pagination UI

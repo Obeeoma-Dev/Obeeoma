@@ -19,7 +19,7 @@
 import "@testing-library/jest-dom";
 
 // Polyfill TextEncoder/TextDecoder for Jest (needed by react-router)
-import { TextEncoder, TextDecoder as NodeTextDecoder } from "util";
+import { TextEncoder, TextDecoder } from "util";
 
 // Declare global types safely
 declare global {
