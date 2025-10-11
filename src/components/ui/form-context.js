@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useFormContext, useFormState } from "react-hook-form";
-const FormFieldContext = React.createContext({});
-const FormItemContext = React.createContext({});
-const useFormField = () => {
+export const FormFieldContext = React.createContext({});
+export const FormItemContext = React.createContext({});
+export function useFormField() {
     const fieldContext = React.useContext(FormFieldContext);
     const itemContext = React.useContext(FormItemContext);
     const { getFieldState } = useFormContext();
@@ -20,5 +20,4 @@ const useFormField = () => {
         formMessageId: `${id}-form-item-message`,
         ...fieldState,
     };
-};
-export { FormFieldContext, useFormField, FormItemContext };
+}

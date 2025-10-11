@@ -1,13 +1,14 @@
+/* eslint-disable react-refresh/only-export-components */
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { Controller, FormProvider } from "react-hook-form";
+import { Controller, FormProvider, } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { FormFieldContext, useFormField, FormItemContext } from "./form-context";
 const Form = FormProvider;
-const FormField = ({ ...props }) => {
+const FormField = (props) => {
     return (_jsx(FormFieldContext.Provider, { value: { name: props.name }, children: _jsx(Controller, { ...props }) }));
 };
 function FormItem({ className, ...props }) {
@@ -20,7 +21,9 @@ function FormLabel({ className, ...props }) {
 }
 function FormControl({ ...props }) {
     const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
-    return (_jsx(Slot, { "data-slot": "form-control", id: formItemId, "aria-describedby": !error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`, "aria-invalid": !!error, ...props }));
+    return (_jsx(Slot, { "data-slot": "form-control", id: formItemId, "aria-describedby": !error
+            ? `${formDescriptionId}`
+            : `${formDescriptionId} ${formMessageId}`, "aria-invalid": !!error, ...props }));
 }
 function FormDescription({ className, ...props }) {
     const { formDescriptionId } = useFormField();
@@ -29,9 +32,8 @@ function FormDescription({ className, ...props }) {
 function FormMessage({ className, ...props }) {
     const { error, formMessageId } = useFormField();
     const body = error ? String(error?.message ?? "") : props.children;
-    if (!body) {
+    if (!body)
         return null;
-    }
     return (_jsx("p", { "data-slot": "form-message", id: formMessageId, className: cn("text-destructive text-sm", className), ...props, children: body }));
 }
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField, };
+export { Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField, };
