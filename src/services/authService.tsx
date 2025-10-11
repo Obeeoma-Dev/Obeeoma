@@ -37,13 +37,39 @@ export interface AuthAPI {
   logout: () => void;
 }
 
+//Shared error extraction helper
+
+function extractErrorMessage(error: unknown): string {
+  if (axios.isAxiosError(error)) {
+    const axiosError = error as AxiosError<ErrorResponse>;
+
+    if (axiosError.response?.data) {
+      const data = axiosError.response.data;
+      return (
+        data.detail ||
+        data.message ||
+        `Request failed with status ${axiosError.response.status}`
+      );
+    }
+
+    if (axiosError.message) {
+      return axiosError.message;
+    }
+  }
+
+  // Non-Axios error fallback
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "An unexpected error occurred";
+}
+
+// Auth API Service Implementation
 export const authAPI: AuthAPI = {
   login: async (credentials: Credentials): Promise<TokenResponse> => {
     try {
-      const response = await api.post<TokenResponse>(
-        "auth/login/",
-        credentials,
-      );
+      const response = await api.post<TokenResponse>("auth/login/", credentials);
 
       if (response.data?.access_token) {
         localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
@@ -51,27 +77,19 @@ export const authAPI: AuthAPI = {
           localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);
         }
       }
+
       return response.data;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && AxiosError.response) {
-        throw AxiosError.response.data as ErrorResponse;
-      }
-      throw new Error("Login failed");
+      throw new Error(extractErrorMessage(error));
     }
   },
 
   register: async (userData: UserData): Promise<TokenResponse> => {
     try {
-      const response = await api.post<TokenResponse>(
-        "auth/register/",
-        userData,
-      );
+      const response = await api.post<TokenResponse>("auth/register/", userData);
       return response.data;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && AxiosError.response) {
-        throw AxiosError.response.data as ErrorResponse;
-      }
-      throw new Error("Registration failed");
+      throw new Error(extractErrorMessage(error));
     }
   },
 
@@ -80,10 +98,7 @@ export const authAPI: AuthAPI = {
       const response = await api.get<CurrentUser>("auth/user/");
       return response.data;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && AxiosError.response) {
-        throw AxiosError.response.data as ErrorResponse;
-      }
-      throw new Error("Failed to fetch user");
+      throw new Error(extractErrorMessage(error));
     }
   },
 
