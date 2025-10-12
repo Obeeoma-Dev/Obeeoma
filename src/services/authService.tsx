@@ -38,8 +38,10 @@ export interface AuthAPI {
   logout: () => void;
 }
 
-//Shared error extraction helper
-
+/**
+ * Extracts a human-readable error message from an Axios or generic error.
+ * Helps standardize error handling across API methods.
+ */
 function extractErrorMessage(error: unknown): string {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError<ErrorResponse>;
@@ -58,7 +60,6 @@ function extractErrorMessage(error: unknown): string {
     }
   }
 
-  // Non-Axios error fallback
   if (error instanceof Error) {
     return error.message;
   }
@@ -84,10 +85,9 @@ export const authAPI: AuthAPI = {
 
       return response.data;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error.response.data as ErrorResponse;
-      }
-      throw new Error("Login failed");
+      // ✅ Use the shared error extractor for consistent messaging
+      const message = extractErrorMessage(error);
+      throw new Error(message);
     }
   },
 
@@ -99,10 +99,8 @@ export const authAPI: AuthAPI = {
       );
       return response.data;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error.response.data as ErrorResponse;
-      }
-      throw new Error("Registration failed");
+      const message = extractErrorMessage(error);
+      throw new Error(message);
     }
   },
 
@@ -111,10 +109,8 @@ export const authAPI: AuthAPI = {
       const response = await api.get<CurrentUser>("auth/user/");
       return response.data;
     } catch (error: unknown) {
-      if (axios.isAxiosError(error) && error.response) {
-        throw error.response.data as ErrorResponse;
-      }
-      throw new Error("Failed to fetch user");
+      const message = extractErrorMessage(error);
+      throw new Error(message);
     }
   },
 

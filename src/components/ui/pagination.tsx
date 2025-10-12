@@ -130,6 +130,5 @@ export {
   PaginationItem,
   PaginationPrevious,
   PaginationNext,
-  buttonVariants,
   PaginationEllipsis,
 };
