@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -62,24 +63,20 @@ const LoginPage = () => {
 
       {/* Center Form */}
       <Container className="d-flex justify-content-center align-items-center flex-grow-1">
-        <Card
-          className="shadow-sm border-0 p-4"
-          style={{ maxWidth: "480px", width: "100%" }}
-        >
+        <Card className="shadow-sm border-0 p-4"
+          style={{ maxWidth: "480px", width: "100%" }}>
           <Card.Body>
             <h3 className="text-center mb-2 fw-semibold text-dark">
-              Sign in to your account
+              Welcome back to Obeeoma
             </h3>
             <p className="text-center text-muted mb-4">
-              Welcome back to Obeeoma
+              Sign in to continue to your account
             </p>
-
             {error && (
               <Alert
                 variant="danger"
                 onClose={() => dispatch(clearError())}
-                dismissible
-              >
+                dismissible>
                 {error}
               </Alert>
             )}
@@ -87,8 +84,7 @@ const LoginPage = () => {
             <Formik
               initialValues={{ username: "", password: "" }}
               validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
+              onSubmit={handleSubmit}>
               {({ handleChange, handleSubmit, values, errors, touched }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                   <Form.Group className="mb-3" controlId="username">
@@ -151,12 +147,12 @@ const LoginPage = () => {
                       </ToggleButton>
                     </ToggleButtonGroup>
 
-                    <a
-                      href="/reset-password-signin"
+                    <Link
+                      to="/reset-password-signin"
                       className="text-success text-decoration-none small"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
 
                   <Form.Check
@@ -169,8 +165,7 @@ const LoginPage = () => {
                     variant="success"
                     type="submit"
                     className="w-100 mb-3 py-2 fw-semibold"
-                    disabled={isLoading}
-                  >
+                    disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Spinner
@@ -190,12 +185,10 @@ const LoginPage = () => {
 
                   <div className="text-center">
                     <span className="text-muted">Don’t have an account? </span>
-                    <a
-                      href="/signup"
-                      className="text-success text-decoration-none fw-semibold"
-                    >
+                    <Link to="/signup"
+                      className="text-success text-decoration-none fw-semibold">
                       Create an account
-                    </a>
+                    </Link>
                   </div>
                 </Form>
               )}
@@ -207,17 +200,17 @@ const LoginPage = () => {
       {/* Footer */}
       <footer className="text-center text-muted py-3 small border-top">
         © 2025 Obeeoma. All rights reserved. &nbsp;
-        <a href="#" className="text-decoration-none text-success">
+        <Link to="#" className="text-decoration-none text-success">
           Privacy Policy
-        </a>{" "}
+        </Link>{" "}
         &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
+        <Link to="#" className="text-decoration-none text-success">
           Terms of Service
-        </a>{" "}
+        </Link>{" "}
         &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
+        <Link to="#" className="text-decoration-none text-success">
           Contact Us
-        </a>
+        </Link>
       </footer>
     </div>
   );
