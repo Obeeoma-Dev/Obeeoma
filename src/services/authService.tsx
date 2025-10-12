@@ -1,5 +1,6 @@
 import api from "./api";
 import axios from "axios";
+import type { AxiosError } from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 // Interfaces
@@ -69,7 +70,10 @@ function extractErrorMessage(error: unknown): string {
 export const authAPI: AuthAPI = {
   login: async (credentials: Credentials): Promise<TokenResponse> => {
     try {
-      const response = await api.post<TokenResponse>("auth/login/", credentials);
+      const response = await api.post<TokenResponse>(
+        "auth/login/",
+        credentials,
+      );
 
       if (response.data?.access_token) {
         localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
@@ -89,7 +93,10 @@ export const authAPI: AuthAPI = {
 
   register: async (userData: UserData): Promise<TokenResponse> => {
     try {
-      const response = await api.post<TokenResponse>("auth/register/", userData);
+      const response = await api.post<TokenResponse>(
+        "auth/register/",
+        userData,
+      );
       return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {

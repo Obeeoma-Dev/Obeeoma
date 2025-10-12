@@ -21,6 +21,7 @@ import logo from "../../assets/Images/obeeomalogoicon4.png";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const validationSchema = Yup.object({
   username: Yup.string()
     .min(3, "Username must be at least 3 characters")
@@ -85,11 +86,11 @@ const LoginPage = () => {
             children: [
               _jsx("h3", {
                 className: "text-center mb-2 fw-semibold text-dark",
-                children: "Sign in to your account",
+                children: "Welcome back to Obeeoma",
               }),
               _jsx("p", {
                 className: "text-center text-muted mb-4",
-                children: "Welcome back to Obeeoma",
+                children: "Sign in to continue to your account",
               }),
               error &&
                 _jsx(Alert, {
@@ -183,8 +184,8 @@ const LoginPage = () => {
                               }),
                             ],
                           }),
-                          _jsx("a", {
-                            href: "/reset-password-signin",
+                          _jsx(Link, {
+                            to: "/reset-password-signin",
                             className:
                               "text-success text-decoration-none small",
                             children: "Forgot password?",
@@ -224,8 +225,8 @@ const LoginPage = () => {
                             className: "text-muted",
                             children: "Don\u2019t have an account? ",
                           }),
-                          _jsx("a", {
-                            href: "/signup",
+                          _jsx(Link, {
+                            to: "/signup",
                             className:
                               "text-success text-decoration-none fw-semibold",
                             children: "Create an account",
@@ -243,22 +244,22 @@ const LoginPage = () => {
         className: "text-center text-muted py-3 small border-top",
         children: [
           "\u00A9 2025 Obeeoma. All rights reserved. \u00A0",
-          _jsx("a", {
-            href: "#",
+          _jsx(Link, {
+            to: "#",
             className: "text-decoration-none text-success",
             children: "Privacy Policy",
           }),
           " ",
           "\u00A0|\u00A0",
-          _jsx("a", {
-            href: "#",
+          _jsx(Link, {
+            to: "#",
             className: "text-decoration-none text-success",
             children: "Terms of Service",
           }),
           " ",
           "\u00A0|\u00A0",
-          _jsx("a", {
-            href: "#",
+          _jsx(Link, {
+            to: "#",
             className: "text-decoration-none text-success",
             children: "Contact Us",
           }),

@@ -200,7 +200,7 @@ export default function EmployeeDashboard() {
                         }),
                         _jsxs("div", {
                           children: [
-                            _jsx("strong", { children: "Builder" }),
+                            _jsx("strong", { children: "Billy" }),
                             _jsx("div", {
                               className: "text-muted small",
                               children: "Patient Dashboard",

@@ -1,30 +1,15 @@
-<<<<<<< HEAD
-/* eslint-disable react-refresh/only-export-components */
-=======
 // ---------------------------------------------------------
 // This file defines and exports only React components
 // ---------------------------------------------------------
->>>>>>> tests
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-<<<<<<< HEAD
-import { Controller, FormProvider, } from "react-hook-form";
-=======
 import { Controller, FormProvider } from "react-hook-form";
 // Utility for conditional class names
->>>>>>> tests
 import { cn } from "@/lib/utils";
 // Shadcn/UI label component
 import { Label } from "@/components/ui/label";
-<<<<<<< HEAD
-import { FormFieldContext, useFormField, FormItemContext } from "./form-context";
-const Form = FormProvider;
-const FormField = (props) => {
-    return (_jsx(FormFieldContext.Provider, { value: { name: props.name }, children: _jsx(Controller, { ...props }) }));
-};
-=======
 // Import contexts only (NOT the hook directly)
 import { FormFieldContext, FormItemContext } from "./form-context";
 // Import the hook indirectly from its new file
@@ -48,7 +33,6 @@ function FormField(props) {
 // FORM ITEM
 // Provides unique ID context for layout and accessibility
 // ---------------------------------------------------------
->>>>>>> tests
 function FormItem({ className, ...props }) {
   const id = React.useId(); // Generates stable unique ID
   return _jsx(FormItemContext.Provider, {
@@ -106,16 +90,6 @@ function FormDescription({ className, ...props }) {
     ...props,
   });
 }
-<<<<<<< HEAD
-function FormMessage({ className, ...props }) {
-    const { error, formMessageId } = useFormField();
-    const body = error ? String(error?.message ?? "") : props.children;
-    if (!body)
-        return null;
-    return (_jsx("p", { "data-slot": "form-message", id: formMessageId, className: cn("text-destructive text-sm", className), ...props, children: body }));
-}
-export { Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField, };
-=======
 // ---------------------------------------------------------
 // FORM MESSAGE
 // Renders validation message when field has error
@@ -145,4 +119,3 @@ export {
   FormDescription,
   FormMessage,
 };
->>>>>>> tests

@@ -60,7 +60,8 @@ const Hero = () => {
                   color: "rgba(77, 255, 77, 0.9)",
                   transition: "background-color 0.3s ease, color 0.3s ease",
                 }}
-                onClick={() => navigate("/signup")}>
+                onClick={() => navigate("/signup")}
+              >
                 Sign up for my organization
               </Button>
               <Button

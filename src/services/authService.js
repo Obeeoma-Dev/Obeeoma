@@ -1,6 +1,29 @@
 import api from "./api";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+//Shared error extraction helper
+function extractErrorMessage(error) {
+  if (axios.isAxiosError(error)) {
+    const axiosError = error;
+    if (axiosError.response?.data) {
+      const data = axiosError.response.data;
+      return (
+        data.detail ||
+        data.message ||
+        `Request failed with status ${axiosError.response.status}`
+      );
+    }
+    if (axiosError.message) {
+      return axiosError.message;
+    }
+  }
+  // Non-Axios error fallback
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return "An unexpected error occurred";
+}
+// Auth API Service Implementation
 export const authAPI = {
   login: async (credentials) => {
     try {

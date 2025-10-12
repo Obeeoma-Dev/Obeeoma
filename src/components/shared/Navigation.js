@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/Images/obeeomalogoicon2.png";
+import { Link } from "react-router-dom";
 const Navigation = () =>
   _jsx(Navbar, {
     expand: "lg",
@@ -17,7 +18,8 @@ const Navigation = () =>
             className: "me-auto",
             children: [
               _jsx(Navbar.Brand, {
-                href: "/employer-dashboard",
+                as: Link,
+                to: "/employer-dashboard",
                 children: _jsx("img", {
                   src: logo,
                   alt: "Obeeoma",
@@ -25,7 +27,7 @@ const Navigation = () =>
                 }),
               }),
               _jsxs(Nav.Link, {
-                href: "#pricing",
+                href: "#features",
                 className: "text-white",
                 children: [" ", "Features |", " "],
               }),

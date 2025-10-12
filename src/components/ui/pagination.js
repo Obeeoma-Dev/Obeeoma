@@ -19,27 +19,16 @@ function Pagination({ className, ...props }) {
 }
 // Container for pagination items (e.g., links, arrows)
 function PaginationContent({ className, ...props }) {
-<<<<<<< HEAD
-    return (_jsx("ul", { "data-slot": "pagination-content", className: cn("flex flex-row items-center gap-1 list-none", className), ...props }));
-=======
   return _jsx("ul", {
     "data-slot": "pagination-content",
     className: cn("flex flex-row items-center gap-1 list-none", className),
     ...props,
   });
->>>>>>> tests
 }
 // Individual pagination item wrapper
 function PaginationItem({ ...props }) {
   return _jsx("li", { "data-slot": "pagination-item", ...props });
 }
-<<<<<<< HEAD
-function PaginationLink({ className, isActive, ...props }) {
-    return (_jsx("a", { "aria-current": isActive ? "page" : undefined, "data-slot": "pagination-link", "data-active": isActive, className: cn(buttonVariants({
-            variant: isActive ? "outline" : "ghost",
-            size: "icon",
-        }), className), ...props }));
-=======
 // Pagination link component: styled like a button
 function PaginationLink({ className, isActive, ...props }) {
   return _jsx("a", {
@@ -55,13 +44,9 @@ function PaginationLink({ className, isActive, ...props }) {
     ),
     ...props,
   });
->>>>>>> tests
 }
 // Previous page button
 function PaginationPrevious({ className, ...props }) {
-<<<<<<< HEAD
-    return (_jsxs(PaginationLink, { "aria-label": "Go to previous page", className: cn("gap-1 px-2.5 sm:pl-2.5", className), ...props, children: [_jsx(ChevronLeftIcon, {}), _jsx("span", { className: "hidden sm:block", children: "Previous" })] }));
-=======
   return _jsxs(PaginationLink, {
     "aria-label": "Go to previous page",
     className: cn("gap-1 px-2.5 sm:pl-2.5", className),
@@ -71,13 +56,9 @@ function PaginationPrevious({ className, ...props }) {
       _jsx("span", { className: "hidden sm:block", children: "Previous" }),
     ],
   });
->>>>>>> tests
 }
 // Next page button
 function PaginationNext({ className, ...props }) {
-<<<<<<< HEAD
-    return (_jsxs(PaginationLink, { "aria-label": "Go to next page", className: cn("gap-1 px-2.5 sm:pr-2.5", className), ...props, children: [_jsx("span", { className: "hidden sm:block", children: "Next" }), _jsx(ChevronRightIcon, {})] }));
-=======
   return _jsxs(PaginationLink, {
     "aria-label": "Go to next page",
     className: cn("gap-1 px-2.5 sm:pr-2.5", className),
@@ -87,7 +68,6 @@ function PaginationNext({ className, ...props }) {
       _jsx(ChevronRightIcon, {}),
     ],
   });
->>>>>>> tests
 }
 // Ellipsis component for skipped pages
 function PaginationEllipsis({ className, ...props }) {
@@ -110,5 +90,6 @@ export {
   PaginationItem,
   PaginationPrevious,
   PaginationNext,
+  buttonVariants,
   PaginationEllipsis,
 };

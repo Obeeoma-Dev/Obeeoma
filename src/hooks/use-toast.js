@@ -10,50 +10,6 @@ function genId() {
 // ---- Internal timeout management ----
 const toastTimeouts = new Map();
 const addToRemoveQueue = (toastId) => {
-<<<<<<< HEAD
-    if (toastTimeouts.has(toastId))
-        return;
-    const timeout = setTimeout(() => {
-        toastTimeouts.delete(toastId);
-        dispatch({ type: "REMOVE_TOAST", toastId });
-    }, TOAST_REMOVE_DELAY);
-    toastTimeouts.set(toastId, timeout);
-};
-// ---- Reducer ----
-export const reducer = (state, action) => {
-    switch (action.type) {
-        case "ADD_TOAST":
-            return {
-                ...state,
-                toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
-            };
-        case "UPDATE_TOAST":
-            return {
-                ...state,
-                toasts: state.toasts.map((t) => t.id === action.toast.id ? { ...t, ...action.toast } : t),
-            };
-        case "DISMISS_TOAST":
-            state.toasts.forEach((t) => {
-                if (!action.toastId || t.id === action.toastId)
-                    addToRemoveQueue(t.id);
-            });
-            return {
-                ...state,
-                toasts: state.toasts.map((t) => !action.toastId || t.id === action.toastId
-                    ? { ...t, open: false }
-                    : t),
-            };
-        case "REMOVE_TOAST":
-            return {
-                ...state,
-                toasts: action.toastId
-                    ? state.toasts.filter((t) => t.id !== action.toastId)
-                    : [],
-            };
-        default:
-            return state;
-    }
-=======
   if (toastTimeouts.has(toastId)) return;
   const timeout = setTimeout(() => {
     toastTimeouts.delete(toastId);
@@ -98,50 +54,11 @@ export const reducer = (state, action) => {
     default:
       return state;
   }
->>>>>>> tests
 };
 // ---- Store ----
 const listeners = [];
 let memoryState = { toasts: [] };
 function dispatch(action) {
-<<<<<<< HEAD
-    memoryState = reducer(memoryState, action);
-    listeners.forEach((listener) => listener(memoryState));
-}
-function toast(props) {
-    const id = genId();
-    const update = (newProps) => dispatch({ type: "UPDATE_TOAST", toast: { ...newProps, id } });
-    const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
-    dispatch({
-        type: "ADD_TOAST",
-        toast: {
-            ...props,
-            id,
-            open: true,
-            onOpenChange: (open) => {
-                if (!open)
-                    dismiss();
-            },
-        },
-    });
-    return { id, dismiss, update };
-}
-// ---- React Hook ----
-function useToast() {
-    const [state, setState] = React.useState(memoryState);
-    React.useEffect(() => {
-        listeners.push(setState);
-        return () => {
-            const index = listeners.indexOf(setState);
-            if (index > -1)
-                listeners.splice(index, 1);
-        };
-    }, []);
-    return {
-        ...state,
-        toast,
-        dismiss: (toastId) => dispatch({ type: "DISMISS_TOAST", toastId }),
-=======
   memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => listener(memoryState));
 }
@@ -171,7 +88,6 @@ function useToast() {
     return () => {
       const index = listeners.indexOf(setState);
       if (index > -1) listeners.splice(index, 1);
->>>>>>> tests
     };
   }, []);
   return {

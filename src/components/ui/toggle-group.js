@@ -50,4 +50,4 @@ function ToggleGroupItem({ className, children, variant, size, ...props }) {
     children: children,
   });
 }
-export { ToggleGroup, ToggleGroupItem };
+export { ToggleGroup, ToggleGroupItem, toggleVariants };
