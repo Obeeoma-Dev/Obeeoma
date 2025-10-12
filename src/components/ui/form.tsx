@@ -35,7 +35,7 @@ const Form = FormProvider;
 
 // ---------------------------------------------------------
 // FORM FIELD
-// Wrapper around Controller that provides context for each field
+// Wraps Controller and provides context for field name
 // ---------------------------------------------------------
 function FormField<
   TFieldValues extends FieldValues = FieldValues,
@@ -50,10 +50,10 @@ function FormField<
 
 // ---------------------------------------------------------
 // FORM ITEM
-// Provides unique ID context for form fields and layout wrapper
+// Provides unique ID context for layout and accessibility
 // ---------------------------------------------------------
 function FormItem({ className, ...props }: React.ComponentProps<"div">) {
-  const id = React.useId(); // generates unique, stable id for accessibility
+  const id = React.useId(); // Generates stable unique ID
 
   return (
     <FormItemContext.Provider value={{ id }}>
@@ -68,7 +68,7 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
 
 // ---------------------------------------------------------
 // FORM LABEL
-// Uses our custom hook to access field error state and IDs
+// Renders label with error styling and accessibility
 // ---------------------------------------------------------
 function FormLabel({
   className,
@@ -89,26 +89,22 @@ function FormLabel({
 
 // ---------------------------------------------------------
 // FORM CONTROL
-// Handles input/slot rendering with correct ARIA attributes
+// Renders input/slot with correct ARIA attributes
 // ---------------------------------------------------------
 function FormControl(props: React.ComponentProps<typeof Slot>) {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
+  // Aria-describedby attribute.
+  const describedBy = error
+    ? `${formDescriptionId} ${formMessageId}`
+    : formDescriptionId;
+
   return (
     <Slot
       data-slot="form-control"
       id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
+      aria-describedby={describedBy}
       aria-invalid={!!error}
       {...props}
     />
@@ -117,7 +113,7 @@ function FormControl(props: React.ComponentProps<typeof Slot>) {
 
 // ---------------------------------------------------------
 // FORM DESCRIPTION
-// Displays small muted text under the form field
+// Renders muted helper text under the field
 // ---------------------------------------------------------
 function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   const { formDescriptionId } = useFormField();
@@ -134,7 +130,7 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
 
 // ---------------------------------------------------------
 // FORM MESSAGE
-// Displays validation message when field has error
+// Renders validation message when field has error
 // ---------------------------------------------------------
 function FormMessage({
   className,
@@ -144,7 +140,6 @@ function FormMessage({
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message ?? "") : children;
 
-  if (!body) return null;
   if (!body) return null;
 
   return (
@@ -161,7 +156,7 @@ function FormMessage({
 
 // ---------------------------------------------------------
 // EXPORTS
-// Export only components to pass ESLint.
+// Export only components to pass ESLint and Jest
 // ---------------------------------------------------------
 export {
   Form,
