@@ -6,8 +6,11 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 
+// FIXED: Import `buttonVariants` from its correct source
+import { buttonVariants } from "@/components/ui/button.styles";
+
+// Pagination root component: wraps the entire pagination UI
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
@@ -20,6 +23,7 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   );
 }
 
+// Container for pagination items (e.g., links, arrows)
 function PaginationContent({
   className,
   ...props
@@ -33,14 +37,17 @@ function PaginationContent({
   );
 }
 
+// Individual pagination item wrapper
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
 }
 
+// Props for pagination links (e.g., page numbers)
 type PaginationLinkProps = {
   isActive?: boolean;
 } & React.ComponentProps<"a">;
 
+// Pagination link component: styled like a button
 function PaginationLink({
   className,
   isActive,
@@ -56,13 +63,14 @@ function PaginationLink({
           variant: isActive ? "outline" : "ghost",
           size: "icon",
         }),
-        className
+        className,
       )}
       {...props}
     />
   );
 }
 
+// Previous page button
 function PaginationPrevious({
   className,
   ...props
@@ -79,6 +87,7 @@ function PaginationPrevious({
   );
 }
 
+// Next page button
 function PaginationNext({
   className,
   ...props
@@ -95,6 +104,7 @@ function PaginationNext({
   );
 }
 
+// Ellipsis component for skipped pages
 function PaginationEllipsis({
   className,
   ...props
@@ -112,6 +122,7 @@ function PaginationEllipsis({
   );
 }
 
+// ✅ Export only components — ESLint and Fast Refresh happy
 export {
   Pagination,
   PaginationContent,

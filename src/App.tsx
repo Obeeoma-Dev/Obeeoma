@@ -21,6 +21,10 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
+import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
+import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
+
+// System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
 import { Provider } from "react-redux";
@@ -56,6 +60,14 @@ export default function App(): React.ReactElement {
               <Route
                 path="/employer-dashboard"
                 element={<EmployerDashboard />}
+              />
+              <Route
+                path="/system-admin/organizations"
+                element={<Organisation />}
+              />
+              <Route
+                path="/systemadmin/organizations/:id"
+                element={<OrganisationDetails />}
               />
 
               {/* === PROTECTED ROUTES === */}

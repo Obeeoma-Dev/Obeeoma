@@ -1,5 +1,5 @@
 import api from "./api";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 // Interfaces
@@ -80,7 +80,10 @@ export const authAPI: AuthAPI = {
 
       return response.data;
     } catch (error: unknown) {
-      throw new Error(extractErrorMessage(error));
+      if (axios.isAxiosError(error) && error.response) {
+        throw error.response.data as ErrorResponse;
+      }
+      throw new Error("Login failed");
     }
   },
 
@@ -89,7 +92,10 @@ export const authAPI: AuthAPI = {
       const response = await api.post<TokenResponse>("auth/register/", userData);
       return response.data;
     } catch (error: unknown) {
-      throw new Error(extractErrorMessage(error));
+      if (axios.isAxiosError(error) && error.response) {
+        throw error.response.data as ErrorResponse;
+      }
+      throw new Error("Registration failed");
     }
   },
 
@@ -98,7 +104,10 @@ export const authAPI: AuthAPI = {
       const response = await api.get<CurrentUser>("auth/user/");
       return response.data;
     } catch (error: unknown) {
-      throw new Error(extractErrorMessage(error));
+      if (axios.isAxiosError(error) && error.response) {
+        throw error.response.data as ErrorResponse;
+      }
+      throw new Error("Failed to fetch user");
     }
   },
 
