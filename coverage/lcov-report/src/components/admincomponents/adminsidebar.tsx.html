@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -189,10 +189,10 @@
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -310,18 +310,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/Sidebar.tsx
 &nbsp;
-import React from "react"; // React core
-import { Nav, Button, Container, Row, Col } from "react-bootstrap"; // Bootstrap layout
-import * as Icons from "lucide-react"; // Icon set
-import { useNavigate, useLocation } from "react-router-dom"; // Routing hooks
+<span class="cstat-no" title="statement not covered" >import React from "react"; </span>// React core
+<span class="cstat-no" title="statement not covered" >import { Nav, Button, Container, Row, Col } from "react-bootstrap"; </span>// Bootstrap layout
+<span class="cstat-no" title="statement not covered" >import * as Icons from "lucide-react"; </span>// Icon set
+<span class="cstat-no" title="statement not covered" >import { useNavigate, useLocation } from "react-router-dom"; </span>// Routing hooks
 &nbsp;
 /**
  * Sidebar component provides navigation for system admin dashboard
  */
-const Sidebar: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+const Sidebar: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span> // Hook to navigate programmatically
   const location = <span class="cstat-no" title="statement not covered" >useLocation();</span> // Hook to get current route
 &nbsp;
@@ -345,12 +345,12 @@ const Sidebar: React.FC = <span class="cstat-no" title="statement not covered" >
   };
 &nbsp;
   // Navigate to settings
-  const handleSettingsClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  const handleSettingsClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    navigate("/system-admin/settings-overview");</span>
   };
 &nbsp;
   // Navigate to login (logout)
-  const handleLogoutClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+  const handleLogoutClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    console.log("Logging out...");</span>
 <span class="cstat-no" title="statement not covered" >    navigate("/login");</span>
   };
@@ -384,7 +384,7 @@ const Sidebar: React.FC = <span class="cstat-no" title="statement not covered" >
       {/* Navigation menu */}
       &lt;Nav className="flex-column px-3 py-4"&gt;
         {menuItems.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; {
-          const IconComponent = <span class="cstat-no" title="statement not covered" >(Icons[item.icon as keyof typeof Icons] ||</span>
+          const IconComponent = (<span class="cstat-no" title="statement not covered" >Icons[item.icon as keyof typeof Icons] ||</span>
             Icons.Circle) as React.FC&lt;{ size?: number }&gt;;
 &nbsp;
           const isActive = <span class="cstat-no" title="statement not covered" >currentPath === item.id;</span>
@@ -393,7 +393,7 @@ const Sidebar: React.FC = <span class="cstat-no" title="statement not covered" >
             &lt;Nav.Item key={item.id} className="mb-2"&gt;
               &lt;Button
                 variant={isActive ? "light" : "outline-light"}
-                onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleMenuClick(item.id)}</span>
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleMenuClick(item.id)}</span>
                 className={`w-100 d-flex align-items-center gap-3 text-start ${
                   isActive ? "fw-semibold border-start border-success" : ""
                 }`}
@@ -434,7 +434,7 @@ const Sidebar: React.FC = <span class="cstat-no" title="statement not covered" >
   );
 };
 &nbsp;
-export default Sidebar;
+<span class="cstat-no" title="statement not covered" >export default Sidebar;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -442,7 +442,7 @@ export default Sidebar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

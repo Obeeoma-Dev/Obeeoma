@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>0/58</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>0/57</span>
             </div>
         
             
@@ -202,14 +202,14 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -340,15 +340,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";</span>
 import {
   AuthState,
   LoginCredentials,
   RegisterCredentials,
 } from "./../../types/auth";
-import { authAPI } from "../../api/apiConfig";
-import axios, { AxiosError } from "axios";
+<span class="cstat-no" title="statement not covered" >import { authAPI } from "../../api/apiConfig";</span>
+<span class="cstat-no" title="statement not covered" >import axios, { AxiosError } from "axios";</span>
 &nbsp;
 // Helper function to extract error message
 const getErrorMessage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>rror: unknown): string =&gt; {</span>
@@ -366,9 +366,9 @@ const getErrorMessage = <span class="cstat-no" title="statement not covered" ><s
 };
 &nbsp;
 // Login
-export const loginUser = <span class="cstat-no" title="statement not covered" >createAsyncThunk(</span>
+export const <span class="cstat-no" title="statement not covered" >loginUser = createAsyncThunk(</span>
   "auth/login",
-<span class="fstat-no" title="function not covered" >  as</span>ync (
+<span class="fstat-no" title="function not covered" >  async </span>(
     credentials: LoginCredentials &amp; { onSuccess?: () =&gt; void },
     { rejectWithValue },
   ) =&gt; {
@@ -383,9 +383,9 @@ export const loginUser = <span class="cstat-no" title="statement not covered" >c
 );
 &nbsp;
 // Register
-export const registerUser = <span class="cstat-no" title="statement not covered" >createAsyncThunk(</span>
+export const <span class="cstat-no" title="statement not covered" >registerUser = createAsyncThunk(</span>
   "auth/register",
-<span class="fstat-no" title="function not covered" >  as</span>ync (
+<span class="fstat-no" title="function not covered" >  async </span>(
     credentials: RegisterCredentials &amp; { onSuccess?: () =&gt; void },
     { rejectWithValue },
   ) =&gt; {
@@ -399,7 +399,7 @@ export const registerUser = <span class="cstat-no" title="statement not covered"
   },
 );
 &nbsp;
-const getUserFromStorage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+const getUserFromStorage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
   const rawUser = <span class="cstat-no" title="statement not covered" >localStorage.getItem("user");</span>
 <span class="cstat-no" title="statement not covered" >  if (!rawUser || rawUser === "undefined") <span class="cstat-no" title="statement not covered" >return null;</span></span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
@@ -478,8 +478,8 @@ const authSlice = <span class="cstat-no" title="statement not covered" >createSl
   },
 });
 &nbsp;
-export const { logout, clearError } = <span class="cstat-no" title="statement not covered" >authSlice.actions;</span>
-export default authSlice.reducer;
+export const <span class="cstat-no" title="statement not covered" >{ logout, clearError } = a</span>uthSlice.actions;
+<span class="cstat-no" title="statement not covered" >export default authSlice.reducer;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -487,7 +487,7 @@ export default authSlice.reducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

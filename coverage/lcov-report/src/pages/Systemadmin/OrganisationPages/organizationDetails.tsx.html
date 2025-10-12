@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -245,12 +245,12 @@
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -424,14 +424,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/admincomponents/organisationcomponents/OrganizationDetails.tsx
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Container, Card, Row, Col, Button, ListGroup } from "react-bootstrap";
-import Sidebar from "../../../components/admincomponents/adminsidebar";
-import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
-import Header from "../../../components/admincomponents/adminheader";
+<span class="cstat-no" title="statement not covered" >import React from "react";</span>
+<span class="cstat-no" title="statement not covered" >import { useParams, useNavigate } from "react-router-dom";</span>
+<span class="cstat-no" title="statement not covered" >import { Container, Card, Row, Col, Button, ListGroup } from "react-bootstrap";</span>
+<span class="cstat-no" title="statement not covered" >import Sidebar from "../../../components/admincomponents/adminsidebar";</span>
+<span class="cstat-no" title="statement not covered" >import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";</span>
+<span class="cstat-no" title="statement not covered" >import Header from "../../../components/admincomponents/adminheader";</span>
 &nbsp;
 // Define the shape of a single organization
 interface OrganizationInfo {
@@ -477,7 +477,7 @@ const organizationData: Record&lt;string, OrganizationInfo&gt; = <span class="cs
   // Add more organizations here if needed
 };
 &nbsp;
-const OrganizationDetails: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+const OrganizationDetails: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
   // Extract the organization ID from the route
   const { id } = <span class="cstat-no" title="statement not covered" >useParams&lt;Record&lt;string, string | undefined&gt;&gt;();</span>
 &nbsp;
@@ -508,7 +508,7 @@ const OrganizationDetails: React.FC = <span class="cstat-no" title="statement no
           {/* Return button to go back to overview */}
           &lt;Button
             variant="outline-secondary"
-            onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigate("/system-admin/organizations")}</span>
+            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >navigate("/system-admin/organizations")}</span>
             className="mb-3"
           &gt;
             ← Return to Overview
@@ -594,7 +594,7 @@ const OrganizationDetails: React.FC = <span class="cstat-no" title="statement no
             &lt;Card.Body&gt;
               &lt;ListGroup variant="flush"&gt;
                 {org.activity.map(<span class="fstat-no" title="function not covered" >(e</span>vent, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >                  &lt;ListGroup.Item key={index}&gt;{event}&lt;/ListGroup.Item&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;ListGroup.Item key={index}&gt;{e</span>vent}&lt;/ListGroup.Item&gt;
                 ))}
               &lt;/ListGroup&gt;
             &lt;/Card.Body&gt;
@@ -605,7 +605,7 @@ const OrganizationDetails: React.FC = <span class="cstat-no" title="statement no
   );
 };
 &nbsp;
-export default OrganizationDetails;
+<span class="cstat-no" title="statement not covered" >export default OrganizationDetails;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -613,7 +613,7 @@ export default OrganizationDetails;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

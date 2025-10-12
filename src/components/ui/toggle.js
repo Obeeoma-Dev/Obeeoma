@@ -7,10 +7,7 @@ import { cn } from "@/lib/utils";
 import { toggleVariants } from "./toggle.styles";
 // Create the Toggle component
 function Toggle({ className, variant, size, ...props }) {
-  return _jsx(TogglePrimitive.Root, {
-    "data-slot": "toggle", // Useful for targeting in tests or styling
-    className: cn(toggleVariants({ variant, size }), className),
-    ...props,
-  });
+    return (_jsx(TogglePrimitive.Root, { "data-slot": "toggle" // Useful for targeting in tests or styling
+        , className: cn(toggleVariants({ variant, size }), className), ...props }));
 }
 export { Toggle };

@@ -3,8 +3,10 @@ import type { Config } from "jest";
 const config: Config = {
   // Transform JS/TS with Babel
   transform: {
-    "^.+\\.(ts|tsx|js|jsx)$": "babel-jest",
-  },
+  "^.+\\.(ts|tsx)$": "ts-jest",
+  "^.+\\.(js|jsx)$": "babel-jest",
+  "\\.(css|less|scss|sass|png|jpg|jpeg|gif|webp|svg|ttf|eot)$": "jest-transform-stub", // Handles both CSS and images
+},
 
   // Test environment simulating browser
   testEnvironment: "jsdom",
@@ -15,8 +17,7 @@ const config: Config = {
   // Mock paths and assets
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",              // Alias "@"
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Mock CSS
-    "\\.(png|jpg|jpeg|gif|webp|svg|ttf|eot)$": "<rootDir>/__mocks__/fileMock.ts", // Mock images
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Mock CSS    
   },
 
   // Ignore these folders

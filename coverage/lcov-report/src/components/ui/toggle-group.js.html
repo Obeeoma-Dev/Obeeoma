@@ -93,7 +93,30 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,8 +137,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,23 +180,46 @@ import { cn } from "@/lib/utils";
 import { toggleVariants } from "@/components/ui/toggle.styles";
 // Create a context to share variant and size across toggle group items.
 const ToggleGroupContext = <span class="cstat-no" title="statement not covered" >React.createContext({</span>
-    size: "default",
-    variant: "default",
+  size: "default",
+  variant: "default",
 });
 // ToggleGroup component: wraps a group of toggle items.
 function <span class="fstat-no" title="function not covered" >ToggleGroup(</span>{ className, variant, size, children, ...props }) {
-<span class="cstat-no" title="statement not covered" >    return (_jsx(ToggleGroupPrimitive.Root, { "data-slot": "toggle-group", "data-variant": variant, "data-size": size, className: cn("group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs", className), ...props, children: _jsx(ToggleGroupContext.Provider, { value: { variant, size }, children: children }) }));</span>
+<span class="cstat-no" title="statement not covered" >  return _jsx(ToggleGroupPrimitive.Root, {</span>
+    "data-slot": "toggle-group",
+    "data-variant": variant,
+    "data-size": size,
+    className: cn(
+      "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs",
+      className,
+    ),
+    ...props,
+    children: _jsx(ToggleGroupContext.Provider, {
+      value: { variant, size },
+      children: children,
+    }),
+  });
 }
 // ToggleGroupItem component: individual toggle button inside the group
 function <span class="fstat-no" title="function not covered" >ToggleGroupItem(</span>{ className, children, variant, size, ...props }) {
-    // Consume variant and size from context if available
-    const context = <span class="cstat-no" title="statement not covered" >React.useContext(ToggleGroupContext);</span>
-<span class="cstat-no" title="statement not covered" >    return (_jsx(ToggleGroupPrimitive.Item, { "data-slot": "toggle-group-item", "data-variant": context.variant || variant, "data-size": context.size || size, className: cn(toggleVariants({</span>
-            variant: context.variant || variant,
-            size: context.size || size,
-        }), 
-        // Additional layout and focus styles
-        "min-w-0 flex-1 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l", className), ...props, children: children }));
+  // Consume variant and size from context if available
+  const context = <span class="cstat-no" title="statement not covered" >React.useContext(ToggleGroupContext);</span>
+<span class="cstat-no" title="statement not covered" >  return _jsx(ToggleGroupPrimitive.Item, {</span>
+    "data-slot": "toggle-group-item",
+    "data-variant": context.variant || variant,
+    "data-size": context.size || size,
+    className: cn(
+      toggleVariants({
+        variant: context.variant || variant,
+        size: context.size || size,
+      }),
+      // Additional layout and focus styles
+      "min-w-0 flex-1 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l",
+      className,
+    ),
+    ...props,
+    children: children,
+  });
 }
 export { ToggleGroup, ToggleGroupItem };
 &nbsp;</pre></td></tr></table></pre>
@@ -160,7 +229,7 @@ export { ToggleGroup, ToggleGroupItem };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

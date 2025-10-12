@@ -121,7 +121,14 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,19 +145,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,23 +154,43 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from "axios";
@@ -185,57 +199,64 @@ import { logout } from "../store/slices/authSlice";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 // Create base Axios instance
 const api = <span class="cstat-no" title="statement not covered" >axios.create({</span>
-    baseURL: import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/",
-    headers: {
-        "Content-Type": "application/json",
-    },
+  baseURL: import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 // --- Helper: Refresh access token ---
 async function <span class="fstat-no" title="function not covered" >refreshAccessToken(</span>) {
-    const refreshToken = <span class="cstat-no" title="statement not covered" >localStorage.getItem(REFRESH_TOKEN);</span>
-<span class="cstat-no" title="statement not covered" >    if (!refreshToken)</span>
-<span class="cstat-no" title="statement not covered" >        return null;</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-        const response = <span class="cstat-no" title="statement not covered" >await axios.post(`${import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/"}auth/token/refresh/`, { refresh: refreshToken });</span>
-        const newAccessToken = <span class="cstat-no" title="statement not covered" >response.data.access_token;</span>
-<span class="cstat-no" title="statement not covered" >        if (newAccessToken) {</span>
-<span class="cstat-no" title="statement not covered" >            localStorage.setItem(ACCESS_TOKEN, newAccessToken);</span>
-<span class="cstat-no" title="statement not covered" >            return newAccessToken;</span>
-        }
-<span class="cstat-no" title="statement not covered" >        return null;</span>
+  const refreshToken = <span class="cstat-no" title="statement not covered" >localStorage.getItem(REFRESH_TOKEN);</span>
+<span class="cstat-no" title="statement not covered" >  if (!refreshToken) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const response = <span class="cstat-no" title="statement not covered" >await axios.post(</span>
+      `${import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/"}auth/token/refresh/`,
+      { refresh: refreshToken },
+    );
+    const newAccessToken = <span class="cstat-no" title="statement not covered" >response.data.access_token;</span>
+<span class="cstat-no" title="statement not covered" >    if (newAccessToken) {</span>
+<span class="cstat-no" title="statement not covered" >      localStorage.setItem(ACCESS_TOKEN, newAccessToken);</span>
+<span class="cstat-no" title="statement not covered" >      return newAccessToken;</span>
     }
-    catch (error) {
-<span class="cstat-no" title="statement not covered" >        console.error("Token refresh failed:", error);</span>
-<span class="cstat-no" title="statement not covered" >        localStorage.removeItem(ACCESS_TOKEN);</span>
-<span class="cstat-no" title="statement not covered" >        localStorage.removeItem(REFRESH_TOKEN);</span>
-<span class="cstat-no" title="statement not covered" >        return null;</span>
-    }
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    console.error("Token refresh failed:", error);</span>
+<span class="cstat-no" title="statement not covered" >    localStorage.removeItem(ACCESS_TOKEN);</span>
+<span class="cstat-no" title="statement not covered" >    localStorage.removeItem(REFRESH_TOKEN);</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
 }
 // --- Request Interceptor ---
-<span class="cstat-no" title="statement not covered" >api.interceptors.request.use(<span class="fstat-no" title="function not covered" >(c</span>onfig) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >api.interceptors.request.use(</span>
+<span class="fstat-no" title="function not covered" >  (c</span>onfig) =&gt; {
     const token = <span class="cstat-no" title="statement not covered" >localStorage.getItem(ACCESS_TOKEN);</span>
 <span class="cstat-no" title="statement not covered" >    if (token) {</span>
-<span class="cstat-no" title="statement not covered" >        config.headers.Authorization = `Bearer ${token}`;</span>
+<span class="cstat-no" title="statement not covered" >      config.headers.Authorization = `Bearer ${token}`;</span>
     }
 <span class="cstat-no" title="statement not covered" >    return config;</span>
-}, <span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; <span class="cstat-no" title="statement not covered" >Promise.reject(error))</span>;
+  },
+<span class="fstat-no" title="function not covered" >  (e</span>rror) =&gt; <span class="cstat-no" title="statement not covered" >Promise.reject(error),</span>
+);
 // --- Response Interceptor: Auto-refresh + Redux logout ---
-<span class="cstat-no" title="statement not covered" >api.interceptors.response.use(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; <span class="cstat-no" title="statement not covered" >response,</span> <span class="fstat-no" title="function not covered" >as</span>ync (error) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >api.interceptors.response.use(</span>
+<span class="fstat-no" title="function not covered" >  (r</span>esponse) =&gt; <span class="cstat-no" title="statement not covered" >response,</span>
+<span class="fstat-no" title="function not covered" >  as</span>ync (error) =&gt; {
     const originalRequest = <span class="cstat-no" title="statement not covered" >error.config;</span>
     // Token expired? Try refresh
 <span class="cstat-no" title="statement not covered" >    if (error.response?.status === 401 &amp;&amp; !originalRequest._retry) {</span>
-<span class="cstat-no" title="statement not covered" >        originalRequest._retry = true;</span>
-        const newAccessToken = <span class="cstat-no" title="statement not covered" >await refreshAccessToken();</span>
-<span class="cstat-no" title="statement not covered" >        if (newAccessToken) {</span>
-<span class="cstat-no" title="statement not covered" >            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;</span>
-<span class="cstat-no" title="statement not covered" >            return api(originalRequest);</span>
-        }
-        // Refresh failed → dispatch logout
-<span class="cstat-no" title="statement not covered" >        store.dispatch(logout());</span>
-<span class="cstat-no" title="statement not covered" >        return Promise.reject(error);</span>
+<span class="cstat-no" title="statement not covered" >      originalRequest._retry = true;</span>
+      const newAccessToken = <span class="cstat-no" title="statement not covered" >await refreshAccessToken();</span>
+<span class="cstat-no" title="statement not covered" >      if (newAccessToken) {</span>
+<span class="cstat-no" title="statement not covered" >        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;</span>
+<span class="cstat-no" title="statement not covered" >        return api(originalRequest);</span>
+      }
+      // Refresh failed → dispatch logout
+<span class="cstat-no" title="statement not covered" >      store.dispatch(logout());</span>
+<span class="cstat-no" title="statement not covered" >      return Promise.reject(error);</span>
     }
 <span class="cstat-no" title="statement not covered" >    return Promise.reject(error);</span>
-});
+  },
+);
 export default api;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -244,7 +265,7 @@ export default api;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

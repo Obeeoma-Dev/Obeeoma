@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
@@ -158,9 +158,9 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -253,9 +253,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import api from "./api";
-import axios from "axios";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import api from "./api";</span>
+<span class="cstat-no" title="statement not covered" >import axios from "axios";</span>
+<span class="cstat-no" title="statement not covered" >import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";</span>
 &nbsp;
 // Interfaces
 export interface TokenResponse {
@@ -292,8 +292,8 @@ export interface AuthAPI {
   logout: () =&gt; void;
 }
 &nbsp;
-export const authAPI: AuthAPI = <span class="cstat-no" title="statement not covered" >{</span>
-  login: <span class="fstat-no" title="function not covered" >as</span>ync (credentials: Credentials): Promise&lt;TokenResponse&gt; =&gt; {
+export const <span class="cstat-no" title="statement not covered" >authAPI: AuthAPI = {</span>
+  login: <span class="fstat-no" title="function not covered" >async </span>(credentials: Credentials): Promise&lt;TokenResponse&gt; =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const response = <span class="cstat-no" title="statement not covered" >await api.post&lt;TokenResponse&gt;(</span>
         "auth/login/",
@@ -315,7 +315,7 @@ export const authAPI: AuthAPI = <span class="cstat-no" title="statement not cove
     }
   },
 &nbsp;
-  register: <span class="fstat-no" title="function not covered" >as</span>ync (userData: UserData): Promise&lt;TokenResponse&gt; =&gt; {
+  register: <span class="fstat-no" title="function not covered" >async </span>(userData: UserData): Promise&lt;TokenResponse&gt; =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const response = <span class="cstat-no" title="statement not covered" >await api.post&lt;TokenResponse&gt;(</span>
         "auth/register/",
@@ -330,7 +330,7 @@ export const authAPI: AuthAPI = <span class="cstat-no" title="statement not cove
     }
   },
 &nbsp;
-  getCurrentUser: <span class="fstat-no" title="function not covered" >as</span>ync (): Promise&lt;CurrentUser&gt; =&gt; {
+  getCurrentUser: <span class="fstat-no" title="function not covered" >async </span>(): Promise&lt;CurrentUser&gt; =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const response = <span class="cstat-no" title="statement not covered" >await api.get&lt;CurrentUser&gt;("auth/user/");</span>
 <span class="cstat-no" title="statement not covered" >      return response.data;</span>
@@ -342,7 +342,7 @@ export const authAPI: AuthAPI = <span class="cstat-no" title="statement not cove
     }
   },
 &nbsp;
-  logout: <span class="fstat-no" title="function not covered" >()</span>: void =&gt; {
+  logout: <span class="fstat-no" title="function not covered" >(): void =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    localStorage.removeItem(ACCESS_TOKEN);</span>
 <span class="cstat-no" title="statement not covered" >    localStorage.removeItem(REFRESH_TOKEN);</span>
 <span class="cstat-no" title="statement not covered" >    console.log("Logged out and tokens cleared.");</span>
@@ -355,7 +355,7 @@ export const authAPI: AuthAPI = <span class="cstat-no" title="statement not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

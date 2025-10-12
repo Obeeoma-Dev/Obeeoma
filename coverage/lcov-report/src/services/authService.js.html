@@ -112,10 +112,7 @@
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -130,7 +127,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,7 +138,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,7 +148,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,53 +165,50 @@
 import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 export const authAPI = <span class="cstat-no" title="statement not covered" >{</span>
-    login: <span class="fstat-no" title="function not covered" >as</span>ync (credentials) =&gt; {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const response = <span class="cstat-no" title="statement not covered" >await api.post("auth/login/", credentials);</span>
-<span class="cstat-no" title="statement not covered" >            if (response.data?.access_token) {</span>
-<span class="cstat-no" title="statement not covered" >                localStorage.setItem(ACCESS_TOKEN, response.data.access_token);</span>
-<span class="cstat-no" title="statement not covered" >                if (response.data.refresh_token) {</span>
-<span class="cstat-no" title="statement not covered" >                    localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);</span>
-                }
-            }
-<span class="cstat-no" title="statement not covered" >            return response.data;</span>
+  login: <span class="fstat-no" title="function not covered" >as</span>ync (credentials) =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const response = <span class="cstat-no" title="statement not covered" >await api.post("auth/login/", credentials);</span>
+<span class="cstat-no" title="statement not covered" >      if (response.data?.access_token) {</span>
+<span class="cstat-no" title="statement not covered" >        localStorage.setItem(ACCESS_TOKEN, response.data.access_token);</span>
+<span class="cstat-no" title="statement not covered" >        if (response.data.refresh_token) {</span>
+<span class="cstat-no" title="statement not covered" >          localStorage.setItem(REFRESH_TOKEN, response.data.refresh_token);</span>
         }
-        catch (error) {
-<span class="cstat-no" title="statement not covered" >            if (axios.isAxiosError(error) &amp;&amp; error.response) {</span>
-<span class="cstat-no" title="statement not covered" >                throw error.response.data;</span>
-            }
-<span class="cstat-no" title="statement not covered" >            throw new Error("Login failed");</span>
-        }
-    },
-    register: <span class="fstat-no" title="function not covered" >as</span>ync (userData) =&gt; {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const response = <span class="cstat-no" title="statement not covered" >await api.post("auth/register/", userData);</span>
-<span class="cstat-no" title="statement not covered" >            return response.data;</span>
-        }
-        catch (error) {
-<span class="cstat-no" title="statement not covered" >            if (axios.isAxiosError(error) &amp;&amp; error.response) {</span>
-<span class="cstat-no" title="statement not covered" >                throw error.response.data;</span>
-            }
-<span class="cstat-no" title="statement not covered" >            throw new Error("Registration failed");</span>
-        }
-    },
-    getCurrentUser: <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const response = <span class="cstat-no" title="statement not covered" >await api.get("auth/user/");</span>
-<span class="cstat-no" title="statement not covered" >            return response.data;</span>
-        }
-        catch (error) {
-<span class="cstat-no" title="statement not covered" >            if (axios.isAxiosError(error) &amp;&amp; error.response) {</span>
-<span class="cstat-no" title="statement not covered" >                throw error.response.data;</span>
-            }
-<span class="cstat-no" title="statement not covered" >            throw new Error("Failed to fetch user");</span>
-        }
-    },
-    logout: <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >        localStorage.removeItem(ACCESS_TOKEN);</span>
-<span class="cstat-no" title="statement not covered" >        localStorage.removeItem(REFRESH_TOKEN);</span>
-<span class="cstat-no" title="statement not covered" >        console.log("Logged out and tokens cleared.");</span>
-    },
+      }
+<span class="cstat-no" title="statement not covered" >      return response.data;</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      if (axios.isAxiosError(error) &amp;&amp; error.response) {</span>
+<span class="cstat-no" title="statement not covered" >        throw error.response.data;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      throw new Error("Login failed");</span>
+    }
+  },
+  register: <span class="fstat-no" title="function not covered" >as</span>ync (userData) =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const response = <span class="cstat-no" title="statement not covered" >await api.post("auth/register/", userData);</span>
+<span class="cstat-no" title="statement not covered" >      return response.data;</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      if (axios.isAxiosError(error) &amp;&amp; error.response) {</span>
+<span class="cstat-no" title="statement not covered" >        throw error.response.data;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      throw new Error("Registration failed");</span>
+    }
+  },
+  getCurrentUser: <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const response = <span class="cstat-no" title="statement not covered" >await api.get("auth/user/");</span>
+<span class="cstat-no" title="statement not covered" >      return response.data;</span>
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      if (axios.isAxiosError(error) &amp;&amp; error.response) {</span>
+<span class="cstat-no" title="statement not covered" >        throw error.response.data;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      throw new Error("Failed to fetch user");</span>
+    }
+  },
+  logout: <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    localStorage.removeItem(ACCESS_TOKEN);</span>
+<span class="cstat-no" title="statement not covered" >    localStorage.removeItem(REFRESH_TOKEN);</span>
+<span class="cstat-no" title="statement not covered" >    console.log("Logged out and tokens cleared.");</span>
+  },
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -226,7 +217,7 @@ export const authAPI = <span class="cstat-no" title="statement not covered" >{</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-11T11:16:48.186Z
+                at 2025-10-12T09:31:18.383Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
