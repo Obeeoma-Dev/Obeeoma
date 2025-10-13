@@ -1,7 +1,4 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Users,
   FileCheck,
@@ -30,7 +27,7 @@ import {
 } from "recharts";
 import { useNavigate } from "react-router-dom";
 
-const EmployerDashboard = () => {
+const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -40,28 +37,28 @@ const EmployerDashboard = () => {
       value: "4",
       description: "Active employees in the system",
       icon: Users,
-      iconBg: "bg-primary",
+      iconBg: "var(--obeeoma-primary)",
     },
     {
       title: "Total Tests",
       value: "6",
       description: "Tests completed",
       icon: FileCheck,
-      iconBg: "bg-blue-500",
+      iconBg: "#3b82f6",
     },
     {
       title: "Average Score",
       value: "61%",
       description: "Average wellness score",
       icon: TrendingUp,
-      iconBg: "bg-amber-500",
+      iconBg: "#f59e0b",
     },
     {
       title: "At Risk",
       value: "0",
       description: "Departments with risk factors",
       icon: AlertTriangle,
-      iconBg: "bg-red-500",
+      iconBg: "#ef4444",
     },
   ];
 
@@ -96,221 +93,300 @@ const EmployerDashboard = () => {
   ];
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Overview", active: true },
-    { icon: UsersIcon, label: "Employees", active: false },
-    { icon: CreditCard, label: "Subscription", active: false },
-    { icon: Settings, label: "Settings", active: false },
+    { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: true },
+    { icon: UsersIcon, label: "Employees", path: "/management", active: false },
+    { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
+    { icon: Settings, label: "Settings", path: "/settings", active: false },
   ];
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-vh-100" style={{ backgroundColor: '#f9fafb' }}>
       {/* Mobile Menu Overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 1040,
+          }}
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full bg-background border-r border-border w-64 z-50 transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          height: '100%',
+          backgroundColor: 'white',
+          borderRight: '1px solid var(--obeeoma-border)',
+          width: '256px',
+          zIndex: 1050,
+          transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 0.3s ease',
+        }}
+        className="d-lg-block"
       >
-        <div className="p-6 flex items-center justify-between">
+        <div className="p-4 d-flex align-items-center justify-content-between border-bottom">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2"
+            className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">
-                O
-              </span>
+            <div
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <span style={{ color: 'white', fontWeight: 'bold', fontSize: '20px' }}>O</span>
             </div>
-            <span className="text-xl font-bold text-primary">Obeeoma</span>
+            <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--obeeoma-primary)' }}>
+              Obeeoma
+            </span>
           </button>
-          <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden">
-            <X className="w-5 h-5" />
+          <button onClick={() => setIsSidebarOpen(false)} className="btn btn-link d-lg-none p-0">
+            <X size={20} />
           </button>
         </div>
 
-        <nav className="px-4 mt-8">
-          <p className="text-xs text-muted-foreground mb-4 px-3">Menu</p>
+        <nav className="px-3 mt-4">
+          <p style={{ fontSize: '12px', color: 'var(--obeeoma-text-muted)', marginBottom: '16px', paddingLeft: '12px' }}>
+            Menu
+          </p>
           {menuItems.map((item) => (
             <button
               key={item.label}
-              className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg mb-2 transition-colors ${
-                item.active
-                  ? "bg-primary/10 text-primary"
-                  : "text-foreground hover:bg-muted"
-              }`}
+              onClick={() => navigate(item.path)}
+              className="btn w-100 d-flex align-items-center gap-3 mb-2 text-start"
+              style={{
+                backgroundColor: item.active ? 'var(--obeeoma-mint-dark)' : 'transparent',
+                color: item.active ? 'var(--obeeoma-primary)' : 'var(--obeeoma-text-dark)',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '12px',
+                fontWeight: '500',
+              }}
             >
-              <item.icon className="w-5 h-5" />
-              <span className="font-medium">{item.label}</span>
+              <item.icon size={20} />
+              <span>{item.label}</span>
             </button>
           ))}
         </nav>
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-64">
-        {/* Top Bar */}
-        <header className="bg-background border-b border-border px-4 sm:px-6 py-4 flex items-center justify-between sticky top-0 z-30">
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="lg:hidden p-2"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+      <div style={{ marginLeft: 0 }} className="d-lg-flex">
+        <div style={{ width: '256px' }} className="d-none d-lg-block"></div>
+        
+        <div className="flex-grow-1">
+          {/* Top Bar */}
+          <header className="bg-white border-bottom px-3 px-sm-4 py-3 d-flex align-items-center justify-content-between sticky-top">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="btn btn-link d-lg-none p-2"
+            >
+              <Menu size={24} />
+            </button>
 
-          <div className="flex-1 max-w-xl mx-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search..."
-                className="pl-10 bg-muted/50"
-              />
+            <div className="flex-grow-1 mx-4" style={{ maxWidth: '600px' }}>
+              <div className="position-relative">
+                <Search
+                  size={16}
+                  style={{
+                    position: 'absolute',
+                    left: '12px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: 'var(--obeeoma-text-muted)',
+                  }}
+                />
+                <input
+                  type="search"
+                  placeholder="Search..."
+                  className="form-control"
+                  style={{
+                    paddingLeft: '40px',
+                    backgroundColor: '#f3f4f6',
+                    border: '1px solid var(--obeeoma-border)',
+                    borderRadius: '8px',
+                  }}
+                />
+              </div>
             </div>
-          </div>
 
-          <button className="relative p-2">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
-          </button>
-        </header>
+            <button className="btn btn-link position-relative p-2">
+              <Bell size={20} />
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '8px',
+                  right: '8px',
+                  width: '8px',
+                  height: '8px',
+                  backgroundColor: 'var(--obeeoma-primary)',
+                  borderRadius: '50%',
+                }}
+              ></span>
+            </button>
+          </header>
 
-        {/* Dashboard Content */}
-        <main className="p-4 sm:p-6 lg:p-8">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-6">
-            Organization Overview
-          </h1>
+          {/* Dashboard Content */}
+          <main className="p-3 p-sm-4 p-lg-5">
+            <h1 className="mb-4" style={{ fontSize: '28px', fontWeight: 'bold' }}>
+              Organization Overview
+            </h1>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
-            {statsData.map((stat) => (
-              <Card
-                key={stat.title}
-                className="hover:shadow-lg transition-shadow"
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div
-                      className={`${stat.iconBg} w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0`}
-                    >
-                      <stat.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-muted-foreground mb-1">
-                        {stat.title}
-                      </p>
-                      <p className="text-3xl font-bold mb-1">{stat.value}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {stat.description}
-                      </p>
+            {/* Stats Grid */}
+            <div className="row g-3 g-sm-4 mb-4">
+              {statsData.map((stat) => (
+                <div key={stat.title} className="col-12 col-sm-6 col-lg-3">
+                  <div className="card h-100 border-0 shadow-sm">
+                    <div className="card-body p-4">
+                      <div className="d-flex align-items-start gap-3">
+                        <div
+                          style={{
+                            backgroundColor: stat.iconBg,
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <stat.icon size={24} color="white" />
+                        </div>
+                        <div className="flex-grow-1">
+                          <p className="mb-1" style={{ fontSize: '14px', color: 'var(--obeeoma-text-muted)' }}>
+                            {stat.title}
+                          </p>
+                          <p className="mb-1" style={{ fontSize: '32px', fontWeight: 'bold' }}>
+                            {stat.value}
+                          </p>
+                          <p className="mb-0" style={{ fontSize: '12px', color: 'var(--obeeoma-text-muted)' }}>
+                            {stat.description}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              ))}
+            </div>
 
-          {/* Charts */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            {/* Bar Chart */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-6">Tests by Type</h3>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={testsByType}>
-                    <CartesianGrid
-                      strokeDasharray="3 3"
-                      stroke="hsl(var(--border))"
-                    />
-                    <XAxis
-                      dataKey="name"
-                      tick={{ fill: "hsl(var(--foreground))" }}
-                    />
-                    <YAxis tick={{ fill: "hsl(var(--foreground))" }} />
-                    <Bar
-                      dataKey="value"
-                      fill="hsl(var(--primary))"
-                      radius={[8, 8, 0, 0]}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            {/* Pie Chart */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-6">
-                  Tests by Department
-                </h3>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={testsByDepartment}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, value }) => `${name}: ${value}%`}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {testsByDepartment.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Recent Activity */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold">Recent Activity</h3>
-                <Button
-                  variant="ghost"
-                  className="text-primary hover:text-primary"
-                >
-                  View All
-                </Button>
+            {/* Charts */}
+            <div className="row g-4 mb-4">
+              {/* Bar Chart */}
+              <div className="col-12 col-lg-6">
+                <div className="card border-0 shadow-sm">
+                  <div className="card-body p-4">
+                    <h3 className="mb-4" style={{ fontSize: '18px', fontWeight: '600' }}>
+                      Tests by Type
+                    </h3>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={testsByType}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                        <XAxis dataKey="name" tick={{ fill: '#6b7280' }} />
+                        <YAxis tick={{ fill: '#6b7280' }} />
+                        <Bar dataKey="value" fill="var(--obeeoma-primary)" radius={[8, 8, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 py-3 border-b last:border-0"
+
+              {/* Pie Chart */}
+              <div className="col-12 col-lg-6">
+                <div className="card border-0 shadow-sm">
+                  <div className="card-body p-4">
+                    <h3 className="mb-4" style={{ fontSize: '18px', fontWeight: '600' }}>
+                      Tests by Department
+                    </h3>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={testsByDepartment}
+                          cx="50%"
+                          cy="50%"
+                          labelLine={false}
+                          label={({ name, value }) => `${name}: ${value}%`}
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="value"
+                        >
+                          {testsByDepartment.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activity */}
+            <div className="card border-0 shadow-sm">
+              <div className="card-body p-4">
+                <div className="d-flex align-items-center justify-content-between mb-4">
+                  <h3 className="mb-0" style={{ fontSize: '18px', fontWeight: '600' }}>
+                    Recent Activity
+                  </h3>
+                  <button
+                    className="btn btn-link"
+                    style={{ color: 'var(--obeeoma-primary)', textDecoration: 'none' }}
                   >
-                    <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                    <div className="flex-1">
-                      <p className="text-sm">
-                        {activity.text}{" "}
-                        {activity.department && (
-                          <span className="font-medium">
-                            {activity.department}
-                          </span>
-                        )}
-                      </p>
+                    View All
+                  </button>
+                </div>
+                <div>
+                  {recentActivity.map((activity, index) => (
+                    <div
+                      key={index}
+                      className="d-flex align-items-start gap-3 py-3"
+                      style={{ borderBottom: index < recentActivity.length - 1 ? '1px solid var(--obeeoma-border)' : 'none' }}
+                    >
+                      <div
+                        style={{
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          backgroundColor: 'var(--obeeoma-primary)',
+                          marginTop: '8px',
+                          flexShrink: 0,
+                        }}
+                      ></div>
+                      <div className="flex-grow-1">
+                        <p className="mb-0" style={{ fontSize: '14px' }}>
+                          {activity.text}{" "}
+                          {activity.department && (
+                            <span style={{ fontWeight: '500' }}>{activity.department}</span>
+                          )}
+                        </p>
+                      </div>
+                      <span style={{ fontSize: '12px', color: 'var(--obeeoma-text-muted)', whiteSpace: 'nowrap' }}>
+                        {activity.time}
+                      </span>
                     </div>
-                    <span className="text-xs text-muted-foreground whitespace-nowrap">
-                      {activity.time}
-                    </span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </main>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
 };
 
-export default EmployerDashboard;
+export default Dashboard;

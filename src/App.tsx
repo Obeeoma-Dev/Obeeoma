@@ -22,6 +22,9 @@ import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
+import Management from "./pages/EmployerPages/EmployeeManagement";
+import Subscription from "./pages/EmployerPages/Subscription";
+import Settings from "./pages/EmployerPages/AccountSettings";
 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
