@@ -1,8 +1,9 @@
-// Import React and required Bootstrap layout components
+// src/pages/Dashboard.tsx
+
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-// Import custom dashboard components
+// Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
 import Header from "../../components/admincomponents/adminheader";
 import DashboardStats from "../../components/admincomponents/dashboardstats";
@@ -10,12 +11,13 @@ import PlatformUsageChart from "../../components/admincomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/buttonmetrics";
 
-// Import type definitions for props
-import { ActivityItem } from "../../components/admincomponents/admindashboard";
-import { BottomMetricCard } from "../../components/admincomponents/admindashboard";
-import { StatCardData } from "../../components/admincomponents/admindashboard";
+// Import shared type definitions
+import { ActivityItem, BottomMetricCard, StatCardData } from "../../components/admincomponents/admindashboard";
 
-// Define static data for recent activities
+/**
+ * Static placeholder data for recent activities
+ * Replace with API data when backend is ready
+ */
 const recentActivityData: ActivityItem[] = [
   {
     id: "1",
@@ -23,12 +25,22 @@ const recentActivityData: ActivityItem[] = [
     details: "Wellness Centre Inc. joined the platform",
     time: "2 hours ago",
     icon: "Building2",
-    iconColor: "bg-light", // Bootstrap background utility
+    iconColor: "bg-light",
   },
-  // Add more activities as needed
+  {
+    id: "2",
+    type: "AI Recommendation",
+    details: "New AI recommendation available for review",
+    time: "1 hour ago",
+    icon: "Brain",
+    iconColor: "bg-light",
+  },
 ];
 
-// Define static data for bottom metric cards
+/**
+ * Static placeholder data for bottom metric cards
+ * Replace with API data when backend is ready
+ */
 const bottomMetricData: BottomMetricCard[] = [
   {
     id: "1",
@@ -37,12 +49,23 @@ const bottomMetricData: BottomMetricCard[] = [
     subtitle: "Active organizations",
     linkText: "View all organizations",
     icon: "Building2",
-    color: "success", // Bootstrap contextual color
+    color: "success",
   },
-  // Add more metrics as needed
+  {
+    id: "2",
+    title: "AI Recommendations",
+    value: "1,245",
+    subtitle: "Reviewed today",
+    linkText: "View recommendations",
+    icon: "Brain",
+    color: "info",
+  },
 ];
 
-// Define static data for top dashboard stats
+/**
+ * Static placeholder data for top dashboard stats
+ * Replace with API data when backend is ready
+ */
 const dashboardStatsData: StatCardData[] = [
   {
     id: "1",
@@ -50,48 +73,73 @@ const dashboardStatsData: StatCardData[] = [
     value: "42",
     change: "+3 this month",
     icon: "Building2",
-    iconColor: "bg-light", // Bootstrap background utility
+    iconColor: "bg-light",
   },
-  // Add more stats as needed
+  {
+    id: "2",
+    title: "Total Clients",
+    value: "1,284",
+    change: "+12 this week",
+    icon: "Users",
+    iconColor: "bg-light",
+  },
+  {
+    id: "3",
+    title: "AI Recommendations",
+    value: "25,800",
+    change: "+1,245 today",
+    icon: "Brain",
+    iconColor: "bg-light",
+  },
+  {
+    id: "4",
+    title: "Hotline Calls Today",
+    value: "42",
+    change: "+5 since yesterday",
+    icon: "Phone",
+    iconColor: "bg-light",
+  },
 ];
 
-// Main Dashboard component
+/**
+ * Main Dashboard component
+ * Combines sidebar, header, and dashboard content
+ */
 const Dashboard: React.FC = () => {
   return (
-    // Root container with full viewport height and horizontal layout
+    // Full-height layout with sidebar and main content
     <div className="d-flex vh-100">
-      {/* Sidebar navigation (left column) */}
+      {/* Sidebar navigation */}
       <Sidebar />
 
-      {/* Main content area (right column) */}
+      {/* Main content area */}
       <div className="flex-grow-1 d-flex flex-column overflow-hidden">
         {/* Top header bar */}
         <Header />
 
-        {/* Scrollable content area below the header */}
+        {/* Scrollable content below header */}
         <div className="flex-grow-1 overflow-auto">
-          {/* Bootstrap container with vertical padding */}
           <Container fluid className="py-4">
-            {/* Top dashboard stats section */}
+            {/* Top dashboard stats cards */}
             <Row className="gy-4">
               <DashboardStats stats={dashboardStatsData} />
             </Row>
 
-            {/* Platform usage chart section */}
+            {/* Platform usage chart */}
             <Row className="gy-4">
               <Col>
                 <PlatformUsageChart />
               </Col>
             </Row>
 
-            {/* Recent activities section */}
+            {/* Recent activity feed */}
             <Row className="gy-4">
               <Col>
                 <RecentActivities activities={recentActivityData} />
               </Col>
             </Row>
 
-            {/* Bottom metrics section */}
+            {/* Bottom metric summary cards */}
             <Row className="gy-4">
               <BottomMetrics metrics={bottomMetricData} />
             </Row>
@@ -102,5 +150,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-// Export the component for use in routing or layout
 export default Dashboard;

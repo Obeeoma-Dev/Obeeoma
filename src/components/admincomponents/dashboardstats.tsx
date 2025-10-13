@@ -1,42 +1,68 @@
-// Import React and required Bootstrap layout components
-import React from "react";
-import { Row, Col } from "react-bootstrap";
+// src/components/admincomponents/dashboardstats.tsx
 
-// Import the StatCard component and its data type
-import StatCard from "./statCard";
+import React from "react";
+import { Card, Col } from "react-bootstrap";
+import * as Icons from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { StatCardData } from "./admindashboard";
 
 /**
- * Props interface for DashboardStats component
- * Accepts an array of StatCardData objects
+ * Props for the DashboardStats component
+ * Accepts an array of stat cards to render
  */
 interface DashboardStatsProps {
   stats: StatCardData[];
 }
 
 /**
- * DashboardStats component displays top-level metrics
- * Uses React Bootstrap grid layout to render StatCard components
+ * DashboardStats renders a responsive row of stat cards
+ * Each card displays an icon, title, value, and change indicator
+ * Styled to match modern dashboard layout
  */
 const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
   return (
-    // Section wrapper for dashboard overview
-    <section className="mb-4">
-      {/* Section heading */}
-      <h2 className="fw-bold fs-4 text-dark mb-4">Dashboard Overview</h2>
+    <>
+      {stats.map((stat) => {
+        const IconComponent = Icons[stat.icon as keyof typeof Icons] as LucideIcon;
 
-      {/* Bootstrap grid layout for stat cards */}
-      <Row className="gy-4">
-        {/* Map through stats array and render each StatCard inside a responsive column */}
-        {stats.map((stat) => (
-          <Col key={stat.id} xs={12} md={6} lg={3}>
-            <StatCard data={stat} />
+        return (
+          <Col key={stat.id} xs={12} sm={6} md={3} className="mb-4">
+            <Card className="shadow-sm border-0 h-100">
+              <Card.Body className="d-flex flex-column justify-content-between p-3">
+                {/* Top section: icon and change badge */}
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                  <div
+                    className={`rounded-circle d-flex align-items-center justify-content-center ${stat.iconColor || "bg-light"}`}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      backgroundColor: "#f8f9fa",
+                    }}
+                  >
+                    <IconComponent size={20} style={{ color: "#198754" }} />
+                  </div>
+
+                  {/* Change indicator styled like a badge */}
+                  <span
+                    className="badge bg-success text-white fw-medium"
+                    style={{ fontSize: "0.75rem", padding: "0.4em 0.6em" }}
+                  >
+                    {stat.change}
+                  </span>
+                </div>
+
+                {/* Bottom section: title and value */}
+                <div>
+                  <div className="text-muted small">{stat.title}</div>
+                  <div className="fs-3 fw-bold text-dark">{stat.value}</div>
+                </div>
+              </Card.Body>
+            </Card>
           </Col>
-        ))}
-      </Row>
-    </section>
+        );
+      })}
+    </>
   );
 };
 
-// Export the component for use in the dashboard layout
 export default DashboardStats;

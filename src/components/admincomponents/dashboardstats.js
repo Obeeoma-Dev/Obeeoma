@@ -1,15 +1,19 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Row, Col } from "react-bootstrap";
-// Import the StatCard component and its data type
-import StatCard from "./statCard";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { Card, Col } from "react-bootstrap";
+import * as Icons from "lucide-react";
 /**
- * DashboardStats component displays top-level metrics
- * Uses React Bootstrap grid layout to render StatCard components
+ * DashboardStats renders a responsive row of stat cards
+ * Each card displays an icon, title, value, and change indicator
+ * Styled to match modern dashboard layout
  */
 const DashboardStats = ({ stats }) => {
-    return (
-    // Section wrapper for dashboard overview
-    _jsxs("section", { className: "mb-4", children: [_jsx("h2", { className: "fw-bold fs-4 text-dark mb-4", children: "Dashboard Overview" }), _jsx(Row, { className: "gy-4", children: stats.map((stat) => (_jsx(Col, { xs: 12, md: 6, lg: 3, children: _jsx(StatCard, { data: stat }) }, stat.id))) })] }));
+    return (_jsx(_Fragment, { children: stats.map((stat) => {
+            const IconComponent = Icons[stat.icon];
+            return (_jsx(Col, { xs: 12, sm: 6, md: 3, className: "mb-4", children: _jsx(Card, { className: "shadow-sm border-0 h-100", children: _jsxs(Card.Body, { className: "d-flex flex-column justify-content-between p-3", children: [_jsxs("div", { className: "d-flex align-items-center justify-content-between mb-3", children: [_jsx("div", { className: `rounded-circle d-flex align-items-center justify-content-center ${stat.iconColor || "bg-light"}`, style: {
+                                            width: "40px",
+                                            height: "40px",
+                                            backgroundColor: "#f8f9fa",
+                                        }, children: _jsx(IconComponent, { size: 20, style: { color: "#198754" } }) }), _jsx("span", { className: "badge bg-success text-white fw-medium", style: { fontSize: "0.75rem", padding: "0.4em 0.6em" }, children: stat.change })] }), _jsxs("div", { children: [_jsx("div", { className: "text-muted small", children: stat.title }), _jsx("div", { className: "fs-3 fw-bold text-dark", children: stat.value })] })] }) }) }, stat.id));
+        }) }));
 };
-// Export the component for use in the dashboard layout
 export default DashboardStats;
