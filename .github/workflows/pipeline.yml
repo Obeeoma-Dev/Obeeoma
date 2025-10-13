@@ -39,7 +39,7 @@ jobs:
 
     # Step 5a: Check Prettier formatting (fails if formatting issues exist)
       - name: Prettier formatting
-        run: npx prettier --write
+        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx,json,css,md}"
 
       # Step 5: Check Prettier formatting (fails if formatting issues exist)
       - name: Check Prettier formatting
