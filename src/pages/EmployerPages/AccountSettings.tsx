@@ -16,15 +16,15 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const Settings = () => {
+const EmployerAccountSettings = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
-    { icon: UsersIcon, label: "Employees", path: "/management", active: false },
+    { icon: LayoutDashboard, label: "Overview", path: "/employer-dashboard", active: false },
+    { icon: UsersIcon, label: "Employees", path: "/employeemanagement", active: false },
     { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
-    { icon: SettingsIcon, label: "Settings", path: "/settings", active: true },
+    { icon: SettingsIcon, label: "Settings", path: "/employeraccountsettings", active: true },
   ];
 
   return (
@@ -468,4 +468,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default EmployerAccountSettings;

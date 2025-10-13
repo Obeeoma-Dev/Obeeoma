@@ -22,9 +22,9 @@ import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
-import Management from "./pages/EmployerPages/EmployeeManagement";
+import EmployerManagement from "./pages/EmployerPages/EmployeeManagement";
 import Subscription from "./pages/EmployerPages/Subscription";
-import Settings from "./pages/EmployerPages/AccountSettings";
+import EmployerAccountSettings from "./pages/EmployerPages/AccountSettings";
 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
@@ -54,6 +54,14 @@ export default function App(): React.ReactElement {
               <Route
                 path="/employee-dashboard"
                 element={<EmployeeDashboard />}
+              />
+              <Route
+                path="/employermanagement"
+                element={<EmployerManagement />}
+              />
+              <Route
+                path="/employeraccountsettings"
+                element={<EmployerAccountSettings />}
               />
               <Route path="/subscription" element={<Subscription />} />
               <Route

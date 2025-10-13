@@ -10,7 +10,7 @@ import {
   X,
   Plus,
   Mail,
-  Phone,
+//   Phone,
   MoreVertical,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -63,10 +63,10 @@ const EmployeeManagement = () => {
   ];
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
+    { icon: LayoutDashboard, label: "Overview", path: "/employer-dashboard", active: false },
     { icon: UsersIcon, label: "Employees", path: "/employeemanagement", active: true },
     { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
-    { icon: Settings, label: "Settings", path: "/settings", active: false },
+    { icon: Settings, label: "Settings", path: "/employeraccountsettings", active: false },
   ];
 
   return (
