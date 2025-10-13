@@ -13,7 +13,7 @@ const DashboardStats = ({ stats }) => {
                                             width: "40px",
                                             height: "40px",
                                             backgroundColor: "#f8f9fa",
-                                        }, children: _jsx(IconComponent, { size: 20, style: { color: "#198754" } }) }), _jsx("span", { className: "badge bg-success text-white fw-medium", style: { fontSize: "0.75rem", padding: "0.4em 0.6em" }, children: stat.change })] }), _jsxs("div", { children: [_jsx("div", { className: "text-muted small", children: stat.title }), _jsx("div", { className: "fs-3 fw-bold text-dark", children: stat.value })] })] }) }) }, stat.id));
+                                        }, children: _jsx(IconComponent, { size: 20, style: { color: "#198754" } }) }), _jsx("span", { className: "badge text-success fw-medium", style: { fontSize: "0.75rem", padding: "0.4em 0.6em" }, children: stat.change })] }), _jsxs("div", { children: [_jsx("div", { className: "text-muted small", children: stat.title }), _jsx("div", { className: "fs-3 fw-bold text-dark", children: stat.value })] })] }) }) }, stat.id));
         }) }));
 };
 export default DashboardStats;

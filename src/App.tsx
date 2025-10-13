@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFound";
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
+import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
@@ -68,6 +69,10 @@ export default function App(): React.ReactElement {
               <Route
                 path="/systemadmin/organizations/:id"
                 element={<OrganisationDetails />}
+              />
+              <Route
+                path="/system-admin/client-engagement"
+                element={<ClientEngagement />}
               />
 
               {/* === PROTECTED ROUTES === */}

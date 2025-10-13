@@ -44,7 +44,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
 
                   {/* Change indicator styled like a badge */}
                   <span
-                    className="badge bg-success text-white fw-medium"
+                    className="badge text-success fw-medium"
                     style={{ fontSize: "0.75rem", padding: "0.4em 0.6em" }}
                   >
                     {stat.change}
