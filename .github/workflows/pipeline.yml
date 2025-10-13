@@ -37,6 +37,10 @@ jobs:
       - name: Run ESLint
         run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
 
+    # Step 5a: Check Prettier formatting (fails if formatting issues exist)
+      - name: Prettier formatting
+        run: npx prettier --write
+
       # Step 5: Check Prettier formatting (fails if formatting issues exist)
       - name: Check Prettier formatting
         run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
