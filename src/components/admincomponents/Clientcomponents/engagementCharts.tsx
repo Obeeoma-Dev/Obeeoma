@@ -1,9 +1,9 @@
 // EngagementCharts.tsx
 // Displays line and bar charts for engagement and reward redemption
 
-import React from 'react';
-import { Line, Bar } from 'react-chartjs-2';
-import { Card } from 'react-bootstrap';
+import React from "react";
+import { Line, Bar } from "react-chartjs-2";
+import { Card } from "react-bootstrap";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +14,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 // Register chart.js components
 ChartJS.register(
@@ -25,18 +25,18 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 // Line chart data for weekly engagement
 const weeklyEngagementData = {
-  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
     {
-      label: 'Engagement Rate (%)',
+      label: "Engagement Rate (%)",
       data: [75, 78, 80, 77, 79, 81, 78],
-      borderColor: '#007bff',
-      backgroundColor: 'rgba(0, 123, 255, 0.2)',
+      borderColor: "#007bff",
+      backgroundColor: "rgba(0, 123, 255, 0.2)",
       fill: true,
     },
   ],
@@ -44,12 +44,12 @@ const weeklyEngagementData = {
 
 // Bar chart data for reward redemptions
 const rewardRedemptionData = {
-  labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+  labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
   datasets: [
     {
-      label: 'Points Redeemed',
+      label: "Points Redeemed",
       data: [42000, 38000, 45000, 47000, 43000, 50000],
-      backgroundColor: '#28a745',
+      backgroundColor: "#28a745",
     },
   ],
 };

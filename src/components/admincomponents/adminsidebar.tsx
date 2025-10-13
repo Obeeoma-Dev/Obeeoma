@@ -76,12 +76,15 @@ const AdminSidebar: React.FC = () => {
       <div style={{ padding: "1rem 0", flexGrow: 1 }}>
         {menuItems.map((item) => {
           // Cast icon to valid React component
-          const IconComponent = Icons[item.icon as keyof typeof Icons] as React.FC<{
+          const IconComponent = Icons[
+            item.icon as keyof typeof Icons
+          ] as React.FC<{
             size?: number;
           }>;
 
           const isActive =
-            currentPath === item.id || (item.id === "overview" && currentPath === undefined);
+            currentPath === item.id ||
+            (item.id === "overview" && currentPath === undefined);
 
           return (
             <Button

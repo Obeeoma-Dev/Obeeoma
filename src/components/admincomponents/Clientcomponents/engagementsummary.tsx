@@ -1,8 +1,8 @@
 // EngagementSummary.tsx
 // Displays top-level client engagement metrics
 
-import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Card, Row, Col } from "react-bootstrap";
 
 // Define the component using React.FC for type safety
 const EngagementSummary: React.FC = () => {

@@ -1,13 +1,13 @@
 // PatientSearchFilter.tsx
 // Provides search input and filter controls for patient engagement table
 
-import React, { useState } from 'react';
-import { Form, InputGroup, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Form, InputGroup, Button } from "react-bootstrap";
 
 // Define the component using React.FC
 const PatientSearchFilter: React.FC = () => {
   // Local state to hold search input value
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   // Handler for input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -17,7 +17,7 @@ const PatientSearchFilter: React.FC = () => {
   // Handler for search button click (stubbed for now)
   const handleSearch = (): void => {
     // TODO: Implement search logic or lift state to parent
-    console.log('Searching for:', searchTerm);
+    console.log("Searching for:", searchTerm);
   };
 
   return (

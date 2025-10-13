@@ -12,7 +12,11 @@ import RecentActivities from "../../components/admincomponents/recentactivities"
 import BottomMetrics from "../../components/admincomponents/buttonmetrics";
 
 // Import shared type definitions
-import { ActivityItem, BottomMetricCard, StatCardData } from "../../components/admincomponents/admindashboard";
+import {
+  ActivityItem,
+  BottomMetricCard,
+  StatCardData,
+} from "../../components/admincomponents/admindashboard";
 
 /**
  * Static placeholder data for recent activities

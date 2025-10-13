@@ -1,8 +1,8 @@
 // EngagementStatsPanel.tsx
 // Displays bottom panel with top rewards, engagement trends, and streak statistics
 
-import React from 'react';
-import { Card, Row, Col, ListGroup } from 'react-bootstrap';
+import React from "react";
+import { Card, Row, Col, ListGroup } from "react-bootstrap";
 
 // Define the component using React.FC for type safety
 const EngagementStatsPanel: React.FC = () => {

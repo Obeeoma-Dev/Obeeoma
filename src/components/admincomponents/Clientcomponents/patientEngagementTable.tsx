@@ -1,8 +1,8 @@
 // PatientEngagementTable.tsx
 // Displays a table of patient engagement data
 
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React from "react";
+import { Table } from "react-bootstrap";
 
 // Define a type for patient data
 interface Patient {
@@ -16,25 +16,25 @@ interface Patient {
 // Sample patient data (can be replaced with props or API)
 const patients: Patient[] = [
   {
-    name: 'Madison Carano',
-    organization: 'HealthOne',
+    name: "Madison Carano",
+    organization: "HealthOne",
     engagementRate: 92,
     pointsRedeemed: 1200,
-    lastActivity: '2h ago',
+    lastActivity: "2h ago",
   },
   {
-    name: 'William Johnson',
-    organization: 'MediCare',
+    name: "William Johnson",
+    organization: "MediCare",
     engagementRate: 88,
     pointsRedeemed: 980,
-    lastActivity: '3h ago',
+    lastActivity: "3h ago",
   },
   {
-    name: 'Vanessa Jefferson',
-    organization: 'HealthOne',
+    name: "Vanessa Jefferson",
+    organization: "HealthOne",
     engagementRate: 85,
     pointsRedeemed: 1100,
-    lastActivity: '1h ago',
+    lastActivity: "1h ago",
   },
 ];
 

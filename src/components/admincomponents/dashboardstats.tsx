@@ -23,7 +23,9 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
   return (
     <>
       {stats.map((stat) => {
-        const IconComponent = Icons[stat.icon as keyof typeof Icons] as LucideIcon;
+        const IconComponent = Icons[
+          stat.icon as keyof typeof Icons
+        ] as LucideIcon;
 
         return (
           <Col key={stat.id} xs={12} sm={6} md={3} className="mb-4">
