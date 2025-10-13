@@ -51,7 +51,8 @@ const AdminSidebar = () => {
                 }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "40px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
                     // Cast icon to valid React component
                     const IconComponent = Icons[item.icon];
-                    const isActive = currentPath === item.id || (item.id === "overview" && currentPath === undefined);
+                    const isActive = currentPath === item.id ||
+                        (item.id === "overview" && currentPath === undefined);
                     return (_jsxs(Button, { variant: "light", onClick: () => handleMenuClick(item.id), className: `w-100 d-flex align-items-center gap-3 px-3 py-2 text-start mb-2 ${isActive ? "fw-semibold border-start border-success" : ""}`, style: {
                             backgroundColor: isActive ? "#e9f5ee" : "transparent",
                             borderColor: isActive ? "#198754" : "transparent",
