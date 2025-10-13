@@ -10,5 +10,5 @@ import { clsx } from "clsx";
  * Safe for Bootstrap, ESLint, Prettier, and Jest
  */
 export function cn(...inputs) {
-  return clsx(...inputs);
+    return clsx(...inputs);
 }

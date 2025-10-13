@@ -4,140 +4,72 @@ import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 // Import utility for merging class names
 import { cn } from "@/lib/utils";
 // Import styling logic from separate file to satisfy ESLint
-import {
-  alertDialogButtonClass,
-  alertDialogCancelClass,
-} from "./alert-dialog-styles";
+import { alertDialogButtonClass, alertDialogCancelClass, } from "./alert-dialog-styles";
 /**
  * Root component that wraps the entire alert dialog
  */
 function AlertDialog(props) {
-  return _jsx(AlertDialogPrimitive.Root, {
-    "data-slot": "alert-dialog",
-    ...props,
-  });
+    return _jsx(AlertDialogPrimitive.Root, { "data-slot": "alert-dialog", ...props });
 }
 /**
  * Trigger component that opens the alert dialog
  */
 function AlertDialogTrigger(props) {
-  return _jsx(AlertDialogPrimitive.Trigger, {
-    "data-slot": "alert-dialog-trigger",
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Trigger, { "data-slot": "alert-dialog-trigger", ...props }));
 }
 /**
  * Portal component for rendering dialog outside DOM hierarchy
  */
 function AlertDialogPortal(props) {
-  return _jsx(AlertDialogPrimitive.Portal, {
-    "data-slot": "alert-dialog-portal",
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Portal, { "data-slot": "alert-dialog-portal", ...props }));
 }
 /**
  * Overlay component that dims the background
  */
 function AlertDialogOverlay({ className, ...props }) {
-  return _jsx(AlertDialogPrimitive.Overlay, {
-    "data-slot": "alert-dialog-overlay",
-    className: cn(
-      "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
-      className,
-    ),
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Overlay, { "data-slot": "alert-dialog-overlay", className: cn("data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50", className), ...props }));
 }
 /**
  * Content component that holds the dialog box
  */
 function AlertDialogContent({ className, ...props }) {
-  return _jsxs(AlertDialogPortal, {
-    children: [
-      _jsx(AlertDialogOverlay, {}),
-      _jsx(AlertDialogPrimitive.Content, {
-        "data-slot": "alert-dialog-content",
-        className: cn(
-          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
-          className,
-        ),
-        ...props,
-      }),
-    ],
-  });
+    return (_jsxs(AlertDialogPortal, { children: [_jsx(AlertDialogOverlay, {}), _jsx(AlertDialogPrimitive.Content, { "data-slot": "alert-dialog-content", className: cn("bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg", className), ...props })] }));
 }
 /**
  * Header section of the dialog
  */
 function AlertDialogHeader({ className, ...props }) {
-  return _jsx("div", {
-    "data-slot": "alert-dialog-header",
-    className: cn("flex flex-col gap-2 text-center sm:text-left", className),
-    ...props,
-  });
+    return (_jsx("div", { "data-slot": "alert-dialog-header", className: cn("flex flex-col gap-2 text-center sm:text-left", className), ...props }));
 }
 /**
  * Footer section with action buttons
  */
 function AlertDialogFooter({ className, ...props }) {
-  return _jsx("div", {
-    "data-slot": "alert-dialog-footer",
-    className: cn(
-      "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-      className,
-    ),
-    ...props,
-  });
+    return (_jsx("div", { "data-slot": "alert-dialog-footer", className: cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className), ...props }));
 }
 /**
  * Title text of the dialog
  */
 function AlertDialogTitle({ className, ...props }) {
-  return _jsx(AlertDialogPrimitive.Title, {
-    "data-slot": "alert-dialog-title",
-    className: cn("text-lg font-semibold", className),
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Title, { "data-slot": "alert-dialog-title", className: cn("text-lg font-semibold", className), ...props }));
 }
 /**
  * Description text of the dialog
  */
 function AlertDialogDescription({ className, ...props }) {
-  return _jsx(AlertDialogPrimitive.Description, {
-    "data-slot": "alert-dialog-description",
-    className: cn("text-muted-foreground text-sm", className),
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Description, { "data-slot": "alert-dialog-description", className: cn("text-muted-foreground text-sm", className), ...props }));
 }
 /**
  * Action button (e.g. Confirm)
  */
 function AlertDialogAction({ className, ...props }) {
-  return _jsx(AlertDialogPrimitive.Action, {
-    className: cn(alertDialogButtonClass, className),
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Action, { className: cn(alertDialogButtonClass, className), ...props }));
 }
 /**
  * Cancel button
  */
 function AlertDialogCancel({ className, ...props }) {
-  return _jsx(AlertDialogPrimitive.Cancel, {
-    className: cn(alertDialogCancelClass, className),
-    ...props,
-  });
+    return (_jsx(AlertDialogPrimitive.Cancel, { className: cn(alertDialogCancelClass, className), ...props }));
 }
 // Export all components
-export {
-  AlertDialog,
-  AlertDialogPortal,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogAction,
-  AlertDialogCancel,
-};
+export { AlertDialog, AlertDialogPortal, AlertDialogOverlay, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel, };

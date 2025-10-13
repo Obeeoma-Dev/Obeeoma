@@ -14,11 +14,11 @@ export const SidebarContext = React.createContext(null);
 // Instead of calling React.useContext(SidebarContext) directly everywhere,
 // components will call useSidebar() for better readability and safety.
 export function useSidebar() {
-  const context = React.useContext(SidebarContext);
-  if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider");
-  }
-  return context;
+    const context = React.useContext(SidebarContext);
+    if (!context) {
+        throw new Error("useSidebar must be used within a SidebarProvider");
+    }
+    return context;
 }
 // Optional constant for sidebar width
 // You can import this in your layout or CSS logic.
