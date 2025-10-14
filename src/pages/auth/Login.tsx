@@ -128,21 +128,15 @@ const LoginPage = () => {
                       <ToggleButton
                         id="employee"
                         value="Employee"
-                        variant={
-                          role === "Employee" ? "success" : "outline-success"
-                        }
-                        className="px-3 py-1"
-                      >
+                        variant={role === "Employee" ? "success" : "outline-success"}
+                        className="px-3 py-1">
                         Employee
                       </ToggleButton>
                       <ToggleButton
                         id="employer"
                         value="Employer"
-                        variant={
-                          role === "Employer" ? "success" : "outline-success"
-                        }
-                        className="px-3 py-1"
-                      >
+                        variant={role === "Employer" ? "success" : "outline-success"}
+                        className="px-3 py-1">
                         Employer
                       </ToggleButton>
                     </ToggleButtonGroup>

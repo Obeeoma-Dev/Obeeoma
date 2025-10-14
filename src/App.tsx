@@ -17,7 +17,6 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
-import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
@@ -75,8 +74,7 @@ export default function App(): React.ReactElement {
                 
               </Route> */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
-              <Route
-                path="/system-admin/settings-overview"
+              <Route path="/system-admin/settings-overview"
                 element={<AdminSettings />}
               />
 
