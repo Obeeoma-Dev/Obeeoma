@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/Images/obeeomalogoicon4.png";
-// ✅ Validation schema for login form
+// Validation schema for login form
 const validationSchema = Yup.object({
     username: Yup.string().min(3).required("Username is required"),
     password: Yup.string().min(6).required("Password is required"),
@@ -16,13 +16,13 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isLoading, error } = useSelector((state) => state.auth);
-    // ✅ Role state for toggles (Employee or Employer)
+    // Role state for toggles (Employee or Employer)
     const [role, setRole] = useState("Employee");
-    // ✅ Clear error on mount
+    // Clear error on mount
     useEffect(() => {
         dispatch(clearError());
     }, [dispatch]);
-    // ✅ Handle login submission
+    // Handle login submission
     const handleSubmit = (values) => {
         dispatch(loginUser({
             ...values,
