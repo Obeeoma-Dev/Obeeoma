@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Login.tsx
-// A responsive React + TypeScript login component with Tailwind CSS.
+// A responsive React + TypeScript login component with  CSS.
 
 export default function Login(): React.ReactElement {
   const [username, setUsername] = useState("");
@@ -38,28 +38,9 @@ export default function Login(): React.ReactElement {
           <div className="flex items-center gap-3">
             {/* Logo placeholder */}
             <div className="w-10 h-10 rounded-md bg-green-100 flex items-center justify-center">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path
-                  d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8z"
-                  stroke="#10B981"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M8 12l2.5 2L16 9"
-                  stroke="#065F46"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                <path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8z" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M8 12l2.5 2L16 9" stroke="#065F46" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <span className="font-semibold text-lg">Obeeoma</span>
@@ -68,15 +49,11 @@ export default function Login(): React.ReactElement {
 
         <main className="p-6 md:p-8">
           <h1 className="text-2xl font-semibold">Sign in to your account</h1>
-          <p className="text-sm text-gray-500 mt-2">
-            Welcome back! Please sign in with your credentials.
-          </p>
+          <p className="text-sm text-gray-500 mt-2">Welcome back! Please sign in with your credentials.</p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <label className="block">
-              <span className="text-sm font-medium text-gray-700">
-                Username
-              </span>
+              <span className="text-sm font-medium text-gray-700">Username</span>
               <input
                 type="text"
                 value={username}
@@ -88,9 +65,7 @@ export default function Login(): React.ReactElement {
             </label>
 
             <label className="block">
-              <span className="text-sm font-medium text-gray-700">
-                Password
-              </span>
+              <span className="text-sm font-medium text-gray-700">Password</span>
               <input
                 type="password"
                 value={password}
@@ -121,10 +96,7 @@ export default function Login(): React.ReactElement {
             </div>
 
             <p className="text-center text-sm text-gray-600">
-              Don’t have an account?{" "}
-              <a href="/signup" className="text-green-600 underline">
-                Create one
-              </a>
+              Don’t have an account? <a href="/signup" className="text-green-600 underline">Create one</a>
             </p>
           </form>
         </main>

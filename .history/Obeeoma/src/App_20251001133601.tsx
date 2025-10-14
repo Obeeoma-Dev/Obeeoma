@@ -29,10 +29,7 @@ export default function App(): JSX.Element {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<CreateAccount />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route
-              path="/reset-password-signin"
-              element={<ResetPasswordSignin />}
-            />
+            <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
 
             {/* Employee dashboard */}
             <Route path="/employee-dashboard" element={<EmployeeDashboard />} />

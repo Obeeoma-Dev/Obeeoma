@@ -11,7 +11,7 @@ import type { Config } from "css";
 const config: Config = {
   content: [
     "./index.html",
-    "./src//*.{ts,tsx,js,jsx}", //  scans all React TS/TSX files
+    "./src/**/*.{ts,tsx,js,jsx}", //  scans all React TS/TSX files
   ],
   theme: {
     extend: {

@@ -2,14 +2,14 @@
 
 
 /* -----------------------------------------------
-   Tailwind v4 import (single import)
+    v4 import (single import)
 ----------------------------------------------- */
-@import "tailwindcss";
+@import "css";
 
 
 /* ---------------------------------------------------
    Design system variables
-   All colors MUST be HSL to match Tailwind config
+   All colors MUST be HSL to match  config
 --------------------------------------------------- */
 @layer base {
   :root {

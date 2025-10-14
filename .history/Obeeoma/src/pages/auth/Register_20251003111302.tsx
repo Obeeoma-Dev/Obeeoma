@@ -15,26 +15,10 @@ const Register: React.FC = () => {
           </p>
 
           <form className="space-y-4">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-            />
-            <input
-              type="email"
-              placeholder="Email address"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-            />
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-            />
+            <input type="text" placeholder="Full Name" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
+            <input type="email" placeholder="Email address" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
+            <input type="password" placeholder="Password" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
+            <input type="password" placeholder="Confirm Password" className="w-full px-4 py-2 border rounded-lg focus:outline-none" />
 
             <div className="flex items-center space-x-4">
               <span>I am a:</span>
@@ -54,20 +38,14 @@ const Register: React.FC = () => {
               </button>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
-            >
+            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
               Create Account
             </button>
           </form>
 
           <p className="mt-4 text-center text-gray-600">
             Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-green-600 font-medium hover:underline"
-            >
+            <Link to="/login" className="text-green-600 font-medium hover:underline">
               Sign in
             </Link>
           </p>
@@ -75,13 +53,10 @@ const Register: React.FC = () => {
 
         {/* Right Side */}
         <div className="p-8 bg-green-50 flex flex-col justify-center">
-          <h3 className="text-xl font-semibold mb-4">
-            Begin Your Wellness Journey
-          </h3>
+          <h3 className="text-xl font-semibold mb-4">Begin Your Wellness Journey</h3>
           <p className="text-gray-600 mb-4">
-            Creating an account gives you access to personalized mental health
-            resources, secure communication with healthcare providers, and tools
-            to track your progress.
+            Creating an account gives you access to personalized mental health resources,
+            secure communication with healthcare providers, and tools to track your progress.
           </p>
           <ul className="space-y-2 text-gray-700">
             <li>✔ Personalized care plans</li>

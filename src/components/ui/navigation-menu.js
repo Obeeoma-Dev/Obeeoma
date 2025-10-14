@@ -15,5 +15,5 @@ const NavigationMenuViewport = NavigationMenuPrimitive.Viewport;
 function NavigationMenuTrigger({ className, children, ...props }) {
     return (_jsxs(NavigationMenuPrimitive.Trigger, { "data-slot": "navigation-menu-trigger", className: cn(navigationMenuTriggerStyle(), "group", className), ...props, children: [children, _jsx(ChevronDownIcon, { className: "relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180", "aria-hidden": "true" })] }));
 }
-// 3️⃣ Export all components cleanly
+// Export all components cleanly
 export { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuContent, NavigationMenuTrigger, NavigationMenuLink, NavigationMenuIndicator, NavigationMenuViewport, };

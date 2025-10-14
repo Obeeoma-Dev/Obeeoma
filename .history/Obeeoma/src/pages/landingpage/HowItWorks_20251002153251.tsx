@@ -13,15 +13,13 @@ const HowItWorks = () => {
       number: "2",
       icon: Users,
       title: "Invite Employees",
-      description:
-        "Send invitations to your team members to access mental health support",
+      description: "Send invitations to your team members to access mental health support",
     },
     {
       number: "3",
       icon: BarChart3,
       title: "Track Anonymized Insights",
-      description:
-        "Keep tabs on usage, monitor progress, and gain high-level insights into wellbeing trends across your teams",
+      description: "Keep tabs on usage, monitor progress, and gain high-level insights into wellbeing trends across your teams",
     },
   ];
 
@@ -29,9 +27,7 @@ const HowItWorks = () => {
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            How it works for Employers
-          </h2>
+          <h2 className="text-4xl font-bold mb-4">How it works for Employers</h2>
           <p className="text-xl text-muted-foreground">3 simple steps</p>
         </div>
 
@@ -56,9 +52,9 @@ const HowItWorks = () => {
           </div>
 
           <div className="relative">
-            <img
-              src={happyPersonImage}
-              alt="Happy person"
+            <img 
+              src={happyPersonImage} 
+              alt="Happy person" 
               className="rounded-3xl shadow-2xl w-full object-cover"
             />
           </div>

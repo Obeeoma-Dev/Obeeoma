@@ -80,7 +80,9 @@ const LoginPage = () => {
                       <ToggleButton
                         id="client"
                         value="Client"
-                        variant={role === "" ? "success" : "outline-success"}
+                        variant={
+                          role === "" ? "success" : "outline-success"
+                        }
                         className="px-3 py-1"
                       >
                         Employee
@@ -89,7 +91,9 @@ const LoginPage = () => {
                         id="org"
                         value="Employer"
                         variant={
-                          role === "Employer" ? "success" : "outline-success"
+                          role === "Employer"
+                            ? "success"
+                            : "outline-success"
                         }
                         className="px-3 py-1"
                       >
@@ -135,9 +139,7 @@ const LoginPage = () => {
           {/* Right Side - Info (No Image) */}
           <Col md={6} lg={5} className="mt-4 mt-md-0">
             <Card className="border-0 bg-success bg-opacity-10 p-4">
-              <Card.Title className="fw-bold fs-4 mb-3">
-                Welcome Back
-              </Card.Title>
+              <Card.Title className="fw-bold fs-4 mb-3">Welcome Back</Card.Title>
               <Card.Text className="text-muted">
                 Sign in to access your personalized mental health dashboard,
                 connect with your care team, and continue your wellness journey.
