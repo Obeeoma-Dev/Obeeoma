@@ -1,5 +1,6 @@
 import api from "./api";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import type { AxiosError } from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 // Interfaces
@@ -37,8 +38,10 @@ export interface AuthAPI {
   logout: () => void;
 }
 
-//Shared error extraction helper
-
+/**
+ * Extracts a human-readable error message from an Axios or generic error.
+ * Helps standardize error handling across API methods.
+ */
 function extractErrorMessage(error: unknown): string {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError<ErrorResponse>;
@@ -57,7 +60,6 @@ function extractErrorMessage(error: unknown): string {
     }
   }
 
-  // Non-Axios error fallback
   if (error instanceof Error) {
     return error.message;
   }
@@ -69,7 +71,10 @@ function extractErrorMessage(error: unknown): string {
 export const authAPI: AuthAPI = {
   login: async (credentials: Credentials): Promise<TokenResponse> => {
     try {
-      const response = await api.post<TokenResponse>("auth/login/", credentials);
+      const response = await api.post<TokenResponse>(
+        "auth/login/",
+        credentials,
+      );
 
       if (response.data?.access_token) {
         localStorage.setItem(ACCESS_TOKEN, response.data.access_token);
@@ -80,16 +85,22 @@ export const authAPI: AuthAPI = {
 
       return response.data;
     } catch (error: unknown) {
-      throw new Error(extractErrorMessage(error));
+      // ✅ Use the shared error extractor for consistent messaging
+      const message = extractErrorMessage(error);
+      throw new Error(message);
     }
   },
 
   register: async (userData: UserData): Promise<TokenResponse> => {
     try {
-      const response = await api.post<TokenResponse>("auth/register/", userData);
+      const response = await api.post<TokenResponse>(
+        "auth/register/",
+        userData,
+      );
       return response.data;
     } catch (error: unknown) {
-      throw new Error(extractErrorMessage(error));
+      const message = extractErrorMessage(error);
+      throw new Error(message);
     }
   },
 
@@ -98,7 +109,8 @@ export const authAPI: AuthAPI = {
       const response = await api.get<CurrentUser>("auth/user/");
       return response.data;
     } catch (error: unknown) {
-      throw new Error(extractErrorMessage(error));
+      const message = extractErrorMessage(error);
+      throw new Error(message);
     }
   },
 

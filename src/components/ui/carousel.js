@@ -5,7 +5,9 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+// Creates a React context for carousel state
 const CarouselContext = React.createContext(null);
+// Hook to access carousel context safely
 function useCarousel() {
     const context = React.useContext(CarouselContext);
     if (!context) {
@@ -13,6 +15,7 @@ function useCarousel() {
     }
     return context;
 }
+// Main Carousel wrapper component
 function Carousel({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }) {
     const [carouselRef, api] = useEmblaCarousel({
         ...opts,
@@ -20,18 +23,22 @@ function Carousel({ orientation = "horizontal", opts, setApi, plugins, className
     }, plugins);
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
-    const onSelect = React.useCallback((api) => {
-        if (!api)
+    // Updates scroll availability when carousel changes
+    const onSelect = React.useCallback((carouselApi) => {
+        if (!carouselApi)
             return;
-        setCanScrollPrev(api.canScrollPrev());
-        setCanScrollNext(api.canScrollNext());
+        setCanScrollPrev(carouselApi.canScrollPrev());
+        setCanScrollNext(carouselApi.canScrollNext());
     }, []);
+    // Scrolls to previous slide
     const scrollPrev = React.useCallback(() => {
         api?.scrollPrev();
     }, [api]);
+    // Scrolls to next slide
     const scrollNext = React.useCallback(() => {
         api?.scrollNext();
     }, [api]);
+    // Handles keyboard navigation
     const handleKeyDown = React.useCallback((event) => {
         if (event.key === "ArrowLeft") {
             event.preventDefault();
@@ -42,11 +49,13 @@ function Carousel({ orientation = "horizontal", opts, setApi, plugins, className
             scrollNext();
         }
     }, [scrollPrev, scrollNext]);
+    // Sets external API reference if provided
     React.useEffect(() => {
         if (!api || !setApi)
             return;
         setApi(api);
     }, [api, setApi]);
+    // Listens for carousel reinitialization and selection changes
     React.useEffect(() => {
         if (!api)
             return;
@@ -59,7 +68,7 @@ function Carousel({ orientation = "horizontal", opts, setApi, plugins, className
     }, [api, onSelect]);
     return (_jsx(CarouselContext.Provider, { value: {
             carouselRef,
-            api: api,
+            api,
             opts,
             orientation: orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
             scrollPrev,
@@ -68,20 +77,24 @@ function Carousel({ orientation = "horizontal", opts, setApi, plugins, className
             canScrollNext,
         }, children: _jsx("div", { onKeyDownCapture: handleKeyDown, className: cn("relative", className), role: "region", "aria-roledescription": "carousel", "data-slot": "carousel", ...props, children: children }) }));
 }
+// Carousel content wrapper
 function CarouselContent({ className, ...props }) {
     const { carouselRef, orientation } = useCarousel();
     return (_jsx("div", { ref: carouselRef, className: "overflow-hidden", "data-slot": "carousel-content", children: _jsx("div", { className: cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className), ...props }) }));
 }
+// Individual carousel item
 function CarouselItem({ className, ...props }) {
     const { orientation } = useCarousel();
     return (_jsx("div", { role: "group", "aria-roledescription": "slide", "data-slot": "carousel-item", className: cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className), ...props }));
 }
+// Previous button component
 function CarouselPrevious({ className, variant = "outline", size = "icon", ...props }) {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
     return (_jsxs(Button, { "data-slot": "carousel-previous", variant: variant, size: size, className: cn("absolute size-8 rounded-full", orientation === "horizontal"
             ? "top-1/2 -left-12 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90", className), disabled: !canScrollPrev, onClick: scrollPrev, ...props, children: [_jsx(ArrowLeft, {}), _jsx("span", { className: "sr-only", children: "Previous slide" })] }));
 }
+// Next button component
 function CarouselNext({ className, variant = "outline", size = "icon", ...props }) {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
     return (_jsxs(Button, { "data-slot": "carousel-next", variant: variant, size: size, className: cn("absolute size-8 rounded-full", orientation === "horizontal"

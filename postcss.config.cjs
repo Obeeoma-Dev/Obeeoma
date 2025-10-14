@@ -1,6 +1,6 @@
 module.exports = {
   plugins: {
-    '@css/postcss': {},
-    autoprefixer: {},
+    autoprefixer: {}, // Adds vendor prefixes
+    cssnano: {},      // Minifies CSS
   },
 }

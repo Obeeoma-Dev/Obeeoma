@@ -13,6 +13,6 @@ const Header = () => {
                                             fontSize: "0.65rem",
                                             width: "1.2rem",
                                             height: "1.2rem",
-                                        }, children: "2" })] }) }), _jsx(Col, { xs: "auto", children: _jsxs("div", { className: "d-flex align-items-center gap-3", children: [_jsxs("div", { className: "text-end", children: [_jsx("div", { className: "text-muted small", children: "Dr." }), _jsx("div", { className: "fw-medium", children: "Obeeoma System Admin" })] }), _jsx("div", { className: "bg-success rounded-circle d-flex align-items-center justify-content-center", style: { width: "40px", height: "40px" }, children: _jsx(User, { size: 22, color: "#fff" }) })] }) })] })] }) }));
+                                        }, children: "2" })] }) }), _jsx(Col, { xs: "auto", children: _jsxs("div", { className: "d-flex align-items-center gap-3", children: [_jsxs("div", { className: "text-end", children: [_jsx("div", { className: "text-muted small", children: " Dr. Racheal Lucia " }), _jsx("div", { className: "fw-medium", children: " Obeeoma System Admin " })] }), _jsx("div", { className: "bg-success rounded-circle d-flex align-items-center justify-content-center", style: { width: "40px", height: "40px" }, children: _jsx(User, { size: 22, color: "#fff" }) })] }) })] })] }) }));
 };
 export default Header;

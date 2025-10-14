@@ -7,7 +7,8 @@ const Navigation = () => (
     expand="lg"
     fixed="top"
     className="py-3"
-    style={{ backgroundColor: "var(--color-green)" }}>
+    style={{ backgroundColor: "var(--color-green)" }}
+  >
     <Container>
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-between">

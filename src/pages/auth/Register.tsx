@@ -22,7 +22,6 @@ type Role = "Employee" | "Employer";
 // Validation schema using Yup
 const validationSchema = Yup.object({
   userName: Yup.string().required("User name is required"),
-  userName: Yup.string().required("User Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .min(6, "Minimum 6 characters")
