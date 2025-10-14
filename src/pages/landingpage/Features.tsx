@@ -47,7 +47,8 @@ const Features = () => {
     <section className="section-bg py-5">
       <div className="container text-center">
         <h2
-          className="fw-bold mb-3 text-green" style={{ color: "var(--color-primary)" }}>
+          className="fw-bold mb-3 text-green" 
+          style={{ color: "var(--color-primary)" }}>
           Comprehensive Obeeoma Features
         </h2>
         <p className="text-muted mb-5">
