@@ -28,7 +28,7 @@ const Hero = () => {
         minHeight: "85vh",
         backgroundImage: `url(${heroImage})`,
         backgroundSize: "contain",
-        backgroundPosition: "center",
+        backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
         color: "#fff",
       }}
