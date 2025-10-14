@@ -12,11 +12,12 @@ import path from "path";
 
 export default defineConfig({
   plugins: [
-    react(), // React support
+    react(),       // React support
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"), // Import like "@/components/Button"
+      
     },
   },
 });

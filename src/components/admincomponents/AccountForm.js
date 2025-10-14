@@ -23,17 +23,17 @@ const AccountForm = () => {
             // Simulated delay using setTimeout
             setTimeout(() => {
                 const defaultValues = {
-                    fullName: "Dr. Racheal Lucia",
-                    email: "racheal.lucia@obeema.com",
+                    fullName: "Dr. Reacheal Lucia",
+                    email: "reacheal.lucia@obeema.com",
                     role: "System Administrator",
                     phone: "(555) 123-4567",
-                    bio: "Dr. Racheal is a system administrator with over 10 years of experience in mental health care.",
+                    bio: "Dr. Reacheal is a system administrator with over 10 years of experience in mental health care.",
                 };
                 setFormData(defaultValues);
                 setLoading(false); // Stop loading once data is set
             }, 1000); // 1 second delay
         }
-        catch {
+        catch (err) {
             setError("Failed to load account data.");
             setLoading(false);
         }

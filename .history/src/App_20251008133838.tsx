@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,6 +12,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return <SubscriptionPage />;
 }
+;
+
+
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
@@ -23,8 +26,10 @@ import EmployerDashboard from "./pages/EmployerDashboard";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import NotFound from "./pages/NotFound";
 
-import { Provider, useSelector } from "react-redux";
-import { store, RootState } from "./../src/store/store";
+import { Provider, useSelector } from 'react-redux';
+import { store, RootState } from './../src/store/store'
+
+
 
 const queryClient = new QueryClient();
 
@@ -44,14 +49,8 @@ export default function App(): React.ReactElement {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route
-                path="/reset-password-signin"
-                element={<ResetPasswordSignin />}
-              />
-              <Route
-                path="/employee-dashboard"
-                element={<EmployeeDashboard />}
-              />
+              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}

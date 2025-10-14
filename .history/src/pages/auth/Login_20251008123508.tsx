@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Form,
-  Button,
-  ToggleButtonGroup,
-  ToggleButton,
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const LoginPage = () => {
@@ -22,9 +13,7 @@ const LoginPage = () => {
           <img src="/logo192.png" alt="Logo" width="40" className="me-2" />
           <h5 className="m-0 text-success">Obeeoma</h5>
         </div>
-        <Button variant="success" className="rounded-pill px-4">
-          Create Account
-        </Button>
+        <Button variant="success" className="rounded-pill px-4">Create Account</Button>
       </div>
 
       {/* Main Content */}
@@ -35,17 +24,12 @@ const LoginPage = () => {
             <Card className="shadow-sm border-0">
               <Card.Body>
                 <h3 className="text-center mb-2">Sign in to your account</h3>
-                <p className="text-center text-muted mb-4">
-                  Welcome back to Obeeoma
-                </p>
+                <p className="text-center text-muted mb-4">Welcome back to Obeeoma</p>
 
                 <Form>
                   <Form.Group className="mb-3" controlId="username">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter your username"
-                    />
+                    <Form.Control type="text" placeholder="Enter your username" />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="email">
@@ -55,10 +39,7 @@ const LoginPage = () => {
 
                   <Form.Group className="mb-3" controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Enter your password"
-                    />
+                    <Form.Control type="password" placeholder="Enter your password" />
                   </Form.Group>
 
                   <div className="d-flex justify-content-between align-items-center mb-3">
@@ -68,54 +49,25 @@ const LoginPage = () => {
                       value={role}
                       onChange={setRole}
                     >
-                      <ToggleButton
-                        id="client"
-                        value="Client"
-                        variant={
-                          role === "Client" ? "success" : "outline-success"
-                        }
-                      >
+                      <ToggleButton id="client" value="Client" variant={role === "Client" ? "success" : "outline-success"}>
                         Client
                       </ToggleButton>
-                      <ToggleButton
-                        id="org"
-                        value="Organization"
-                        variant={
-                          role === "Organization"
-                            ? "success"
-                            : "outline-success"
-                        }
-                      >
+                      <ToggleButton id="org" value="Organization" variant={role === "Organization" ? "success" : "outline-success"}>
                         Organization
                       </ToggleButton>
                     </ToggleButtonGroup>
-                    <a
-                      href="#"
-                      className="text-success text-decoration-none small"
-                    >
-                      Forgot your password?
-                    </a>
+                    <a href="#" className="text-success text-decoration-none small">Forgot your password?</a>
                   </div>
 
-                  <Form.Check
-                    type="checkbox"
-                    label="Remember me"
-                    className="mb-3"
-                  />
+                  <Form.Check type="checkbox" label="Remember me" className="mb-3" />
 
-                  <Button
-                    variant="success"
-                    type="submit"
-                    className="w-100 mb-3"
-                  >
+                  <Button variant="success" type="submit" className="w-100 mb-3">
                     Sign in
                   </Button>
 
                   <div className="text-center">
                     <span className="text-muted">Don't have an account? </span>
-                    <a href="#" className="text-success text-decoration-none">
-                      Create an account
-                    </a>
+                    <a href="#" className="text-success text-decoration-none">Create an account</a>
                   </div>
                 </Form>
               </Card.Body>
@@ -125,6 +77,7 @@ const LoginPage = () => {
           {/* Right Side - Info */}
           <Col md={6} lg={5} className="mt-4 mt-md-0">
             <Card className="border-0 bg-success bg-opacity-10 p-4">
+              
               <Card.Title className="fw-bold">Welcome Back</Card.Title>
               <Card.Text className="text-muted">
                 Sign in to access your personalized mental health dashboard,
@@ -144,17 +97,9 @@ const LoginPage = () => {
       {/* Footer */}
       <footer className="text-center text-muted py-3 small border-top">
         © 2025 Obeeoma. All rights reserved. &nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Privacy Policy
-        </a>{" "}
-        &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Terms of Service
-        </a>{" "}
-        &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Contact Us
-        </a>
+        <a href="#" className="text-decoration-none text-success">Privacy Policy</a> &nbsp;|&nbsp;
+        <a href="#" className="text-decoration-none text-success">Terms of Service</a> &nbsp;|&nbsp;
+        <a href="#" className="text-decoration-none text-success">Contact Us</a>
       </footer>
     </div>
   );

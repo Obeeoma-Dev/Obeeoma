@@ -1,12 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { loginUser, clearError } from "../../store/slices/authSlice";
-import { useNavigate } from "react-router-dom";
-import { loginValidationSchema } from "./../../validation/authValidation";
-import { Formik } from "formik";
-import * as Yup from "yup";
-
 import {
   Container,
   Card,
@@ -17,8 +9,23 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../assets/Images/obeeomalogoicon4.png";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { loginUser, clearError } from "../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
+
+const validationSchema = Yup.object({
+  username: Yup.string()
+    .min(3, "Username must be at least 3 characters")
+    .required("Username is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,9 +41,9 @@ const LoginPage = () => {
     dispatch(
       loginUser({
         ...values,
-
+        
         onSuccess: () => navigate("/employee-dashboard"),
-      }),
+      })
     );
   };
 
@@ -79,7 +86,7 @@ const LoginPage = () => {
 
             <Formik
               initialValues={{ username: "", password: "" }}
-              validationSchema={loginValidationSchema}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
               {({ handleChange, handleSubmit, values, errors, touched }) => (

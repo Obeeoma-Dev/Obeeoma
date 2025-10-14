@@ -1,9 +1,10 @@
 import axios from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-console.log("API Base URL:", API_BASE_URL);
+console.log("API Base URL:", API_BASE_URL); // Debug log
 const api = axios.create({
     baseURL: API_BASE_URL,
 });
+// Add token to requests
 api.interceptors.request.use((config) => {
     console.log("🔄 Making API Request:", {
         method: config.method,
@@ -19,7 +20,7 @@ api.interceptors.request.use((config) => {
     console.error("🚨 Request Error:", error);
     return Promise.reject(error);
 });
-// Add response interceptor for debugging 
+// Add response interceptor for debugging
 api.interceptors.response.use((response) => {
     console.log("✅ API Response Success:", {
         status: response.status,
@@ -42,102 +43,15 @@ export const authAPI = {
         return response;
     },
     register: async (credentials) => {
-        const response = await api.post("/v1/auth/signup/", {
+        const response = await api.post("/v1/auth/register/", {
             username: credentials.username,
             email: credentials.email,
             password: credentials.password,
-            confirm_password: credentials.confirm_password,
-            role: credentials.role,
         });
-        // If registration returns a token, store it
-        if (response.data.access) {
-            localStorage.setItem('token', response.data.access);
-        }
-        return response.data;
+        return response;
     },
     logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     },
-    forgotPassword: async (data) => {
-        const response = await api.post("/v1/auth/forgot-password/", data);
-        return response;
-    },
-    // RESET PASSWORD
-    resetPassword: async (data) => {
-        const response = await api.post("/v1/auth/reset-password/", data);
-        return response;
-    },
-    getCurrentUser: async () => {
-        const response = await api.get("/v1/auth/me/");
-        return response;
-    },
 };
-//  System Admin Dashboard 
-export const adminAPI = {
-    getDashboardStats: async () => {
-        const response = await api.get("/v1/dashboard/statistics/");
-        return response;
-    },
-    getAllUsers: async () => {
-        const response = await api.get("/v1/dashboard/users/");
-        return response;
-    },
-    // Deleting a user
-    deleteUser: async (userId) => {
-        const response = await api.delete(`/v1/dashboard/users/${userId}/`);
-        return response;
-    },
-};
-export const employerAPI = {
-    getDashboardSummary: async () => {
-        const response = await api.get("/v1/dashboard/overview");
-        return response;
-    },
-    addEmployee: async () => {
-        const response = await api.post("/v1/dashboard/invites/");
-        return response;
-    },
-    getCrisisInsights: async () => {
-        const response = await api.get("/v1/dashboard/overview");
-        return response;
-    },
-    getEmployeeEngagement: async () => {
-        const response = await api.post("/v1/dashboard/employee-engagement/");
-        return response;
-    },
-    getFeatureUsage: async (jobData) => {
-        const response = await api.get("/v1/dashboard/feature-usage/");
-        return response;
-    },
-    createFeatureUsage: async () => {
-        const response = await api.post("/v1/dashboard/feature-usage");
-        return response;
-    },
-    getReports: async () => {
-        const response = await api.post("/v1/dashboard/reports/");
-        return response;
-    },
-    getTrends: async () => {
-        const response = await api.get("/v1/dashboard/trends");
-        return response;
-    },
-    // employer endpoints
-    inviteEmployee: async () => {
-        const response = await api.post("/v1/employers/");
-        return response;
-    },
-    viewSubscription: async () => {
-        const response = await api.post("/v1/employer/billing/");
-        return response;
-    },
-    viewBilling: async () => {
-        const response = await api.get("/v1/employer/billing/view");
-        return response;
-    },
-    getOverview: async () => {
-        const response = await api.get("/v1/employer/jobs/overview/");
-        return response;
-    },
-};
-export default api;

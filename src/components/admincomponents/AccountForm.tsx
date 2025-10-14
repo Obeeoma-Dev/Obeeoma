@@ -45,7 +45,7 @@ const AccountForm: React.FC = () => {
         setFormData(defaultValues);
         setLoading(false); // Stop loading once data is set
       }, 1000); // 1 second delay
-    } catch {
+    } catch{
       setError("Failed to load account data.");
       setLoading(false);
     }

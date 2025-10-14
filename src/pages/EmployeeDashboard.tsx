@@ -142,8 +142,8 @@ export default function EmployeeDashboard(): React.ReactElement {
 
           {/* Progress Alert */}
           <Alert variant="success">
-            ✅ You’re making great progress! You completed 3 activities this
-            week, 40% more than last week.
+            ✅ You’re making great progress! You completed 3 activities this week,
+            40% more than last week.
           </Alert>
 
           {/* Stats Cards */}
@@ -266,3 +266,4 @@ export default function EmployeeDashboard(): React.ReactElement {
     </Container>
   );
 }
+

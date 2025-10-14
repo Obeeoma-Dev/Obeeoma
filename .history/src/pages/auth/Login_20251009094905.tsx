@@ -43,7 +43,7 @@ const LoginPage = () => {
         ...values,
         role,
         onSuccess: () => navigate("/employee-dashboard"),
-      }),
+      })
     );
   };
 

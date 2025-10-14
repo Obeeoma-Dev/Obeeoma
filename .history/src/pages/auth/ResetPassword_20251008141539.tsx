@@ -5,10 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const ResetPassword: React.FC = () => {
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-      <Card
-        className="shadow-lg border-0 overflow-hidden"
-        style={{ maxWidth: "900px", width: "100%" }}
-      >
+      <Card className="shadow-lg border-0 overflow-hidden" style={{ maxWidth: "900px", width: "100%" }}>
         <Row className="g-0">
           {/* Left Side */}
           <Col md={6} className="p-5 bg-white">

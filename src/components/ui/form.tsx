@@ -15,19 +15,15 @@ import {
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 
-import {
-  FormFieldContext,
-  useFormField,
-  FormItemContext,
-} from "./form-context";
+import { FormFieldContext, useFormField, FormItemContext } from "./form-context";
 
 const Form = FormProvider;
 
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(
-  props: ControllerProps<TFieldValues, TName>,
+  props: ControllerProps<TFieldValues, TName>
 ) => {
   return (
     <FormFieldContext.Provider value={{ name: props.name }}>
@@ -68,8 +64,7 @@ function FormLabel({
 }
 
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } =
-    useFormField();
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
 
   return (
     <Slot
