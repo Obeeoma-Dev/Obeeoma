@@ -47,7 +47,7 @@ const Features = () => {
     <section className="section-bg py-5">
       <div className="container text-center">
         <h2
-          className="fw-bold mb-3 text-green">
+          className="fw-bold mb-3 text-green" style={{ color: "var(--color-primary)" }}>
           Comprehensive Obeeoma Features
         </h2>
         <p className="text-muted mb-5">
@@ -57,7 +57,7 @@ const Features = () => {
           {features.map((f, i) => (
             <div className="col-md-4" key={i}>
               <div className="card card-feature h-100 p-4">
-                <div className="mb-3 text-green">
+                <div className="mb-3 text-green"  style={{ color: "var(--color-primary)" }}>
                   <f.icon size={36} />
                 </div>
                 <h5 className="fw-semibold">{f.title}</h5>
