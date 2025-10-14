@@ -50,46 +50,31 @@ export default function App(): React.ReactElement {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route
-                path="/reset-password-signin"
-                element={<ResetPasswordSignin />}
-              />
-              <Route
-                path="/employee-dashboard"
-                element={<EmployeeDashboard />}
-              />
-              <Route path="/subscription" element={<Subscription />} />
-              <Route
-                path="/employer-dashboard"
-                element={<EmployerDashboard />}
-              />
-              <Route
-                path="/system-admin/organizations"
-                element={<Organisation />}
-              />
-              <Route
-                path="/systema-dmin/organizations/:id"
-                element={<OrganisationDetails />}
-              />
-              <Route
-                path="/system-admin/client-engagement"
-                element={<ClientEngagement />}
-              />
-              <Route
-                path="/system-admin/ai-management"
-                element={<AIRecommendationsPage />}
-              />
+              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+
+
+              
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
-              {/* <Route element={<ProtectedRoute />}>
-                
-              </Route> */}
+              {/* <Route element={<ProtectedRoute />}> 
+              
+              {/* EMPLOYEE'S ROUTES */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/subscription" element={<Subscription />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+
+
+              {/* SYSTEMS ADMIN ROUTES */}
+              <Route path="/system-admin/organizations" element={<Organisation />} />
+              <Route path="/systema-dmin/organizations/:id" element={<OrganisationDetails />} />
+              <Route path="/system-admin/client-engagement" element={<ClientEngagement />}  />
+              <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
+              {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
-              <Route
-                path="/system-admin/settings-overview"
-                element={<AdminSettings />}
-              />
+              <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
+              
+              
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
