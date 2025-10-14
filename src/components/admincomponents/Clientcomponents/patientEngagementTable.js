@@ -1,27 +1,27 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Table } from 'react-bootstrap';
+import { Table } from "react-bootstrap";
 // Sample patient data (can be replaced with props or API)
 const patients = [
     {
-        name: 'Madison Carano',
-        organization: 'HealthOne',
+        name: "Madison Carano",
+        organization: "HealthOne",
         engagementRate: 92,
         pointsRedeemed: 1200,
-        lastActivity: '2h ago',
+        lastActivity: "2h ago",
     },
     {
-        name: 'William Johnson',
-        organization: 'MediCare',
+        name: "William Johnson",
+        organization: "MediCare",
         engagementRate: 88,
         pointsRedeemed: 980,
-        lastActivity: '3h ago',
+        lastActivity: "3h ago",
     },
     {
-        name: 'Vanessa Jefferson',
-        organization: 'HealthOne',
+        name: "Vanessa Jefferson",
+        organization: "HealthOne",
         engagementRate: 85,
         pointsRedeemed: 1100,
-        lastActivity: '1h ago',
+        lastActivity: "1h ago",
     },
 ];
 // Define the component

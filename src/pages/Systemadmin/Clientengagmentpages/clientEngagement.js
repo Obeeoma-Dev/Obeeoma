@@ -1,15 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // clientEngagement.tsx
 // Main page for displaying client engagement dashboard with sidebar layout
-import { useEffect, useState } from 'react';
-import { Container, Alert } from 'react-bootstrap';
+import { useEffect, useState } from "react";
+import { Container, Alert } from "react-bootstrap";
 // Import sidebar and dashboard components
-import AdminSidebar from '../../../components/admincomponents/adminsidebar';
-import EngagementSummary from '../../../components/admincomponents/Clientcomponents/engagementsummary';
-import EngagementCharts from '../../../components/admincomponents/Clientcomponents/engagementCharts';
-import PatientSearchFilter from '../../../components/admincomponents/Clientcomponents/patientsearchfilter';
-import PatientEngagementTable from '../../../components/admincomponents/Clientcomponents/patientEngagementTable';
-import EngagementStatsPanel from '../../../components/admincomponents/Clientcomponents/engagemntStartsPanel';
+import AdminSidebar from "../../../components/admincomponents/adminsidebar";
+import EngagementSummary from "../../../components/admincomponents/Clientcomponents/engagementsummary";
+import EngagementCharts from "../../../components/admincomponents/Clientcomponents/engagementCharts";
+import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
+import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
+import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
 // Placeholder data to simulate backend response
 const placeholderData = {
     engagementRate: 78,
@@ -17,25 +17,25 @@ const placeholderData = {
     totalPoints: 285432,
     patients: [
         {
-            name: 'Madison Carano',
-            organization: 'HealthOne',
+            name: "Madison Carano",
+            organization: "HealthOne",
             engagementRate: 92,
             pointsRedeemed: 1200,
-            lastActivity: '2h ago',
+            lastActivity: "2h ago",
         },
         {
-            name: 'William Johnson',
-            organization: 'MediCare',
+            name: "William Johnson",
+            organization: "MediCare",
             engagementRate: 88,
             pointsRedeemed: 980,
-            lastActivity: '3h ago',
+            lastActivity: "3h ago",
         },
         {
-            name: 'Vanessa Jefferson',
-            organization: 'HealthOne',
+            name: "Vanessa Jefferson",
+            organization: "HealthOne",
             engagementRate: 85,
             pointsRedeemed: 1100,
-            lastActivity: '1h ago',
+            lastActivity: "1h ago",
         },
     ],
     trends: {
@@ -77,24 +77,14 @@ const ClientEngagement = () => {
         };
         simulateFetch();
     }, []);
-    // Show spinner while loading
-    // if (loading) {
-    //   return (
-    //     <div style={{ display: 'flex' }}>
-    //       {/* Sidebar stays visible during loading */}
-    //       <AdminSidebar />
-    //       <Container className="mt-5 text-center">
-    //         <Spinner animation="border" role="status" />
-    //         <p>Loading client engagement data...</p>
-    //       </Container>
-    //     </div>
-    //   );
-    // }
+    // ✅ Temporary usage to satisfy ESLint (remove once real props are passed)
+    console.log("Simulated data:", data);
+    console.log("Loading state:", loading);
     // Show error message if something goes wrong
     if (error) {
-        return (_jsxs("div", { style: { display: 'flex' }, children: [_jsx(AdminSidebar, {}), _jsx(Container, { className: "mt-5", children: _jsxs(Alert, { variant: "danger", children: ["Error: ", error] }) })] }));
+        return (_jsxs("div", { style: { display: "flex" }, children: [_jsx(AdminSidebar, {}), _jsx(Container, { className: "mt-5", children: _jsxs(Alert, { variant: "danger", children: ["Error: ", error] }) })] }));
     }
-    // Render dashboard once data is available
-    return (_jsxs("div", { style: { display: 'flex' }, children: [_jsx(AdminSidebar, {}), _jsxs(Container, { className: "mt-4", children: [_jsx(EngagementSummary, {}), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, {})] })] }));
+    // Render dashboard layout
+    return (_jsxs("div", { style: { display: "flex" }, children: [_jsx(AdminSidebar, {}), _jsxs(Container, { className: "mt-4", children: [_jsx(EngagementSummary, {}), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, {})] })] }));
 };
 export default ClientEngagement;
