@@ -275,10 +275,7 @@ const EmployerDashboard = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold">Recent Activity</h3>
-                <Button
-                  variant="ghost"
-                  className="text-primary hover:text-primary"
-                >
+                <Button className="text-primary hover:text-primary bg-transparent shadow-none">
                   View All
                 </Button>
               </div>

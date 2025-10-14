@@ -14,5 +14,5 @@ declare global {
   var TextDecoder: typeof TextDecoder;
 }
 
-globalThis.TextEncoder = TextEncoder;
-globalThis.TextDecoder = TextDecoder;
+globalThis.TextEncoder = TextEncoder as any;
+globalThis.TextDecoder = TextDecoder as any;

@@ -43,7 +43,7 @@ const LoginPage: React.FC = () => {
         ...values,
         role,
         onSuccess: () => navigate("/employee-dashboard"),
-      })
+      }),
     );
   };
 

@@ -6,7 +6,10 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+// Make sure buttonVariants is exported from the correct file.
+// If it's in another file, update the import path accordingly.
+// Example: import { buttonVariants } from "@/components/ui/buttonVariants";
+import { buttonVariants } from "./button.styles";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -56,7 +59,7 @@ function PaginationLink({
           variant: isActive ? "outline" : "ghost",
           size: "icon",
         }),
-        className
+        className,
       )}
       {...props}
     />

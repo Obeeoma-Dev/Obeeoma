@@ -1,11 +1,9 @@
 /* src/index.css */
 
-
 /* -----------------------------------------------
    Tailwind v4 import (single import)
 ----------------------------------------------- */
 @import "tailwindcss";
-
 
 /* ---------------------------------------------------
    Design system variables
@@ -124,7 +122,9 @@
 } */
 
 body {
-  background-color: hsl(var(--background)); /* Body background from design system */
+  background-color: hsl(
+    var(--background)
+  ); /* Body background from design system */
   color: hsl(var(--foreground)); /* Body text color from design system */
   font-family: system-ui, sans-serif; /* Base font */
   margin: 0;
