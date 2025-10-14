@@ -75,15 +75,12 @@ const Footer = () => {
                   Pricing
                 </a>
               </li>
-              <li>
-                <a
-                  href="#partners"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Partners
-                </a>
-              </li>
-              <li>
+                  // Temp admin link
+               <Link to="/reset-password-signin"
+                  className="text-success text-decoration-none small">
+                  System admin
+              </Link>
+                <li>
                 <a
                   href="/signup"
                   className="text-white text-decoration-none opacity-75">
