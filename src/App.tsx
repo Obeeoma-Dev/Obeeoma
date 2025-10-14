@@ -25,7 +25,6 @@ import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
-
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
