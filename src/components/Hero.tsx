@@ -26,7 +26,7 @@ const Hero = () => {
       style={{
         backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
         backgroundSize: "contain",
-        backgroundPosition: "focus center",
+        backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
         height: "100vh",
         minHeight: "85vh",
