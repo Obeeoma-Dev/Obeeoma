@@ -75,12 +75,10 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="#partners"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Partners
-                </a>
+                <Link to="/system-admin"
+                  className="text-success text-decoration-none small">
+                    System admin
+                </Link>
               </li>
               <li>
                 <a
