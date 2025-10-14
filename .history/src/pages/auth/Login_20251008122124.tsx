@@ -1,20 +1,20 @@
-import React from 'react';
-import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Container, 
-  Row, 
-  Col, 
-  Card, 
-  Button, 
+import React from "react";
+import { Formik, Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
   Alert,
   Form as BootstrapForm,
-  Spinner
-} from 'react-bootstrap';
-import { AppDispatch, RootState } from './../../store/store';
-import { loginUser, clearError } from './../../store/slices/authSlice';
-import { loginValidationSchema } from './../../validation/authValidation';
+  Spinner,
+} from "react-bootstrap";
+import { AppDispatch, RootState } from "./../../store/store";
+import { loginUser, clearError } from "./../../store/slices/authSlice";
+import { loginValidationSchema } from "./../../validation/authValidation";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,34 +22,38 @@ const LoginForm: React.FC = () => {
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    dispatch(loginUser({ 
-      ...values, 
-      onSuccess: () => navigate('/employee-dashboard') 
-    }));
+    dispatch(
+      loginUser({
+        ...values,
+        onSuccess: () => navigate("/employee-dashboard"),
+      }),
+    );
   };
 
   React.useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
 
-
-
-return (
+  return (
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Col md={6} lg={4}>
           <Card>
             <Card.Body>
               <Card.Title className="text-center mb-4">Login</Card.Title>
-              
+
               {error && (
-                <Alert variant="danger" dismissible onClose={() => dispatch(clearError())}>
+                <Alert
+                  variant="danger"
+                  dismissible
+                  onClose={() => dispatch(clearError())}
+                >
                   {error}
                 </Alert>
               )}
 
               <Formik
-                initialValues={{ username: '', password: '' }}
+                initialValues={{ username: "", password: "" }}
                 validationSchema={loginValidationSchema}
                 onSubmit={handleSubmit}
               >
@@ -87,10 +91,10 @@ return (
                       </BootstrapForm.Control.Feedback>
                     </BootstrapForm.Group>
 
-                    <Button 
-                      variant="success" 
-                      type="submit" 
-                      className="w-100" 
+                    <Button
+                      variant="success"
+                      type="submit"
+                      className="w-100"
                       disabled={isLoading}
                     >
                       {isLoading ? (
@@ -106,7 +110,7 @@ return (
                           Logging in...
                         </>
                       ) : (
-                        'Login'
+                        "Login"
                       )}
                     </Button>
                   </Form>
@@ -114,20 +118,24 @@ return (
               </Formik>
             </Card.Body>
           </Card>
-          
-                  {/* Right Side */}
-                  <Col md={6} className="bg-light-green p-4 d-flex flex-column justify-content-center">
-                    <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
-                    <p className="text-muted mb-4">
-                      Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers,
-                      and tools to track your progress.
-                    </p>
-                    <ul className="text-secondary">
-                      <li>✔ Personalized care plans</li>
-                      <li>✔ Secure messaging with providers</li>
-                      <li>✔ Progress tracking tools</li>
-                    </ul>
-                  </Col>
+
+          {/* Right Side */}
+          <Col
+            md={6}
+            className="bg-light-green p-4 d-flex flex-column justify-content-center"
+          >
+            <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
+            <p className="text-muted mb-4">
+              Creating an account gives you access to personalized mental health
+              resources, secure communication with healthcare providers, and
+              tools to track your progress.
+            </p>
+            <ul className="text-secondary">
+              <li>✔ Personalized care plans</li>
+              <li>✔ Secure messaging with providers</li>
+              <li>✔ Progress tracking tools</li>
+            </ul>
+          </Col>
         </Col>
       </Row>
     </Container>

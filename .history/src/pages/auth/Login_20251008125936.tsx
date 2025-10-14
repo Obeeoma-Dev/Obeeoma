@@ -91,9 +91,7 @@ const LoginPage = () => {
                         id="org"
                         value="Employer"
                         variant={
-                          role === "Employer"
-                            ? "success"
-                            : "outline-success"
+                          role === "Employer" ? "success" : "outline-success"
                         }
                         className="px-3 py-1"
                       >
@@ -137,18 +135,22 @@ const LoginPage = () => {
           </Col>
 
           {/* Right Side - Info (No Image) */}
-                  {/* Right Side */}
-                  <Col md={6} className="bg-success bg-o p-4 d-flex flex-column justify-content-center">
-                    <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
-                    <p className="text-muted mb-4">
-                      Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers,
-                      and tools to track your progress.
-                    </p>
-                    <ul className="text-secondary">
-                      <li>✔ Personalized care plans</li>
-                      <li>✔ Secure messaging with providers</li>
-                      <li>✔ Progress tracking tools</li>
-                    </ul>
+          {/* Right Side */}
+          <Col
+            md={6}
+            className="bg-success bg-o p-4 d-flex flex-column justify-content-center"
+          >
+            <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
+            <p className="text-muted mb-4">
+              Creating an account gives you access to personalized mental health
+              resources, secure communication with healthcare providers, and
+              tools to track your progress.
+            </p>
+            <ul className="text-secondary">
+              <li>✔ Personalized care plans</li>
+              <li>✔ Secure messaging with providers</li>
+              <li>✔ Progress tracking tools</li>
+            </ul>
           </Col>
         </Row>
       </Container>

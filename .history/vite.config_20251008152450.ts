@@ -13,13 +13,12 @@ import path from "path";
 
 export default defineConfig({
   plugins: [
-    react(),       // React support
+    react(), // React support
     tailwindcss(), // Tailwind v4 integration
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"), // Import like "@/components/Button"
-      
     },
   },
 });

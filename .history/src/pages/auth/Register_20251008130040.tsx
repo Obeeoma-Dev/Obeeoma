@@ -19,7 +19,9 @@ type Role = "Employee" | "Employer";
 const validationSchema = Yup.object({
   aliasName: Yup.string().required("Alias Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().min(6, "Minimum 6 characters").required("Password is required"),
+  password: Yup.string()
+    .min(6, "Minimum 6 characters")
+    .required("Password is required"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Confirm Password is required"),
@@ -41,8 +43,14 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Container fluid className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-      <Row className="shadow bg-white rounded-lg overflow-hidden w-100" style={{ maxWidth: 900 }}>
+    <Container
+      fluid
+      className="min-vh-100 d-flex align-items-center justify-content-center bg-light"
+    >
+      <Row
+        className="shadow bg-white rounded-lg overflow-hidden w-100"
+        style={{ maxWidth: 900 }}
+      >
         {/* Left Side */}
         <Col md={6} className="p-4">
           <h2 className="mb-3">Create your account</h2>
@@ -50,7 +58,11 @@ const Register: React.FC = () => {
             Join our community of mental health professionals and patients
           </p>
 
-          <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={handleSubmit}>
+          <Formik
+            validationSchema={validationSchema}
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+          >
             {({ handleSubmit, handleChange, values, touched, errors }) => (
               <FormikForm noValidate onSubmit={handleSubmit}>
                 <BootstrapForm.Group className="mb-3">
@@ -104,7 +116,9 @@ const Register: React.FC = () => {
                     name="confirmPassword"
                     value={values.confirmPassword}
                     onChange={handleChange}
-                    isInvalid={!!touched.confirmPassword && !!errors.confirmPassword}
+                    isInvalid={
+                      !!touched.confirmPassword && !!errors.confirmPassword
+                    }
                     aria-describedby="confirmPassword-label"
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
@@ -138,7 +152,12 @@ const Register: React.FC = () => {
                   </div>
                 </BootstrapForm.Group>
 
-                <Button type="submit" variant="success" size="lg" className="w-100">
+                <Button
+                  type="submit"
+                  variant="success"
+                  size="lg"
+                  className="w-100"
+                >
                   Create Account
                 </Button>
               </FormikForm>
@@ -154,11 +173,15 @@ const Register: React.FC = () => {
         </Col>
 
         {/* Right Side */}
-        <Col md={6} className="bg-success bg-pacity p-4 d-flex flex-column justify-content-center">
+        <Col
+          md={6}
+          className="bg-success bg-pacity p-4 d-flex flex-column justify-content-center"
+        >
           <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
           <p className="text-muted mb-4">
-            Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers,
-            and tools to track your progress.
+            Creating an account gives you access to personalized mental health
+            resources, secure communication with healthcare providers, and tools
+            to track your progress.
           </p>
           <ul className="text-secondary">
             <li>✔ Personalized care plans</li>
