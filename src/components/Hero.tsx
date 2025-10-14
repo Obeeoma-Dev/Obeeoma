@@ -28,7 +28,7 @@ const Hero = () => {
         minHeight: "85vh",
         backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "focus center",
         backgroundRepeat: "no-repeat",
         color: "#fff",
       }}

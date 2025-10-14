@@ -75,10 +75,9 @@ const Footer = () => {
                   Pricing
                 </a>
               </li>
-                  // Temp admin link
-               <Link to="/reset-password-signin"
-                  className="text-success text-decoration-none small">
-                  System admin
+              // Temp admin link 
+               <Link to="/system-admin"
+                  className="text-white text-decoration-none small"> System admin
               </Link>
                 <li>
                 <a
