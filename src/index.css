@@ -4,8 +4,8 @@
    CSS Variables*/
 :root {
   /* Brand palette */
-  --obeeoma-green: #3CB371;
-  --obeeoma-green-dark: #2E8B57;
+  --obeeoma-green: #3cb371;
+  --obeeoma-green-dark: #2e8b57;
   --obeeoma-red: #ff4d4d;
   --obeeoma-red-dark: #cc0000;
   --obeeoma-bg: #ffffff;
@@ -101,7 +101,11 @@ a:hover {
    Gradient Buttons
 ----------------------------------------------- */
 .btn-green-gradient {
-  background: linear-gradient(135deg, var(--obeeoma-green), var(--obeeoma-green-dark));
+  background: linear-gradient(
+    135deg,
+    var(--obeeoma-green),
+    var(--obeeoma-green-dark)
+  );
   color: #fff !important;
   border: none;
   border-radius: var(--bs-border-radius);
@@ -112,7 +116,11 @@ a:hover {
 }
 
 .btn-red-gradient {
-  background: linear-gradient(135deg, var(--obeeoma-red), var(--obeeoma-red-dark));
+  background: linear-gradient(
+    135deg,
+    var(--obeeoma-red),
+    var(--obeeoma-red-dark)
+  );
   color: #fff !important;
   border: none;
   border-radius: var(--bs-border-radius);
@@ -188,7 +196,9 @@ footer a:hover {
   border: none;
   border-radius: var(--bs-border-radius);
   box-shadow: var(--card-shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .feature-card:hover {
   transform: translateY(-4px);
@@ -206,7 +216,6 @@ footer a:hover {
     font-size: 1.125rem;
   }
 }
-
 
 /**
     --background: 0 0% 100%;

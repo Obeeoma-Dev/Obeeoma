@@ -20,6 +20,11 @@ import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
+import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
+import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
+import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
+
+// System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 import EmployerManagement from "./pages/EmployerPages/EmployeeManagement";
 import Subscription from "./pages/EmployerPages/Subscription";
@@ -66,6 +71,18 @@ export default function App(): React.ReactElement {
               <Route
                 path="/employer-dashboard"
                 element={<EmployerDashboard />}
+              />
+              <Route
+                path="/system-admin/organizations"
+                element={<Organisation />}
+              />
+              <Route
+                path="/systemadmin/organizations/:id"
+                element={<OrganisationDetails />}
+              />
+              <Route
+                path="/system-admin/client-engagement"
+                element={<ClientEngagement />}
               />
 
               {/* === PROTECTED ROUTES === */}

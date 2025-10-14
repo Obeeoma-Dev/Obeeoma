@@ -24,7 +24,7 @@ async function refreshAccessToken(): Promise<string | null> {
   try {
     const response = await axios.post<{ access_token: string }>(
       `${import.meta.env.VITE_API_BASE_URL || "https://gf.onrender.com/api/"}auth/token/refresh/`,
-      { refresh: refreshToken }
+      { refresh: refreshToken },
     );
 
     const newAccessToken = response.data.access_token;
@@ -50,14 +50,16 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error: AxiosError) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error),
 );
 
 // --- Response Interceptor: Auto-refresh + Redux logout ---
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
     // Token expired? Try refresh
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -75,7 +77,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;
