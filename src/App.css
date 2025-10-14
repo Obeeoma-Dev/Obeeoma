@@ -59,10 +59,6 @@ footer a:hover {
   color: var(--color-primary) !important;
 }
 
-.text-primary {
-  color: var(--color-primary) !important;
-}
-
 .btn-gradient {
   background: linear-gradient(90deg, var(--color-primary), #ff4d4d);
   border: none;
@@ -90,4 +86,8 @@ footer a:hover {
 .card-feature:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.text-primary {
+  color: var(--color-primary) !important;
 }
