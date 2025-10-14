@@ -26,9 +26,9 @@ const Hero = () => {
       style={{
         position: "relative",
         minHeight: "85vh",
-        backgroundImage: `url(${heroImage})`,
+        backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
         backgroundSize: "contain",
-        backgroundPosition: "center center",
+        backgroundPosition: "focus center",
         backgroundRepeat: "no-repeat",
         color: "#fff",
       }}
@@ -59,8 +59,7 @@ const Hero = () => {
                   color: "rgba(77, 255, 77, 0.9)",
                   transition: "background-color 0.3s ease, color 0.3s ease",
                 }}
-                onClick={() => navigate("/signup")}
-              >
+                onClick={() => navigate("/signup")}>
                 Sign up for my organization
               </Button>
               <Button

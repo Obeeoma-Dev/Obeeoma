@@ -23,12 +23,12 @@ import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
+import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
 
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
-import EmployerManagement from "./pages/EmployerPages/EmployeeManagement";
 import Subscription from "./pages/EmployerPages/Subscription";
-import EmployerAccountSettings from "./pages/EmployerPages/AccountSettings";
+
 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
@@ -51,49 +51,31 @@ export default function App(): React.ReactElement {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route
-                path="/reset-password-signin"
-                element={<ResetPasswordSignin />}
-              />
-              <Route
-                path="/employee-dashboard"
-                element={<EmployeeDashboard />}
-              />
-              <Route
-                path="/employermanagement"
-                element={<EmployerManagement />}
-              />
-              <Route
-                path="/employeraccountsettings"
-                element={<EmployerAccountSettings />}
-              />
-              <Route path="/subscription" element={<Subscription />} />
-              <Route
-                path="/employer-dashboard"
-                element={<EmployerDashboard />}
-              />
-              <Route
-                path="/system-admin/organizations"
-                element={<Organisation />}
-              />
-              <Route
-                path="/systemadmin/organizations/:id"
-                element={<OrganisationDetails />}
-              />
-              <Route
-                path="/system-admin/client-engagement"
-                element={<ClientEngagement />}
-              />
+              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+
+
+              
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
-              {/* <Route element={<ProtectedRoute />}>
-                
-              </Route> */}
+              {/* <Route element={<ProtectedRoute />}> 
+              
+              {/* EMPLOYEE'S ROUTES */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/subscription" element={<Subscription />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+
+
+              {/* SYSTEMS ADMIN ROUTES */}
+              <Route path="/system-admin/organizations" element={<Organisation />} />
+              <Route path="/systema-dmin/organizations/:id" element={<OrganisationDetails />} />
+              <Route path="/system-admin/client-engagement" element={<ClientEngagement />}  />
+              <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
+              {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
-              <Route path="/system-admin/settings-overview"
-                element={<AdminSettings />}
-              />
+              <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
+              
+              
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
