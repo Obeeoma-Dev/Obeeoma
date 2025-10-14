@@ -27,9 +27,8 @@ import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanag
 
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
-import EmployerManagement from "./pages/EmployerPages/EmployeeManagement";
 import Subscription from "./pages/EmployerPages/Subscription";
-import EmployerAccountSettings from "./pages/EmployerPages/AccountSettings";
+
 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
