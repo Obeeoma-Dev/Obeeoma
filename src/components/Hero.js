@@ -17,8 +17,8 @@ const Hero = () => {
             position: "relative",
             minHeight: "85vh",
             backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: "contain",
+            backgroundPosition: "focus center",
             backgroundRepeat: "no-repeat",
             color: "#fff",
         }, children: _jsx("div", { className: "hero-content container text-center text-lg-start", style: { position: "relative", zIndex: 2, paddingTop: "4rem" }, children: _jsxs(Row, { className: "align-items-center", children: [_jsxs(Col, { lg: 6, className: "mb-5 mb-lg-0", children: [_jsx("h1", { className: "fw-bold display-5 mb-3", children: "Start Your Journey to Better Mental Health" }), _jsx("p", { className: "lead mb-4", style: {
