@@ -1,18 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Nav,
-  Navbar,
-  Alert,
-  ListGroup,
-  Badge,
-  Dropdown,
-  Image,
+  Container, Row, Col, Card, Button, Nav, Navbar, Alert, ListGroup, Badge, Dropdown, Image,
 } from "react-bootstrap";
 import {
   BarChart,

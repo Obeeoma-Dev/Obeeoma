@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer
@@ -75,16 +76,17 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <Link to="/system-admin"
-                  className="text-success text-decoration-none small">
-                    System admin
-                </Link>
+                <a
+                  href="#partners"
+                  className="text-white text-decoration-none opacity-75"
+                >
+                  Partners
+                </a>
               </li>
               <li>
                 <a
                   href="/signup"
-                  className="text-white text-decoration-none opacity-75"
-                >
+                  className="text-white text-decoration-none opacity-75">
                   Get Started
                 </a>
               </li>

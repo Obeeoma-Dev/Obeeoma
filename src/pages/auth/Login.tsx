@@ -133,16 +133,14 @@ const LoginPage = (): React.ReactElement => {
                         id="employee"
                         value="Employee"
                         variant={role === "Employee" ? "success" : "outline-success"}
-                        className="px-2 py-1 small fw-semibold"
-                      >
+                        className="px-3 py-1">
                         Employee
                       </ToggleButton>
                       <ToggleButton
                         id="employer"
                         value="Employer"
                         variant={role === "Employer" ? "success" : "outline-success"}
-                        className="px-2 py-1 small fw-semibold"
-                      >
+                        className="px-3 py-1">
                         Employer
                       </ToggleButton>
                     </ToggleButtonGroup>

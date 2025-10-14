@@ -17,7 +17,6 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
-import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
@@ -27,6 +26,9 @@ import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEng
 
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
+import EmployerManagement from "./pages/EmployerPages/EmployeeManagement";
+import Subscription from "./pages/EmployerPages/Subscription";
+import EmployerAccountSettings from "./pages/EmployerPages/AccountSettings";
 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
@@ -57,6 +59,14 @@ export default function App(): React.ReactElement {
                 path="/employee-dashboard"
                 element={<EmployeeDashboard />}
               />
+              <Route
+                path="/employermanagement"
+                element={<EmployerManagement />}
+              />
+              <Route
+                path="/employeraccountsettings"
+                element={<EmployerAccountSettings />}
+              />
               <Route path="/subscription" element={<Subscription />} />
               <Route
                 path="/employer-dashboard"
@@ -81,8 +91,7 @@ export default function App(): React.ReactElement {
                 
               </Route> */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
-              <Route
-                path="/system-admin/settings-overview"
+              <Route path="/system-admin/settings-overview"
                 element={<AdminSettings />}
               />
 
