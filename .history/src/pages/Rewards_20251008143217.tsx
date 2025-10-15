@@ -1,40 +1,50 @@
-import React from 'react';
-import { Container, Row, Col, Card, ProgressBar, Tab, Nav, Badge, Table } from 'react-bootstrap';
+import React from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  ProgressBar,
+  Tab,
+  Nav,
+  Badge,
+  Table,
+} from "react-bootstrap";
 
 const weeklyPoints = [120, 170, 140, 190, 220, 180];
 
 const badges = [
   {
-    name: 'Early Bird',
-    description: 'Complete 5 morning sessions',
+    name: "Early Bird",
+    description: "Complete 5 morning sessions",
     earned: true,
   },
   {
-    name: '7-Day Streak',
-    description: 'Use the app for 7 consecutive days',
+    name: "7-Day Streak",
+    description: "Use the app for 7 consecutive days",
     earned: true,
   },
 ];
 
 const badgesInProgress = [
   {
-    name: 'Mindfulness Master',
-    description: 'Complete the Mindfulness program',
+    name: "Mindfulness Master",
+    description: "Complete the Mindfulness program",
     progress: 60,
   },
   {
-    name: 'Resource Explorer',
-    description: 'Review 10 different resources',
+    name: "Resource Explorer",
+    description: "Review 10 different resources",
     progress: 70,
   },
   {
-    name: '30-Day Commitment',
-    description: 'Use the app for 30 consecutive days',
+    name: "30-Day Commitment",
+    description: "Use the app for 30 consecutive days",
     progress: 23,
   },
   {
-    name: 'Anxiety Expert',
-    description: 'Complete the Anxiety Management program',
+    name: "Anxiety Expert",
+    description: "Complete the Anxiety Management program",
     progress: 60,
   },
 ];
@@ -51,7 +61,12 @@ const RewardsPage: React.FC = () => (
         <Card>
           <Card.Body>
             <Card.Title>Total Points Earned</Card.Title>
-            <h2>680 <span className="text-success" style={{fontSize: '1rem'}}>(+120 this week)</span></h2>
+            <h2>
+              680{" "}
+              <span className="text-success" style={{ fontSize: "1rem" }}>
+                (+120 this week)
+              </span>
+            </h2>
           </Card.Body>
         </Card>
       </Col>
@@ -59,7 +74,12 @@ const RewardsPage: React.FC = () => (
         <Card>
           <Card.Body>
             <Card.Title>Current Streak</Card.Title>
-            <h2>7 days <span className="text-success" style={{fontSize: '1rem'}}>(+3 days)</span></h2>
+            <h2>
+              7 days{" "}
+              <span className="text-success" style={{ fontSize: "1rem" }}>
+                (+3 days)
+              </span>
+            </h2>
           </Card.Body>
         </Card>
       </Col>
@@ -82,7 +102,10 @@ const RewardsPage: React.FC = () => (
               <thead>
                 <tr>
                   {weeklyPoints.map((_, idx) => (
-                    <th className="text-center" key={idx}>{`Week ${idx + 1}`}</th>
+                    <th
+                      className="text-center"
+                      key={idx}
+                    >{`Week ${idx + 1}`}</th>
                   ))}
                 </tr>
               </thead>
@@ -90,7 +113,15 @@ const RewardsPage: React.FC = () => (
                 <tr>
                   {weeklyPoints.map((points, idx) => (
                     <td className="align-bottom text-center" key={idx}>
-                      <div style={{height: `${points}px`, background: '#14C37A', width: '28px', margin: 'auto', borderRadius: '4px'}}></div>
+                      <div
+                        style={{
+                          height: `${points}px`,
+                          background: "#14C37A",
+                          width: "28px",
+                          margin: "auto",
+                          borderRadius: "4px",
+                        }}
+                      ></div>
                       <div>{points}</div>
                     </td>
                   ))}
@@ -127,10 +158,19 @@ const RewardsPage: React.FC = () => (
                       <Col key={idx} md={6} className="mb-3">
                         <Card>
                           <Card.Body className="text-center">
-                            <Badge pill variant="warning" className="mb-2" style={{fontSize:"2rem"}}>★</Badge>
+                            <Badge
+                              pill
+                              variant="warning"
+                              className="mb-2"
+                              style={{ fontSize: "2rem" }}
+                            >
+                              ★
+                            </Badge>
                             <h6>{badge.name}</h6>
                             <small>{badge.description}</small>
-                            {badge.earned && <div className="text-success">✓ Earned</div>}
+                            {badge.earned && (
+                              <div className="text-success">✓ Earned</div>
+                            )}
                           </Card.Body>
                         </Card>
                       </Col>
@@ -144,7 +184,10 @@ const RewardsPage: React.FC = () => (
                       <Card.Body>
                         <h6>{badge.name}</h6>
                         <small>{badge.description}</small>
-                        <ProgressBar now={badge.progress} label={`${badge.progress}%`} />
+                        <ProgressBar
+                          now={badge.progress}
+                          label={`${badge.progress}%`}
+                        />
                       </Card.Body>
                     </Card>
                   ))}

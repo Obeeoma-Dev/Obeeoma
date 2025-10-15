@@ -31,7 +31,7 @@ const frameworks = [
 export function ExampleCombobox() {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState("");
-    return (_jsxs(Popover, { open: open, onOpenChange: setOpen, children: [_jsx(PopoverTrigger, { asChild: true, children: _jsxs(Button, { variant: "outline", role: "combobox", "aria-expanded": open, className: "w-[200px] justify-between", children: [value
+    return (_jsxs(Popover, { open: open, onOpenChange: setOpen, children: [_jsx(PopoverTrigger, { asChild: true, children: _jsxs(Button, { role: "combobox", "aria-expanded": open, className: "w-[200px] justify-between", children: [value
                             ? frameworks.find((framework) => framework.value === value)?.label
                             : "Select framework...", _jsx(ChevronsUpDownIcon, { className: "ml-2 h-4 w-4 shrink-0 opacity-50" })] }) }), _jsx(PopoverContent, { className: "w-[200px] p-0", children: _jsxs(Command, { children: [_jsx(CommandInput, { placeholder: "Search framework..." }), _jsxs(CommandList, { children: [_jsx(CommandEmpty, { children: "No framework found." }), _jsx(CommandGroup, { children: frameworks.map((framework) => (_jsxs(CommandItem, { value: framework.value, onSelect: (currentValue) => {
                                             setValue(currentValue === value ? "" : currentValue);

@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import css from "@css/vite";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [css()],
+  plugins: [tailwindcss()],
 });

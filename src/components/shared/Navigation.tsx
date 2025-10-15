@@ -1,6 +1,5 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../../assets/Images/obeeomalogoicon2.png";
-import { Link } from "react-router-dom";
 
 const Navigation = () => (
   <Navbar
@@ -13,10 +12,10 @@ const Navigation = () => (
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-between">
         <Nav className="me-auto">
-          <Navbar.Brand as={Link} to="/employer-dashboard">
+          <Navbar.Brand href="/employer-dashboard">
             <img src={logo} alt="Obeeoma" height="40" />
           </Navbar.Brand>
-          <Nav.Link href="#features" className="text-white">
+          <Nav.Link href="#pricing" className="text-white">
             {" "}
             Features |{" "}
           </Nav.Link>

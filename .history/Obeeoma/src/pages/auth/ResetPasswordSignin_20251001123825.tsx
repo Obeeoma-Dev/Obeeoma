@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // ResetPassword.tsx
-// A responsive React + TypeScript reset password component with  CSS.
+// A responsive React + TypeScript reset password component with Tailwind CSS.
 
 export default function ResetPassword() {
   const [code, setCode] = useState("");
@@ -48,9 +48,28 @@ export default function ResetPassword() {
           <div className="flex items-center gap-3">
             {/* Logo placeholder */}
             <div className="w-10 h-10 rounded-md bg-green-100 flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                <path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8z" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M8 12l2.5 2L16 9" stroke="#065F46" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden
+              >
+                <path
+                  d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8z"
+                  stroke="#10B981"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M8 12l2.5 2L16 9"
+                  stroke="#065F46"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
             <span className="font-semibold text-lg">Obeeoma</span>
@@ -59,7 +78,9 @@ export default function ResetPassword() {
 
         <main className="p-6 md:p-8">
           <h1 className="text-2xl font-semibold">Reset your password</h1>
-          <p className="text-sm text-gray-500 mt-2">Enter the code you received and choose a new password.</p>
+          <p className="text-sm text-gray-500 mt-2">
+            Enter the code you received and choose a new password.
+          </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <label className="block">
@@ -75,7 +96,9 @@ export default function ResetPassword() {
             </label>
 
             <label className="block">
-              <span className="text-sm font-medium text-gray-700">New Password</span>
+              <span className="text-sm font-medium text-gray-700">
+                New Password
+              </span>
               <input
                 type="password"
                 value={newPassword}
@@ -87,7 +110,9 @@ export default function ResetPassword() {
             </label>
 
             <label className="block">
-              <span className="text-sm font-medium text-gray-700">Confirm Password</span>
+              <span className="text-sm font-medium text-gray-700">
+                Confirm Password
+              </span>
               <input
                 type="password"
                 value={confirmPassword}
@@ -112,8 +137,12 @@ export default function ResetPassword() {
             </div>
 
             <p className="text-center text-sm text-gray-600">
-              Did you receive any code? {" "}
-              <button type="button" onClick={handleResend} className="text-green-600 underline">
+              Did you receive any code?{" "}
+              <button
+                type="button"
+                onClick={handleResend}
+                className="text-green-600 underline"
+              >
                 Send code again
               </button>
             </p>

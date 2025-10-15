@@ -7,17 +7,14 @@ import useEmblaCarousel, {
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
 
-// Extracts the carousel API type from embla-carousel-react
 type CarouselApi = UseEmblaCarouselType[1];
-
-// Extracts the parameter types for useEmblaCarousel
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
 
-// Props accepted by the Carousel component
 type CarouselProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
@@ -25,7 +22,6 @@ type CarouselProps = {
   setApi?: (api: CarouselApi) => void;
 };
 
-// Context shape shared across carousel subcomponents
 type CarouselContextProps = {
   carouselRef: ReturnType<typeof useEmblaCarousel>[0];
   api: ReturnType<typeof useEmblaCarousel>[1];
@@ -35,19 +31,18 @@ type CarouselContextProps = {
   canScrollNext: boolean;
 } & CarouselProps;
 
-// Creates a React context for carousel state
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
-// Hook to access carousel context safely
 function useCarousel() {
   const context = React.useContext(CarouselContext);
+
   if (!context) {
     throw new Error("useCarousel must be used within a <Carousel />");
   }
+
   return context;
 }
 
-// Main Carousel wrapper component
 function Carousel({
   orientation = "horizontal",
   opts,
@@ -64,28 +59,23 @@ function Carousel({
     },
     plugins,
   );
-
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);
 
-  // Updates scroll availability when carousel changes
-  const onSelect = React.useCallback((carouselApi: CarouselApi) => {
-    if (!carouselApi) return;
-    setCanScrollPrev(carouselApi.canScrollPrev());
-    setCanScrollNext(carouselApi.canScrollNext());
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (!api) return;
+    setCanScrollPrev(api.canScrollPrev());
+    setCanScrollNext(api.canScrollNext());
   }, []);
 
-  // Scrolls to previous slide
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev();
   }, [api]);
 
-  // Scrolls to next slide
   const scrollNext = React.useCallback(() => {
     api?.scrollNext();
   }, [api]);
 
-  // Handles keyboard navigation
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "ArrowLeft") {
@@ -99,18 +89,17 @@ function Carousel({
     [scrollPrev, scrollNext],
   );
 
-  // Sets external API reference if provided
   React.useEffect(() => {
     if (!api || !setApi) return;
     setApi(api);
   }, [api, setApi]);
 
-  // Listens for carousel reinitialization and selection changes
   React.useEffect(() => {
     if (!api) return;
     onSelect(api);
     api.on("reInit", onSelect);
     api.on("select", onSelect);
+
     return () => {
       api?.off("select", onSelect);
     };
@@ -120,7 +109,7 @@ function Carousel({
     <CarouselContext.Provider
       value={{
         carouselRef,
-        api,
+        api: api,
         opts,
         orientation:
           orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
@@ -144,9 +133,9 @@ function Carousel({
   );
 }
 
-// Carousel content wrapper
 function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarousel();
+
   return (
     <div
       ref={carouselRef}
@@ -165,9 +154,9 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-// Individual carousel item
 function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
   const { orientation } = useCarousel();
+
   return (
     <div
       role="group"
@@ -183,7 +172,6 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-// Previous button component
 function CarouselPrevious({
   className,
   variant = "outline",
@@ -191,6 +179,7 @@ function CarouselPrevious({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+
   return (
     <Button
       data-slot="carousel-previous"
@@ -213,35 +202,59 @@ function CarouselPrevious({
   );
 }
 
-// Next button component
-function CarouselNext({
-  className,
-  variant = "outline",
-  size = "icon",
-  ...props
-}: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
-  return (
-    <Button
-      data-slot="carousel-next"
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className,
-      )}
-      disabled={!canScrollNext}
-      onClick={scrollNext}
-      {...props}
-    >
-      <ArrowRight />
-      <span className="sr-only">Next slide</span>
-    </Button>
-  );
+// In your button component file (e.g., components/ui/button.tsx)
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+// This interface combines button attributes with your custom variants
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
 }
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  },
+);
+Button.displayName = "Button";
+
+export { Button, buttonVariants };
 
 export {
   type CarouselApi,
@@ -249,5 +262,4 @@ export {
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
-  CarouselNext,
 };

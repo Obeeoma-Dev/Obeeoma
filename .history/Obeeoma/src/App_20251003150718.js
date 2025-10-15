@@ -14,5 +14,45 @@ import NotFound from "./pages/NotFound";
 import EmployerDashboard from "./pages/EmployerDashboard";
 const queryClient = new QueryClient();
 export default function App() {
-    return (_jsx(QueryClientProvider, { client: queryClient, children: _jsxs(TooltipProvider, { children: [_jsx(Toaster, {}), _jsx(BrowserRouter, { children: _jsxs(Routes, { children: [_jsx(Route, { path: "/", element: _jsx(Navigate, { to: "/login", replace: true }) }), _jsx(Route, { path: "/login", element: _jsx(Login, {}) }), _jsx(Route, { path: "/signup", element: _jsx(CreateAccount, {}) }), _jsx(Route, { path: "/reset-password", element: _jsx(ResetPassword, {}) }), _jsx(Route, { path: "/reset-password-signin", element: _jsx(ResetPasswordSignin, {}) }), _jsx(Route, { path: "/employee-dashboard", element: _jsx(EmployeeDashboard, {}) }), _jsx(Route, { path: "/employer-dashboard", element: _jsx(EmployerDashboard, {}) }), _jsx(Route, { path: "/index", element: _jsx(Index, {}) }), _jsx(Route, { path: "*", element: _jsx(NotFound, {}) })] }) })] }) }));
+  return _jsx(QueryClientProvider, {
+    client: queryClient,
+    children: _jsxs(TooltipProvider, {
+      children: [
+        _jsx(Toaster, {}),
+        _jsx(BrowserRouter, {
+          children: _jsxs(Routes, {
+            children: [
+              _jsx(Route, {
+                path: "/",
+                element: _jsx(Navigate, { to: "/login", replace: true }),
+              }),
+              _jsx(Route, { path: "/login", element: _jsx(Login, {}) }),
+              _jsx(Route, {
+                path: "/signup",
+                element: _jsx(CreateAccount, {}),
+              }),
+              _jsx(Route, {
+                path: "/reset-password",
+                element: _jsx(ResetPassword, {}),
+              }),
+              _jsx(Route, {
+                path: "/reset-password-signin",
+                element: _jsx(ResetPasswordSignin, {}),
+              }),
+              _jsx(Route, {
+                path: "/employee-dashboard",
+                element: _jsx(EmployeeDashboard, {}),
+              }),
+              _jsx(Route, {
+                path: "/employer-dashboard",
+                element: _jsx(EmployerDashboard, {}),
+              }),
+              _jsx(Route, { path: "/index", element: _jsx(Index, {}) }),
+              _jsx(Route, { path: "*", element: _jsx(NotFound, {}) }),
+            ],
+          }),
+        }),
+      ],
+    }),
+  });
 }
