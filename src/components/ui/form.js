@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 "use client";
 import { jsx as _jsx } from "react/jsx-runtime";
 import * as React from "react";

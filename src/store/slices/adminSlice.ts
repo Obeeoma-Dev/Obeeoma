@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { adminAPI } from "../../api/apiConfig";
 import axios from "axios";
+import { AdminState } from "../../types/admin";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {

@@ -4,7 +4,7 @@ import * as React from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft,  } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
@@ -254,7 +254,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+// export { Button, buttonVariants };
 
 export {
   type CarouselApi,

@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form as FormikForm, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser } from "../../store/slices/authSlice";
 import { registerValidationSchema } from "./../../validation/authValidation";
 import { Container, Row, Col, Button, Form as BootstrapForm, ToggleButton, ToggleButtonGroup, } from "react-bootstrap";
@@ -10,7 +10,7 @@ const Register = () => {
     const [role, setRole] = useState("employee");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLoading, error } = useSelector((state) => state.auth);
+    // /const { isLoading, error } = useSelector((state: RootState) => state.auth);
     const initialValues = {
         username: "",
         email: "",

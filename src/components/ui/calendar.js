@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 const cn = (...classes) => {
     return classes.filter(Boolean).join(" ");
 };
-function Calendar({ className, classNames, showOutsideDays = true, captionLayout = "label", buttonVariant = "ghost", // Cast to CvaVariant for default
+function Calendar({ className, classNames, showOutsideDays = true, captionLayout = "label", 
+// buttonVariant = "ghost" as CvaVariant, // Cast to CvaVariant for default
 formatters, components, ...props }) {
     // getDefaultClassNames provides the base 'react-day-picker' classes
     const defaultClassNames = getDefaultClassNames();

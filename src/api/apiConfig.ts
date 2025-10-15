@@ -6,7 +6,7 @@ import {
   ForgotPasswordData,
   ResetPasswordData,
 } from "@/types/auth";
-import { SubscriptIcon } from "lucide-react";
+// import { SubscriptIcon } from "lucide-react";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -156,10 +156,10 @@ export const employerAPI = {
   },
 
   
-  getFeatureUsage: async (jobData: any) => {
-    const response = await api.get("/v1/dashboard/feature-usage/");
-    return response;
-  },
+  // getFeatureUsage: async (jobData: ) => {
+  //   const response = await api.get("/v1/dashboard/feature-usage/");
+  //   return response;
+  // },
 
   createFeatureUsage: async () => {
     const response = await api.post("/v1/dashboard/feature-usage");

@@ -21,7 +21,7 @@ const classNames = (...classes: (string | undefined | false | null)[]) => {
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size, ...props }, ref) => {
     // ... rest of the component logic (which is correct)
-    let baseClass = "btn";
+    const baseClass = "btn";
     const variantClass = variant ? `btn-${variant}` : "";
     const sizeClass = size ? `btn-${size}` : "";
 

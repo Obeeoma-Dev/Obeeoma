@@ -5,7 +5,7 @@ import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 import {
   Container,

@@ -28,7 +28,7 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   captionLayout = "label",
-  buttonVariant = "ghost" as CvaVariant, // Cast to CvaVariant for default
+  // buttonVariant = "ghost" as CvaVariant, // Cast to CvaVariant for default
   formatters,
   components,
   ...props

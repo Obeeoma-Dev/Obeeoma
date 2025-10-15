@@ -8,11 +8,13 @@ import { TextEncoder, TextDecoder } from "util";
 
 // Add explicit types for Node.js global
 declare global {
-  // eslint-disable-next-line no-var
+   
   var TextEncoder: typeof TextEncoder;
-  // eslint-disable-next-line no-var
+   
   var TextDecoder: typeof TextDecoder;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 globalThis.TextEncoder = TextEncoder as any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 globalThis.TextDecoder = TextDecoder as any;
