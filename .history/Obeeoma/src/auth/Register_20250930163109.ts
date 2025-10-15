@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 // CreateAccount.tsx
-// A responsive, accessible React + TypeScript component styled with  CSS.
-// Drop this file into a React project (Vite / CRA) with  configured.
+// A responsive, accessible React + TypeScript component styled with Tailwind CSS.
+// Drop this file into a React project (Vite / CRA) with Tailwind configured.
 
 type Role = "client" | "organization";
 

@@ -3,8 +3,8 @@
   "style": "new-york",
   "rsc": false,
   "tsx": true,
-  "": {
-    "config": ".config.ts",
+  "tailwind": {
+    "config": "tailwind.config.ts",
     "css": "src/index.css",
     "baseColor": "neutral",
     "cssVariables": true,

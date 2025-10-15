@@ -1,24 +1,10 @@
-// Import React and required hooks
-import React from "react";
-
-// Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
-
-// Import the hero image (mocked in tests)
 import heroImage from "@/assets/Images/headerimage.png";
-
-// Import navigation hook from React Router
 import { useNavigate } from "react-router-dom";
-
-// Import global styles
 import "@/index.css";
 
-/**
- * Hero component: renders the landing section with background image,
- * heading, description, and navigation buttons.
- */
 const Hero = () => {
-  const navigate = useNavigate(); // Enables navigation via buttons
+  const navigate = useNavigate();
 
   return (
     <section
@@ -43,10 +29,7 @@ const Hero = () => {
             </h1>
             <p
               className="lead mb-4"
-              style={{
-                color: "rgba(255, 255, 255, 0.9)",
-                fontSize: "1.25rem",
-              }}
+              style={{ color: "rgba(255, 255, 255, 0.9)", fontSize: "1.25rem" }}
             >
               Obeeoma professional mental health service.
             </p>
@@ -59,7 +42,8 @@ const Hero = () => {
                   color: "rgba(77, 255, 77, 0.9)",
                   transition: "background-color 0.3s ease, color 0.3s ease",
                 }}
-                onClick={() => navigate("/signup")}>
+                onClick={() => navigate("/signup")}
+              >
                 Sign up for my organization
               </Button>
               <Button
@@ -76,16 +60,13 @@ const Hero = () => {
               </Button>
             </div>
           </Col>
-
           <Col lg={6} className="text-center">
-            {/* ✅ Only render image if heroImage is truthy to avoid empty src warning */}
-            {heroImage && (
-              <img
-                src={heroImage}
-                alt="Obeeoma workplace support"
-                className="img-fluid rounded-4 shadow-lg d-lg-none"
-              />
-            )}
+            {/* Hide the image on large screens since background covers */}
+            <img
+              src={heroImage}
+              alt="Obeeoma workplace support"
+              className="img-fluid rounded-4 shadow-lg d-lg-none"
+            />
           </Col>
         </Row>
       </div>

@@ -1,4 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Row, Col } from 'react-bootstrap';
-const TopMetrics = ({ totalRecommendations, engagementRate, averageTime, }) => (_jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 4, children: _jsx(Card, { children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Total Recommendations" }), _jsx(Card.Text, { children: totalRecommendations })] }) }) }), _jsx(Col, { md: 4, children: _jsx(Card, { children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Engagement Rate" }), _jsxs(Card.Text, { children: [engagementRate, "%"] })] }) }) }), _jsx(Col, { md: 4, children: _jsx(Card, { children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { children: "Avg Engagement Time" }), _jsx(Card.Text, { children: averageTime })] }) }) })] }));
-export default TopMetrics;

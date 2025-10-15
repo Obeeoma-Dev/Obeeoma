@@ -13,9 +13,19 @@ export interface RegisterCredentials {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirm_password: string;
+  role: "employee" | "employer";
+}
+export interface ForgotPasswordData {
+  email: string;
 }
 
+export interface ResetPasswordData {
+  token: string;
+  uid: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
 export interface AuthState {
   user: User | null;
   token: string | null;

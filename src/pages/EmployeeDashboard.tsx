@@ -1,7 +1,18 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import {
-  Container, Row, Col, Card, Button, Nav, Navbar, Alert, ListGroup, Badge, Dropdown, Image,
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Nav,
+  Navbar,
+  Alert,
+  ListGroup,
+  Badge,
+  Dropdown,
+  Image,
 } from "react-bootstrap";
 import {
   BarChart,
@@ -122,7 +133,7 @@ export default function EmployeeDashboard(): React.ReactElement {
                   className="me-2"
                 />
                 <div>
-                  <strong>Billy</strong>
+                  <strong>Builder</strong>
                   <div className="text-muted small">Patient Dashboard</div>
                 </div>
               </div>

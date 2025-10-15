@@ -1,37 +1,26 @@
-import type { Config } from "jest";
+import type { Config } from "@jest/types";
 
-const config: Config = {
-  // Transform JS/TS with Babel
+const config: Config.InitialOptions = {
+  preset: "ts-jest", // Handle TS/TSX files
+  testEnvironment: "jsdom", // Needed for React + DOM APIs
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   transform: {
-  "^.+\\.(ts|tsx)$": "ts-jest",
-  "^.+\\.(js|jsx)$": "babel-jest",
-  "\\.(css|less|scss|sass|png|jpg|jpeg|gif|webp|svg|ttf|eot)$": "jest-transform-stub", // Handles both CSS and images
-},
+    "^.+\\.(ts|tsx)$": "ts-jest", // Transform TS/TSX
 
-  // Test environment simulating browser
-  testEnvironment: "jsdom",
-
-  // Recognize these extensions
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-
-  // Mock paths and assets
-  moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",              // Alias "@"
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy", // Mock CSS    
+    // Transform images
+    "^.+\\.(png|jpg|jpeg|gif|svg)$": "<rootDir>/__mocks__/fileTransformer.cjs",
   },
-
-  // Ignore these folders
-  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/build/"],
-
-  // Setup files like jest-dom
-  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
-
-  // Coverage config
-  collectCoverageFrom: ["src/**/*.{ts,tsx,js,jsx}", "!src/**/*.d.ts", "!src/**/index.{ts,tsx}"],
-  coverageDirectory: "<rootDir>/coverage",
-  coverageReporters: ["text", "lcov", "json-summary"],
-
-  verbose: true,
+  transformIgnorePatterns: [
+    "node_modules/(?!react-router-dom)", // transform react-router-dom if needed
+  ],
+  moduleNameMapper: {
+    // Map @ alias to src folder
+    "^@/(.*)$": "<rootDir>/src/$1",
+    // Mock static assets
+    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "\\.(gif|ttf|eot|svg|png|jpg)$": "<rootDir>/__mocks__/fileMock.ts",
+  },
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"], // Your testing setup
 };
 
 export default config;

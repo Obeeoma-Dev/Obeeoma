@@ -17,7 +17,7 @@ export const FormFieldContext = React.createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 );
 
-const FormItemContext = React.createContext<{ id: string }>(
+export const FormItemContext = React.createContext<{ id: string }>(
   {} as { id: string },
 );
 
@@ -43,5 +43,3 @@ export function useFormField() {
     ...fieldState,
   };
 }
-
-export { FormItemContext };

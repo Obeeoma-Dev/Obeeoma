@@ -1,5 +1,6 @@
 import Navigation from "@/components/shared/Navigation";
 import Hero from "@/components/Hero";
+import HowItWorks from "@/pages/landingpage/HowItWorks";
 import Services from "@/pages/landingpage/Services";
 import Features from "@/pages/landingpage/Features";
 import Footer from "@/components/shared/Footer";

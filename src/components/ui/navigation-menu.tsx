@@ -34,7 +34,7 @@ function NavigationMenuTrigger({
   );
 }
 
-// Export all components cleanly
+// 3️⃣ Export all components cleanly
 export {
   NavigationMenu,
   NavigationMenuList,

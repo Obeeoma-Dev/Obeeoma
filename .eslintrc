@@ -1,0 +1,9 @@
+
+{   "parser": "@typescript-eslint/parser",
+    "plungins": ["react-refresh", "@typescript-eslint"],
+  "rules": {
+    // Remove this line or comment it out:
+     "react-refresh/only-export-components": ["error", { "allowConstantExport": true }],
+    "@typescript-eslint/no-explicit-any": "error"
+    }
+}

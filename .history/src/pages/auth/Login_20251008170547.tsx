@@ -24,12 +24,14 @@ const LoginPage = () => {
             <small className="text-muted">A Happy Heart</small>
           </div>
         </div>
-      
       </header>
 
       {/* Center Form */}
       <Container className="d-flex justify-content-center align-items-center flex-grow-1">
-        <Card className="shadow-sm border-0 p-4" style={{ maxWidth: "480px", width: "100%" }}>
+        <Card
+          className="shadow-sm border-0 p-4"
+          style={{ maxWidth: "480px", width: "100%" }}
+        >
           <Card.Body>
             <h3 className="text-center mb-2 fw-semibold text-dark">
               Sign in to your account
@@ -46,7 +48,6 @@ const LoginPage = () => {
                   className="py-2 border-success border-opacity-25"
                 />
               </Form.Group>
-
 
               <Form.Group className="mb-3" controlId="password">
                 <Form.Control
@@ -79,9 +80,7 @@ const LoginPage = () => {
                     id="employer"
                     value="Employer"
                     variant={
-                      role === "Employer"
-                        ? "success"
-                        : "outline-success"
+                      role === "Employer" ? "success" : "outline-success"
                     }
                     className="px-3 py-1"
                   >
@@ -89,7 +88,10 @@ const LoginPage = () => {
                   </ToggleButton>
                 </ToggleButtonGroup>
 
-                <a href="reset-password-signin " className="text-success text-decoration-none small">
+                <a
+                  href="reset-password-signin "
+                  className="text-success text-decoration-none small"
+                >
                   Forgot password?
                 </a>
               </div>
