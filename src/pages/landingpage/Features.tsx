@@ -57,7 +57,7 @@ const Features = () => {
           {features.map((f, i) => (
             <div className="col-md-4" key={i}>
               <div className="card card-feature h-100 p-4">
-                <div className="mb-3 text-primary" style={{ color: "var(--text-green)" }}>
+                <div className="mb-3 text-success">
                   <f.icon size={36} />
                 </div>
                 <h5 className="fw-semibold">{f.title}</h5>
