@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import image3 from "@/assets/Images/image3.png";
 
-const Services = () => {
-  const services = [
+const Benefits = () => {
+  const benefits = [
     {
       icon: FileText,
       title: "Know Just One Plan",
@@ -67,31 +67,31 @@ const Services = () => {
     <section className="py-24 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-4 text-success">
             Mental Health Care Benefits
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Our platform offers a range of services designed to support your
+            Our platform offers a range of benefits designed to support your
             mental health journey
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="grid sm:grid-cols-2 gap-6">
-            {services.map((service, index) => (
+            {benefits.map((benefit, index) => (
               <Card
                 key={index}
                 className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20"
               >
                 <CardContent className="p-6">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <service.icon className="w-6 h-6 text-primary" />
+                    <benefit.icon className="w-6 h-6 text-success" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">
-                    {service.title}
+                    {benefit.title}
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    {service.description}
+                    {benefit.description}
                   </p>
                 </CardContent>
               </Card>
@@ -112,4 +112,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Benefits;
