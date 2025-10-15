@@ -1,11 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card";
 import {
   FileText,
   Brain,
   Users,
   Calendar,
   TrendingUp,
-  Brain as BrainIcon,
   Heart,
   CheckCircle2,
 } from "lucide-react";
@@ -21,7 +19,7 @@ const Benefits = () => {
     },
     {
       icon: Brain,
-      title: "Mood tracking",
+      title: "Mood Tracking",
       description:
         "Monitor your mental health in a quick-to-use daily diary. Keep an eye on how you feel as time goes by",
     },
@@ -44,12 +42,6 @@ const Benefits = () => {
         "Develop strategies to cope and manage in your situation. Build skills that can enhance your mental strength",
     },
     {
-      icon: BrainIcon,
-      title: "Mood Scheduling",
-      description:
-        "Set up activities to support better wellbeing over the course of your day. Plan ahead for better mental health",
-    },
-    {
       icon: Heart,
       title: "Self Assessments",
       description:
@@ -64,46 +56,57 @@ const Benefits = () => {
   ];
 
   return (
-    <section className="py-24 bg-muted/30">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-success">
+    <section className="py-5 bg-light">
+      <div className="container">
+        {/* Section Heading */}
+        <div className="text-center mb-5">
+          <h2 className="fw-bold text-success mb-3">
             Mental Health Care Benefits
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted fs-5 mx-auto" style={{ maxWidth: "700px" }}>
             Our platform offers a range of benefits designed to support your
             mental health journey
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="grid sm:grid-cols-2 gap-6">
-            {benefits.map((benefit, index) => (
-              <Card
-                key={index}
-                className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20"
-              >
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <benefit.icon className="w-6 h-6 text-success" />
+        {/* Main Row with Grid + Image */}
+        <div className="row align-items-center g-5">
+          {/* Benefits Grid */}
+          <div className="col-lg-7">
+            <div className="row g-4">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="col-12 col-md-6 col-lg-4">
+                  <div className="card h-100 border-0 shadow-sm hover-shadow transition-all">
+                    <div className="card-body text-center p-4">
+                      <div
+                        className="d-flex justify-content-center align-items-center bg-success-subtle rounded-circle mb-3"
+                        style={{
+                          width: "60px",
+                          height: "60px",
+                          margin: "0 auto",
+                        }}
+                      >
+                        <benefit.icon className="text-success fs-4" />
+                      </div>
+                      <h5 className="card-title fw-semibold">
+                        {benefit.title}
+                      </h5>
+                      <p className="card-text text-muted small">
+                        {benefit.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="relative lg:pl-12">
-            <div className="absolute inset-0 bg-primary/5 rounded-3xl -z-10 transform translate-x-8 translate-y-8"></div>
+          {/* Side Image */}
+          <div className="col-lg-5 text-center">
             <img
               src={image3}
               alt="Professional working"
-              className="rounded-3xl shadow-2xl w-full object-cover"
+              className="img-fluid rounded-4 shadow-lg"
             />
           </div>
         </div>
