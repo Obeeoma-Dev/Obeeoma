@@ -15,68 +15,73 @@ const Benefits = () => {
       icon: FileText,
       title: "Know Just One Plan",
       description:
-        "Simple, clear and easy-to-understand pricing structure. No hidden fees or unexpected expenses to deal with",
+        "Simple, clear and easy-to-understand pricing structure. No hidden fees or unexpected expenses to deal with.",
     },
     {
       icon: Brain,
       title: "Mood Tracking",
       description:
-        "Monitor your mental health in a quick-to-use daily diary. Keep an eye on how you feel as time goes by",
+        "Monitor your mental health in a quick-to-use daily diary. Keep an eye on how you feel as time goes by.",
     },
     {
       icon: Users,
       title: "Crisis Support",
       description:
-        "Access immediate help. Get the right level of support if you need it, whether it's in the moment or ongoing",
+        "Access immediate help. Get the right level of support if you need it, whether it's in the moment or ongoing.",
     },
     {
       icon: Calendar,
       title: "Mood Checking",
       description:
-        "Regular check-ins to see how you're doing. Get insights to guide you on your mental wellness journey",
+        "Regular check-ins to see how you're doing. Get insights to guide you on your mental wellness journey.",
     },
     {
       icon: TrendingUp,
       title: "Skill Building",
       description:
-        "Develop strategies to cope and manage in your situation. Build skills that can enhance your mental strength",
+        "Develop strategies to cope and manage in your situation. Build skills that can enhance your mental strength.",
     },
     {
       icon: Heart,
       title: "Self Assessments",
       description:
-        "Regular assessments to track progress and see how your journey is going. Understand yourself better with data",
+        "Regular assessments to track progress and see how your journey is going. Understand yourself better with proof of data.",
     },
     {
       icon: CheckCircle2,
       title: "Complete Portal",
       description:
-        "Easy-to-use tools in one place for optimized mental health management. Simple and intuitive interface",
+        "Easy-to-use tools in one place for optimized mental health management. Simple and intuitive interface.",
     },
   ];
 
   return (
-    <section className="py-5 bg-light">
+    <section
+      className="py-5"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
+      }}
+    >
       <div className="container">
-        {/* Section Heading */}
         <div className="text-center mb-5">
           <h2 className="fw-bold text-success mb-3">
             Mental Health Care Benefits
           </h2>
           <p className="text-muted fs-5 mx-auto" style={{ maxWidth: "700px" }}>
             Our platform offers a range of benefits designed to support your
-            mental health journey
+            mental health journey.
           </p>
         </div>
 
-        {/* Main Row with Grid + Image */}
+        {/* Main Row with Grid & Image */}
         <div className="row align-items-center g-5">
           {/* Benefits Grid */}
           <div className="col-lg-7">
             <div className="row g-4">
               {benefits.map((benefit, index) => (
                 <div key={index} className="col-12 col-md-6 col-lg-4">
-                  <div className="card h-100 border-0 shadow-sm hover-shadow transition-all">
+                  <div className="card h-100 border-0 shadow-sm hover-shadow transition-all bg-white rounded-4">
                     <div className="card-body text-center p-4">
                       <div
                         className="d-flex justify-content-center align-items-center bg-success-subtle rounded-circle mb-3"
@@ -107,6 +112,10 @@ const Benefits = () => {
               src={image3}
               alt="Professional working"
               className="img-fluid rounded-4 shadow-lg"
+              style={{
+                maxHeight: "480px",
+                objectFit: "cover",
+              }}
             />
           </div>
         </div>
