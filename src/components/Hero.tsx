@@ -30,7 +30,7 @@ const Hero = () => {
         backgroundRepeat: "no-repeat",
         height: "100vh",
         minHeight: "85vh",
-        color: "text-green",
+        color: "text-success",
       }}
     >
       <div
