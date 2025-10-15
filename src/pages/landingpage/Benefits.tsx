@@ -8,6 +8,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import image3 from "@/assets/Images/image3.png";
+import image4 from "@/assets/Images/alex-green-2.jpg";
 
 const Benefits = () => {
   const benefits = [
@@ -45,7 +46,7 @@ const Benefits = () => {
       icon: Heart,
       title: "Self Assessments",
       description:
-        "Regular assessments to track progress and see how your journey is going. Understand yourself better with proof of data.",
+        "Regular assessments to track progress and see how your journey is going. Understand yourself better with data.",
     },
     {
       icon: CheckCircle2,
@@ -55,72 +56,94 @@ const Benefits = () => {
     },
   ];
 
-  return (
-    <section
-      className="py-5"
-      style={{
-        background:
-          "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
-      }}
-    >
-      <div className="container">
-        <div className="text-center mb-5">
-          <h2 className="fw-bold text-success mb-3">
-            Mental Health Care Benefits
-          </h2>
-          <p className="text-muted fs-5 mx-auto" style={{ maxWidth: "700px" }}>
-            Our platform offers a range of benefits designed to support your
-            mental health journey.
-          </p>
-        </div>
+  // Divide benefits into rows of 6 cards per side (3x2)
+  const half = Math.ceil(benefits.length / 2);
+  const firstHalf = benefits.slice(0, half);
+  const secondHalf = benefits.slice(half);
 
-        {/* Main Row with Grid & Image */}
-        <div className="row align-items-center g-5">
-          {/* Benefits Grid */}
-          <div className="col-lg-7">
-            <div className="row g-4">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="col-12 col-md-6 col-lg-4">
-                  <div className="card h-100 border-0 shadow-sm hover-shadow transition-all bg-white rounded-4">
-                    <div className="card-body text-center p-4">
-                      <div
-                        className="d-flex justify-content-center align-items-center bg-success-subtle rounded-circle mb-3"
-                        style={{
-                          width: "60px",
-                          height: "60px",
-                          margin: "0 auto",
-                        }}
-                      >
-                        <benefit.icon className="text-success fs-4" />
-                      </div>
-                      <h5 className="card-title fw-semibold">
-                        {benefit.title}
-                      </h5>
-                      <p className="card-text text-muted small">
-                        {benefit.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+  const renderBenefitsGrid = (benefitSet: any[]) => (
+    <div className="row g-4">
+      {benefitSet.map((benefit, index) => (
+        <div key={index} className="col-12 col-md-6 col-lg-4">
+          <div className="card h-100 border-0 shadow-sm hover-shadow bg-white rounded-4">
+            <div className="card-body text-center p-4">
+              <div
+                className="d-flex justify-content-center align-items-center bg-success-subtle rounded-circle mb-3"
+                style={{ width: "60px", height: "60px", margin: "0 auto" }}>
+                <benefit.icon className="text-success fs-4" />
+              </div>
+              <h5 className="card-title fw-semibold">{benefit.title}</h5>
+              <p className="card-text text-muted small">
+                {benefit.description}
+              </p>
             </div>
           </div>
+        </div>
+      ))}
+    </div>
+  );
 
-          {/* Side Image */}
-          <div className="col-lg-5 text-center">
-            <img
-              src={image3}
-              alt="Professional working"
-              className="img-fluid rounded-4 shadow-lg"
-              style={{
-                maxHeight: "480px",
-                objectFit: "cover",
-              }}
-            />
+  return (
+    <>
+      <section
+        className="py-5"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
+        }}
+      >
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="fw-bold text-success mb-3">
+              Mental Health Care Benefits
+            </h2>
+            <p
+              className="text-muted fs-5 mx-auto"
+              style={{ maxWidth: "700px" }}
+            >
+              Our platform offers a range of benefits designed to support your
+              mental health journey.
+            </p>
+          </div>
+
+          <div className="row align-items-center g-5">
+            <div className="col-lg-7">{renderBenefitsGrid(firstHalf)}</div>
+
+            <div className="col-lg-5 text-center">
+              <img
+                src={image3}
+                alt="Professional working"
+                className="img-fluid rounded-4 shadow-lg"
+                style={{ maxHeight: "480px", objectFit: "cover" }}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* --- SECTION 2 (Image on Left) --- */}
+      <section
+        className="py-5"
+        style={{
+          background: "linear-gradient(180deg, #ffffff 0%, rgba(230, 255, 237, 0.7) 100%)",
+        }}>
+        <div className="container">
+          <div className="row align-items-center g-5 flex-lg-row-reverse">
+            {/* Image */}
+            <div className="col-lg-5 text-center">
+              <img
+                src={image4}
+                alt="Supportive conversation"
+                className="img-fluid rounded-4 shadow-lg"
+                style={{ maxHeight: "480px", objectFit: "cover" }}
+              />
+            </div>
+
+            <div className="col-lg-7">{renderBenefitsGrid(secondHalf)}</div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

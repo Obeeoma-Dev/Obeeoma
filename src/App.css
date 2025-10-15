@@ -91,3 +91,11 @@ footer a:hover {
 .text-green {
   color: var(--color-primary) !important;
 }
+
+.hover-shadow {
+  transition: all 0.3s ease-in-out;
+}
+.hover-shadow:hover {
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+}
