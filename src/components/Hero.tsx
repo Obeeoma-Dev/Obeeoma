@@ -8,21 +8,20 @@ const Hero = () => {
 
   return (
     <section
-      className="hero-section d-flex align-items-center"
+      className="hero-section d-flex align-items-center justify-content-center text-center text-white"
       style={{
-        position: "relative",
-        minHeight: "85vh",
-        backgroundImage: `url(${heroImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
+        backgroundSize: "contain",
+        backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
+        height: "100vh",
+        minHeight: "85vh",
         color: "#fff",
       }}
     >
       <div
         className="hero-content container text-center text-lg-start"
-        style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }}
-      >
+        style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }}>
         <Row className="align-items-center">
           <Col lg={6} className="mb-5 mb-lg-0">
             <h1 className="fw-bold display-5 mb-3">
