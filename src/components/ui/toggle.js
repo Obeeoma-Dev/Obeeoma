@@ -5,7 +5,7 @@ const classNames = (...classes) => {
 };
 const Button = React.forwardRef(({ className, variant = "primary", size, ...props }, ref) => {
     // ... rest of the component logic (which is correct)
-    let baseClass = "btn";
+    const baseClass = "btn";
     const variantClass = variant ? `btn-${variant}` : "";
     const sizeClass = size ? `btn-${size}` : "";
     const finalClasses = classNames(baseClass, variantClass, sizeClass, className);

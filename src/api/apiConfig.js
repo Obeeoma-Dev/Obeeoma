@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { SubscriptIcon } from "lucide-react";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 const api = axios.create({
@@ -106,10 +107,10 @@ export const employerAPI = {
         const response = await api.post("/v1/dashboard/employee-engagement/");
         return response;
     },
-    getFeatureUsage: async (jobData) => {
-        const response = await api.get("/v1/dashboard/feature-usage/");
-        return response;
-    },
+    // getFeatureUsage: async (jobData: ) => {
+    //   const response = await api.get("/v1/dashboard/feature-usage/");
+    //   return response;
+    // },
     createFeatureUsage: async () => {
         const response = await api.post("/v1/dashboard/feature-usage");
         return response;

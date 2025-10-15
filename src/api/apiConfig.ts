@@ -156,10 +156,10 @@ export const employerAPI = {
   },
 
   
-  getFeatureUsage: async () => {
-    const response = await api.get("/v1/dashboard/feature-usage/");
-    return response;
-  },
+  // getFeatureUsage: async (jobData: ) => {
+  //   const response = await api.get("/v1/dashboard/feature-usage/");
+  //   return response;
+  // },
 
   createFeatureUsage: async () => {
     const response = await api.post("/v1/dashboard/feature-usage");
