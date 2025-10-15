@@ -66,7 +66,7 @@ export default function App(): React.ReactElement {
 
               {/* SYSTEMS ADMIN ROUTES */}
               <Route path="/system-admin/organizations" element={<Organisation />} />
-              <Route path="/systema-dmin/organizations/:id" element={<OrganisationDetails />} />
+              <Route path="/systemadmin/organizations/:id" element={<OrganisationDetails />} />
               <Route path="/system-admin/client-engagement" element={<ClientEngagement />}  />
               <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
               {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
