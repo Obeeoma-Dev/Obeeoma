@@ -37,6 +37,10 @@ jobs:
       - name: Run ESLint Check
         run: npx eslint src
 
+      # Step 5a: Run Prettier write (fail if formatting issues exist)
+      - name: Run Prettier write
+        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}"
+        
       # Step 5: Run Prettier checks (fail if formatting issues exist)
       - name: Run Prettier Check
         run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"

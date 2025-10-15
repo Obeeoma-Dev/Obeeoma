@@ -1,7 +1,7 @@
 import { Button, Row, Col } from "react-bootstrap";
 import heroImage from "@/assets/Images/headerimage.png";
 import { useNavigate } from "react-router-dom";
-import "@/index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Hero = () => {
   const navigate = useNavigate();
