@@ -25,6 +25,7 @@ import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
+import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
@@ -69,6 +70,7 @@ export default function App(): React.ReactElement {
               <Route path="/systemadmin/organizations/:id" element={<OrganisationDetails />} />
               <Route path="/system-admin/client-engagement" element={<ClientEngagement />} />
               <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
+              <Route path="/system-admin/hotline-activity" element={<HotlineActivity />} />
               {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
