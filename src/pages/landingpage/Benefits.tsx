@@ -6,12 +6,20 @@ import {
   TrendingUp,
   Heart,
   CheckCircle2,
+  LucideIcon,
 } from "lucide-react";
 import image3 from "@/assets/Images/image3.png";
 import image4 from "@/assets/Images/alex-green-2.jpg";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+interface Benefit {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
 
 const Benefits = () => {
-  const benefits = [
+  const benefits: Benefit[] = [
     {
       icon: FileText,
       title: "Know Just One Plan",
@@ -61,7 +69,7 @@ const Benefits = () => {
   const firstHalf = benefits.slice(0, half);
   const secondHalf = benefits.slice(half);
 
-  const renderBenefitsGrid = (benefitSet: any[]) => (
+  const renderBenefitsGrid = (benefitSet: Benefit[]) => (
     <div className="row g-4">
       {benefitSet.map((benefit, index) => (
         <div key={index} className="col-12 col-md-6 col-lg-4">
