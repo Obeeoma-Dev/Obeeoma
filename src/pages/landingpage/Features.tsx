@@ -58,7 +58,7 @@ const Features = () => {
             <div className="col-md-4" key={i}>
               <div className="card card-feature h-100 p-4">
                 <div className="mb-3 text-success">
-                  <f.icon size={36} className="text-primary"/>
+                  <f.icon size={36} className="text-success"/>
                 </div>
                 <h5 className="fw-semibold">{f.title}</h5>
                 <p className="text-muted">{f.desc}</p>
