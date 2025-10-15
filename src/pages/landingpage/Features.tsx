@@ -44,7 +44,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="section-bg py-5">
+    <section className="section-bg py-5" style={{ marginTop: "-2rem" }}>
       <div className="container text-center">
         <h2
           className="fw-bold mb-3 text-success" >
@@ -67,6 +67,18 @@ const Features = () => {
           ))}
         </div>
       </div>
+        {/* Fade into Benefits */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            height: "120px",
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
+          }}
+        />
     </section>
   );
 };

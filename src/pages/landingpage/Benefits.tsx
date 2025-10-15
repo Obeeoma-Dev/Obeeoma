@@ -98,6 +98,7 @@ const Benefits = () => {
         style={{
           background:
             "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
+            marginBottom: "-1rem", 
         }}
       >
         <div className="container">
@@ -134,6 +135,7 @@ const Benefits = () => {
         className="py-5"
         style={{
           background: "linear-gradient(180deg, #ffffff 0%, rgba(230, 255, 237, 0.7) 100%)",
+          marginBottom: "0",
         }}>
         <div className="container">
           <div className="row align-items-center g-5 flex-lg-row-reverse">
@@ -150,6 +152,18 @@ const Benefits = () => {
             <div className="col-lg-7">{renderBenefitsGrid(secondHalf)}</div>
           </div>
         </div>
+        {/* Fade into Footer */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            height: "100px",
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #00A859 100%)",
+          }}
+        />
       </section>
     </>
   );
