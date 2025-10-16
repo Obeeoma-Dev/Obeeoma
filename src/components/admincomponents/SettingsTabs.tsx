@@ -7,6 +7,47 @@ import { Tabs, Tab } from "react-bootstrap";
 // Import the AccountForm component to be rendered inside the "Account" tab
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
+import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
+
+// Placeholder data for subscription plans
+const subscriptionPlans = [
+  {
+    name: "Basic",
+    price: "$5.99/month",
+    billingNote: "Billed annually (save $12)",
+    features: [
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Up to 10 employees",
+      "Email support",
+    ],
+  },
+  {
+    name: "Professional",
+    price: "$12.99/month",
+    billingNote: "Billed annually (save $24)",
+    features: [
+      "All Basic features",
+      "Weekly check-ins",
+      "Dedicated support team",
+      "Up to 50 employees",
+      "Chat support",
+    ],
+    isPopular: true,
+  },
+  {
+    name: "Premium",
+    price: "$24.99/month",
+    billingNote: "Billed annually (save $48)",
+    features: [
+      "All Professional features",
+      "Daily check-ins",
+      "24/7 crisis support",
+      "Custom solutions",
+      "Unlimited employees",
+    ],
+  },
+];
 
 /*
  * SettingsTabs component renders a tabbed interface for different settings sections.
@@ -46,7 +87,7 @@ const SettingsTabs: React.FC = () => {
 
       {/* Tab for Subscription details */}
       <Tab eventKey="subscription" title="Subscription">
-        <p>Subscription details go here. </p>
+        <SubscriptionSettingsComp plans={subscriptionPlans}  />
       </Tab>
 
       {/* Tab for Feature flags */}
