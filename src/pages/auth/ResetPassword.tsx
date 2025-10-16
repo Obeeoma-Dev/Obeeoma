@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { resetPassword , clearError } from "../../store/slices/authSlice";
-import { useNavigate, } from "react-router-dom";
+import { resetPassword, clearError } from "../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 import { resetPasswordValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ResetPassword: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
- useEffect(() => {
+  useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
 
-  const handleSubmit = (values: {  token: string;
-  uid: string;
-  newPassword: string;
-  confirmNewPassword: string; }) => {
+  const handleSubmit = (values: {
+    token: string;
+    uid: string;
+    newPassword: string;
+    confirmNewPassword: string;
+  }) => {
     dispatch(
-      resetPassword ({
+      resetPassword({
         ...values,
 
         onSuccess: () => navigate("/login"),
-      }),
+      })
     );
   };
   return (
@@ -41,44 +43,62 @@ const ResetPassword: React.FC = () => {
             <p className="text-muted mb-4">
               Enter the code and your new password
             </p>
-             <Formik
-                          initialValues={{ token: "'", uid: "", newPassword: "", confirmNewPassword: "", }}
-                          validationSchema={  resetPasswordValidationSchema}
-                          onSubmit={handleSubmit}
-                        ></Formik>
-            <Form>
-              <Form.Group className="mb-3" controlId="formCode">
-                <Form.Control
-                  type="text"
-                  placeholder="Enter code"
-                  className="py-2"
-                />
-              </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formNewPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="New password"
-                  className="py-2"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-4" controlId="formConfirmPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm new password"
-                  className="py-2"
-                />
-              </Form.Group>
-
-              <Button
-                type="submit"
-                variant="success"
-                className="w-100 py-2 fw-semibold"
+            {error && (
+              <Alert
+                variant="danger"
+                onClose={() => dispatch(clearError())}
+                dismissible
               >
-                Change Password
-              </Button>
-            </Form>
+                {error}
+              </Alert>
+            )}
+            <Formik
+              initialValues={{
+                token: "'",
+                uid: "",
+                newPassword: "",
+                confirmNewPassword: "",
+              }}
+              validationSchema={resetPasswordValidationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ handleChange, handleSubmit, values, errors, touched }) => (
+                <Form noValidate onSubmit={handleSubmit}>
+                  <Form.Group className="mb-3" controlId="formCode">
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter code"
+                      className="py-2"
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formNewPassword">
+                    <Form.Control
+                      type="password"
+                      placeholder="New password"
+                      className="py-2"
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-4" controlId="formConfirmPassword">
+                    <Form.Control
+                      type="password"
+                      placeholder="Confirm new password"
+                      className="py-2"
+                    />
+                  </Form.Group>
+
+                  <Button
+                    type="submit"
+                    variant="success"
+                    className="w-100 py-2 fw-semibold"
+                  >
+                    Change Password
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </Col>
 
           {/* Right Side */}

@@ -1,8 +1,32 @@
-import React from "react";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import React,{ useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { forgotPassword, clearError } from "../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
+import { forgotPasswordValidationSchema } from "./../../validation/authValidation";
+import { Formik } from "formik";
+import { Row, Col, Form, Button, Card, Alert, } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ResetPassword: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { isLoading, error } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+      dispatch(clearError());
+    }, [dispatch]);
+  
+    const handleSubmit = (values: { email: string; }) => {
+      dispatch(
+        forgotPassword({
+          ...values,
+  
+          onSuccess: () => navigate("/change-password"),
+        }),
+      );
+    };
+  
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
       <Card
@@ -15,7 +39,26 @@ const ResetPassword: React.FC = () => {
             <h2 className="fw-semibold mb-2">Reset Password to Sign in</h2>
             <p className="text-muted mb-4">Send code to email</p>
 
-            <Form>
+
+            {error && (
+              <Alert
+                variant="danger"
+                onClose={() => dispatch(clearError())}
+                dismissible
+              >
+                {error}
+              </Alert>
+            )}
+
+              <Formik
+                initialValues={{ email: "" }}
+                validationSchema={forgotPasswordValidationSchema}
+                onSubmit={handleSubmit}
+                >
+
+              {({ handleChange, handleSubmit, values, errors, touched }) => (
+                                 
+              <Form noValidate onSubmit={handleSubmit}>
               <Form.Group className="mb-4" controlId="formEmail">
                 <Form.Control
                   type="email"
@@ -31,7 +74,11 @@ const ResetPassword: React.FC = () => {
               >
                 Send code
               </Button>
-            </Form>
+            </Form> 
+              )}
+            </Formik>
+            
+
 
             <p className="text-center text-muted mt-4">
               Didn’t receive any code?{" "}
