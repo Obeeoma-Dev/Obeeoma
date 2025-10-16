@@ -7,6 +7,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
 import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
+import AppearenceSettings from "./Appearencesettingscomp/appearancesettings";
 // Placeholder data for subscription plans
 const subscriptionPlans = [
     {
@@ -57,6 +58,6 @@ const SettingsTabs = () => {
     // Tabs components with controlled activeKey to manage selected tab
     _jsxs(Tabs, { id: "settings-tabs" // Unique ID for accessibility
         , activeKey: key, onSelect: (k) => k && setKey(k), className: "mb-3" // Bottom margin for spacing
-        , children: [_jsx(Tab, { eventKey: "account", title: "Account", children: _jsx(AccountForm, {}) }), _jsx(Tab, { eventKey: "security", title: "Security", children: _jsx("p", { children: "Security settings go here. " }) }), _jsx(Tab, { eventKey: "notifications", title: "Notifications", children: _jsx("p", { children: "Notification preferences go here. " }) }), _jsx(Tab, { eventKey: "appearance", title: "Appearance", children: _jsx("p", { children: "Theme and layout settings go here. " }) }), _jsx(Tab, { eventKey: "subscription", title: "Subscription", children: _jsx(SubscriptionSettingsComp, { plans: subscriptionPlans }) }), _jsx(Tab, { eventKey: "feature-flags", title: "Feature Flags", children: _jsx(FeatureFlags, {}) })] }));
+        , children: [_jsx(Tab, { eventKey: "account", title: "Account", children: _jsx(AccountForm, {}) }), _jsx(Tab, { eventKey: "security", title: "Security", children: _jsx("p", { children: "Security settings go here. " }) }), _jsx(Tab, { eventKey: "notifications", title: "Notifications", children: _jsx("p", { children: " Notification settings go here. " }) }), _jsx(Tab, { eventKey: "appearance", title: "Appearance", children: _jsx(AppearenceSettings, {}) }), _jsx(Tab, { eventKey: "subscription", title: "Subscription", children: _jsx(SubscriptionSettingsComp, { plans: subscriptionPlans }) }), _jsx(Tab, { eventKey: "feature-flags", title: "Feature Flags", children: _jsx(FeatureFlags, {}) })] }));
 };
 export default SettingsTabs;

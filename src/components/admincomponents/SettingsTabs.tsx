@@ -8,6 +8,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
 import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
+import AppearenceSettings from "./Appearencesettingscomp/appearancesettings";
 
 
 
@@ -79,12 +80,12 @@ const SettingsTabs: React.FC = () => {
 
       {/* Tab for Notification preferences */}
       <Tab eventKey="notifications" title="Notifications">
-        <p>Notification preferences go here. </p>
+        <p> Notification settings go here. </p>
       </Tab>
 
       {/* Tab for Appearance customization */}
       <Tab eventKey="appearance" title="Appearance">
-        <p>Theme and layout settings go here. </p>
+        <AppearenceSettings />
       </Tab>
 
       {/* Tab for Subscription details */}
