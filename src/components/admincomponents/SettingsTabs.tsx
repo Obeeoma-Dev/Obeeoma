@@ -10,8 +10,6 @@ import FeatureFlags from "./FeatureFlags";
 import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
 import AppearenceSettings from "./Appearencesettingscomp/appearancesettings";
 
-
-
 // Placeholder data for subscription plans
 const subscriptionPlans = [
   {
@@ -56,6 +54,7 @@ const subscriptionPlans = [
  * SettingsTabs component renders a tabbed interface for different settings sections.
  * It uses React-Bootstrap's Tabs and Tab components to organize content.
  */
+
 const SettingsTabs: React.FC = () => {
   // State to track which tab is currently active; default is "account"
   const [key, setKey] = useState<string>("account");
@@ -90,7 +89,7 @@ const SettingsTabs: React.FC = () => {
 
       {/* Tab for Subscription details */}
       <Tab eventKey="subscription" title="Subscription">
-        <SubscriptionSettingsComp plans={subscriptionPlans}  />
+        <SubscriptionSettingsComp plans={subscriptionPlans} />
       </Tab>
 
       {/* Tab for Feature flags */}
