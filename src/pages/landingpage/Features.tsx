@@ -44,9 +44,10 @@ const Features = () => {
   ];
 
   return (
-    <section className="section-bg py-5">
+    <section className="section-bg py-5" style={{ marginTop: "-2rem" }}>
       <div className="container text-center">
-        <h2 className="fw-bold mb-3 text-green">
+        <h2
+          className="fw-bold mb-3 text-success" >
           Comprehensive Obeeoma Features
         </h2>
         <p className="text-muted mb-5">
@@ -56,8 +57,8 @@ const Features = () => {
           {features.map((f, i) => (
             <div className="col-md-4" key={i}>
               <div className="card card-feature h-100 p-4">
-                <div className="mb-3 text-green">
-                  <f.icon size={36} className="text-primary" />
+                <div className="mb-3 text-success">
+                  <f.icon size={36} className="text-success"/>
                 </div>
                 <h5 className="fw-semibold">{f.title}</h5>
                 <p className="text-muted">{f.desc}</p>
@@ -66,6 +67,18 @@ const Features = () => {
           ))}
         </div>
       </div>
+        {/* Fade into Benefits */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            height: "120px",
+            background:
+              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
+          }}
+        />
     </section>
   );
 };

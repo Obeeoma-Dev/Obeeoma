@@ -1,7 +1,7 @@
 import { Button, Row, Col } from "react-bootstrap";
 import heroImage from "@/assets/Images/headerimage.png";
 import { useNavigate } from "react-router-dom";
-import "@/index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -11,12 +11,12 @@ const Hero = () => {
       className="hero-section d-flex align-items-center justify-content-center text-center text-white"
       style={{
         backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
-        backgroundSize: "contain",
+        backgroundSize: "cover",
         backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
         height: "100vh",
-        minHeight: "85vh",
-        color: "#fff",
+        minHeight: "90vh",
+        paddingBottom: "2rem",
       }}
     >
       <div
@@ -71,6 +71,19 @@ const Hero = () => {
           </Col>
         </Row>
       </div>
+      {/* Fade Transition Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "150px",
+          background:
+            "linear-gradient(to bottom, rgba(0, 128, 0, 0.3) 0%, #f6fff8 100%)",
+          zIndex: 1,
+        }}
+      />
     </section>
   );
 };
