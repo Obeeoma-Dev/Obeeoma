@@ -25,7 +25,7 @@ const SubscriptionPage: React.FC = () => {
       employees: 250,
       startDate: 'Mar 15, 2023',
       endDate: 'Mar 15, 2024',
-      status: 'Active' as 'Active',
+      status: 'Active' as const,
     },
     {
       organization: 'Green Energy Co',
@@ -33,7 +33,7 @@ const SubscriptionPage: React.FC = () => {
       employees: 75,
       startDate: 'Mar 15, 2023',
       endDate: 'Mar 15, 2024',
-      status: 'Inactive' as 'Inactive',
+      status: 'Inactive' as const,
     },
   ];
 
