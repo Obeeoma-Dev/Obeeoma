@@ -4,7 +4,7 @@ import {
   LoginCredentials,
   RegisterCredentials,
   ForgotPasswordData,
-  ResetPasswordData,
+  changePasswordData,
 } from "./../../types/auth";
 import { authAPI } from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
@@ -77,11 +77,11 @@ export const forgotPassword = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (
-    data: ResetPasswordData & { onSuccess?: () => void },
+    data: changePasswordData & { onSuccess?: () => void },
     { rejectWithValue },
   ) => {
     try {
-      const response = await authAPI.resetPassword(data);
+      const response = await authAPI.changePassword(data);
       data.onSuccess?.();
       return response.data;
     } catch (error: unknown) {

@@ -8,9 +8,8 @@ import { TextEncoder, TextDecoder } from "util";
 
 // Add explicit types for Node.js global
 declare global {
-   
   var TextEncoder: typeof TextEncoder;
-   
+
   var TextDecoder: typeof TextDecoder;
 }
 

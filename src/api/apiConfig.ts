@@ -4,18 +4,17 @@ import {
   LoginCredentials,
   RegisterCredentials,
   ForgotPasswordData,
-  ResetPasswordData,
+  changePasswordData,
 } from "@/types/auth";
 // import { SubscriptIcon } from "lucide-react";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-console.log("API Base URL:", API_BASE_URL); 
+console.log("API Base URL:", API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
-
 
 api.interceptors.request.use(
   (config) => {
@@ -38,7 +37,7 @@ api.interceptors.request.use(
   },
 );
 
-// Add response interceptor for debugging 
+// Add response interceptor for debugging
 api.interceptors.response.use(
   (response) => {
     console.log("✅ API Response Success:", {
@@ -59,8 +58,6 @@ api.interceptors.response.use(
   },
 );
 
-
-
 export const authAPI = {
   login: async (credentials: LoginCredentials) => {
     const response = await api.post("/v1/auth/login/", credentials);
@@ -74,16 +71,14 @@ export const authAPI = {
       password: credentials.password,
       confirm_password: credentials.confirm_password,
       role: credentials.role,
-      
     });
-    
-// If registration returns a token, store it
+
+    // If registration returns a token, store it
     if (response.data.access) {
-      localStorage.setItem('token', response.data.access);
+      localStorage.setItem("token", response.data.access);
     }
 
     return response.data;
-
   },
 
   logout: () => {
@@ -91,29 +86,26 @@ export const authAPI = {
     localStorage.removeItem("user");
   },
 
-  
   forgotPassword: async (data: ForgotPasswordData) => {
     const response = await api.post("/v1/auth/forgot-password/", data);
     return response;
   },
 
   // RESET PASSWORD
-  resetPassword: async (data: ResetPasswordData) => {
-    const response = await api.post("/v1/auth/reset-password/", data);
+  changePassword: async (data: changePasswordData) => {
+    const response = await api.post("/v1/auth/change-password/", data);
     return response;
   },
 
-  
   getCurrentUser: async () => {
     const response = await api.get("/v1/auth/me/");
     return response;
   },
 };
 
-//  System Admin Dashboard 
+//  System Admin Dashboard
 
 export const adminAPI = {
- 
   getDashboardStats: async () => {
     const response = await api.get("/v1/dashboard/statistics/");
     return response;
@@ -131,13 +123,11 @@ export const adminAPI = {
   },
 };
 
-
 export const employerAPI = {
   getDashboardSummary: async () => {
     const response = await api.get("/v1/dashboard/overview");
     return response;
   },
- 
 
   addEmployee: async () => {
     const response = await api.post("/v1/dashboard/invites/");
@@ -149,13 +139,11 @@ export const employerAPI = {
     return response;
   },
 
-  
   getEmployeeEngagement: async () => {
     const response = await api.post("/v1/dashboard/employee-engagement/");
     return response;
   },
 
-  
   // getFeatureUsage: async (jobData: ) => {
   //   const response = await api.get("/v1/dashboard/feature-usage/");
   //   return response;
@@ -166,13 +154,12 @@ export const employerAPI = {
     return response;
   },
 
-  
   getReports: async () => {
     const response = await api.post("/v1/dashboard/reports/");
     return response;
   },
 
-   getTrends: async () => {
+  getTrends: async () => {
     const response = await api.get("/v1/dashboard/trends");
     return response;
   },
@@ -184,7 +171,7 @@ export const employerAPI = {
   },
 
   viewSubscription: async () => {
-    const response = await api.post("/v1/employer/billing/",) ;
+    const response = await api.post("/v1/employer/billing/");
     return response;
   },
 
@@ -193,13 +180,10 @@ export const employerAPI = {
     return response;
   },
 
-  
-
   getOverview: async () => {
     const response = await api.get("/v1/employer/jobs/overview/");
     return response;
   },
-
 };
 
-export default api; 
+export default api;

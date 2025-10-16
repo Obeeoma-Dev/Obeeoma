@@ -20,7 +20,7 @@ api.interceptors.request.use((config) => {
     console.error("🚨 Request Error:", error);
     return Promise.reject(error);
 });
-// Add response interceptor for debugging 
+// Add response interceptor for debugging
 api.interceptors.response.use((response) => {
     console.log("✅ API Response Success:", {
         status: response.status,
@@ -52,7 +52,7 @@ export const authAPI = {
         });
         // If registration returns a token, store it
         if (response.data.access) {
-            localStorage.setItem('token', response.data.access);
+            localStorage.setItem("token", response.data.access);
         }
         return response.data;
     },
@@ -65,8 +65,8 @@ export const authAPI = {
         return response;
     },
     // RESET PASSWORD
-    resetPassword: async (data) => {
-        const response = await api.post("/v1/auth/reset-password/", data);
+    changePassword: async (data) => {
+        const response = await api.post("/v1/auth/change-password/", data);
         return response;
     },
     getCurrentUser: async () => {
@@ -74,7 +74,7 @@ export const authAPI = {
         return response;
     },
 };
-//  System Admin Dashboard 
+//  System Admin Dashboard
 export const adminAPI = {
     getDashboardStats: async () => {
         const response = await api.get("/v1/dashboard/statistics/");

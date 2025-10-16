@@ -53,8 +53,6 @@
 //   },
 // );
 
-
-
 // const employerSlice = createSlice({
 //   name: "employer",
 //   initialState,

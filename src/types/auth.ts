@@ -20,9 +20,7 @@ export interface ForgotPasswordData {
   email: string;
 }
 
-export interface ResetPasswordData {
-  token: string;
-  uid: string;
+export interface changePasswordData {
   newPassword: string;
   confirmNewPassword: string;
 }

@@ -48,13 +48,19 @@ const Register: React.FC = () => {
       registerUser({
         ...credentials,
         onSuccess: () => navigate("/login"),
-      })
+      }),
     );
   };
 
   return (
-    <Container fluid className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-      <Row className="shadow bg-white rounded-lg overflow-hidden w-100" style={{ maxWidth: 900 }}>
+    <Container
+      fluid
+      className="min-vh-100 d-flex align-items-center justify-content-center bg-light"
+    >
+      <Row
+        className="shadow bg-white rounded-lg overflow-hidden w-100"
+        style={{ maxWidth: 900 }}
+      >
         {/* Left Side: Form */}
         <Col md={6} className="p-4">
           <h2 className="mb-3">Create your account</h2>
@@ -118,7 +124,9 @@ const Register: React.FC = () => {
                     name="confirm_password"
                     value={values.confirm_password}
                     onChange={handleChange}
-                    isInvalid={!!touched.confirm_password && !!errors.confirm_password}
+                    isInvalid={
+                      !!touched.confirm_password && !!errors.confirm_password
+                    }
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
                     <ErrorMessage name="confirmPassword" />
@@ -135,7 +143,9 @@ const Register: React.FC = () => {
                     <ToggleButton
                       id="employee"
                       value="employee"
-                      variant={role === "employee" ? "success" : "outline-success"}
+                      variant={
+                        role === "employee" ? "success" : "outline-success"
+                      }
                       className="px-3 py-1"
                     >
                       Employee
@@ -143,7 +153,9 @@ const Register: React.FC = () => {
                     <ToggleButton
                       id="employer"
                       value="employer"
-                      variant={role === "employer" ? "success" : "outline-success"}
+                      variant={
+                        role === "employer" ? "success" : "outline-success"
+                      }
                       className="px-3 py-1"
                     >
                       Employer
@@ -151,7 +163,12 @@ const Register: React.FC = () => {
                   </ToggleButtonGroup>
                 </div>
                 {/* Submit Button */}
-                <Button type="submit" variant="success" size="lg" className="w-100">
+                <Button
+                  type="submit"
+                  variant="success"
+                  size="lg"
+                  className="w-100"
+                >
                   Create Account
                 </Button>
               </FormikForm>
@@ -161,15 +178,21 @@ const Register: React.FC = () => {
           <p className="mt-3 text-center text-muted">
             Already have an account?
             <Link to="/Login" className="text-success fw-semibold">
-              {" "}Sign in
+              {" "}
+              Sign in
             </Link>
           </p>
         </Col>
         {/* Right Side: Info Panel */}
-        <Col md={6} className="bg-success bg-opacity-25 p-4 d-flex flex-column justify-content-center">
+        <Col
+          md={6}
+          className="bg-success bg-opacity-25 p-4 d-flex flex-column justify-content-center"
+        >
           <h3 className="mb-4 fw-semibold">Begin Your Wellness Journey</h3>
           <p className="text-muted mb-4">
-            Creating an account gives you access to personalized mental health resources, secure communication with healthcare providers, and tools to track your progress.
+            Creating an account gives you access to personalized mental health
+            resources, secure communication with healthcare providers, and tools
+            to track your progress.
           </p>
           <ul className="text-secondary" style={{ listStyle: "none" }}>
             <li>✔ Personalized care plans</li>
