@@ -21,12 +21,13 @@ import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
-import Organisation from "./pages/Systemadmin/Organisationpages/organizations";
-import OrganisationDetails from "./pages/Systemadmin/Organisationpages/organizationDetails";
+import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
+import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
 import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";
 import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription";
+import ReportPage from "./pages/Systemadmin/Reportpages/report";
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 
@@ -73,6 +74,7 @@ export default function App(): React.ReactElement {
               <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
               <Route path="/system-admin/hotline-activity" element={<HotlineActivity />} />
               <Route path="/system-admin/Subscriptions" element={<SubscriptionPage />} />
+              <Route path="/system-admin/reports" element={<ReportPage />} />
               {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
