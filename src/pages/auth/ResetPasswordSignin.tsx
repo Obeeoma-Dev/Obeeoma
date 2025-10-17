@@ -241,6 +241,14 @@ const ResetPasswordSignin: React.FC = () => {
 
             <p className="text-center text-muted mt-4">
               Didn’t receive any code?{" "}
+              {/* <Button
+                        variant="link"
+                        className="p-0 text-success text-decoration-none ms-1"
+                        onClick={}
+                        disabled={isLoading || !values.email || !!errors.email}
+                      >
+                        Send code again
+                </Button> */}
             </p>
           </Col>
 
