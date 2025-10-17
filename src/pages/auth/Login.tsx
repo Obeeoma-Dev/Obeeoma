@@ -4,8 +4,8 @@ import {
   Card,
   Form,
   Button,
-  ToggleButtonGroup,
-  ToggleButton,
+  // ToggleButtonGroup,
+  // ToggleButton,
   Alert,
   Spinner,
 } from "react-bootstrap";
@@ -121,7 +121,7 @@ const LoginPage = (): React.ReactElement => {
 
                   {/* Role selection + System Admin shortcut */}
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    {/* Employee and Employer toggles with smaller styling */}
+                    {/* Employee and Employer toggles with smaller styling
                     <ToggleButtonGroup
                       type="radio"
                       name="role"
@@ -145,7 +145,7 @@ const LoginPage = (): React.ReactElement => {
                       >
                         Employer
                       </ToggleButton>
-                    </ToggleButtonGroup>
+                    </ToggleButtonGroup> */}
 
                     {/* System Admin direct link (no form submission) */}
                     <Link
