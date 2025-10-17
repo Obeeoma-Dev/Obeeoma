@@ -2,9 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
 import OrganizationStats from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
-import OrganizationTable, {
-  Organization,
-} from "../../../components/admincomponents/organisationcomponents/organisationTable";
+import OrganizationTable, { Organization } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import Header from "../../../components/admincomponents/adminheader";
 
