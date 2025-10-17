@@ -127,44 +127,10 @@ const Dashboard: React.FC = () => {
       {/* Sidebar navigation (left column) */}
       <Sidebar />
 
-<<<<<<< HEAD
-      {/* Main content area (right column) */}
-=======
->>>>>>> 92caf9a8c63b44a69965a6a5067505d66fe70012
       <div className="flex-grow-1 d-flex flex-column overflow-hidden">
         {/* Top header bar */}
         <Header />
 
-<<<<<<< HEAD
-        {/* Scrollable content area below the header */}
-        <div className="flex-grow-1 overflow-auto">
-          {/* Bootstrap container with vertical padding */}
-          <Container fluid className="py-4">
-            {/* Top dashboard stats section */}
-            <Row className="gy-4">
-              <DashboardStats stats={dashboardStatsData} />
-            </Row>
-
-            {/* Platform usage chart section */}
-            <Row className="gy-4">
-              <Col>
-                <PlatformUsageChart />
-              </Col>
-            </Row>
-
-            {/* Recent activities section */}
-            <Row className="gy-4">
-              <Col>
-                <RecentActivities activities={recentActivityData} />
-              </Col>
-            </Row>
-
-            {/* Bottom metrics section */}
-            <Row className="gy-4">
-              <BottomMetrics metrics={bottomMetricData} />
-            </Row>
-          </Container>
-=======
 
         {/* Scrollable content area below the header */}
         <div
@@ -204,7 +170,6 @@ const Dashboard: React.FC = () => {
               </Row>
             </Container>
           </div>
->>>>>>> 92caf9a8c63b44a69965a6a5067505d66fe70012
         </div>
       </div>
     </div >

@@ -1,21 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-// Import React and necessary hooks
-import { useState } from "react";
-// Import Bootstrap layout components
-import { Nav, Button, Container, Row, Col } from "react-bootstrap";
-// Import icons from lucide-react
+import { useNavigate, useLocation } from "react-router-dom";
 import * as Icons from "lucide-react";
-// Import navigation hook from React Router
-import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+// import logo from "../../assets/Images/green..png"; // Obeeoma logo
 /**
- * Sidebar component provides navigation for different sections of the dashboard
+ * AdminSidebar component for system admin dashboard navigation
  */
-const Sidebar = () => {
-    // Hook to programmatically navigate between routes
-    const navigate = useNavigate();
-    // State to track which menu item is currently active
-    const [activeItem, setActiveItem] = useState("overview");
-    // Define sidebar menu items
+const AdminSidebar = () => {
+    const navigate = useNavigate(); // Enables programmatic navigation
+    const location = useLocation(); // Gets current route info
+    // Define sidebar menu items (excluding Settings and Logout)
     const menuItems = [
         { id: "overview", label: "Overview", icon: "LayoutDashboard" },
         { id: "organizations", label: "Organizations", icon: "Building2" },
@@ -25,38 +19,54 @@ const Sidebar = () => {
         { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
         { id: "reports", label: "Reports", icon: "BarChart3" },
     ];
-    // Handle menu item click and navigate to corresponding route
+    // Extract current path segment to determine active menu item
+    const currentPath = location.pathname.split("/")[2];
+    // Navigate to selected menu item
     const handleMenuClick = (id) => {
-        setActiveItem(id);
-        navigate(`/system-admin/${id}`); // Redirect to route like /system-admin/overview
+        // Overview should link to /system-admin directly
+        const path = id === "overview" ? "/system-admin" : `/system-admin/${id}`;
+        navigate(path);
     };
-    // Handle settings button click
+    // Navigate to settings
     const handleSettingsClick = () => {
-        navigate("/system-admin/settings-overview"); // Redirect to admin settings overview
+        navigate("/system-admin/settings-overview");
     };
-    // Handle logout button click
+    // Navigate to login (logout)
     const handleLogoutClick = () => {
-        console.log("Logging out...");
-        navigate("/login"); // Redirect to login page
+        navigate("/login");
     };
-    return (
-    // Sidebar container with vertical layout and pinned bottom actions
-    _jsxs("div", { style: {
+    return (_jsxs("div", { style: {
             width: "250px",
             height: "100vh",
-            backgroundColor: "#f8f9fa",
+            backgroundColor: "#ffffff",
             borderRight: "1px solid #dee2e6",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between", // Push bottom actions down
-        }, children: [_jsx(Container, { className: "py-4 border-bottom", children: _jsxs(Row, { className: "align-items-center", children: [_jsx(Col, { xs: "auto", children: _jsx("div", { className: "bg-success p-2 rounded", children: _jsx(Icons.Shield, { size: 20, color: "#fff" }) }) }), _jsx(Col, { children: _jsx("h5", { className: "mb-0 fw-semibold", children: "Comestro" }) })] }) }), _jsx(Nav, { className: "flex-column px-3 py-4", children: menuItems.map((item) => {
-                    const IconComponent = Icons[item.icon] || Icons.Circle;
-                    const isActive = activeItem === item.id;
-                    return (_jsx(Nav.Item, { className: "mb-2", children: _jsxs(Button, { variant: isActive ? "light" : "outline-light", onClick: () => handleMenuClick(item.id), className: `w-100 d-flex align-items-center gap-3 text-start ${isActive ? "fw-semibold border-start border-success" : ""}`, style: {
-                                backgroundColor: isActive ? "#ffffff" : "transparent",
-                                borderColor: isActive ? "#198754" : "transparent",
-                                color: isActive ? "#198754" : "#212529",
-                            }, children: [_jsx(IconComponent, { size: 18 }), _jsx("span", { className: "small", children: item.label })] }) }, item.id));
-                }) }), _jsxs("div", { className: "px-3 py-3 border-top", children: [_jsxs(Button, { variant: "outline-secondary", className: "w-100 d-flex align-items-center gap-3 mb-2 text-start", onClick: handleSettingsClick, children: [_jsx(Icons.Settings, { size: 18 }), _jsx("span", { className: "small", children: "Settings" })] }), _jsxs(Button, { variant: "outline-secondary", className: "w-100 d-flex align-items-center gap-3 text-start", onClick: handleLogoutClick, children: [_jsx(Icons.LogOut, { size: 18 }), _jsx("span", { className: "small", children: "Log Out" })] })] })] }));
+            justifyContent: "space-between",
+        }, children: [_jsx("div", { style: {
+                    padding: "1rem",
+                    borderBottom: "1px solid #dee2e6",
+                    display: "flex",
+                    justifyContent: "center",
+                }, children: _jsx("img", { 
+                    // src={logo}
+                    alt: "Obeeoma Logo", style: { width: "40px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
+                    // Cast icon to valid React component
+                    const IconComponent = Icons[item.icon];
+                    const isActive = currentPath === item.id ||
+                        (item.id === "overview" && currentPath === undefined);
+                    return (_jsxs(Button, { variant: "light", onClick: () => handleMenuClick(item.id), className: `w-100 d-flex align-items-center gap-3 px-3 py-2 text-start mb-2 ${isActive ? "fw-semibold border-start border-success" : ""}`, style: {
+                            backgroundColor: isActive ? "#e9f5ee" : "transparent",
+                            borderColor: isActive ? "#198754" : "transparent",
+                            color: isActive ? "#198754" : "#212529",
+                            transition: "background-color 0.2s ease",
+                        }, onMouseEnter: (e) => {
+                            e.currentTarget.style.backgroundColor = "#f1f3f5";
+                        }, onMouseLeave: (e) => {
+                            e.currentTarget.style.backgroundColor = isActive
+                                ? "#e9f5ee"
+                                : "transparent";
+                        }, children: [_jsx(IconComponent, { size: 18 }), _jsx("span", { className: "small", children: item.label })] }, item.id));
+                }) }), _jsxs("div", { style: { padding: "1rem", borderTop: "1px solid #dee2e6" }, children: [_jsxs(Button, { variant: "outline-secondary", className: "w-100 d-flex align-items-center gap-3 mb-2 text-start", onClick: handleSettingsClick, children: [_jsx(Icons.Settings, { size: 18 }), _jsx("span", { className: "small", children: "Settings" })] }), _jsxs(Button, { variant: "outline-secondary", className: "w-100 d-flex align-items-center gap-3 text-start", onClick: handleLogoutClick, children: [_jsx(Icons.LogOut, { size: 18 }), _jsx("span", { className: "small", children: "Log Out" })] })] })] }));
 };
-export default Sidebar;
+export default AdminSidebar;

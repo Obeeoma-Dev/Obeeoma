@@ -1,43 +1,29 @@
+"use client";
+
+// Import React and Radix Toggle primitives
 import * as React from "react";
+import * as TogglePrimitive from "@radix-ui/react-toggle";
 
-type BootstrapVariant =
-  | "primary"
-  // ... other variants
-  | "outline-dark";
+// Import utility for merging class names
+import { cn } from "@/lib/utils";
 
-type BootstrapSize = "sm" | "lg" | undefined;
+// Import styling logic and type-safe props from toggle.styles.ts
+import { toggleVariants, type ToggleVariantProps } from "./toggle.styles";
 
-// 🚨 FIX HERE: Use Omit to exclude 'variant' and 'size' from the native button props
-interface ButtonProps
-  extends Omit<React.ComponentProps<"button">, "variant" | "size"> {
-  variant?: BootstrapVariant;
-  size?: BootstrapSize;
+// Define the props for the Toggle component
+// Combines Radix's Toggle props with variant styling props
+type ToggleProps = React.ComponentProps<typeof TogglePrimitive.Root> &
+  ToggleVariantProps;
+
+// Create the Toggle component
+function Toggle({ className, variant, size, ...props }: ToggleProps) {
+  return (
+    <TogglePrimitive.Root
+      data-slot="toggle" // Useful for targeting in tests or styling
+      className={cn(toggleVariants({ variant, size }), className)} // Apply variant styles
+      {...props} // Spread remaining props (e.g., onClick, disabled)
+    />
+  );
 }
 
-const classNames = (...classes: (string | undefined | false | null)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size, ...props }, ref) => {
-    // ... rest of the component logic (which is correct)
-    const baseClass = "btn";
-    const variantClass = variant ? `btn-${variant}` : "";
-    const sizeClass = size ? `btn-${size}` : "";
-
-    const finalClasses = classNames(
-      baseClass,
-      variantClass,
-      sizeClass,
-      className,
-    );
-
-    return (
-      <button type="button" className={finalClasses} ref={ref} {...props} />
-    );
-  },
-);
-
-Button.displayName = "Button";
-
-export { Button };
+export { Toggle };

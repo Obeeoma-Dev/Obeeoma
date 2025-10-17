@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
+import TopMetrics from "./../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
 import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";

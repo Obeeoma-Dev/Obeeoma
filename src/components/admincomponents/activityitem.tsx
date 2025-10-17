@@ -1,65 +1,64 @@
-// Import React and required icon set
+// Component for displaying individual activity items in the Recent Activities section
+
 import React from "react";
 import * as Icons from "lucide-react";
 import { ActivityItem as ActivityItemType } from "./admindashboard";
 
 /**
  * Props interface for the ActivityItem component
- * Accepts a single activity object
  */
 interface ActivityItemProps {
+  // Activity data object
   data: ActivityItemType;
 }
 
 /**
- * ActivityItem component displays a single activity entry
- * Includes icon, type, details, and timestamp
+ * ActivityItem component displays a single activity entry with icon, description, and timestamp
+ * Used in the Recent Activities list to show system events
  */
 const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
-  // Dynamically select icon from lucide-react
-  const IconComponent =
-    (Icons[data.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
-      size?: number;
-      color?: string;
-    }>;
-
-  // Map iconColor to pastel background colors
-  const bgColorMap: Record<string, string> = {
-    "bg-light": "#f0f4f8",
-    "bg-success": "#e6f4ea",
-    "bg-info": "#e7f1ff",
-    "bg-warning": "#fff4e5",
-    "bg-danger": "#fde7f3",
-  };
-
-  const iconBgColor = bgColorMap[data.iconColor] || "#f0f4f8";
+  // Dynamically get the icon component from lucide-react
+  const IconComponent: typeof Icons.Activity =
+    (Icons as unknown as Record<string, typeof Icons.Activity>)[data.icon] ||
+    Icons.Activity;
 
   return (
-    // Main container with spacing and hover effect
-    <div className="d-flex align-items-start justify-content-between py-3 px-2 border-bottom hover-shadow">
-      {/* Left section: icon and text */}
-      <div className="d-flex align-items-start gap-3 flex-grow-1">
-        {/* Icon container with background */}
-        <div
-          className="rounded d-flex align-items-center justify-content-center"
-          style={{
-            backgroundColor: iconBgColor,
-            width: "40px",
-            height: "40px",
-          }}
-        >
-          <IconComponent size={20} color="#0d6efd" />
+    // Container for the activity item with hover effect
+    <div className="flex items-center justify-between py-4 px-4 hover:bg-gray-50 rounded-lg transition-colors group">
+      {/* Left section: icon, type, and details */}
+      <div className="flex items-center gap-4 flex-1">
+        {/* Icon container with dynamic background color */}
+        <div className={`${data.iconColor} p-2.5 rounded-lg`}>
+          {/* Render icon in emerald color */}
+          <IconComponent className="w-5 h-5 text-emerald-600" />
         </div>
 
-        {/* Text content */}
-        <div>
-          <div className="fw-semibold mb-1">{data.type}</div>
-          <div className="text-muted small">{data.details}</div>
+        {/* Content section with type and details */}
+        <div className="flex-1">
+          {/* Activity type header */}
+          <div className="text-sm font-medium text-gray-900 mb-0.5">
+            {data.type}
+          </div>
+          {/* Activity details description */}
+          <div className="text-sm text-gray-500">{data.details}</div>
         </div>
       </div>
 
-      {/* Right section: timestamp */}
-      <div className="text-muted small text-end">{data.time}</div>
+      {/* Right section: timestamp and action button */}
+      <div className="flex items-center gap-4">
+        {/* Time elapsed since activity */}
+        <span className="text-sm text-gray-500 whitespace-nowrap">
+          {data.time}
+        </span>
+        {/* Arrow button that appears on hover */}
+        <button className="text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
+          <Icons.ArrowRight className="w-5 h-5" />
+        </button>
+        {/* Three-dot menu button */}
+        <button className="text-gray-400 hover:text-gray-600">
+          <Icons.MoreVertical className="w-5 h-5" />
+        </button>
+      </div>
     </div>
   );
 };

@@ -2,10 +2,10 @@
 import React from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 
-// Import all icons from lucide-react as a dynamic map
+// Import icons from lucide-react
 import * as Icons from "lucide-react";
 
-// Import the BottomMetricCard type definition
+// Import the BottomMetricCard type
 import { BottomMetricCard } from "./admindashboard";
 
 /**
@@ -17,22 +17,22 @@ interface BottomMetricsProps {
 }
 
 /**
- * BottomMetrics component displays a grid of metric cards
- * Each card shows a key metric with icon, value, subtitle, and link
+ * BottomMetrics component displays four metric cards at the bottom of the dashboard
+ * Each card shows a key metric with a link to view more details
  */
 const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
   return (
     // Section wrapper with bottom margin
     <section className="mb-4">
-      {/* Bootstrap grid layout for responsive cards */}
+      {/* Bootstrap grid layout for metric cards */}
       <Row className="gy-4">
+        {/* Map through metrics array and render each card */}
         {metrics.map((metric) => {
-          // Dynamically select icon from lucide-react
-          const IconComponent =
-            (Icons[metric.icon as keyof typeof Icons] ??
-              Icons.Activity) as React.FC<{ size?: number; color?: string }>;
+          // Dynamically get the icon component from lucide-react
+          const IconComponent = (Icons[metric.icon as keyof typeof Icons] ??
+            Icons.Activity) as React.FC<{ size?: number; color?: string }>;
 
-          // Define color palette for icons and backgrounds
+          // Define Bootstrap contextual color
           const colorMap: Record<string, string> = {
             emerald: "#059669",
             blue: "#0d6efd",
@@ -40,49 +40,39 @@ const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
             pink: "#d63384",
           };
 
-          const bgColorMap: Record<string, string> = {
-            emerald: "#e6f4ea",
-            blue: "#e7f1ff",
-            purple: "#f3e8ff",
-            pink: "#fde7f3",
-          };
-
-          // Fallbacks for unknown color keys
+          // Fallback to emerald if color not found
           const iconColor = colorMap[metric.color] || colorMap.emerald;
-          const iconBgColor = bgColorMap[metric.color] || bgColorMap.emerald;
 
           return (
-            // Responsive column for each card
+            // Responsive column for each metric card
             <Col key={metric.id} xs={12} md={6} lg={3}>
-              {/* Card container with hover effect */}
-              <Card className="shadow-sm border-0 h-100 hover-shadow">
+              {/* Bootstrap Card container */}
+              <Card className="shadow-sm border-0 h-100">
                 <Card.Body>
                   {/* Top section: icon and title */}
                   <div className="d-flex align-items-start gap-3 mb-3">
-                    {/* Icon container with background color */}
+                    {/* Icon container with background */}
                     <div
-                      className="rounded d-flex align-items-center justify-content-center"
+                      className="rounded p-2 d-flex align-items-center justify-content-center"
                       style={{
-                        backgroundColor: iconBgColor,
-                        width: "48px",
-                        height: "48px",
+                        backgroundColor: "#e6f4ea",
+                        width: "40px",
+                        height: "40px",
                       }}
                     >
-                      <IconComponent size={24} color={iconColor} />
+                      <IconComponent size={20} color={iconColor} />
                     </div>
 
                     {/* Metric title */}
                     <div>
-                      <h6 className="text-muted fw-semibold mb-1">
-                        {metric.title}
-                      </h6>
+                      <h6 className="text-muted mb-0">{metric.title}</h6>
                     </div>
                   </div>
 
-                  {/* Main metric value */}
-                  <h3 className="fw-bold display-6 mb-2">{metric.value}</h3>
+                  {/* Main value */}
+                  <h3 className="fw-bold mb-2">{metric.value}</h3>
 
-                  {/* Subtitle or description */}
+                  {/* Subtitle */}
                   <p className="text-muted small mb-3">{metric.subtitle}</p>
 
                   {/* Link button with arrow icon */}
@@ -103,5 +93,5 @@ const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
   );
 };
 
-// Export the component for use in dashboard layout
+// Export the component for use in the dashboard layout
 export default BottomMetrics;

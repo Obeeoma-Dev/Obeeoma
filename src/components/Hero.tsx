@@ -1,21 +1,36 @@
-import { Button, Row, Col } from "react-bootstrap";
-import heroImage from "@/assets/Images/headerimage.png";
-import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+// Import React and required hooks
+import React from "react";
 
+// Import layout and button components from React Bootstrap
+import { Button, Row, Col } from "react-bootstrap";
+
+// Import the hero image (mocked in tests)
+import heroImage from "@/assets/Images/headerimage.png";
+
+// Import navigation hook from React Router
+import { useNavigate } from "react-router-dom";
+
+// Import global styles
+import "@/index.css";
+
+/**
+ * Hero component: renders the landing section with background image,
+ * heading, description, and navigation buttons.
+ */
 const Hero = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Enables navigation via buttons
 
   return (
-    <section className="hero-section d-flex align-items-center"
+    <section
+      className="hero-section d-flex align-items-center"
       style={{
         position: "relative",
-        minHeight: "90vh",
+        minHeight: "85vh",
         backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
         backgroundSize: "cover",
-        backgroundPosition: "center center",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        paddingBottom: "2rem",
+        color: "#fff",
       }}
     >
       <div
@@ -29,7 +44,10 @@ const Hero = () => {
             </h1>
             <p
               className="lead mb-4"
-              style={{ color: "rgba(255, 255, 255, 0.9)", fontSize: "1.25rem" }}
+              style={{
+                color: "rgba(255, 255, 255, 0.9)",
+                fontSize: "1.25rem",
+              }}
             >
               Obeeoma professional mental health service.
             </p>
@@ -60,8 +78,9 @@ const Hero = () => {
               </Button>
             </div>
           </Col>
+
           <Col lg={6} className="text-center">
-            {/* Only render image if heroImage is truthy to avoid empty src warning */}
+            {/* ✅ Only render image if heroImage is truthy to avoid empty src warning */}
             {heroImage && (
               <img
                 src={heroImage}
@@ -72,20 +91,6 @@ const Hero = () => {
           </Col>
         </Row>
       </div>
-      
-      {/* Fade Transition Overlay */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          height: "150px",
-          background:
-            "linear-gradient(to bottom, rgba(0, 128, 0, 0.3) 0%, #f6fff8 100%)",
-          zIndex: 1,
-        }}
-      />
     </section>
   );
 };

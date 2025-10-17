@@ -35,8 +35,8 @@ const LoginPage = () => {
       loginUser({
         ...values,
 
-        onSuccess: () => navigate("/employee-dashboard"),
-      }),
+        onSuccess: () => navigate("/system-admin"),
+      })
     );
   };
 
@@ -116,34 +116,6 @@ const LoginPage = () => {
 
                   {/* Role + Forgot Password */}
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <ToggleButtonGroup
-                      type="radio"
-                      name="role"
-                      value={role}
-                      onChange={setRole}
-                    >
-                      <ToggleButton
-                        id="employee"
-                        value="Employee"
-                        variant={
-                          role === "Employee" ? "success" : "outline-success"
-                        }
-                        className="px-3 py-1"
-                      >
-                        Employee
-                      </ToggleButton>
-                      <ToggleButton
-                        id="employer"
-                        value="Employer"
-                        variant={
-                          role === "Employer" ? "success" : "outline-success"
-                        }
-                        className="px-3 py-1"
-                      >
-                        Employer
-                      </ToggleButton>
-                    </ToggleButtonGroup>
-
                     <a
                       href="/reset-password-signin"
                       className="text-success text-decoration-none small"

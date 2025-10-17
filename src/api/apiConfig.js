@@ -1,8 +1,10 @@
 // Import the Axios HTTP client
 import axios from "axios";
 // import { SubscriptIcon } from "lucide-react";
+// Define the base URL for API requests, using environment variable or fallback
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
+// Create a reusable Axios instance with the base URL
 const api = axios.create({
     baseURL: API_BASE_URL,
 });
