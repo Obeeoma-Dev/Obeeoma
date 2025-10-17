@@ -89,8 +89,6 @@ export const adminAPI = {
         const response = await api.delete(`/v1/dashboard/users/${userId}/`);
         return response;
     },
-};
-export const employerAPI = {
     getDashboardSummary: async () => {
         const response = await api.get("/v1/dashboard/overview");
         return response;
@@ -100,7 +98,19 @@ export const employerAPI = {
         return response;
     },
     getCrisisInsights: async () => {
-        const response = await api.get("/v1/dashboard/overview");
+        const response = await api.get("/v1/dashboard/crisis-insights/views/");
+        return response;
+    },
+    postCrisisInsights: async () => {
+        const response = await api.post("/v1/dashboard/crisis-insights/add/");
+        return response;
+    },
+    putCrisisInsights: async () => {
+        const response = await api.post("/v1/dashboard/crisis-insights/update/");
+        return response;
+    },
+    changeCrisisInsights: async () => {
+        const response = await api.post("/v1/dashboard/crisis-insights/changes/");
         return response;
     },
     getEmployeeEngagement: async () => {
@@ -124,20 +134,34 @@ export const employerAPI = {
         return response;
     },
     // employer endpoints
+};
+export const employerAPI = {
     inviteEmployee: async () => {
         const response = await api.post("/v1/employers/");
         return response;
     },
+    viewInviteEmployee: async () => {
+        const response = await api.get("/v1/employers/view-invites/");
+        return response;
+    },
     viewSubscription: async () => {
-        const response = await api.post("/v1/employer/billing/");
+        const response = await api.post("/v1/employer/billing/add-subscription/");
         return response;
     },
     viewBilling: async () => {
         const response = await api.get("/v1/employer/billing/view");
         return response;
     },
-    getOverview: async () => {
-        const response = await api.get("/v1/employer/jobs/overview/");
+    getEngagement: async () => {
+        const response = await api.get("/v1/employer/engagements/");
+        return response;
+    },
+    getReports: async () => {
+        const response = await api.post("/v1/employer/reports/");
+        return response;
+    },
+    getemployerdashboardSummary: async () => {
+        const response = await api.get("/v1/employer/overview");
         return response;
     },
 };
