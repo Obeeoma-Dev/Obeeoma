@@ -17,37 +17,46 @@ jobs:
   # -----------------------
   lint:
     name: Lint & Format Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner provided by GitHub
+
     steps:
-      # Step 1: Checkout code
+      # Step 1: Checkout code from the repository
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Pulls your code into the runner so it can be linted and tested
 
       # Step 2: Setup Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20  # Use Node.js version 20 for compatibility with your tooling
 
-      # Step 3: Install dependencies
+      # Step 3: Install project dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm ci  # Installs exact versions from package-lock.json for reproducibility
 
-      # Step 4: Run ESLint checks (fail if issues exist)
-      - name: Run ESLint Check
-        run: npx eslint src
+      # Step 4: Run ESLint to check for code issues (fails if any errors or warnings)
+      - name: Run ESLint
+        run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
+        # Lints all JavaScript and TypeScript files in the src folder
+        # --max-warnings=0 ensures the job fails even if there are warnings
 
-      # Step 5a: Run Prettier write (fail if formatting issues exist)
-      - name: Run Prettier write
+      # Syep 5: Automatically fix Prettier formatting issues
+      - name: Auto-fix Prettier formatting
         run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}"
-        
-      # Step 5: Run Prettier checks (fail if formatting issues exist)
-      - name: Run Prettier Check
-        run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
+        # This rewrites files in the src folder to match your Prettier config
+        # It’s safe and automatic—no manual edits needed
 
-      # Step 6: TypeScript compile check (fail on type errors)
+      # Step 6: Check Prettier formatting (fails if any file is still misformatted)
+      - name: Check Prettier formatting
+        run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
+        # Verifies that all files are properly formatted
+        # If any file is not formatted, the job fails
+
+      # Step 7: TypeScript compile check (fails on type errors)
       - name: TypeScript Compile Check
         run: npx tsc --noEmit
+        # Runs the TypeScript compiler to catch type errors
+        # --noEmit ensures no files are generated—just a type check
 
   # ----------------
   # 2. TESTING JOB
