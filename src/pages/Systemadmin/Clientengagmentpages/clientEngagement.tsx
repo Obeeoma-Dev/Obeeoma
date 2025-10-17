@@ -11,6 +11,7 @@ import EngagementCharts from "../../../components/admincomponents/Clientcomponen
 import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
 import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
+import Header from "../../../components/admincomponents/adminheader";
 
 // Define TypeScript interface for expected backend structure
 interface EngagementData {
@@ -127,27 +128,47 @@ const ClientEngagement: React.FC = () => {
 
   // Render dashboard layout
   return (
-    <div style={{ display: "flex" }}>
+    <div className="d-flex vh-100">
       {/* Sidebar on the left */}
       <AdminSidebar />
 
-      {/* Main dashboard content on the right */}
-      <Container className="mt-4">
-        {/* Top summary metrics */}
-        <EngagementSummary />
+      {/* Main content area (right column) */}
+      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
+        {/* Top header bar */}
+        <Header />
 
-        {/* Charts for engagement and redemptions */}
-        <EngagementCharts />
 
-        {/* Search and filter controls */}
-        <PatientSearchFilter />
+        {/* Scrollable content area below the header */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '1rem',
+            backgroundColor: '#f8f9fa',
+          }}
+        >
 
-        {/* Table of patient engagement */}
-        <PatientEngagementTable />
+          {/* Main dashboard content on the right */}
+          <div className="flex-grow-1 overflow-auto">
+            <Container className="py-4">
+              {/* Top summary metrics */}
+              <EngagementSummary />
 
-        {/* Bottom panel with trends and streaks */}
-        <EngagementStatsPanel />
-      </Container>
+              {/* Charts for engagement and redemptions */}
+              <EngagementCharts />
+
+              {/* Search and filter controls */}
+              <PatientSearchFilter />
+
+              {/* Table of patient engagement */}
+              <PatientEngagementTable />
+
+              {/* Bottom panel with trends and streaks */}
+              <EngagementStatsPanel />
+            </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

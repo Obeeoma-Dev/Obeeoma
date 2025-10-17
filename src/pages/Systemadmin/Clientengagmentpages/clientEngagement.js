@@ -10,6 +10,7 @@ import EngagementCharts from "../../../components/admincomponents/Clientcomponen
 import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
 import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
+import Header from "../../../components/admincomponents/adminheader";
 // Placeholder data to simulate backend response
 const placeholderData = {
     engagementRate: 78,
@@ -85,6 +86,11 @@ const ClientEngagement = () => {
         return (_jsxs("div", { style: { display: "flex" }, children: [_jsx(AdminSidebar, {}), _jsx(Container, { className: "mt-5", children: _jsxs(Alert, { variant: "danger", children: ["Error: ", error] }) })] }));
     }
     // Render dashboard layout
-    return (_jsxs("div", { style: { display: "flex" }, children: [_jsx(AdminSidebar, {}), _jsxs(Container, { className: "mt-4", children: [_jsx(EngagementSummary, {}), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, {})] })] }));
+    return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(AdminSidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
+                            flex: 1,
+                            overflowY: 'auto',
+                            padding: '1rem',
+                            backgroundColor: '#f8f9fa',
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, {}), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, {})] }) }) })] })] }));
 };
 export default ClientEngagement;

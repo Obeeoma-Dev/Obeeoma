@@ -48,19 +48,30 @@ const OrganizationPage: React.FC = () => {
         {/* Top header bar */}
         <Header />
 
-        {/* Main content area */}
-        <div className="flex-grow-1 overflow-auto">
-          <Container fluid className="py-4">
+        {/* Scrollable content area below the header */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '1rem',
+            backgroundColor: '#f8f9fa',
+          }}
+        >
 
-            {/* Top stats summary */}
-            <OrganizationStats />
+          {/* Main content area */}
+          <div className="flex-grow-1 overflow-auto">
+            <Container fluid className="py-4">
 
-            {/* Table of organizations with dynamic data */}
-            <OrganizationTable organizations={mockOrganizations} />
+              {/* Top stats summary */}
+              <OrganizationStats />
 
-            {/* Graphs */}
-            <OrganizationCharts />
-          </Container>
+              {/* Table of organizations with dynamic data */}
+              <OrganizationTable organizations={mockOrganizations} />
+
+              {/* Graphs */}
+              <OrganizationCharts />
+            </Container>
+          </div>
         </div>
       </div>
     </div>
