@@ -19,7 +19,7 @@ const getErrorMessage = (error: unknown): string => {
 };
 
 export const fetchAdminDashboardStats = createAsyncThunk(
-  "admin/fetchDashboardStats",
+  "Dashboard/",
   async (_, { rejectWithValue }) => {
     try {
       const response = await adminAPI.getDashboardStats();
@@ -31,7 +31,7 @@ export const fetchAdminDashboardStats = createAsyncThunk(
 );
 
 export const fetchAllUsers = createAsyncThunk(
-  "admin/fetchAllUsers",
+  "Dashboard/fetchAllUsers",
   async (_, { rejectWithValue }) => {
     try {
       const response = await adminAPI.getAllUsers();
@@ -43,7 +43,7 @@ export const fetchAllUsers = createAsyncThunk(
 );
 
 export const deleteUser = createAsyncThunk(
-  "admin/deleteUser",
+  "Dashboard/deleteUser",
   async (userId: string | number, { rejectWithValue }) => {
     try {
       await adminAPI.deleteUser(userId);

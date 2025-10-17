@@ -35,7 +35,7 @@ export const registerUser = createAsyncThunk("auth/signup", async (credentials, 
     }
 });
 // Forgot password
-export const forgotPassword = createAsyncThunk("auth/forgotPassword", async (data, { rejectWithValue }) => {
+export const forgotPassword = createAsyncThunk("auth/reset-password", async (data, { rejectWithValue }) => {
     try {
         const response = await authAPI.forgotPassword(data);
         data.onSuccess?.();

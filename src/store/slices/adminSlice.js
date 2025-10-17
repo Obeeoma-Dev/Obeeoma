@@ -13,7 +13,7 @@ const getErrorMessage = (error) => {
     }
     return "An unexpected error occurred";
 };
-export const fetchAdminDashboardStats = createAsyncThunk("admin/fetchDashboardStats", async (_, { rejectWithValue }) => {
+export const fetchAdminDashboardStats = createAsyncThunk("Dashboard/", async (_, { rejectWithValue }) => {
     try {
         const response = await adminAPI.getDashboardStats();
         return response.data;
@@ -22,7 +22,7 @@ export const fetchAdminDashboardStats = createAsyncThunk("admin/fetchDashboardSt
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const fetchAllUsers = createAsyncThunk("admin/fetchAllUsers", async (_, { rejectWithValue }) => {
+export const fetchAllUsers = createAsyncThunk("Dashboard/fetchAllUsers", async (_, { rejectWithValue }) => {
     try {
         const response = await adminAPI.getAllUsers();
         return response.data;
@@ -31,7 +31,7 @@ export const fetchAllUsers = createAsyncThunk("admin/fetchAllUsers", async (_, {
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const deleteUser = createAsyncThunk("admin/deleteUser", async (userId, { rejectWithValue }) => {
+export const deleteUser = createAsyncThunk("Dashboard/deleteUser", async (userId, { rejectWithValue }) => {
     try {
         await adminAPI.deleteUser(userId);
         return userId; // Return the ID to easily remove it from the state
