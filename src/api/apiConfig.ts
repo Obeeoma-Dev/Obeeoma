@@ -90,7 +90,7 @@ export const authAPI = {
   },
 };
 
-// ✅ Added to fix the TS2305 error in adminSlice.ts
+// Added to fix the TS2305 error in adminSlice.ts
 // Export admin-related API methods
 export const adminAPI = {
   // Fetch dashboard statistics
