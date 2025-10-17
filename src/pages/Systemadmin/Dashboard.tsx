@@ -28,15 +28,39 @@ const recentActivityData: ActivityItem[] = [
     type: "New Organization",
     details: "Wellness Centre Inc. joined the platform",
     time: "2 hours ago",
-    icon: "Building2",
-    iconColor: "bg-light",
+    icon: "Building2", // Icon representing an organization or building
+    iconColor: "bg-light", // Bootstrap background color class
   },
   {
     id: "2",
     type: "AI Recommendation",
     details: "New AI recommendation available for review",
     time: "1 hour ago",
-    icon: "Brain",
+    icon: "Brain", // Icon representing AI or intelligence
+    iconColor: "bg-light",
+  },
+  {
+    id: "3",
+    type: "Hotline Activity",
+    details: "12 hotline calls were received",
+    time: "45 minutes ago",
+    icon: "Phone", // Icon representing phone or hotline
+    iconColor: "bg-light",
+  },
+  {
+    id: "4",
+    type: "Patient Engagement",
+    details: "45 patients were engaged today",
+    time: "30 minutes ago",
+    icon: "UserPlus", // Icon representing user engagement or addition
+    iconColor: "bg-light",
+  },
+  {
+    id: "5",
+    type: "Subscription",
+    details: "University Counseling Center subscribed to the platform",
+    time: "25 minutes ago",
+    icon: "CreditCard", // Icon representing financial or subscription activity
     iconColor: "bg-light",
   },
 ];
@@ -53,7 +77,7 @@ const bottomMetricData: BottomMetricCard[] = [
     subtitle: "Active organizations",
     linkText: "View all organizations",
     icon: "Building2",
-    color: "success",
+    color: "emerald",
   },
   {
     id: "2",
@@ -62,7 +86,25 @@ const bottomMetricData: BottomMetricCard[] = [
     subtitle: "Reviewed today",
     linkText: "View recommendations",
     icon: "Brain",
-    color: "info",
+    color: "blue",
+  },
+  {
+    id: "3",
+    title: "Hotline",
+    value: "324",
+    subtitle: "Calls received",
+    linkText: "View hotline logs",
+    icon: "Phone",
+    color: "purple",
+  },
+  {
+    id: "4",
+    title: "Subscriptions",
+    value: "$25.8K",
+    subtitle: "Monthly revenue",
+    linkText: "View subscriptions",
+    icon: "CreditCard",
+    color: "pink",
   },
 ];
 
