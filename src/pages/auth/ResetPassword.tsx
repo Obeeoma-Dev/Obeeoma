@@ -1,20 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-<<<<<<< HEAD
 import { resetPassword, clearError } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 // Assuming you have 'resetPasswordValidationSchema' correctly defined
 import { resetPasswordValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
 import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
-=======
-import { resetPassword , clearError } from "../../store/slices/authSlice";
-import { useNavigate, } from "react-router-dom";
-import { resetPasswordValidationSchema } from "./../../validation/authValidation";
-import { Formik } from "formik";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
->>>>>>> parent of b2caf4e (Connection of Forgot password to backend)
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ResetPassword: React.FC = () => {
@@ -22,7 +14,6 @@ const ResetPassword: React.FC = () => {
   const navigate = useNavigate();
   // Ensure the error state is cleared on mount
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
-<<<<<<< HEAD
 
   useEffect(() => {
     dispatch(clearError());
@@ -34,22 +25,12 @@ const ResetPassword: React.FC = () => {
     confirmNewPassword: string;
 
   }) => {
-=======
- useEffect(() => {
-    dispatch(clearError());
-  }, [dispatch]);
-
-  const handleSubmit = (values: {  token: string;
-  uid: string;
-  newPassword: string;
-  confirmNewPassword: string; }) => {
->>>>>>> parent of b2caf4e (Connection of Forgot password to backend)
     dispatch(
-      resetPassword ({
+      resetPassword({
         ...values,
 
         onSuccess: () => navigate("/login"),
-      }),
+      })
     );
   };
 
@@ -66,42 +47,13 @@ const ResetPassword: React.FC = () => {
             <p className="text-muted mb-4">
               Enter your new password
             </p>
-             <Formik
-                          initialValues={{ token: "'", uid: "", newPassword: "", confirmNewPassword: "", }}
-                          validationSchema={  resetPasswordValidationSchema}
-                          onSubmit={handleSubmit}
-                        ></Formik>
-            <Form>
-              <Form.Group className="mb-3" controlId="formCode">
-                <Form.Control
-                  type="text"
-                  placeholder="Enter code"
-                  className="py-2"
-                />
-              </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formNewPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="New password"
-                  className="py-2"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-4" controlId="formConfirmPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm new password"
-                  className="py-2"
-                />
-              </Form.Group>
-
-              <Button
-                type="submit"
-                variant="success"
-                className="w-100 py-2 fw-semibold"
+            {error && (
+              <Alert
+                variant="danger"
+                onClose={() => dispatch(clearError())}
+                dismissible
               >
-<<<<<<< HEAD
                 {error}
               </Alert>
             )}
@@ -178,11 +130,6 @@ const ResetPassword: React.FC = () => {
                 </Form>
               )}
             </Formik>
-=======
-                Change Password
-              </Button>
-            </Form>
->>>>>>> parent of b2caf4e (Connection of Forgot password to backend)
           </Col>
 
           {/* Right Side (Info Panel) */}
