@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import Navigation from "@/components/shared/Navigation";
 import Hero from "@/components/Hero";
-import Services from "@/pages/landingpage/Benefits";
+import Services from "@/pages/landingpage/Services";
 import Features from "@/pages/landingpage/Features";
 import Footer from "@/components/shared/Footer";
 const Index = () => {

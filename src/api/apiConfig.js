@@ -1,3 +1,4 @@
+// Import the Axios HTTP client
 import axios from "axios";
 // import { SubscriptIcon } from "lucide-react";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -6,22 +7,27 @@ const api = axios.create({
     baseURL: API_BASE_URL,
 });
 api.interceptors.request.use((config) => {
+    // Log method, URL, and payload before sending the request
     console.log("🔄 Making API Request:", {
         method: config.method,
         url: config.url,
         data: config.data,
     });
+    // Retrieve token from localStorage and attach it to Authorization header
     const token = localStorage.getItem("token");
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
+    // Return the modified config to proceed with the request
     return config;
 }, (error) => {
+    // Log request error and reject the promise
     console.error("🚨 Request Error:", error);
     return Promise.reject(error);
 });
-// Add response interceptor for debugging
+// Add a response interceptor to log successful and failed responses
 api.interceptors.response.use((response) => {
+    // Log status, data, and URL on success
     console.log("✅ API Response Success:", {
         status: response.status,
         data: response.data,
@@ -29,6 +35,7 @@ api.interceptors.response.use((response) => {
     });
     return response;
 }, (error) => {
+    // Log error details on failure
     console.error("🚨 API Response Error:", {
         status: error.response?.status,
         data: error.response?.data,
@@ -37,11 +44,14 @@ api.interceptors.response.use((response) => {
     });
     return Promise.reject(error);
 });
+// Export auth-related API methods
 export const authAPI = {
+    // Login endpoint
     login: async (credentials) => {
         const response = await api.post("/v1/auth/login/", credentials);
         return response;
     },
+    // Register endpoint
     register: async (credentials) => {
         const response = await api.post("/v1/auth/signup/", {
             username: credentials.username,
@@ -56,6 +66,7 @@ export const authAPI = {
         }
         return response.data;
     },
+    // Logout utility: clears token and user info from localStorage
     logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");

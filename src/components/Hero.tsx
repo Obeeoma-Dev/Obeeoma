@@ -7,15 +7,14 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <section
-      className="hero-section d-flex align-items-center justify-content-center text-center text-white"
+    <section className="hero-section d-flex align-items-center"
       style={{
+        position: "relative",
+        minHeight: "90vh",
         backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
         backgroundSize: "cover",
         backgroundPosition: "center center",
         backgroundRepeat: "no-repeat",
-        height: "100vh",
-        minHeight: "90vh",
         paddingBottom: "2rem",
       }}
     >
@@ -62,15 +61,18 @@ const Hero = () => {
             </div>
           </Col>
           <Col lg={6} className="text-center">
-            {/* Hide the image on large screens since background covers */}
-            <img
-              src={heroImage}
-              alt="Obeeoma workplace support"
-              className="img-fluid rounded-4 shadow-lg d-lg-none"
-            />
+            {/* Only render image if heroImage is truthy to avoid empty src warning */}
+            {heroImage && (
+              <img
+                src={heroImage}
+                alt="Obeeoma workplace support"
+                className="img-fluid rounded-4 shadow-lg d-lg-none"
+              />
+            )}
           </Col>
         </Row>
       </div>
+      
       {/* Fade Transition Overlay */}
       <div
         style={{
