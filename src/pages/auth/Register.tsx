@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form as FormikForm, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { registerUser, clearError } from "../../store/slices/authSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { registerUser } from "../../store/slices/authSlice";
 import { registerValidationSchema } from "./../../validation/authValidation";
 import {
   Container,
@@ -13,7 +13,6 @@ import {
   Form as BootstrapForm,
   ToggleButton,
   ToggleButtonGroup,
-  Alert,
 } from "react-bootstrap";
 
 // Define allowed roles
@@ -31,7 +30,7 @@ const Register: React.FC = () => {
   const [role, setRole] = useState<Role>("employee");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { isLoading, error } = useSelector((state: RootState) => state.auth);
+  // /const { isLoading, error } = useSelector((state: RootState) => state.auth);
 
   const initialValues: RegisterFormValues = {
     username: "",
@@ -49,7 +48,7 @@ const Register: React.FC = () => {
       registerUser({
         ...credentials,
         onSuccess: () => navigate("/login"),
-      })
+      }),
     );
   };
 
@@ -68,15 +67,6 @@ const Register: React.FC = () => {
           <p className="mb-4 text-muted">
             Join our community of mental health professionals and patients
           </p>
-          {error && (
-            <Alert
-              variant="danger"
-              onClose={() => dispatch(clearError())}
-              dismissible
-            >
-              {error}
-            </Alert>
-          )}
           <Formik
             validationSchema={registerValidationSchema}
             initialValues={initialValues}

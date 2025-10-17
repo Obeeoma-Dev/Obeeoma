@@ -87,7 +87,7 @@ export const authAPI = {
   },
 
   forgotPassword: async (data: ForgotPasswordData) => {
-    const response = await api.post("/v1/auth/reset-password/", data);
+    const response = await api.post("/v1/auth/forgot-password/", data);
     return response;
   },
 
