@@ -55,13 +55,24 @@ const SubscriptionSettingsPage: React.FC = () => {
       <div style={{ flexGrow: 1 }}>
         <AdminHeader />
 
-        {/* Page title */}
-        <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
-          <h2 style={{ margin: 0 }}>Subscription Settings</h2>
-        </div>
+        {/* Scrollable content area below the header */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '1rem',
+            backgroundColor: '#f8f9fa',
+          }}
+        >
 
-        {/* Subscription cards grid */}
-        <SubscriptionSettingsComp plans={subscriptionPlans} />
+          {/* Page title */}
+          <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
+            <h2 style={{ margin: 0 }}>Subscription Settings</h2>
+          </div>
+
+          {/* Subscription cards grid */}
+          <SubscriptionSettingsComp plans={subscriptionPlans} />
+        </div>
       </div>
     </div>
   );

@@ -1,36 +1,20 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import AdminHeader from '../../../components/admincomponents/adminheader';
-import AdminSidebar from '../../../components/admincomponents/adminsidebar';
-import MonthlyUsageChart from '../../../components/admincomponents/Reportcomponents/monthlyUsageChart';
-import AvailableReports from '../../../components/admincomponents/Reportcomponents/availableReport';
-import CustomReportForm from '../../../components/admincomponents/Reportcomponents/customerReportForm';
+import AdminHeader from "../../../components/admincomponents/adminheader";
+import AdminSidebar from "../../../components/admincomponents/adminsidebar";
+import MonthlyUsageChart from "../../../components/admincomponents/Reportcomponents/monthlyUsageChart";
+import AvailableReports from "../../../components/admincomponents/Reportcomponents/availableReport";
+import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
+import { Container } from "react-bootstrap";
 /**
- * ReportPage component renders the full layout for the system admin report dashboard.
- * It includes a fixed header, fixed sidebar, and scrollable main content area.
+ * ReportPage component renders the system admin report dashboard.
+ * Sidebar and header are fixed; main content scrolls independently.
  */
 const ReportPage = () => {
-    return (
-    // Root container for the entire page
-    _jsxs("div", { style: { display: 'flex', flexDirection: 'column', height: '100vh' }, children: [_jsx("div", { style: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }, children: _jsx(AdminHeader, {}) }), _jsxs("div", { style: {
-                    display: 'flex',
-                    flex: 1,
-                    marginTop: '72px', // Height of header
-                }, children: [_jsx("div", { style: {
-                            position: 'fixed',
-                            top: '72px', // Below header
-                            left: 0,
-                            bottom: 0,
-                            width: '250px', // Matches AdminSidebar width
-                            zIndex: 999,
-                        }, children: _jsx(AdminSidebar, {}) }), _jsxs("main", { style: {
-                            marginLeft: '250px', // Sidebar width
-                            flexGrow: 1,
+    return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx(AdminSidebar, {}) }), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx(AdminHeader, {}) }), _jsx("div", { style: {
+                            flex: 1,
                             overflowY: 'auto',
-                            padding: '32px',
+                            padding: '1rem',
                             backgroundColor: '#f8f9fa',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '24px', // Space between sections
-                        }, children: [_jsx(MonthlyUsageChart, {}), _jsx(AvailableReports, {}), _jsx(CustomReportForm, {})] })] })] }));
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(MonthlyUsageChart, {}), _jsx(AvailableReports, {}), _jsx(CustomReportForm, {})] }) }) })] })] }));
 };
 export default ReportPage;
