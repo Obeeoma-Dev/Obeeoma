@@ -34,6 +34,23 @@ const Features = () => {
             desc: "Understand wellbeing trends and program impact.",
         },
     ];
-    return (_jsx("section", { className: "section-bg py-5", children: _jsxs("div", { className: "container text-center", children: [_jsx("h2", { className: "fw-bold mb-3 text-primary", style: { color: "var(--color-green)" }, children: "Comprehensive Obeeoma Features" }), _jsx("p", { className: "text-muted mb-5", children: "Explore tools designed to enhance mental health in your organization." }), _jsx("div", { className: "row g-4", children: features.map((f, i) => (_jsx("div", { className: "col-md-4", children: _jsxs("div", { className: "card card-feature h-100 p-4", children: [_jsx("div", { className: "mb-3 text-primary", children: _jsx(f.icon, { size: 36 }) }), _jsx("h5", { className: "fw-semibold", children: f.title }), _jsx("p", { className: "text-muted", children: f.desc })] }) }, i))) })] }) }));
+    return (_jsxs("section", { className: "section-bg py-5 position-relative", style: {
+            marginTop: "-3rem",
+            background: "linear-gradient(180deg, #f6fff8 0%, #ffffff 100%)",
+        }, children: [_jsxs("div", { className: "container text-center", children: [_jsx("h2", { className: "fw-bold mb-3 text-success", children: "Comprehensive Obeeoma Features" }), _jsx("p", { className: "text-muted mb-5", children: "Explore tools designed to enhance mental health in your organization." }), _jsx("div", { className: "row g-4", children: features.map((f, i) => (_jsx("div", { className: "col-md-4", children: _jsxs("div", { className: "card card-feature h-100 p-4", children: [_jsx("div", { className: "mb-3 text-success", children: _jsx(f.icon, { size: 36, className: "text-success" }) }), _jsx("h5", { className: "fw-semibold", children: f.title }), _jsx("p", { className: "text-muted", children: f.desc })] }) }, i))) })] }), _jsx("div", { style: {
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "120px",
+                    background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
+                } }), _jsx("div", { style: {
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "120px",
+                    background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
+                } })] }));
 };
 export default Features;
