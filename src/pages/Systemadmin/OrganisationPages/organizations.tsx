@@ -39,7 +39,7 @@ const mockOrganizations: Organization[] = [
 // Main admin page for managing organizations
 const OrganizationPage: React.FC = () => {
   return (
-    <div className="d-flex">
+    <div className="d-flex vh-100">
       {/* Sidebar navigation */}
       <Sidebar />
 
@@ -49,18 +49,19 @@ const OrganizationPage: React.FC = () => {
         <Header />
 
         {/* Main content area */}
-        <Container fluid className="p-4">
-          <h2 className="mb-4 text-success">Organizations Overview</h2>
+        <div className="flex-grow-1 overflow-auto">
+          <Container fluid className="py-4">
 
-          {/* Top stats summary */}
-          <OrganizationStats />
+            {/* Top stats summary */}
+            <OrganizationStats />
 
-          {/* Table of organizations with dynamic data */}
-          <OrganizationTable organizations={mockOrganizations} />
+            {/* Table of organizations with dynamic data */}
+            <OrganizationTable organizations={mockOrganizations} />
 
-          {/* Graphs */}
-          <OrganizationCharts />
-        </Container>
+            {/* Graphs */}
+            <OrganizationCharts />
+          </Container>
+        </div>
       </div>
     </div>
   );

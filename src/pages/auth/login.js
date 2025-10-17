@@ -20,7 +20,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const { isLoading, error } = useSelector((state) => state.auth);
     // Role state for toggles (Employee or Employer)
-    const [role, setRole] = useState("Employee");
+    const [role] = useState("Employee");
     // Clear error on mount
     useEffect(() => {
         dispatch(clearError());
