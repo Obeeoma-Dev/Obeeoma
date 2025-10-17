@@ -29,7 +29,7 @@ const LoginPage = (): React.ReactElement => {
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
 
   // Role state for toggles (Employee or Employer)
-  const [role, setRole] = useState<string>("Employee");
+  const [role] = useState<string>("Employee");
 
   // Clear error on mount
   useEffect(() => {
