@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React,{ useState, useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { AppDispatch, RootState } from "../../store/store";
@@ -168,6 +169,13 @@ const ResetPasswordSignin: React.FC = () => {
     );
   };
 
+=======
+import React from "react";
+import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const ResetPassword: React.FC = () => {
+>>>>>>> parent of b2caf4e (Connection of Forgot password to backend)
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
       <Card
@@ -180,6 +188,7 @@ const ResetPasswordSignin: React.FC = () => {
             <h2 className="fw-semibold mb-2">Reset Password to Sign in</h2>
             <p className="text-muted mb-4">Send code to email</p>
 
+<<<<<<< HEAD
             {error && (
               <Alert
                 variant="danger"
@@ -238,6 +247,25 @@ const ResetPasswordSignin: React.FC = () => {
                 </Form>
               )}
             </Formik>
+=======
+            <Form>
+              <Form.Group className="mb-4" controlId="formEmail">
+                <Form.Control
+                  type="email"
+                  placeholder="Email address"
+                  className="py-2"
+                />
+              </Form.Group>
+
+              <Button
+                type="submit"
+                variant="success"
+                className="w-100 py-2 fw-semibold"
+              >
+                Send code
+              </Button>
+            </Form>
+>>>>>>> parent of b2caf4e (Connection of Forgot password to backend)
 
             <p className="text-center text-muted mt-4">
               Didn’t receive any code?{" "}

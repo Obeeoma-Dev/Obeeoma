@@ -58,7 +58,7 @@ export const registerUser = createAsyncThunk(
 );
 // Forgot password
 export const forgotPassword = createAsyncThunk(
-  "auth/reset-password",
+  "auth/forgotPassword",
   async (
     data: ForgotPasswordData & { onSuccess?: () => void },
     { rejectWithValue },
