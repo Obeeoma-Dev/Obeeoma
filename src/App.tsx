@@ -16,7 +16,7 @@ import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
-import EmployerDashboard from "./pages/EmployerDashboard";
+import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import Subscription from "./pages/Subscription";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
