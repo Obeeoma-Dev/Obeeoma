@@ -21,6 +21,7 @@ const ResetPassword: React.FC = () => {
 
   // The type definition for handleSubmit payload should match the Formik initialValues and the Redux action payload
   const handleSubmit = (values: {
+    token: string;
     newPassword: string;
     confirmNewPassword: string;
 
@@ -60,6 +61,7 @@ const ResetPassword: React.FC = () => {
             
             <Formik
               initialValues={{
+                token: "",
                 newPassword: "",
                 confirmNewPassword: "",
                 // You might need to add code/token fields here if they are part of the form

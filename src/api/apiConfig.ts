@@ -41,7 +41,7 @@ api.interceptors.request.use(
     // Log request error and reject the promise
     console.error("🚨 Request Error:", error);
     return Promise.reject(error);
-  },
+  }
 );
 
 // Add a response interceptor to log successful and failed responses
@@ -64,7 +64,7 @@ api.interceptors.response.use(
       url: error.config?.url,
     });
     return Promise.reject(error);
-  },
+  }
 );
 
 // Export auth-related API methods
@@ -106,7 +106,7 @@ export const authAPI = {
 
   // RESET PASSWORD
   changePassword: async (data: changePasswordData) => {
-    const response = await api.post("/v1/auth/change-password/", data);
+    const response = await api.post("/v1/auth/accept-invite/", data);
     return response;
   },
 
@@ -129,7 +129,6 @@ export const adminAPI = {
     return response;
   },
 
-  // Deleting a user
   deleteUser: async (userId: string | number) => {
     const response = await api.delete(`/v1/dashboard/users/${userId}/`);
     return response;
@@ -152,24 +151,22 @@ export const adminAPI = {
     const response = await api.post("/v1/dashboard/crisis-insights/add/");
     return response;
   },
-    putCrisisInsights: async () => {
+  putCrisisInsights: async () => {
     const response = await api.post("/v1/dashboard/crisis-insights/update/");
     return response;
   },
-  
-    changeCrisisInsights: async () => {
+
+  changeCrisisInsights: async () => {
     const response = await api.post("/v1/dashboard/crisis-insights/changes/");
     return response;
   },
-  
-
 
   getEmployeeEngagement: async () => {
     const response = await api.post("/v1/dashboard/employee-engagement/");
     return response;
   },
 
-  // getFeatureUsage: async (jobData: ) => {
+  // getFeatureUsage: async () => {
   //   const response = await api.get("/v1/dashboard/feature-usage/");
   //   return response;
   // },
@@ -188,9 +185,22 @@ export const adminAPI = {
     const response = await api.get("/v1/dashboard/trends");
     return response;
   },
+  viewSubscription: async () => {
+    const response = await api.post("/v1/employer/billing/add-subscription/");
+    return response;
+  },
+
+  viewBilling: async () => {
+    const response = await api.get("/v1/dashboard/billing/view");
+    return response;
+  },
+
+  getEngagement: async () => {
+    const response = await api.get("/v1/employer/engagements/");
+    return response;
+  },
 
   // employer endpoints
-  
 };
 
 export const employerAPI = {
@@ -198,11 +208,11 @@ export const employerAPI = {
     const response = await api.post("/v1/employers/");
     return response;
   },
-   viewInviteEmployee: async () => {
+
+  viewInviteEmployee: async () => {
     const response = await api.get("/v1/employers/view-invites/");
     return response;
   },
-
 
   viewSubscription: async () => {
     const response = await api.post("/v1/employer/billing/add-subscription/");
@@ -219,7 +229,7 @@ export const employerAPI = {
     return response;
   },
 
-    getReports: async () => {
+  getReports: async () => {
     const response = await api.post("/v1/employer/reports/");
     return response;
   },

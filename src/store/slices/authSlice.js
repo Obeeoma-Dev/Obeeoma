@@ -45,8 +45,8 @@ export const forgotPassword = createAsyncThunk("auth/reset-password", async (dat
         return rejectWithValue(getErrorMessage(error));
     }
 });
-// Reset password
-export const resetPassword = createAsyncThunk("auth/resetPassword", async (data, { rejectWithValue }) => {
+// Reset password 
+export const resetPassword = createAsyncThunk("auth/accept-invite", async (data, { rejectWithValue }) => {
     try {
         const response = await authAPI.changePassword(data);
         data.onSuccess?.();
