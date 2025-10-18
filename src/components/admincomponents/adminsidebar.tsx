@@ -17,7 +17,7 @@ const AdminSidebar: React.FC = () => {
   const menuItems = [
     { id: "overview", label: "Overview", icon: "LayoutDashboard" },
     { id: "organizations", label: "Organizations", icon: "Building2" },
-    { id: "client-engagement", label: "Client Engagement", icon: "Users" },
+    { id: "client reward and strikes", label: "Client Engagement", icon: "Users" },
     { id: "ai-management", label: "AI Management", icon: "Brain" },
     { id: "hotline-activity", label: "Hotline Activity", icon: "Phone" },
     { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
