@@ -98,18 +98,13 @@ const Benefits = () => {
         style={{
           background:
             "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
-            marginBottom: "0",
-}}
-      >
+            marginBottom: "0",}} >
         <div className="container">
           <div className="text-center mb-5">
             <h2 className="fw-bold text-success mb-3">
               Mental Health Care Benefits
             </h2>
-            <p
-              className="text-muted fs-5 mx-auto"
-              style={{ maxWidth: "700px" }}
-            >
+            <p className="text-muted fs-5 mx-auto" style={{ maxWidth: "700px" }}>
               Our platform offers a range of benefits designed to support your
               mental health journey.
             </p>
