@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
-import logo from "../../assets/Images/green..png"; // Obeeoma logo
+// import logo from "../../assets/Images/green..png"; // Obeeoma logo
 /**
  * AdminSidebar component for system admin dashboard navigation
  */
@@ -13,7 +13,7 @@ const AdminSidebar = () => {
     const menuItems = [
         { id: "overview", label: "Overview", icon: "LayoutDashboard" },
         { id: "organizations", label: "Organizations", icon: "Building2" },
-        { id: "client reward and strikes", label: "Client Engagement", icon: "Users" },
+        { id: "client-engagement", label: "Client Engagement", icon: "Users" },
         { id: "ai-management", label: "AI Management", icon: "Brain" },
         { id: "hotline-activity", label: "Hotline Activity", icon: "Phone" },
         { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
@@ -48,7 +48,9 @@ const AdminSidebar = () => {
                     borderBottom: "1px solid #dee2e6",
                     display: "flex",
                     justifyContent: "center",
-                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "40px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
+                }, children: _jsx("img", { 
+                    // src={logo}
+                    alt: "Obeeoma Logo", style: { width: "40px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
                     // Cast icon to valid React component
                     const IconComponent = Icons[item.icon];
                     const isActive = currentPath === item.id ||

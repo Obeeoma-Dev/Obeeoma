@@ -152,7 +152,11 @@ const ClientEngagement: React.FC = () => {
           <div className="flex-grow-1 overflow-auto">
             <Container className="py-4">
               {/* Top summary metrics */}
-              <EngagementSummary />
+              <EngagementSummary
+                engagementRate={data?.engagementRate ?? 0}
+                activePrograms={data?.activePrograms ?? 0}
+                totalPoints={data?.totalPoints ?? 0}
+              />
 
               {/* Charts for engagement and redemptions */}
               <EngagementCharts />

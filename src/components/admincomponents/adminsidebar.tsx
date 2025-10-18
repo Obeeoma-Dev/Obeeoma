@@ -4,7 +4,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
-import logo from "../../assets/Images/green..png"; // Obeeoma logo
+// import logo from "../../assets/Images/green..png"; // Obeeoma logo
 
 /**
  * AdminSidebar component for system admin dashboard navigation
@@ -17,7 +17,7 @@ const AdminSidebar: React.FC = () => {
   const menuItems = [
     { id: "overview", label: "Overview", icon: "LayoutDashboard" },
     { id: "organizations", label: "Organizations", icon: "Building2" },
-    { id: "client reward and strikes", label: "Client Engagement", icon: "Users" },
+    { id: "client-engagement", label: "Client Engagement", icon: "Users" },
     { id: "ai-management", label: "AI Management", icon: "Brain" },
     { id: "hotline-activity", label: "Hotline Activity", icon: "Phone" },
     { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
@@ -66,7 +66,7 @@ const AdminSidebar: React.FC = () => {
         }}
       >
         <img
-          src={logo}
+          // src={logo}
           alt="Obeeoma Logo"
           style={{ width: "40px", height: "40px" }}
         />
