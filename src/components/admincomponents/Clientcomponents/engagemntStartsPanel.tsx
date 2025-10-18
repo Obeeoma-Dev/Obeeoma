@@ -3,42 +3,89 @@
 
 import React from "react";
 import { Card, Row, Col, ListGroup } from "react-bootstrap";
+import { FaArrowUp, FaFire, FaRedo } from "react-icons/fa";
 
-// Define the component using React.FC for type safety
-const EngagementStatsPanel: React.FC = () => {
+// ✅ Define TypeScript interface for backend-ready props
+interface EngagementStatsPanelProps {
+  topRewards: Array<{ name: string; points: number }>;
+  trends: {
+    courseCompletion: number;
+    rewardRedemption: number;
+    memberActivity: number;
+  };
+  streaks: {
+    sevenDay: number;
+    thirtyDay: number;
+    sixtyDay: number;
+  };
+}
+
+// ✅ Functional component with props
+const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
+  topRewards,
+  trends,
+  streaks,
+}) => {
   return (
-    <Card className="mt-4">
-      {/* Card body with three columns for stats */}
-      <Card.Body>
-        <Row>
-          {/* Top Rewards List */}
-          <Col md={4}>
-            <h5>Top Rewards</h5>
+    <Row className="g-4 mt-4">
+      {/* 🏆 Top Rewards Card */}
+      <Col md={4}>
+        <Card className="shadow-sm border-0 h-100">
+          <Card.Body>
+            <h5 className="mb-3 text-primary">Top Rewards</h5>
             <ListGroup variant="flush">
-              <ListGroup.Item>Madison Carano – 1,200 pts</ListGroup.Item>
-              <ListGroup.Item>William Johnson – 980 pts</ListGroup.Item>
-              <ListGroup.Item>Preston Corbett – 870 pts</ListGroup.Item>
+              {topRewards.map((reward) => (
+                <ListGroup.Item key={reward.name}>
+                  {reward.name} – {reward.points.toLocaleString()} pts
+                </ListGroup.Item>
+              ))}
             </ListGroup>
-          </Col>
+          </Card.Body>
+        </Card>
+      </Col>
 
-          {/* Engagement Trends */}
-          <Col md={4}>
-            <h5>Engagement Trends</h5>
-            <p>Weekly Engagement: +5%</p>
-            <p>Monthly Engagement: +12%</p>
-            <p>Reward Activity: +8%</p>
-          </Col>
+      {/* 📈 Engagement Trends Card */}
+      <Col md={4}>
+        <Card className="shadow-sm border-0 h-100">
+          <Card.Body>
+            <h5 className="mb-3 text-success">Engagement Trends</h5>
+            <p>
+              <FaArrowUp className="text-success me-2" />
+              Course Completion: +{trends.courseCompletion}%
+            </p>
+            <p>
+              <FaArrowUp className="text-success me-2" />
+              Reward Redemption: +{trends.rewardRedemption}%
+            </p>
+            <p>
+              <FaArrowUp className="text-success me-2" />
+              Member Activity: +{trends.memberActivity}%
+            </p>
+          </Card.Body>
+        </Card>
+      </Col>
 
-          {/* Streak Statistics */}
-          <Col md={4}>
-            <h5>Streak Statistics</h5>
-            <p>7-Day Streak: 65%</p>
-            <p>30-Day Streak: 45%</p>
-            <p>60-Day Streak: 30%</p>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+      {/* 🔁 Streak Statistics Card */}
+      <Col md={4}>
+        <Card className="shadow-sm border-0 h-100">
+          <Card.Body>
+            <h5 className="mb-3 text-warning">Streak Statistics</h5>
+            <p>
+              <FaFire className="text-danger me-2" />
+              7-Day Streak: {streaks.sevenDay}%
+            </p>
+            <p>
+              <FaFire className="text-warning me-2" />
+              30-Day Streak: {streaks.thirtyDay}%
+            </p>
+            <p>
+              <FaRedo className="text-info me-2" />
+              60-Day Streak: {streaks.sixtyDay}%
+            </p>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
