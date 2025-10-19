@@ -142,7 +142,7 @@ const Register: React.FC = () => {
                     <ErrorMessage name="confirmPassword" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
-                {/* Role Selection */}
+                {/* Role Selection
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <ToggleButtonGroup
                     type="radio"
@@ -169,16 +169,15 @@ const Register: React.FC = () => {
                       className="px-3 py-1"
                     >
                       Employer
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div>
+                    </ToggleButton> */}
+                  {/* </ToggleButtonGroup> */}
+                {/* </div> */}
                 {/* Submit Button */}
                 <Button
                   type="submit"
                   variant="success"
                   size="lg"
-                  className="w-100"
-                >
+                  className="w-100" >
                   Create Account
                 </Button>
               </FormikForm>
