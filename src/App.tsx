@@ -67,6 +67,8 @@ export default function App(): React.ReactElement {
               
               {/* EMPLOYEE'S ROUTES */}
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+
+              {/* EMPLOYER'S ROUTES */}
               <Route path="/subscription" element={<Subscription />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
