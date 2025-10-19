@@ -6,7 +6,7 @@ import NotificationsSection from "../../components/employercomponents/employerse
 import PrivacySection from "../../components/employercomponents/employersettings/PrivacySection";
 import { Save } from "lucide-react";
 
-const AccountSettings = () => {
+const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");
   const [accountData, setAccountData] = useState({
     organizationName: "Acme Corporation",
@@ -101,4 +101,4 @@ const AccountSettings = () => {
   );
 };
 
-export default AccountSettings;
+export default EmployerAccountProfile;

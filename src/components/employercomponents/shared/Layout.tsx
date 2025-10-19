@@ -11,7 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-
+import logo from "../../../assets/Images/obeeomalogoicon4.png";
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -55,9 +55,9 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
             <div className="rounded-circle bg-primary d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
-              <span className="text-white fw-bold">O</span>
-            </div>
-            <span className="fw-bold text-dark">Obeeoma</span>
+              <span className="text-white fw-bold">
+                <img src="{logo}" alt="logo" />
+              </span>
           </button>
           <button onClick={() => setIsSidebarOpen(false)} className="btn btn-link d-lg-none p-0">
             <X size={20} />

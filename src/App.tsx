@@ -41,6 +41,9 @@ import AdminSettings from "./pages/Systemadmin/adminsettings"
 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
+import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
+import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
+import EmployerSubscription from "./pages/EmployerPages/Subscription";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +76,9 @@ export default function App(): React.ReactElement {
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/subscription" element={<Subscription />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/employer-subscription" element={<EmployerSubscription />} />
+              <Route path="/employee-management" element={<EmployeeManagement />} />
+              <Route path="/employer-profile" element={<EmployerAccountProfile />} />
 
 
               {/* SYSTEMS ADMIN ROUTES */}

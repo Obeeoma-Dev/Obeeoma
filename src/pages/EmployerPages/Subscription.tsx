@@ -15,14 +15,14 @@ import {
   Star,
 } from "lucide-react";
 
-const Subscription = () => {
+const EmployerSubscription = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
     { icon: UsersIcon, label: "Employees", path: "/management", active: false },
-    { icon: CreditCard, label: "Subscription", path: "/subscription", active: true },
+    { icon: CreditCard, label: "EmployerSubscription", path: "/employer-subscription", active: true },
     { icon: FileText, label: "Reports", path: "/reports", active: false },
   ];
 
@@ -194,7 +194,7 @@ const Subscription = () => {
             </div>
           </header>
 
-          {/* Subscription Content */}
+          {/* EmployerSubscription Content */}
           <main className="container-fluid py-4">
             <h1 className="h2 fw-bold mb-4">Subscription Management</h1>
 
@@ -313,4 +313,4 @@ const Subscription = () => {
   );
 };
 
-export default Subscription;
+export default EmployerSubscription;
