@@ -13,13 +13,13 @@ import AdminHeader from "../../../components/admincomponents/adminheader";
  * Sidebar and header are fixed; main content scrolls independently.
  */
 const AIRecommendationsPage = () => {
-    // 📊 Placeholder metrics — replace with backend data later
+    // Placeholder metrics — replace with backend data later
     const metrics = {
         totalRecommendations: 1245,
         engagementRate: 72,
         averageTime: "5m 32s",
     };
-    // 📈 Effectiveness chart data
+    // Effectiveness chart data
     const effectivenessData = [
         { label: "Activity Assignment Templates", percentage: 80 },
         { label: "Social Connection Prompts", percentage: 75 },
@@ -27,7 +27,7 @@ const AIRecommendationsPage = () => {
         { label: "Family Involvement", percentage: 65 },
         { label: "Peer Support", percentage: 60 },
     ];
-    // 📋 AI resource effectiveness table
+    // AI resource effectiveness table
     const resources = [
         { name: "Activity Assignment Templates", status: "High Effectiveness" },
         { name: "Social Connection Prompts", status: "High Effectiveness" },
@@ -35,7 +35,7 @@ const AIRecommendationsPage = () => {
         { name: "Peer Support", status: "Needs Improvement" },
         { name: "Family Involvement", status: "Needs Improvement" },
     ];
-    // 🧪 Model performance scores
+    // Model performance scores
     const modelScores = [
         { name: "Activity Assignment Templates", score: 92 },
         { name: "Social Connection Prompts", score: 89 },
@@ -43,7 +43,7 @@ const AIRecommendationsPage = () => {
         { name: "Peer Support", score: 68 },
         { name: "Family Involvement", score: 64 },
     ];
-    // 🔥 Top anxiety triggers
+    // Top anxiety triggers
     const triggers = [
         "Social situations",
         "Academic pressure",

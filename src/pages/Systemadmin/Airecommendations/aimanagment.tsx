@@ -15,14 +15,14 @@ import type { ResourceRow } from "../../../components/admincomponents/Aicomponen
  * Sidebar and header are fixed; main content scrolls independently.
  */
 const AIRecommendationsPage: React.FC = () => {
-  // 📊 Placeholder metrics — replace with backend data later
+  // Placeholder metrics — replace with backend data later
   const metrics = {
     totalRecommendations: 1245,
     engagementRate: 72,
     averageTime: "5m 32s",
   };
 
-  // 📈 Effectiveness chart data
+  // Effectiveness chart data
   const effectivenessData = [
     { label: "Activity Assignment Templates", percentage: 80 },
     { label: "Social Connection Prompts", percentage: 75 },
@@ -31,7 +31,7 @@ const AIRecommendationsPage: React.FC = () => {
     { label: "Peer Support", percentage: 60 },
   ];
 
-  // 📋 AI resource effectiveness table
+  // AI resource effectiveness table
   const resources: ResourceRow[] = [
     { name: "Activity Assignment Templates", status: "High Effectiveness" },
     { name: "Social Connection Prompts", status: "High Effectiveness" },
@@ -40,7 +40,7 @@ const AIRecommendationsPage: React.FC = () => {
     { name: "Family Involvement", status: "Needs Improvement" },
   ];
 
-  // 🧪 Model performance scores
+  // Model performance scores
   const modelScores = [
     { name: "Activity Assignment Templates", score: 92 },
     { name: "Social Connection Prompts", score: 89 },
@@ -49,7 +49,7 @@ const AIRecommendationsPage: React.FC = () => {
     { name: "Family Involvement", score: 64 },
   ];
 
-  // 🔥 Top anxiety triggers
+  // Top anxiety triggers
   const triggers = [
     "Social situations",
     "Academic pressure",
@@ -59,14 +59,14 @@ const AIRecommendationsPage: React.FC = () => {
 
   return (
     <div className="d-flex vh-100">
-      {/* 🔒 Fixed sidebar on the left */}
+      {/* Fixed sidebar on the left */}
       <div className="flex-shrink-0">
         <AdminSidebar />
       </div>
 
-      {/* 📦 Main content area (right side) */}
+      {/* Main content area (right side) */}
       <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* 🔒 Fixed header at the top */}
+        {/* Fixed header at the top */}
         <div className="flex-shrink-0">
           <AdminHeader />
         </div>
@@ -82,25 +82,25 @@ const AIRecommendationsPage: React.FC = () => {
           }}
         >
 
-          {/* 🧭 Scrollable content area below header */}
+          {/* Scrollable content area below header */}
           <div className="flex-grow-1 overflow-auto">
             <Container fluid className="py-4">
-              {/* 📊 Top summary metrics */}
+              {/* Top summary metrics */}
               <TopMetrics {...metrics} />
 
-              {/* 📈 Effectiveness chart */}
+              {/* Effectiveness chart */}
               <EffectivenessChart data={effectivenessData} />
 
-              {/* 📅 Weekly recommendations chart */}
+              {/* Weekly recommendations chart */}
               <WeeklyRecommendationsChart />
 
-              {/* 📋 Table of AI resources */}
+              {/* Table of AI resources */}
               <AIResourcesTable resources={resources} />
 
-              {/* 🧪 Model performance list */}
+              {/* Model performance list */}
               <ModelPerformance performance={modelScores} />
 
-              {/* 🔥 Top anxiety triggers */}
+              {/* Top anxiety triggers */}
               <TopTriggers triggers={triggers} />
             </Container>
           </div>
