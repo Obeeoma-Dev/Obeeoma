@@ -91,7 +91,7 @@ const EmployerSubscription = () => {
         />
       )}
 
-      {/* Sidebar */}
+     {/* Sidebar */}
       <aside
         className={`position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`}
         style={{ width: "240px" }}
