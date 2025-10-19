@@ -6,25 +6,25 @@ import {
   BarChartFill,
   GraphUpArrow,
   ClockFill,
-} from 'react-bootstrap-icons'; // ✅ Bootstrap icons for visual polish
+} from 'react-bootstrap-icons'; // Bootstrap icons for visual polish
 
-// ✅ Props interface for top-level metrics
+// Props interface for top-level metrics
 interface TopMetricsProps {
   totalRecommendations: number;
   engagementRate: number;
   averageTime: string;
 }
 
-// ✅ Functional component with Bootstrap layout and icons
+// Functional component with Bootstrap layout and icons
 const TopMetrics: React.FC<TopMetricsProps> = ({
   totalRecommendations,
   engagementRate,
   averageTime,
 }) => {
   return (
-    // ✅ Row container for 3 equal-width cards
+    // Row container for 3 equal-width cards
     <Row className="mb-4 g-4">
-      {/* ✅ Card 1: Total Recommendations */}
+      {/* Card 1: Total Recommendations */}
       <Col md={4}>
         <Card className="shadow-sm border-0">
           <Card.Body>
@@ -41,7 +41,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         </Card>
       </Col>
 
-      {/* ✅ Card 2: Engagement Rate */}
+      {/* Card 2: Engagement Rate */}
       <Col md={4}>
         <Card className="shadow-sm border-0">
           <Card.Body>
@@ -58,7 +58,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         </Card>
       </Col>
 
-      {/* ✅ Card 3: Average Engagement Time */}
+      {/* Card 3: Average Engagement Time */}
       <Col md={4}>
         <Card className="shadow-sm border-0">
           <Card.Body>
