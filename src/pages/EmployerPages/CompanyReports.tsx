@@ -122,7 +122,7 @@ const CompanyReports = () => {
               padding: "12px",
             }}
           >
-            <Settings size={20} />
+            <SettingsIcon size={20} />
             <span>Settings</span>
           </button>
           <button
