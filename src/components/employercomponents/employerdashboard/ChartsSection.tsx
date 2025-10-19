@@ -1,3 +1,6 @@
+
+ // TODO: Replace with API call to fetch recent activities
+  // Example: const { data: activities, loading } = useRecentActivities();
 import {
   BarChart,
   Bar,
@@ -11,20 +14,30 @@ import {
   Legend,
 } from "recharts";
 
-const ChartsSection = () => {
-  // TODO: Replace with API call to fetch chart data
-  // Example: const { data: chartData, loading } = useChartData();
-  const testsByType = [
+interface ChartData {
+  testsByType: { name: string; value: number }[];
+  testsByDepartment: { name: string; value: number; color: string }[];
+}
+
+interface ChartsSectionProps {
+  chartData: ChartData | null;
+}
+
+const ChartsSection = ({ chartData }: ChartsSectionProps) => {
+  const defaultTestsByType = [
     { name: "Well-being Check", value: 2 },
     { name: "Burnout Risk", value: 1 },
   ];
 
-  const testsByDepartment = [
+  const defaultTestsByDepartment = [
     { name: "Marketing", value: 25, color: "#10b981" },
     { name: "HR", value: 25, color: "#60a5fa" },
     { name: "Finance", value: 25, color: "#f59e0b" },
     { name: "Engineering", value: 25, color: "#ef4444" },
   ];
+
+  const testsByType = chartData?.testsByType || defaultTestsByType;
+  const testsByDepartment = chartData?.testsByDepartment || defaultTestsByDepartment;
 
   return (
     <div className="row g-4 mb-4">
@@ -38,10 +51,10 @@ const ChartsSection = () => {
                 <CartesianGrid strokeDasharray="3 3" className="opacity-50" />
                 <XAxis dataKey="name" />
                 <YAxis />
-                <Bar 
-                  dataKey="value" 
-                  fill="var(--bs-primary)" 
-                  radius={[8, 8, 0, 0]} 
+                <Bar
+                  dataKey="value"
+                  fill="var(--bs-primary)"
+                  radius={[8, 8, 0, 0]}
                 />
               </BarChart>
             </ResponsiveContainer>

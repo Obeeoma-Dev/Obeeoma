@@ -1,13 +1,17 @@
-interface ActivityItem {
+  // TODO: Replace with API call to fetch recent activities
+  // Example: const { data: activities, loading } = useRecentActivities();
+interface Activity {
   text: string;
   department: string;
   time: string;
 }
 
-const RecentActivity = () => {
-  // TODO: Replace with API call to fetch recent activities
-  // Example: const { data: activities, loading } = useRecentActivities();
-  const recentActivity: ActivityItem[] = [
+interface RecentActivityProps {
+  activities: Activity[];
+}
+
+const RecentActivity = ({ activities }: RecentActivityProps) => {
+  const defaultActivities: Activity[] = [
     {
       text: "A new wellness test was completed in",
       department: "Engineering",
@@ -25,6 +29,8 @@ const RecentActivity = () => {
     },
   ];
 
+  const recentActivity = activities?.length ? activities : defaultActivities;
+
   return (
     <div className="card border-0 shadow-sm">
       <div className="card-body">
@@ -38,8 +44,8 @@ const RecentActivity = () => {
           {recentActivity.map((activity, index) => (
             <div key={index} className="list-group-item px-0 py-3 border-bottom-0">
               <div className="d-flex align-items-start gap-3">
-                <div 
-                  className="rounded-circle bg-primary mt-1 flex-shrink-0" 
+                <div
+                  className="rounded-circle bg-primary mt-1 flex-shrink-0"
                   style={{ width: "8px", height: "8px" }}
                 ></div>
                 <div className="flex-grow-1">
