@@ -152,7 +152,11 @@ const ClientEngagement: React.FC = () => {
           <div className="flex-grow-1 overflow-auto">
             <Container className="py-4">
               {/* Top summary metrics */}
-              <EngagementSummary />
+              <EngagementSummary
+                engagementRate={data?.engagementRate ?? 0}
+                activePrograms={data?.activePrograms ?? 0}
+                totalPoints={data?.totalPoints ?? 0}
+              />
 
               {/* Charts for engagement and redemptions */}
               <EngagementCharts />
@@ -164,7 +168,23 @@ const ClientEngagement: React.FC = () => {
               <PatientEngagementTable />
 
               {/* Bottom panel with trends and streaks */}
-              <EngagementStatsPanel />
+              <EngagementStatsPanel
+                topRewards={[
+                  { name: "Madison Carano", points: 1200 },
+                  { name: "William Johnson", points: 980 },
+                  { name: "Preston Corbett", points: 870 },
+                ]}
+                trends={{
+                  courseCompletion: 12,
+                  rewardRedemption: 8,
+                  memberActivity: 5,
+                }}
+                streaks={{
+                  sevenDay: data?.streaks.sevenDay ?? 0,
+                  thirtyDay: data?.streaks.thirtyDay ?? 0,
+                  sixtyDay: data?.streaks.sixtyDay ?? 0,
+                }}
+              />
             </Container>
           </div>
         </div>

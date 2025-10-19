@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 // Define the shape of a subscription plan using TypeScript interface
 export interface SubscriptionPlan {
@@ -34,10 +35,12 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
                     ))}
                 </ul>
 
-                {/* Edit button */}
-                <Button variant="primary" style={{ marginTop: "1rem" }}>
-                    Edit Plan
-                </Button>
+                {/* Edit button wrapped in a link */}\
+                <Link to="/settings-overview/subscription-editor">
+                    <Button variant="primary" style={{ marginTop: "1rem" }}>
+                        Edit Plan
+                    </Button>
+                </Link>
             </Card.Body>
         </Card>
     );

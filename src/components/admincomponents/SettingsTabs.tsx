@@ -9,6 +9,8 @@ import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
 import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
 import AppearenceSettings from "./Appearencesettingscomp/appearancesettings";
+import NotificationSettings from "./notificationSettings";
+import SecuritySettings from "./securitySettings";
 
 // Placeholder data for subscription plans
 const subscriptionPlans = [
@@ -74,12 +76,12 @@ const SettingsTabs: React.FC = () => {
 
       {/* Tab for Security settings */}
       <Tab eventKey="security" title="Security">
-        <p>Security settings go here. </p>
+        <SecuritySettings />
       </Tab>
 
       {/* Tab for Notification preferences */}
       <Tab eventKey="notifications" title="Notifications">
-        <p> Notification settings go here. </p>
+        <NotificationSettings />
       </Tab>
 
       {/* Tab for Appearance customization */}

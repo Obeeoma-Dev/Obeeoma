@@ -1,9 +1,9 @@
 // EngagementCharts.tsx
-// Displays line and bar charts for engagement and reward redemption
+// Displays line and bar charts for engagement and reward redemption in a responsive layout
 
 import React from "react";
 import { Line, Bar } from "react-chartjs-2";
-import { Card } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,7 +16,7 @@ import {
   Legend,
 } from "chart.js";
 
-// Register chart.js components
+// ✅ Register chart.js components for both line and bar charts
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,10 +25,10 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
-// Line chart data for weekly engagement
+// ✅ Line chart data for weekly engagement
 const weeklyEngagementData = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
@@ -42,7 +42,7 @@ const weeklyEngagementData = {
   ],
 };
 
-// Bar chart data for reward redemptions
+// ✅ Bar chart data for reward redemptions
 const rewardRedemptionData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
   datasets: [
@@ -54,24 +54,33 @@ const rewardRedemptionData = {
   ],
 };
 
-// Define the component
+// ✅ Main component rendering both charts
 const EngagementCharts: React.FC = () => {
   return (
-    <Card className="mb-4">
-      <Card.Body>
-        {/* Line chart for weekly engagement */}
-        <div className="mb-4">
-          <h5>Weekly Engagement Rate (%)</h5>
-          <Line data={weeklyEngagementData} />
-        </div>
+    <div className="mb-4">
+      {/* Responsive row with two columns for charts */}
+      <Row className="g-4">
+        {/* Line Chart Column */}
+        <Col md={6}>
+          <Card className="shadow-sm border-0 h-100">
+            <Card.Body>
+              <h5 className="mb-3 text-primary">Weekly Engagement Rate (%)</h5>
+              <Line data={weeklyEngagementData} />
+            </Card.Body>
+          </Card>
+        </Col>
 
-        {/* Bar chart for reward redemptions */}
-        <div>
-          <h5>Reward Redemptions (Last 6 Weeks)</h5>
-          <Bar data={rewardRedemptionData} />
-        </div>
-      </Card.Body>
-    </Card>
+        {/* Bar Chart Column */}
+        <Col md={6}>
+          <Card className="shadow-sm border-0 h-100">
+            <Card.Body>
+              <h5 className="mb-3 text-success">Reward Redemptions (Last 6 Weeks)</h5>
+              <Bar data={rewardRedemptionData} />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

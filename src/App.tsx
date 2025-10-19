@@ -28,6 +28,7 @@ import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanag
 import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";
 import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription";
 import ReportPage from "./pages/Systemadmin/Reportpages/report";
+import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 // System admin settings pages.
 import AdminSettings from "./pages/Systemadmin/adminsettings"
 
@@ -96,6 +97,7 @@ export default function App(): React.ReactElement {
               {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} />
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
+              <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
 
 
 
