@@ -58,6 +58,7 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
               <span className="text-white fw-bold">
                 <img src="{logo}" alt="logo" />
               </span>
+            </div>
           </button>
           <button onClick={() => setIsSidebarOpen(false)} className="btn btn-link d-lg-none p-0">
             <X size={20} />
@@ -88,9 +89,8 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
         <div className="position-absolute bottom-0 start-0 end-0 p-3 border-top">
           <button
             onClick={() => navigate("/settings")}
-            className={`w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${
-              location.pathname === "/settings" ? "text-primary bg-light" : "text-dark"
-            }`}
+            className={`w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${location.pathname === "/settings" ? "text-primary bg-light" : "text-dark"
+              }`}
             style={{
               border: "none",
               borderRadius: "8px",
@@ -117,7 +117,7 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
       {/* Main Content */}
       <div className="d-lg-flex">
         <div className="d-none d-lg-block" style={{ width: "240px" }}></div>
-        
+
         <div className="flex-grow-1">
           {/* Header */}
           <header className="bg-white border-bottom sticky-top z-30">
@@ -131,7 +131,7 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
                     <Menu size={24} />
                   </button>
                 </div>
-                
+
                 <div className="col">
                   <h1 className="h4 fw-bold mb-0">{title}</h1>
                 </div>
