@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LayoutDashboard, Users as UsersIcon, CreditCard, Search, Menu, X, FileText, LogOut, Download, Filter, Calendar, } from "lucide-react";
+import { LayoutDashboard, Users as UsersIcon, CreditCard, Settings as SettingsIcon, Search, Menu, X, FileText, LogOut, Download, Filter, Calendar, } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend, } from "recharts";
 const CompanyReports = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -41,7 +41,7 @@ const CompanyReports = () => {
                                     border: "none",
                                     borderRadius: "8px",
                                     padding: "12px",
-                                }, children: [_jsx(Settings, { size: 20 }), _jsx("span", { children: "Settings" })] }), _jsxs("button", { className: "w-100 btn d-flex align-items-center gap-3 text-start text-dark", style: {
+                                }, children: [_jsx(SettingsIcon, { size: 20 }), _jsx("span", { children: "Settings" })] }), _jsxs("button", { className: "w-100 btn d-flex align-items-center gap-3 text-start text-dark", style: {
                                     border: "none",
                                     borderRadius: "8px",
                                     padding: "12px",
