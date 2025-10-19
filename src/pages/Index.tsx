@@ -1,6 +1,7 @@
 import Navigation from "@/components/shared/Navigation";
-import Hero from "@/components/Hero";
+import Hero from "@/pages/landingpage/Hero";
 import Features from "@/pages/landingpage/Features";
+import Benefits from "@/pages/landingpage/Benefits";
 import Footer from "@/components/shared/Footer";
 
 const Index = () => {
@@ -11,6 +12,9 @@ const Index = () => {
         <Hero />
         <section id="features" className="section-bg py-5">
           <Features />
+        </section>
+        <section id="benefits" className="section-bg py-5">
+          <Benefits />
         </section>
       </main>
       <Footer />

@@ -9,7 +9,7 @@ export interface EmployerUser {
 
 
 export interface DashboardSummary {
-  recentActivity: any[]; // Define a more specific type if possible
+  recentActivity: string[]; // Define a more specific type if possible
   topMetrics: {
     metricName: string;
     value: number;
