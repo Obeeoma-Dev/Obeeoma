@@ -120,52 +120,52 @@ export const authAPI = {
 
 export const adminAPI = {
   getDashboardStats: async () => {
-    const response = await api.get("/v1/dashboard/statistics/");
+    const response = await api.get("/v1/admin/statistics/");
     return response;
   },
 
   getAllUsers: async () => {
-    const response = await api.get("/v1/dashboard/users/");
+    const response = await api.get("/v1/admin/users/");
     return response;
   },
 
   // Deleting a user
   deleteUser: async (userId: string | number) => {
-    const response = await api.delete(`/v1/dashboard/users/${userId}/`);
+    const response = await api.delete(`/v1/admin/users/${userId}/`);
     return response;
   },
   getDashboardSummary: async () => {
-    const response = await api.get("/v1/dashboard/overview");
+    const response = await api.get("/v1/admin/overview");
     return response;
   },
 
   addEmployee: async () => {
-    const response = await api.post("/v1/dashboard/invites/");
+    const response = await api.post("/v1/admin/invites/");
     return response;
   },
 
   getCrisisInsights: async () => {
-    const response = await api.get("/v1/dashboard/crisis-insights/views/");
+    const response = await api.get("/v1/admin/crisis-insights/views/");
     return response;
   },
   postCrisisInsights: async () => {
-    const response = await api.post("/v1/dashboard/crisis-insights/add/");
+    const response = await api.post("/v1/admin/crisis-insights/add/");
     return response;
   },
     putCrisisInsights: async () => {
-    const response = await api.post("/v1/dashboard/crisis-insights/update/");
+    const response = await api.post("/v1/admin/crisis-insights/update/");
     return response;
   },
   
     changeCrisisInsights: async () => {
-    const response = await api.post("/v1/dashboard/crisis-insights/changes/");
+    const response = await api.post("/v1/admin/crisis-insights/changes/");
     return response;
   },
   
 
 
   getEmployeeEngagement: async () => {
-    const response = await api.post("/v1/dashboard/employee-engagement/");
+    const response = await api.post("/v1/admin/employee-engagement/");
     return response;
   },
 
@@ -175,17 +175,17 @@ export const adminAPI = {
   // },
 
   createFeatureUsage: async () => {
-    const response = await api.post("/v1/dashboard/feature-usage");
+    const response = await api.post("/v1/admin/feature-usage");
     return response;
   },
 
   getReports: async () => {
-    const response = await api.post("/v1/dashboard/reports/");
+    const response = await api.post("/v1/admin/reports/");
     return response;
   },
 
   getTrends: async () => {
-    const response = await api.get("/v1/dashboard/trends");
+    const response = await api.get("/v1/admin/trends");
     return response;
   },
 
