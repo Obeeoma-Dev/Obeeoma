@@ -15,6 +15,19 @@ export default defineConfig([
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
     ],
+    // Example of applying TS rules correctly via overrides
+    // Targetting only TypeScript files
+    overrides: [
+      {
+        "files": ["**/*.ts", "**/*.tsx"], 
+        "extends": [
+          "plugin:@typescript-eslint/recommended"
+        ],
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "error"
+        }
+      }
+    ],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

@@ -1,9 +1,67 @@
 
-{   "parser": "@typescript-eslint/parser",
-    "plugins": ["react-refresh", "@typescript-eslint"],
-  "rules": {
-    // Remove this line or comment it out:
-     "react-refresh/only-export-components": ["error", { "allowConstantExport": true }],
-    "@typescript-eslint/no-explicit-any": "error"
+// {   "parser": "@typescript-eslint/parser",
+//     "plugins": ["react-refresh", "@typescript-eslint"],
+//   "rules": {
+//     // Remove this line or comment it out:
+//      "react-refresh/only-export-components": ["error", { "allowConstantExport": true }],
+//     "@typescript-eslint/no-explicit-any": "error"
+//     }
+// }
+{
+  // 1. Root Configuration
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+
+  // 2. Default Parser (for JS/general files)
+  // We use the default ESLint parser here, but for TS files, the 'overrides' section
+  // will switch to the TypeScript parser.
+  "parser": "@typescript-eslint/parser",
+  
+  // 3. Plugins
+  "plugins": [
+    "react",
+    "@typescript-eslint" // Must be present to enable TS rules
+  ],
+  
+  // 4. Base Configuration for ALL files (.js, .ts, etc.)
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    // Base configuration for TypeScript features we want available globally
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+
+  // 5. Override Section (The Fix for Your Error)
+  // This section targets only .ts and .tsx files to apply stricter TS-specific rules.
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"], // ⬅️ Targetting only TypeScript files
+      "extends": [
+        // Applies a recommended set of TS rules to files matching "files"
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        // Enforce specific TS rules not included or set differently in 'recommended'
+        // This is the rule that was causing your original error
+        "@typescript-eslint/no-explicit-any": "error", 
+
+        // Optional: Common React/TS adjustments
+        "react/prop-types": "off" // Not needed when using TypeScript interfaces
+      }
     }
+  ],
+
+  // 6. Settings (React version detection)
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+
+  // 7. Ignore Files (Optional but useful)
+  "ignorePatterns": ["build/", "dist/", "node_modules/"]
 }
