@@ -1,84 +1,82 @@
-
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-// 💡 New Imports from the image/common React setup
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh"; 
 
-// Using the define config wrapper from the image (optional, but good practice if available)
-// import { defineFlatConfig } from 'eslint-define-config';
-
 export default [
-    // 1. Ignore Patterns (globalIgnores from the image, and your list)
+    // 1. Global Ignore Patterns
     {
-        ignores: ["build/", "dist/", "node_modules/"]
+        ignores: ["build/", "dist/", "node_modules/", "coverage/"]
     },
 
-    // 2. Base Configuration for ALL files (JS/General rules)
-    pluginJs.configs.recommended,
+    // 2. Base Configurations (Loaded as separate arrays to be automatically flattened)
     
+    // Standard ESLint recommended JS rules
+    pluginJs.configs.recommended, 
+    
+    // Recommended TypeScript rules (CRITICAL FIX for "Unexpected key '0'")
+    ...tseslint.configs.recommended,
+    
+    // Recommended React Hooks rules
+    ...pluginReactHooks.configs.recommended, 
+    
+    // React Refresh/Vite rules
+    ...pluginReactRefresh.configs.vite, 
+
+
     // 3. Main Configuration Block for all source files ({js,jsx,ts,tsx})
     {
         files: ["**/*.{js,jsx,ts,tsx}"],
         
-        // Language Options
+        // Includes React JSX/component rules (from pluginReact)
+        ...pluginReact.configs.flat.recommended, 
+        
         languageOptions: {
-            ecmaVersion: 2020, // From the image
+            // Set language features
+            ecmaVersion: 2020,
             sourceType: "module",
+            // Define global environments
             globals: {
                 ...globals.browser,
                 ...globals.node,
             },
         },
         
-        // Base Plugins (The plugins key is often omitted in Flat Config when using plugin configs)
-        // We ensure React config is included
-        ...pluginReact.configs.flat.recommended,
-        
-        // 💡 NEW: React Hooks and React Refresh from the image
-        ...pluginReactHooks.configs.recommended, // React Hooks rules
-        
-        // This is often an array, but we can spread it if your vite config returns one object
-        // Assuming your setup uses the vite plugin correctly:
-        ...pluginReactRefresh.configs.vite, 
-        
         settings: {
+            // Configure React version detection
             react: {
                 version: "detect"
             }
         },
         
         rules: {
-            // General React rules
-            "react/react-in-jsx-scope": "off", // Common for React 17+ / Next.js
+            // Common React rule adjustments
+            "react/react-in-jsx-scope": "off", 
         }
     },
 
-    // 4. TypeScript Overrides (Stricter rules for .ts and .tsx files)
+    // 4. TypeScript Specific Overrides (Applies TS Parser and specific TS rules)
     {
         files: ["**/*.ts", "**/*.tsx"],
         
-        // Use the TS parser for these files
         languageOptions: {
+            // Use the TypeScript parser
             parser: tseslint.parser,
             parserOptions: {
-                // Ensure project is set for rules requiring type information
+                // IMPORTANT: Enables rules that require type checking
                 project: './tsconfig.json', 
                 ecmaVersion: 2020,
                 sourceType: "module",
             },
         },
 
-        // Extending TS recommended configurations
-        ...tseslint.configs.recommended,
-        
         rules: {
-            // This is the rule that fixes your original error:
+            // Enforce explicit types for 'any' usage
             "@typescript-eslint/no-explicit-any": "error", 
             
-            // Turn off react/prop-types since TS handles it
+            // Turn off react/prop-types as TypeScript handles this validation
             "react/prop-types": "off" 
         }
     },
