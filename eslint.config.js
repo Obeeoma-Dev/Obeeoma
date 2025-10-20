@@ -1,9 +1,11 @@
+
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReactRefresh from "eslint-plugin-react-refresh"; 
+// 💡 CRITICAL FIX: Change to import the default/primary export for these plugins
+import reactHooks from "eslint-plugin-react-hooks"; 
+import reactRefresh from "eslint-plugin-react-refresh"; 
 
 export default [
     // 1. Global Ignore Patterns
@@ -16,21 +18,26 @@ export default [
     // Standard ESLint recommended JS rules
     pluginJs.configs.recommended, 
     
-    // Recommended TypeScript rules (CRITICAL FIX for "Unexpected key '0'")
+    // Recommended TypeScript rules
     ...tseslint.configs.recommended,
     
-    // Recommended React Hooks rules
-    ...pluginReactHooks.configs.recommended, 
+    // 💡 FIX 1: React Hooks recommended config is often spread directly (no 'configs' property)
+    // We access the rules directly on the imported object if it's not an array.
+    {
+        // Add the rules from the plugin
+        rules: reactHooks.configs.recommended.rules // Access the rules object directly
+    },
     
-    // React Refresh/Vite rules
-    ...pluginReactRefresh.configs.vite, 
+    // 💡 FIX 2: React Refresh/Vite rules
+    // Include the React Refresh config object directly
+    reactRefresh.configs.vite, 
 
 
     // 3. Main Configuration Block for all source files ({js,jsx,ts,tsx})
     {
         files: ["**/*.{js,jsx,ts,tsx}"],
         
-        // Includes React JSX/component rules (from pluginReact)
+        // Includes React standard configs
         ...pluginReact.configs.flat.recommended, 
         
         languageOptions: {
