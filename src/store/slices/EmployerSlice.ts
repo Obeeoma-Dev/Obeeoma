@@ -136,6 +136,7 @@ export const fetchEmployerDashboardSummary = createAsyncThunk(
 const initialState: EmployerState = {
   invites: [],
   billing: null,
+  subcription: null,
   engagement: null,
   reports: [],
   summary: null,

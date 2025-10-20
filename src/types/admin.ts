@@ -10,7 +10,10 @@ export interface AdminUser {
 // // Define the shape of the Admin Dashboard state
 export interface AdminState {
   users: AdminUser[];
+  organisations: OrganisationData[];
+  settings: SettingData[];
   stats: DashboardStats | null;
+  featureFlags: FeatureFlag[];
   isLoading: boolean;
   error: string | null;
   crisisInsights: CrisisInsight[];
@@ -19,6 +22,7 @@ export interface AdminState {
   reports: Report[];
   trends: TrendData[] | null;
   summary: DashboardSummary | null; //needs fixing
+  EmployeeInvite : EmployeeInvite[];
 }
 
 export interface EmployeeInvite {
@@ -59,6 +63,7 @@ export interface DashboardSummary {
   newUsersToday: number;
   topGeographies: string[];
   recentLogins: { user: string; time: string }[];
+  employee_activity: number;
   // Add other summary fields
 }
 
@@ -94,3 +99,40 @@ export interface Report {
   };
   downloadUrl: string;
 }
+
+
+export interface OrganisationData {
+  name: string;
+  industry: string;
+  contact_email: string;
+}
+
+export interface OrganisationUpdateData extends Partial<OrganisationData> {}
+
+export interface SettingData {
+  key: string;
+  value: string | number | boolean;
+  is_public: boolean;
+}
+
+export interface SettingUpdateData extends Partial<SettingData> {}
+
+export interface CrisisInsight {
+  id: string | number;
+  date: string; // YYYY-MM-DD
+  calls_received: number;
+  critical_cases: number;
+  // ... other fields
+}
+
+export interface CrisisInsightData extends Omit<CrisisInsight, 'id'> {}
+export interface CrisisInsightUpdateData extends Partial<CrisisInsightData> {}
+
+export interface FeatureFlag {
+  id: string | number;
+  name: string;
+  enabled: boolean;
+}
+
+export interface FeatureFlagData extends Omit<FeatureFlag, 'id'> {}
+export interface FeatureFlagUpdateData extends Partial<FeatureFlagData> {}

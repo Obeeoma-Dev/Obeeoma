@@ -33,15 +33,6 @@ export interface EmployeeEngagementData {
   // Add other engagement metrics
 }
 
-
-export interface FeatureUsageData {
-  featureName: string;
-  usageCount: number;
-  lastUsed: string; // ISO date string
-  // Add other feature usage fields
-}
-
-
 export interface Report {
   id: string | number;
   name: string;
@@ -63,6 +54,18 @@ export interface EmployeeInvite {
   status: 'pending' | 'accepted' | 'expired';
   sentDate: string; // ISO date string
 }
+
+export interface InviteData {
+  email: string;
+  role: 'employee'; // Assuming the role is fixed
+}
+
+export interface SubscriptionData {
+  plan_id: string;
+  billing_cycle: 'monthly' | 'annually';
+ methodOfPayment: string;
+}
+
 
 export interface BillingDetails {
   planName: string;
@@ -90,7 +93,7 @@ export interface EmployerState {
   engagement: EmployerEngagementData | null;
   reports: Report[];
   summary: DashboardSummary | null;
-  
+  subcription: SubscriptionData | null;
   isLoading: boolean;
   isActionLoading: boolean; // For post/action endpoints
   error: string | null;
