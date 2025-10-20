@@ -37,6 +37,7 @@ import { store } from "./../src/store/store";
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
+import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ export default function App(): React.ReactElement {
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
+              <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
 
 
               {/* SYSTEMS ADMIN ROUTES */}
