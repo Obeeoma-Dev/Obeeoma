@@ -103,8 +103,7 @@ export const deleteUser = createAsyncThunk("admin/deleteUser", async (userId, //
     }
 });
 // POST /v1/dashboard/invites/ (Add Employee)
-export const addEmployeeInvite = createAsyncThunk("admin/addEmployeeInvite", async (inviteData, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const addEmployeeInvite = createAsyncThunk("admin/addEmployeeInvite", async (inviteData, { rejectWithValue }) => {
     try {
         // Assuming 'addEmployee' takes the data needed for the invite
         const response = await adminAPI.addEmployee();
@@ -116,8 +115,7 @@ export const addEmployeeInvite = createAsyncThunk("admin/addEmployeeInvite", asy
     }
 });
 // POST /v1/dashboard/crisis-insights/add/
-export const createCrisisInsight = createAsyncThunk("admin/createCrisisInsight", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const createCrisisInsight = createAsyncThunk("admin/createCrisisInsight", async (data, { rejectWithValue }) => {
     try {
         // Assuming 'postCrisisInsights' takes the data for the new insight
         const response = await adminAPI.postCrisisInsights();
@@ -129,8 +127,7 @@ export const createCrisisInsight = createAsyncThunk("admin/createCrisisInsight",
     }
 });
 // POST /v1/dashboard/crisis-insights/update/
-export const updateCrisisInsight = createAsyncThunk("admin/updateCrisisInsight", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const updateCrisisInsight = createAsyncThunk("admin/updateCrisisInsight", async (data, { rejectWithValue }) => {
     try {
         // Assuming 'putCrisisInsights' takes the data for the update
         const response = await adminAPI.putCrisisInsights();
@@ -142,8 +139,7 @@ export const updateCrisisInsight = createAsyncThunk("admin/updateCrisisInsight",
     }
 });
 // POST /v1/dashboard/crisis-insights/changes/
-export const changeCrisisInsight = createAsyncThunk("admin/changeCrisisInsight", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const changeCrisisInsight = createAsyncThunk("admin/changeCrisisInsight", async (data, { rejectWithValue }) => {
     try {
         // Assuming 'changeCrisisInsights' takes the data for the change
         const response = await adminAPI.changeCrisisInsights();
@@ -155,8 +151,7 @@ export const changeCrisisInsight = createAsyncThunk("admin/changeCrisisInsight",
     }
 });
 // POST /v1/dashboard/feature-usage
-export const createFeatureUsage = createAsyncThunk("admin/createFeatureUsage", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const createFeatureUsage = createAsyncThunk("admin/createFeatureUsage", async (data, { rejectWithValue }) => {
     try {
         const response = await adminAPI.createFeatureUsage();
         data.onSuccess?.();
@@ -169,6 +164,10 @@ export const createFeatureUsage = createAsyncThunk("admin/createFeatureUsage", a
 const initialState = {
     users: [],
     summary: null,
+    organisations: [],
+    settings: [],
+    featureFlags: [],
+    EmployeeInvite: [],
     stats: null,
     crisisInsights: [],
     employeeEngagement: null,
