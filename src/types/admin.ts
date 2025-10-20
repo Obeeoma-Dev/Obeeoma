@@ -118,7 +118,7 @@ export interface SettingData {
   is_public: boolean;
 }
 
-export interface SettingUpdateData extends Partial<SettingData> {}
+export type SettingUpdateData = Partial<SettingData>;
 
 export interface CrisisInsight {
   id: string | number;
