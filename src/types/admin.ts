@@ -2,6 +2,7 @@ export interface AdminUser {
   id: string;
   username: string;
   email: string;
+  //let these roles be more specific ie system-admin, employer and employee
   role: "admin" | "employer" | "user";
   is_active: boolean;
   date_joined: string;
@@ -50,13 +51,15 @@ export interface EmployerEngagementData {
     score: number;
   }[];
 }
+// Define dashboard statistics structure returned by the API
 export interface DashboardStats {
-  totalUsers: number;
-  activeUsers: number;
-  employees: number;
-  crisisInsightsCount: number;
-  // Assuming the API returns a structured object, not just a number
-  [key: string]: any; // Allow for other dynamic stats
+  totalUsers: number; // Total number of users
+  activeUsers: number; // Number of currently active users
+  employees: number; // Number of employees
+  crisisInsightsCount: number; // Number of crisis insights
+
+  // Allow dynamic keys with unknown values (safe alternative to 'any')
+  [key: string]: unknown;
 }
 
 export interface DashboardSummary {
@@ -107,7 +110,7 @@ export interface OrganisationData {
   contact_email: string;
 }
 
-export interface OrganisationUpdateData extends Partial<OrganisationData> {}
+export type OrganisationUpdateData = Partial<OrganisationData>;
 
 export interface SettingData {
   key: string;
@@ -115,7 +118,7 @@ export interface SettingData {
   is_public: boolean;
 }
 
-export interface SettingUpdateData extends Partial<SettingData> {}
+export type SettingUpdateData = Partial<SettingData>;
 
 export interface CrisisInsight {
   id: string | number;
@@ -125,8 +128,8 @@ export interface CrisisInsight {
   // ... other fields
 }
 
-export interface CrisisInsightData extends Omit<CrisisInsight, 'id'> {}
-export interface CrisisInsightUpdateData extends Partial<CrisisInsightData> {}
+export type CrisisInsightData = Omit<CrisisInsight, 'id'>;
+export type CrisisInsightUpdateData = Partial<CrisisInsightData>;
 
 export interface FeatureFlag {
   id: string | number;
@@ -134,5 +137,5 @@ export interface FeatureFlag {
   enabled: boolean;
 }
 
-export interface FeatureFlagData extends Omit<FeatureFlag, 'id'> {}
-export interface FeatureFlagUpdateData extends Partial<FeatureFlagData> {}
+export type FeatureFlagData = Omit<FeatureFlag, 'id'>;
+export type FeatureFlagUpdateData = Partial<FeatureFlagData>;

@@ -56,21 +56,29 @@ export const fetchCrisisInsights = createAsyncThunk("admin/fetchCrisisInsights",
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const fetchEmployeeEngagement = createAsyncThunk("admin/fetchEmployeeEngagement", async (filters = {}, { rejectWithValue }) => {
+// Define async thunk for fetching employee engagement data
+export const fetchEmployeeEngagement = createAsyncThunk("admin/fetchEmployeeEngagement", // Redux action type
+async (_, { rejectWithValue }) => {
     try {
+        // Call admin API to fetch engagement data
         const response = await adminAPI.getEmployeeEngagement();
-        return response.data;
+        return response.data; // Cast response to expected type
     }
     catch (error) {
+        // Use shared error handler to extract message
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const fetchReports = createAsyncThunk("admin/fetchReports", async (reportParams = {}, { rejectWithValue }) => {
+// Define async thunk for fetching admin reports
+export const fetchReports = createAsyncThunk("admin/fetchReports", // Redux action type
+async (_, { rejectWithValue }) => {
     try {
+        // Call admin API to fetch reports (assumed GET or POST without params)
         const response = await adminAPI.getReports();
-        return response.data;
+        return response.data; // Cast response to expected Report[] type
     }
     catch (error) {
+        // Use shared error handler to extract message
         return rejectWithValue(getErrorMessage(error));
     }
 });
@@ -95,8 +103,7 @@ export const deleteUser = createAsyncThunk("admin/deleteUser", async (userId, //
     }
 });
 // POST /v1/dashboard/invites/ (Add Employee)
-export const addEmployeeInvite = createAsyncThunk("admin/addEmployeeInvite", async (inviteData, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const addEmployeeInvite = createAsyncThunk("admin/addEmployeeInvite", async (inviteData, { rejectWithValue }) => {
     try {
         // Assuming 'addEmployee' takes the data needed for the invite
         const response = await adminAPI.addEmployee();
@@ -108,8 +115,7 @@ export const addEmployeeInvite = createAsyncThunk("admin/addEmployeeInvite", asy
     }
 });
 // POST /v1/dashboard/crisis-insights/add/
-export const createCrisisInsight = createAsyncThunk("admin/createCrisisInsight", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const createCrisisInsight = createAsyncThunk("admin/createCrisisInsight", async (data, { rejectWithValue }) => {
     try {
         // Assuming 'postCrisisInsights' takes the data for the new insight
         const response = await adminAPI.postCrisisInsights();
@@ -121,8 +127,7 @@ export const createCrisisInsight = createAsyncThunk("admin/createCrisisInsight",
     }
 });
 // POST /v1/dashboard/crisis-insights/update/
-export const updateCrisisInsight = createAsyncThunk("admin/updateCrisisInsight", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const updateCrisisInsight = createAsyncThunk("admin/updateCrisisInsight", async (data, { rejectWithValue }) => {
     try {
         // Assuming 'putCrisisInsights' takes the data for the update
         const response = await adminAPI.putCrisisInsights();
@@ -134,8 +139,7 @@ export const updateCrisisInsight = createAsyncThunk("admin/updateCrisisInsight",
     }
 });
 // POST /v1/dashboard/crisis-insights/changes/
-export const changeCrisisInsight = createAsyncThunk("admin/changeCrisisInsight", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const changeCrisisInsight = createAsyncThunk("admin/changeCrisisInsight", async (data, { rejectWithValue }) => {
     try {
         // Assuming 'changeCrisisInsights' takes the data for the change
         const response = await adminAPI.changeCrisisInsights();
@@ -147,8 +151,7 @@ export const changeCrisisInsight = createAsyncThunk("admin/changeCrisisInsight",
     }
 });
 // POST /v1/dashboard/feature-usage
-export const createFeatureUsage = createAsyncThunk("admin/createFeatureUsage", async (data, // Added data and onSuccess pattern
-{ rejectWithValue }) => {
+export const createFeatureUsage = createAsyncThunk("admin/createFeatureUsage", async (data, { rejectWithValue }) => {
     try {
         const response = await adminAPI.createFeatureUsage();
         data.onSuccess?.();

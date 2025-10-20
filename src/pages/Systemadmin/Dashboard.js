@@ -1,13 +1,16 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Container, Row, Col } from "react-bootstrap";
-// Import custom dashboard components
+// Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
 import Header from "../../components/admincomponents/adminheader";
 import DashboardStats from "../../components/admincomponents/dashboardstats";
 import PlatformUsageChart from "../../components/admincomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/buttonmetrics";
-// Define static data for recent activities
+/**
+ * Static placeholder data for recent activities
+ * Replace with API data when backend is ready
+ */
 const recentActivityData = [
     {
         id: "1",
@@ -50,7 +53,10 @@ const recentActivityData = [
         iconColor: "bg-light",
     },
 ];
-// Define static data for bottom metric cards
+/**
+ * Static placeholder data for bottom metric cards
+ * Replace with API data when backend is ready
+ */
 const bottomMetricData = [
     {
         id: "1",
@@ -88,9 +94,11 @@ const bottomMetricData = [
         icon: "CreditCard",
         color: "pink",
     },
-    // Add more metrics as needed
 ];
-// Define static data for top dashboard stats
+/**
+ * Static placeholder data for top dashboard stats
+ * Replace with API data when backend is ready
+ */
 const dashboardStatsData = [
     {
         id: "1",
@@ -98,14 +106,40 @@ const dashboardStatsData = [
         value: "42",
         change: "+3 this month",
         icon: "Building2",
-        iconColor: "bg-light", // Bootstrap background utility
+        iconColor: "bg-light",
     },
-    // Add more stats as needed
+    {
+        id: "2",
+        title: "Total Clients",
+        value: "1,284",
+        change: "+12 this week",
+        icon: "Users",
+        iconColor: "bg-light",
+    },
+    {
+        id: "3",
+        title: "AI Recommendations",
+        value: "25,800",
+        change: "+1,245 today",
+        icon: "Brain",
+        iconColor: "bg-light",
+    },
+    {
+        id: "4",
+        title: "Hotline Calls Today",
+        value: "42",
+        change: "+5 since yesterday",
+        icon: "Phone",
+        iconColor: "bg-light",
+    },
 ];
-// Main Dashboard component
+/**
+ * Main Dashboard component
+ * Combines sidebar, header, and dashboard content
+ */
 const Dashboard = () => {
     return (
-    // Root container with full viewport height and horizontal layout
+    // Full-height layout with sidebar and main content
     _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
                             flex: 1,
                             overflowY: 'auto',
@@ -113,5 +147,4 @@ const Dashboard = () => {
                             backgroundColor: '#f8f9fa',
                         }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
 };
-// Export the component for use in routing or layout
 export default Dashboard;

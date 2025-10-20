@@ -7,7 +7,6 @@ export interface EmployerUser {
   // Add other user-specific fields
 }
 
-
 export interface DashboardSummary {
   recentActivity: string[]; // Define a more specific type if possible
   topMetrics: {
@@ -17,7 +16,6 @@ export interface DashboardSummary {
   // Add other summary fields
 }
 
-
 export interface CrisisInsight {
   id: string | number;
   title: string;
@@ -25,7 +23,6 @@ export interface CrisisInsight {
   status: 'draft' | 'published' | 'archived';
   // Add other crisis insight fields
 }
-
 
 export interface EmployeeEngagementData {
   engagementScore: number;
@@ -40,7 +37,6 @@ export interface Report {
   downloadUrl: string;
   // Add other report fields
 }
-
 
 export interface TrendData {
   period: string;
@@ -65,7 +61,6 @@ export interface SubscriptionData {
   billing_cycle: 'monthly' | 'annually';
  methodOfPayment: string;
 }
-
 
 export interface BillingDetails {
   planName: string;

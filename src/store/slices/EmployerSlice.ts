@@ -37,10 +37,10 @@ export const inviteEmployee = createAsyncThunk(
   ) => {
     try {
       // NOTE: Assuming employerAPI.inviteEmployee internally uses POST /v1/employers/ with emailData
-      const response = await employerAPI.inviteEmployee(); 
+      const response = await employerAPI.inviteEmployee();
       emailData.onSuccess?.();
       // The API often returns the new object upon successful creation
-      return response.data as EmployeeInvite; 
+      return response.data as EmployeeInvite;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -53,27 +53,24 @@ export const fetchEmployeeInvites = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await employerAPI.viewInviteEmployee();
-      return response.data as EmployeeInvite[]; 
+      return response.data as EmployeeInvite[];
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
   }
 );
 
+
 // POST /v1/employer/billing/add-subscription/
 export const addSubscription = createAsyncThunk(
   'employer/addSubscription',
-  async (
-    subscriptionData: any & { onSuccess?: () => void }, // 'any' should be replaced by a BillingData type
-    { rejectWithValue },
-  ) => {
+  async (_, { rejectWithValue }) => {
     try {
       // NOTE: Assuming employerAPI.viewSubscription is a placeholder for a POST function
-      const response = await employerAPI.viewSubscription(); 
-      subscriptionData.onSuccess?.();
-      return response.data as BillingDetails; 
+      const response = await employerAPI.viewSubscription(); // Call API without unused param
+      return response.data as BillingDetails; // Return typed billing details
     } catch (error: unknown) {
-      return rejectWithValue(getErrorMessage(error));
+      return rejectWithValue(getErrorMessage(error)); // Handle error gracefully
     }
   }
 );
@@ -84,7 +81,7 @@ export const fetchBillingDetails = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await employerAPI.viewBilling();
-      return response.data as BillingDetails; 
+      return response.data as BillingDetails;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -97,7 +94,7 @@ export const fetchEmployerEngagement = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await employerAPI.getEngagement();
-      return response.data as EmployerEngagementData; 
+      return response.data as EmployerEngagementData;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -107,15 +104,15 @@ export const fetchEmployerEngagement = createAsyncThunk(
 // POST /v1/employer/reports/ (Usually requires filter/param data for POST report generation)
 export const fetchEmployerReports = createAsyncThunk(
   'employer/fetchReports',
-  async (reportParams: any = {}, { rejectWithValue }) => { // Added optional params for POST request
+  async (_, { rejectWithValue }) => {
     try {
       // NOTE: Assuming employerAPI.getReports is a placeholder for a POST function
-      const response = await employerAPI.getReports(); 
-      return response.data as Report[]; 
+      const response = await employerAPI.getReports();
+      return response.data as Report[];
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
-  }
+  },
 );
 
 // GET /v1/employer/overview
@@ -124,7 +121,7 @@ export const fetchEmployerDashboardSummary = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await employerAPI.getemployerdashboardSummary();
-      return response.data as DashboardSummary; 
+      return response.data as DashboardSummary;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -215,7 +212,7 @@ const employerSlice = createSlice({
       .addCase(inviteEmployee.fulfilled, (state, action: PayloadAction<EmployeeInvite>) => {
         state.isActionLoading = false;
         // Prepend new invite to the list
-        state.invites.unshift(action.payload); 
+        state.invites.unshift(action.payload);
       })
       .addCase(inviteEmployee.rejected, handleRejected)
 

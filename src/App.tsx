@@ -22,7 +22,7 @@ import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
-import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizations"; // to be corected later
+import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails"; // to be corected later
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
 import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";

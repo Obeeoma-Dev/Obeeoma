@@ -31,8 +31,7 @@ const CompanyReports = () => {
     <Layout 
       title="Company Reports" 
       showSearch={true}
-      additionalHeaderContent={additionalHeader}
-    >
+      additionalHeaderContent={additionalHeader}>
       <div className="container-fluid py-4">
         <ReportsHeader />
         <WellnessTrends />

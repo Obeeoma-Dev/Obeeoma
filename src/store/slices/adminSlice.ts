@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 // Adjust this path to match your project structure
-import { adminAPI } from "../../api/apiConfig"; 
+import { adminAPI } from "../../api/apiConfig";
 import {
   AdminState,
   AdminUser,
@@ -84,26 +84,32 @@ export const fetchCrisisInsights = createAsyncThunk(
 );
 
 
+// Define async thunk for fetching employee engagement data
 export const fetchEmployeeEngagement = createAsyncThunk(
-  "admin/fetchEmployeeEngagement",
-  async (filters: any = {}, { rejectWithValue }) => { 
+  "admin/fetchEmployeeEngagement", // Redux action type
+  async (_, { rejectWithValue }) => {
     try {
+      // Call admin API to fetch engagement data
       const response = await adminAPI.getEmployeeEngagement();
-      return response.data as EmployeeEngagementData;
+      return response.data as EmployeeEngagementData; // Cast response to expected type
     } catch (error: unknown) {
+      // Use shared error handler to extract message
       return rejectWithValue(getErrorMessage(error));
     }
   }
 );
 
 
+// Define async thunk for fetching admin reports
 export const fetchReports = createAsyncThunk(
-  "admin/fetchReports",
-  async (reportParams: any = {}, { rejectWithValue }) => { // Added optional report parameters
+  "admin/fetchReports", // Redux action type
+  async (_, { rejectWithValue }) => {
     try {
+      // Call admin API to fetch reports (assumed GET or POST without params)
       const response = await adminAPI.getReports();
-      return response.data as Report[];
+      return response.data as Report[]; // Cast response to expected Report[] type
     } catch (error: unknown) {
+      // Use shared error handler to extract message
       return rejectWithValue(getErrorMessage(error));
     }
   }
@@ -131,8 +137,8 @@ export const deleteUser = createAsyncThunk(
   ) => {
     try {
       await adminAPI.deleteUser(userId);
-  
-      return userId; 
+
+      return userId;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -143,7 +149,7 @@ export const deleteUser = createAsyncThunk(
 export const addEmployeeInvite = createAsyncThunk(
   "admin/addEmployeeInvite",
   async (
-    inviteData: any & { onSuccess?: () => void }, // Added data and onSuccess pattern
+    inviteData: Record<string, unknown> & { onSuccess?: () => void }, 
     { rejectWithValue },
   ) => {
     try {
@@ -161,7 +167,7 @@ export const addEmployeeInvite = createAsyncThunk(
 export const createCrisisInsight = createAsyncThunk(
   "admin/createCrisisInsight",
   async (
-    data: any & { onSuccess?: () => void }, // Added data and onSuccess pattern
+    data: Record<string, unknown> & { onSuccess?: () => void }, 
     { rejectWithValue },
   ) => {
     try {
@@ -179,7 +185,7 @@ export const createCrisisInsight = createAsyncThunk(
 export const updateCrisisInsight = createAsyncThunk(
   "admin/updateCrisisInsight",
   async (
-    data: any & { onSuccess?: () => void }, // Added data and onSuccess pattern
+    data: Record<string, unknown> & { onSuccess?: () => void }, 
     { rejectWithValue },
   ) => {
     try {
@@ -197,7 +203,7 @@ export const updateCrisisInsight = createAsyncThunk(
 export const changeCrisisInsight = createAsyncThunk(
   "admin/changeCrisisInsight",
   async (
-    data: any & { onSuccess?: () => void }, // Added data and onSuccess pattern
+    data: Record<string, unknown> & { onSuccess?: () => void }, 
     { rejectWithValue },
   ) => {
     try {
@@ -215,7 +221,7 @@ export const changeCrisisInsight = createAsyncThunk(
 export const createFeatureUsage = createAsyncThunk(
   "admin/createFeatureUsage",
   async (
-    data: any & { onSuccess?: () => void }, // Added data and onSuccess pattern
+    data: Record<string, unknown> & { onSuccess?: () => void }, 
     { rejectWithValue },
   ) => {
     try {
@@ -275,7 +281,7 @@ const adminSlice = createSlice({
     };
 
     const handleActionFulfilled = (state: AdminState) => {
-        state.isActionLoading = false;
+      state.isActionLoading = false;
     }
 
     builder
@@ -335,7 +341,7 @@ const adminSlice = createSlice({
       })
       .addCase(fetchTrends.rejected, handleRejected)
 
- 
+
       // --- Delete User ---
       .addCase(deleteUser.pending, handleActionPending)
       .addCase(deleteUser.fulfilled, (state, action: PayloadAction<string | number>) => {
@@ -349,7 +355,7 @@ const adminSlice = createSlice({
       .addCase(createCrisisInsight.pending, handleActionPending)
       .addCase(updateCrisisInsight.pending, handleActionPending)
       .addCase(changeCrisisInsight.pending, handleActionPending)
-      
+
       // Add new insight
       .addCase(createCrisisInsight.fulfilled, (state, action: PayloadAction<CrisisInsight>) => {
         handleActionFulfilled(state);

@@ -61,7 +61,7 @@ const SecuritySettings: React.FC = () => {
             await new Promise((resolve) => setTimeout(resolve, 1000));
             console.log('Saving security settings:', settings);
             setSaveSuccess(true);
-        } catch (error) {
+        } catch {
             setSaveError('Failed to save settings. Please try again.');
         }
     };

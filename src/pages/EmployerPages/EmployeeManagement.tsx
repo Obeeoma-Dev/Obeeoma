@@ -18,8 +18,7 @@ const EmployeeManagement = () => {
     <Layout 
       title="Employee Management" 
       showSearch={true}
-      additionalHeaderContent={additionalHeader}
-    >
+      additionalHeaderContent={additionalHeader}>
       <div className="container-fluid py-4">
         <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
         <AddEmployeeForm />

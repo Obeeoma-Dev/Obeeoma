@@ -11,8 +11,6 @@ import {
   Col,
   Button,
   Form as BootstrapForm,
-  ToggleButton,
-  ToggleButtonGroup,
   Alert,
 } from "react-bootstrap";
 
@@ -28,10 +26,10 @@ type RegisterFormValues = {
 };
 
 const Register: React.FC = () => {
-  const [role, setRole] = useState<Role>("employee");
+  const [role] = useState<Role>("employee");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { isLoading, error } = useSelector((state: RootState) => state.auth);
+  const { error } = useSelector((state: RootState) => state.auth);
 
   const initialValues: RegisterFormValues = {
     username: "",

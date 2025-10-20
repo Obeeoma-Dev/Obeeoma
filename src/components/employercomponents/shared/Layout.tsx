@@ -11,7 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/obeeomalogoicon4.png";
+
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -19,7 +19,7 @@ interface LayoutProps {
   additionalHeaderContent?: ReactNode;
 }
 
-const Layout = ({ children, title, showSearch = false, additionalHeaderContent }: LayoutProps) => {
+const Layout = ({ children, title}: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
