@@ -2,6 +2,7 @@ export interface AdminUser {
   id: string;
   username: string;
   email: string;
+  //let these roles be more specific ie system-admin, employer and employee
   role: "admin" | "employer" | "user";
   is_active: boolean;
   date_joined: string;
@@ -109,7 +110,7 @@ export interface OrganisationData {
   contact_email: string;
 }
 
-export interface OrganisationUpdateData extends Partial<OrganisationData> {}
+export type OrganisationUpdateData = Partial<OrganisationData>;
 
 export interface SettingData {
   key: string;
@@ -127,8 +128,8 @@ export interface CrisisInsight {
   // ... other fields
 }
 
-export interface CrisisInsightData extends Omit<CrisisInsight, 'id'> {}
-export interface CrisisInsightUpdateData extends Partial<CrisisInsightData> {}
+export type CrisisInsightData = Omit<CrisisInsight, 'id'>;
+export type CrisisInsightUpdateData = Partial<CrisisInsightData>;
 
 export interface FeatureFlag {
   id: string | number;
@@ -136,5 +137,5 @@ export interface FeatureFlag {
   enabled: boolean;
 }
 
-export interface FeatureFlagData extends Omit<FeatureFlag, 'id'> {}
-export interface FeatureFlagUpdateData extends Partial<FeatureFlagData> {}
+export type FeatureFlagData = Omit<FeatureFlag, 'id'>;
+export type FeatureFlagUpdateData = Partial<FeatureFlagData>;
