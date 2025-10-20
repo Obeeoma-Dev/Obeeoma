@@ -50,13 +50,15 @@ export interface EmployerEngagementData {
     score: number;
   }[];
 }
+// Define dashboard statistics structure returned by the API
 export interface DashboardStats {
-  totalUsers: number;
-  activeUsers: number;
-  employees: number;
-  crisisInsightsCount: number;
-  // Assuming the API returns a structured object, not just a number
-  [key: string]: any; // Allow for other dynamic stats
+  totalUsers: number; // Total number of users
+  activeUsers: number; // Number of currently active users
+  employees: number; // Number of employees
+  crisisInsightsCount: number; // Number of crisis insights
+
+  // Allow dynamic keys with unknown values (safe alternative to 'any')
+  [key: string]: unknown;
 }
 
 export interface DashboardSummary {

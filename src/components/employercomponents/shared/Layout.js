@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LayoutDashboard, Users as UsersIcon, CreditCard, Settings as SettingsIcon, FileText, LogOut, Bell, Menu, X, } from "lucide-react";
-const Layout = ({ children, title, showSearch = false, additionalHeaderContent }) => {
+const Layout = ({ children, title }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();

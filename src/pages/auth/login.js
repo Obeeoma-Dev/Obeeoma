@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,6 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isLoading, error } = useSelector((state) => state.auth);
-    const [role, setRole] = useState("Employee");
     useEffect(() => {
         dispatch(clearError());
     }, [dispatch]);

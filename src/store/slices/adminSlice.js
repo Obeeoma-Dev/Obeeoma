@@ -56,21 +56,29 @@ export const fetchCrisisInsights = createAsyncThunk("admin/fetchCrisisInsights",
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const fetchEmployeeEngagement = createAsyncThunk("admin/fetchEmployeeEngagement", async (filters = {}, { rejectWithValue }) => {
+// Define async thunk for fetching employee engagement data
+export const fetchEmployeeEngagement = createAsyncThunk("admin/fetchEmployeeEngagement", // Redux action type
+async (_, { rejectWithValue }) => {
     try {
+        // Call admin API to fetch engagement data
         const response = await adminAPI.getEmployeeEngagement();
-        return response.data;
+        return response.data; // Cast response to expected type
     }
     catch (error) {
+        // Use shared error handler to extract message
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const fetchReports = createAsyncThunk("admin/fetchReports", async (reportParams = {}, { rejectWithValue }) => {
+// Define async thunk for fetching admin reports
+export const fetchReports = createAsyncThunk("admin/fetchReports", // Redux action type
+async (_, { rejectWithValue }) => {
     try {
+        // Call admin API to fetch reports (assumed GET or POST without params)
         const response = await adminAPI.getReports();
-        return response.data;
+        return response.data; // Cast response to expected Report[] type
     }
     catch (error) {
+        // Use shared error handler to extract message
         return rejectWithValue(getErrorMessage(error));
     }
 });

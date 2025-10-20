@@ -7,10 +7,10 @@ import { registerUser, clearError } from "../../store/slices/authSlice";
 import { registerValidationSchema } from "./../../validation/authValidation";
 import { Container, Row, Col, Button, Form as BootstrapForm, Alert, } from "react-bootstrap";
 const Register = () => {
-    const [role, setRole] = useState("employee");
+    const [role] = useState("employee");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLoading, error } = useSelector((state) => state.auth);
+    const { error } = useSelector((state) => state.auth);
     const initialValues = {
         username: "",
         email: "",
