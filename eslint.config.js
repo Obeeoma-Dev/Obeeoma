@@ -1,9 +1,8 @@
-
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-// 💡 CRITICAL FIX: Change to import the default/primary export for these plugins
+// 💡 Import plugin object to define it later
 import reactHooks from "eslint-plugin-react-hooks"; 
 import reactRefresh from "eslint-plugin-react-refresh"; 
 
@@ -14,37 +13,39 @@ export default [
     },
 
     // 2. Base Configurations (Loaded as separate arrays to be automatically flattened)
-    
-    // Standard ESLint recommended JS rules
     pluginJs.configs.recommended, 
-    
-    // Recommended TypeScript rules
     ...tseslint.configs.recommended,
     
-    // 💡 FIX 1: React Hooks recommended config is often spread directly (no 'configs' property)
-    // We access the rules directly on the imported object if it's not an array.
-    {
-        // Add the rules from the plugin
-        rules: reactHooks.configs.recommended.rules // Access the rules object directly
-    },
-    
-    // 💡 FIX 2: React Refresh/Vite rules
-    // Include the React Refresh config object directly
-    reactRefresh.configs.vite, 
-
-
-    // 3. Main Configuration Block for all source files ({js,jsx,ts,tsx})
+    // 3. CRITICAL FIX: Explicitly register plugins and apply their rules
     {
         files: ["**/*.{js,jsx,ts,tsx}"],
         
-        // Includes React standard configs
+        // 💡 CRITICAL FIX: Define the plugins array here
+        plugins: {
+            // The 'react' plugin is required for 'pluginReact.configs.flat.recommended'
+            react: pluginReact, 
+            
+            // This is the FIX for "could not find plugin 'react-hooks'"
+            "react-hooks": reactHooks,
+            
+            // Define other custom plugins
+            "react-refresh": reactRefresh,
+        },
+        
+        // Configuration extensions
         ...pluginReact.configs.flat.recommended, 
         
+        // Apply React Hooks rules using the correct access pattern (rules-only object)
+        rules: {
+            ...reactHooks.configs.recommended.rules, // Apply specific rules
+            
+            // Custom Rules
+            "react/react-in-jsx-scope": "off", 
+        },
+
         languageOptions: {
-            // Set language features
             ecmaVersion: 2020,
             sourceType: "module",
-            // Define global environments
             globals: {
                 ...globals.browser,
                 ...globals.node,
@@ -52,27 +53,19 @@ export default [
         },
         
         settings: {
-            // Configure React version detection
             react: {
                 version: "detect"
             }
         },
-        
-        rules: {
-            // Common React rule adjustments
-            "react/react-in-jsx-scope": "off", 
-        }
     },
-
-    // 4. TypeScript Specific Overrides (Applies TS Parser and specific TS rules)
+    
+    // 4. TypeScript Specific Overrides
     {
         files: ["**/*.ts", "**/*.tsx"],
         
         languageOptions: {
-            // Use the TypeScript parser
             parser: tseslint.parser,
             parserOptions: {
-                // IMPORTANT: Enables rules that require type checking
                 project: './tsconfig.json', 
                 ecmaVersion: 2020,
                 sourceType: "module",
@@ -80,10 +73,7 @@ export default [
         },
 
         rules: {
-            // Enforce explicit types for 'any' usage
             "@typescript-eslint/no-explicit-any": "error", 
-            
-            // Turn off react/prop-types as TypeScript handles this validation
             "react/prop-types": "off" 
         }
     },
