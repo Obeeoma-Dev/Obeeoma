@@ -2,7 +2,6 @@ import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
-// 💡 Import plugin object to define it later
 import reactHooks from "eslint-plugin-react-hooks"; 
 import reactRefresh from "eslint-plugin-react-refresh"; 
 
@@ -12,37 +11,25 @@ export default [
         ignores: ["build/", "dist/", "node_modules/", "coverage/"]
     },
 
-    // 2. Base Configurations (Loaded as separate arrays to be automatically flattened)
+    // 2. Base Configurations (Loaded as separate arrays)
     pluginJs.configs.recommended, 
     ...tseslint.configs.recommended,
     
-    // 3. CRITICAL FIX: Explicitly register plugins and apply their rules
+    // 3. Main Configuration Block for all source files ({js,jsx,ts,tsx})
     {
         files: ["**/*.{js,jsx,ts,tsx}"],
         
-        // 💡 CRITICAL FIX: Define the plugins array here
+        // CRITICAL FIX: Define the plugins array here so all rules (including react-hooks) are recognized.
         plugins: {
-            // The 'react' plugin is required for 'pluginReact.configs.flat.recommended'
             react: pluginReact, 
-            
-            // This is the FIX for "could not find plugin 'react-hooks'"
-            "react-hooks": reactHooks,
-            
-            // Define other custom plugins
+            "react-hooks": reactHooks, // ⬅️ FIX: Register the plugin
             "react-refresh": reactRefresh,
         },
         
         // Configuration extensions
         ...pluginReact.configs.flat.recommended, 
+        ...reactRefresh.configs.vite,
         
-        // Apply React Hooks rules using the correct access pattern (rules-only object)
-        rules: {
-            ...reactHooks.configs.recommended.rules, // Apply specific rules
-            
-            // Custom Rules
-            "react/react-in-jsx-scope": "off", 
-        },
-
         languageOptions: {
             ecmaVersion: 2020,
             sourceType: "module",
@@ -57,8 +44,18 @@ export default [
                 version: "detect"
             }
         },
+        
+        // 💡 Rules object: Manually list the React Hooks rules
+        rules: {
+            // React Hooks Rules (Manual Listing)
+            "react-hooks/rules-of-hooks": "error",  // Enforces rules of Hooks
+            "react-hooks/exhaustive-deps": "warn",   // Checks for exhaustive dependencies
+            
+            // Other Custom Rules
+            "react/react-in-jsx-scope": "off", 
+        }
     },
-    
+
     // 4. TypeScript Specific Overrides
     {
         files: ["**/*.ts", "**/*.tsx"],
