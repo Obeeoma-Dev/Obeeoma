@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { loginUser, clearError } from "../../store/slices/authSlice";
+import { loginUser , clearError } from "../../store/slices/authSlice";
+import { LoginSuccessPayload } from "../../types/auth";
 import { useNavigate } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
@@ -30,14 +31,64 @@ const LoginPage = () => {
     dispatch(clearError());
   }, [dispatch]);
 
-  const handleSubmit = (values: { username: string; password: string }) => {
-    dispatch(
-      loginUser({
-        ...values,
+  // const handleSubmit = (values: { username: string; password: string }) => 
+  //   try {
+  //     const resultAction = await dispatch(
+  //       loginUser({
+  //         ...values,
+  //         role,
+  //         onSuccess: () => {
+  //           if (role === "System Admin") {
+  //             navigate("/system-admin");
+  //           } else if (role === "Employer") {
+  //             navigate("/employer-dashboard");
+  //           } else {
+  //             navigate("/employee-dashboard");
+  //           }
+  //         },
+  //       })
+  //     );
 
-        onSuccess: () => navigate("/system-admin"),
-      })
-    );
+  //     if (loginUser.rejected.match(resultAction)) 
+  //       // Handle login failure if needed{
+  //       console.error("Login failed:", resultAction.payload);
+
+  //   } catch (error) 
+  //     console.error("An error occurred during login:", error);
+  //     {
+    
+  //   //dispatch(
+  //     //loginUser({
+  //      /// ...values,
+
+  //      // onSuccess: () => navigate("/system-admin"),
+  //    // })
+  //  /// );
+  // //};
+  const handleSubmit = async (values: { username: string; password: string,}) => {
+    try {
+        const resultAction = await dispatch(
+            loginUser({ username: values.username, password: values.password })
+        ).unwrap() as LoginSuccessPayload;
+        const userRole = resultAction.user.role; 
+
+        
+        if (userRole === 'admin') {
+            navigate("/system-admin"); // Redirect System Admin
+        } else if (userRole === 'employer') {
+            navigate("/employer-dashboard"); // Redirect Employer
+        } else if (userRole === 'employee') {
+            navigate("/employee-dashboard"); // Redirect Employee
+        } else {
+            // Fallback for an unrecognized role
+            console.warn(`Unrecognized role: ${userRole}. Redirecting to default.`);
+            navigate("/"); 
+        }
+
+    } catch (err) {
+        // This block catches any error thrown by the 'loginUser' thunk (e.g., 401 Unauthorized, network error).
+        console.error("Login failed (handled by Redux error state):", err);
+    }
   };
 
   return (

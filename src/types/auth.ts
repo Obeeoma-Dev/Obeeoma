@@ -2,6 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
+  role: "employee" | "employer" | "admin";
 }
 
 export interface LoginCredentials {
@@ -31,3 +32,13 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
 }
+
+
+export interface LoginSuccessPayload {
+    user: User; 
+    access: string;
+    token: string;
+    
+}
+
+  

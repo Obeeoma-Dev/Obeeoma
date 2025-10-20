@@ -20,11 +20,63 @@ const LoginPage = () => {
     useEffect(() => {
         dispatch(clearError());
     }, [dispatch]);
-    const handleSubmit = (values) => {
-        dispatch(loginUser({
-            ...values,
-            onSuccess: () => navigate("/system-admin"),
-        }));
+    // const handleSubmit = (values: { username: string; password: string }) => 
+    //   try {
+    //     const resultAction = await dispatch(
+    //       loginUser({
+    //         ...values,
+    //         role,
+    //         onSuccess: () => {
+    //           if (role === "System Admin") {
+    //             navigate("/system-admin");
+    //           } else if (role === "Employer") {
+    //             navigate("/employer-dashboard");
+    //           } else {
+    //             navigate("/employee-dashboard");
+    //           }
+    //         },
+    //       })
+    //     );
+    //     if (loginUser.rejected.match(resultAction)) 
+    //       // Handle login failure if needed{
+    //       console.error("Login failed:", resultAction.payload);
+    //   } catch (error) 
+    //     console.error("An error occurred during login:", error);
+    //     {
+    //   //dispatch(
+    //     //loginUser({
+    //      /// ...values,
+    //      // onSuccess: () => navigate("/system-admin"),
+    //    // })
+    //  /// );
+    // //};
+    const handleSubmit = async (values) => {
+        try {
+            // 1. Dispatch the login action and use .unwrap() to get the resolved payload
+            const resultAction = await dispatch(loginUser({ username: values.username, password: values.password })).unwrap();
+            // 2. Access the user role from the successful payload
+            // NOTE: The role strings used here must EXACTLY match the role strings returned by your DRF backend.
+            const userRole = resultAction.user.role;
+            // 3. Conditional Redirection Logic using IF/ELSE IF/ELSE
+            if (userRole === 'admin') {
+                navigate("/system-admin"); // Redirect System Admin
+            }
+            else if (userRole === 'employer') {
+                navigate("/employer-dashboard"); // Redirect Employer
+            }
+            else if (userRole === 'employee') {
+                navigate("/employee-dashboard"); // Redirect Employee
+            }
+            else {
+                // Fallback for an unrecognized role
+                console.warn(`Unrecognized role: ${userRole}. Redirecting to default.`);
+                navigate("/");
+            }
+        }
+        catch (err) {
+            // This block catches any error thrown by the 'loginUser' thunk (e.g., 401 Unauthorized, network error).
+            console.error("Login failed (handled by Redux error state):", err);
+        }
     };
     return (_jsxs("div", { className: "min-vh-100 d-flex flex-column justify-content-between bg-light", children: [_jsx("header", { className: "d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-white", children: _jsxs("div", { className: "d-flex align-items-center", children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "35", className: "me-2" }), _jsxs("div", { children: [_jsx("h5", { className: "m-0 text-success fw-semibold", children: "Obeeoma" }), _jsx("small", { className: "text-muted", children: "A Happy Heart" })] })] }) }), _jsx(Container, { className: "d-flex justify-content-center align-items-center flex-grow-1", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: { maxWidth: "480px", width: "100%" }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", children: "Sign in to your account" }), _jsx("p", { className: "text-center text-muted mb-4", children: "Welcome back to Obeeoma" }), error && (_jsx(Alert, { variant: "danger", onClose: () => dispatch(clearError()), dismissible: true, children: error })), _jsx(Formik, { initialValues: { username: "", password: "" }, validationSchema: loginValidationSchema, onSubmit: handleSubmit, children: ({ handleChange, handleSubmit, values, errors, touched }) => (_jsxs(Form, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(Form.Group, { className: "mb-3", controlId: "username", children: [_jsx(Form.Control, { type: "text", name: "username", value: values.username, onChange: handleChange, placeholder: "Username", className: "py-2 border-success border-opacity-25", isInvalid: touched.username && !!errors.username }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.username })] }), _jsxs(Form.Group, { className: "mb-3", controlId: "password", children: [_jsx(Form.Control, { type: "password", name: "password", value: values.password, onChange: handleChange, placeholder: "Password", className: "py-2 border-success border-opacity-25", isInvalid: touched.password && !!errors.password }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.password })] }), _jsx("div", { className: "d-flex justify-content-between align-items-center mb-3", children: _jsx("a", { href: "/reset-password-signin", className: "text-success text-decoration-none small", children: "Forgot password?" }) }), _jsx(Form.Check, { type: "checkbox", label: "Remember me", className: "mb-3 text-muted" }), _jsx(Button, { variant: "success", type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing in..."] })) : ("Sign in") }), _jsxs("div", { className: "text-center", children: [_jsx("span", { className: "text-muted", children: "Don\u2019t have an account? " }), _jsx("a", { href: "/signup", className: "text-success text-decoration-none fw-semibold", children: "Create an account" })] })] })) })] }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", children: ["\u00A9 2025 Obeeoma. All rights reserved. \u00A0", _jsx("a", { href: "#", className: "text-decoration-none text-success", children: "Privacy Policy" }), " ", "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-decoration-none text-success", children: "Terms of Service" }), " ", "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-decoration-none text-success", children: "Contact Us" })] })] }));
 };
