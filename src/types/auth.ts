@@ -21,6 +21,7 @@ export interface ForgotPasswordData {
 }
 
 export interface changePasswordData {
+  token:string;
   newPassword: string;
   confirmNewPassword: string;
 }

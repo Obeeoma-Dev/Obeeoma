@@ -24,6 +24,7 @@ const ResetPassword = () => {
         }));
     };
     return (_jsx("div", { className: "d-flex align-items-center justify-content-center min-vh-100 bg-light", children: _jsx(Card, { className: "shadow-lg border-0 overflow-hidden", style: { maxWidth: "900px", width: "100%" }, children: _jsxs(Row, { className: "g-0", children: [_jsxs(Col, { md: 6, className: "p-5 bg-white", children: [_jsx("h2", { className: "fw-semibold mb-2", children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4", children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", onClose: () => dispatch(clearError()), dismissible: true, children: error })), _jsx(Formik, { initialValues: {
+                                    token: "",
                                     newPassword: "",
                                     confirmNewPassword: "",
                                     // You might need to add code/token fields here if they are part of the form

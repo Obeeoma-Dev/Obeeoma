@@ -73,9 +73,9 @@ export const forgotPassword = createAsyncThunk(
   },
 );
 
-// Reset password
+// Reset password 
 export const resetPassword = createAsyncThunk(
-  "auth/resetPassword",
+  "auth/accept-invite",
   async (
     data: changePasswordData & { onSuccess?: () => void },
     { rejectWithValue },

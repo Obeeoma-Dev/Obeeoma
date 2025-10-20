@@ -97,7 +97,6 @@ export const adminAPI = {
         const response = await api.get("/v1/admin/users/");
         return response;
     },
-    // Deleting a user
     deleteUser: async (userId) => {
         const response = await api.delete(`/v1/admin/users/${userId}/`);
         return response;
@@ -130,7 +129,7 @@ export const adminAPI = {
         const response = await api.post("/v1/admin/employee-engagement/");
         return response;
     },
-    // getFeatureUsage: async (jobData: ) => {
+    // getFeatureUsage: async () => {
     //   const response = await api.get("/v1/dashboard/feature-usage/");
     //   return response;
     // },
@@ -144,6 +143,18 @@ export const adminAPI = {
     },
     getTrends: async () => {
         const response = await api.get("/v1/admin/trends");
+        return response;
+    },
+    viewSubscription: async () => {
+        const response = await api.post("/v1/employer/billing/add-subscription/");
+        return response;
+    },
+    viewBilling: async () => {
+        const response = await api.get("/v1/dashboard/billing/view");
+        return response;
+    },
+    getEngagement: async () => {
+        const response = await api.get("/v1/employer/engagements/");
         return response;
     },
     // employer endpoints
