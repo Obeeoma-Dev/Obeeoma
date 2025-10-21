@@ -1,5 +1,5 @@
 import React from 'react';
-import { NotificationFilter } from '../types/notification.types';
+import { NotificationFilter } from '../../../types/employernotification.types';
 
 interface FilterTabsProps {
   activeFilter: NotificationFilter;

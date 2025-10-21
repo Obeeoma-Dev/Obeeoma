@@ -59,9 +59,6 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
 
-
-
-
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
               {/* <Route element={<ProtectedRoute />}> 
@@ -102,10 +99,6 @@ export default function App(): React.ReactElement {
               <Route path="/system-admin" element={<SysAdminDashboard />} />
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
               <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
-
-
-
-
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}
