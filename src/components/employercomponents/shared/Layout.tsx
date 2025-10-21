@@ -11,7 +11,8 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/obeeomalogoicon2.svg";
+import logo from "../../../assets/Images/obeeomalogoicon2.png";
+import LogoutModal from "../LogoutModal";
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -21,6 +22,7 @@ interface LayoutProps {
 
 const Layout = ({ children, title}: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,6 +36,23 @@ const Layout = ({ children, title}: LayoutProps) => {
     active: location.pathname === item.path
   }));
 
+const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    // Add your logout logic here
+    console.log("Logging out...");
+    // Example: Clear tokens, redirect to login, etc.
+    // localStorage.removeItem('authToken');
+    navigate('/login');
+    setIsLogoutModalOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setIsLogoutModalOpen(false);
+  };
+
   return (
     <div className="min-vh-100 bg-light">
       {/* Mobile Menu Overlay */}
@@ -43,6 +62,15 @@ const Layout = ({ children, title}: LayoutProps) => {
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
+
+       {/* Logout Modal */}
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+        userName="Billy"
+        userLocation="Location"
+      />
 
       {/* Sidebar */}
       <aside
