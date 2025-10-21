@@ -55,7 +55,7 @@ const LoginPage = () => {
             // Dispatch login action and wait for completion
             await dispatch(loginUser({ username: values.username, password: values.password })).unwrap();
             // Simply navigate to dashboard router - it will handle role-based routing
-            navigate("/dashboard", { replace: true });
+            navigate("/system-admin", { replace: true });
         }
         catch (err) {
             // This block catches any error thrown by the 'loginUser' thunk (e.g., 401 Unauthorized, network error).
