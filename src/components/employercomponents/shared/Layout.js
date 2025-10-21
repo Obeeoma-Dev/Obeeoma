@@ -7,10 +7,10 @@ const Layout = ({ children, title }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const menuItems = [
-        { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
-        { icon: UsersIcon, label: "Employees", path: "/management", active: false },
-        { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
-        { icon: FileText, label: "Reports", path: "/reports", active: false },
+        { icon: LayoutDashboard, label: "Overview", path: "/employer-dashboard", active: false },
+        { icon: UsersIcon, label: "Employees", path: "/employee-management", active: false },
+        { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
+        { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
     ].map(item => ({
         ...item,
         active: location.pathname === item.path
