@@ -11,7 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/obeeomalogoicon4.png";
+import logo from "../../../assets/Images/obeeomalogoicon4.svg";
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -88,7 +88,7 @@ const Layout = ({ children, title}: LayoutProps) => {
         {/* Bottom Section - Settings & Logout */}
         <div className="position-absolute bottom-0 start-0 end-0 p-3 border-top">
           <button
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/employer-settings")}
             className={`w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${location.pathname === "/settings" ? "text-primary bg-light" : "text-dark"
               }`}
             style={{
