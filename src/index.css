@@ -29,6 +29,7 @@
    Global Page Styling
 ----------------------------------------------- */
 body {
+  /*montserrat to be added here*/
   font-family: "Inter", system-ui, sans-serif;
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);

@@ -3,11 +3,12 @@ import {
   AuthState,
   LoginCredentials,
   RegisterCredentials,
+  ForgotPasswordData,
+  changePasswordData,
 } from "./../../types/auth";
 import { authAPI } from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 
-// Helper function to extract error message
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(AxiosError)) {
     return (
@@ -41,7 +42,7 @@ export const loginUser = createAsyncThunk(
 
 // Register
 export const registerUser = createAsyncThunk(
-  "auth/register",
+  "auth/signup",
   async (
     credentials: RegisterCredentials & { onSuccess?: () => void },
     { rejectWithValue },
@@ -49,6 +50,39 @@ export const registerUser = createAsyncThunk(
     try {
       const response = await authAPI.register(credentials);
       credentials.onSuccess?.();
+      return response.data;
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+// Forgot password
+export const forgotPassword = createAsyncThunk(
+  "auth/reset-password",
+  async (
+    data: ForgotPasswordData & { onSuccess?: () => void },
+    { rejectWithValue },
+  ) => {
+    try {
+      const response = await authAPI.forgotPassword(data);
+      data.onSuccess?.();
+      return response.data;
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+
+// Reset password 
+export const resetPassword = createAsyncThunk(
+  "auth/accept-invite",
+  async (
+    data: changePasswordData & { onSuccess?: () => void },
+    { rejectWithValue },
+  ) => {
+    try {
+      const response = await authAPI.changePassword(data);
+      data.onSuccess?.();
       return response.data;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
@@ -129,6 +163,34 @@ const authSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+      // Forgot Pasword
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        // State remains unchanged, as no user/token data is returned
+        state.error = null;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+
+      // Reset Password
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

@@ -1,8 +1,36 @@
-import React from "react";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { forgotPassword, clearError } from "../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
+import { forgotPasswordValidationSchema } from "./../../validation/authValidation";
+import { Formik } from "formik";
+import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const ResetPassword: React.FC = () => {
+// The `: React.FC` defines this as a Functional Component in TypeScript.
+const ResetPasswordSignin: React.FC = () => {
+  // `useDispatch` is typed with `AppDispatch` for type-safe actions.
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  // The state from `useSelector` is correctly typed using `RootState`.
+  const { isLoading, error } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  // The `values` parameter is explicitly typed.
+  const handleSubmit = (values: { email: string }) => {
+    dispatch(
+      forgotPassword({
+        ...values,
+        onSuccess: () => navigate("/accept-invite"),
+      })
+    );
+  };
+
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
       <Card
@@ -15,32 +43,75 @@ const ResetPassword: React.FC = () => {
             <h2 className="fw-semibold mb-2">Reset Password to Sign in</h2>
             <p className="text-muted mb-4">Send code to email</p>
 
-            <Form>
-              <Form.Group className="mb-4" controlId="formEmail">
-                <Form.Control
-                  type="email"
-                  placeholder="Email address"
-                  className="py-2"
-                />
-              </Form.Group>
-
-              <Button
-                type="submit"
-                variant="success"
-                className="w-100 py-2 fw-semibold"
+            {error && (
+              <Alert
+                variant="danger"
+                onClose={() => dispatch(clearError())}
+                dismissible
               >
-                Send code
-              </Button>
-            </Form>
+                {error}
+              </Alert>
+            )}
+
+            <Formik
+              initialValues={{ email: "" }}
+              validationSchema={forgotPasswordValidationSchema}
+              onSubmit={handleSubmit}
+            >
+              {/* Formik automatically infers the types for these props */}
+              {({ handleChange, handleSubmit, values, errors, touched }) => (
+                <Form noValidate onSubmit={handleSubmit}>
+                  <Form.Group className="mb-4" controlId="formEmail">
+                    <Form.Control
+                      type="email"
+                      placeholder="Email address"
+                      className="py-2"
+                      name="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      isInvalid={touched.email && !!errors.email}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.email}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Button
+                    variant="success"
+                    type="submit"
+                    className="w-100 mb-3 py-2 fw-semibold"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          className="me-2"
+                        />
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Code"
+                    )}
+                  </Button>
+                </Form>
+              )}
+            </Formik>
 
             <p className="text-center text-muted mt-4">
               Didn’t receive any code?{" "}
-              <Button
-                variant="link"
-                className="p-0 text-success text-decoration-none"
-              >
-                Send code again
-              </Button>
+              {/* <Button
+                        variant="link"
+                        className="p-0 text-success text-decoration-none ms-1"
+                        onClick={}
+                        disabled={isLoading || !values.email || !!errors.email}
+                      >
+                        Send code again
+                </Button> */}
             </p>
           </Col>
 
@@ -54,7 +125,6 @@ const ResetPassword: React.FC = () => {
               Sign in to access your personalized mental health dashboard,
               connect with your care team, and continue your wellness journey.
             </p>
-
             <ul className="list-unstyled text-secondary mb-0">
               <li className="mb-2">✔ Access your care plan</li>
               <li className="mb-2">✔ Trigger crisis hotlines</li>
@@ -67,4 +137,4 @@ const ResetPassword: React.FC = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordSignin;

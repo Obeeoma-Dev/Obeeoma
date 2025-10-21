@@ -1,17 +1,14 @@
 import { defineConfig } from "vite";
-import css from "@css/vite";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [css()],
+  plugins: [tailwindcss()],
 });
-import type { Config } from "css"
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"], // enables dark mode via .dark class
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -43,6 +40,6 @@ const config: Config = {
     },
   },
   plugins: [],
-}
+};
 
-export default config
+export default config;

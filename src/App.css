@@ -55,7 +55,7 @@ footer a:hover {
   background-color: var(--color-primary) !important;
 }
 
-.text-primary {
+.section-bg .text-green {
   color: var(--color-primary) !important;
 }
 
@@ -90,21 +90,14 @@ footer a:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Adds subtle lift and shadow on hover for the bottom metrics file in the admin components */
-.hover-shadow:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;
+.text-green {
+  color: var(--color-primary) !important;
 }
 
-/* Adding a hover effect for the recentactivities.tsx file in the system admin components */
-.list-group-item:hover {
-  background-color: #f8f9fa;
-  transition: background-color 0.2s ease-in-out;
+.hover-shadow {
+  transition: all 0.3s ease-in-out;
 }
-
-/* Hover effect for the activityitem.tsx. */
 .hover-shadow:hover {
-  background-color: #f8f9fa;
-  transition: background-color 0.2s ease-in-out;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
 }

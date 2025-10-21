@@ -6,7 +6,7 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Pages
-import  Index  from "./index";
+import Index from "./index";
 import Login from "./pages/auth/login";
 import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
@@ -31,7 +31,10 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<CreateAccount />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+            <Route
+              path="/reset-password-signin"
+              element={<ResetPasswordSignin />}
+            />
 
             {/* Employee dashboard */}
             <Route path="/employee-dashboard" element={<EmployeeDashboard />} />

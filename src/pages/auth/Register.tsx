@@ -1,51 +1,54 @@
 import React, { useState } from "react";
-// React Router for navigation
-import { Link } from "react-router-dom";
-// Formik for form state management and validation
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form as FormikForm, ErrorMessage } from "formik";
-// Yup for schema validation
-import * as Yup from "yup";
-// Bootstrap components for styling
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { registerUser, clearError } from "../../store/slices/authSlice";
+import { registerValidationSchema } from "./../../validation/authValidation";
 import {
   Container,
   Row,
   Col,
   Button,
   Form as BootstrapForm,
-  ToggleButton,
-  ToggleButtonGroup,
+  Alert,
 } from "react-bootstrap";
 
 // Define allowed roles
-type Role = "Employee" | "Employer";
+type Role = "employee" | "employer";
 
-// Validation schema using Yup
-const validationSchema = Yup.object({
-  userName: Yup.string().required("User name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(6, "Minimum 6 characters")
-    .required("Password is required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Confirm Password is required"),
-});
+// Initial form values
+type RegisterFormValues = {
+  username: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+};
 
 const Register: React.FC = () => {
-  // Role state for toggle buttons
-  const [role, setRole] = useState<Role>("Employee");
+  const [role] = useState<Role>("employee");
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { error } = useSelector((state: RootState) => state.auth);
 
-  // Initial form values
-  const initialValues = {
-    userName: "",
+  const initialValues: RegisterFormValues = {
+    username: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirm_password: "",
   };
 
-  // Handle form submission
-  const handleSubmit = (values: typeof initialValues) => {
-    console.log("Register submitted:", { ...values, role });
+  const handleSubmit = (values: RegisterFormValues) => {
+    const credentials = {
+      ...values,
+      role,
+    };
+    dispatch(
+      registerUser({
+        ...credentials,
+        onSuccess: () => navigate("/login"),
+      })
+    );
   };
 
   return (
@@ -63,9 +66,17 @@ const Register: React.FC = () => {
           <p className="mb-4 text-muted">
             Join our community of mental health professionals and patients
           </p>
-
+          {error && (
+            <Alert
+              variant="danger"
+              onClose={() => dispatch(clearError())}
+              dismissible
+            >
+              {error}
+            </Alert>
+          )}
           <Formik
-            validationSchema={validationSchema}
+            validationSchema={registerValidationSchema}
             initialValues={initialValues}
             onSubmit={handleSubmit}
           >
@@ -76,16 +87,15 @@ const Register: React.FC = () => {
                   <BootstrapForm.Label>User Name</BootstrapForm.Label>
                   <BootstrapForm.Control
                     type="text"
-                    name="userName"
-                    value={values.userName}
+                    name="username"
+                    value={values.username}
                     onChange={handleChange}
-                    isInvalid={!!touched.userName && !!errors.userName}
+                    isInvalid={!!touched.username && !!errors.username}
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
                     <ErrorMessage name="userName" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
-
                 {/* Email Field */}
                 <BootstrapForm.Group className="mb-3">
                   <BootstrapForm.Label>Email</BootstrapForm.Label>
@@ -100,7 +110,6 @@ const Register: React.FC = () => {
                     <ErrorMessage name="email" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
-
                 {/* Password Field */}
                 <BootstrapForm.Group className="mb-3">
                   <BootstrapForm.Label>Password</BootstrapForm.Label>
@@ -115,25 +124,23 @@ const Register: React.FC = () => {
                     <ErrorMessage name="password" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
-
                 {/* Confirm Password Field */}
                 <BootstrapForm.Group className="mb-4">
                   <BootstrapForm.Label>Confirm Password</BootstrapForm.Label>
                   <BootstrapForm.Control
                     type="password"
-                    name="confirmPassword"
-                    value={values.confirmPassword}
+                    name="confirm_password"
+                    value={values.confirm_password}
                     onChange={handleChange}
                     isInvalid={
-                      !!touched.confirmPassword && !!errors.confirmPassword
+                      !!touched.confirm_password && !!errors.confirm_password
                     }
                   />
                   <BootstrapForm.Control.Feedback type="invalid">
                     <ErrorMessage name="confirmPassword" />
                   </BootstrapForm.Control.Feedback>
                 </BootstrapForm.Group>
-
-                {/* Role Selection */}
+                {/* Role Selection
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <ToggleButtonGroup
                     type="radio"
@@ -143,9 +150,9 @@ const Register: React.FC = () => {
                   >
                     <ToggleButton
                       id="employee"
-                      value="Employee"
+                      value="employee"
                       variant={
-                        role === "Employee" ? "success" : "outline-success"
+                        role === "employee" ? "success" : "outline-success"
                       }
                       className="px-3 py-1"
                     >
@@ -153,39 +160,36 @@ const Register: React.FC = () => {
                     </ToggleButton>
                     <ToggleButton
                       id="employer"
-                      value="Employer"
+                      value="employer"
                       variant={
-                        role === "Employer" ? "success" : "outline-success"
+                        role === "employer" ? "success" : "outline-success"
                       }
                       className="px-3 py-1"
                     >
                       Employer
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                </div>
-
+                    </ToggleButton> */}
+                  {/* </ToggleButtonGroup> */}
+                {/* </div> */}
                 {/* Submit Button */}
                 <Button
                   type="submit"
                   variant="success"
                   size="lg"
-                  className="w-100"
-                >
+                  className="w-100" >
                   Create Account
                 </Button>
               </FormikForm>
             )}
           </Formik>
-
           {/* Link to Login */}
           <p className="mt-3 text-center text-muted">
-            Already have an account?{" "}
+            Already have an account?
             <Link to="/Login" className="text-success fw-semibold">
+              {" "}
               Sign in
             </Link>
           </p>
         </Col>
-
         {/* Right Side: Info Panel */}
         <Col
           md={6}
@@ -197,7 +201,7 @@ const Register: React.FC = () => {
             resources, secure communication with healthcare providers, and tools
             to track your progress.
           </p>
-          <ul className="text-secondary">
+          <ul className="text-secondary" style={{ listStyle: "none" }}>
             <li>✔ Personalized care plans</li>
             <li>✔ Secure messaging with providers</li>
             <li>✔ Progress tracking tools</li>

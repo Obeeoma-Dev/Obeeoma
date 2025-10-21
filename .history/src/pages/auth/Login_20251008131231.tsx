@@ -30,7 +30,10 @@ const LoginPage = () => {
 
       {/* Center Form */}
       <Container className="d-flex justify-content-center align-items-center flex-grow-1">
-        <Card className="shadow-sm border-0 p-4" style={{ maxWidth: "480px", width: "100%" }}>
+        <Card
+          className="shadow-sm border-0 p-4"
+          style={{ maxWidth: "480px", width: "100%" }}
+        >
           <Card.Body>
             <h3 className="text-center mb-2 fw-semibold text-dark">
               Sign in to your account
@@ -75,20 +78,14 @@ const LoginPage = () => {
                   <ToggleButton
                     id="client"
                     value="Client"
-                    variant={
-                      role === "Client" ? "success" : "outline-success"
-                    }
+                    variant={role === "Client" ? "success" : "outline-success"}
                     className="px-3 py-1"
-                  >
-                    
-                  </ToggleButton>
+                  ></ToggleButton>
                   <ToggleButton
                     id="org"
                     value="Organization"
                     variant={
-                      role === "Organization"
-                        ? "success"
-                        : "outline-success"
+                      role === "Organization" ? "success" : "outline-success"
                     }
                     className="px-3 py-1"
                   >

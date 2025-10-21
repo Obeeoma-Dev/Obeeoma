@@ -1,14 +1,13 @@
 // Import the Axios HTTP client
 import axios from "axios";
+// import { SubscriptIcon } from "lucide-react";
 // Define the base URL for API requests, using environment variable or fallback
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-// Log the resolved base URL for debugging purposes
-console.log("API Base URL:", API_BASE_URL); // Debug log
+console.log("API Base URL:", API_BASE_URL);
 // Create a reusable Axios instance with the base URL
 const api = axios.create({
     baseURL: API_BASE_URL,
 });
-// Add a request interceptor to attach the token and log outgoing requests
 api.interceptors.request.use((config) => {
     // Log method, URL, and payload before sending the request
     console.log("🔄 Making API Request:", {
@@ -56,32 +55,126 @@ export const authAPI = {
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/v1/auth/register/", {
+        const response = await api.post("/v1/auth/signup/", {
             username: credentials.username,
             email: credentials.email,
             password: credentials.password,
+            confirm_password: credentials.confirm_password,
+            role: credentials.role,
         });
-        return response;
+        // If registration returns a token, store it
+        if (response.data.access) {
+            localStorage.setItem("token", response.data.access);
+        }
+        return response.data;
     },
     // Logout utility: clears token and user info from localStorage
     logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     },
+    forgotPassword: async (data) => {
+        const response = await api.post("/v1/auth/reset-password/", data);
+        return response;
+    },
+    // RESET PASSWORD
+    changePassword: async (data) => {
+        const response = await api.post("/v1/auth/accept-invite/", data);
+        return response;
+    },
+    getCurrentUser: async () => {
+        const response = await api.get("/v1/auth/me/");
+        return response;
+    },
 };
-// Added to fix the TS2305 error in adminSlice.ts
-// Export admin-related API methods
+//  System Admin Dashboard
 export const adminAPI = {
-    // Fetch dashboard statistics
     getDashboardStats: async () => {
-        return await api.get("/v1/admin/dashboard-stats/");
+        const response = await api.get("/v1/admin/statistics/");
+        return response;
     },
-    // Fetch all users
     getAllUsers: async () => {
-        return await api.get("/v1/admin/users/");
+        const response = await api.get("/v1/admin/users/");
+        return response;
     },
-    // Delete a user by ID
     deleteUser: async (userId) => {
-        return await api.delete(`/v1/admin/users/${userId}/`);
+        const response = await api.delete(`/v1/admin/users/${userId}/`);
+        return response;
+    },
+    getDashboardSummary: async () => {
+        const response = await api.get("/v1/admin/overview");
+        return response;
+    },
+    addEmployee: async () => {
+        const response = await api.post("/v1/admin/invites/");
+        return response;
+    },
+    getCrisisInsights: async () => {
+        const response = await api.get("/v1/admin/crisis-insights/views/");
+        return response;
+    },
+    postCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/add/");
+        return response;
+    },
+    putCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/update/");
+        return response;
+    },
+    changeCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/changes/");
+        return response;
+    },
+    getEmployeeEngagement: async () => {
+        const response = await api.post("/v1/admin/employee-engagement/");
+        return response;
+    },
+    // getFeatureUsage: async () => {
+    //   const response = await api.get("/v1/dashboard/feature-usage/");
+    //   return response;
+    // },
+    createFeatureUsage: async () => {
+        const response = await api.post("/v1/admin/feature-usage");
+        return response;
+    },
+    getReports: async () => {
+        const response = await api.post("/v1/admin/reports/");
+        return response;
+    },
+    getTrends: async () => {
+        const response = await api.get("/v1/admin/trends");
+        return response;
+    },
+    // employer endpoints
+};
+export const employerAPI = {
+    inviteEmployee: async () => {
+        const response = await api.post("/v1/employers/");
+        return response;
+    },
+    viewInviteEmployee: async () => {
+        const response = await api.get("/v1/employers/view-invites/");
+        return response;
+    },
+    viewSubscription: async () => {
+        const response = await api.post("/v1/employer/billing/add-subscription/");
+        return response;
+    },
+    viewBilling: async () => {
+        const response = await api.get("/v1/employer/billing/view");
+        return response;
+    },
+    getEngagement: async () => {
+        const response = await api.get("/v1/employer/engagements/");
+        return response;
+    },
+    getReports: async () => {
+        const response = await api.post("/v1/employer/reports/");
+        return response;
+    },
+    getemployerdashboardSummary: async () => {
+        const response = await api.get("/v1/employer/overview");
+        return response;
     },
 };
+export default api;
