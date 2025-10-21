@@ -52,26 +52,10 @@ const LoginPage = () => {
     // //};
     const handleSubmit = async (values) => {
         try {
-            // 1. Dispatch the login action and use .unwrap() to get the resolved payload
-            const resultAction = await dispatch(loginUser({ username: values.username, password: values.password })).unwrap();
-            // 2. Access the user role from the successful payload
-            // NOTE: The role strings used here must EXACTLY match the role strings returned by your DRF backend.
-            const userRole = resultAction.user.role;
-            // 3. Conditional Redirection Logic using IF/ELSE IF/ELSE
-            if (userRole === 'admin') {
-                navigate("/system-admin"); // Redirect System Admin
-            }
-            else if (userRole === 'employer') {
-                navigate("/employer-dashboard"); // Redirect Employer
-            }
-            else if (userRole === 'employee') {
-                navigate("/employee-dashboard"); // Redirect Employee
-            }
-            else {
-                // Fallback for an unrecognized role
-                console.warn(`Unrecognized role: ${userRole}. Redirecting to default.`);
-                navigate("/");
-            }
+            // Dispatch login action and wait for completion
+            await dispatch(loginUser({ username: values.username, password: values.password })).unwrap();
+            // Simply navigate to dashboard router - it will handle role-based routing
+            navigate("/dashboard", { replace: true });
         }
         catch (err) {
             // This block catches any error thrown by the 'loginUser' thunk (e.g., 401 Unauthorized, network error).

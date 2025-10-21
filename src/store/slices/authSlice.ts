@@ -223,15 +223,16 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  AuthState,
-  LoginCredentials,
-  RegisterCredentials,
-  ForgotPasswordData,
-  changePasswordData,
-  LoginSuccessPayload, 
+  AuthState,
+  LoginCredentials,
+  RegisterCredentials,
+  ForgotPasswordData,
+  changePasswordData,
+  LoginSuccessPayload, 
 } from "./../../types/auth";
 import { authAPI } from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
+import { getDashboardRoute } from "../../utils/routing";
 
 // 🛑 FIX 1: Corrected error variable usage
 const getErrorMessage = (error: unknown): string => {
@@ -431,4 +432,14 @@ const authSlice = createSlice({
 });
 
 export const { logout, clearError } = authSlice.actions;
+
+// Selectors for easy access to computed values
+export const selectUserDashboardRoute = (state: { auth: AuthState }) => {
+  return getDashboardRoute(state.auth.user);
+};
+
+export const selectIsAuthenticated = (state: { auth: AuthState }) => {
+  return !!state.auth.user && !!state.auth.token;
+};
+
 export default authSlice.reducer;

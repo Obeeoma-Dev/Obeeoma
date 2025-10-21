@@ -65,25 +65,15 @@ const LoginPage = () => {
   //    // })
   //  /// );
   // //};
-  const handleSubmit = async (values: { username: string; password: string,}) => {
+  const handleSubmit = async (values: { username: string; password: string }) => {
     try {
-        const resultAction = await dispatch(
+        // Dispatch login action and wait for completion
+        await dispatch(
             loginUser({ username: values.username, password: values.password })
-        ).unwrap() as LoginSuccessPayload;
-        const userRole = resultAction.user.role; 
-
+        ).unwrap();
         
-        if (userRole === 'admin') {
-            navigate("/system-admin"); // Redirect System Admin
-        } else if (userRole === 'employer') {
-            navigate("/employer-dashboard"); // Redirect Employer
-        } else if (userRole === 'employee') {
-            navigate("/employee-dashboard"); // Redirect Employee
-        } else {
-            // Fallback for an unrecognized role
-            console.warn(`Unrecognized role: ${userRole}. Redirecting to default.`);
-            navigate("/"); 
-        }
+        // Simply navigate to dashboard router - it will handle role-based routing
+        navigate("/dashboard", { replace: true });
 
     } catch (err) {
         // This block catches any error thrown by the 'loginUser' thunk (e.g., 401 Unauthorized, network error).

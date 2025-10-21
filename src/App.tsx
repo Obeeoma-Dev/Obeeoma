@@ -15,6 +15,7 @@ import Login from "./pages/auth/Login";
 import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
+import DashboardRouter from "./components/DashboardRouter";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import Subscription from "./pages/Subscription";
@@ -58,8 +59,9 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
 
-
-
+              {/* === DASHBOARD ROUTER === */}
+              {/* This route handles role-based dashboard routing */}
+              <Route path="/dashboard" element={<DashboardRouter />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}

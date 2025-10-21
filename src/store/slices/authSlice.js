@@ -208,6 +208,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/apiConfig";
 import axios from "axios";
+import { getDashboardRoute } from "../../utils/routing";
 // 🛑 FIX 1: Corrected error variable usage
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
@@ -366,4 +367,11 @@ const authSlice = createSlice({
     },
 });
 export const { logout, clearError } = authSlice.actions;
+// Selectors for easy access to computed values
+export const selectUserDashboardRoute = (state) => {
+    return getDashboardRoute(state.auth.user);
+};
+export const selectIsAuthenticated = (state) => {
+    return !!state.auth.user && !!state.auth.token;
+};
 export default authSlice.reducer;
