@@ -129,6 +129,7 @@ const handleLogoutClick = () => {
             <span className="fw-medium">Settings</span>
           </button>
           <button
+            onClick={handleLogoutClick}
             className="w-100 btn d-flex align-items-center gap-3 text-start text-dark"
             style={{
               border: "none",
