@@ -11,7 +11,8 @@ import {
   Menu,
   X,
 } from "lucide-react";
-
+import logo from "../../../assets/Images/obeeomalogoicon2.png";
+import LogoutModal from "../LogoutModal";
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -21,18 +22,36 @@ interface LayoutProps {
 
 const Layout = ({ children, title}: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
-    { icon: UsersIcon, label: "Employees", path: "/management", active: false },
-    { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
-    { icon: FileText, label: "Reports", path: "/reports", active: false },
+    { icon: LayoutDashboard, label: "Overview", path: "/employer-dashboard", active: false },
+    { icon: UsersIcon, label: "Employees", path: "/employee-management", active: false },
+    { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
+    { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
   ].map(item => ({
     ...item,
     active: location.pathname === item.path
   }));
+
+const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    // Add your logout logic here
+    console.log("Logging out...");
+    // Example: Clear tokens, redirect to login, etc.
+    // localStorage.removeItem('authToken');
+    navigate('/login');
+    setIsLogoutModalOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setIsLogoutModalOpen(false);
+  };
 
   return (
     <div className="min-vh-100 bg-light">
@@ -43,6 +62,15 @@ const Layout = ({ children, title}: LayoutProps) => {
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
+
+       {/* Logout Modal */}
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+        userName="Billy"
+        userLocation="Location"
+      />
 
       {/* Sidebar */}
       <aside
@@ -56,7 +84,7 @@ const Layout = ({ children, title}: LayoutProps) => {
           >
             <div className="rounded-circle bg-primary d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
               <span className="text-white fw-bold">
-                <img src="{logo}" alt="logo" />
+                <img src= {logo} alt="logo" />
               </span>
             </div>
           </button>
@@ -88,7 +116,7 @@ const Layout = ({ children, title}: LayoutProps) => {
         {/* Bottom Section - Settings & Logout */}
         <div className="position-absolute bottom-0 start-0 end-0 p-3 border-top">
           <button
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/employer-settings")}
             className={`w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${location.pathname === "/settings" ? "text-primary bg-light" : "text-dark"
               }`}
             style={{
@@ -101,6 +129,7 @@ const Layout = ({ children, title}: LayoutProps) => {
             <span className="fw-medium">Settings</span>
           </button>
           <button
+            onClick={handleLogoutClick}
             className="w-100 btn d-flex align-items-center gap-3 text-start text-dark"
             style={{
               border: "none",
