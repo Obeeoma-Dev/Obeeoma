@@ -26,9 +26,9 @@ const Layout = ({ children, title}: LayoutProps) => {
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
-    { icon: UsersIcon, label: "Employees", path: "/management", active: false },
-    { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
-    { icon: FileText, label: "Reports", path: "/reports", active: false },
+    { icon: UsersIcon, label: "Employees", path: "/employee-management", active: false },
+    { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
+    { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
   ].map(item => ({
     ...item,
     active: location.pathname === item.path
