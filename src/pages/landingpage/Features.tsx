@@ -46,11 +46,7 @@ const Features = () => {
   return (
     <section
   className="section-bg py-5 position-relative"
-  style={{
-    marginTop: "-3rem",
-    background: "linear-gradient(180deg, #f6fff8 0%, #ffffff 100%)",
-  }}
->
+  style={{ marginTop: "0rem", background: "#ffffff", paddingBottom: "3rem" }}>
   <div className="container text-center">
     <h2 className="fw-bold mb-3 text-success">
       Comprehensive Obeeoma Features
@@ -85,7 +81,7 @@ const Features = () => {
         "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
     }}
   />
-    {/* Fade into Benefits */}
+    {/* Fade into Benefits
   <div
     style={{
       position: "absolute",
@@ -96,7 +92,7 @@ const Features = () => {
       background:
         "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
     }}
-  />
+  /> */}
 </section>
 
   );

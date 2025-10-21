@@ -79,16 +79,16 @@ const Hero = () => {
             </div>
           </Col>
 
-          <Col lg={6} className="text-center">
-            {/* ✅ Only render image if heroImage is truthy to avoid empty src warning */}
-            {heroImage && (
+          {/* <Col lg={6} className="text-center">
+            {/* Only render image if heroImage is truthy to avoid empty src warning */}
+            {/* {heroImage && (
               <img
                 src={heroImage}
                 alt="Obeeoma workplace support"
                 className="img-fluid rounded-4 shadow-lg d-lg-none"
               />
             )}
-          </Col>
+          </Col> */} */
         </Row>
       </div>
     </section>

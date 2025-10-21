@@ -79,12 +79,12 @@ const handleLogoutClick = () => {
       >
         <div className="p-4 border-bottom d-flex align-items-center justify-content-between">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/employer-dashboard")}
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
             <div className="rounded-circle bg-primary d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
               <span className="text-white fw-bold">
-                <img src= {logo} alt="logo" />
+                <img src= {logo} alt="logo" height="40" />
               </span>
             </div>
           </button>
