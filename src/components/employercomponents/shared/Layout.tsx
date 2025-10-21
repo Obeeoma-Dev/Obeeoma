@@ -11,7 +11,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/obeeomalogoicon4.svg";
+import logo from "../../../assets/Images/obeeomalogoicon2.svg";
 interface LayoutProps {
   children: ReactNode;
   title: string;
