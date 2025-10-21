@@ -79,7 +79,7 @@ export const authAPI = {
     },
     // RESET PASSWORD
     changePassword: async (data) => {
-        const response = await api.post("/v1/auth/accept-invite/", data);
+        const response = await api.post("/v1/auth/change-password/", data);
         return response;
     },
     getCurrentUser: async () => {
@@ -143,6 +143,18 @@ export const adminAPI = {
     },
     getTrends: async () => {
         const response = await api.get("/v1/admin/trends");
+        return response;
+    },
+    viewSubscription: async () => {
+        const response = await api.post("/v1/employer/billing/add-subscription/");
+        return response;
+    },
+    viewBilling: async () => {
+        const response = await api.get("/v1/dashboard/billing/view");
+        return response;
+    },
+    getEngagement: async () => {
+        const response = await api.get("/v1/employer/engagements/");
         return response;
     },
     // employer endpoints

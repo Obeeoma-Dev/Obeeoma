@@ -1,5 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-const CurrentPlan = () => {
-    return (_jsx("div", { className: "row mb-5", children: _jsx("div", { className: "col-12", children: _jsx("div", { className: "card border-0 shadow-sm", children: _jsxs("div", { className: "card-body p-4", children: [_jsx("h3", { className: "h5 fw-semibold mb-3", children: "Current Plan" }), _jsxs("div", { className: "row align-items-center", children: [_jsxs("div", { className: "col-md-6", children: [_jsx("h4", { className: "h4 fw-bold text-primary mb-1", children: "Professional Plan" }), _jsx("p", { className: "text-muted mb-2", children: "$79 per month \u2022 Billed monthly" }), _jsx("p", { className: "text-muted small", children: "Next billing date: Dec 15, 2023" })] }), _jsxs("div", { className: "col-md-6 text-md-end", children: [_jsx("button", { className: "btn btn-outline-primary me-2", children: "Change Plan" }), _jsx("button", { className: "btn btn-primary", children: "Update Payment Method" })] })] })] }) }) }) }));
-};
-export default CurrentPlan;
