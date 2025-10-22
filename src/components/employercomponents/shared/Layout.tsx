@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoicon2.png";
 import LogoutModal from "../LogoutModal";
+
 interface LayoutProps {
   children: ReactNode;
   title: string;
