@@ -61,7 +61,7 @@ jobs:
   # ----------------
   # 2. TESTING JOB
   # ----------------
-  /test:
+  test:
     name: Run Tests
     runs-on: ubuntu-latest
     needs: lint # only run tests if lint passes
