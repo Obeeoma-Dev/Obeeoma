@@ -37,6 +37,7 @@ const Layout = ({ children, title}: LayoutProps) => {
     active: location.pathname === item.path
   }));
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleLogoutClick = () => {
     setIsLogoutModalOpen(true);
   };
