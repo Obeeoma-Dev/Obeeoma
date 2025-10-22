@@ -136,6 +136,7 @@ const handleLogoutClick = () => {
               borderRadius: "8px",
               padding: "12px",
             }}
+            onClick={handleLogoutClick}
           >
             <LogOut size={20} />
             <span>Logout</span>
