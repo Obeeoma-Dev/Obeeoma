@@ -163,9 +163,11 @@ const LoginPage = () => {
       {/* Footer */}
       <footer className="text-center text-muted py-3 small border-top">
         © 2025 Obeeoma. All rights reserved. &nbsp;
-        <a href="#" className="text-decoration-none text-success">
+        <Link className="btn btn-outline-light btn-lg text-success"
+          role="button" to="/system-admin">
           Privacy Policy
-        </a>{" "}
+        </Link> 
+
         &nbsp;|&nbsp;
         <a href="#" className="text-decoration-none text-success">
           Terms of Service
