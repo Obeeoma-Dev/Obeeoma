@@ -32,6 +32,6 @@ const Hero = () => {
                                             borderColor: "rgba(77, 255, 77, 0.9)",
                                             color: "rgba(77, 255, 77, 0.9)",
                                             transition: "background-color 0.3s ease, color 0.3s ease",
-                                        }, onClick: () => navigate("/login"), children: "Sign In" })] })] }), _jsx(Col, { lg: 6, className: "text-center", children: heroImage && (_jsx("img", { src: heroImage, alt: "Obeeoma workplace support", className: "img-fluid rounded-4 shadow-lg d-lg-none" })) })] }) }) }));
+                                        }, onClick: () => navigate("/login"), children: "Sign In" })] })] }), " */"] }) }) }));
 };
 export default Hero;
