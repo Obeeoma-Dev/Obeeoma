@@ -13,7 +13,7 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "../../components/shared/AuthLayout";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

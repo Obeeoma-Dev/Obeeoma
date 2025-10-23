@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink, Link } from 'react-router-dom';
-
+import logo from '../../assets/logo.png';
 interface AuthLayoutProps {
   children: React.ReactNode;
 }

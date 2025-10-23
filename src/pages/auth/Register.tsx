@@ -8,7 +8,7 @@ import { registerValidationSchema } from "./../../validation/authValidation";
 import {
   Container, Row, Col, Button, Form as BootstrapForm, Alert
 } from "react-bootstrap";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "../../components/shared/AuthLayout";
 
 // Define allowed roles
 type Role = "employee" | "employer";
