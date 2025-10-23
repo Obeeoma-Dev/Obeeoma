@@ -93,10 +93,22 @@ export const authAPI = {
     return response.data;
   },
 
-  // Logout utility: clears token and user info from localStorage
-  logout: () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  // Logout utility: calls backend logout endpoint and clears token and user info from localStorage
+  logout: async () => {
+    try {
+      // Call backend logout endpoint if token exists
+      const token = localStorage.getItem("token");
+      if (token) {
+        await api.post("/v1/auth/logout/");
+      }
+    } catch (error) {
+      // Even if backend call fails, we should still clear local storage
+      console.warn("Logout API call failed, but clearing local storage:", error);
+    } finally {
+      // Always clear local storage regardless of API call result
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    }
   },
 
   forgotPassword: async (data: ForgotPasswordData) => {

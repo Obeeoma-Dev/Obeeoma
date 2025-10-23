@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
 // import * as Yup from "yup";
@@ -115,12 +115,10 @@ const LoginPage = () => {
 
                   {/* Role + Forgot Password */}
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <a
-                      href="/reset-password-signin"
-                      className="text-success text-decoration-none small"
-                    >
+                    <Link to="/reset-password-signin"
+                      className="text-success text-decoration-none small" >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
 
                   <Form.Check
@@ -138,12 +136,7 @@ const LoginPage = () => {
                     {isLoading ? (
                       <>
                         <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-2"
+                          as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2"
                         />
                         Signing in...
                       </>
@@ -154,12 +147,10 @@ const LoginPage = () => {
 
                   <div className="text-center">
                     <span className="text-muted">Don’t have an account? </span>
-                    <a
-                      href="/signup"
-                      className="text-success text-decoration-none fw-semibold"
-                    >
-                      Create an account
-                    </a>
+                      <Link className="btn btn-outline-light btn-lg"
+                        role="button" to="/signup">
+                        Create an account
+                      </Link>
                   </div>
                 </Form>
               )}
@@ -171,9 +162,11 @@ const LoginPage = () => {
       {/* Footer */}
       <footer className="text-center text-muted py-3 small border-top">
         © 2025 Obeeoma. All rights reserved. &nbsp;
-        <a href="#" className="text-decoration-none text-success">
+        <Link className="btn btn-outline-light btn-lg text-success"
+          role="button" to="/system-admin">
           Privacy Policy
-        </a>{" "}
+        </Link> 
+
         &nbsp;|&nbsp;
         <a href="#" className="text-decoration-none text-success">
           Terms of Service

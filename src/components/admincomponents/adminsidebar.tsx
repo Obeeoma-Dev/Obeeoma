@@ -2,6 +2,9 @@
 
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { logout } from "../../store/slices/authSlice";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
 import logo from "../../assets/Images/green..png"; // Obeeoma logo
@@ -12,6 +15,7 @@ import logo from "../../assets/Images/green..png"; // Obeeoma logo
 const AdminSidebar: React.FC = () => {
   const navigate = useNavigate(); // Enables programmatic navigation
   const location = useLocation(); // Gets current route info
+  const dispatch = useDispatch<AppDispatch>(); // Redux dispatch for logout action
 
   // Define sidebar menu items (excluding Settings and Logout)
   const menuItems = [
@@ -41,6 +45,9 @@ const AdminSidebar: React.FC = () => {
 
   // Navigate to login (logout)
   const handleLogoutClick = (): void => {
+    // Dispatch logout action to clear Redux state and localStorage
+    dispatch(logout());
+    // Navigate to login page
     navigate("/login");
   };
 
