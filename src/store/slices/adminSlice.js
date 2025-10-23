@@ -161,6 +161,10 @@ export const createFeatureUsage = createAsyncThunk("admin/createFeatureUsage", a
 const initialState = {
     users: [],
     summary: null,
+    organisations: [],
+    settings: [],
+    featureFlags: [],
+    EmployeeInvite: [],
     stats: null,
     crisisInsights: [],
     employeeEngagement: null,
