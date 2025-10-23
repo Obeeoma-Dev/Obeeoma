@@ -18,6 +18,7 @@ const Layout = ({ children, title }) => {
         ...item,
         active: location.pathname === item.path
     }));
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleLogoutClick = () => {
         setIsLogoutModalOpen(true);
     };
@@ -40,10 +41,10 @@ const Layout = ({ children, title }) => {
                                     border: "none",
                                     borderRadius: "8px",
                                     padding: "12px",
-                                }, children: [_jsx(SettingsIcon, { size: 20 }), _jsx("span", { className: "fw-medium", children: "Settings" })] }), _jsxs("button", { onClick: handleLogoutClick, className: "w-100 btn d-flex align-items-center gap-3 text-start text-dark", style: {
+                                }, children: [_jsx(SettingsIcon, { size: 20 }), _jsx("span", { className: "fw-medium", children: "Settings" })] }), _jsxs("button", { className: "w-100 btn d-flex align-items-center gap-3 text-start text-dark", style: {
                                     border: "none",
                                     borderRadius: "8px",
                                     padding: "12px",
-                                }, children: [_jsx(LogOut, { size: 20 }), _jsx("span", { children: "Logout" })] })] })] }), _jsxs("div", { className: "d-lg-flex", children: [_jsx("div", { className: "d-none d-lg-block", style: { width: "240px" } }), _jsxs("div", { className: "flex-grow-1", children: [_jsx("header", { className: "bg-white border-bottom sticky-top z-30", children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsx("h1", { className: "h4 fw-bold mb-0", children: title }) }), _jsx("div", { className: "col-auto", children: _jsxs("button", { className: "btn btn-link position-relative p-2 text-dark", children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1" })] }) })] }) }) }), children] })] })] }));
+                                }, onClick: handleLogoutClick, children: [_jsx(LogOut, { size: 20 }), _jsx("span", { children: "Logout" })] })] })] }), _jsxs("div", { className: "d-lg-flex", children: [_jsx("div", { className: "d-none d-lg-block", style: { width: "240px" } }), _jsxs("div", { className: "flex-grow-1", children: [_jsx("header", { className: "bg-white border-bottom sticky-top z-30", children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsx("h1", { className: "h4 fw-bold mb-0", children: title }) }), _jsx("div", { className: "col-auto", children: _jsxs("button", { className: "btn btn-link position-relative p-2 text-dark", children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1" })] }) })] }) }) }), children] })] })] }));
 };
 export default Layout;

@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Shield, Globe, Sparkles, Heart, Smartphone, BarChart, } from "lucide-react";
+import { Shield, Globe, Sparkles, Heart, Smartphone, BarChart } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 const Features = () => {
     const features = [
