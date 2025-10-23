@@ -5,22 +5,17 @@ import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
-// import * as Yup from "yup";
-
 import {
   Container,
   Card,
   Form,
   Button,
-  // ToggleButtonGroup,
-  // ToggleButton,
   Alert,
   Spinner,
 } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../assets/Images/obeeomalogoicon4.png";
+import AuthLayout from "../../components/shared/AuthLayout";
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state: RootState) => state.auth);
@@ -33,27 +28,14 @@ const LoginPage = () => {
     dispatch(
       loginUser({
         ...values,
-
         onSuccess: () => navigate("/system-admin"),
       })
     );
   };
 
   return (
-    <div className="min-vh-100 d-flex flex-column justify-content-between bg-light">
-      {/* Header */}
-      <header className="d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-white">
-        <div className="d-flex align-items-center">
-          <img src={logo} alt="Obeeoma Logo" width="35" className="me-2" />
-          <div>
-            <h5 className="m-0 text-success fw-semibold">Obeeoma</h5>
-            <small className="text-muted">A Happy Heart</small>
-          </div>
-        </div>
-      </header>
-
-      {/* Center Form */}
-      <Container className="d-flex justify-content-center align-items-center flex-grow-1">
+    <AuthLayout>
+      <Container className="d-flex justify-content-center align-items-center">
         <Card
           className="shadow-sm border-0 p-4"
           style={{ maxWidth: "480px", width: "100%" }}
@@ -112,10 +94,11 @@ const LoginPage = () => {
                       {errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
-
-                  {/* Role + Forgot Password */}
+                  
+                  {/* Forgot Password */}
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <Link to="/reset-password-signin"
+                    <Link 
+                      to="/reset-password-signin"
                       className="text-success text-decoration-none small" >
                       Forgot password?
                     </Link>
@@ -124,8 +107,7 @@ const LoginPage = () => {
                   <Form.Check
                     type="checkbox"
                     label="Remember me"
-                    className="mb-3 text-muted"
-                  />
+                    className="mb-3 text-muted" />
 
                   <Button
                     variant="success"
@@ -136,7 +118,12 @@ const LoginPage = () => {
                     {isLoading ? (
                       <>
                         <Spinner
-                          as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2"
+                          as="span" 
+                          animation="border" 
+                          size="sm" 
+                          role="status" 
+                          aria-hidden="true" 
+                          className="me-2"
                         />
                         Signing in...
                       </>
@@ -146,11 +133,13 @@ const LoginPage = () => {
                   </Button>
 
                   <div className="text-center">
-                    <span className="text-muted">Don’t have an account? </span>
-                      <Link className="btn btn-outline-light btn-lg"
-                        role="button" to="/signup">
-                        Create an account
-                      </Link>
+                    <span className="text-muted">Don't have an account? </span>
+                    <Link 
+                      to="/signup" 
+                      className="text-success text-decoration-none fw-semibold"
+                    >
+                      Create an account
+                    </Link>
                   </div>
                 </Form>
               )}
@@ -158,25 +147,7 @@ const LoginPage = () => {
           </Card.Body>
         </Card>
       </Container>
-
-      {/* Footer */}
-      <footer className="text-center text-muted py-3 small border-top">
-        © 2025 Obeeoma. All rights reserved. &nbsp;
-        <Link className="btn btn-outline-light btn-lg text-success"
-          role="button" to="/system-admin">
-          Privacy Policy
-        </Link> 
-
-        &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Terms of Service
-        </a>{" "}
-        &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Contact Us
-        </a>
-      </footer>
-    </div>
+    </AuthLayout>
   );
 };
 

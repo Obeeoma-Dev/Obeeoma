@@ -37,10 +37,7 @@ const Layout = ({ children, title}: LayoutProps) => {
     active: location.pathname === item.path
   }));
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const handleLogoutClick = () => {
-    setIsLogoutModalOpen(true);
-  };
+//logout function was here, been replaced by inline modal handlers
 
   const handleLogoutConfirm = () => {
     // Add your logout logic here
@@ -137,8 +134,7 @@ const handleLogoutClick = () => {
               borderRadius: "8px",
               padding: "12px",
             }}
-            onClick={handleLogoutClick}
-          >
+            onClick={() => setIsLogoutModalOpen(true)} >
             <LogOut size={20} />
             <span>Logout</span>
           </button>
