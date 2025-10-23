@@ -38,9 +38,6 @@ const Layout = ({ children, title}: LayoutProps) => {
   }));
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// const handleLogoutClick = () => {
-//     setIsLogoutModalOpen(true);
-//   };
 
   const handleLogoutConfirm = () => {
     // Add your logout logic here
