@@ -10,7 +10,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="min-vh-100 d-flex flex-column bg-light">
       {/* Header */}
-      <Navbar bg="dark" variant="dark" expand="lg" className="border-bottom">
+      <Navbar bg="ob" variant="success" expand="lg" className="border-bottom">
         <Container>
           <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
             <div className="d-flex align-items-center">
@@ -41,7 +41,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-dark text-light py-4 mt-auto">
+      <footer className="bg-success text-light py-4 mt-auto">
         <Container>
           <div className="text-center">
             <p className="mb-2">
