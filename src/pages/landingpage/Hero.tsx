@@ -26,7 +26,7 @@ const Hero = () => {
       style={{
         position: "relative",
         minHeight: "85vh",
-        backgroundImage: heroImage ? `url(${heroImage})` : undefined, // ✅ Prevents empty src warning
+        backgroundImage: heroImage ? `url(${heroImage})` : undefined, // Prevents empty src warning
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -35,8 +35,7 @@ const Hero = () => {
     >
       <div
         className="hero-content container text-center text-lg-start"
-        style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }}
-      >
+        style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }} >
         <Row className="align-items-center">
           <Col lg={6} className="mb-5 mb-lg-0">
             <h1 className="fw-bold display-5 mb-3">
@@ -60,8 +59,7 @@ const Hero = () => {
                   color: "rgba(77, 255, 77, 0.9)",
                   transition: "background-color 0.3s ease, color 0.3s ease",
                 }}
-                onClick={() => navigate("/signup")}
-              >
+                onClick={() => navigate("/signup")} >
                 Sign up for my organization
               </Button>
               <Button
@@ -72,23 +70,22 @@ const Hero = () => {
                   color: "rgba(77, 255, 77, 0.9)",
                   transition: "background-color 0.3s ease, color 0.3s ease",
                 }}
-                onClick={() => navigate("/login")}
-              >
+                onClick={() => navigate("/login")} >
                 Sign In
               </Button>
             </div>
           </Col>
 
-          <Col lg={6} className="text-center">
-            {/* ✅ Only render image if heroImage is truthy to avoid empty src warning */}
-            {heroImage && (
+          {/* <Col lg={6} className="text-center">
+            {/* Only render image if heroImage is truthy to avoid empty src warning */}
+            {/* {heroImage && (
               <img
                 src={heroImage}
                 alt="Obeeoma workplace support"
                 className="img-fluid rounded-4 shadow-lg d-lg-none"
               />
             )}
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </section>

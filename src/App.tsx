@@ -15,6 +15,7 @@ import Login from "./pages/auth/Login";
 import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
+import AcceptInvite from "./pages/auth/accept-invite";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
@@ -59,6 +60,7 @@ export default function App(): React.ReactElement {
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+              <Route path="/accept-invite" element={<AcceptInvite />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}

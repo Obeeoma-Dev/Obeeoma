@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoicon2.png";
 import LogoutModal from "../LogoutModal";
+
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -36,6 +37,7 @@ const Layout = ({ children, title}: LayoutProps) => {
     active: location.pathname === item.path
   }));
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleLogoutClick = () => {
     setIsLogoutModalOpen(true);
   };
@@ -79,12 +81,12 @@ const handleLogoutClick = () => {
       >
         <div className="p-4 border-bottom d-flex align-items-center justify-content-between">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/employer-dashboard")}
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
             <div className="rounded-circle bg-primary d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
               <span className="text-white fw-bold">
-                <img src= {logo} alt="logo" />
+                <img src= {logo} alt="logo" height="40" />
               </span>
             </div>
           </button>
@@ -129,13 +131,13 @@ const handleLogoutClick = () => {
             <span className="fw-medium">Settings</span>
           </button>
           <button
-            onClick={handleLogoutClick}
             className="w-100 btn d-flex align-items-center gap-3 text-start text-dark"
             style={{
               border: "none",
               borderRadius: "8px",
               padding: "12px",
             }}
+            onClick={handleLogoutClick}
           >
             <LogOut size={20} />
             <span>Logout</span>

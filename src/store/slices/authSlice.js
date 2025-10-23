@@ -81,6 +81,7 @@ const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.error = null;
+            // Call the async logout function
             authAPI.logout();
         },
         clearError: (state) => {
