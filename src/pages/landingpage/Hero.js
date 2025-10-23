@@ -6,7 +6,7 @@ import heroImage from "@/assets/Images/headerimage.png";
 // Import navigation hook from React Router
 import { useNavigate } from "react-router-dom";
 // Import global styles
-import "@/index.css";
+// import "@/index.css";
 /**
  * Hero component: renders the landing section with background image,
  * heading, description, and navigation buttons.
