@@ -73,18 +73,6 @@ const Features = () => {
           "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
       }}
     />
-      {/* Fade into Benefits
-    <div
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        width: "100%",
-        height: "120px",
-        background:
-          "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
-      }}
-    /> */}
   </section>
 
   );

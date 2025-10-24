@@ -12,13 +12,6 @@
   --obeeoma-text: #222222;
   --obeeoma-muted: #6c757d;
 
-  /* Hero overlay gradient */
-  --hero-gradient: linear-gradient(
-    135deg,
-    rgba(60, 179, 113, 0.02),
-    rgba(60, 179, 113, 0.04)
-  );
-
   /* Border radius and shadow */
   --bs-border-radius: 0.75rem;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
