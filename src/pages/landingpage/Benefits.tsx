@@ -114,8 +114,7 @@ const Benefits = () => {
             <div className="col-lg-7">{renderBenefitsGrid(firstHalf)}</div>
 
             <div className="col-lg-5 text-center">
-              <img
-                src={image3}
+              <img src={image3}
                 alt="Professional working"
                 className="img-fluid rounded-4 shadow-lg"
                 style={{ maxHeight: "480px", objectFit: "cover" }}
@@ -152,9 +151,7 @@ const Benefits = () => {
             bottom: 0,
             left: 0,
             width: "100%",
-            height: "100px",
-            background:
-              "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #00A859 100%)",
+            height: "100px"
           }}
         />
       </section>
