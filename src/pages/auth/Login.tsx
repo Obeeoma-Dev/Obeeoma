@@ -5,13 +5,7 @@ import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
-import {
-  Container,
-  Card,
-  Form,
-  Button,
-  Alert,
-  Spinner,
+import { Container, Card, Form, Button, Alert, Spinner,
 } from "react-bootstrap";
 import AuthLayout from "../../components/shared/AuthLayout";
 
@@ -38,8 +32,7 @@ const LoginPage: React.FC = () => {
       <Container className="d-flex justify-content-center align-items-center">
         <Card
           className="shadow-sm border-0 p-4"
-          style={{ maxWidth: "480px", width: "100%" }}
-        >
+          style={{ maxWidth: "480px", width: "100%" }} >
           <Card.Body>
             <h3 className="text-center mb-2 fw-semibold text-dark">
               Sign in to your account
@@ -52,8 +45,7 @@ const LoginPage: React.FC = () => {
               <Alert
                 variant="danger"
                 onClose={() => dispatch(clearError())}
-                dismissible
-              >
+                dismissible >
                 {error}
               </Alert>
             )}
@@ -61,8 +53,7 @@ const LoginPage: React.FC = () => {
             <Formik
               initialValues={{ username: "", password: "" }}
               validationSchema={loginValidationSchema}
-              onSubmit={handleSubmit}
-            >
+              onSubmit={handleSubmit} >
               {({ handleChange, handleSubmit, values, errors, touched }) => (
                 <Form noValidate onSubmit={handleSubmit}>
                   <Form.Group className="mb-3" controlId="username">
@@ -82,12 +73,9 @@ const LoginPage: React.FC = () => {
 
                   <Form.Group className="mb-3" controlId="password">
                     <Form.Control
-                      type="password"
-                      name="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      placeholder="Password"
-                      className="py-2 border-success border-opacity-25"
+                      type="password" name="password"
+                      value={values.password} onChange={handleChange}
+                      placeholder="Password" className="py-2 border-success border-opacity-25"
                       isInvalid={touched.password && !!errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -109,22 +97,12 @@ const LoginPage: React.FC = () => {
                     label="Remember me"
                     className="mb-3 text-muted" />
 
-                  <Button
-                    variant="success"
-                    type="submit"
-                    className="w-100 mb-3 py-2 fw-semibold"
-                    disabled={isLoading}
-                  >
+                  <Button 
+                    variant="success" type="submit" className="w-100 mb-3 py-2 fw-semibold" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Spinner
-                          as="span" 
-                          animation="border" 
-                          size="sm" 
-                          role="status" 
-                          aria-hidden="true" 
-                          className="me-2"
-                        />
+                          as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
                         Signing in...
                       </>
                     ) : (
@@ -134,10 +112,8 @@ const LoginPage: React.FC = () => {
 
                   <div className="text-center">
                     <span className="text-muted">Don't have an account? </span>
-                    <Link 
-                      to="/signup" 
-                      className="text-success text-decoration-none fw-semibold"
-                    >
+                    <Link to="/signup" 
+                      className="text-success text-decoration-none fw-semibold" >
                       Create an account
                     </Link>
                   </div>
