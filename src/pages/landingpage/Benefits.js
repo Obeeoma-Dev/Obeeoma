@@ -56,8 +56,7 @@ const Benefits = () => {
                             bottom: 0,
                             left: 0,
                             width: "100%",
-                            height: "100px",
-                            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #00A859 100%)",
+                            height: "100px"
                         } })] })] }));
 };
 export default Benefits;
