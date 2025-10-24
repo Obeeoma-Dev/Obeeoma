@@ -257,8 +257,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 
-// import { LoginSuccessPayload } from "../../types/auth"; not strictly used
-import { useNavigate } from "react-router-dom";
+import { LoginSuccessPayload } from "../../types/auth"; //not used
+import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 
 import { Formik } from "formik";
@@ -267,7 +267,7 @@ import { Container, Card, Form, Button, Alert, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../assets/Images/obeeomalogoicon4.png";
 
-// type UserRole = "system admin" | "employer" | "employee";
+type UserRole = "employer" | "system admin" | "employee";
 type DashboardPath =
   | "/system-admin"
   | "/employer-dashboard"
@@ -279,7 +279,7 @@ const LoginPage = () => {
   const { isLoading, error, user } = useSelector(
     (state: RootState) => state.auth
   );
-  const [role, setRole] = useState<string>("employee");
+  const [role, setRole] = useState<string>("employer");
 
   useEffect(() => {
     dispatch(clearError());
@@ -291,12 +291,11 @@ const LoginPage = () => {
     switch (normalizedRole) {
       case "system admin":
         return "/system-admin";
-
       case "employer":
         return "/employer-dashboard";
 
       case "employee":
-        return "/employee-dashboard"; // Corrected typo from "-dasboard"
+        return "/employee-dashboard";
 
       default:
         console.warn(
@@ -315,7 +314,11 @@ const LoginPage = () => {
         loginUser({ username: values.username, password: values.password })
       ).unwrap();
 
-      const userRole = (resultAction as any)?.role || user?.role || "employee"; // Fallback to 'employee'
+      const roleFromPayload = (resultAction as any)?.user?.role;
+
+      //const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employee'
+      const userRole = (resultAction as any)?.role || user?.role;
+      console.log("Final Role Determined:", userRole);
 
       const destinationPath: DashboardPath = getDashboardRoute(userRole);
 
@@ -406,12 +409,12 @@ const LoginPage = () => {
 
                   {/* Role + Forgot Password */}
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <a
-                      href="/reset-password-signin"
+                    <Link
+                      to="/reset-password-signin"
                       className="text-success text-decoration-none small"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
 
                   <Form.Check
@@ -445,12 +448,13 @@ const LoginPage = () => {
 
                   <div className="text-center">
                     <span className="text-muted">Don’t have an account? </span>
-                    <a
-                      href="/signup"
-                      className="text-success text-decoration-none fw-semibold"
+                    <Link
+                      className="btn btn-outline-light btn-lg"
+                      role="button"
+                      to="/signup"
                     >
                       Create an account
-                    </a>
+                    </Link>
                   </div>
                 </Form>
               )}
@@ -461,9 +465,13 @@ const LoginPage = () => {
 
       <footer className="text-center text-muted py-3 small border-top">
         © 2025 Obeeoma. All rights reserved. &nbsp;
-        <a href="#" className="text-decoration-none text-success">
+        <Link
+          className="btn btn-outline-light btn-lg text-success"
+          role="button"
+          to="/system-admin"
+        >
           Privacy Policy
-        </a>{" "}
+        </Link>
         &nbsp;|&nbsp;
         <a href="#" className="text-decoration-none text-success">
           Terms of Service
@@ -478,4 +486,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-n f

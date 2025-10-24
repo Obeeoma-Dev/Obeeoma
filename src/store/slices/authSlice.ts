@@ -234,7 +234,7 @@ import { authAPI } from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 import { getDashboardRoute } from "../../utils/routing";
 
-// 🛑 FIX 1: Corrected error variable usage
+// FIX 1: Corrected error variable usage
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     return (
@@ -340,37 +340,38 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: "auth",
-  initialState,
-  reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-      state.error = null;
-      authAPI.logout();
-    },
-    clearError: (state) => {
-      state.error = null;
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      // Login
-      .addCase(loginUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.access || action.payload.token;
-        state.error = null;
+  name: "auth",
+  initialState,
+  reducers: {
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.error = null;
+      // Call the async logout function
+      authAPI.logout();
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // Login
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.access || action.payload.token;
+        state.error = null;
 
         localStorage.setItem(
           "token",
           action.payload.access || action.payload.token,
         );
-        // 🛑 FIX 2: Correct storage key to "user"
+        //FIX 2: Correct storage key to "user"
         localStorage.setItem("user", JSON.stringify(action.payload.user)); 
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -393,7 +394,7 @@ const authSlice = createSlice({
           "token",
           action.payload.access || action.payload.token,
         );
-        // 🛑 FIX 2: Correct storage key to "user"
+        //  FIX 2: Correct storage key to "user"
         localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(registerUser.rejected, (state, action) => {

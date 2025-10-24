@@ -15,15 +15,15 @@ import Login from "./pages/auth/Login";
 import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
-import DashboardRouter from "./components/DashboardRouter";
+import AcceptInvite from "./pages/auth/accept-invite";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
-import Subscription from "./pages/Subscription";
+import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
 import NotFound from "./pages/NotFound";
 // pages/System admin import.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
-import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizations"; // to be corected later
+import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails"; // to be corected later
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
 import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";
@@ -38,6 +38,8 @@ import { store } from "./../src/store/store";
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
+import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
+import CompanyReports from "./pages/EmployerPages/CompanyReports";
 
 const queryClient = new QueryClient();
 
@@ -58,10 +60,7 @@ export default function App(): React.ReactElement {
               <Route path="/signup" element={<CreateAccount />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
-
-              {/* === DASHBOARD ROUTER === */}
-              {/* This route handles role-based dashboard routing */}
-              <Route path="/dashboard" element={<DashboardRouter />} />
+              <Route path="/accept-invite" element={<AcceptInvite />} />
 
               {/* === PROTECTED ROUTES === */}
               {/* These routes are only accessible to logged-in users */}
@@ -71,11 +70,13 @@ export default function App(): React.ReactElement {
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
 
               {/* EMPLOYER'S ROUTES */}
-              <Route path="/subscription" element={<Subscription />} />
+              <Route path="/organization-reports" element={<CompanyReports />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
+              <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
+              <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
 
 
               {/* SYSTEMS ADMIN ROUTES */}
@@ -102,10 +103,6 @@ export default function App(): React.ReactElement {
               <Route path="/system-admin" element={<SysAdminDashboard />} />
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
               <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
-
-
-
-
 
               {/* === CATCH-ALL ROUTE === */}
               {/* This must be the last route */}

@@ -1,14 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/authSlice";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
-// import logo from "../../assets/Images/green..png"; // Obeeoma logo
+import logo from "../../assets/Images/green..png"; // Obeeoma logo
 /**
  * AdminSidebar component for system admin dashboard navigation
  */
 const AdminSidebar = () => {
     const navigate = useNavigate(); // Enables programmatic navigation
     const location = useLocation(); // Gets current route info
+    const dispatch = useDispatch(); // Redux dispatch for logout action
     // Define sidebar menu items (excluding Settings and Logout)
     const menuItems = [
         { id: "overview", label: "Overview", icon: "LayoutDashboard" },
@@ -33,6 +36,9 @@ const AdminSidebar = () => {
     };
     // Navigate to login (logout)
     const handleLogoutClick = () => {
+        // Dispatch logout action to clear Redux state and localStorage
+        dispatch(logout());
+        // Navigate to login page
         navigate("/login");
     };
     return (_jsxs("div", { style: {
@@ -48,9 +54,7 @@ const AdminSidebar = () => {
                     borderBottom: "1px solid #dee2e6",
                     display: "flex",
                     justifyContent: "center",
-                }, children: _jsx("img", { 
-                    // src={logo}
-                    alt: "Obeeoma Logo", style: { width: "40px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
+                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "40px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
                     // Cast icon to valid React component
                     const IconComponent = Icons[item.icon];
                     const isActive = currentPath === item.id ||

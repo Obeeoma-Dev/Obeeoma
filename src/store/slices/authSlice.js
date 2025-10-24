@@ -209,7 +209,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/apiConfig";
 import axios from "axios";
 import { getDashboardRoute } from "../../utils/routing";
-// 🛑 FIX 1: Corrected error variable usage
+// FIX 1: Corrected error variable usage
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
         return (error.response?.data?.detail ||
@@ -294,6 +294,7 @@ const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.error = null;
+            // Call the async logout function
             authAPI.logout();
         },
         clearError: (state) => {
@@ -313,7 +314,7 @@ const authSlice = createSlice({
             state.token = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
-            // 🛑 FIX 2: Correct storage key to "user"
+            //FIX 2: Correct storage key to "user"
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
             .addCase(loginUser.rejected, (state, action) => {
@@ -331,7 +332,7 @@ const authSlice = createSlice({
             state.token = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
-            // 🛑 FIX 2: Correct storage key to "user"
+            //  FIX 2: Correct storage key to "user"
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
             .addCase(registerUser.rejected, (state, action) => {

@@ -39,7 +39,7 @@ api.interceptors.request.use(
   },
   (error) => {
     // Log request error and reject the promise
-    console.error("🚨 Request Error:", error);
+    console.error(" Request Error:", error);
     return Promise.reject(error);
   }
 );
@@ -48,7 +48,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => {
     // Log status, data, and URL on success
-    console.log("✅ API Response Success:", {
+    console.log("API Response Success:", {
       status: response.status,
       data: response.data,
       url: response.config.url,
@@ -57,7 +57,7 @@ api.interceptors.response.use(
   },
   (error) => {
     // Log error details on failure
-    console.error("🚨 API Response Error:", {
+    console.error(" API Response Error:", {
       status: error.response?.status,
       data: error.response?.data,
       message: error.message,
@@ -93,10 +93,22 @@ export const authAPI = {
     return response.data;
   },
 
-  // Logout utility: clears token and user info from localStorage
-  logout: () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  // Logout utility: calls backend logout endpoint and clears token and user info from localStorage
+  logout: async () => {
+    try {
+      // Call backend logout endpoint if token exists
+      const token = localStorage.getItem("token");
+      if (token) {
+        await api.post("/v1/auth/logout/");
+      }
+    } catch (error) {
+      // Even if backend call fails, we should still clear local storage
+      console.warn("Logout API call failed, but clearing local storage:", error);
+    } finally {
+      // Always clear local storage regardless of API call result
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    }
   },
 
   forgotPassword: async (data: ForgotPasswordData) => {

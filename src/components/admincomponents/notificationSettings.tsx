@@ -49,7 +49,7 @@ const NotificationSettings: React.FC = () => {
 
             // Simulate success
             setSaveSuccess(true);
-        } catch (error) {
+        } catch  {
             setSaveError('Failed to save preferences. Please try again.');
         } finally {
             setIsSaving(false);

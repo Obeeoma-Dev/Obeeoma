@@ -40,16 +40,14 @@ export const fetchEmployeeInvites = createAsyncThunk('employer/fetchInvites', as
     }
 });
 // POST /v1/employer/billing/add-subscription/
-export const addSubscription = createAsyncThunk('employer/addSubscription', async (subscriptionData, // 'any' should be replaced by a BillingData type
-{ rejectWithValue }) => {
+export const addSubscription = createAsyncThunk('employer/addSubscription', async (_, { rejectWithValue }) => {
     try {
         // NOTE: Assuming employerAPI.viewSubscription is a placeholder for a POST function
-        const response = await employerAPI.viewSubscription();
-        subscriptionData.onSuccess?.();
-        return response.data;
+        const response = await employerAPI.viewSubscription(); // Call API without unused param
+        return response.data; // Return typed billing details
     }
     catch (error) {
-        return rejectWithValue(getErrorMessage(error));
+        return rejectWithValue(getErrorMessage(error)); // Handle error gracefully
     }
 });
 // GET /v1/employer/billing/view
@@ -73,7 +71,7 @@ export const fetchEmployerEngagement = createAsyncThunk('employer/fetchEngagemen
     }
 });
 // POST /v1/employer/reports/ (Usually requires filter/param data for POST report generation)
-export const fetchEmployerReports = createAsyncThunk('employer/fetchReports', async (reportParams = {}, { rejectWithValue }) => {
+export const fetchEmployerReports = createAsyncThunk('employer/fetchReports', async (_, { rejectWithValue }) => {
     try {
         // NOTE: Assuming employerAPI.getReports is a placeholder for a POST function
         const response = await employerAPI.getReports();

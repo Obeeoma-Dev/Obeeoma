@@ -11,7 +11,9 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/obeeomalogoicon4.png";
+import logo from "../../../assets/Images/obeeomalogoicon2.png";
+import LogoutModal from "../LogoutModal";
+
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -19,20 +21,36 @@ interface LayoutProps {
   additionalHeaderContent?: ReactNode;
 }
 
-const Layout = ({ children, title, showSearch = false, additionalHeaderContent }: LayoutProps) => {
+const Layout = ({ children, title}: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
-    { icon: LayoutDashboard, label: "Overview", path: "/dashboard", active: false },
-    { icon: UsersIcon, label: "Employees", path: "/management", active: false },
-    { icon: CreditCard, label: "Subscription", path: "/subscription", active: false },
-    { icon: FileText, label: "Reports", path: "/reports", active: false },
+    { icon: LayoutDashboard, label: "Overview", path: "/employer-dashboard", active: false },
+    { icon: UsersIcon, label: "Employees", path: "/employee-management", active: false },
+    { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
+    { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
   ].map(item => ({
     ...item,
     active: location.pathname === item.path
   }));
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  const handleLogoutConfirm = () => {
+    // Add your logout logic here
+    console.log("Logging out...");
+    // Example: Clear tokens, redirect to login, etc.
+    // localStorage.removeItem('authToken');
+    navigate('/login');
+    setIsLogoutModalOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setIsLogoutModalOpen(false);
+  };
 
   return (
     <div className="min-vh-100 bg-light">
@@ -44,6 +62,15 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
         />
       )}
 
+       {/* Logout Modal */}
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+        userName="Billy"
+        userLocation="Location"
+      />
+
       {/* Sidebar */}
       <aside
         className={`position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`}
@@ -51,12 +78,12 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
       >
         <div className="p-4 border-bottom d-flex align-items-center justify-content-between">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/employer-dashboard")}
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
             <div className="rounded-circle bg-primary d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
               <span className="text-white fw-bold">
-                <img src="{logo}" alt="logo" />
+                <img src= {logo} alt="logo" height="40" />
               </span>
             </div>
           </button>
@@ -88,7 +115,7 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
         {/* Bottom Section - Settings & Logout */}
         <div className="position-absolute bottom-0 start-0 end-0 p-3 border-top">
           <button
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/employer-settings")}
             className={`w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${location.pathname === "/settings" ? "text-primary bg-light" : "text-dark"
               }`}
             style={{
@@ -107,7 +134,7 @@ const Layout = ({ children, title, showSearch = false, additionalHeaderContent }
               borderRadius: "8px",
               padding: "12px",
             }}
-          >
+            onClick={() => setIsLogoutModalOpen(true)} >
             <LogOut size={20} />
             <span>Logout</span>
           </button>

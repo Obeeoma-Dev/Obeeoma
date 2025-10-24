@@ -7,8 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
+/node_modules
+dist/
+/build
 dist-ssr
 *.local
 
@@ -25,4 +26,7 @@ dist-ssr
 .env
 
 package-lock.json
-node_modules/
+
+
+# Ignore TypeScript build info
+*.tsbuildinfo

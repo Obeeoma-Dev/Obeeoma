@@ -2,7 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  role: "employee" | "employer" | "admin";
+  role: "system admin" | "employer" | "employee";
 }
 
 export interface LoginCredentials {
@@ -15,14 +15,14 @@ export interface RegisterCredentials {
   email: string;
   password: string;
   confirm_password: string;
-  role: "employee" | "employer";
+  role: "sytem admin" | "employer" | "employee" ;
 }
 export interface ForgotPasswordData {
   email: string;
 }
 
 export interface changePasswordData {
-  token:string;
+  token: string;
   newPassword: string;
   confirmNewPassword: string;
 }
@@ -33,12 +33,8 @@ export interface AuthState {
   error: string | null;
 }
 
-
 export interface LoginSuccessPayload {
-    user: User; 
-    access: string;
-    token: string;
-    
+  user: User;
+  access: string;
+  token: string;
 }
-
-  
