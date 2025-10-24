@@ -54,14 +54,6 @@ a:hover {
   color: #fff;
 }
 
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--hero-gradient);
-  z-index: 1;
-}
-
 .hero-section .hero-bg {
   position: absolute;
   inset: 0;
