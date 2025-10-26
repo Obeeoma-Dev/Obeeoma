@@ -13,9 +13,14 @@ import logo from "../../assets/Images/green..png"; // Obeeoma logo
  * AdminSidebar component for system admin dashboard navigation
  */
 const AdminSidebar: React.FC = () => {
-  const navigate = useNavigate(); // Enables programmatic navigation
-  const location = useLocation(); // Gets current route info
-  const dispatch = useDispatch<AppDispatch>(); // Redux dispatch for logout action
+  // Enables programmatic navigation
+  const navigate = useNavigate();
+
+  // Gets current route info
+  const location = useLocation();
+
+  // Redux dispatch for logout action
+  const dispatch = useDispatch<AppDispatch>();
 
   // Define sidebar menu items (excluding Settings and Logout)
   const menuItems = [
@@ -75,7 +80,7 @@ const AdminSidebar: React.FC = () => {
         <img
           src={logo}
           alt="Obeeoma Logo"
-          style={{ width: "40px", height: "40px" }}
+          style={{ width: "120px", height: "120px" }}
         />
       </div>
 
@@ -96,28 +101,50 @@ const AdminSidebar: React.FC = () => {
           return (
             <Button
               key={item.id}
-              variant="light"
-              onClick={() => handleMenuClick(item.id)}
-              className={`w-100 d-flex align-items-center gap-3 px-3 py-2 text-start mb-2 ${
-                isActive ? "fw-semibold border-start border-success" : ""
-              }`}
+              variant="light" // Bootstrap light variant for neutral background
+              onClick={() => handleMenuClick(item.id)} // Navigate to selected route
+              className={`w-100 d-flex align-items-center gap-3 px-3 py-2 text-start mb-2 ${isActive ? "fw-semibold border-start" : ""
+                }`} // Apply Bootstrap layout and conditional left border + bold font
               style={{
-                backgroundColor: isActive ? "#e9f5ee" : "transparent",
-                borderColor: isActive ? "#198754" : "transparent",
-                color: isActive ? "#198754" : "#212529",
-                transition: "background-color 0.2s ease",
+                position: "relative", // Enables positioning of accent element
+                backgroundColor: isActive ? "#e9f5ee" : "transparent", // Light green background when active
+                borderLeft: isActive ? "4px solid #198754" : "4px solid transparent", // Green left border when active
+                color: isActive ? "#198754" : "#212529", // Green text when active, default dark otherwise
+                fontWeight: isActive ? "600" : "400", // Slightly bolder font when active
+                transition: "all 0.2s ease", // Smooth transition for hover and active state
+                borderRadius: "0", // Keeps edges flush with sidebar layout
+                boxShadow: isActive ? "inset 0 0 0 1px #e9f5ee" : "none", // Subtle depth effect when active
               }}
               onMouseEnter={(e) => {
+                // Light gray hover effect
                 e.currentTarget.style.backgroundColor = "#f1f3f5";
               }}
               onMouseLeave={(e) => {
+                // Restore active or default background on mouse leave
                 e.currentTarget.style.backgroundColor = isActive
                   ? "#e9f5ee"
                   : "transparent";
               }}
             >
+              {/* Icon for the menu item */}
               <IconComponent size={18} />
+
+              {/* Text label for the menu item */}
               <span className="small">{item.label}</span>
+
+              {/* Right-end accent bar for active item */}
+              {isActive && (
+                <div
+                  style={{
+                    position: "absolute", // Anchored inside the Button
+                    right: 0, // Flush to the right edge
+                    top: 0,
+                    bottom: 0,
+                    width: "4px", // Same width as left border
+                    backgroundColor: "#14532d", // Dark green accent color                    
+                  }}
+                />
+              )}
             </Button>
           );
         })}
