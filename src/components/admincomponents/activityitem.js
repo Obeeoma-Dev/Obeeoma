@@ -18,7 +18,7 @@ const ActivityItem = ({ data }) => {
     const iconBgColor = bgColorMap[data.iconColor] || "#f0f4f8";
     return (
     // Main container with spacing and hover effect
-    _jsxs("div", { className: "d-flex align-items-start justify-content-between py-3 px-2 border-bottom hover-shadow", children: [_jsxs("div", { className: "d-flex align-items-start gap-3 flex-grow-1", children: [_jsx("div", { className: "rounded d-flex align-items-center justify-content-center", style: {
+    _jsxs("div", { className: "d-flex align-items-start justify-content-between py-3 px-2 border-bottom hover-shadow p-5", children: [_jsxs("div", { className: "d-flex align-items-start gap-3 flex-grow-1", children: [_jsx("div", { className: "rounded d-flex align-items-center justify-content-center", style: {
                             backgroundColor: iconBgColor,
                             width: "40px",
                             height: "40px",

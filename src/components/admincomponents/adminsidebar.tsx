@@ -28,7 +28,7 @@ const AdminSidebar: React.FC = () => {
     { id: "organizations", label: "Organizations", icon: "Building2" },
     { id: "client-engagement", label: "Client Engagement", icon: "Users" },
     { id: "ai-management", label: "AI Management", icon: "Brain" },
-    { id: "hotline-activity", label: "Hotline Activity", icon: "Phone" },
+    { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
     { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
     { id: "reports", label: "Reports", icon: "BarChart3" },
   ];
@@ -108,8 +108,8 @@ const AdminSidebar: React.FC = () => {
               style={{
                 position: "relative", // Enables positioning of accent element
                 backgroundColor: isActive ? "#e9f5ee" : "transparent", // Light green background when active
-                borderLeft: isActive ? "4px solid #198754" : "4px solid transparent", // Green left border when active
-                color: isActive ? "#198754" : "#212529", // Green text when active, default dark otherwise
+                borderLeft: isActive ? "4px solid #3CB371" : "4px solid transparent", // Green left border when active
+                color: isActive ? "#3CB371" : "#212529", // Green text when active, default dark otherwise
                 fontWeight: isActive ? "600" : "400", // Slightly bolder font when active
                 transition: "all 0.2s ease", // Smooth transition for hover and active state
                 borderRadius: "0", // Keeps edges flush with sidebar layout

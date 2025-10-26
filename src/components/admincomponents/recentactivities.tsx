@@ -1,89 +1,101 @@
 // Import React and required Bootstrap components
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 
-// Import all icons from lucide-react as a dynamic map
+// Import all Lucide icons as a dynamic map
 import * as Icons from "lucide-react";
 
-// Import the ActivityItem type definition from shared dashboard types
+// Import the ActivityItem type from shared dashboard types
 import { ActivityItem as ActivityItemType } from "./admindashboard";
 
-/**
- * Props interface for RecentActivities component
- * Accepts an array of ActivityItemType objects
- */
+// Define props interface for the RecentActivities component
 interface RecentActivitiesProps {
-  activities: ActivityItemType[];
+  activities: ActivityItemType[]; // Array of activity items to display
 }
 
-/**
- * RecentActivities component displays a list of recent system activities
- * Each activity includes an icon, type, details, and timestamp
- */
-const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
-  // Define a mapping of Bootstrap-style color keys to pastel background hex codes
-  const bgColorMap: Record<string, string> = {
-    "bg-light": "#f0f4f8",     // Default light gray
-    "bg-success": "#e6f4ea",   // Soft green
-    "bg-info": "#e7f1ff",      // Soft blue
-    "bg-warning": "#fff4e5",   // Soft orange
-    "bg-danger": "#fde7f3",    // Soft pink
-  };
+// Define a mapping of Bootstrap-style color keys to pastel hex codes
+const bgColorMap: Record<string, string> = {
+  "bg-light": "#f0f4f8",     // Neutral gray
+  "bg-success": "#e6f4ea",   // Soft green
+  "bg-info": "#e7f1ff",      // Soft blue
+  "bg-warning": "#fff4e5",   // Soft orange
+  "bg-danger": "#fde7f3",    // Soft pink
+};
 
+// Define the RecentActivities component
+const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
   return (
     // Card container for the Recent Activities section
     <Card className="mb-4 shadow-sm border-0">
-      {/* Card header with section title and padding */}
+      {/* Card header with section title */}
       <Card.Header className="bg-white fw-bold fs-5 px-3 py-3">
         Recent Activities
       </Card.Header>
 
-      {/* Card body with internal padding for content */}
+      {/* Card body containing the activity table */}
       <Card.Body className="px-3 py-3">
-        {/* Loop through each activity and render a row */}
-        {activities.map((activity) => {
-          // Dynamically select the icon component from lucide-react
-          const IconComponent =
-            (Icons[activity.icon as keyof typeof Icons] ??
-              Icons.Activity) as React.FC<{ size?: number; color?: string }>;
+        {/* Responsive, borderless Bootstrap table */}
+        <Table responsive borderless className="align-middle table-sm">
+          {/* Table header row */}
+          <thead className="bg-body-tertiary border-bottom">
+            <tr className="text-dark fw-semibold small">
+              <th> Activity Type </th>
+              <th> Details </th>
+              <th> Time </th>
+              <th> Action </th>
+            </tr>
+          </thead>
 
-          // Resolve the background color for the icon container
-          const iconBgColor = bgColorMap[activity.iconColor] || "#f0f4f8";
+          {/* Table body with mapped activity rows */}
+          <tbody>
+            {activities.map((activity) => {
+              // Dynamically select icon from Lucide or fallback to generic Activity icon
+              const IconComponent =
+                (Icons[activity.icon as keyof typeof Icons] ??
+                  Icons.Activity) as React.FC<{ size?: number; color?: string }>;
 
-          return (
-            // Bootstrap row for each activity item
-            <Row
-              key={activity.id} // Unique key for React rendering
-              className="align-items-center mb-3 pb-3 border-bottom"
-            >
-              {/* Left column: icon container */}
-              <Col xs="auto">
-                <div
-                  className="rounded d-flex align-items-center justify-content-center"
-                  style={{
-                    backgroundColor: iconBgColor, // Pastel background
-                    width: "48px",                // Icon container width
-                    height: "48px",               // Icon container height
-                  }}
-                  data-testid={`activity-icon-${activity.id}`} // For Jest testing
-                >
-                  <IconComponent size={24} color="#0d6efd" />
-                </div>
-              </Col>
+              // Resolve pastel background color for icon container
+              const iconBgColor = bgColorMap[activity.iconColor] || "#f0f4f8";
 
-              {/* Middle column: activity type and details */}
-              <Col>
-                <div className="fw-semibold">{activity.type}</div>
-                <div className="text-muted small">{activity.details}</div>
-              </Col>
+              return (
+                // Render a table row for each activity
+                <tr key={activity.id}>
+                  {/* First column: icon + activity type */}
+                  <td>
+                    <div className="d-flex align-items-center gap-2 mb-3">
+                      {/* Icon container */}
+                      <div
+                        className="rounded d-flex align-items-center justify-content-center"
+                        style={{
+                          backgroundColor: iconBgColor,
+                          width: "40px",
+                          height: "40px",
+                        }}
+                        data-testid={`activity-icon-${activity.id}`} // For Jest testing
+                      >
+                        <IconComponent size={18} color="#3CB371" />
+                      </div>
 
-              {/* Right column: timestamp */}
-              <Col xs="auto" className="text-muted small text-end">
-                {activity.time}
-              </Col>
-            </Row>
-          );
-        })}
+                      {/* Activity type label */}
+                      <span className="fw-semibold">{activity.type}</span>
+                    </div>
+                  </td>
+
+                  {/* Second column: activity details */}
+                  <td className="text-muted small">{activity.details}</td>
+
+                  {/* Third column: timestamp, right-aligned */}
+                  <td className="text-muted small">{activity.time}</td>
+
+                  {/* Action column — three-dot icon */}
+                  <td className="text-center">
+                    <Icons.MoreVertical size={18} color="#6c757d" />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
       </Card.Body>
     </Card>
   );

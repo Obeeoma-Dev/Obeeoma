@@ -36,7 +36,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
 
   return (
     // Main container with spacing and hover effect
-    <div className="d-flex align-items-start justify-content-between py-3 px-2 border-bottom hover-shadow">
+    <div className="d-flex align-items-start justify-content-between py-3 px-2 border-bottom hover-shadow p-5">
       {/* Left section: icon and text */}
       <div className="d-flex align-items-start gap-3 flex-grow-1">
         {/* Icon container with background */}

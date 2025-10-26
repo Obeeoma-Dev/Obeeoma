@@ -34,10 +34,10 @@ const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
 
           // Define color palette for icons and backgrounds
           const colorMap: Record<string, string> = {
-            emerald: "#059669",
-            blue: "#0d6efd",
-            purple: "#6f42c1",
-            pink: "#d63384",
+            emerald: "#3CB371",
+            blue: "#3CB371",
+            purple: "#3CB371",
+            pink: "#3CB371",
           };
 
           const bgColorMap: Record<string, string> = {
@@ -55,17 +55,16 @@ const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
             // Responsive column for each card
             <Col key={metric.id} xs={12} md={6} lg={3}>
               {/* Card container with hover effect */}
-              <Card className="shadow-sm border-0 h-100 hover-shadow">
+              <Card className="shadow-sm border-0 h-90 hover-shadow">
                 <Card.Body>
                   {/* Top section: icon and title */}
-                  <div className="d-flex align-items-start gap-3 mb-3">
+                  <div className="d-flex align-items-start gap-2 mb-2">
                     {/* Icon container with background color */}
                     <div
                       className="rounded d-flex align-items-center justify-content-center"
                       style={{
-                        backgroundColor: iconBgColor,
-                        width: "48px",
-                        height: "48px",
+                        width: "20px",
+                        height: "20px",
                       }}
                     >
                       <IconComponent size={24} color={iconColor} />

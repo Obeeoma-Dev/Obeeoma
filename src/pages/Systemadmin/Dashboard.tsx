@@ -44,7 +44,7 @@ const recentActivityData: ActivityItem[] = [
     type: "Hotline Activity",
     details: "12 hotline calls were received",
     time: "45 minutes ago",
-    icon: "Phone", // Icon representing phone or hotline
+    icon: "PhoneCall", // Icon representing phone or hotline
     iconColor: "bg-light",
   },
   {
@@ -94,7 +94,7 @@ const bottomMetricData: BottomMetricCard[] = [
     value: "324",
     subtitle: "Calls received",
     linkText: "View hotline logs",
-    icon: "Phone",
+    icon: "PhoneCall",
     color: "purple",
   },
   {
@@ -115,34 +115,34 @@ const bottomMetricData: BottomMetricCard[] = [
 const dashboardStatsData: StatCardData[] = [
   {
     id: "1",
-    title: "Total Organizations",
     value: "42",
+    title: "Total Organizations",
     change: "+3 this month",
     icon: "Building2",
     iconColor: "bg-light",
   },
   {
     id: "2",
-    title: "Total Clients",
     value: "1,284",
-    change: "+12 this week",
+    title: "Total Clients",
+    change: "+124 this week",
     icon: "Users",
     iconColor: "bg-light",
   },
   {
     id: "3",
-    title: "AI Recommendations",
-    value: "25,800",
-    change: "+1,245 today",
-    icon: "Brain",
+    value: "$25,800",
+    title: "Monthly Revenue",
+    change: "+5.3% this month",
+    icon: "CreditCard",
     iconColor: "bg-light",
   },
   {
     id: "4",
-    title: "Hotline Calls Today",
     value: "42",
-    change: "+5 since yesterday",
-    icon: "Phone",
+    title: "Hotline Calls Today",
+    change: "+8% vs yesterday",
+    icon: "PhoneCall",
     iconColor: "bg-light",
   },
 ];
