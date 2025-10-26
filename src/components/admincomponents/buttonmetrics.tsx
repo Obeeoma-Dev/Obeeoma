@@ -40,16 +40,10 @@ const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
             pink: "#3CB371",
           };
 
-          const bgColorMap: Record<string, string> = {
-            emerald: "#e6f4ea",
-            blue: "#e7f1ff",
-            purple: "#f3e8ff",
-            pink: "#fde7f3",
-          };
 
           // Fallbacks for unknown color keys
           const iconColor = colorMap[metric.color] || colorMap.emerald;
-          const iconBgColor = bgColorMap[metric.color] || bgColorMap.emerald;
+          // const iconBgColor = bgColorMap[metric.color] || bgColorMap.emerald;
 
           return (
             // Responsive column for each card

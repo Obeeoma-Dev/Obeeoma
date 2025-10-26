@@ -20,15 +20,9 @@ const BottomMetrics = ({ metrics }) => {
                     purple: "#3CB371",
                     pink: "#3CB371",
                 };
-                const bgColorMap = {
-                    emerald: "#e6f4ea",
-                    blue: "#e7f1ff",
-                    purple: "#f3e8ff",
-                    pink: "#fde7f3",
-                };
                 // Fallbacks for unknown color keys
                 const iconColor = colorMap[metric.color] || colorMap.emerald;
-                const iconBgColor = bgColorMap[metric.color] || bgColorMap.emerald;
+                // const iconBgColor = bgColorMap[metric.color] || bgColorMap.emerald;
                 return (
                 // Responsive column for each card
                 _jsx(Col, { xs: 12, md: 6, lg: 3, children: _jsx(Card, { className: "shadow-sm border-0 h-90 hover-shadow", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex align-items-start gap-2 mb-2", children: [_jsx("div", { className: "rounded d-flex align-items-center justify-content-center", style: {
