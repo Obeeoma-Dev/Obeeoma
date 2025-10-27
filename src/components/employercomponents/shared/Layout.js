@@ -18,7 +18,7 @@ const Layout = ({ children, title }) => {
         ...item,
         active: location.pathname === item.path
     }));
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //logout function was here, been replaced by inline modal handlers
     const handleLogoutConfirm = () => {
         // Add your logout logic here
         console.log("Logging out...");
