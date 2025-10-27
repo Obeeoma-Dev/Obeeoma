@@ -10,11 +10,12 @@ import * as Icons from "lucide-react";
  * Used by both OrganizationStats and BottomMetrics.
  */
 export type StatCard = {
+    id: string; // Unique identifier for React keys
     title: string; // Metric title 
     value: string | number; // Display value 
     subtitle?: string; // Optional description
     linkText?: string; // Optional CTA link
-    icon?: keyof typeof Icons; // Optional icon name from lucide-react
+    icon?: string | keyof typeof Icons; // Optional icon name from lucide-react
     color?: string; // Optional color key
     change?: number; // Optional percentage change
 };

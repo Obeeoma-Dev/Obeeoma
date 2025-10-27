@@ -1,30 +1,25 @@
+// Import React and Bootstrap layout components
 import React from "react";
-import { Card, Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
+
+// Import the shared MetricCard component and its type
+import MetricCard, { StatCard } from "../Commoncomponents/metricCard";
 
 /**
- * Type definition for a single stat card.
- * Helps enforce structure and catch type errors.
- */
-export type StatCard = {
-  title: string;
-  value: number | string;
-  change?: number; // Optional percentage change
-};
-
-/**
- * Props interface for OrganizationStats component.
- * Accepts an array of stat cards.
+ * Props interface for OrganizationStats component
+ * Accepts an array of StatCard objects
  */
 interface OrganizationStatsProps {
-  stats: StatCard[];
+  stats: StatCard[]; // Reuse shared 
 }
 
 /**
- * OrganizationStats component displays top-level metrics.
- * Now receives data via props instead of hardcoding.
+ * OrganizationStats component displays top-level organization metrics
+ * Uses MetricCard for consistent layout and styling
  */
 const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
   return (
+    // Section wrapper with bottom margin
     <section className="mb-4">
       {/* Header row with title and action button */}
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -34,30 +29,22 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
         </Button>
       </div>
 
-      {/* Responsive grid of stat cards */}
+      {/* Responsive grid of metric cards */}
       <Row>
         {stats.map((stat, index) => (
+          // Responsive column for each card
           <Col key={index} xs={12} sm={6} md={3} className="mb-3">
-            <Card className="border-0 shadow-sm h-100">
-              <Card.Body className="d-flex flex-column justify-content-between">
-                {/* Title and value */}
-                <div>
-                  <Card.Title className="text-muted fs-6 mb-1">
-                    {stat.title}
-                  </Card.Title>
-                  <Card.Text className="fs-3 fw-bold text-success mb-0">
-                    {stat.value.toLocaleString()}
-                  </Card.Text>
-                </div>
-
-                {/* Optional percentage change */}
-                {stat.change !== undefined && (
-                  <div className="text-muted small mt-2">
-                    <span className="text-success">+{stat.change}%</span> this month
-                  </div>
-                )}
-              </Card.Body>
-            </Card>
+            {/* Render MetricCard with stat data */}
+            <MetricCard
+              id={stat.id}
+              title={stat.title}
+              value={stat.value}
+              change={stat.change}
+              subtitle={stat.subtitle}
+              linkText={stat.linkText}
+              icon={stat.icon}
+              color={stat.color}
+            />
           </Col>
         ))}
       </Row>
@@ -65,4 +52,5 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
   );
 };
 
+// Export the component for use in dashboard layout
 export default OrganizationStats;

@@ -28,6 +28,7 @@ const BottomMetrics: React.FC<BottomMetricsProps> = ({ metrics }) => {
           <Col key={metric.title} xs={12} md={6} lg={3}>
             {/* Render MetricCard with all available props */}
             <MetricCard
+              id={metric.id}
               title={metric.title}
               value={metric.value}
               subtitle={metric.subtitle}

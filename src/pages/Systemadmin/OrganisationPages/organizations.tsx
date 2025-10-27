@@ -1,9 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
-import OrganizationStats, {
-  StatCard,
-} from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
+import OrganizationStats from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
+import { StatCard } from "../../../components/admincomponents/Commoncomponents/metricCard";
 import OrganizationTable, {
   Organization,
 } from "../../../components/admincomponents/organisationcomponents/organisationTable";
