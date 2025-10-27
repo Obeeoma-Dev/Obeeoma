@@ -3,10 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 // Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
 import Header from "../../components/admincomponents/adminheader";
-import DashboardStats from "../../components/admincomponents/dashboardstats";
-import PlatformUsageChart from "../../components/admincomponents/platformusage";
-import RecentActivities from "../../components/admincomponents/recentactivities";
-import BottomMetrics from "../../components/admincomponents/buttonmetrics";
+import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
+import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
+import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
+import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready

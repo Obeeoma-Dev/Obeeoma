@@ -3,47 +3,59 @@ import { Card, Row, Col, Button } from "react-bootstrap";
 
 /**
  * Type definition for a single stat card.
- * Helps TypeScript enforce structure and catch errors early.
+ * Helps enforce structure and catch type errors.
  */
-type StatCard = {
+export type StatCard = {
   title: string;
-  value: number;
+  value: number | string;
+  change?: number; // Optional percentage change
 };
 
 /**
- * OrganizationStats component displays top-level metrics
- * using placeholder data for now.
- * Includes a header row with title and action button.
+ * Props interface for OrganizationStats component.
+ * Accepts an array of stat cards.
  */
-const OrganizationStats: React.FC = () => {
-  // Placeholder data — replace with props or API data when backend is ready
-  const stats: StatCard[] = [
-    { title: "Total Organizations", value: 42 },
-    { title: "Total Clients", value: 1284 },
-    { title: "Active Programs", value: 68 },
-    { title: "Regional Coverage", value: 6 },
-  ];
+interface OrganizationStatsProps {
+  stats: StatCard[];
+}
 
+/**
+ * OrganizationStats component displays top-level metrics.
+ * Now receives data via props instead of hardcoding.
+ */
+const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
   return (
     <section className="mb-4">
       {/* Header row with title and action button */}
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="text-success fw-semibold">Organizations Overview</h4>
+        <h4 className="fw-semibold text-dark">Organizations</h4>
         <Button variant="success" size="sm">
           + Add Organization
         </Button>
       </div>
 
-      {/* Stats grid */}
+      {/* Responsive grid of stat cards */}
       <Row>
         {stats.map((stat, index) => (
           <Col key={index} xs={12} sm={6} md={3} className="mb-3">
-            <Card className="text-center border-success shadow-sm h-100">
-              <Card.Body>
-                <Card.Title className="text-muted fs-6">{stat.title}</Card.Title>
-                <Card.Text className="fs-3 fw-bold text-success">
-                  {stat.value.toLocaleString()}
-                </Card.Text>
+            <Card className="border-0 shadow-sm h-100">
+              <Card.Body className="d-flex flex-column justify-content-between">
+                {/* Title and value */}
+                <div>
+                  <Card.Title className="text-muted fs-6 mb-1">
+                    {stat.title}
+                  </Card.Title>
+                  <Card.Text className="fs-3 fw-bold text-success mb-0">
+                    {stat.value.toLocaleString()}
+                  </Card.Text>
+                </div>
+
+                {/* Optional percentage change */}
+                {stat.change !== undefined && (
+                  <div className="text-muted small mt-2">
+                    <span className="text-success">+{stat.change}%</span> this month
+                  </div>
+                )}
               </Card.Body>
             </Card>
           </Col>

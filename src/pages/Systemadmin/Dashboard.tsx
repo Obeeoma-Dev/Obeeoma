@@ -6,17 +6,17 @@ import { Container, Row, Col } from "react-bootstrap";
 // Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
 import Header from "../../components/admincomponents/adminheader";
-import DashboardStats from "../../components/admincomponents/dashboardstats";
-import PlatformUsageChart from "../../components/admincomponents/platformusage";
-import RecentActivities from "../../components/admincomponents/recentactivities";
-import BottomMetrics from "../../components/admincomponents/buttonmetrics";
+import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
+import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
+import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
+import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 
 // Import shared type definitions
 import {
   ActivityItem,
   BottomMetricCard,
   StatCardData,
-} from "../../components/admincomponents/admindashboard";
+} from "../../components/admincomponents/Overviewcomponents/admindashboard";
 
 /**
  * Static placeholder data for recent activities

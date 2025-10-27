@@ -7,7 +7,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
 import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
-import AppearenceSettings from "./Appearencesettingscomp/appearancesettings";
+import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
 import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
 // Placeholder data for subscription plans

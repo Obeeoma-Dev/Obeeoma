@@ -1,7 +1,7 @@
 import React from "react";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import AdminHeader from "../../../components/admincomponents/adminheader";
-import SubscriptionSettingsComp from "../../../components/admincomponents/Subscriptionsettingscomp/subscriptioncompsettings";
+import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 
 // Placeholder data for subscription plans
 const subscriptionPlans = [
