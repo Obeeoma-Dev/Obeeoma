@@ -24,13 +24,13 @@ api.interceptors.request.use((config) => {
     return config;
 }, (error) => {
     // Log request error and reject the promise
-    console.error("🚨 Request Error:", error);
+    console.error(" Request Error:", error);
     return Promise.reject(error);
 });
 // Add a response interceptor to log successful and failed responses
 api.interceptors.response.use((response) => {
     // Log status, data, and URL on success
-    console.log("✅ API Response Success:", {
+    console.log("API Response Success:", {
         status: response.status,
         data: response.data,
         url: response.config.url,
@@ -38,7 +38,7 @@ api.interceptors.response.use((response) => {
     return response;
 }, (error) => {
     // Log error details on failure
-    console.error("🚨 API Response Error:", {
+    console.error(" API Response Error:", {
         status: error.response?.status,
         data: error.response?.data,
         message: error.message,
@@ -157,6 +157,18 @@ export const adminAPI = {
     },
     getTrends: async () => {
         const response = await api.get("/v1/admin/trends");
+        return response;
+    },
+    viewInviteEmployee: async () => {
+        const response = await api.get("/v1/employers/view-invites/");
+        return response;
+    },
+    viewSubscription: async () => {
+        const response = await api.post("/v1/employer/billing/add-subscription/");
+        return response;
+    },
+    viewBilling: async () => {
+        const response = await api.get("/v1/employer/billing/view");
         return response;
     },
     // employer endpoints
