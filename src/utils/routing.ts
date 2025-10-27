@@ -11,7 +11,7 @@ export const getDashboardRoute = (user: User | null): string => {
   }
 
   switch (user.role) {
-    case "system admin":
+    case "systemadmin":
       return "/system-admin";
     case 'employer':
       return "/employer-dashboard";

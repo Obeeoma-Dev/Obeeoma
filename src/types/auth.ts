@@ -2,7 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  role: "system admin" | "employer" | "employee";
+  role: "systemadmin" | "employer" | "employee";
 }
 
 export interface LoginCredentials {
@@ -15,7 +15,7 @@ export interface RegisterCredentials {
   email: string;
   password: string;
   confirm_password: string;
-  role: "sytem admin" | "employer" | "employee" ;
+  role: "sytemadmin" | "employer" | "employee" ;
 }
 export interface ForgotPasswordData {
   email: string;

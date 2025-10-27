@@ -267,7 +267,7 @@ import { Container, Card, Form, Button, Alert, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../assets/Images/obeeomalogoicon4.png";
 
-type UserRole = "employer" | "system admin" | "employee";
+type UserRole = "employer" | "systemadmin" | "employee";
 type DashboardPath =
   | "/system-admin"
   | "/employer-dashboard"
@@ -289,7 +289,7 @@ const LoginPage = () => {
     const normalizedRole = role.toLowerCase().trim();
 
     switch (normalizedRole) {
-      case "system admin":
+      case "systemadmin":
         return "/system-admin";
       case "employer":
         return "/employer-dashboard";
@@ -316,7 +316,7 @@ const LoginPage = () => {
 
       const roleFromPayload = (resultAction as any)?.user?.role;
 
-      //const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employee'
+    //  const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employer'
       const userRole = (resultAction as any)?.role || user?.role;
       console.log("Final Role Determined:", userRole);
 

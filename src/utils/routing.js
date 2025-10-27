@@ -8,7 +8,7 @@ export const getDashboardRoute = (user) => {
         return "/login";
     }
     switch (user.role) {
-        case "system admin":
+        case "systemadmin":
             return "/system-admin";
         case 'employer':
             return "/employer-dashboard";

@@ -245,7 +245,7 @@ const LoginPage = () => {
     const getDashboardRoute = (role) => {
         const normalizedRole = role.toLowerCase().trim();
         switch (normalizedRole) {
-            case "system admin":
+            case "systemadmin":
                 return "/system-admin";
             case "employer":
                 return "/employer-dashboard";
@@ -260,7 +260,7 @@ const LoginPage = () => {
         try {
             const resultAction = await dispatch(loginUser({ username: values.username, password: values.password })).unwrap();
             const roleFromPayload = resultAction?.user?.role;
-            //const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employee'
+            //  const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employer'
             const userRole = resultAction?.role || user?.role;
             console.log("Final Role Determined:", userRole);
             const destinationPath = getDashboardRoute(userRole);
