@@ -37,7 +37,7 @@ const Hero = () => {
         <Row className="align-items-center">
           <Col lg={6} className="mb-5 mb-lg-0">
             <h1 className="fw-bold display-5 mb-3"
-            style={{fontFamily:'heading'}}>
+              style={{ fontFamily: 'heading' }}>
               Start Your Journey to Better Mental Health
             </h1>
             <p
@@ -77,7 +77,7 @@ const Hero = () => {
 
           {/* <Col lg={6} className="text-center">
             {/* Only render image if heroImage is truthy to avoid empty src warning */}
-            {/* {heroImage && (
+          {/* {heroImage && (
               <img
                 src={heroImage}
                 alt="Obeeoma workplace support"
