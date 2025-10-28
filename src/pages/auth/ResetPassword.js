@@ -386,7 +386,7 @@ const ResetPassword = () => {
                             color: customStyles.primaryColor, // 🟢 Style footer link
                         }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", style: {
                             textDecoration: "none",
-                            color: customStyles.primaryColor, // 🟢 Style footer link
+                            color: customStyles.primaryColor,
                         }, children: "Contact Us" })] })] }));
 };
 export default ResetPassword;
