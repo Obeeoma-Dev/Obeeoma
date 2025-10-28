@@ -7,14 +7,14 @@ const Navigation = () => (
     expand="lg"
     fixed="top"
     className="py-3"
-    style={{ backgroundColor: "var(--color-green)" }}
+    style={{ backgroundColor: "white" }}
   >
     <Container>
       <Navbar.Toggle aria-controls="nav" />
       <Navbar.Collapse id="nav" className="justify-content-between">
         <Nav className="me-auto">
           <Navbar.Brand as={Link} to="/employer-dashboard">
-            <img src={logo} alt="Obeeoma" height="40" />
+            <img src={logo} alt="Obeeoma" height="90" />
           </Navbar.Brand>
           <Nav.Link href="#features" className="text-black">
             {" "}
