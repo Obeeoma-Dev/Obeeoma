@@ -209,7 +209,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/apiConfig";
 import axios from "axios";
 import { getDashboardRoute } from "../../utils/routing";
-// FIX 1: Corrected error variable usage
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
         return (error.response?.data?.detail ||
@@ -228,7 +227,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
         return response.data;
     }
     catch (err) {
-        let error = err;
+        const error = err;
         let errorMessage = 'Login failed. Please try again.';
         if (error.response && error.response.data) {
             errorMessage = error.response.data.detail || 'Invalid credentials.';

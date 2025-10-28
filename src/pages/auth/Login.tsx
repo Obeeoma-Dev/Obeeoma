@@ -579,12 +579,12 @@
 // };
 
 // export default LoginPage;
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 
-import { LoginSuccessPayload } from "../../types/auth"; //not used
+// import { LoginSuccessPayload } from "../../types/auth"; //not used
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 
@@ -600,7 +600,7 @@ const customStyles = {
   logoText: "Obeeoma",
 };
 
-type UserRole = "employer" | "systemadmin" | "employee";
+// type UserRole = "employer" | "systemadmin" | "employee";
 type DashboardPath =
   | "/system-admin"
   | "/employer-dashboard"
@@ -612,7 +612,7 @@ const LoginPage = () => {
   const { isLoading, error, user } = useSelector(
     (state: RootState) => state.auth
   );
-  const [role, setRole] = useState<string>("employer");
+  // const [role, setRole] = useState<string>("employer");
 
   useEffect(() => {
     dispatch(clearError());
@@ -647,9 +647,10 @@ const LoginPage = () => {
         loginUser({ username: values.username, password: values.password })
       ).unwrap();
 
-      const roleFromPayload = (resultAction as any)?.user?.role;
+      // const roleFromPayload = (resultAction as any)?.user?.role;
 
       //  const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employer'
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userRole = (resultAction as any)?.role || user?.role;
       console.log("Final Role Determined:", userRole);
 
