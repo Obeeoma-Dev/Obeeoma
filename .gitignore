@@ -7,9 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+/node_modules
 dist/
-build/
+/build
 dist-ssr
 *.local
 
@@ -26,7 +26,11 @@ dist-ssr
 .env
 
 package-lock.json
-node_modules/
+
 
 # Ignore TypeScript build info
 *.tsbuildinfo
+# Ignore generated JavaScript files
+# This assumes the .js files are outputs/copies of your .ts files.
+src/**/*.js
+src/**/*.jsx

@@ -36,7 +36,8 @@ const Hero = () => {
         style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }} >
         <Row className="align-items-center">
           <Col lg={6} className="mb-5 mb-lg-0">
-            <h1 className="fw-bold display-5 mb-3">
+            <h1 className="fw-bold display-5 mb-3"
+            style={{fontFamily:'heading'}}>
               Start Your Journey to Better Mental Health
             </h1>
             <p
