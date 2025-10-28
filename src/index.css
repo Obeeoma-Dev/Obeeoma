@@ -1,5 +1,6 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 /* -----------------------------------------------
    CSS Variables*/
 :root {
@@ -36,6 +37,7 @@ a {
   text-decoration: none;
   transition: all 0.25s ease-in-out;
 }
+
 a:hover {
   color: var(--obeeoma-green-dark);
 }
@@ -88,31 +90,29 @@ a:hover {
    Gradient Buttons
 ----------------------------------------------- */
 .btn-green-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--obeeoma-green),
-    var(--obeeoma-green-dark)
-  );
+  background: linear-gradient(135deg,
+      var(--obeeoma-green),
+      var(--obeeoma-green-dark));
   color: #fff !important;
   border: none;
   border-radius: var(--bs-border-radius);
   transition: opacity 0.3s ease-in-out;
 }
+
 .btn-green-gradient:hover {
   opacity: 0.9;
 }
 
 .btn-red-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--obeeoma-red),
-    var(--obeeoma-red-dark)
-  );
+  background: linear-gradient(135deg,
+      var(--obeeoma-red),
+      var(--obeeoma-red-dark));
   color: #fff !important;
   border: none;
   border-radius: var(--bs-border-radius);
   transition: opacity 0.3s ease-in-out;
 }
+
 .btn-red-gradient:hover {
   opacity: 0.9;
 }
@@ -125,15 +125,18 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.85);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .navbar-brand {
   color: var(--obeeoma-green) !important;
   font-weight: 600;
 }
+
 .nav-link {
   color: var(--obeeoma-text) !important;
   font-weight: 500;
   transition: color 0.3s ease;
 }
+
 .nav-link:hover {
   color: var(--obeeoma-green) !important;
 }
@@ -143,15 +146,18 @@ a:hover {
   transform: translateX(-100%);
   opacity: 0;
 }
+
 .sidebar-enter-active {
   transform: translateX(0);
   opacity: 1;
   transition: all 0.3s ease;
 }
+
 .sidebar-exit {
   transform: translateX(0);
   opacity: 1;
 }
+
 .sidebar-exit-active {
   transform: translateX(-100%);
   opacity: 0;
@@ -163,14 +169,17 @@ footer {
   padding: 3rem 0;
   color: var(--obeeoma-muted);
 }
+
 footer h5 {
   color: var(--obeeoma-green);
   margin-bottom: 1rem;
 }
+
 footer a {
   color: var(--obeeoma-muted);
   text-decoration: none;
 }
+
 footer a:hover {
   color: var(--obeeoma-green);
 }
@@ -187,6 +196,7 @@ footer a:hover {
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
+
 .feature-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--card-shadow-lg);
@@ -199,12 +209,18 @@ footer a:hover {
   .hero-section h1 {
     font-size: 2.25rem;
   }
+
   .hero-section p {
     font-size: 1.125rem;
   }
 }
 
-/**
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-*/
+/* This is reflected in the systems admin organisationTable.tsx file */
+.bg-purple {
+  background-color: #6f42c1;
+}
+
+/* This line reflects to the system admin nav bar keeping all icons consitent with the green colour. */
+/* .sidebar-icon-green {
+  color: #3CB371;
+} */

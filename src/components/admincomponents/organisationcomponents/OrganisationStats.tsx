@@ -1,25 +1,36 @@
-// Import React and Bootstrap layout components
 import React from "react";
-import { Row, Col, Button } from "react-bootstrap";
-
-// Import the shared MetricCard component and its type
-import MetricCard, { StatCard } from "../Commoncomponents/metricCard";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import * as Icons from "lucide-react";
 
 /**
- * Props interface for OrganizationStats component
- * Accepts an array of StatCard objects
+ * Represents a statistical metric card with current value and change percentage
  */
-interface OrganizationStatsProps {
-  stats: StatCard[]; // Reuse shared 
+export interface StatCardData {
+  id: string; // Unique identifier
+  title: string; // Display title
+  value: string | number; // Current value
+  change: string; // Percentage change
+  icon: string; // Icon name from lucide-react
+  iconColor: string; // Background color class
+  linkText: string; // CTA link text
+  subtitle: string; // Subtitle description
+  color: string; // Color scheme name
 }
 
 /**
- * OrganizationStats component displays top-level organization metrics
- * Uses MetricCard for consistent layout and styling
+ * Props interface for OrganizationStats component
+ * Accepts an array of StatCardData objects
+ */
+interface OrganizationStatsProps {
+  stats: StatCardData[];
+}
+
+/**
+ * OrganizationStats component displays a grid of organization metrics
+ * Styled similarly to ActivityItem cards with icon, title, value, and change
  */
 const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
   return (
-    // Section wrapper with bottom margin
     <section className="mb-4">
       {/* Header row with title and action button */}
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -29,28 +40,45 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
         </Button>
       </div>
 
-      {/* Responsive grid of metric cards */}
-      <Row>
-        {stats.map((stat, index) => (
-          // Responsive column for each card
-          <Col key={index} xs={12} sm={6} md={3} className="mb-3">
-            {/* Render MetricCard with stat data */}
-            <MetricCard
-              id={stat.id}
-              title={stat.title}
-              value={stat.value}
-              change={stat.change}
-              subtitle={stat.subtitle}
-              linkText={stat.linkText}
-              icon={stat.icon}
-              color={stat.color}
-            />
-          </Col>
-        ))}
+      {/* Responsive grid of stat cards styled like ActivityItem */}
+      <Row className="gy-4">
+        {stats.map((stat) => {
+          // Dynamically select icon from lucide-react
+          const IconComponent =
+            (Icons[stat.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
+              size?: number;
+              color?: string;
+            }>;
+
+          return (
+            <Col key={stat.id} xs={12} md={6} lg={3}>
+              <Card className="border-0 shadow-sm mb-3">
+                <Card.Body className="d-flex align-items-start justify-content-between px-2 py-3">
+                  {/* Left section: icon and text */}
+                  <div className="d-flex align-items-start gap-3 flex-grow-1">
+                    <div
+                      className="rounded d-flex align-items-center justify-content-center"
+                      style={{ width: "40px", height: "40px" }}
+                    >
+                      <IconComponent size={20} color="#3CB371" />
+                    </div>
+
+                    <div>
+                      <div className="fw-semibold mb-1">{stat.title}</div>
+                      <div className="text-muted small">{stat.value}</div>
+                    </div>
+                  </div>
+
+                  {/* Right section: change percentage */}
+                  <div className="text-muted small text-end">{stat.change}</div>
+                </Card.Body>
+              </Card>
+            </Col>
+          );
+        })}
       </Row>
     </section>
   );
 };
 
-// Export the component for use in dashboard layout
 export default OrganizationStats;

@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
-import logo from "../../assets/Images/obeeomalogoicon2.png";
+import logo from "../../assets/Images/green..png";
 import { Link } from "react-router-dom";
 
 const Navigation = () => (
@@ -16,11 +16,11 @@ const Navigation = () => (
           <Navbar.Brand as={Link} to="/employer-dashboard">
             <img src={logo} alt="Obeeoma" height="40" />
           </Navbar.Brand>
-          <Nav.Link href="#features" className="text-white">
+          <Nav.Link href="#features" className="text-black">
             {" "}
             Features |{" "}
           </Nav.Link>
-          <Nav.Link href="#benefits" className="text-white">
+          <Nav.Link href="#benefits" className="text-black">
             {" "}
             Benefits
           </Nav.Link>

@@ -1,8 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
-import OrganizationStats from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
-import { StatCard } from "../../../components/admincomponents/Commoncomponents/metricCard";
+import OrganizationStats, { StatCardData, } from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
 import OrganizationTable, {
   Organization,
 } from "../../../components/admincomponents/organisationcomponents/organisationTable";
@@ -16,27 +15,36 @@ import Header from "../../../components/admincomponents/adminheader";
 const mockOrganizations: Organization[] = [
   {
     id: "1",
+    icon: "Building2",
     name: "Wellness Center Inc.",
     clients: 284,
     programs: 12,
     status: "Active",
     lastActive: "2 hours ago",
+    plan: "Premium",
+    address: "123 Main St",
   },
   {
     id: "2",
+    icon: "Building2",
     name: "Community Mental Health",
     clients: 194,
     programs: 8,
     status: "Active",
     lastActive: "3 hours ago",
+    plan: "Enterprise",
+    address: "456 Elm Ave",
   },
   {
     id: "3",
+    icon: "Building2",
     name: "Urban Outreach",
     clients: 134,
     programs: 6,
     status: "Inactive",
     lastActive: "2 days ago",
+    plan: "Freemium",
+    address: "789 Oak Blvd",
   },
 ];
 
@@ -44,44 +52,53 @@ const mockOrganizations: Organization[] = [
  * Sample stat data for top-level metrics.
  * Moved from OrganizationStats component to here.
  */
-const mockStats: StatCard[] = [
+const mockStats: StatCardData[] = [
   {
     id: "1",
     title: "Organizations",
     value: "42",
+    change: "+5%",
+    icon: "Building2",
+    iconColor: "bg-light",
     subtitle: "Active organizations",
     linkText: "View all organizations",
-    icon: "Building2",
     color: "emerald",
   },
   {
-    id: "2",
-    title: "AI Recommendations",
-    value: "1,245",
-    subtitle: "Reviewed today",
-    linkText: "View recommendations",
-    icon: "Brain",
-    color: "blue",
+    id: "1",
+    title: "Organizations",
+    value: "42",
+    change: "+5%",
+    icon: "Building2",
+    iconColor: "bg-light",
+    subtitle: "Active organizations",
+    linkText: "View all organizations",
+    color: "emerald",
   },
   {
-    id: "3",
-    title: "Hotline",
-    value: "324",
-    subtitle: "Calls received",
-    linkText: "View hotline logs",
-    icon: "PhoneCall",
-    color: "purple",
+    id: "1",
+    title: "Organizations",
+    value: "42",
+    change: "+5%",
+    icon: "Building2",
+    iconColor: "bg-light",
+    subtitle: "Active organizations",
+    linkText: "View all organizations",
+    color: "emerald",
   },
   {
-    id: "4",
-    title: "Subscriptions",
-    value: "$25.8K",
-    subtitle: "Monthly revenue",
-    linkText: "View subscriptions",
-    icon: "CreditCard",
-    color: "pink",
+    id: "1",
+    title: "Organizations",
+    value: "42",
+    change: "+5%",
+    icon: "Building2",
+    iconColor: "bg-light",
+    subtitle: "Active organizations",
+    linkText: "View all organizations",
+    color: "emerald",
   },
 ];
+
 
 
 /**
