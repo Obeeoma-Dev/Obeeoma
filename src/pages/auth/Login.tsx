@@ -15,7 +15,7 @@ import logo from "../../assets/Images/obeeomalogoicon4.png";
 
 const customStyles = {
   primaryColor: "#3CB371  100%",
-  lightPink: "#f8d7da",
+  // /lightPink: "#f8d7da",
   logoText: "Obeeoma",
 };
 
@@ -204,9 +204,14 @@ const LoginPage = () => {
                   />
 
                   <Button
-                    variant="success"
                     type="submit"
                     className="w-100 mb-3 py-2 fw-semibold"
+                    style={{
+                      backgroundColor: customStyles.primaryColor,
+                      borderColor: customStyles.primaryColor,
+                      color: "white",
+                      boxShadow: "none",
+                    }}
                     disabled={isLoading}
                   >
                     {isLoading ? (
