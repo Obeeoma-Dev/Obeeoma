@@ -471,13 +471,13 @@ const Register: React.FC = () => {
   };
 
   return (
-    // 1. Full Page Container with relative positioning for footer
+    
     <div
       style={{
         backgroundColor: "#f5f5f5",
         minHeight: "100vh",
-        padding: "50px 0 100px 0", // Added extra padding at the bottom for the fixed footer
-        position: "relative", // Ensures footer sticks to the bottom of the content/viewport
+        padding: "50px 0 100px 0", 
+        position: "relative", 
       }}
       className="d-flex justify-content-center align-items-center"
     >
@@ -486,15 +486,15 @@ const Register: React.FC = () => {
           <Card
             className="shadow-sm border-0 p-4"
             style={{
-              maxWidth: "450px",
+              maxWidth: "600px",
               width: "100%",
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
             }}
           >
             <Card.Body>
-              {/* 2. Logo and Company Name (Centered, Stacked) */}
-              <div className="d-flex flex-column align-items-center justify-content-center mb-4">
+              {/* Logo and Company Name (Centered, Stacked) */}
+              <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
                 <img
                   src={logo}
                   alt="Obeeoma Logo"
@@ -508,6 +508,7 @@ const Register: React.FC = () => {
                       color: customStyles.primaryColor, 
                       fontSize: "10px",
                       fontWeight: "500",
+                      fontFamily: "heading"
                     }}
                   >
                     {customStyles.logoText}
@@ -516,10 +517,10 @@ const Register: React.FC = () => {
               </div>
 
               {/* Main Titles */}
-              <h3 className="text-center mb-2 fw-semibold text-dark">
+              <h3 className="text-center mb-2 fw-semibold text-dark" style={{fontFamily:"heading"}}>
                 Create your Organization's account
               </h3>
-              <p className="text-center text-muted mb-4">
+              <p className="text-center text-muted mb-4" style={{fontFamily:"heading"}}>
                 Join our community of mental health professionals and patients
               </p>
 
@@ -573,6 +574,7 @@ const Register: React.FC = () => {
                     {/* Password Field (Placeholder style) */}
                     <BootstrapForm.Group className="mb-3">
                       <BootstrapForm.Control
+                        style={{fontFamily:"heading"}}
                         type="password"
                         name="password"
                         placeholder="Password"
@@ -589,6 +591,7 @@ const Register: React.FC = () => {
                     {/* Confirm Password Field (Placeholder style) */}
                     <BootstrapForm.Group className="mb-4">
                       <BootstrapForm.Control
+                      style={{fontFamily:"heading"}}
                         type="password"
                         name="confirm_password"
                         placeholder="Confirm Password"
@@ -605,17 +608,6 @@ const Register: React.FC = () => {
                       </BootstrapForm.Control.Feedback>
                     </BootstrapForm.Group>
 
-                    {/* Checkbox and Forgot Password Link */}
-                    <div className="d-flex justify-content-end mb-3">
-                      <Link
-                        to="/reset-password-signin"
-                        className="text-success text-decoration-none small"
-                        style={{ color: customStyles.primaryColor }}
-                      >
-                        Forgot password?
-                      </Link>
-                    </div>
-
                     <Button
                       type="submit"
                       className="w-100 mb-3 py-2 fw-semibold"
@@ -623,8 +615,9 @@ const Register: React.FC = () => {
                       style={{
                         backgroundColor: customStyles.primaryColor,
                         borderColor: customStyles.primaryColor,
-                        color: "white", // Ensure text is white for contrast
-                        boxShadow: "none", // Remove the blue focus ring
+                        color: "white", 
+                        boxShadow: "none", 
+                        fontFamily: "body"
                       }}
                     >
                       {isLoading ? (
@@ -636,6 +629,7 @@ const Register: React.FC = () => {
                             role="status"
                             aria-hidden="true"
                             className="me-2"
+                            style={{fontFamily:"heading"}}
                           />
                           Signing Up...
                         </>
@@ -645,7 +639,7 @@ const Register: React.FC = () => {
                     </Button>
 
                     <div className="text-center mt-3">
-                      <span className="text-center">
+                      <span className="text-center" style={{fontFamily:"heading"}}>
                         Already have an account?{" "}
                       </span>
 
@@ -655,6 +649,7 @@ const Register: React.FC = () => {
                           // Uses the custom primary color for the link
                           color: customStyles.primaryColor,
                           fontWeight: "500",
+                          fontFamily: "body"
                         }}
                         role="button"
                         to="/login"
@@ -674,29 +669,30 @@ const Register: React.FC = () => {
       <footer
         className="text-center text-muted py-3 small border-top"
         style={{
-          position: "fixed", // Ensure it's always at the bottom of the viewport
+          position: "fixed", //  at the bottom of the viewport
           bottom: "0", 
           width: "100%",
           backgroundColor: "#f5f5f5", 
           fontSize: "0.8rem",
           zIndex: 1000, 
+          fontFamily: "body"
         }}
       >
         &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
         <Link
           className="mx-3"
-          style={{ textDecoration: "none" }}
+          style={{ textDecoration: "none", fontFamily: "body" }}
           role="button"
           to="/system-admin"
         >
           Privacy Policy
         </Link>
         &nbsp;|&nbsp;
-        <a href="#" className="text-muted" style={{ textDecoration: "none" }}>
+        <a href="#" className="text-muted" style={{ textDecoration: "none", fontFamily: "body"}}>
           Terms of Service
         </a>
         <span className="mx-3">|</span>
-        <a href="#" className="text-muted" style={{ textDecoration: "none" }}>
+        <a href="#" className="text-muted" style={{ textDecoration: "none", fontFamily: "body" }}>
           Contact Us
         </a>
       </footer>

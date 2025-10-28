@@ -595,7 +595,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../assets/Images/obeeomalogoicon4.png";
 
 const customStyles = {
-  primaryColor: "#3CB371", // <-- FIXED: Removed " 100%"
+  primaryColor: "#3CB371", 
   // /lightPink: "#f8d7da",
   logoText: "Obeeoma",
 };
@@ -676,35 +676,44 @@ const LoginPage = () => {
         <Card
           className="shadow-sm border-0 p-4"
           style={{
-            maxWidth: "450px",
+            maxWidth: "600px",
             width: "100%",
             border: "none",
             borderRadius: "8px",
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1) ",
           }}
         >
-          <div className="d-flex justify-content-center align-items-center p-3 px-4 border-bottom bg-white">
-            <div className=" d-flex flex-column align-items-center">
-              <img src={logo} alt="Obeeoma Logo" width="50" className="mb-1" />
-              <p className="m-0 text-center text-muted">
-                <small
-                  style={{
-                    color: customStyles.primaryColor,
-                    fontSize: "10px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Obeeoma
-                </small>
-                {/* <small className="text-muted">A Happy Heart</small> */}
-              </p>
-            </div>
-          </div>
+          
           <Card.Body>
-            <h3 className="text-center mb-2 fw-semibold text-dark">
+            <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
+                <img
+                  src={logo}
+                  alt="Obeeoma Logo"
+                  width="50"
+                  className="mb-1"
+                />
+                <p className="m-0 text-center">
+                  <small
+                    style={{
+                      // Uses the custom primary color for the logo text
+                      color: customStyles.primaryColor, 
+                      fontSize: "10px",
+                      fontWeight: "500",
+                      fontFamily: "heading"
+                    }}
+                  >
+                    {customStyles.logoText}
+                  </small>
+                </p>
+              </div>
+            <h3 className="text-center mb-2 fw-semibold text-dark"
+            style={{fontFamily:'heading'}}
+            >
               Sign in to your account
             </h3>
-            <p className="text-center text-muted mb-4">
+            <p className="text-center text-muted mb-4"
+            style={{fontFamily:'heading'}}
+            >
               Welcome back to Obeeoma
             </p>
 
@@ -720,7 +729,7 @@ const LoginPage = () => {
 
             {/* Successful Login Feedback (for demo) */}
             {user && (
-              <Alert variant="success">
+              <Alert variant="success" style={{fontFamily:"body"}}>
                 Welcome, {user.username}! Redirecting...
               </Alert>
             )}
@@ -742,6 +751,7 @@ const LoginPage = () => {
                   <Form.Group className="mb-3" controlId="username">
                     <Form.Control
                       type="text"
+                      style={{fontFamily: "body"}}
                       name="username"
                       value={values.username}
                       onChange={handleChange}
@@ -756,6 +766,7 @@ const LoginPage = () => {
 
                   <Form.Group className="mb-3" controlId="password">
                     <Form.Control
+                      style={{fontFamily: "body"}}
                       type="password"
                       name="password"
                       value={values.password}
@@ -774,9 +785,10 @@ const LoginPage = () => {
                     <Link
                       to="/reset-password-signin"
                       className="small"
-                      style={{ // <-- UPDATED
+                      style={{ 
                         color: customStyles.primaryColor,
                         textDecoration: "none",
+                        fontFamily: "body"
                       }}
                     >
                       Forgot password?
@@ -796,8 +808,9 @@ const LoginPage = () => {
                     style={{
                       backgroundColor: customStyles.primaryColor,
                       borderColor: customStyles.primaryColor,
-                      color: "white", // Ensure text is white for contrast
-                      boxShadow: "none", // Remove the blue focus ring
+                      color: "white", 
+                      boxShadow: "none", 
+                      fontFamily: "body"
                     }}
                   >
                     {isLoading ? (
@@ -817,7 +830,7 @@ const LoginPage = () => {
                     )}
                   </Button>
 
-                  <div className="text-center mt-4">
+                  <div className="text-center mt-4" style={{fontFamily:"body"}}>
                     <span className="text-center mt-">
                       Don’t have an account?{" "}
                     </span>
@@ -829,6 +842,7 @@ const LoginPage = () => {
                         textDecoration: "none",
                         marginLeft: "5px",
                         fontWeight: "500",
+                        fontFamily: "body"
                       }}
                       role="button"
                       to="/signup"
@@ -846,10 +860,11 @@ const LoginPage = () => {
       <footer
         className="text-center text-muted py-3 small border-top"
         style={{
-          position: "absolute",
-          bottom: "20px",
+          bottom: "0px",
           width: "100%",
           fontSize: "0.8rem",
+          fontFamily: "body",
+          position: "fixed",
         }}
       >
         &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
@@ -857,7 +872,8 @@ const LoginPage = () => {
           className="mx-3"
           style={{ // <-- UPDATED
             textDecoration: "none",
-            color: customStyles.primaryColor 
+            color: customStyles.primaryColor,
+            fontFamily: "body"
           }}
           role="button"
           to="/system-admin"
@@ -869,7 +885,8 @@ const LoginPage = () => {
           href="#"
           style={{ // <-- UPDATED
             textDecoration: "none",
-            color: customStyles.primaryColor
+            color: customStyles.primaryColor,
+            fontFamily: "body"
           }}
         >
           Terms of Service
@@ -879,7 +896,8 @@ const LoginPage = () => {
           href="#"
           style={{ // <-- UPDATED
             textDecoration: "none",
-            color: customStyles.primaryColor 
+            color: customStyles.primaryColor, 
+            fontFamily: "body"
           }}
         >
           Contact Us

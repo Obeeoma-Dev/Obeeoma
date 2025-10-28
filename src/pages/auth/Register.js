@@ -425,41 +425,43 @@ const Register = () => {
             onSuccess: () => navigate("/login"),
         }));
     };
-    return (
-    // 1. Full Page Container with relative positioning for footer
-    _jsxs("div", { style: {
+    return (_jsxs("div", { style: {
             backgroundColor: "#f5f5f5",
             minHeight: "100vh",
-            padding: "50px 0 100px 0", // Added extra padding at the bottom for the fixed footer
-            position: "relative", // Ensures footer sticks to the bottom of the content/viewport
+            padding: "50px 0 100px 0",
+            position: "relative",
         }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
-                            maxWidth: "450px",
+                            maxWidth: "600px",
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "50", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
+                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "50", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
                                                     // Uses the custom primary color for the logo text
                                                     color: customStyles.primaryColor,
                                                     fontSize: "10px",
                                                     fontWeight: "500",
-                                                }, children: customStyles.logoText }) })] }), _jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", children: "Create your Organization's account" }), _jsx("p", { className: "text-center text-muted mb-4", children: "Join our community of mental health professionals and patients" }), error && (_jsx(Alert, { variant: "danger", dismissible: true, children: error })), _jsx(Formik, { validationSchema: registerValidationSchema, initialValues: initialValues, onSubmit: handleSubmit, children: ({ handleSubmit, handleChange, values, touched, errors }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: values.email, onChange: handleChange, className: "py-2" // Adds vertical padding
-                                                        , isInvalid: !!touched.email && !!errors.email }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "text", name: "username", placeholder: "Username", value: values.username, onChange: handleChange, className: "py-2", isInvalid: !!touched.username && !!errors.username }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "username" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "password", name: "password", placeholder: "Password", value: values.password, onChange: handleChange, className: "py-2", isInvalid: !!touched.password && !!errors.password }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "password" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "password", name: "confirm_password", placeholder: "Confirm Password", value: values.confirm_password, onChange: handleChange, className: "py-2", isInvalid: !!touched.confirm_password &&
-                                                            !!errors.confirm_password }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "confirm_password" }) })] }), _jsx("div", { className: "d-flex justify-content-end mb-3", children: _jsx(Link, { to: "/reset-password-signin", className: "text-success text-decoration-none small", style: { color: customStyles.primaryColor }, children: "Forgot password?" }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
+                                                    fontFamily: "heading"
+                                                }, children: customStyles.logoText }) })] }), _jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: "Create your Organization's account" }), _jsx("p", { className: "text-center text-muted mb-4", style: { fontFamily: "heading" }, children: "Join our community of mental health professionals and patients" }), error && (_jsx(Alert, { variant: "danger", dismissible: true, children: error })), _jsx(Formik, { validationSchema: registerValidationSchema, initialValues: initialValues, onSubmit: handleSubmit, children: ({ handleSubmit, handleChange, values, touched, errors }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: values.email, onChange: handleChange, className: "py-2" // Adds vertical padding
+                                                        , isInvalid: !!touched.email && !!errors.email }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "text", name: "username", placeholder: "Username", value: values.username, onChange: handleChange, className: "py-2", isInvalid: !!touched.username && !!errors.username }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "username" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "heading" }, type: "password", name: "password", placeholder: "Password", value: values.password, onChange: handleChange, className: "py-2", isInvalid: !!touched.password && !!errors.password }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "password" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "heading" }, type: "password", name: "confirm_password", placeholder: "Confirm Password", value: values.confirm_password, onChange: handleChange, className: "py-2", isInvalid: !!touched.confirm_password &&
+                                                            !!errors.confirm_password }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "confirm_password" }) })] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
                                                     backgroundColor: customStyles.primaryColor,
                                                     borderColor: customStyles.primaryColor,
-                                                    color: "white", // Ensure text is white for contrast
-                                                    boxShadow: "none", // Remove the blue focus ring
-                                                }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing Up..."] })) : ("Sign up") }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "text-center", children: ["Already have an account?", " "] }), _jsx(Link, { className: "text-decoration-none", style: {
+                                                    color: "white",
+                                                    boxShadow: "none",
+                                                    fontFamily: "body"
+                                                }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2", style: { fontFamily: "heading" } }), "Signing Up..."] })) : ("Sign up") }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "text-center", style: { fontFamily: "heading" }, children: ["Already have an account?", " "] }), _jsx(Link, { className: "text-decoration-none", style: {
                                                             // Uses the custom primary color for the link
                                                             color: customStyles.primaryColor,
                                                             fontWeight: "500",
+                                                            fontFamily: "body"
                                                         }, role: "button", to: "/login", children: "sign in" })] })] })) })] }) }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", style: {
-                    position: "fixed", // Ensure it's always at the bottom of the viewport
+                    position: "fixed", //  at the bottom of the viewport
                     bottom: "0",
                     width: "100%",
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
-                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: { textDecoration: "none" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-muted", style: { textDecoration: "none" }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", className: "text-muted", style: { textDecoration: "none" }, children: "Contact Us" })] })] }));
+                    fontFamily: "body"
+                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: { textDecoration: "none", fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-muted", style: { textDecoration: "none", fontFamily: "body" }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", className: "text-muted", style: { textDecoration: "none", fontFamily: "body" }, children: "Contact Us" })] })] }));
 };
 export default Register;
