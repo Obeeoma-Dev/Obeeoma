@@ -259,7 +259,7 @@ export const forgotPassword = createAsyncThunk("auth/reset-password", async (dat
     }
 });
 // Reset password Thunk
-export const resetPassword = createAsyncThunk("auth/accept-invite", async (data, { rejectWithValue }) => {
+export const resetPassword = createAsyncThunk("auth/change-password", async (data, { rejectWithValue }) => {
     try {
         const response = await authAPI.changePassword(data);
         data.onSuccess?.();
@@ -332,7 +332,7 @@ const authSlice = createSlice({
             state.token = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
-            //  FIX 2: Correct storage key to "user"
+            //  storage key to "user"
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
             .addCase(registerUser.rejected, (state, action) => {

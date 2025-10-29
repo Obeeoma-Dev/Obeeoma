@@ -306,7 +306,7 @@ return rejectWithValue(getErrorMessage(error));
 
 // Reset password Thunk
 export const resetPassword = createAsyncThunk(
- "auth/accept-invite",
+ "auth/change-password",
 async (
  data: changePasswordData & { onSuccess?: () => void },
  { rejectWithValue },
@@ -393,7 +393,7 @@ localStorage.setItem(
  "token",
  action.payload.access || action.payload.token,
  );
- //  FIX 2: Correct storage key to "user"
+ //  storage key to "user"
 localStorage.setItem("user", JSON.stringify(action.payload.user));
  })
 .addCase(registerUser.rejected, (state, action) => {

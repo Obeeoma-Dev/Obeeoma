@@ -365,6 +365,7 @@ const customStyles = {
 // --- Component Definition ---
 
 const ResetPassword: React.FC = () => {
+  const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -452,6 +453,19 @@ const ResetPassword: React.FC = () => {
               )}
 
               <BootstrapForm noValidate onSubmit={handleSubmit}>
+
+                {/* code */}
+                <BootstrapForm.Group className="mb-3">
+                  <BootstrapForm.Control
+                    type="text"
+                    name="code"
+                    placeholder="Enter the code"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    className="py-2"
+                    isInvalid={!!error} // Simple invalid styling based on generic error
+                  />
+                </BootstrapForm.Group>
                 {/* New Password Field */}
                 <BootstrapForm.Group className="mb-3">
                   <BootstrapForm.Control

@@ -12,6 +12,7 @@ const config: Config.InitialOptions = {
   },
   transformIgnorePatterns: [
     "node_modules/(?!react-router-dom)", // transform react-router-dom if needed
+    
   ],
   moduleNameMapper: {
     // Map @ alias to src folder
