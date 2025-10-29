@@ -38,7 +38,7 @@ const Features: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-12 text-center">
             <h2 className="fw-bold mb-3 text-dark" style={{ fontFamily: "heading" }}>
-              Comprehensive Obeeoma Features
+              Comprehensive Mental Health care
             </h2>
             <p className="text-muted mb-5">
               Our platform offers a range of services designed to support your mental health journey.
