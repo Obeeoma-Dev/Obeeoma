@@ -346,7 +346,6 @@ const ResetPassword = () => {
             setError("Passwords do not match.");
             return;
         }
-        // Mock API call simulation
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
@@ -366,13 +365,7 @@ const ResetPassword = () => {
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "50", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
-                                                    // Uses the custom primary color for the logo text
-                                                    color: customStyles.primaryColor,
-                                                    fontSize: "10px",
-                                                    fontWeight: "500",
-                                                    fontFamily: "heading"
-                                                }, children: customStyles.logoText }) })] }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body" }, children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsx(BootstrapForm.Group, { className: "mb-3", children: _jsx(BootstrapForm.Control, { type: "password", name: "password", placeholder: "New Password", value: password, onChange: (e) => setPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(BootstrapForm.Group, { className: "mb-4", children: _jsx(BootstrapForm.Control, { type: "password", name: "confirmPassword", placeholder: "Confirm New Password", value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
+                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }), _jsx("p", { className: "m-0 text-center" })] }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body" }, children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsx(BootstrapForm.Group, { className: "mb-3", children: _jsx(BootstrapForm.Control, { type: "password", name: "password", placeholder: "New Password", value: password, onChange: (e) => setPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(BootstrapForm.Group, { className: "mb-4", children: _jsx(BootstrapForm.Control, { type: "password", name: "confirmPassword", placeholder: "Confirm New Password", value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
                                                 backgroundColor: customStyles.primaryColor,
                                                 borderColor: customStyles.primaryColor,
                                                 color: "white",

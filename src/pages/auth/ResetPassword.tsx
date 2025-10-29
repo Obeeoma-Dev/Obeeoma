@@ -393,7 +393,7 @@ const ResetPassword: React.FC = () => {
       return;
     }
 
-    // Mock API call simulation
+
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -430,21 +430,11 @@ const ResetPassword: React.FC = () => {
       <img
       src={logo}
       alt="Obeeoma Logo"
-      width="50"
+      width="100"
       className="mb-1"
       />
       <p className="m-0 text-center">
-      <small
-      style={{
-      // Uses the custom primary color for the logo text
-      color: customStyles.primaryColor, 
-      fontSize: "10px",
-      fontWeight: "500",
-      fontFamily: "heading"
-      }}
-      >
-      {customStyles.logoText}
-      </small>
+      
       </p>
       </div>
               <h3 className="mb-2 fw-semibold text-dark" style={{fontFamily:"body"}}>

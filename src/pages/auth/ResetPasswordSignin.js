@@ -322,7 +322,6 @@ import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, } from 
 import logo from "./../../assets/Images/green..png";
 const customStyles = {
     primaryColor: "#3CB371", // Used for links and accents
-    logoText: "Obeeoma",
 };
 // --- Component Definition ---
 const ResetPasswordSignIn = () => {
@@ -332,25 +331,43 @@ const ResetPasswordSignIn = () => {
     const [isEmailSent, setIsEmailSent] = useState(false);
     const navigate = useNavigate();
     // Mock validation and submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
         if (!email) {
             setError("Email is required");
             return;
         }
-        // Mock API call simulation
         setIsLoading(true);
-        setTimeout(() => {
+        try {
+            const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password";
+            // const API_URL="VITE_API_BASE_URL/auth/reset-password";
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
+            }
+            setIsEmailSent(true);
+            navigate("/reset-password");
+        }
+        catch (err) {
+            console.error("Forgot Password Error:", err);
+            let errorMessage = "An unexpected error occurred. Please try again.";
+            // Narrow the type to access the 'message' property
+            if (err instanceof Error) {
+                errorMessage = err.message;
+            }
+            setError(errorMessage);
+        }
+        finally {
             setIsLoading(false);
-            if (email === "test@error.com") {
-                setError("User not found.");
-            }
-            else {
-                setIsEmailSent(true);
-                navigate("/reset-password");
-            }
-        }, 1500);
+        }
     };
     const handleResendCode = () => {
         // Mock resend logic
@@ -368,18 +385,18 @@ const ResetPasswordSignIn = () => {
             minHeight: "100vh",
             padding: "50px 0 100px 0", // Extra padding for fixed footer
             position: "relative",
-        }, className: "d-flex justify-content-center align-items-center", children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "50", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
-                                // Uses the custom primary color for the logo text
-                                color: customStyles.primaryColor,
-                                fontSize: "10px",
-                                fontWeight: "500",
-                                fontFamily: "heading"
-                            }, children: customStyles.logoText }) })] }), _jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
+        }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
                             maxWidth: "600px", // Card width limit
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
+                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
+                                                    // Uses the custom primary color for the logo text
+                                                    color: customStyles.primaryColor,
+                                                    fontSize: "10px",
+                                                    fontWeight: "500",
+                                                    fontFamily: "heading"
+                                                } }) })] }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
                                                         ? {
                                                             borderColor: "red",
                                                             borderWidth: "1.5px",
@@ -406,6 +423,6 @@ const ResetPasswordSignIn = () => {
                     fontSize: "0.8rem",
                     zIndex: 1000,
                     fontFamily: "body"
-                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsx("div", { className: "footer-copyright", children: "\u00A9 2025 Obeeoma. All rights reserved." }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default ResetPasswordSignIn;

@@ -498,11 +498,11 @@ const Register: React.FC = () => {
                 <img
                   src={logo}
                   alt="Obeeoma Logo"
-                  width="50"
+                  width="100"
                   className="mb-1"
                 />
                 <p className="m-0 text-center">
-                  <small
+                  {/* <small
                     style={{
                       // Uses the custom primary color for the logo text
                       color: customStyles.primaryColor, 
@@ -512,7 +512,7 @@ const Register: React.FC = () => {
                     }}
                   >
                     {customStyles.logoText}
-                  </small>
+                  </small> */}
                 </p>
               </div>
 

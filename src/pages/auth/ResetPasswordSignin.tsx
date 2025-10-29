@@ -360,7 +360,7 @@ import logo from "./../../assets/Images/green..png";
 
 const customStyles = {
   primaryColor: "#3CB371", // Used for links and accents
-  logoText: "Obeeoma",
+  
 };
 
 // --- Component Definition ---
@@ -374,7 +374,7 @@ const ResetPasswordSignIn: React.FC = () => {
   const navigate = useNavigate();
 
   // Mock validation and submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -383,17 +383,43 @@ const ResetPasswordSignIn: React.FC = () => {
       return;
     }
 
-    // Mock API call simulation
+    
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      if (email === "test@error.com") {
-        setError("User not found.");
-      } else {
-        setIsEmailSent(true);
-        navigate("/reset-password");
+    try{
+      const API_URL="https://api-0904.onrender.com/api/v1/auth/reset-password";
+      // const API_URL="VITE_API_BASE_URL/auth/reset-password";
+
+      const response = await fetch(API_URL,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+       },
+      body: JSON.stringify({ email }),
+        
+      });
+
+      if (!response.ok){
+        const errorData = await response.json()
+        throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
       }
-    }, 1500);
+     setIsEmailSent(true);
+
+     navigate("/reset-password");
+    } catch(err: unknown){
+      console.error("Forgot Password Error:", err);
+     
+     let errorMessage = "An unexpected error occurred. Please try again.";
+
+    // Narrow the type to access the 'message' property
+    if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+    
+    setError(errorMessage)
+      
+      } finally{
+      setIsLoading(false);
+      }
   };
 
   const handleResendCode = () => {
@@ -418,27 +444,7 @@ const ResetPasswordSignIn: React.FC = () => {
       className="d-flex justify-content-center align-items-center"
     >
 
-      <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
-      <img
-      src={logo}
-      alt="Obeeoma Logo"
-      width="50"
-      className="mb-1"
-      />
-      <p className="m-0 text-center">
-      <small
-      style={{
-      // Uses the custom primary color for the logo text
-      color: customStyles.primaryColor, 
-      fontSize: "10px",
-      fontWeight: "500",
-      fontFamily: "heading"
-      }}
-      >
-      {customStyles.logoText}
-      </small>
-      </p>
-      </div>
+
       <Container>
         <div className="d-flex justify-content-center">
           <Card
@@ -451,6 +457,27 @@ const ResetPasswordSignIn: React.FC = () => {
             }}
           >
             <Card.Body>
+                    <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
+      <img
+      src={logo}
+      alt="Obeeoma Logo"
+      width="100"
+      className="mb-1"
+      />
+      <p className="m-0 text-center">
+      <small
+      style={{
+      // Uses the custom primary color for the logo text
+      color: customStyles.primaryColor, 
+      fontSize: "10px",
+      fontWeight: "500",
+      fontFamily: "heading"
+      }}
+      >
+
+      </small>
+      </p>
+      </div>
               <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading"}}>
                 Reset Password to Sign in
               </h3>
@@ -565,7 +592,7 @@ const ResetPasswordSignIn: React.FC = () => {
             > 
             <div className="d-flex justify-content-between align-items-center">
         <div className="footer-copyright" >
-          &copy; 2025 {customStyles.logoText}. All rights reserved.
+          &copy; 2025 Obeeoma. All rights reserved.
         </div>
       
         <div className="d-flex align-items-center">

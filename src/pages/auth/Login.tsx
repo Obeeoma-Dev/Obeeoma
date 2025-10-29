@@ -689,11 +689,11 @@ const LoginPage = () => {
                 <img
                   src={logo}
                   alt="Obeeoma Logo"
-                  width="50"
+                  width="100"
                   className="mb-1"
                 />
                 <p className="m-0 text-center">
-                  <small
+                  {/* <small
                     style={{
                       // Uses the custom primary color for the logo text
                       color: customStyles.primaryColor, 
@@ -703,7 +703,7 @@ const LoginPage = () => {
                     }}
                   >
                     {customStyles.logoText}
-                  </small>
+                  </small> */}
                 </p>
               </div>
             <h3 className="text-center mb-2 fw-semibold text-dark"
