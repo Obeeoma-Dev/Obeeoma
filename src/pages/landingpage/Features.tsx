@@ -38,7 +38,7 @@ const Features: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-12 text-center">
             <h2 className="fw-bold mb-3 text-dark" style={{ fontFamily: "heading" }}>
-              Comprehensive Mental Health care
+              Comprehensive Mental Health Care
             </h2>
             <p className="text-muted mb-5">
               Our platform offers a range of services designed to support your mental health journey.
@@ -87,7 +87,7 @@ const Features: React.FC = () => {
 
                       {/* title + description */}
                       <div>
-                        <h6 className="mb-1" style={{ fontSize: 14, fontWeight: 600 }}>
+                        <h6 className="mb-1" style={{ fontSize: 14, fontWeight: 600, fontFamily: "heading" }}>
                           {f.title}
                         </h6>
                         <p className="mb-0 text-muted" style={{ fontSize: 13 }}>

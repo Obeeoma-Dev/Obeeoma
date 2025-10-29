@@ -41,7 +41,7 @@ const Benefits = () => {
         // Accessible section wrapper with spacing and light background
         className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", 
         // inline style kept minimal so Prettier/ESLint don't complain about unused classes
-        style: { marginBottom: 0 }, children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "text-center mb-5", children: [_jsx("h2", { className: "display-5 fw-bold mb-3", children: "Comprehensive Obeeoma Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { className: "row g-4", children: benefits.map((benefit, index) => {
+        style: { marginBottom: 0 }, children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "text-center mb-5", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: "Comprehensive Obeeoma Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { className: "row g-4", children: benefits.map((benefit, index) => {
                         // Extract icon component for this benefit item
                         const Icon = benefit.icon;
                         return (_jsx("div", { className: "col-md-6 col-lg-4", "data-testid": `benefit-card-${index}`, children: _jsxs("div", { 
