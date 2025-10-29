@@ -1,161 +1,132 @@
+import React from "react"; // React import required to use JSX
+
 import {
-  FileText,
+  Network,
   Brain,
   Users,
   Calendar,
   TrendingUp,
   Heart,
-  CheckCircle2,
-  LucideIcon,
-} from "lucide-react";
-import image3 from "@/assets/Images/image3.png";
-import image4 from "@/assets/Images/alex-green-2.jpg";
-import "bootstrap/dist/css/bootstrap.min.css";
+} from "lucide-react"; // lucide-react icon components
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap grid & utility classes
 
+// Define the shape of a benefit item. Use a React component type for the icon.
 interface Benefit {
-  icon: LucideIcon;
-  title: string;
-  description: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>; // icon component type
+  title: string; // card title
+  description: string; // card description
 }
 
-const Benefits = () => {
+// Benefits functional component (default export)
+const Benefits: React.FC = () => {
+  // Array of benefit items to render; swap icon components here if needed.
   const benefits: Benefit[] = [
     {
-      icon: FileText,
-      title: "Know Just One Plan",
+      icon: Network,
+      title: "Anonymous & secure", // card title text
       description:
-        "Simple, clear and easy-to-understand pricing structure. No hidden fees or unexpected expenses to deal with.",
+        "End-to-end encryption ensures complete privacy and anonymity for all user interactions.", // card description text
     },
     {
-      icon: Brain,
-      title: "Mood Tracking",
+      icon: Network,
+      title: "Culturally Relevant", // title
       description:
-        "Monitor your mental health in a quick-to-use daily diary. Keep an eye on how you feel as time goes by.",
+        "Built specifically for African workplace cultures with local mental health practices and languages.", // description
     },
     {
-      icon: Users,
-      title: "Crisis Support",
+      icon: Network,
+      title: "AI Powered Insights", // title
       description:
-        "Access immediate help. Get the right level of support if you need it, whether it's in the moment or ongoing.",
+        "Advanced AI provides personalized recommendations and identifies early warning signs.", // description
     },
     {
-      icon: Calendar,
-      title: "Mood Checking",
+      icon: Network,
+      title: "Team Wellbeing", // title
       description:
-        "Regular check-ins to see how you're doing. Get insights to guide you on your mental wellness journey.",
+        "Track team morale and wellness trends without compromising individual privacy.", // description
     },
     {
-      icon: TrendingUp,
-      title: "Skill Building",
+      icon: Network,
+      title: "Responsive Application", // title
       description:
-        "Develop strategies to cope and manage in your situation. Build skills that can enhance your mental strength.",
+        "A responsive application adapts its layout across devices for a consistent user experience.", // description
     },
     {
-      icon: Heart,
-      title: "Self Assessments",
+      icon: Network,
+      title: "ROI Analytics", // title
       description:
-        "Regular assessments to track progress and see how your journey is going. Understand yourself better with data.",
-    },
-    {
-      icon: CheckCircle2,
-      title: "Complete Portal",
-      description:
-        "Easy-to-use tools in one place for optimized mental health management. Simple and intuitive interface.",
+        "Measure the impact of mental health initiatives on productivity and employee satisfaction.", // description
     },
   ];
 
-  // Divide benefits into rows of 6 cards per side (3x2)
-  const half = Math.ceil(benefits.length / 2);
-  const firstHalf = benefits.slice(0, half);
-  const secondHalf = benefits.slice(half);
-
-  const renderBenefitsGrid = (benefitSet: Benefit[]) => (
-    <div className="row g-4">
-      {benefitSet.map((benefit, index) => (
-        <div key={index} className="col-12 col-md-6 col-lg-4">
-          <div className="card h-100 border-0 shadow-sm hover-shadow bg-white rounded-4">
-            <div className="card-body text-center p-4">
-              <div
-                className="d-flex justify-content-center align-items-center bg-success-subtle rounded-circle mb-3"
-                style={{ width: "60px", height: "60px", margin: "0 auto" }}>
-                <benefit.icon className="text-success fs-4" />
-              </div>
-              <h5 className="card-title fw-semibold">{benefit.title}</h5>
-              <p className="card-text text-muted small">
-                {benefit.description}
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-
+  // Render the benefits section using Bootstrap responsive grid
   return (
-    <>
-      <section
-        className="py-5"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
-            marginBottom: "0",}} >
-        <div className="container">
-          <div className="text-center mb-5">
-            <h2 className="fw-bold text-success mb-3">
-              Mental Health Care Benefits
-            </h2>
-            <p className="text-muted fs-5 mx-auto" style={{ maxWidth: "700px" }}>
-              Our platform offers a range of benefits designed to support your
-              mental health journey.
-            </p>
-          </div>
-
-          <div className="row align-items-center g-5">
-            <div className="col-lg-7">{renderBenefitsGrid(firstHalf)}</div>
-
-            <div className="col-lg-5 text-center">
-              <img src={image3}
-                alt="Professional working"
-                className="img-fluid rounded-4 shadow-lg"
-                style={{ maxHeight: "480px", objectFit: "cover" }}
-              />
-            </div>
-          </div>
+    <section
+      // Accessible section wrapper with spacing and light background
+      className="py-5 bg-light"
+      data-testid="benefits-section"
+      aria-label="Benefits"
+      // inline style kept minimal so Prettier/ESLint don't complain about unused classes
+      style={{ marginBottom: 0 }}
+    >
+      <div className="container">
+        {/* Header area: centered heading + subheading */}
+        <div className="text-center mb-5">
+          <h2 className="display-6 fw-bold mb-3" style={{ fontFamily: "heading" }}>Comprehensive Obeeoma Features</h2>
+          <p className="text-muted lead mb-5">
+            Everything your organization needs to build a mentally healthy workplace
+          </p>
         </div>
-      </section>
 
-      {/* --- SECTION 2 (Image on Left) --- */}
-      <section
-        className="py-5"
-        style={{
-          background: "linear-gradient(180deg, #ffffff 0%, rgba(230, 255, 237, 0.7) 100%)",
-        }}>
-        <div className="container">
-          <div className="row align-items-center g-5 flex-lg-row-reverse">
-            {/* Image */}
-            <div className="col-lg-5 text-center">
-              <img
-                src={image4}
-                alt="Supportive conversation"
-                className="img-fluid rounded-4 shadow-lg"
-                style={{ maxHeight: "480px", objectFit: "cover" }}
-              />
-            </div>
+        {/* Grid of benefit cards */}
+        <div className="row g-4">
+          {benefits.map((benefit, index) => {
+            // Extract icon component for this benefit item
+            const Icon = benefit.icon;
+            return (
+              <div
+                // Each card column: full width on xs, two per row on md, three per row on lg
+                key={index}
+                className="col-md-6 col-lg-4"
+                data-testid={`benefit-card-${index}`}
+              >
+                <div
+                  // Card container: white background, rounded corners, subtle shadow
+                  className="card h-100 border-0 bg-white p-4 rounded-3 shadow-sm"
+                  role="group"
+                  aria-labelledby={`benefit-title-${index}`}
+                >
+                  {/* Icon container: white circular background with subtle border to match Figma */}
+                  <div
+                    className="d-inline-flex align-items-center justify-content-center mb-4"
+                    style={{
+                      width: 64, // fixed diameter for visual consistency
+                      height: 64,
+                      borderRadius: "50%", // make it circular
+                      background: "#ffffff", // white background to create the 'white round border' look
+                      border: "1px solid rgba(15,157,89,0.06)", // faint green border
+                      marginBottom: 16, // spacing under the icon
+                    }}
+                    aria-hidden="true"
+                  >
+                    {/* Render chosen icon inside the circular container */}
+                    <Icon className="text-success" size={20} />
+                  </div>
 
-            <div className="col-lg-7">{renderBenefitsGrid(secondHalf)}</div>
-          </div>
+                  {/* Title text */}
+                  <h4 id={`benefit-title-${index}`} className="h5 mb-3">
+                    {benefit.title}
+                  </h4>
+
+                  {/* Description text */}
+                  <p className="text-muted mb-0 small">{benefit.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            width: "100%",
-            height: "100px"
-          }}
-        />
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

@@ -23,8 +23,8 @@ const Navigation = () => (
         <img
           src={logo} // Logo image source
           alt="Obeeoma" // Accessible alt text for the logo
-          height="50" // Logo height
-          width="50" // Logo width
+          height="80" // Logo height
+          width="80" // Logo width
         />
       </Navbar.Brand>
 
