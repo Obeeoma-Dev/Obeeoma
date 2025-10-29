@@ -592,7 +592,7 @@ import { Formik } from "formik";
 
 import { Container, Card, Form, Button, Alert, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../assets/Images/obeeomalogoicon4.png";
+import logo from "./../../assets/Images/green..png"; 
 
 const customStyles = {
   primaryColor: "#3CB371", 
@@ -857,52 +857,72 @@ const LoginPage = () => {
         </Card>
       </Container>
       <div></div>
-      <footer
-        className="text-center text-muted py-3 small border-top"
-        style={{
-          bottom: "0px",
-          width: "100%",
-          fontSize: "0.8rem",
-          fontFamily: "body",
-          position: "fixed",
-        }}
-      >
-        &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
-        <Link
-          className="mx-3"
-          style={{ // <-- UPDATED
-            textDecoration: "none",
-            color: customStyles.primaryColor,
-            fontFamily: "body"
-          }}
-          role="button"
-          to="/system-admin"
-        >
-          Privacy Policy
-        </Link>
-        &nbsp;|&nbsp;
-        <a
-          href="#"
-          style={{ // <-- UPDATED
-            textDecoration: "none",
-            color: customStyles.primaryColor,
-            fontFamily: "body"
-          }}
-        >
-          Terms of Service
-        </a>
-        <span className="mx-3">|</span>
-        <a
-          href="#"
-          style={{ // <-- UPDATED
-            textDecoration: "none",
-            color: customStyles.primaryColor, 
-            fontFamily: "body"
-          }}
-        >
-          Contact Us
-        </a>
-      </footer>
+       <footer
+              className="text-center text-muted py-3 small border-top"
+              style={{
+                position: "fixed", //  at the bottom of the viewport
+                bottom: "0", 
+                width: "100%",
+                backgroundColor: "#f5f5f5", 
+                fontSize: "0.8rem",
+                zIndex: 1000, 
+                fontFamily: "body"
+              }}
+            > 
+            {/* <div className="footer-copyright" >
+              &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
+            </div>
+            <div className="d-flex align-items-center">
+              <Link
+                className="me-3"
+                style={{ textDecoration: "none", fontFamily: "body" }}
+                role="button"
+                to="/system-admin"
+              >
+                Privacy Policy
+              </Link>
+              &nbsp;|&nbsp;
+              <a href="#" className="text-muted" style={{ textDecoration: "none", fontFamily: "body"}}>
+                Terms of Service
+              </a>
+              <span className="me-3">|</span>
+              <a href="#" className="text-muted" style={{ textDecoration: "none", fontFamily: "body" }}>
+                Contact Us
+              </a>
+              </div> */}
+            <div className="d-flex justify-content-between align-items-center">
+        <div className="footer-copyright" >
+          &copy; 2025 {customStyles.logoText}. All rights reserved.
+        </div>
+      
+        <div className="d-flex align-items-center">
+          <Link
+            className="text-muted text-decoration-none me-3" 
+            style={{ fontFamily: "body" }}
+            role="button"
+            to="/system-admin"
+          >
+            Privacy Policy
+          </Link>
+      
+          <a 
+            href="#" 
+            className="text-muted text-decoration-none me-3" 
+            style={{ fontFamily: "body"}}
+          >
+            Terms of Service
+          </a>
+      
+          <a 
+            href="#" 
+            className="text-muted text-decoration-none" 
+            style={{ fontFamily: "body" }}
+          >
+            Contact Us
+          </a>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

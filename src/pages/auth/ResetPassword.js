@@ -1,4 +1,4 @@
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 // // import React, { useEffect } from "react";
 // // import { useDispatch, useSelector } from "react-redux";
 // // import { AppDispatch, RootState } from "../../store/store";
@@ -316,6 +316,7 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, } from "react-bootstrap";
+import logo from "./../../assets/Images/green..png";
 // Mock styles for consistency
 const customStyles = {
     primaryColor: "#3CB371", // The green color
@@ -361,32 +362,31 @@ const ResetPassword = () => {
             padding: "50px 0 100px 0", // Extra padding for fixed footer
             position: "relative",
         }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
-                            maxWidth: "450px", // Card width limit
+                            maxWidth: "600px", // Card width limit
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "mb-2 fw-semibold text-dark", children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small", children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsx(BootstrapForm.Group, { className: "mb-3", children: _jsx(BootstrapForm.Control, { type: "password", name: "password", placeholder: "New Password", value: password, onChange: (e) => setPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(BootstrapForm.Group, { className: "mb-4", children: _jsx(BootstrapForm.Control, { type: "password", name: "confirmPassword", placeholder: "Confirm New Password", value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
-                                                // 🟢 Match primary color
+                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "50", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
+                                                    // Uses the custom primary color for the logo text
+                                                    color: customStyles.primaryColor,
+                                                    fontSize: "10px",
+                                                    fontWeight: "500",
+                                                    fontFamily: "heading"
+                                                }, children: customStyles.logoText }) })] }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body" }, children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsx(BootstrapForm.Group, { className: "mb-3", children: _jsx(BootstrapForm.Control, { type: "password", name: "password", placeholder: "New Password", value: password, onChange: (e) => setPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(BootstrapForm.Group, { className: "mb-4", children: _jsx(BootstrapForm.Control, { type: "password", name: "confirmPassword", placeholder: "Confirm New Password", value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
                                                 backgroundColor: customStyles.primaryColor,
                                                 borderColor: customStyles.primaryColor,
                                                 color: "white",
                                                 boxShadow: "none",
-                                            }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Changing..."] })) : ("Change Password") })] }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/login", className: "small text-decoration-none", style: { color: customStyles.primaryColor }, children: "Back to Sign in" }) })] }) }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", style: {
-                    position: "fixed",
+                                            }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Changing..."] })) : ("Change Password") })] }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/login", className: "small text-decoration-none", style: { color: customStyles.primaryColor,
+                                            fontFamily: "body"
+                                        }, children: "Back to Sign in" }) })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
+                    position: "fixed", //  at the bottom of the viewport
                     bottom: "0",
                     width: "100%",
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
-                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor, // 🟢 Style footer link
-                        }, role: "button", to: "/privacy-policy", children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor, // 🟢 Style footer link
-                        }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor,
-                        }, children: "Contact Us" })] })] }));
+                    fontFamily: "body"
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default ResetPassword;

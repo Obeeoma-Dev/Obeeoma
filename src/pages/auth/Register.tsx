@@ -424,7 +424,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 // Assuming you have an image file at this path:
-import logo from "../../assets/Images/obeeomalogoicon4.png"; 
+import logo from "./../../assets/Images/green..png"; 
 
 const customStyles = {
   // Use the clean hex code for styling
@@ -677,10 +677,13 @@ const Register: React.FC = () => {
           zIndex: 1000, 
           fontFamily: "body"
         }}
-      >
+      > 
+      {/* <div className="footer-copyright" >
         &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
+      </div>
+      <div className="d-flex align-items-center">
         <Link
-          className="mx-3"
+          className="me-3"
           style={{ textDecoration: "none", fontFamily: "body" }}
           role="button"
           to="/system-admin"
@@ -691,11 +694,44 @@ const Register: React.FC = () => {
         <a href="#" className="text-muted" style={{ textDecoration: "none", fontFamily: "body"}}>
           Terms of Service
         </a>
-        <span className="mx-3">|</span>
+        <span className="me-3">|</span>
         <a href="#" className="text-muted" style={{ textDecoration: "none", fontFamily: "body" }}>
           Contact Us
         </a>
-      </footer>
+        </div> */}
+      <div className="d-flex justify-content-between align-items-center">
+  <div className="footer-copyright" >
+    &copy; 2025 {customStyles.logoText}. All rights reserved.
+  </div>
+
+  <div className="d-flex align-items-center">
+    <Link
+      className="text-muted text-decoration-none me-3" 
+      style={{ fontFamily: "body" }}
+      role="button"
+      to="/system-admin"
+    >
+      Privacy Policy
+    </Link>
+
+    <a 
+      href="#" 
+      className="text-muted text-decoration-none me-3" 
+      style={{ fontFamily: "body"}}
+    >
+      Terms of Service
+    </a>
+
+    <a 
+      href="#" 
+      className="text-muted text-decoration-none" 
+      style={{ fontFamily: "body" }}
+    >
+      Contact Us
+    </a>
+  </div>
+</div>
+  </footer>
     </div>
   );
 };

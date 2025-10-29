@@ -30,7 +30,7 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
   ];
 
   const defaultTestsByDepartment = [
-    { name: "Marketing", value: 25, color: "#10b981" },
+    { name: "Marketing", value: 25, color: "#3CB371" },
     { name: "HR", value: 25, color: "#60a5fa" },
     { name: "Finance", value: 25, color: "#f59e0b" },
     { name: "Engineering", value: 25, color: "#ef4444" },
@@ -45,15 +45,15 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
       <div className="col-12 col-lg-6">
         <div className="card border-0 shadow-sm">
           <div className="card-body">
-            <h3 className="h5 fw-semibold mb-4">Tests by Type</h3>
+            <h3 className="h5 fw-semibold mb-4" style={{fontFamily:"heading"}}>Tests by Type</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={testsByType}>
-                <CartesianGrid strokeDasharray="3 3" className="opacity-50" />
-                <XAxis dataKey="name" />
-                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" className="opacity-50" style={{fontFamily:"heading"}} />
+                <XAxis dataKey="name" style={{fontFamily:"heading"}} />
+                <YAxis  style={{fontFamily:"heading"}}/>
                 <Bar
                   dataKey="value"
-                  fill="var(--bs-primary)"
+                  fill="#3CB371"
                   radius={[8, 8, 0, 0]}
                 />
               </BarChart>
@@ -66,7 +66,7 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
       <div className="col-12 col-lg-6">
         <div className="card border-0 shadow-sm">
           <div className="card-body">
-            <h3 className="h5 fw-semibold mb-4">Tests by Department</h3>
+            <h3 className="h5 fw-semibold mb-4" style={{fontFamily: "heading"}}>Tests by Department</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -77,12 +77,13 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
                   label={({ name, value }) => `${name}: ${value}%`}
                   outerRadius={80}
                   dataKey="value"
+                  style={{fontFamily:"heading"}}
                 >
                   {testsByDepartment.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Legend />
+                <Legend  wrapperStyle={{ fontFamily:"heading", paddingTop: '10px'}}/>
               </PieChart>
             </ResponsiveContainer>
           </div>

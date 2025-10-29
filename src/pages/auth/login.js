@@ -536,7 +536,7 @@ import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
 import { Container, Card, Form, Button, Alert, Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../assets/Images/obeeomalogoicon4.png";
+import logo from "./../../assets/Images/green..png";
 const customStyles = {
     primaryColor: "#3CB371",
     // /lightPink: "#f8d7da",
@@ -613,24 +613,14 @@ const LoginPage = () => {
                                                         marginLeft: "5px",
                                                         fontWeight: "500",
                                                         fontFamily: "body"
-                                                    }, role: "button", to: "/signup", children: "Create an account" })] })] })) })] }) }) }), _jsx("div", {}), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", style: {
-                    bottom: "0px",
+                                                    }, role: "button", to: "/signup", children: "Create an account" })] })] })) })] }) }) }), _jsx("div", {}), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
+                    position: "fixed", //  at the bottom of the viewport
+                    bottom: "0",
                     width: "100%",
+                    backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
-                    fontFamily: "body",
-                    position: "fixed",
-                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor,
-                            fontFamily: "body"
-                        }, role: "button", to: "/system-admin", children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor,
-                            fontFamily: "body"
-                        }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor,
-                            fontFamily: "body"
-                        }, children: "Contact Us" })] })] }));
+                    zIndex: 1000,
+                    fontFamily: "body"
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default LoginPage;

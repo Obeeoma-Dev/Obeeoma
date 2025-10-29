@@ -354,6 +354,7 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
+import logo from "./../../assets/Images/green..png"; 
 
 // Mock styles for consistency
 const customStyles = {
@@ -415,19 +416,41 @@ const ResetPassword: React.FC = () => {
       <Container>
         <div className="d-flex justify-content-center">
           <Card
+          
             className="shadow-sm border-0 p-4"
             style={{
-              maxWidth: "450px", // Card width limit
+              maxWidth: "600px", // Card width limit
               width: "100%",
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
             }}
           >
             <Card.Body>
-              <h3 className="mb-2 fw-semibold text-dark">
+              <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
+      <img
+      src={logo}
+      alt="Obeeoma Logo"
+      width="50"
+      className="mb-1"
+      />
+      <p className="m-0 text-center">
+      <small
+      style={{
+      // Uses the custom primary color for the logo text
+      color: customStyles.primaryColor, 
+      fontSize: "10px",
+      fontWeight: "500",
+      fontFamily: "heading"
+      }}
+      >
+      {customStyles.logoText}
+      </small>
+      </p>
+      </div>
+              <h3 className="mb-2 fw-semibold text-dark" style={{fontFamily:"body"}}>
                 Reset Your Password
               </h3>
-              <p className="text-muted mb-4 small">
+              <p className="text-muted mb-4 small " style={{fontFamily:"body"}}>
                 Enter your new password
               </p>
 
@@ -470,7 +493,7 @@ const ResetPassword: React.FC = () => {
                   className="w-100 mb-3 py-2 fw-semibold"
                   disabled={isLoading}
                   style={{
-                    // 🟢 Match primary color
+                    
                     backgroundColor: customStyles.primaryColor,
                     borderColor: customStyles.primaryColor,
                     color: "white",
@@ -500,7 +523,10 @@ const ResetPassword: React.FC = () => {
                 <Link
                   to="/login"
                   className="small text-decoration-none"
-                  style={{ color: customStyles.primaryColor }} // 🟢 Style back link
+                  style={{ color: customStyles.primaryColor,
+                    fontFamily:"body"
+
+                  }} // 
                 >
                   Back to Sign in
                 </Link>
@@ -511,49 +537,50 @@ const ResetPassword: React.FC = () => {
       </Container>
 
       {/* --- Footer Component --- */}
-      <footer
-        className="text-center text-muted py-3 small border-top"
-        style={{
-          position: "fixed",
-          bottom: "0",
-          width: "100%",
-          backgroundColor: "#f5f5f5",
-          fontSize: "0.8rem",
-          zIndex: 1000,
-        }}
-      >
-        &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
+     <footer
+            className="text-center text-muted py-3 small border-top"
+            style={{
+              position: "fixed", //  at the bottom of the viewport
+              bottom: "0", 
+              width: "100%",
+              backgroundColor: "#f5f5f5", 
+              fontSize: "0.8rem",
+              zIndex: 1000, 
+              fontFamily: "body"
+            }}
+          > 
+          <div className="d-flex justify-content-between align-items-center">
+      <div className="footer-copyright" >
+        &copy; 2025 {customStyles.logoText}. All rights reserved.
+      </div>
+    
+      <div className="d-flex align-items-center">
         <Link
-          className="mx-3"
-          style={{
-            textDecoration: "none",
-            color: customStyles.primaryColor, // 🟢 Style footer link
-          }}
+          className="text-muted text-decoration-none me-3" 
+          style={{ fontFamily: "body" }}
           role="button"
-          to="/privacy-policy"
+          to="/system-admin"
         >
           Privacy Policy
         </Link>
-        &nbsp;|&nbsp;
-        <a
-          href="#"
-          style={{
-            textDecoration: "none",
-            color: customStyles.primaryColor, // 🟢 Style footer link
-          }}
+    
+        <a 
+          href="#" 
+          className="text-muted text-decoration-none me-3" 
+          style={{ fontFamily: "body"}}
         >
           Terms of Service
         </a>
-        <span className="mx-3">|</span>
-        <a
-          href="#"
-          style={{
-            textDecoration: "none",
-            color: customStyles.primaryColor, 
-          }}
+    
+        <a 
+          href="#" 
+          className="text-muted text-decoration-none" 
+          style={{ fontFamily: "body" }}
         >
           Contact Us
         </a>
+      </div>
+    </div>
       </footer>
     </div>
   );

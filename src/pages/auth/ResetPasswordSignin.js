@@ -319,10 +319,7 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, } from "react-bootstrap";
-// NOTE: I'm importing ErrorMessage and Formik/Form from formik,
-// but for simplicity, I'll use standard state/validation mock here.
-// You would replace this with your actual Formik implementation.
-// Mock styles for consistency with your previous code
+import logo from "./../../assets/Images/green..png";
 const customStyles = {
     primaryColor: "#3CB371", // Used for links and accents
     logoText: "Obeeoma",
@@ -371,44 +368,44 @@ const ResetPasswordSignIn = () => {
             minHeight: "100vh",
             padding: "50px 0 100px 0", // Extra padding for fixed footer
             position: "relative",
-        }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
-                            maxWidth: "450px", // Card width limit
+        }, className: "d-flex justify-content-center align-items-center", children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "50", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
+                                // Uses the custom primary color for the logo text
+                                color: customStyles.primaryColor,
+                                fontSize: "10px",
+                                fontWeight: "500",
+                                fontFamily: "heading"
+                            }, children: customStyles.logoText }) })] }), _jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
+                            maxWidth: "600px", // Card width limit
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "mb-2 fw-semibold text-dark", children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 small", children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
+                        }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
                                                         ? {
                                                             borderColor: "red",
                                                             borderWidth: "1.5px",
+                                                            fontFamily: "body",
                                                         }
                                                         : {} }), error && (_jsx("div", { className: "invalid-feedback d-block small mt-1 text-danger", children: error }))] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading || isEmailSent, style: {
                                                 backgroundColor: customStyles.primaryColor,
                                                 borderColor: customStyles.primaryColor,
                                                 color: "white",
                                                 boxShadow: "none",
-                                            }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Sending..."] })) : ("Send Code") })] }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "text-center text-muted small", children: ["Didn't receive any code?", " "] }), _jsx(Link, { onClick: handleResendCode, style: {
+                                                fontFamily: "body"
+                                            }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2", style: { fontFamily: "body" } }), "Sending..."] })) : ("Send Code") })] }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "text-center text-muted small", style: { fontFamily: "body" }, children: ["Didn't receive any code?", " "] }), _jsx(Link, { onClick: handleResendCode, style: {
                                                 color: customStyles.primaryColor,
                                                 textDecoration: "none",
                                                 fontWeight: "500",
                                                 cursor: "pointer",
+                                                fontFamily: "body"
                                             }, to: "#" // Prevent full page reload on click
-                                            , className: "small", children: "Send Code again" })] })] }) }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", style: {
-                    position: "fixed", // Fixed to the viewport
+                                            , className: "small", children: "Send Code again" })] })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
+                    position: "fixed", //  at the bottom of the viewport
                     bottom: "0",
                     width: "100%",
-                    backgroundColor: "#f5f5f5", // Match background
+                    backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
-                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor
-                        }, role: "button", to: "/privacy-policy" // Placeholder link
-                        , children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor
-                        }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor
-                        }, children: "Contact Us" })] })] }));
+                    fontFamily: "body"
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default ResetPasswordSignIn;

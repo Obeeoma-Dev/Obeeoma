@@ -397,7 +397,7 @@ import { registerUser } from "../../store/slices/authSlice";
 import { registerValidationSchema } from "./../../validation/authValidation";
 import { Container, Button, Form as BootstrapForm, Alert, Card, Spinner, } from "react-bootstrap";
 // Assuming you have an image file at this path:
-import logo from "../../assets/Images/obeeomalogoicon4.png";
+import logo from "./../../assets/Images/green..png";
 const customStyles = {
     // Use the clean hex code for styling
     primaryColor: "#3CB371",
@@ -454,7 +454,7 @@ const Register = () => {
                                                             color: customStyles.primaryColor,
                                                             fontWeight: "500",
                                                             fontFamily: "body"
-                                                        }, role: "button", to: "/login", children: "sign in" })] })] })) })] }) }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", style: {
+                                                        }, role: "button", to: "/login", children: "sign in" })] })] })) })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
                     position: "fixed", //  at the bottom of the viewport
                     bottom: "0",
                     width: "100%",
@@ -462,6 +462,6 @@ const Register = () => {
                     fontSize: "0.8rem",
                     zIndex: 1000,
                     fontFamily: "body"
-                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: { textDecoration: "none", fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", className: "text-muted", style: { textDecoration: "none", fontFamily: "body" }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", className: "text-muted", style: { textDecoration: "none", fontFamily: "body" }, children: "Contact Us" })] })] }));
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default Register;
