@@ -15,7 +15,6 @@ const SideNavButton = ({
   label,
   icon,
   onClick,
-  detectActive = false,
 }: {
   id: string;
   label: string;
@@ -77,8 +76,6 @@ const AdminSidebar: React.FC = () => {
   // Enables programmatic navigation
   const navigate = useNavigate();
 
-  // Gets current route info
-  const location = useLocation();
 
   // Redux dispatch for logout action
   const dispatch = useDispatch<AppDispatch>();
@@ -95,7 +92,7 @@ const AdminSidebar: React.FC = () => {
   ];
 
   // Extract current path segment to determine active menu item
-  const currentPath = location.pathname.split("/")[2];
+  // const currentPath = location.pathname.split("/")[2];
 
   // Navigate to selected menu item
   const handleMenuClick = (id: string): void => {
@@ -149,16 +146,16 @@ const AdminSidebar: React.FC = () => {
       <div style={{ padding: "1rem 0", flexGrow: 1 }}>
         {menuItems.map((item) => {
           // Cast icon to valid React component
-          const IconComponent = Icons[
-            item.icon as keyof typeof Icons
-          ] as React.FC<{
-            size?: number;
-            color?: string;
-          }>;
+          // const IconComponent = Icons[
+          //   item.icon as keyof typeof Icons
+          // ] as React.FC<{
+          //   size?: number;
+          //   color?: string;
+          // }>;
 
-          const isActive =
-            currentPath === item.id ||
-            (item.id === "overview" && currentPath === undefined);
+          // const isActive =
+          //   currentPath === item.id ||
+          //   (item.id === "overview" && currentPath === undefined);
 
           return (
             <SideNavButton

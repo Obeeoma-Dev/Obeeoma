@@ -14,17 +14,28 @@ const Navigation = () => (
   <Navbar
     expand="lg" // Enables responsive collapse on large screens
     fixed="top" // Keeps the navbar fixed at the top
-    className="py-3 shadow-sm" // Adds vertical padding and a soft shadow
-    style={{ backgroundColor: "white" }} // White background color for a clean look
+    className="shadow-sm"
+    style={{
+      backgroundColor: "white",
+      height: "80px", // Set fixed navbar height
+      minHeight: "80px" // Ensure minimum height
+    }}
   >
     <Container>
       {/* Brand (Logo) - aligned to the left */}
-      <Navbar.Brand as={Link} to="/employer-dashboard">
+      <Navbar.Brand as={Link}
+        to="/employer-dashboard"
+        className="d-flex align-items-center" // Center logo vertically
+      >
         <img
           src={logo} // Logo image source
           alt="Obeeoma" // Accessible alt text for the logo
-          height="80" // Logo height
-          width="80" // Logo width
+          style={{
+            height: "90px", // Larger logo height
+            width: "auto", // Maintain aspect ratio
+            marginTop: "-10px", // Adjust vertical position if needed
+            marginBottom: "-10px"
+          }}
         />
       </Navbar.Brand>
 
@@ -35,10 +46,26 @@ const Navigation = () => (
       <Navbar.Collapse id="nav" className="justify-content-end">
         <Nav className="ms-auto">
           {/* Navigation links */}
-          <Nav.Link href="#features" className="text-black fw-semibold mx-2">
+          <Nav.Link
+            href="#features"
+            className="text-black mx-2"
+            style={{
+              fontSize: "18px", // Larger font size
+              fontWeight: 600, // Semibold
+              fontFamily: 'heading'
+            }}
+          >
             Features |
           </Nav.Link>
-          <Nav.Link href="#benefits" className="text-black fw-semibold mx-2">
+          <Nav.Link
+            href="#benefits"
+            className="text-black mx-2"
+            style={{
+              fontSize: "18px", // Larger font size
+              fontWeight: 600, // Semibold
+              fontFamily: 'heading'
+            }}
+          >
             Benefits
           </Nav.Link>
         </Nav>

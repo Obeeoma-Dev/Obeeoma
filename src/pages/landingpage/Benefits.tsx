@@ -1,13 +1,6 @@
 import React from "react"; // React import required to use JSX
 
-import {
-  Network,
-  Brain,
-  Users,
-  Calendar,
-  TrendingUp,
-  Heart,
-} from "lucide-react"; // lucide-react icon components
+import { Network } from "lucide-react"; // lucide-react icon components
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap grid & utility classes
 
 // Define the shape of a benefit item. Use a React component type for the icon.
@@ -67,7 +60,7 @@ const Benefits: React.FC = () => {
       data-testid="benefits-section"
       aria-label="Benefits"
       // inline style kept minimal so Prettier/ESLint don't complain about unused classes
-      style={{ marginBottom: 0 }}
+      style={{ marginBottom: 0, fontFamily: 'heading' }}
     >
       <div className="container">
         {/* Header area: centered heading + subheading */}

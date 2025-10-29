@@ -17,7 +17,7 @@ import {
   FaTimesCircle,
   FaSearch,
 } from "react-icons/fa";
-import * as Icons from "lucide-react";
+
 
 // Define the shape of organization data
 export interface Organization {
