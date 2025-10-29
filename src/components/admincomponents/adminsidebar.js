@@ -5,7 +5,7 @@ import { logout } from "../../store/slices/authSlice";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
 import logo from "../../assets/Images/green..png"; // Obeeoma logo
-const SideNavButton = ({ id, label, icon, onClick, detectActive = false, }) => {
+const SideNavButton = ({ id, label, icon, onClick, }) => {
     const location = useLocation();
     const currentPath = location.pathname.split("/")[2];
     const isActive = currentPath === id;
@@ -38,8 +38,6 @@ const SideNavButton = ({ id, label, icon, onClick, detectActive = false, }) => {
 const AdminSidebar = () => {
     // Enables programmatic navigation
     const navigate = useNavigate();
-    // Gets current route info
-    const location = useLocation();
     // Redux dispatch for logout action
     const dispatch = useDispatch();
     // Define sidebar menu items (excluding Settings and Logout)
@@ -53,7 +51,7 @@ const AdminSidebar = () => {
         { id: "reports", label: "Reports", icon: "BarChart3" },
     ];
     // Extract current path segment to determine active menu item
-    const currentPath = location.pathname.split("/")[2];
+    // const currentPath = location.pathname.split("/")[2];
     // Navigate to selected menu item
     const handleMenuClick = (id) => {
         // Overview should link to /system-admin directly
@@ -86,9 +84,15 @@ const AdminSidebar = () => {
                     justifyContent: "center",
                 }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "120px", height: "120px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
                     // Cast icon to valid React component
-                    const IconComponent = Icons[item.icon];
-                    const isActive = currentPath === item.id ||
-                        (item.id === "overview" && currentPath === undefined);
+                    // const IconComponent = Icons[
+                    //   item.icon as keyof typeof Icons
+                    // ] as React.FC<{
+                    //   size?: number;
+                    //   color?: string;
+                    // }>;
+                    // const isActive =
+                    //   currentPath === item.id ||
+                    //   (item.id === "overview" && currentPath === undefined);
                     return (_jsx(SideNavButton, { id: item.id, label: item.label, icon: item.icon, onClick: () => handleMenuClick(item.id) }, item.id));
                 }) }), _jsxs("div", { style: { padding: "1rem", borderTop: "1px solid #dee2e6" }, children: [_jsx(SideNavButton, { id: "settings-overview", label: "Settings", icon: "Settings", onClick: handleSettingsClick }), _jsx(SideNavButton, { id: "login", label: "Log Out", icon: "LogOut", onClick: handleLogoutClick, detectActive: false })] })] }));
 };
