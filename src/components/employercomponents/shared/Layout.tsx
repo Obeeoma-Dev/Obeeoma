@@ -196,7 +196,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/obeeomalogoicon2.png";
+import logo from "../../../assets/Images/green..png";
 import LogoutModal from "../LogoutModal";
 
 interface LayoutProps {
@@ -269,8 +269,8 @@ const Layout = ({ children, title }: LayoutProps) => {
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
             <div 
-                className="rounded-circle d-flex align-items-center justify-content-center" 
-                style={{ width: "40px", height: "40px", backgroundColor: PRIMARY_COLOR }} // <-- COLOR CHANGE 1: Logo background
+                className=" justify-content-center" 
+                style={{ width: "80px", height: "80px", }} // <-- COLOR CHANGE 1: Logo background
             >
               <span className="text-white fw-bold">
                 <img src={logo} alt="logo" height="40" />
@@ -346,13 +346,14 @@ const Layout = ({ children, title }: LayoutProps) => {
                   <button
                     onClick={() => setIsSidebarOpen(true)}
                     className="btn btn-link p-2"
+                    style={{fontFamily:"heading", color:PRIMARY_COLOR}}
                   >
                     <Menu size={24} />
                   </button>
                 </div>
 
                 <div className="col">
-                  <h1 className="h4 fw-bold mb-0">{title}</h1>
+                  <h1 className="h4 fw-bold mb-0 " style={{fontFamily:"heading"}}>{title}</h1>
                 </div>
 
                 <div className="col-auto">

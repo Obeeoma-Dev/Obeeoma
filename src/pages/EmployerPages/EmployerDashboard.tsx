@@ -24,7 +24,7 @@ const EmployerDashboard = () => {
 
   if (error) {
     return (
-      <Layout title="Organization Overview">
+      <Layout title="">
         <div className="container-fluid py-4">
           <div className="alert alert-danger" role="alert">
             {error}
@@ -67,7 +67,7 @@ const EmployerDashboard = () => {
   ] : [];
 
   return (
-    <Layout title="Organization Overview">
+    <Layout title="Organization Overview" >
       <div className="container-fluid py-4">
         <StatsGrid stats={statsData} />
         <ChartsSection chartData={chartData} />

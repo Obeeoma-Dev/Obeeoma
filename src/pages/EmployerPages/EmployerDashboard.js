@@ -10,7 +10,7 @@ const EmployerDashboard = () => {
         return (_jsx(Layout, { title: "Organization Overview", children: _jsx("div", { className: "container-fluid py-4", children: _jsxs("div", { className: "text-center", children: [_jsx("div", { className: "spinner-border text-primary", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading..." }) }), _jsx("p", { className: "mt-2", children: "Loading dashboard data..." })] }) }) }));
     }
     if (error) {
-        return (_jsx(Layout, { title: "Organization Overview", children: _jsx("div", { className: "container-fluid py-4", children: _jsx("div", { className: "alert alert-danger", role: "alert", children: error }) }) }));
+        return (_jsx(Layout, { title: "", children: _jsx("div", { className: "container-fluid py-4", children: _jsx("div", { className: "alert alert-danger", role: "alert", children: error }) }) }));
     }
     // Transform backend data to component props
     const statsData = stats ? [
