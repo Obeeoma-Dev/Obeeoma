@@ -65,7 +65,7 @@ const Benefits: React.FC = () => {
       <div className="container">
         {/* Header area: centered heading + subheading */}
         <div className="text-center mb-5">
-          <h2 className="display-6 fw-bold mb-3" style={{ fontFamily: "heading" }}>Comprehensive Obeeoma Features</h2>
+          <h2 className="display-6 fw-bold mb-3" style={{ fontFamily: "heading" }}> Mental health Features </h2>
           <p className="text-muted lead mb-5">
             Everything your organization needs to build a mentally healthy workplace
           </p>
