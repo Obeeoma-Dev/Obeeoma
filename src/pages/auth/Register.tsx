@@ -572,7 +572,7 @@ const Register: React.FC = () => {
                     </BootstrapForm.Group>
 
                     {/* Password Field (Placeholder style) */}
-                    <BootstrapForm.Group className="mb-3">
+                    <BootstrapForm.Group className="mb-3 ">
                       <BootstrapForm.Control
                         style={{fontFamily:"heading"}}
                         type="password"
@@ -582,7 +582,9 @@ const Register: React.FC = () => {
                         onChange={handleChange}
                         className="py-2"
                         isInvalid={!!touched.password && !!errors.password}
+                        
                       />
+                      <i className="bi bi-eye"></i>
                       <BootstrapForm.Control.Feedback type="invalid">
                         <ErrorMessage name="password" />
                       </BootstrapForm.Control.Feedback>
@@ -597,7 +599,7 @@ const Register: React.FC = () => {
                         placeholder="Confirm Password"
                         value={values.confirm_password}
                         onChange={handleChange}
-                        className="py-2"
+                        className="py-2 "
                         isInvalid={
                           !!touched.confirm_password &&
                           !!errors.confirm_password

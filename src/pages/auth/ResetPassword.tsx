@@ -404,7 +404,7 @@ const ResetPassword: React.FC = () => {
   };
 
   return (
-    // 1. Full Page Container with positioning for the fixed footer
+
     <div
       style={{
         backgroundColor: "#f5f5f5",
@@ -522,7 +522,7 @@ const ResetPassword: React.FC = () => {
                 </Button>
               </BootstrapForm>
 
-              {/* Optional: Add a link back to login for completeness */}
+            
               <div className="text-center mt-3">
                 <Link
                   to="/login"

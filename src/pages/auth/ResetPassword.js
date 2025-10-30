@@ -354,9 +354,7 @@ const ResetPassword = () => {
             navigate("/login");
         }, 1500);
     };
-    return (
-    // 1. Full Page Container with positioning for the fixed footer
-    _jsxs("div", { style: {
+    return (_jsxs("div", { style: {
             backgroundColor: "#f5f5f5",
             minHeight: "100vh",
             padding: "50px 0 100px 0", // Extra padding for fixed footer
