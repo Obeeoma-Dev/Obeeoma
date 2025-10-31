@@ -48,7 +48,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       name: "Orena",
       email: "orenagedion2020@gmail.com",
       department: "Engineering",
-      status: "Active",
+      status: "Pending",
       avatar: "O",
     },
   ];
