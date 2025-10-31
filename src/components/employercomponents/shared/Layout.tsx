@@ -134,7 +134,10 @@ const Layout = ({ children, title }: LayoutProps) => {
 
       {/* Main Content */}
       <div className="d-lg-flex">
-        <div className="flex-grow-1 ms-lg-4" >
+        <div className="flex-grow-1"
+          style={{
+            paddingLeft: isSidebarOpen ? 0 : undefined,
+          }} >
           {/* Header */}
           <header className="bg-white border-bottom sticky-top z-30">
             <div className="container-fluid">
