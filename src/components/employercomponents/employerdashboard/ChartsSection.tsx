@@ -55,7 +55,7 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
                 <XAxis dataKey="name" style={{fontFamily:"heading"}} />
                 <YAxis
                   allowDecimals={false}
-                  tickFormatter={(value: number) => Math.round(value)}
+                  tickFormatter={(value: number) => Math.round(value).toString()}
                   style={{fontFamily:"heading"}} />
                 <Bar
                   dataKey="value"
