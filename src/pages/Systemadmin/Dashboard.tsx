@@ -73,7 +73,7 @@ const bottomMetricData: BottomMetricCard[] = [
   {
     id: "1",
     title: "Organizations",
-    value: "42",
+    value: "0",
     subtitle: "Active organizations",
     linkText: "View all organizations",
     icon: "Building2",
@@ -82,7 +82,7 @@ const bottomMetricData: BottomMetricCard[] = [
   {
     id: "2",
     title: "AI Recommendations",
-    value: "1,245",
+    value: "0",
     subtitle: "Reviewed today",
     linkText: "View recommendations",
     icon: "Brain",
@@ -91,7 +91,7 @@ const bottomMetricData: BottomMetricCard[] = [
   {
     id: "3",
     title: "Hotline",
-    value: "324",
+    value: "0",
     subtitle: "Calls received",
     linkText: "View hotline logs",
     icon: "PhoneCall",
@@ -100,7 +100,7 @@ const bottomMetricData: BottomMetricCard[] = [
   {
     id: "4",
     title: "Subscriptions",
-    value: "$25.8K",
+    value: "$0k",
     subtitle: "Monthly revenue",
     linkText: "View subscriptions",
     icon: "CreditCard",
@@ -115,7 +115,7 @@ const bottomMetricData: BottomMetricCard[] = [
 const dashboardStatsData: StatCardData[] = [
   {
     id: "1",
-    value: "42",
+    value: "total_organizations",
     title: "Total Organizations",
     change: "+3 this month",
     icon: "Building2",
@@ -123,7 +123,7 @@ const dashboardStatsData: StatCardData[] = [
   },
   {
     id: "2",
-    value: "1,284",
+    value: "0",
     title: "Total Clients",
     change: "+124 this week",
     icon: "Users",
@@ -131,7 +131,7 @@ const dashboardStatsData: StatCardData[] = [
   },
   {
     id: "3",
-    value: "$25,800",
+    value: "$0",
     title: "Monthly Revenue",
     change: "+5.3% this month",
     icon: "CreditCard",
@@ -139,7 +139,7 @@ const dashboardStatsData: StatCardData[] = [
   },
   {
     id: "4",
-    value: "42",
+    value: "0",
     title: "Hotline Calls Today",
     change: "+8% vs yesterday",
     icon: "PhoneCall",

@@ -53,7 +53,7 @@ export interface EmployerEngagementData {
 }
 // Define dashboard statistics structure returned by the API
 export interface DashboardStats {
-  totalUsers: number; // Total number of users
+  total_organizations: number; // Total number of users
   activeUsers: number; // Number of currently active users
   employees: number; // Number of employees
   crisisInsightsCount: number; // Number of crisis insights

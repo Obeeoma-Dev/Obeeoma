@@ -1,59 +1,87 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Network } from "lucide-react"; // lucide-react icon components
-import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap grid & utility classes
-// Benefits functional component (default export)
-const Benefits = () => {
-    // Array of benefit items to render; swap icon components here if needed.
-    const benefits = [
-        {
-            icon: Network,
-            title: "Anonymous & secure", // card title text
-            description: "End-to-end encryption ensures complete privacy and anonymity for all user interactions.", // card description text
-        },
-        {
-            icon: Network,
-            title: "Culturally Relevant", // title
-            description: "Built specifically for African workplace cultures with local mental health practices and languages.", // description
-        },
-        {
-            icon: Network,
-            title: "AI Powered Insights", // title
-            description: "Advanced AI provides personalized recommendations and identifies early warning signs.", // description
-        },
-        {
-            icon: Network,
-            title: "Team Wellbeing", // title
-            description: "Track team morale and wellness trends without compromising individual privacy.", // description
-        },
-        {
-            icon: Network,
-            title: "Responsive Application", // title
-            description: "A responsive application adapts its layout across devices for a consistent user experience.", // description
-        },
-        {
-            icon: Network,
-            title: "ROI Analytics", // title
-            description: "Measure the impact of mental health initiatives on productivity and employee satisfaction.", // description
-        },
-    ];
-    // Render the benefits section using Bootstrap responsive grid
-    return (_jsx("section", { 
-        // Accessible section wrapper with spacing and light background
-        className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", 
-        // inline style kept minimal so Prettier/ESLint don't complain about unused classes
-        style: { marginBottom: 0, fontFamily: 'heading' }, children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "text-center mb-5", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: " Mental health Features " }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { className: "row g-4", children: benefits.map((benefit, index) => {
-                        // Extract icon component for this benefit item
+import { useEffect, useRef, useState } from "react";
+import { Shield, Globe, Brain, Heart, Smartphone, BarChart, } from "lucide-react";
+import "bootstrap/dist/css/bootstrap.min.css";
+const benefits = [
+    { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous." },
+    { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages." },
+    { icon: Brain, title: "AI Powered Insights", description: "Smart alerts and tailored suggestions." },
+    { icon: Heart, title: "Team Wellbeing", description: "Track morale without breaching privacy" },
+    { icon: Smartphone, title: "Responsive Application", description: "Works seamlessly across all devices." },
+    { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction" },
+];
+// duplicate for seamless looping
+const extendedBenefits = [...benefits, ...benefits];
+const useImages = true;
+const BenefitCarousel = () => {
+    const scrollRedf = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    useEffect(() => {
+        const scrollContainer = scrollRedf.current;
+        if (!scrollContainer)
+            return;
+        let rafId = 0;
+        let scrollPosition = scrollContainer.scrollLeft || 0;
+        // Tune the speed.
+        const scrollSpeed = 0.35;
+        // Using duplicated content to loop back.
+        const fullWidth = scrollContainer.scrollWidth;
+        const halfWidth = fullWidth / 2;
+        const singleCount = benefits.length;
+        // approximate card width = halfWidth / singleCount (only original set)
+        const approxCardWidth = halfWidth / singleCount || 300;
+        const loop = () => {
+            if (!isPaused) {
+                // advance the virtual position
+                scrollPosition += scrollSpeed;
+                // seamless wrap, after passing the original content length, subtract it
+                if (scrollPosition >= halfWidth) {
+                    scrollPosition -= halfWidth;
+                }
+                // appls to the DOM
+                scrollContainer.scrollLeft = scrollPosition;
+                // update pagination dot.
+                const idx = Math.floor((scrollPosition / approxCardWidth) % singleCount);
+                if (idx !== activeIndex) {
+                    // setActiveIndex can be called here.
+                    setActiveIndex(idx);
+                }
+            }
+            rafId = requestAnimationFrame(loop);
+        };
+        rafId = requestAnimationFrame(loop);
+        return () => cancelAnimationFrame(rafId);
+    });
+    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: "Mental health Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(true), onMouseLeave: () => setIsPaused(false), style: {
+                        // No snaps and only a continuous scroll
+                        gap: "1rem",
+                        paddingBottom: "1rem",
+                        position: "relative",
+                        overflowX: "hidden",
+                        whiteSpace: "nowrap",
+                    }, children: extendedBenefits.map((benefit, index) => {
                         const Icon = benefit.icon;
-                        return (_jsx("div", { className: "col-md-6 col-lg-4", "data-testid": `benefit-card-${index}`, children: _jsxs("div", { 
-                                // Card container: white background, rounded corners, subtle shadow
-                                className: "card h-100 border-0 bg-white p-4 rounded-3 shadow-sm", role: "group", "aria-labelledby": `benefit-title-${index}`, children: [_jsx("div", { className: "d-inline-flex align-items-center justify-content-center mb-4", style: {
-                                            width: 64, // fixed diameter for visual consistency
+                        return (_jsx("div", { className: "flex-shrink-0", style: {
+                                scrollSnapAlign: "none",
+                                width: 300,
+                                display: "inline-block",
+                            }, "data-testid": `benefit-card-${index}`, children: _jsxs("div", { className: "card h-100 border-0 bg-white p-4 rounded-3 shadow-sm text-center", children: [_jsx("div", { className: "d-inline-flex align-items-center justify-content-center mb-4 mx-auto", style: {
+                                            width: 64,
                                             height: 64,
-                                            borderRadius: "50%", // make it circular
-                                            background: "#ffffff", // white background to create the 'white round border' look
-                                            border: "1px solid rgba(15,157,89,0.06)", // faint green border
-                                            marginBottom: 16, // spacing under the icon
-                                        }, "aria-hidden": "true", children: _jsx(Icon, { className: "text-success", size: 20 }) }), _jsx("h4", { id: `benefit-title-${index}`, className: "h5 mb-3", children: benefit.title }), _jsx("p", { className: "text-muted mb-0 small", children: benefit.description })] }) }, index));
-                    }) })] }) }));
+                                            borderRadius: "50%",
+                                            backgroundImage: useImages ? `url(/images/bg-${index % benefits.length}.jpg)` : undefined,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                            background: "linear-gradient(135deg, #f0f4f8, #d9e2ec)",
+                                        }, "aria-hidden": "true", children: _jsx(Icon, { size: 24 }) }), _jsx("h4", { className: "fw-semibold mb-2", children: benefit.title }), _jsx("p", { className: "text-muted mb-0 small", children: benefit.description })] }) }, index));
+                    }) }), _jsx("div", { className: "d-flex justify-content-center mt-4", children: [...Array(benefits.length)].map((_, i) => (_jsx("div", { style: {
+                            width: 10,
+                            height: 10,
+                            borderRadius: "50%",
+                            backgroundColor: i === activeIndex ? "#0f9d59" : "#ccc",
+                            margin: "0 4px",
+                            transition: "background-color 200ms",
+                        } }, i))) })] }) }));
 };
-export default Benefits;
+export default BenefitCarousel;
