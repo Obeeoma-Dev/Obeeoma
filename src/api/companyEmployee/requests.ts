@@ -9,11 +9,12 @@ export const useGetEmployee = () => {
  // that is what this endpoint will always return. 
   const { commonFetch, isLoading, data } = useFetch<Employee>({
     url: "https://api-0904.onrender.com/api/v1/employees/get",
+    method: "GET" 
   });
 
   // using typescript to define the input here means no mistakes can be
   // made downstream when actually using our API layer
-  const getEmployee = (input: GetEmployeeInput) => commonFetch({ input, method: "GET" });
+  const getEmployee = (input: GetEmployeeInput) => commonFetch({ input});
 
   return { getEmployee, isLoading, data };
 };
@@ -21,9 +22,10 @@ export const useGetEmployee = () => {
 export const useCreateEmployee = () => {
   const { commonFetch, isLoading, data } = useFetch<Employee>({
     url: "https://api-0904.onrender.com/api/v1/employees/create",
+    method: "POST" 
   });
 
-  const createEmployee = (input: CreateEmployeeInput ) => commonFetch({ input, method: "POST" });
+  const createEmployee = (input: CreateEmployeeInput ) => commonFetch({ input });
 
   return { createEmployee, isLoading, data };
 };
