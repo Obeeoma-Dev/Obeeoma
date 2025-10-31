@@ -12,7 +12,7 @@ const EmployerDashboard = () => {
       <Layout title="Organization Overview">
         <div className="container-fluid py-4">
           <div className="text-center">
-            <div className="spinner-border text-primary" role="status">
+            <div className="spinner-border text-success" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
             <p className="mt-2">Loading dashboard data...</p>
@@ -41,7 +41,7 @@ const EmployerDashboard = () => {
       value: stats.totalEmployees.toString(),
       description: "Active employees in the system",
       icon: "Users",
-      color: "primary",
+      color: "success",
     },
     {
       title: "Total Tests",

@@ -20,7 +20,7 @@ const CompanyReports = () => {
         <Calendar size={16} />
         Date Range
       </button>
-      <button className="btn btn-primary d-flex align-items-center gap-2">
+      <button className="btn btn-success d-flex align-items-center gap-2">
         <Download size={16} />
         Export All
       </button>

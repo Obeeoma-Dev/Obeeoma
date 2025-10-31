@@ -8,7 +8,7 @@ const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const additionalHeader = (
-    <button className="btn btn-primary d-flex align-items-center gap-2">
+    <button className="btn btn-success d-flex align-items-center gap-2">
       <Plus size={16} />
       Add Employee
     </button>

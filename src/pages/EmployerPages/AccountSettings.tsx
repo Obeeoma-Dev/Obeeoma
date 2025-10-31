@@ -88,7 +88,7 @@ const EmployerAccountProfile = () => {
             <div className="mt-4">
               <button
                 onClick={handleSaveChanges}
-                className="btn btn-primary d-flex align-items-center gap-2"
+                className="btn btn-success d-flex align-items-center gap-2"
               >
                 <Save size={18} />
                 Save Changes

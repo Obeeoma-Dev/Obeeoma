@@ -502,17 +502,7 @@ const Register: React.FC = () => {
                   className="mb-1"
                 />
                 <p className="m-0 text-center">
-                  {/* <small
-                    style={{
-                      // Uses the custom primary color for the logo text
-                      color: customStyles.primaryColor, 
-                      fontSize: "10px",
-                      fontWeight: "500",
-                      fontFamily: "heading"
-                    }}
-                  >
-                    {customStyles.logoText}
-                  </small> */}
+                  {/* add logo text here */}
                 </p>
               </div>
 
