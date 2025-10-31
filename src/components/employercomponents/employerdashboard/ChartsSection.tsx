@@ -36,7 +36,10 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
     { name: "Engineering", value: 25, color: "#ef4444" },
   ];
 
-  const testsByType = chartData?.testsByType || defaultTestsByType;
+  const testsByType = (chartData?.testsByType || defaultTestsByType).map(item => ({
+    ...item,
+    value: Math.round(item.value)
+  }));
   const testsByDepartment = chartData?.testsByDepartment || defaultTestsByDepartment;
 
   return (
@@ -50,7 +53,10 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
               <BarChart data={testsByType}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-50" style={{fontFamily:"heading"}} />
                 <XAxis dataKey="name" style={{fontFamily:"heading"}} />
-                <YAxis  style={{fontFamily:"heading"}}/>
+                <YAxis
+                  allowDecimals={false}
+                  tickFormatter={(value: number) => Math.round(value)}
+                  style={{fontFamily:"heading"}} />
                 <Bar
                   dataKey="value"
                   fill="#3CB371"

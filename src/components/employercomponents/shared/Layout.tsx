@@ -133,7 +133,7 @@ const Layout = ({ children, title }: LayoutProps) => {
             }}
           >
             <SettingsIcon size={20} />
-            <span className="fw-medium">Settings</span>
+            <span className="fw-medium">My Account</span>
           </button>
           <button
             className="w-100 btn d-flex align-items-center gap-3 text-start text-dark"
@@ -144,7 +144,7 @@ const Layout = ({ children, title }: LayoutProps) => {
             }}
             onClick={() => setIsLogoutModalOpen(true)} >
             <LogOut size={20} />
-            <span>Logout</span>
+            <span> . </span>
           </button>
         </div>
       </aside>
