@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useFetch } from "../../../hooks/useFetch";
 
 const AddEmployeeForm = () => {
-  const { commonFetch, isLoading, data } = useFetch<any>({ url: 'https://api-0904.onrender.com/api/v1/dashboard/employees/', method: 'POST' });
+  const { commonFetch, isLoading } = useFetch<any>({ url: 'https://api-0904.onrender.com/api/v1/dashboard/employees/', method: 'POST' });
 
   // existing form setup (if any)
   // For example, using useForm from react-hook-form:
