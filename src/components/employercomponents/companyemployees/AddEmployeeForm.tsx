@@ -2,6 +2,12 @@ import { useForm } from "react-hook-form";
 import { useFetch } from "../../../hooks/useFetch";
 import { Employee } from "../../../api/companyEmployee/types";
 
+//adding employee prop to notify parent component when a new employee is added
+//this will help us refresh the employee list after the employer tries adding a new employee
+// interface AddEmployeeFormProps {
+//   onEmployeeAdded: (employee: Employee) => void;
+// }
+
 const AddEmployeeForm = () => {
   const { commonFetch, isLoading } = useFetch<Employee>({ url: 'https://api-0904.onrender.com/api/v1/dashboard/employees/', method: 'POST' });
 

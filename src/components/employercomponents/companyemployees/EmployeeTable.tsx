@@ -1,4 +1,6 @@
-import { Search, ToggleButton } from "lucide-react";
+import React, { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Search } from "lucide-react";
 
 interface Employee {
   id: number;
@@ -57,6 +59,13 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
+  };
+
 
   return (
     <>
@@ -121,7 +130,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                         </td>
                         <td className="pe-4 py-3 text-end">
                           <button className="btn btn-link p-0 text-muted">
-                            <ToggleButton size={18} />
+                            <Checkbox checked={isChecked}
+                              onChange={handleChange} size={18} />
                           </button>
                         </td>
                       </tr>
