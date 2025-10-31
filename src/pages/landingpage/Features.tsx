@@ -14,12 +14,12 @@ type FeatureItem = {
 const Features: React.FC = () => {
   // expanded feature list — added items to match the Figma image content (cards only, no styling changes)
   const features: FeatureItem[] = [
-    { icon: Shield, title: "Personalized Care Plans", desc: "Receive a care plan tailored to your specific needs and goals, developed by experienced mental health professionals." },
+    { icon: Shield, title: "Subscription", desc: "Receive a care plan based on your specific needs and goals." },
     { icon: BarChart, title: "Progress Tracking", desc: "Monitor your mental health journey with tools that help track your progress and celebrate your achievements." },
     { icon: Sparkles, title: "Crisis Support", desc: "Immediate access to professional crisis intervention and local mental health resources." },
     { icon: Heart, title: "Mood Tracking", desc: "Daily mood logging with insights and trends to help you understand your mental health patterns." },
     { icon: Shield, title: "Complete Privacy", desc: "Your information and conversations are protected with bank-level security and strict privacy controls." },
-    { icon: Globe, title: "Expert Providers", desc: "Connect with licensed therapists, psychiatrists and counselors specialized in mental health." },
+    // { icon: Globe, title: "Expert Providers", desc: "Connect with licensed therapists, psychiatrists and counselors specialized in mental health." },
     { icon: Sparkles, title: "Self Assessments", desc: "Regular mental health check-ins and personalized wellness recommendations." },
     { icon: Heart, title: "Workplace Support", desc: "Tools and programs to improve team wellbeing, reduce burnout and boost productivity." },
   ];
@@ -51,7 +51,7 @@ const Features: React.FC = () => {
               src={Personreading}
               alt="Person reading"
               className="img-fluid rounded shadow-sm"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "30%", objectFit: "none" }}
               data-testid="features-illustration"
             />
           </div>

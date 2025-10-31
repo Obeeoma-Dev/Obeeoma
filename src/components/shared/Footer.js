@@ -5,30 +5,30 @@ import Obeeoma from "../../assets/Images/obeeomalogoword1.png";
 const Footer = () => {
     // Define footer sections and their items
     const menuSections = {
-        forEmployers: {
-            title: "For Employers",
+        forspace: {
+            title: "",
             items: [
-                { text: "How it works", link: "/how-it-works" },
-                { text: "Pricing", link: "/pricing" },
-                { text: "Partners", link: "/partners" },
-                { text: "Case Studies", link: "/case-studies" },
+                { text: "Privacy Policy", link: "/privacy" },
+                { text: "Crisis Resources", link: "/crisis-resources" },
             ],
         },
         forEmployees: {
-            title: "For Employees",
+            title: "",
             items: [
-                { text: "Sign in", link: "/signin" },
                 { text: "Privacy Policy", link: "/privacy" },
-                { text: "Support", link: "/support" },
+                { text: "Crisis Resources", link: "/crisis-resources" },
+            ],
+        },
+        forspace2: {
+            title: "",
+            items: [
+                { text: "Privacy Policy", link: "/privacy" },
                 { text: "Crisis Resources", link: "/crisis-resources" },
             ],
         },
         company: {
-            title: "Company",
+            title: "",
             items: [
-                { text: "About us", link: "/about" },
-                { text: "Blog", link: "/blog" },
-                { text: "Careers", link: "/careers" },
                 { text: "Contact", link: "/contact" },
             ],
         },
