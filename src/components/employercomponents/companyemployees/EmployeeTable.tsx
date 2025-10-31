@@ -62,8 +62,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
+  const handleChange = (checked: boolean) => {
+    setIsChecked(checked);
   };
 
 
@@ -129,10 +129,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                           </span>
                         </td>
                         <td className="pe-4 py-3 text-end">
-                          <button className="btn btn-link p-0 text-muted">
-                            <Checkbox checked={isChecked}
-                              onChange={handleChange} size={18} />
-                          </button>
+                          <Checkbox checked={isChecked} onChange={handleChange} size={18} 
+                            className="cursor-pointer" />
                         </td>
                       </tr>
                     ))}
