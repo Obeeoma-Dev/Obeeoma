@@ -269,6 +269,18 @@ export const resetPassword = createAsyncThunk("auth/change-password", async (dat
         return rejectWithValue(getErrorMessage(error));
     }
 });
+export const serverLogout = createAsyncThunk("auth/serverLogout", async (_, { rejectWithValue }) => {
+    try {
+        await authAPI.logout();
+    }
+    catch (error) {
+        console.error("Server logout failed, but client session cleared.", getErrorMessage(error));
+        return rejectWithValue({
+            message: "Logout failed on the server.",
+            details: getErrorMessage,
+        });
+    }
+});
 const getUserFromStorage = () => {
     const rawUser = localStorage.getItem("user");
     if (!rawUser || rawUser === "undefined")
@@ -294,8 +306,10 @@ const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.error = null;
-            // Call the async logout function
-            authAPI.logout();
+            // Calling the async logout function
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            // authAPI.logout();
         },
         clearError: (state) => {
             state.error = null;
@@ -314,7 +328,6 @@ const authSlice = createSlice({
             state.token = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
-            //FIX 2: Correct storage key to "user"
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
             .addCase(loginUser.rejected, (state, action) => {
@@ -332,7 +345,7 @@ const authSlice = createSlice({
             state.token = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
-            //  storage key to "user"
+            //  storage "user"
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
             .addCase(registerUser.rejected, (state, action) => {
@@ -368,7 +381,7 @@ const authSlice = createSlice({
     },
 });
 export const { logout, clearError } = authSlice.actions;
-// Selectors for easy access to computed values
+// Selectors  are used for easy access
 export const selectUserDashboardRoute = (state) => {
     return getDashboardRoute(state.auth.user);
 };

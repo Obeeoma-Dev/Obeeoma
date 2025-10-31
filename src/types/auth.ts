@@ -24,7 +24,7 @@ export interface ForgotPasswordData {
 export interface changePasswordData {
   token: string;
   newPassword: string;
-  confirmNewPassword: string;
+  
 }
 export interface AuthState {
   user: User | null;
@@ -38,3 +38,4 @@ export interface LoginSuccessPayload {
   access: string;
   token: string;
 }
+

@@ -392,7 +392,7 @@ const ResetPasswordSignIn = () => {
                         }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
                                                     // Uses the custom primary color for the logo text
                                                     color: customStyles.primaryColor,
-                                                    fontSize: "10px",
+                                                    fontSize: "8px",
                                                     fontWeight: "500",
                                                     fontFamily: "heading"
                                                 } }) })] }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error

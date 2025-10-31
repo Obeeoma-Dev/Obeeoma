@@ -1,9 +1,7 @@
-// slices/admin/adminSlice.ts
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// Adjust this path to match your project structure
 import { adminAPI } from "../../api/apiConfig";
-// --- Error Handler (Refined for correct AxiosError casting) ---
+// --- Error Handling ---
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
         const axiosError = error;
@@ -186,7 +184,7 @@ const adminSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // --- Helper function for consistent state management (like authSlice) ---
+        // --- for consistent state management 
         const handlePending = (state) => {
             state.isLoading = true;
             state.error = null;

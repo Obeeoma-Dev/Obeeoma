@@ -317,8 +317,27 @@ data.onSuccess?.();
 return response.data;
  } catch (error: unknown) {
  return rejectWithValue(getErrorMessage(error));
- }
+
+}
  },
+);
+
+export const serverLogout = createAsyncThunk(
+  "auth/serverLogout",
+
+  async (_, { rejectWithValue }) => {
+    try {
+      
+      await authAPI.logout(); 
+    } catch (error: unknown) {
+      console.error("Server logout failed, but client session cleared.", getErrorMessage(error));
+      return rejectWithValue({
+        message: "Logout failed on the server.",
+        details: getErrorMessage,
+
+      }); 
+    }
+  }
 );
 
 const getUserFromStorage = () => {
@@ -346,8 +365,12 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
-      // Call the async logout function
-      authAPI.logout();
+      // Calling the async logout function
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      // authAPI.logout();
     },
     clearError: (state) => {
       state.error = null;
@@ -370,7 +393,7 @@ localStorage.setItem(
 "token",
  action.payload.access || action.payload.token,
 );
-//FIX 2: Correct storage key to "user"
+
  localStorage.setItem("user", JSON.stringify(action.payload.user)); 
 })
 .addCase(loginUser.rejected, (state, action) => {
@@ -393,7 +416,7 @@ localStorage.setItem(
  "token",
  action.payload.access || action.payload.token,
  );
- //  storage key to "user"
+ //  storage "user"
 localStorage.setItem("user", JSON.stringify(action.payload.user));
  })
 .addCase(registerUser.rejected, (state, action) => {
@@ -432,7 +455,7 @@ state.error = null;
 
 export const { logout, clearError } = authSlice.actions;
 
-// Selectors for easy access to computed values
+// Selectors  are used for easy access
 export const selectUserDashboardRoute = (state: { auth: AuthState }) => {
   return getDashboardRoute(state.auth.user);
 };

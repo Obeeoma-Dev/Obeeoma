@@ -421,9 +421,12 @@ import {
   Form as BootstrapForm,
   Alert,
   Card,
-  Spinner,
+  Spinner, 
+  InputGroup
 } from "react-bootstrap";
-// Assuming you have an image file at this path:
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome" ;
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/green..png"; 
 
 const customStyles = {
@@ -449,6 +452,19 @@ const Register: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { error, isLoading } = useSelector((state: RootState) => state.auth);
+
+  const [showPassword, setShowPassword] = useState(false);
+  
+    // function for the eye visibility toggle
+  const togglePasswordVisibility = () => {
+      setShowPassword((prev) => !prev);
+    };
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(prev => !prev);
+  };
 
   const initialValues: RegisterFormValues = {
     username: "",
@@ -501,19 +517,6 @@ const Register: React.FC = () => {
                   width="100"
                   className="mb-1"
                 />
-                <p className="m-0 text-center">
-                  {/* <small
-                    style={{
-                      // Uses the custom primary color for the logo text
-                      color: customStyles.primaryColor, 
-                      fontSize: "10px",
-                      fontWeight: "500",
-                      fontFamily: "heading"
-                    }}
-                  >
-                    {customStyles.logoText}
-                  </small> */}
-                </p>
               </div>
 
               {/* Main Titles */}
@@ -547,7 +550,7 @@ const Register: React.FC = () => {
                         placeholder="Email address"
                         value={values.email}
                         onChange={handleChange}
-                        className="py-2" // Adds vertical padding
+                        className="py-2" // Adding vertical padding
                         isInvalid={!!touched.email && !!errors.email}
                       />
                       <BootstrapForm.Control.Feedback type="invalid">
@@ -555,7 +558,7 @@ const Register: React.FC = () => {
                       </BootstrapForm.Control.Feedback>
                     </BootstrapForm.Group>
 
-                    {/* User Name Field (Placeholder style) */}
+                    {/* User Name */}
                     <BootstrapForm.Group className="mb-3">
                       <BootstrapForm.Control
                         type="text"
@@ -571,30 +574,44 @@ const Register: React.FC = () => {
                       </BootstrapForm.Control.Feedback>
                     </BootstrapForm.Group>
 
-                    {/* Password Field (Placeholder style) */}
-                    <BootstrapForm.Group className="mb-3 ">
-                      <BootstrapForm.Control
-                        style={{fontFamily:"heading"}}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={values.password}
-                        onChange={handleChange}
-                        className="py-2"
-                        isInvalid={!!touched.password && !!errors.password}
-                        
+                    <BootstrapForm.Group className="mb-3" controlId="password">
+                    <InputGroup>
+                    <BootstrapForm.Control
+                      style={{fontFamily: "body"}}
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      placeholder="Password"
+                      className="py-2 border-success border-opacity-25"
+                      isInvalid={touched.password && !!errors.password}
+                    />
+                    <InputGroup.Text 
+                      onClick={togglePasswordVisibility}
+                       style={{ 
+                        cursor: "pointer", 
+                        backgroundColor: "white" 
+                      }}>
+                      <FontAwesomeIcon 
+                        icon={showPassword ? faEyeSlash : faEyeRegular} 
+                        style={{ color: customStyles.primaryColor }}
                       />
-                      <i className="bi bi-eye"></i>
-                      <BootstrapForm.Control.Feedback type="invalid">
-                        <ErrorMessage name="password" />
-                      </BootstrapForm.Control.Feedback>
-                    </BootstrapForm.Group>
+                    </InputGroup.Text>
+                   
+                    </InputGroup> 
+                    {(touched.password && !!errors.password) && (
+                    <div className="invalid-feedback d-block">
+                        {errors.password}
+                   </div>
+                    )}
+                  </BootstrapForm.Group>
 
-                    {/* Confirm Password Field (Placeholder style) */}
-                    <BootstrapForm.Group className="mb-4">
+                    {/* Confirm Password Field  */}
+                    <BootstrapForm.Group className="mb-4" controlId="confirm_password" >
+                     <InputGroup>
                       <BootstrapForm.Control
-                      style={{fontFamily:"heading"}}
-                        type="password"
+                       style={{fontFamily:"body"}}
+                        type={showConfirmPassword ? "text" : "password"}
                         name="confirm_password"
                         placeholder="Confirm Password"
                         value={values.confirm_password}
@@ -605,9 +622,23 @@ const Register: React.FC = () => {
                           !!errors.confirm_password
                         }
                       />
-                      <BootstrapForm.Control.Feedback type="invalid">
-                        <ErrorMessage name="confirm_password" />
-                      </BootstrapForm.Control.Feedback>
+                      <InputGroup.Text 
+                      onClick={toggleConfirmPasswordVisibility}
+                       style={{ 
+                        cursor: "pointer", 
+                        backgroundColor: "white" 
+                      }}>
+                      <FontAwesomeIcon 
+                        icon={showConfirmPassword ? faEyeSlash : faEyeRegular} 
+                        style={{ color: customStyles.primaryColor }}
+                      />
+                     </InputGroup.Text>
+                    </InputGroup>
+                     {!!touched.confirm_password && !!errors.confirm_password && (
+                       <div className="invalid-feedback d-block">
+                        <ErrorMessage name="confirm_password" /> 
+                       </div>
+                       )}
                     </BootstrapForm.Group>
 
                     <Button
@@ -667,7 +698,7 @@ const Register: React.FC = () => {
         </div>
       </Container>
 
-      {/* Footer: Positioned to be the last thing */}
+      {/* Footer*/}
       <footer
         className="text-center text-muted py-3 small border-top"
         style={{
