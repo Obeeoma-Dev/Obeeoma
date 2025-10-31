@@ -9,7 +9,7 @@ type UseFetchProps = {
 
 type CommonFetch = {
   /** the variables that the endpoint expects to receive */
-  input?: { [index: string]: any };
+  input?: Record<string, unknown>;
   /** this allows us to override any default fetch options on a 
   case by case basis. we think of it like an escape hatch. */
   fetchOptions?: RequestInit;
