@@ -5,7 +5,6 @@ import {
   Users as UsersIcon,
   User as UserIcon,
   CreditCard,
-  Settings as SettingsIcon,
   FileText,
   Bell,
   Menu,
