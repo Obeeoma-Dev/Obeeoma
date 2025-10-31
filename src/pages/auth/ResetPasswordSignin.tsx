@@ -469,7 +469,7 @@ const ResetPasswordSignIn: React.FC = () => {
       style={{
       // Uses the custom primary color for the logo text
       color: customStyles.primaryColor, 
-      fontSize: "10px",
+      fontSize: "8px",
       fontWeight: "500",
       fontFamily: "heading"
       }}

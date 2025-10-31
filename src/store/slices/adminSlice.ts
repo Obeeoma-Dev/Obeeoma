@@ -1,7 +1,6 @@
-// slices/admin/adminSlice.ts
+
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-// Adjust this path to match your project structure
 import { adminAPI } from "../../api/apiConfig";
 import {
   AdminState,
@@ -12,9 +11,9 @@ import {
   EmployeeEngagementData,
   Report,
   TrendData,
-} from "../../types/admin"; // Using the updated types file
+} from "../../types/admin"; 
 
-// --- Error Handler (Refined for correct AxiosError casting) ---
+// --- Error Handling ---
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
@@ -265,7 +264,7 @@ const adminSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // --- Helper function for consistent state management (like authSlice) ---
+    // --- for consistent state management 
     const handlePending = (state: AdminState) => {
       state.isLoading = true;
       state.error = null;
@@ -394,6 +393,7 @@ const adminSlice = createSlice({
       .addCase(createFeatureUsage.pending, handleActionPending)
       .addCase(createFeatureUsage.fulfilled, handleActionFulfilled)
       .addCase(createFeatureUsage.rejected, handleRejected);
+      
   },
 });
 

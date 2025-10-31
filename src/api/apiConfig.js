@@ -4,32 +4,25 @@ import axios from "axios";
 // Define the base URL for API requests, using environment variable or fallback
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
-// Create a reusable Axios instance with the base URL
 const api = axios.create({
     baseURL: API_BASE_URL,
 });
 api.interceptors.request.use((config) => {
-    // Log method, URL, and payload before sending the request
-    console.log("🔄 Making API Request:", {
+    console.log(" Making API Request:", {
         method: config.method,
         url: config.url,
         data: config.data,
     });
-    // Retrieve token from localStorage and attach it to Authorization header
     const token = localStorage.getItem("token");
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
-    // Return the modified config to proceed with the request
     return config;
 }, (error) => {
-    // Log request error and reject the promise
     console.error(" Request Error:", error);
     return Promise.reject(error);
 });
-// Add a response interceptor to log successful and failed responses
 api.interceptors.response.use((response) => {
-    // Log status, data, and URL on success
     console.log("API Response Success:", {
         status: response.status,
         data: response.data,
@@ -62,27 +55,22 @@ export const authAPI = {
             confirm_password: credentials.confirm_password,
             role: credentials.role,
         });
-        // If registration returns a token, store it
         if (response.data.access) {
             localStorage.setItem("token", response.data.access);
         }
         return response.data;
     },
-    // Logout utility: calls backend logout endpoint and clears token and user info from localStorage
     logout: async () => {
         try {
-            // Call backend logout endpoint if token exists
             const token = localStorage.getItem("token");
             if (token) {
                 await api.post("/v1/auth/logout/");
             }
         }
         catch (error) {
-            // Even if backend call fails, we should still clear local storage
             console.warn("Logout API call failed, but clearing local storage:", error);
         }
         finally {
-            // Always clear local storage regardless of API call result
             localStorage.removeItem("token");
             localStorage.removeItem("user");
         }

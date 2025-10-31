@@ -395,8 +395,10 @@ import { Formik, Form as FormikForm, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../store/slices/authSlice";
 import { registerValidationSchema } from "./../../validation/authValidation";
-import { Container, Button, Form as BootstrapForm, Alert, Card, Spinner, } from "react-bootstrap";
-// Assuming you have an image file at this path:
+import { Container, Button, Form as BootstrapForm, Alert, Card, Spinner, InputGroup } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/green..png";
 const customStyles = {
     // Use the clean hex code for styling
@@ -409,6 +411,15 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { error, isLoading } = useSelector((state) => state.auth);
+    const [showPassword, setShowPassword] = useState(false);
+    // function for the eye visibility toggle
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    };
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const toggleConfirmPasswordVisibility = () => {
+        setShowConfirmPassword(prev => !prev);
+    };
     const initialValues = {
         username: "",
         email: "",
@@ -435,9 +446,15 @@ const Register = () => {
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }), _jsx("p", { className: "m-0 text-center" })] }), _jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: "Create your Organization's account" }), _jsx("p", { className: "text-center text-muted mb-4", style: { fontFamily: "heading" }, children: "Join our community of mental health professionals and patients" }), error && (_jsx(Alert, { variant: "danger", dismissible: true, children: error })), _jsx(Formik, { validationSchema: registerValidationSchema, initialValues: initialValues, onSubmit: handleSubmit, children: ({ handleSubmit, handleChange, values, touched, errors }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: values.email, onChange: handleChange, className: "py-2" // Adds vertical padding
-                                                        , isInvalid: !!touched.email && !!errors.email }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "text", name: "username", placeholder: "Username", value: values.username, onChange: handleChange, className: "py-2", isInvalid: !!touched.username && !!errors.username }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "username" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3 ", children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "heading" }, type: "password", name: "password", placeholder: "Password", value: values.password, onChange: handleChange, className: "py-2", isInvalid: !!touched.password && !!errors.password }), _jsx("i", { className: "bi bi-eye" }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "password" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "heading" }, type: "password", name: "confirm_password", placeholder: "Confirm Password", value: values.confirm_password, onChange: handleChange, className: "py-2 ", isInvalid: !!touched.confirm_password &&
-                                                            !!errors.confirm_password }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "confirm_password" }) })] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
+                        }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }) }), _jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: "Create your Organization's account" }), _jsx("p", { className: "text-center text-muted mb-4", style: { fontFamily: "heading" }, children: "Join our community of mental health professionals and patients" }), error && (_jsx(Alert, { variant: "danger", dismissible: true, children: error })), _jsx(Formik, { validationSchema: registerValidationSchema, initialValues: initialValues, onSubmit: handleSubmit, children: ({ handleSubmit, handleChange, values, touched, errors }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: values.email, onChange: handleChange, className: "py-2" // Adding vertical padding
+                                                        , isInvalid: !!touched.email && !!errors.email }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", children: [_jsx(BootstrapForm.Control, { type: "text", name: "username", placeholder: "Username", value: values.username, onChange: handleChange, className: "py-2", isInvalid: !!touched.username && !!errors.username }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "username" }) })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "Password", className: "py-2 border-success border-opacity-25", isInvalid: touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: togglePasswordVisibility, style: {
+                                                                    cursor: "pointer",
+                                                                    backgroundColor: "white"
+                                                                }, children: _jsx(FontAwesomeIcon, { icon: showPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), (touched.password && !!errors.password) && (_jsx("div", { className: "invalid-feedback d-block", children: errors.password }))] }), _jsxs(BootstrapForm.Group, { className: "mb-4", controlId: "confirm_password", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showConfirmPassword ? "text" : "password", name: "confirm_password", placeholder: "Confirm Password", value: values.confirm_password, onChange: handleChange, className: "py-2 ", isInvalid: !!touched.confirm_password &&
+                                                                    !!errors.confirm_password }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: {
+                                                                    cursor: "pointer",
+                                                                    backgroundColor: "white"
+                                                                }, children: _jsx(FontAwesomeIcon, { icon: showConfirmPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), !!touched.confirm_password && !!errors.confirm_password && (_jsx("div", { className: "invalid-feedback d-block", children: _jsx(ErrorMessage, { name: "confirm_password" }) }))] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
                                                     backgroundColor: customStyles.primaryColor,
                                                     borderColor: customStyles.primaryColor,
                                                     color: "white",
