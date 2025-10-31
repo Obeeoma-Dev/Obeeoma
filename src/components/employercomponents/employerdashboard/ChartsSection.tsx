@@ -25,7 +25,7 @@ interface ChartsSectionProps {
 
 const ChartsSection = ({ chartData }: ChartsSectionProps) => {
   const defaultTestsByType = [
-    { name: "Previous week", value: 2 },
+    { name: "Previous week ", value: 2 },
     { name: "This week", value: 1 },
   ];
 

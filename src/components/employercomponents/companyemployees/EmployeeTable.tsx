@@ -130,7 +130,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                         </td>
                         <td className="pe-4 py-3 text-end">
                           <Checkbox checked={isChecked} onCheckedChange={handleChange} 
-                            className="cursor-pointer w-5 h-5" />
+                            className="cursor-pointer w-19 h-18" />
                         </td>
                       </tr>
                     ))}

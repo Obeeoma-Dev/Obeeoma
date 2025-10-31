@@ -68,7 +68,7 @@ const EmployerDashboard = () => {
 
   return (
     <Layout title="Organization Overview" >
-      <div className="container-fluid py-4">
+      <div className="container-fluid py-4 px-2">
         <StatsGrid stats={statsData} />
         <ChartsSection chartData={chartData} />
         <RecentActivity activities={activities} />

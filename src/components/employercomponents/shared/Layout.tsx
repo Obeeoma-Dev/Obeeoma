@@ -134,9 +134,7 @@ const Layout = ({ children, title }: LayoutProps) => {
 
       {/* Main Content */}
       <div className="d-lg-flex">
-        <div className="d-none d-lg-block" style={{ width: "240px" }}></div>
-
-        <div className="flex-grow-1">
+        <div className="flex-grow-1 ms-lg-4" >
           {/* Header */}
           <header className="bg-white border-bottom sticky-top z-30">
             <div className="container-fluid">
