@@ -1,4 +1,4 @@
-import { Search, MessageCircle } from "lucide-react";
+import { Search, ToggleButton } from "lucide-react";
 
 interface Employee {
   id: number;
@@ -19,15 +19,15 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   const employees: Employee[] = [
     {
       id: 1,
-      name: "John Doe",
-      email: "john@example.com",
+      name: "Paul Lwanga",
+      email: "paul@example.com",
       department: "Marketing",
       status: "Active",
       avatar: "J",
     },
     {
       id: 2,
-      name: "Alex Johnson",
+      name: "Alex Agbonifo",
       email: "alex@example.com",
       department: "HR",
       status: "Active",
@@ -35,7 +35,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     },
     {
       id: 3,
-      name: "Sam Wilson",
+      name: "Sam Mukwano",
       email: "sam@example.com",
       department: "Finance",
       status: "Active",
@@ -98,7 +98,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                       <th className="border-0 py-3 text-muted fw-normal">Email</th>
                       <th className="border-0 py-3 text-muted fw-normal">Department</th>
                       <th className="border-0 py-3 text-muted fw-normal">Status</th>
-                      <th className="border-0 pe-4 py-3 text-muted fw-normal text-end">Actions</th>
+                      <th className="border-0 pe-4 py-3 text-muted fw-normal text-end">Deactivate</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -121,7 +121,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                         </td>
                         <td className="pe-4 py-3 text-end">
                           <button className="btn btn-link p-0 text-muted">
-                            <MessageCircle size={18} />
+                            <ToggleButton size={18} />
                           </button>
                         </td>
                       </tr>
