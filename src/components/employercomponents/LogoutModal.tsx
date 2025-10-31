@@ -34,8 +34,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
     <div 
       className="modal fade show d-block" 
       style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-      tabIndex={-1}
-    >
+      tabIndex={-1} >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header border-0 pb-0">

@@ -3,16 +3,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Users as UsersIcon,
+  User as UserIcon,
   CreditCard,
   Settings as SettingsIcon,
   FileText,
-  LogOut,
   Bell,
   Menu,
   X,
 } from "lucide-react";
 import logo from "../../../assets/Images/green..png";
-import LogoutModal from "../LogoutModal";
 
 interface LayoutProps {
   children: ReactNode;
@@ -21,11 +20,10 @@ interface LayoutProps {
   additionalHeaderContent?: ReactNode;
 }
 
-const PRIMARY_COLOR = "#3CB371"; // Define your custom color for easy reference
+const PRIMARY_COLOR = "#3CB371";
 
 const Layout = ({ children, title }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,40 +37,38 @@ const Layout = ({ children, title }: LayoutProps) => {
     active: location.pathname === item.path
   }));
 
-  //logout function was here, been replaced by inline modal handlers
+  //logout function was here, been replaced by inline modal handlers and sent to omly account page as requested by stakeholders
 
-  const handleLogoutConfirm = () => {
-    // Add logout logic here
-    console.log("Logging out...");
-    // Example: Clear tokens, redirect to login, etc.
-    // localStorage.removeItem('authToken');
-    //do this by end of login process when Syda finishes auth implementation & tokens
-    navigate('/login');
-    setIsLogoutModalOpen(false);
-  };
+  // const handleLogoutConfirm = () => {
+  //   // Add logout logic here
+  //   console.log("Logging out...");
+  //   // Example: Clear tokens, redirect to login, etc.
+  //   // localStorage.removeItem('authToken');
+  //   //do this by end of login process when Syda finishes auth implementation & tokens
+  //   navigate('/login');
+  //   setIsLogoutModalOpen(false);
+  // };
 
-  const handleLogoutCancel = () => {
-    setIsLogoutModalOpen(false);
-  };
+  // const handleLogoutCancel = () => {
+  //   setIsLogoutModalOpen(false);
+  // };
 
   return (
     <div className="min-vh-100 bg-light">
       {/* Mobile Menu Overlay */}
       {isSidebarOpen && (
-        <div
-          className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none"
-          onClick={() => setIsSidebarOpen(false)}
-        />
+        <div className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none"
+          onClick={() => setIsSidebarOpen(false)} />
       )}
-
+{/* 
       {/* Logout Modal */}
-      <LogoutModal
+      {/* <LogoutModal
         isOpen={isLogoutModalOpen}
         onClose={handleLogoutCancel}
         onConfirm={handleLogoutConfirm}
         userName="Billy"
         userLocation="Location"
-      />
+      /> */}
 
       {/* Sidebar */}
       <aside
@@ -82,8 +78,7 @@ const Layout = ({ children, title }: LayoutProps) => {
         <div className="p-4 border-bottom d-flex align-items-center justify-content-between">
           <button
             onClick={() => navigate("/employer-dashboard")}
-            className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
-          >
+            className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0" >
             <div 
                 className=" justify-content-center" 
                 style={{ width: "80px", height: "80px", }} // <-- COLOR CHANGE 1: Logo background
@@ -111,8 +106,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                 borderRadius: "8px",
                 padding: "12px",
                 color: item.active ? PRIMARY_COLOR : undefined, // <-- COLOR CHANGE 2: Active text color
-              }}
-            >
+              }} >
               <item.icon size={20} />
               <span className="fw-medium">{item.label}</span>
             </button>
@@ -132,20 +126,10 @@ const Layout = ({ children, title }: LayoutProps) => {
               color: location.pathname === "/settings" ? PRIMARY_COLOR : undefined, // <-- COLOR CHANGE 3: Settings active text color
             }}
           >
-            <SettingsIcon size={20} />
+            <UserIcon size={20} />
             <span className="fw-medium">My Account</span>
           </button>
-          <button
-            className="w-100 btn d-flex align-items-center gap-3 text-start text-dark"
-            style={{
-              border: "none",
-              borderRadius: "8px",
-              padding: "12px",
-            }}
-            onClick={() => setIsLogoutModalOpen(true)} >
-            <LogOut size={20} />
-            <span> . </span>
-          </button>
+          
         </div>
       </aside>
 
@@ -162,8 +146,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                   <button
                     onClick={() => setIsSidebarOpen(true)}
                     className="btn btn-link p-2"
-                    style={{fontFamily:"heading", color:PRIMARY_COLOR}}
-                  >
+                    style={{fontFamily:"heading", color:PRIMARY_COLOR}} >
                     <Menu size={24} />
                   </button>
                 </div>
