@@ -1,4 +1,4 @@
-import React from "react"; // enable JSX
+import React from "react";
 import { Shield, Globe, Sparkles, Heart, BarChart } from "lucide-react"; // icons used for items
 import "bootstrap/dist/css/bootstrap.min.css"; // bootstrap grid + utilities
 import Personreading from "../../assets/Images/image3.png"; // local left-side illustration
@@ -24,7 +24,7 @@ const Features: React.FC = () => {
     { icon: Heart, title: "Workplace Support", desc: "Tools and programs to improve team wellbeing, reduce burnout and boost productivity." },
   ];
 
-  // render layout: heading, left image, right column of card-like feature items (data only changes)
+  // render layout
   return (
     <section
       aria-label="Features"
@@ -57,10 +57,9 @@ const Features: React.FC = () => {
           </div>
 
           <div className="col-lg-6">
-            {/* inner grid: each feature -> small card box; layout unchanged, only content added */}
             <div className="row">
               {features.map((f, i) => {
-                const Icon = f.icon; // icon component for this feature
+                const Icon = f.icon;
                 return (
                   <div className="col-12 col-md-6" key={i}>
                     <div
