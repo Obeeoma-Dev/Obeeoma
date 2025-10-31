@@ -25,8 +25,8 @@ interface ChartsSectionProps {
 
 const ChartsSection = ({ chartData }: ChartsSectionProps) => {
   const defaultTestsByType = [
-    { name: "Well-being Check", value: 2 },
-    { name: "Burnout Risk", value: 1 },
+    { name: "Previous week", value: 2 },
+    { name: "This week", value: 1 },
   ];
 
   const defaultTestsByDepartment = [
