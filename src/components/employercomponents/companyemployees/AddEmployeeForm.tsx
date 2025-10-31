@@ -1,5 +1,20 @@
+import { useForm } from "react-hook-form";
+import { useFetch } from "../../../hooks/useFetch";
+
 const AddEmployeeForm = () => {
-  return (
+  const { commonFetch, isLoading, data } = useFetch<any>({ url: 'https://api-0904.onrender.com/api/v1/dashboard/employees/', method: 'POST' });
+
+  // existing form setup (if any)
+  // For example, using useForm from react-hook-form:
+  const createForm = useForm();
+
+  const handleSubmit = async () => {
+    const values = createForm.getValues();
+
+    // Call the fetch function with the form data
+    await commonFetch({ input: values });
+  };
+    return (
     <div className="row mt-5">
       <div className="col-12">
         <div className="card border-0 shadow-sm">
@@ -23,19 +38,13 @@ const AddEmployeeForm = () => {
                     <option>HR</option>
                     <option>Finance</option>
                     <option>Engineering</option>
+                    <option>Other</option>
                   </select>
                 </div>
-                <div className="mb-3">
-                  <label className="form-label fw-medium">Reports</label>
-                  <select className="form-select">
-                    <option>Select report type</option>
-                    <option>Wellness Report</option>
-                    <option>Performance Report</option>
-                    <option>Attendance Report</option>
-                  </select>
-                </div>
-                <button className="btn btn-primary">
-                  Add Employee
+                <button className="btn btn-success"
+                  onClick={handleSubmit}
+                  disabled={isLoading} >
+                  {isLoading ? 'Adding...' : 'Add Employee'}
                 </button>
               </div>
             </div>

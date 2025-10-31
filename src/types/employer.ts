@@ -59,7 +59,7 @@ export interface InviteData {
 export interface SubscriptionData {
   plan_id: string;
   billing_cycle: 'monthly' | 'annually';
- methodOfPayment: string;
+  methodOfPayment: string;
 }
 
 export interface BillingDetails {
