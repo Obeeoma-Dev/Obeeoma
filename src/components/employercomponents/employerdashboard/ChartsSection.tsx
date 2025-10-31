@@ -1,5 +1,5 @@
 
- // TODO: Replace with API call to fetch recent activities
+ // TODO: Replace with API call to fetch recent activities and default zero data for newly registered companies
   // Example: const { data: activities, loading } = useRecentActivities();
 import {
   BarChart,
@@ -41,11 +41,11 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
 
   return (
     <div className="row g-4 mb-4">
-      {/* Bar Chart - Tests by Type */}
+      {/* Bar Chart - mood trend of employees*/}
       <div className="col-12 col-lg-6">
         <div className="card border-0 shadow-sm">
           <div className="card-body">
-            <h3 className="h5 fw-semibold mb-4" style={{fontFamily:"heading"}}>Tests by Type</h3>
+            <h3 className="h5 fw-semibold mb-4" style={{fontFamily:"heading"}}>Weekly Mood Trends</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={testsByType}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-50" style={{fontFamily:"heading"}} />
@@ -62,11 +62,11 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
         </div>
       </div>
 
-      {/* Pie Chart - Tests by Department */}
+      {/* Pie Chart - Subscribers by Department */}
       <div className="col-12 col-lg-6">
         <div className="card border-0 shadow-sm">
           <div className="card-body">
-            <h3 className="h5 fw-semibold mb-4" style={{fontFamily: "heading"}}>Tests by Department</h3>
+            <h3 className="h5 fw-semibold mb-4" style={{fontFamily: "heading"}}>Subscribers by Department</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie

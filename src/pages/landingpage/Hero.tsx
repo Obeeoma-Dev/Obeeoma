@@ -58,7 +58,7 @@ const Hero = () => {
             lg={6}
             className="d-flex justify-content-end"
             // Move this entire column (buttons) slightly down by 30px
-            style={{ position: "relative", top: "30px" }}
+            style={{ position: "relative", top: "150px" }}
           >
             {/* Wrapper div to handle button layout and spacing */}
             <div className="d-flex flex-column flex-sm-row gap-3">
@@ -118,17 +118,6 @@ const Hero = () => {
               </Button>
             </div>
           </Col>
-
-          {/* <Col lg={6} className="text-center">
-            {/* Only render image if heroImage is truthy to avoid empty src warning */}
-          {/* {heroImage && (
-              <img
-                src={heroImage}
-                alt="Obeeoma workplace support"
-                className="img-fluid rounded-4 shadow-lg d-lg-none"
-              />
-            )}
-          </Col> */}
         </Row>
       </div>
     </section>

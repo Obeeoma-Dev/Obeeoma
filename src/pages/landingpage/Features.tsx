@@ -1,5 +1,5 @@
-import React from "react"; // enable JSX
-import { Shield, Globe, Sparkles, Heart, Smartphone, BarChart } from "lucide-react"; // icons used for items
+import React from "react";
+import { Shield, Globe, Sparkles, Heart, BarChart } from "lucide-react"; // icons used for items
 import "bootstrap/dist/css/bootstrap.min.css"; // bootstrap grid + utilities
 import Personreading from "../../assets/Images/image3.png"; // local left-side illustration
 
@@ -18,15 +18,13 @@ const Features: React.FC = () => {
     { icon: BarChart, title: "Progress Tracking", desc: "Monitor your mental health journey with tools that help track your progress and celebrate your achievements." },
     { icon: Sparkles, title: "Crisis Support", desc: "Immediate access to professional crisis intervention and local mental health resources." },
     { icon: Heart, title: "Mood Tracking", desc: "Daily mood logging with insights and trends to help you understand your mental health patterns." },
-    { icon: Smartphone, title: "Online Therapy", desc: "24/7 culturally-aware AI support and access to clinicians trained in regional practices and languages." },
-    { icon: BarChart, title: "Flexible Scheduling", desc: "Book appointments that fit your schedule with our easy-to-use calendar system." },
     { icon: Shield, title: "Complete Privacy", desc: "Your information and conversations are protected with bank-level security and strict privacy controls." },
     { icon: Globe, title: "Expert Providers", desc: "Connect with licensed therapists, psychiatrists and counselors specialized in mental health." },
     { icon: Sparkles, title: "Self Assessments", desc: "Regular mental health check-ins and personalized wellness recommendations." },
     { icon: Heart, title: "Workplace Support", desc: "Tools and programs to improve team wellbeing, reduce burnout and boost productivity." },
   ];
 
-  // render layout: heading, left image, right column of card-like feature items (data only changes)
+  // render layout
   return (
     <section
       aria-label="Features"
@@ -59,10 +57,9 @@ const Features: React.FC = () => {
           </div>
 
           <div className="col-lg-6">
-            {/* inner grid: each feature -> small card box; layout unchanged, only content added */}
             <div className="row">
               {features.map((f, i) => {
-                const Icon = f.icon; // icon component for this feature
+                const Icon = f.icon;
                 return (
                   <div className="col-12 col-md-6" key={i}>
                     <div
