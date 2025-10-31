@@ -93,6 +93,13 @@ const EmployerAccountProfile = () => {
                 <Save size={18} />
                 Save Changes
               </button>
+              <button
+                onClick={handleSaveChanges}
+                className="btn btn-success d-flex align-items-center gap-2"
+              >
+                <Save size={18} />
+                Logout
+              </button>
             </div>
           </div>
         </div>

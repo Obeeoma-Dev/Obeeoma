@@ -24,7 +24,7 @@ const Navigation = () => (
     <Container>
       {/* Brand (Logo) - aligned to the left */}
       <Navbar.Brand as={Link}
-        to="/employer-dashboard"
+        to="/"
         className="d-flex align-items-center" // Center logo vertically
       >
         <img
