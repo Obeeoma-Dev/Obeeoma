@@ -6,7 +6,8 @@ export const loginValidationSchema = yup.object({
 export const registerValidationSchema = yup.object({
     username: yup.string().required("Username is required").min(3),
     email: yup.string().required("Email is required").email(),
-    password: yup.string().required("Password is required").min(8),
+    password: yup.string().required("Password is required").min(8, 'Password is too short Should be 8 characters minimum.'),
+    //.matches( /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/,),
     confirm_password: yup
         .string()
         .required("Please confirm your password")
