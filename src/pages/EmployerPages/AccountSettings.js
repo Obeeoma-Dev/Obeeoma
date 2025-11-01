@@ -41,6 +41,6 @@ const EmployerAccountProfile = () => {
                 return (_jsx(AccountSection, { accountData: accountData, onAccountDataChange: setAccountData }));
         }
     };
-    return (_jsx(Layout, { title: "Settings", children: _jsxs("div", { className: "container-fluid py-4", children: [_jsx("div", { className: "row mb-4", children: _jsx("div", { className: "col-12", children: _jsx(SettingsNavigation, { activeSection: activeSection, onSectionChange: setActiveSection }) }) }), _jsx("div", { className: "row", children: _jsxs("div", { className: "col-12", children: [renderSection(), _jsx("div", { className: "mt-4", children: _jsxs("button", { onClick: handleSaveChanges, className: "btn btn-primary d-flex align-items-center gap-2", children: [_jsx(Save, { size: 18 }), "Save Changes"] }) })] }) })] }) }));
+    return (_jsx(Layout, { title: "Settings", children: _jsxs("div", { className: "container-fluid py-4", children: [_jsx("div", { className: "row mb-4", children: _jsx("div", { className: "col-12", children: _jsx(SettingsNavigation, { activeSection: activeSection, onSectionChange: setActiveSection }) }) }), _jsx("div", { className: "row", children: _jsxs("div", { className: "col-12", children: [renderSection(), _jsx("div", { className: "mt-4", children: _jsxs("button", { onClick: handleSaveChanges, className: "btn btn-success d-flex align-items-center gap-2", children: [_jsx(Save, { size: 18 }), "Save Changes"] }) })] }) })] }) }));
 };
 export default EmployerAccountProfile;
