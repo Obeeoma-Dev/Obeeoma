@@ -147,7 +147,7 @@ export const authAPI = {
 
   // RESET PASSWORD
   changePassword: async (data: changePasswordData) => {
-    const response = await api.post("/v1/auth/accept-invite/", data);
+    const response = await api.post("/v1/auth/change-password", data);
     return response;
   },
 

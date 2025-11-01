@@ -1,150 +1,154 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-// // import React, { useEffect } from "react";
-// // import { useDispatch, useSelector } from "react-redux";
-// // import { AppDispatch, RootState } from "../../store/store";
-// // import { resetPassword, clearError } from "../../store/slices/authSlice";
-// // import { useNavigate } from "react-router-dom";
-// // // Assuming you have 'resetPasswordValidationSchema' correctly defined
-// // import { resetPasswordValidationSchema } from "./../../validation/authValidation";
-// // import { Formik } from "formik";
-// // import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
-// // import "bootstrap/dist/css/bootstrap.min.css";
-// // const ResetPassword: React.FC = () => {
-// //   const dispatch = useDispatch<AppDispatch>();
-// //   const navigate = useNavigate();
-// //   // Ensure the error state is cleared on mount
-// //   const { isLoading, error } = useSelector((state: RootState) => state.auth);
-// //   useEffect(() => {
-// //     dispatch(clearError());
-// //   }, [dispatch]);
-// //   // The type definition for handleSubmit payload should match the Formik initialValues and the Redux action payload
-// //   const handleSubmit = (values: {
-// //     token: string;
-// //     newPassword: string;
-// //     confirmNewPassword: string;
-// //   }) => {
-// //     dispatch(
-// //       resetPassword({
-// //         ...values,
-// //         onSuccess: () => navigate("/login"),
-// //       })
-// //     );
-// //   };
-// //   return (
-// //     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-// //       <Card
-// //         className="shadow-lg border-0 overflow-hidden"
-// //         style={{ maxWidth: "900px", width: "100%" }}
-// //       >
-// //         <Row className="g-0">
-// //           {/* Left Side (Form) */}
-// //           <Col md={6} className="p-5 bg-white">
-// //             <h2 className="fw-semibold mb-2">Reset Your Password</h2>
-// //             <p className="text-muted mb-4">
-// //               Enter your new password
-// //             </p>
-// //             {error && (
-// //               <Alert
-// //                 variant="danger"
-// //                 onClose={() => dispatch(clearError())}
-// //                 dismissible
-// //               >
-// //                 {error}
-// //               </Alert>
-// //             )}
-// //             <Formik
-// //               initialValues={{
-// //                 token: "",
-// //                 newPassword: "",
-// //                 confirmNewPassword: "",
-// //                 // You might need to add code/token fields here if they are part of the form
-// //               }}
-// //               validationSchema={resetPasswordValidationSchema}
-// //               onSubmit={handleSubmit}
-// //             >
-// //               {({ handleChange, handleSubmit, values, errors, touched }) => (
-// //                 <Form noValidate onSubmit={handleSubmit}>
-// //                   {/* New Password Field */}
-// //                   <Form.Group className="mb-3" controlId="formNewPassword">
-// //                     <Form.Label visuallyHidden>New Password</Form.Label>
-// //                     <Form.Control
-// //                       type="password"
-// //                       placeholder="New Password"
-// //                       className="py-2"
-// //                       name="newPassword" 
-// //                       value={values.newPassword} 
-// //                       onChange={handleChange} 
-// //                       isInvalid={touched.newPassword && !!errors.newPassword}
-// //                     />
-// //                     <Form.Control.Feedback type="invalid">
-// //                       {errors.newPassword}
-// //                     </Form.Control.Feedback>
-// //                   </Form.Group>
-// //                   {/* Confirm New Password Field */}
-// //                   <Form.Group className="mb-4" controlId="formConfirmPassword">
-// //                     <Form.Label visuallyHidden>Confirm New Password</Form.Label>
-// //                     <Form.Control
-// //                       type="password"
-// //                       placeholder="Confirm New Password"
-// //                       className="py-2"
-// //                       name="confirmNewPassword" 
-// //                       value={values.confirmNewPassword} 
-// //                       onChange={handleChange} 
-// //                       isInvalid={touched.confirmNewPassword && !!errors.confirmNewPassword}
-// //                     />
-// //                     <Form.Control.Feedback type="invalid">
-// //                       {errors.confirmNewPassword}
-// //                     </Form.Control.Feedback>
-// //                   </Form.Group>
-// //                   {/* Submit Button */}
-// //                   <Button
-// //                     variant="success"
-// //                     type="submit"
-// //                     className="w-100 mb-3 py-2 fw-semibold"
-// //                     disabled={isLoading}
-// //                   >
-// //                     {isLoading ? (
-// //                       <>
-// //                         <Spinner
-// //                           as="span"
-// //                           animation="border"
-// //                           size="sm"
-// //                           role="status"
-// //                           aria-hidden="true"
-// //                           className="me-2"
-// //                         />
-// //                         Resetting Password...
-// //                       </>
-// //                     ) : (
-// //                       "Change Password"
-// //                     )}
-// //                   </Button>
-// //                 </Form>
-// //               )}
-// //             </Formik>
-// //           </Col>
-// //           {/* Right Side (Info Panel) */}
-// //           <Col
-// //             md={6}
-// //             className="p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10"
-// //           >
-// //             <h3 className="fw-semibold mb-4">Secure Your Account</h3>
-// //             <p className="text-muted mb-3">
-// //               Resetting your password ensures your account remains safe. Use a
-// //               strong password that you haven’t used before.
-// //             </p>
-// //             <ul className="list-unstyled text-secondary mb-0">
-// //               <li className="mb-2">✔ Protect your sensitive information</li>
-// //               <li className="mb-2">✔ Access your care plan securely</li>
-// //               <li>✔ Continue your wellness journey with peace of mind</li>
-// //             </ul>
-// //           </Col>
-// //         </Row>
-// //       </Card>
-// //     </div>
-// //   );
-// // };
-// // export default ResetPassword;
+// import React, { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { AppDispatch, RootState } from "../../store/store";
+// import { resetPassword, clearError } from "../../store/slices/authSlice";
+// import { useNavigate } from "react-router-dom";
+// // Assuming you have 'resetPasswordValidationSchema' correctly defined
+// import { resetPasswordValidationSchema } from "./../../validation/authValidation";
+// import { Formik } from "formik";
+// import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+// import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
+// import logo from "./../../assets/Images/green..png"; 
+// const ResetPassword: React.FC = () => {
+//   const dispatch = useDispatch<AppDispatch>();
+//   const navigate = useNavigate();
+//   // Ensure the error state is cleared on mount
+//   const { isLoading, error } = useSelector((state: RootState) => state.auth);
+//   useEffect(() => {
+//     dispatch(clearError());
+//   }, [dispatch]);
+//   // The type definition for handleSubmit payload should match the Formik initialValues and the Redux action payload
+//   const handleSubmit = (values: {
+//     token: string;
+//     newPassword: string;
+//     confirmNewPassword: string;
+//   }) => {
+//     dispatch(
+//       resetPassword({
+//         ...values,
+//         onSuccess: () => navigate("/login"),
+//       })
+//     );
+//   };
+//   return (
+//     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+//       <Card
+//         className="shadow-lg border-0 overflow-hidden"
+//         style={{ maxWidth: "900px", width: "100%" }}
+//       >
+//         <Row className="g-0">
+//           {/* Left Side (Form) */}
+//           <Col md={6} className="p-5 bg-white">
+//             <h2 className="fw-semibold mb-2">Reset Your Password</h2>
+//             <p className="text-muted mb-4">
+//               Enter your new password
+//             </p>
+//             {error && (
+//               <Alert
+//                 variant="danger"
+//                 onClose={() => dispatch(clearError())}
+//                 dismissible
+//               >
+//                 {error}
+//               </Alert>
+//             )}
+//             <Formik
+//               initialValues={{
+//                 token: "",
+//                 newPassword: "",
+//                 confirmNewPassword: "",
+//                 // You might need to add code/token fields here if they are part of the form
+//               }}
+//               validationSchema={resetPasswordValidationSchema}
+//               onSubmit={handleSubmit}
+//             >
+//               {({ handleChange, handleSubmit, values, errors, touched }) => (
+//                 <Form noValidate onSubmit={handleSubmit}>
+//                   {/* New Password Field */}
+//                   <Form.Group className="mb-3" controlId="formNewPassword">
+//                     <Form.Label visuallyHidden>New Password</Form.Label>
+//                     <Form.Control
+//                       type="password"
+//                       placeholder="New Password"
+//                       className="py-2"
+//                       name="newPassword" 
+//                       value={values.newPassword} 
+//                       onChange={handleChange} 
+//                       isInvalid={touched.newPassword && !!errors.newPassword}
+//                     />
+//                     <Form.Control.Feedback type="invalid">
+//                       {errors.newPassword}
+//                     </Form.Control.Feedback>
+//                   </Form.Group>
+//                   {/* Confirm New Password Field */}
+//                   <Form.Group className="mb-4" controlId="formConfirmPassword">
+//                     <Form.Label visuallyHidden>Confirm New Password</Form.Label>
+//                     <Form.Control
+//                       type="password"
+//                       placeholder="Confirm New Password"
+//                       className="py-2"
+//                       name="confirmNewPassword" 
+//                       value={values.confirmNewPassword} 
+//                       onChange={handleChange} 
+//                       isInvalid={touched.confirmNewPassword && !!errors.confirmNewPassword}
+//                     />
+//                     <Form.Control.Feedback type="invalid">
+//                       {errors.confirmNewPassword}
+//                     </Form.Control.Feedback>
+//                   </Form.Group>
+//                   {/* Submit Button */}
+//                   <Button
+//                     variant="success"
+//                     type="submit"
+//                     className="w-100 mb-3 py-2 fw-semibold"
+//                     disabled={isLoading}
+//                   >
+//                     {isLoading ? (
+//                       <>
+//                         <Spinner
+//                           as="span"
+//                           animation="border"
+//                           size="sm"
+//                           role="status"
+//                           aria-hidden="true"
+//                           className="me-2"
+//                         />
+//                         Resetting Password...
+//                       </>
+//                     ) : (
+//                       "Change Password"
+//                     )}
+//                   </Button>
+//                 </Form>
+//               )}
+//             </Formik>
+//           </Col>
+//           {/* Right Side (Info Panel) */}
+//           <Col
+//             md={6}
+//             className="p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10"
+//           >
+//             <h3 className="fw-semibold mb-4">Secure Your Account</h3>
+//             <p className="text-muted mb-3">
+//               Resetting your password ensures your account remains safe. Use a
+//               strong password that you haven’t used before.
+//             </p>
+//             <ul className="list-unstyled text-secondary mb-0">
+//               <li className="mb-2">✔ Protect your sensitive information</li>
+//               <li className="mb-2">✔ Access your care plan securely</li>
+//               <li>✔ Continue your wellness journey with peace of mind</li>
+//             </ul>
+//           </Col>
+//         </Row>
+//       </Card>
+//     </div>
+//   );
+// };
+// export default ResetPassword;
 // import React, { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 // import { resetPasswordValidationSchema } from "./../../validation/authValidation"
@@ -214,8 +218,8 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 //       return;
 //     }
 // 
-//     if (password.length < 6) {
-//       setError("Password must be at least 6 characters.");
+//     if (password.length < 8) {
+//       setError("Password must be at least 8 characters.");
 //       return;
 //     }
 // 
@@ -499,7 +503,7 @@ const ResetPassword = () => {
         try {
             const payload = {
                 token: values.code,
-                newPassword: values.password,
+                password: values.password,
                 onSuccess: () => navigate("/login", { replace: true }),
             };
             await dispatch(resetPassword(payload)).unwrap();
@@ -517,7 +521,12 @@ const ResetPassword = () => {
             minHeight: "100vh",
             padding: "50px 0 100px 0",
             position: "relative",
-        }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }) }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body" }, children: "Enter the code and your new password." }), apiError && (_jsx(Alert, { variant: "danger", className: "py-2", children: apiError })), _jsx(Formik, { initialValues: initialValues, validationSchema: resetPasswordValidationSchema, onSubmit: handleResetSubmit, children: ({ handleChange, handleSubmit: formikSubmit, values, errors, touched, }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: formikSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "code", children: [_jsx(BootstrapForm.Control, { type: "text", name: "code", placeholder: "Enter the reset code/token", value: values.code, onChange: handleChange, className: "py-2", isInvalid: touched.code && !!errors.code }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.code })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showNewPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "New Password", className: "py-2 border-success border-opacity-25", isInvalid: touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: toggleNewPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.password && errors.password })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", controlId: "confirmNewPassword", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showConfirmNewPassword ? "text" : "password", name: "confirmNewPassword", placeholder: "Confirm New Password", value: values.confirmNewPassword, onChange: handleChange, className: "py-2 ", isInvalid: touched.confirmNewPassword && !!errors.confirmNewPassword }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showConfirmNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.confirmNewPassword && errors.confirmNewPassword })] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
+        }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
+                            maxWidth: "600px",
+                            width: "100%",
+                            borderRadius: "8px",
+                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                        }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }) }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body" }, children: "Enter the code and your new password." }), apiError && (_jsx(Alert, { variant: "danger", className: "py-2", children: apiError })), _jsx(Formik, { initialValues: initialValues, validationSchema: resetPasswordValidationSchema, onSubmit: handleResetSubmit, children: ({ handleChange, handleSubmit: formikSubmit, values, errors, touched, }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: formikSubmit, children: [values.confirmNewPassword, "-", values.password, _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "code", children: [_jsx(BootstrapForm.Control, { type: "text", name: "code", placeholder: "Enter the reset code", value: values.code, onChange: handleChange, className: "py-2", isInvalid: touched.code && !!errors.code }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.code })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showNewPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "New Password", className: "py-2 border-success border-opacity-25", isInvalid: touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: toggleNewPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.password && errors.password })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", controlId: "confirmNewPassword", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showConfirmNewPassword ? "text" : "password", name: "confirmNewPassword", placeholder: "Confirm New Password", value: values.confirmNewPassword, onChange: handleChange, className: "py-2 ", isInvalid: touched.confirmNewPassword && !!errors.confirmNewPassword }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showConfirmNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.confirmNewPassword && errors.confirmNewPassword })] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
                                                     backgroundColor: customStyles.primaryColor,
                                                     borderColor: customStyles.primaryColor,
                                                     color: "white",

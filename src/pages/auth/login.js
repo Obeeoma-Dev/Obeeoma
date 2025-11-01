@@ -31,7 +31,7 @@ const LoginPage = () => {
         dispatch(clearError());
     }, [dispatch]);
     const getDashboardRoute = (role) => {
-        const normalizedRole = role.toLowerCase().trim();
+        const normalizedRole = role?.toLowerCase().trim();
         switch (normalizedRole) {
             case "systemadmin":
                 return "/system-admin";

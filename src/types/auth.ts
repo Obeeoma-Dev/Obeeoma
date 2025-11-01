@@ -23,7 +23,7 @@ export interface ForgotPasswordData {
 
 export interface changePasswordData {
   token: string;
-  newPassword: string;
+  password: string;
   
 }
 export interface AuthState {

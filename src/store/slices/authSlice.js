@@ -32,8 +32,12 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
 });
 // Register Thunk
 export const registerUser = createAsyncThunk("auth/signup", async (credentials, { rejectWithValue }) => {
+    const dataWithDefaultRole = {
+        ...credentials,
+        role: credentials.role || 'employer'
+    };
     try {
-        const response = await authAPI.register(credentials);
+        const response = await authAPI.register(dataWithDefaultRole);
         return response.data;
     }
     catch (error) {
@@ -62,17 +66,19 @@ export const resetPassword = createAsyncThunk("auth/change-password", async (dat
         return rejectWithValue(getErrorMessage(error));
     }
 });
-export const logoutUserThunk = createAsyncThunk("auth/serverLogout", async (_, { dispatch }) => {
+export const logoutUserThunk = createAsyncThunk("auth/logout", async (_, { dispatch }) => {
     try {
         await authAPI.logout();
     }
     catch (error) {
-        console.error("Server logout failed, but client session cleared.", getErrorMessage(error));
+        console.error("Server logout failed, but client session clearing.", getErrorMessage(error));
+    }
+    finally {
         dispatch(logout());
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("user");
+        // localStorage.removeItem("refresh")
         delete api.defaults.headers.common["Authorization"];
-        return;
     }
 });
 const getUserFromStorage = () => {
@@ -107,7 +113,7 @@ const authSlice = createSlice({
             // Calling the async logout function
             localStorage.removeItem("token");
             localStorage.removeItem("user");
-            // authAPI.logout();
+            localStorage.removeItem("refresh");
         },
         clearError: (state) => {
             state.error = null;
@@ -138,16 +144,16 @@ const authSlice = createSlice({
             state.error = null;
         })
             .addCase(registerUser.fulfilled, (state, action) => {
-            const userData = action.payload.user || action.payload;
+            const userData = action.payload?.user ?? action.payload;
             // Setting user and token
             state.user = userData;
             state.isLoading = false;
-            state.user = action.payload.user;
-            state.token = action.payload.access || action.payload.token;
+            state.user = action.payload?.user;
+            state.token = action.payload?.access ?? action.payload?.token;
             state.error = null;
-            localStorage.setItem("token", action.payload.access || action.payload.token);
+            localStorage.setItem("token", action.payload?.access || action.payload?.token);
             //  storage "user"
-            localStorage.setItem("user", JSON.stringify(action.payload.user));
+            localStorage.setItem("user", JSON.stringify(action.payload?.user));
         })
             .addCase(registerUser.rejected, (state, action) => {
             state.isLoading = false;
@@ -179,6 +185,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
+            //logout thunk
             .addCase(logoutUserThunk.pending, (state) => {
             state.isLoading = true;
             state.error = null;

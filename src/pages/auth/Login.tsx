@@ -50,7 +50,7 @@ const LoginPage = () => {
   }, [dispatch]);
 
   const getDashboardRoute = (role: string): DashboardPath => {
-    const normalizedRole = role.toLowerCase().trim();
+    const normalizedRole = role?.toLowerCase().trim();
 
     switch (normalizedRole) {
       case "systemadmin":

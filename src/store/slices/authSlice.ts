@@ -205,21 +205,21 @@ state.error = action.payload as string;
  state.error = null;
 })
 .addCase(registerUser.fulfilled, (state, action) => {
-const userData = action.payload.user || action.payload; 
+const userData = action.payload?.user ?? action.payload; 
 
 // Setting user and token
 state.user = userData;
 state.isLoading = false;
-state.user = action.payload.user;
-state.token = action.payload.access || action.payload.token;
+state.user = action.payload?.user;
+state.token = action.payload?.access ?? action.payload?.token;
  state.error = null;
 
 localStorage.setItem(
  "token",
- action.payload.access || action.payload.token,
+ action.payload?.access || action.payload?.token,
  );
  //  storage "user"
-localStorage.setItem("user", JSON.stringify(action.payload.user));
+localStorage.setItem("user", JSON.stringify(action.payload?.user));
  })
 .addCase(registerUser.rejected, (state, action) => {
  state.isLoading = false;

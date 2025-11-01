@@ -9,7 +9,7 @@ const LogoutButton = (props) => {
     const handleLogout = async () => {
         const resultAction = await dispatch(logoutUserThunk());
         if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
-            navigate("/login");
+            navigate("/login", { replace: true });
         }
     };
     return (_jsx(Button, { variant: "danger", onClick: handleLogout, ...props, children: "**Logout**" }));
