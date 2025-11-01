@@ -21,7 +21,7 @@ function Navigation() {
     <Navbar
       expand="lg" // This enables responsive collapse on large screens.
       fixed="top" // This keeps the navbar fixed at the top
-      className={'shadow-sm" ${scrolled ? "scrolled" : "transparent"}'}
+      className={`shadow-sm ${scrolled ? "scrolled" : "transparent"}`}
       style={{
         transition: "background-color 0.3s ease",
         height: "80px", // Set fixed navbar height.
@@ -58,11 +58,11 @@ function Navigation() {
             {/* Navigation links */}
 
             <Nav.Link
-              href="/"
-              className="text-dark mx-2"
+              href="#Home"
+              className="text-#3CB371 mx-2"
               style={{
-                fontSize: "30px",
-                fontWeight: 900,
+                fontSize: "25px",
+                fontWeight: 75,
                 fontFamily: 'body'
               }}
             >
@@ -71,11 +71,11 @@ function Navigation() {
 
 
             <Nav.Link
-              href="/features"
-              className="text-dark mx-2"
+              href="#features"
+              className="text-#3CB371 mx-2"
               style={{
-                fontSize: "30px", // Larger font size.
-                fontWeight: 900, // Semibold.
+                fontSize: "25px", // Larger font size.
+                fontWeight: 75, // Semibold.
                 fontFamily: 'body'
               }}
             >
@@ -85,10 +85,10 @@ function Navigation() {
 
             <Nav.Link
               href="#benefits"
-              className="text-black mx-2"
+              className="text-#3CB371 mx-2"
               style={{
-                fontSize: "30px", // Larger font size.
-                fontWeight: 900, // text font.
+                fontSize: "25px", // Larger font size.
+                fontWeight: 75, // text font.
                 fontFamily: 'body'
               }}
             >

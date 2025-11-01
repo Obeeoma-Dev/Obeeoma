@@ -16,7 +16,7 @@ function Navigation() {
     }, []);
     return (_jsx(Navbar, { expand: "lg" // This enables responsive collapse on large screens.
         , fixed: "top" // This keeps the navbar fixed at the top
-        , className: 'shadow-sm" ${scrolled ? "scrolled" : "transparent"}', style: {
+        , className: `shadow-sm ${scrolled ? "scrolled" : "transparent"}`, style: {
             transition: "background-color 0.3s ease",
             height: "80px", // Set fixed navbar height.
             minHeight: "80px", // Ensure minimum height.        
@@ -27,17 +27,17 @@ function Navigation() {
                             width: "auto", // Maintaining aspect ratio
                             marginTop: "-10px", // Adjust vertical position if needed. 
                             marginBottom: "-10px"
-                        } }) }), _jsx(Navbar.Toggle, { "aria-controls": "nav" }), _jsx(Navbar.Collapse, { id: "nav", className: "justify-content-end", children: _jsxs(Nav, { className: "ms-auto", children: [_jsx(Nav.Link, { href: "/", className: "text-dark mx-2", style: {
-                                    fontSize: "30px",
-                                    fontWeight: 900,
+                        } }) }), _jsx(Navbar.Toggle, { "aria-controls": "nav" }), _jsx(Navbar.Collapse, { id: "nav", className: "justify-content-end", children: _jsxs(Nav, { className: "ms-auto", children: [_jsx(Nav.Link, { href: "#Home", className: "text-#3CB371 mx-2", style: {
+                                    fontSize: "25px",
+                                    fontWeight: 75,
                                     fontFamily: 'body'
-                                }, children: "Home |" }), _jsx(Nav.Link, { href: "/features", className: "text-dark mx-2", style: {
-                                    fontSize: "30px", // Larger font size.
-                                    fontWeight: 900, // Semibold.
+                                }, children: "Home |" }), _jsx(Nav.Link, { href: "#features", className: "text-#3CB371 mx-2", style: {
+                                    fontSize: "25px", // Larger font size.
+                                    fontWeight: 75, // Semibold.
                                     fontFamily: 'body'
-                                }, children: "Features |" }), _jsx(Nav.Link, { href: "#benefits", className: "text-black mx-2", style: {
-                                    fontSize: "30px", // Larger font size.
-                                    fontWeight: 900, // text font.
+                                }, children: "Features |" }), _jsx(Nav.Link, { href: "#benefits", className: "text-#3CB371 mx-2", style: {
+                                    fontSize: "25px", // Larger font size.
+                                    fontWeight: 75, // text font.
                                     fontFamily: 'body'
                                 }, children: "Benefits" })] }) })] }) }));
 }
