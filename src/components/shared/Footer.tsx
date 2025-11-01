@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
     forEmployees: {
       title: "For Employees",
       items: [
-        { text: "Sign in", link: "/signin" },
+        { text: "Sign in", link: "/login" },
         { text: "Privacy Policy", link: "/privacy" },
         { text: "Support", link: "/support" },
         { text: "Crisis Resources", link: "/crisis-resources" },

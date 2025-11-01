@@ -1,7 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
+// Importing icons (from lucide react library).
 import { Shield, Globe, Brain, Heart, Smartphone, BarChart, } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
+// Define an array of benifit. 
 const benefits = [
     { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous." },
     { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages." },
@@ -10,12 +12,15 @@ const benefits = [
     { icon: Smartphone, title: "Responsive Application", description: "Works seamlessly across all devices." },
     { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction" },
 ];
-// duplicate for seamless looping
+// duplicate for seamless looping.
 const extendedBenefits = [...benefits, ...benefits];
 const useImages = true;
-const BenefitCarousel = () => {
+function BenefitCarousel() {
+    // A reference to the scroll container.
     const scrollRedf = useRef(null);
+    // Track which card is active for pagination dots.
     const [activeIndex, setActiveIndex] = useState(0);
+    // Pause scrolling when true.
     const [isPaused, setIsPaused] = useState(false);
     useEffect(() => {
         const scrollContainer = scrollRedf.current;
@@ -33,13 +38,13 @@ const BenefitCarousel = () => {
         const approxCardWidth = halfWidth / singleCount || 300;
         const loop = () => {
             if (!isPaused) {
-                // advance the virtual position
+                // Update the scroll position
                 scrollPosition += scrollSpeed;
-                // seamless wrap, after passing the original content length, subtract it
+                // Wrap scroll position for seamless looping.
                 if (scrollPosition >= halfWidth) {
                     scrollPosition -= halfWidth;
                 }
-                // appls to the DOM
+                // Apply scroll to DOM
                 scrollContainer.scrollLeft = scrollPosition;
                 // update pagination dot.
                 const idx = Math.floor((scrollPosition / approxCardWidth) % singleCount);
@@ -53,7 +58,7 @@ const BenefitCarousel = () => {
         rafId = requestAnimationFrame(loop);
         return () => cancelAnimationFrame(rafId);
     });
-    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: "Mental health Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(true), onMouseLeave: () => setIsPaused(false), style: {
+    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: "Mental health Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(false), onMouseLeave: () => setIsPaused(false), style: {
                         // No snaps and only a continuous scroll
                         gap: "1rem",
                         paddingBottom: "1rem",
@@ -61,6 +66,7 @@ const BenefitCarousel = () => {
                         overflowX: "hidden",
                         whiteSpace: "nowrap",
                     }, children: extendedBenefits.map((benefit, index) => {
+                        // Dynamically render the icons.
                         const Icon = benefit.icon;
                         return (_jsx("div", { className: "flex-shrink-0", style: {
                                 scrollSnapAlign: "none",
@@ -83,5 +89,6 @@ const BenefitCarousel = () => {
                             margin: "0 4px",
                             transition: "background-color 200ms",
                         } }, i))) })] }) }));
-};
+}
+;
 export default BenefitCarousel;

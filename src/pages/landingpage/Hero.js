@@ -19,7 +19,8 @@ const Hero = () => {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             color: "#fff",
-            paddingTop: "80px"
+            paddingTop: "80px",
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0) 100%)"
         }, children: _jsx("div", { className: "hero-content container text-center text-lg-start", style: { position: "relative", zIndex: 2, paddingTop: "4rem" }, children: _jsxs(Row, { className: "align-items-center", style: { paddingTop: "4rem" }, children: [_jsxs(Col, { lg: 6, className: "mb-5 mb-lg-0", children: [_jsx("h1", { className: "fw-bold display-5 mb-3", style: { fontFamily: 'heading' }, children: "Start Your Journey to Better Mental Health" }), _jsx("p", { className: "lead mb-4", style: {
                                     color: "rgba(255, 255, 255, 0.9)",
                                     fontSize: "1.25rem",
@@ -45,7 +46,7 @@ const Hero = () => {
                                             "#3CB371";
                                     }, 
                                     // Navigate to signup page when clicked
-                                    onClick: () => navigate("/signup"), children: "Sign up for my organization" }), _jsx(Button, { className: "rounded-pill px-5 py-3 fw-semibold" // Rounded shape, same padding, bold font
+                                    onClick: () => navigate("/signup"), children: "For Organizations" }), _jsx(Button, { className: "rounded-pill px-5 py-3 fw-semibold" // Rounded shape, same padding, bold font
                                     , style: {
                                         backgroundColor: "#3CB371", // Green text
                                         color: "rgba(250, 250, 250, 0.85)", // white background
@@ -66,6 +67,6 @@ const Hero = () => {
                                             "#3CB371";
                                     }, 
                                     // Navigate to login page when clicked
-                                    onClick: () => navigate("/login"), children: "Sign In" })] }) })] }) }) }));
+                                    onClick: () => navigate("/login"), children: "For Employees" })] }) })] }) }) }));
 };
 export default Hero;

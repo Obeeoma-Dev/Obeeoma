@@ -3,12 +3,12 @@ const PRIMARY_COLOR = "#3CB371"; // Defined the custom color
 const RecentActivity = ({ activities }) => {
     const defaultActivities = [
         {
-            text: "A new invitee has joined the platform",
+            text: "A new wellness test was completed in",
             department: "Engineering",
             time: "2 hours ago",
         },
         {
-            text: "Marketing Department has completed monthly catch up",
+            text: "Department Marketing completed monthly assessments",
             department: "",
             time: "1 day ago",
         },

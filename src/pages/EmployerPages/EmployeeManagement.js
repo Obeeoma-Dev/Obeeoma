@@ -6,7 +6,7 @@ import AddEmployeeForm from "../../components/employercomponents/companyemployee
 import { Plus } from "lucide-react";
 const EmployeeManagement = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const additionalHeader = (_jsxs("button", { className: "btn btn-success d-flex align-items-center gap-2", children: [_jsx(Plus, { size: 16 }), "Add Employee"] }));
+    const additionalHeader = (_jsxs("button", { className: "btn btn-primary d-flex align-items-center gap-2", children: [_jsx(Plus, { size: 16 }), "Add Employee"] }));
     return (_jsx(Layout, { title: "Employee Management", showSearch: true, additionalHeaderContent: additionalHeader, children: _jsxs("div", { className: "container-fluid py-4", children: [_jsx(EmployeeTable, { searchQuery: searchQuery, onSearchChange: setSearchQuery }), _jsx(AddEmployeeForm, {})] }) }));
 };
 export default EmployeeManagement;

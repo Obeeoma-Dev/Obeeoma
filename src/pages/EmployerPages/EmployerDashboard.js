@@ -7,7 +7,7 @@ import { useDashboardData } from "../../hooks/useDashboardData";
 const EmployerDashboard = () => {
     const { stats, chartData, activities, loading, error } = useDashboardData();
     if (loading) {
-        return (_jsx(Layout, { title: "Organization Overview", children: _jsx("div", { className: "container-fluid py-4", children: _jsxs("div", { className: "text-center", children: [_jsx("div", { className: "spinner-border text-success", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading..." }) }), _jsx("p", { className: "mt-2", children: "Loading dashboard data..." })] }) }) }));
+        return (_jsx(Layout, { title: "Organization Overview", children: _jsx("div", { className: "container-fluid py-4", children: _jsxs("div", { className: "text-center", children: [_jsx("div", { className: "spinner-border text-primary", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading..." }) }), _jsx("p", { className: "mt-2", children: "Loading dashboard data..." })] }) }) }));
     }
     if (error) {
         return (_jsx(Layout, { title: "", children: _jsx("div", { className: "container-fluid py-4", children: _jsx("div", { className: "alert alert-danger", role: "alert", children: error }) }) }));
@@ -19,7 +19,7 @@ const EmployerDashboard = () => {
             value: stats.totalEmployees.toString(),
             description: "Active employees in the system",
             icon: "Users",
-            color: "success",
+            color: "primary",
         },
         {
             title: "Total Tests",
