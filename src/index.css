@@ -240,4 +240,21 @@ footer a:hover {
 /* .sidebar-icon-green {
   color: #3CB371;
 } */
- 
+/* These style blocks handle the styling in the Navigation.tsx transparency and scrolled*/
+.navbar.transparent {
+  /* Transparency */
+  background-color: rgba(255, 255, 255, 0.01);
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+
+  /* avoiding blendng effects */
+  mix-blend-mode: normal;
+}
+
+.navbar.scrolled {
+  background-color: white;
+
+  /* Depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

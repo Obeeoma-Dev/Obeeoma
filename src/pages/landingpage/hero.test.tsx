@@ -35,7 +35,7 @@ describe("Hero Component", () => {
     renderHero();
 
     // Verify Sign Up button is there
-    expect(screen.getByText("Sign up for my organization")).toBeInTheDocument();
+    expect(screen.getByText("Sign Up For Organization")).toBeInTheDocument();
 
     // Verify Sign In button is there
     expect(screen.getByText("Sign In")).toBeInTheDocument();

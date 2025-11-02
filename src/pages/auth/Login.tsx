@@ -12,7 +12,7 @@ import { Formik } from "formik";
 
 import { Container, Card, Form, Button, Alert, Spinner, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome" ;
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/green..png"; 
