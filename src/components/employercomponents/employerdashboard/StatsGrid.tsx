@@ -26,7 +26,7 @@ const StatsGrid = ({ stats }: StatsGridProps) => {
   };
 
   return (
-    <div className="row g-3 mb-4">
+    <div className="row g-2 mb-4">
       {stats.map((stat) => {
         const IconComponent = getIcon(stat.icon);
   
@@ -37,7 +37,7 @@ const StatsGrid = ({ stats }: StatsGridProps) => {
                 <div className="d-flex align-items-start gap-3">
                   <div 
                     className={`rounded-circle bg-${stat.color} d-flex align-items-center justify-content-center flex-shrink-0`} 
-                    style={{ width: "48px", height: "48px", fontFamily: "body", color: "3CB371" }}
+                    style={{ width: "48px", height: "48px", fontFamily: "body", color: "#3CB371" }}
                   >
                     <IconComponent className="text-white" size={24} />
                   </div>

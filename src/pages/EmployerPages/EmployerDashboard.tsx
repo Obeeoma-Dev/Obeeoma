@@ -37,7 +37,7 @@ const EmployerDashboard = () => {
     {
       title: "Total Employees",
       value: stats.totalEmployees.toString(),
-      description: "Active employees in the system",
+      description: "Active employees",
       icon: "Users",
       color: "success",
     },
@@ -51,14 +51,14 @@ const EmployerDashboard = () => {
     {
       title: "Average Score",
       value: `${stats.averageScore}%`,
-      description: "Average wellness score",
+      description: "Wellness index",
       icon: "TrendingUp",
       color: "warning",
     },
     {
       title: "At Risk",
       value: stats.atRiskDepartments.toString(),
-      description: "Departments with risk factors",
+      description: "Employees at risk",
       icon: "AlertTriangle",
       color: "danger",
     },
@@ -68,11 +68,11 @@ const EmployerDashboard = () => {
     <Layout title="Organization Overview" >
       <div className="container-fluid py-4 px-3">
         <div className="row gy-4">
-          </div><div className="col-12 col-md-8 col-lg-10 mx-auto">
+          </div><div className="col-12 col-md-10 mx-auto">
             <StatsGrid stats={statsData} />
           </div>
 
-          <div className="col-12 col-md-4 col-lg-10 d-flex flex-column gap-3">
+          <div className="col-12 col-md-10 d-flex flex-column gap-3">
             <ChartsSection chartData={chartData} />
             <RecentActivity activities={activities} />
           </div>
