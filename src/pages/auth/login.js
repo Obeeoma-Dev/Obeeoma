@@ -65,8 +65,8 @@ const LoginPage = () => {
             minHeight: "100vh",
             paddingTop: "50px",
         }, className: "min-vh-100 d-flex flex-column justify-content-center  align-items-start", children: [_jsx(Container, { className: "d-flex justify-content-center align-items- start", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
-                        maxWidth: "600px",
-                        width: "100%",
+                        maxWidth: "200px",
+                        width: "50%",
                         border: "none",
                         borderRadius: "8px",
                         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1) ",

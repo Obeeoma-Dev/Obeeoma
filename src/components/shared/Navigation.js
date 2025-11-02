@@ -31,11 +31,11 @@ function Navigation() {
                                     fontSize: "25px",
                                     fontWeight: 75,
                                     fontFamily: 'body'
-                                }, children: "Home |" }), _jsx(Nav.Link, { href: "#features", className: "text-#3CB371 mx-2", style: {
+                                }, children: "Home |" }), _jsx(Nav.Link, { href: "#benefits", className: "text-#3CB371 mx-2", style: {
                                     fontSize: "25px", // Larger font size.
                                     fontWeight: 75, // Semibold.
                                     fontFamily: 'body'
-                                }, children: "Features |" }), _jsx(Nav.Link, { href: "#benefits", className: "text-#3CB371 mx-2", style: {
+                                }, children: "Features |" }), _jsx(Nav.Link, { href: "#features", className: "text-#3CB371 mx-2", style: {
                                     fontSize: "25px", // Larger font size.
                                     fontWeight: 75, // text font.
                                     fontFamily: 'body'

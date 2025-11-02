@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
@@ -15,10 +15,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
-import logo from "./../../assets/Images/green..png"; 
+import logo from "./../../assets/Images/green..png";
 
 const customStyles = {
-  primaryColor: "#3CB371", 
+  primaryColor: "#3CB371",
   // /lightPink: "#f8d7da",
   logoText: "Obeeoma",
 };
@@ -114,26 +114,26 @@ const LoginPage = () => {
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1) ",
           }}
         >
-          
+
           <Card.Body>
-            <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
-                <img
-                  src={logo}
-                  alt="Obeeoma Logo"
-                  width="100"
-                  className="mb-1"
-                />
-                <p className="m-0 text-center">
-              
-                </p>
-              </div>
+            <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+              <img
+                src={logo}
+                alt="Obeeoma Logo"
+                width="100"
+                className="mb-1"
+              />
+              <p className="m-0 text-center">
+
+              </p>
+            </div>
             <h3 className="text-center mb-2 fw-semibold text-dark"
-            style={{fontFamily:'heading'}}
+              style={{ fontFamily: 'heading' }}
             >
               Sign in to your account
             </h3>
             <p className="text-center text-muted mb-4"
-            style={{fontFamily:'heading'}}
+              style={{ fontFamily: 'heading' }}
             >
 
             </p>
@@ -148,7 +148,7 @@ const LoginPage = () => {
               </Alert>
             )}
 
-            
+
             {/* {user && (
               <Alert variant="success" style={{fontFamily:"body"}}>
                 Welcome, {user.username}! Redirecting...
@@ -174,7 +174,7 @@ const LoginPage = () => {
                     <Form.Control
 
                       type="text"
-                      style={{fontFamily: "body"}}
+                      style={{ fontFamily: "body" }}
                       name="username"
                       value={values.username}
                       onChange={handleChange}
@@ -189,33 +189,33 @@ const LoginPage = () => {
 
                   <Form.Group className="mb-3" controlId="password">
                     <InputGroup>
-                    <Form.Control
-                      style={{fontFamily: "body"}}
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      placeholder="Password"
-                      className="py-2 border-success border-opacity-25"
-                      isInvalid={touched.password && !!errors.password}
-                    />
-                    <InputGroup.Text 
-                      onClick={togglePasswordVisibility}
-                       style={{ 
-                        cursor: "pointer", 
-                        backgroundColor: "white" 
-                      }}>
-                      <FontAwesomeIcon 
-                        icon={showPassword ? faEyeSlash : faEyeRegular} 
-                        style={{ color: customStyles.primaryColor }}
+                      <Form.Control
+                        style={{ fontFamily: "body" }}
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        placeholder="Password"
+                        className="py-2 border-success border-opacity-25"
+                        isInvalid={touched.password && !!errors.password}
                       />
-                    </InputGroup.Text>
-                   
-                    </InputGroup> 
+                      <InputGroup.Text
+                        onClick={togglePasswordVisibility}
+                        style={{
+                          cursor: "pointer",
+                          backgroundColor: "white"
+                        }}>
+                        <FontAwesomeIcon
+                          icon={showPassword ? faEyeSlash : faEyeRegular}
+                          style={{ color: customStyles.primaryColor }}
+                        />
+                      </InputGroup.Text>
+
+                    </InputGroup>
                     {(touched.password && !!errors.password) && (
-                    <div className="invalid-feedback d-block">
+                      <div className="invalid-feedback d-block">
                         {errors.password}
-                   </div>
+                      </div>
                     )}
                   </Form.Group>
 
@@ -224,7 +224,7 @@ const LoginPage = () => {
                     <Link
                       to="/reset-password-signin"
                       className="small"
-                      style={{ 
+                      style={{
                         color: customStyles.primaryColor,
                         textDecoration: "none",
                         fontFamily: "body"
@@ -247,8 +247,8 @@ const LoginPage = () => {
                     style={{
                       backgroundColor: customStyles.primaryColor,
                       borderColor: customStyles.primaryColor,
-                      color: "white", 
-                      boxShadow: "none", 
+                      color: "white",
+                      boxShadow: "none",
                       fontFamily: "body"
                     }}
                   >
@@ -269,13 +269,13 @@ const LoginPage = () => {
                     )}
                   </Button>
 
-                  <div className="text-center mt-4" style={{fontFamily:"body"}}>
+                  <div className="text-center mt-4" style={{ fontFamily: "body" }}>
                     <span className="text-center mt-">
                       Don’t have an account?{" "}
                     </span>
 
                     <Link
-                      className="" 
+                      className=""
                       style={{
                         color: customStyles.primaryColor,
                         textDecoration: "none",
@@ -291,57 +291,57 @@ const LoginPage = () => {
                   </div>
                 </Form>
               )}
-            
+
             </Formik>
           </Card.Body>
         </Card>
       </Container>
       <div></div>
-       <footer
-              className="text-center text-muted py-3 small border-top"
-              style={{
-                position: "fixed", //  at the bottom of the viewport
-                bottom: "0", 
-                width: "100%",
-                backgroundColor: "#f5f5f5", 
-                fontSize: "0.8rem",
-                zIndex: 1000, 
-                fontFamily: "body"
-              }}
-            > 
-            <div className="d-flex justify-content-between align-items-center">
-        <div className="footer-copyright" >
-          &copy; 2025 {customStyles.logoText}. All rights reserved.
+      <footer
+        className="text-center text-muted py-3 small border-top"
+        style={{
+          position: "fixed", //  at the bottom of the viewport
+          bottom: "0",
+          width: "100%",
+          backgroundColor: "#f5f5f5",
+          fontSize: "0.8rem",
+          zIndex: 1000,
+          fontFamily: "body"
+        }}
+      >
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="footer-copyright" >
+            &copy; 2025 {customStyles.logoText}. All rights reserved.
+          </div>
+
+          <div className="d-flex align-items-center">
+            <Link
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+              role="button"
+              to="/system-admin"
+            >
+              Privacy Policy
+            </Link>
+
+            <a
+              href="#"
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+            >
+              Terms of Service
+            </a>
+
+            <a
+              href="#"
+              className="text-muted text-decoration-none"
+              style={{ fontFamily: "body" }}
+            >
+              Contact Us
+            </a>
+          </div>
         </div>
-      
-        <div className="d-flex align-items-center">
-          <Link
-            className="text-muted text-decoration-none me-3" 
-            style={{ fontFamily: "body" }}
-            role="button"
-            to="/system-admin"
-          >
-            Privacy Policy
-          </Link>
-      
-          <a 
-            href="#" 
-            className="text-muted text-decoration-none me-3" 
-            style={{ fontFamily: "body"}}
-          >
-            Terms of Service
-          </a>
-      
-          <a 
-            href="#" 
-            className="text-muted text-decoration-none" 
-            style={{ fontFamily: "body" }}
-          >
-            Contact Us
-          </a>
-        </div>
-      </div>
-        </footer>
+      </footer>
     </div>
   );
 };

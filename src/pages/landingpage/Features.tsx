@@ -46,12 +46,25 @@ const Features: React.FC = () => {
 
         {/* Content: left illustration, right feature cards */}
         <div className="row align-items-start g-4">
-          <div className="col-lg-6">
+          <div
+            className="overflow-hidden rounded shadow-sm"
+            style={{
+              width: "50%",
+              transition: "transform 0.4s ease",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          >
             <img
               src={Personreading}
               alt="Person reading"
-              className="img-fluid rounded shadow-sm"
-              style={{ width: "100%", height: "30%", objectFit: "none" }}
+              className="img-fluid"
+              style={{
+                width: "80%",
+                height: "70",
+                objectFit: "cover",
+              }}
               data-testid="features-illustration"
             />
           </div>
@@ -63,8 +76,7 @@ const Features: React.FC = () => {
                 return (
                   <div className="col-12 col-md-6" key={i}>
                     <div
-                      className="d-flex align-items-start bg-white rounded shadow-sm p-3 mb-3"
-                      style={{ minHeight: 72 }}
+                      className="feature-card d-flex align-items-start mb-3"
                       data-testid={`feature-item-${i}`}
                     >
                       {/* icon square */}
@@ -73,7 +85,7 @@ const Features: React.FC = () => {
                         style={{
                           width: 40,
                           height: 40,
-                          backgroundColor: "#00A859",
+                          backgroundColor: "#3CB371",
                           borderRadius: 8,
                           color: "#fff",
                         }}

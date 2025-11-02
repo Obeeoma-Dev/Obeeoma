@@ -71,7 +71,7 @@ function Navigation() {
 
 
             <Nav.Link
-              href="#features"
+              href="#benefits"
               className="text-#3CB371 mx-2"
               style={{
                 fontSize: "25px", // Larger font size.
@@ -84,7 +84,7 @@ function Navigation() {
 
 
             <Nav.Link
-              href="#benefits"
+              href="#features"
               className="text-#3CB371 mx-2"
               style={{
                 fontSize: "25px", // Larger font size.
