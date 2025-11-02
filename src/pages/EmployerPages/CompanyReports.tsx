@@ -1,5 +1,4 @@
 import Layout from "../../components/employercomponents/shared/Layout";
-import ReportsHeader from "../../components/employercomponents/reports/ReportsHeader";
 import WellnessTrends from "../../components/employercomponents/reports/WellnessTrends";
 import DepartmentMetrics from "../../components/employercomponents/reports/DepartmentMetrics";
 import AvailableReports from "../../components/employercomponents/reports/AvailableReports";
@@ -33,7 +32,6 @@ const CompanyReports = () => {
       showSearch={true}
       additionalHeaderContent={additionalHeader}>
       <div className="container-fluid py-4">
-        <ReportsHeader />
         <WellnessTrends />
         <DepartmentMetrics />
         <AvailableReports />

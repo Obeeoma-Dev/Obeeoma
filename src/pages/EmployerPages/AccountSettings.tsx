@@ -95,7 +95,7 @@ const EmployerAccountProfile = () => {
               </button>
               <button
                 onClick={handleSaveChanges}
-                className="btn btn-success d-flex align-items-center gap-2"
+                className="btn btn-danger d-flex align-items-center gap-2"
               >
                 <LogOut size={18} />
                 Logout
