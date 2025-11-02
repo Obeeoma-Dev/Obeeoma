@@ -1,5 +1,5 @@
 import React from "react";
-import { Shield, Globe, Sparkles, Heart, BarChart } from "lucide-react"; // icons used for items
+import { Shield, Sparkles, Heart, BarChart } from "lucide-react"; // icons used for items
 import "bootstrap/dist/css/bootstrap.min.css"; // bootstrap grid + utilities
 import Personreading from "../../assets/Images/image3.png"; // local left-side illustration
 
