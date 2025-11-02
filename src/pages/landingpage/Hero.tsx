@@ -29,7 +29,8 @@ const Hero = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         color: "#fff",
-        paddingTop: "80px"
+        paddingTop: "80px",
+        WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0) 100%)"
       }}
     >
       <div
@@ -86,7 +87,7 @@ const Hero = () => {
                 // Navigate to signup page when clicked
                 onClick={() => navigate("/signup")}
               >
-                Sign up for my organization
+                For Organizations
               </Button>
 
               {/* === Secondary Button: Soft white background, green text === */}
@@ -114,7 +115,7 @@ const Hero = () => {
                 // Navigate to login page when clicked
                 onClick={() => navigate("/login")}
               >
-                Sign In
+                For Employees
               </Button>
             </div>
           </Col>

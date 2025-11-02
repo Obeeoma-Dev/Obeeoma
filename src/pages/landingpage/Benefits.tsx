@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+
+// Importing icons (from lucide react library).
 import {
   Shield,
   Globe,
@@ -9,13 +11,8 @@ import {
 } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-interface Benefit {
-  icon: React.ComponentType<{ size?: number; className?: string }>;
-  title: string;
-  description: string;
-}
-
-const benefits: Benefit[] = [
+// Define an array of benifit. 
+const benefits = [
   { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous." },
   { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages." },
   { icon: Brain, title: "AI Powered Insights", description: "Smart alerts and tailored suggestions." },
@@ -24,13 +21,18 @@ const benefits: Benefit[] = [
   { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction" },
 ];
 
-// duplicate for seamless looping
+// duplicate for seamless looping.
 const extendedBenefits = [...benefits, ...benefits];
 const useImages = true;
 
-const BenefitCarousel: React.FC = () => {
+function BenefitCarousel() {
+  // A reference to the scroll container.
   const scrollRedf = useRef<HTMLDivElement | null>(null);
+
+  // Track which card is active for pagination dots.
   const [activeIndex, setActiveIndex] = useState(0);
+
+  // Pause scrolling when true.
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
@@ -53,15 +55,15 @@ const BenefitCarousel: React.FC = () => {
 
     const loop = () => {
       if (!isPaused) {
-        // advance the virtual position
+        // Update the scroll position
         scrollPosition += scrollSpeed;
 
-        // seamless wrap, after passing the original content length, subtract it
+        // Wrap scroll position for seamless looping.
         if (scrollPosition >= halfWidth) {
           scrollPosition -= halfWidth;
         }
 
-        // appls to the DOM
+        // Apply scroll to DOM
         scrollContainer.scrollLeft = scrollPosition;
 
         // update pagination dot.
@@ -92,7 +94,7 @@ const BenefitCarousel: React.FC = () => {
         <div
           ref={scrollRedf}
           className="d-flex overflow-hidden px-2"
-          onMouseEnter={() => setIsPaused(true)}
+          onMouseEnter={() => setIsPaused(false)}
           onMouseLeave={() => setIsPaused(false)}
           style={{
             // No snaps and only a continuous scroll
@@ -104,6 +106,8 @@ const BenefitCarousel: React.FC = () => {
           }}
         >
           {extendedBenefits.map((benefit, index) => {
+
+            // Dynamically render the icons.
             const Icon = benefit.icon;
             return (
               <div

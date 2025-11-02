@@ -22,6 +22,7 @@ const Footer = () => {
         forspace2: {
             title: "",
             items: [
+                { text: "Sign in", link: "/login" },
                 { text: "Privacy Policy", link: "/privacy" },
                 { text: "Crisis Resources", link: "/crisis-resources" },
             ],
