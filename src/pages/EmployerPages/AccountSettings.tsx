@@ -4,7 +4,7 @@ import SettingsNavigation from "../../components/employercomponents/employersett
 import AccountSection from "../../components/employercomponents/employersettings/AccountSection";
 import NotificationsSection from "../../components/employercomponents/employersettings/NotificationSettings";
 import PrivacySection from "../../components/employercomponents/employersettings/PrivacySection";
-import { Save } from "lucide-react";
+import { Save, Logout } from "lucide-react";
 
 const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");
@@ -68,7 +68,7 @@ const EmployerAccountProfile = () => {
 
   return (
     <Layout title="Settings">
-      <div className="container-fluid py-4">
+      <div className="container-fluid py-4 px-3">
         {/* Horizontal Navigation Bar */}
         <div className="row mb-4">
           <div className="col-12">
@@ -81,11 +81,11 @@ const EmployerAccountProfile = () => {
 
         {/* Settings Content */}
         <div className="row">
-          <div className="col-12">
+          <div className="col-12 col-md-10 col-lg-8 mx-auto">
             {renderSection()}
             
             {/* Save Changes Button */}
-            <div className="mt-4">
+            <div className="mt-4 d-flex justify-content-end gap-3">
               <button
                 onClick={handleSaveChanges}
                 className="btn btn-success d-flex align-items-center gap-2"
@@ -97,7 +97,7 @@ const EmployerAccountProfile = () => {
                 onClick={handleSaveChanges}
                 className="btn btn-success d-flex align-items-center gap-2"
               >
-                <Save size={18} />
+                <Logout size={18} />
                 Logout
               </button>
             </div>

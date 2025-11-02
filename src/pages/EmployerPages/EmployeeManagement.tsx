@@ -19,10 +19,12 @@ const EmployeeManagement = () => {
       title="Employee Management" 
       showSearch={true}
       additionalHeaderContent={additionalHeader}>
-      <div className="container-fluid py-4">
-        <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-        <AddEmployeeForm />
-      </div>
+      <div className="row gy-4">
+        <div className="container-fluid py-4 px-3">
+          <div className="col-12 col-lg-8 mx-auto">
+          <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+          <AddEmployeeForm />
+      </div></div></div>
     </Layout>
   );
 };

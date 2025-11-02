@@ -231,8 +231,6 @@ footer a:hover {
   box-shadow: var(--card-shadow-lg);
 }
 
-
-
 /* This is reflected in the systems admin organisationTable.tsx file */
 .bg-purple {
   background-color: #6f42c1;

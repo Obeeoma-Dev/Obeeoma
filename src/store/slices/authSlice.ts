@@ -127,9 +127,6 @@ export const logoutUserThunk = createAsyncThunk<void,void>(
     // localStorage.removeItem("refresh")
 
     delete api.defaults.headers.common["Authorization"];
-
-  
-
     }
   }
 );
