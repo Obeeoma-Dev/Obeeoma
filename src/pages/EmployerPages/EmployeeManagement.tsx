@@ -21,7 +21,7 @@ const EmployeeManagement = () => {
       additionalHeaderContent={additionalHeader}>
       <div className="row gy-4">
         <div className="container-fluid py-4 px-3">
-          <div className="col-12 col-lg-10 col-md 6 col-sm-3 mx-auto">
+          <div className="col-lg-12 col-md-9 col-sm-6 mx-auto">
           <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
           <AddEmployeeForm />
       </div></div></div>
