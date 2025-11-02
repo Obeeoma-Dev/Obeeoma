@@ -4,7 +4,7 @@ import SettingsNavigation from "../../components/employercomponents/employersett
 import AccountSection from "../../components/employercomponents/employersettings/AccountSection";
 import NotificationsSection from "../../components/employercomponents/employersettings/NotificationSettings";
 import PrivacySection from "../../components/employercomponents/employersettings/PrivacySection";
-import { Save, Logout } from "lucide-react";
+import { Save, LogOut } from "lucide-react";
 
 const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");
@@ -97,7 +97,7 @@ const EmployerAccountProfile = () => {
                 onClick={handleSaveChanges}
                 className="btn btn-success d-flex align-items-center gap-2"
               >
-                <Logout size={18} />
+                <LogOut size={18} />
                 Logout
               </button>
             </div>
