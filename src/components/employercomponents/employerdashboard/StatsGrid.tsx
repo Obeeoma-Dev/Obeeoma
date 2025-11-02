@@ -25,7 +25,7 @@ const StatsGrid = ({ stats }: StatsGridProps) => {
   };
 
   return (
-    <div className="row g-2 mb-4">
+    <div className="row g-2 mb-4 align-items-center">
       {stats.map((stat) => {
         const IconComponent = getIcon(stat.icon);
   
