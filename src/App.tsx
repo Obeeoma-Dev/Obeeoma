@@ -147,6 +147,7 @@ import CreateAccount from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
+import OtpVerificationPage from "./pages/auth/otpVerification";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
@@ -189,6 +190,8 @@ export default function App(): React.ReactElement {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
                 <Route path="/accept-invite" element={<AcceptInvite />} />
+                <Route path="/verify-invite" element={<OtpVerificationPage />} />
+
 
                 {/* === PROTECTED ROUTES === */}
                 {/* To activate ProtectedRoute, uncomment the block below and the imports above */}

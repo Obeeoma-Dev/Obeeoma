@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import OtpInput from '../../components/OtpComponent'; 
+import OtpInput from '../../components/OtpComponent'; 
 import { AppDispatch, RootState } from '../../store/store'; 
 import {verifyOtpThunk} from '../../store/slices/authSlice'; 
 import { selectUserDashboardRoute } from '../../store/slices/authSlice';
@@ -66,11 +66,11 @@ export default function OtpVerificationPage() {
             Please enter the {OTP_LENGTH}-digit code sent to **{email}**.
         </p>
 
-        {/* <OtpInput 
+        <OtpInput 
           value={otp} 
           valueLength={OTP_LENGTH} 
           onChange={handleOtpChange} 
-        /> */}
+        />
         
         <button 
           className="btn btn-primary mt-4" 

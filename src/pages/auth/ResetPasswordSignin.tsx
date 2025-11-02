@@ -386,7 +386,7 @@ const ResetPasswordSignIn: React.FC = () => {
     
     setIsLoading(true);
     try{
-      const API_URL="https://api-0904.onrender.com/api/v1/auth/reset-password/";
+      const API_URL="https://api-0904.onrender.com/api/v1/auth/accept-invite/";
     
 
       const response = await fetch(API_URL,{
