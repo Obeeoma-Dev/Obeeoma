@@ -41,7 +41,7 @@ export const useDashboardData = () => {
                 });
                 setActivities([
                     {
-                        text: "A new wellness test was completed in",
+                        text: "A new employee invitaion request was accepted",
                         department: "Engineering",
                         time: "2 hours ago",
                     },
