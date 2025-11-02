@@ -35,30 +35,20 @@ const EmployerDashboard = () => {
   // Transform backend data to component props
   const statsData = stats ? [
     {
-      title: "Total Employees",
+      title: "Active Employees",
       value: stats.totalEmployees.toString(),
-      description: "Active employees",
       icon: "Users",
       color: "success",
     },
     {
-      title: "Total Tests",
-      value: stats.totalTests.toString(),
-      description: "Tests completed",
-      icon: "FileCheck",
-      color: "info",
-    },
-    {
-      title: "Average Score",
+      title: "Wellness index",
       value: `${stats.averageScore}%`,
-      description: "Wellness index",
       icon: "TrendingUp",
       color: "warning",
     },
     {
       title: "At Risk",
       value: stats.atRiskDepartments.toString(),
-      description: "Employees at risk",
       icon: "AlertTriangle",
       color: "danger",
     },

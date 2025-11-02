@@ -4,7 +4,6 @@ import React from "react";
 interface StatItem {
   title: string;
   value: string;
-  description: string;
   icon: string;
   color: string;
 }
@@ -44,7 +43,6 @@ const StatsGrid = ({ stats }: StatsGridProps) => {
                   <div className="flex-grow-1">
                     <p className="text-muted small mb-1" style={{fontFamily:"heading", }}>{stat.title}</p>
                     <h3 className="h4 fw-bold mb-1"style={{fontFamily:"heading", }} >{stat.value}</h3>
-                    <p className="text-muted small mb-0" style={{fontFamily:"heading", }}>{stat.description}</p>
                   </div>
                 </div>
               </div>
