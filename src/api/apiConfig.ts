@@ -11,7 +11,7 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 
-
+export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -238,8 +238,6 @@ export const adminAPI = {
     const response = await api.get("/v1/admin/trends");
     return response;
   },
-
-  
 
   viewInviteEmployee: async () => {
     const response = await api.get("/v1/employers/view-invites/");
