@@ -1,20 +1,27 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
+// Importing images from Image.
+import teamWellbeingImg from "../../assets/Images/team-wellbing.png";
+import culturallyRelevantImg from "../../assets/Images/culturally-relevant.png";
+import anonymousSecureImg from "../../assets/Images/padlock.png";
+import aiInsightsImg from "../../assets/Images/ai-logo.png";
+import responsiveAppImg from "../../assets/Images/smartphone.png";
+import roiAnalyticsImg from "../../assets/Images/roi-analytics.png";
 // Importing icons (from lucide react library).
 import { Shield, Globe, Brain, Heart, Smartphone, BarChart, } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Define an array of benifit. 
 const benefits = [
-    { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous." },
-    { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages." },
-    { icon: Brain, title: "AI Powered Insights", description: "Smart alerts and tailored suggestions." },
-    { icon: Heart, title: "Team Wellbeing", description: "Track morale without breaching privacy" },
-    { icon: Smartphone, title: "Responsive Application", description: "Works seamlessly across all devices." },
-    { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction" },
+    { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous.", image: anonymousSecureImg },
+    { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages.", image: culturallyRelevantImg },
+    { icon: Brain, title: "AI Powered Insights", description: "Smart alerts and tailored suggestions.", image: aiInsightsImg },
+    { icon: Heart, title: "Team Wellbeing", description: "Track morale without breaching privacy", image: teamWellbeingImg },
+    { icon: Smartphone, title: "Responsive Application", description: "Works seamlessly across all devices.", image: responsiveAppImg },
+    { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction", image: roiAnalyticsImg },
 ];
 // duplicate for seamless looping.
 const extendedBenefits = [...benefits, ...benefits];
-const useImages = true;
+// const useImages = true;
 function BenefitCarousel() {
     // A reference to the scroll container.
     const scrollRedf = useRef(null);
@@ -58,7 +65,20 @@ function BenefitCarousel() {
         rafId = requestAnimationFrame(loop);
         return () => cancelAnimationFrame(rafId);
     });
-    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: "Mental health Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(false), onMouseLeave: () => setIsPaused(false), style: {
+    // Adding a scroll function to be abale to click my pagination dots.
+    const scrollToIndex = (index) => {
+        const scrollContainer = scrollRedf.current;
+        if (!scrollContainer)
+            return;
+        const singleCount = benefits.length;
+        const halfWidth = scrollContainer.scrollWidth / 2;
+        const cardWidth = halfWidth / singleCount;
+        scrollContainer.scrollLeft = index * cardWidth;
+        setActiveIndex(index);
+        setIsPaused(true);
+        setTimeout(() => setIsPaused(false), 5000);
+    };
+    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsxs("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: [" Why Choose ", _jsx("span", { style: { color: "#3CB371" }, children: "ObeeOma" }), " "] }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(false), onMouseLeave: () => setIsPaused(false), style: {
                         // No snaps and only a continuous scroll
                         gap: "1rem",
                         paddingBottom: "1rem",
@@ -72,22 +92,36 @@ function BenefitCarousel() {
                                 scrollSnapAlign: "none",
                                 width: 300,
                                 display: "inline-block",
-                            }, "data-testid": `benefit-card-${index}`, children: _jsxs("div", { className: "card h-100 border-0 bg-white p-4 rounded-3 shadow-sm text-center", children: [_jsx("div", { className: "d-inline-flex align-items-center justify-content-center mb-4 mx-auto", style: {
-                                            width: 64,
-                                            height: 64,
-                                            borderRadius: "50%",
-                                            backgroundImage: useImages ? `url(/images/bg-${index % benefits.length}.jpg)` : undefined,
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "center",
-                                            background: "linear-gradient(135deg, #f0f4f8, #d9e2ec)",
-                                        }, "aria-hidden": "true", children: _jsx(Icon, { size: 24 }) }), _jsx("h4", { className: "fw-semibold mb-2", children: benefit.title }), _jsx("p", { className: "text-muted mb-0 small", children: benefit.description })] }) }, index));
-                    }) }), _jsx("div", { className: "d-flex justify-content-center mt-4", children: [...Array(benefits.length)].map((_, i) => (_jsx("div", { style: {
+                            }, "data-testid": `benefit-card-${index}`, children: _jsxs("div", { className: "card h-100 border-0 p-4 rounded-3 shadow-sm text-center", style: {
+                                    position: "relative",
+                                    backgroundImage: benefit.image ? `url(${benefit.image})` : undefined,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    backgroundRepeat: "no-repeat",
+                                    color: "#fff",
+                                }, children: [_jsx("div", { style: {
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
+                                            right: 0,
+                                            bottom: 0,
+                                            backgroundColor: "rgba(0,0,0,0.4)",
+                                            borderRadius: "inherit",
+                                            zIndex: 0,
+                                        } }), _jsxs("div", { style: { position: "relative", zIndex: 1 }, children: [_jsx("div", { className: "d-inline-flex align-items-center justify-content-center mb-4 mx-auto", style: {
+                                                    width: 64,
+                                                    height: 64,
+                                                    borderRadius: "50%",
+                                                    backgroundColor: "#3CB371",
+                                                }, "aria-hidden": "true", children: _jsx(Icon, { size: 24 }) }), _jsx("h4", { className: "fw-semibold mb-2", children: benefit.title }), _jsx("p", { className: "mb-0 small", children: benefit.description })] })] }) }, index));
+                    }) }), _jsx("div", { className: "d-flex justify-content-center mt-4", children: [...Array(benefits.length)].map((_, i) => (_jsx("div", { onClick: () => scrollToIndex(i), style: {
                             width: 10,
                             height: 10,
                             borderRadius: "50%",
                             backgroundColor: i === activeIndex ? "#0f9d59" : "#ccc",
                             margin: "0 4px",
                             transition: "background-color 200ms",
+                            cursor: "pointer",
                         } }, i))) })] }) }));
 }
 ;

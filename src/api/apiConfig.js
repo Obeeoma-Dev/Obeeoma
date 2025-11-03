@@ -184,7 +184,11 @@ export const adminAPI = {
 };
 export const employerAPI = {
     inviteEmployee: async () => {
+<<<<<<< HEAD
         const response = await api.post("/v1/employers/invite-employee/");
+=======
+        const response = await api.post("/v1/dashboard/invites/");
+>>>>>>> landing-page
         return response;
     },
     viewInviteEmployee: async () => {

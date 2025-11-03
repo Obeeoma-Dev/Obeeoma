@@ -47,7 +47,7 @@ export interface TrendData {
 export interface EmployeeInvite {
   id: string | number;
   email: string;
-  status: 'pending' | 'accepted' | 'expired';
+  status: 'pending' | 'accepted' | 'expired' | 'active';
   sentDate: string; // ISO date string
 }
 
