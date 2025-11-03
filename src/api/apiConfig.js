@@ -109,6 +109,13 @@ export const authAPI = {
         const response = await api.get("/v1/auth/me/");
         return response;
     },
+    verifyOtp: async () => {
+        const response = await api.post("v1/auth/verify-invite/");
+        return response;
+    },
+    resendOtp: ({ email }) => {
+        return api.post('/auth/resend-otp', { email });
+    },
 };
 //  System Admin Dashboard
 export const adminAPI = {
