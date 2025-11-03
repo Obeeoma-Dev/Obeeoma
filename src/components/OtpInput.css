@@ -1,7 +1,7 @@
 .otp-group {
   display: flex;
   width: 100%;
-  max-width: 360px;
+  max-width: 6000px;
   column-gap: 10px;
 }
 
@@ -14,4 +14,10 @@
   font-size: 32px;
   font-weight: bold;
   line-height: 1;
+}
+
+.btn-custom-verify {
+    background-color: #3CB371;
+    border-color: #3CB371 ;
+    color: white !important; 
 }

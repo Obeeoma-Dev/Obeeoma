@@ -423,7 +423,7 @@ const ResetPasswordSignIn: React.FC = () => {
   };
 
   const handleResendCode = () => {
-    // Mock resend logic
+    
     setIsEmailSent(false);
     setIsLoading(true);
     setTimeout(() => {
@@ -552,7 +552,7 @@ const ResetPasswordSignIn: React.FC = () => {
                 </Button>
               </BootstrapForm>
 
-              {/* Resend Code Logic */}
+              {/* Resend Code  */}
               <div className="text-center mt-3">
                 <span className="text-center text-muted small" style={{fontFamily: "body"}}>
                   Didn't receive any code?{" "}

@@ -160,6 +160,11 @@ verifyOtp: async()=>{
   const response = await api.post("v1/auth/verify-invite/");
   return response;
 },
+
+resendOtp: ({ email }: { email: string }) => {
+        return api.post('/auth/resend-otp', { email });
+    
+    },
 };
 
 

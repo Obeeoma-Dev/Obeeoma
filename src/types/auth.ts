@@ -51,3 +51,7 @@ export interface OtpSuccessResponse{
   token?: string;
   user?: User
 }
+
+export  interface ResendOtpPayload {
+  email: string;
+}

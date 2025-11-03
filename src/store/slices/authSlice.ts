@@ -9,6 +9,7 @@ import {
   LoginSuccessPayload,
   OtpVerificationPayload,
   OtpSuccessResponse,
+   ResendOtpPayload, 
   User
 } from "./../../types/auth";
 import {  authAPI } from "../../api/apiConfig";
@@ -161,6 +162,24 @@ return JSON.parse(rawUser);
  return null;
  }
 };
+// resend otp
+export const resendOtpThunk = createAsyncThunk<
+  { message: string }, 
+  ResendOtpPayload, 
+  { rejectValue: string } 
+>(
+  'auth/resendOtp',
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.resendOtp({ email }); 
+      return response.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || 'Failed to resend code. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const initialState: AuthState = {
 user: getUserFromStorage(),

@@ -369,7 +369,6 @@ const ResetPasswordSignIn = () => {
         }
     };
     const handleResendCode = () => {
-        // Mock resend logic
         setIsEmailSent(false);
         setIsLoading(true);
         setTimeout(() => {

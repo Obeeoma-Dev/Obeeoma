@@ -190,7 +190,7 @@ export default function App(): React.ReactElement {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
                 <Route path="/accept-invite" element={<AcceptInvite />} />
-                <Route path="/verify-invite" element={<OtpVerificationPage />} />
+                <Route path="/otp-verify" element={<OtpVerificationPage />} />
 
 
                 {/* === PROTECTED ROUTES === */}
