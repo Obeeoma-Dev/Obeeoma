@@ -39,7 +39,7 @@
 ----------------------------------------------- */
 body {
   /*montserrat to be added here*/
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "heading";
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);
   margin: 0;
@@ -329,7 +329,7 @@ footer a:hover {
 
 /* Footer effect of the landing page. */
 footer {
-  background-color: #0B6E45 !important;
+  /* background-color: #0B6E45 !important; */
   color: #ccc;
   padding: 3rem 0;
 }

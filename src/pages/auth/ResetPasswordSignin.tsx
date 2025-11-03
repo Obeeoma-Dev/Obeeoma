@@ -478,10 +478,10 @@ const ResetPasswordSignIn: React.FC = () => {
       </small>
       </p>
       </div>
-              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading"}}>
+              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading" , textAlign: "center" , fontSize: "24px" }}>
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 " style={{fontFamily:"heading"}}>Send code to email</p>
+              <p className="text-muted mb-4 " style={{fontFamily:"heading" , textAlign: "center" , fontSize: "14px" }}>Send code to email</p>
 
               {/* Error Alert */}
               {error && (
