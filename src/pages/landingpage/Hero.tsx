@@ -58,7 +58,7 @@ const Hero = () => {
           <Col
             lg={6}
             className="d-flex justify-content-end"
-            // Move this entire column (buttons) slightly down by 30px
+            
             style={{ position: "relative", top: "150px" }}
           >
             {/* Wrapper div to handle button layout and spacing */}
