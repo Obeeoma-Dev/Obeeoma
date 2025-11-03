@@ -10,14 +10,12 @@ const EmployerDashboard = () => {
   if (loading) {
     return (
       <Layout title="Organization Overview">
-        <div className="container-fluid py-4">
-          <div className="text-center">
-            <div className="spinner-border text-primary" role="status">
+        <div className="container-fluid text-center py-5">
+            <div className="spinner-border text-success" role="status">
               <span className="visually-hidden">Loading...</span>
             </div>
-            <p className="mt-2">Loading dashboard data...</p>
+            <p className="mt-3">Loading dashboard data...</p>
           </div>
-        </div>
       </Layout>
     );
   }
@@ -25,8 +23,8 @@ const EmployerDashboard = () => {
   if (error) {
     return (
       <Layout title="Organization Overview">
-        <div className="container-fluid py-4">
-          <div className="alert alert-danger" role="alert">
+        <div className="container-fluid">
+          <div className="alert alert-danger py-4" role="alert">
             {error}
           </div>
         </div>
@@ -37,42 +35,38 @@ const EmployerDashboard = () => {
   // Transform backend data to component props
   const statsData = stats ? [
     {
-      title: "Total Employees",
+      title: "Active Employees",
       value: stats.totalEmployees.toString(),
-      description: "Active employees in the system",
       icon: "Users",
-      color: "primary",
+      color: "success",
     },
     {
-      title: "Total Tests",
-      value: stats.totalTests.toString(),
-      description: "Tests completed",
-      icon: "FileCheck",
-      color: "info",
-    },
-    {
-      title: "Average Score",
+      title: "Wellness index",
       value: `${stats.averageScore}%`,
-      description: "Average wellness score",
       icon: "TrendingUp",
       color: "warning",
     },
     {
       title: "At Risk",
       value: stats.atRiskDepartments.toString(),
-      description: "Departments with risk factors",
       icon: "AlertTriangle",
       color: "danger",
     },
   ] : [];
 
   return (
-    <Layout title="Organization Overview">
-      <div className="container-fluid py-4">
-        <StatsGrid stats={statsData} />
-        <ChartsSection chartData={chartData} />
-        <RecentActivity activities={activities} />
-      </div>
+    <Layout title="Organization Overview" >
+      <div className="container-fluid py-4 px-3">
+        <div className="row gy-4">
+          </div><div className="col-lg-12 col-md-10 mx-auto">
+            <StatsGrid stats={statsData} />
+          </div>
+
+          <div className="col-lg-12 col-md-10 d-flex flex-column gap-3">
+            <ChartsSection chartData={chartData} />
+            <RecentActivity activities={activities} />
+          </div>
+          </div>
     </Layout>
   );
 };

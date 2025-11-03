@@ -47,7 +47,7 @@ export interface TrendData {
 export interface EmployeeInvite {
   id: string | number;
   email: string;
-  status: 'pending' | 'accepted' | 'expired';
+  status: 'pending' | 'accepted' | 'expired' | 'active';
   sentDate: string; // ISO date string
 }
 
@@ -59,7 +59,7 @@ export interface InviteData {
 export interface SubscriptionData {
   plan_id: string;
   billing_cycle: 'monthly' | 'annually';
- methodOfPayment: string;
+  methodOfPayment: string;
 }
 
 export interface BillingDetails {

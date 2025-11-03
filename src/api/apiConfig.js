@@ -1,52 +1,71 @@
-// Import the Axios HTTP client
 import axios from "axios";
-// import { SubscriptIcon } from "lucide-react";
-// Define the base URL for API requests, using environment variable or fallback
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
-// Create a reusable Axios instance with the base URL
 const api = axios.create({
     baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
-api.interceptors.request.use((config) => {
-    // Log method, URL, and payload before sending the request
-    console.log("🔄 Making API Request:", {
-        method: config.method,
-        url: config.url,
-        data: config.data,
+export const setupApiInterceptors = (store) => {
+    api.interceptors.request.use((config) => {
+        const requestPath = config.url || '';
+        const publicEndpoints = [
+            "/v1/auth/login/",
+            "/v1/auth/signup/",
+            "/v1/auth/reset-password/",
+        ];
+        const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
+        // checking the redux token
+        const state = store.getState();
+        const token = state.auth.token;
+        //check local storage
+        const persistedToken = localStorage.getItem('token');
+        const activeToken = token || persistedToken;
+        if (activeToken && !isPublicEndpoint) {
+            //  "inject the authorization"
+            config.headers.Authorization = `Bearer ${activeToken}`;
+        }
+        else if (isPublicEndpoint) {
+            // to remove the token header
+            delete config.headers.Authorization;
+        }
+        console.log(" Making API Request:", {
+            method: config.method,
+            url: config.url,
+            data: config.data,
+            token_injected: !!(token && !isPublicEndpoint),
+        });
+        return config;
+    }, (error) => {
+        return Promise.reject(error);
     });
-    // Retrieve token from localStorage and attach it to Authorization header
-    const token = localStorage.getItem("token");
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    // Return the modified config to proceed with the request
-    return config;
-}, (error) => {
-    // Log request error and reject the promise
-    console.error(" Request Error:", error);
-    return Promise.reject(error);
-});
-// Add a response interceptor to log successful and failed responses
-api.interceptors.response.use((response) => {
-    // Log status, data, and URL on success
-    console.log("API Response Success:", {
-        status: response.status,
-        data: response.data,
-        url: response.config.url,
+    api.interceptors.request.use((config) => {
+        console.log(" Making API Request:", {
+            method: config.method,
+            url: config.url,
+            data: config.data,
+        });
+        return config;
     });
-    return response;
-}, (error) => {
-    // Log error details on failure
-    console.error(" API Response Error:", {
-        status: error.response?.status,
-        data: error.response?.data,
-        message: error.message,
-        url: error.config?.url,
+    api.interceptors.response.use((response) => {
+        console.log("API Response Success:", {
+            status: response.status,
+            data: response.data,
+            url: response.config.url,
+        });
+        return response;
+    }, (error) => {
+        // Log error details on failure
+        console.error(" API Response Error:", {
+            status: error.response?.status,
+            data: error.response?.data,
+            message: error.message,
+            url: error.config?.url,
+        });
+        return Promise.reject(error);
     });
-    return Promise.reject(error);
-});
-// Export auth-related API methods
+};
 export const authAPI = {
     // Login endpoint
     login: async (credentials) => {
@@ -62,30 +81,20 @@ export const authAPI = {
             confirm_password: credentials.confirm_password,
             role: credentials.role,
         });
-        // If registration returns a token, store it
         if (response.data.access) {
             localStorage.setItem("token", response.data.access);
         }
         return response.data;
     },
-    // Logout utility: calls backend logout endpoint and clears token and user info from localStorage
+    //for logout
     logout: async () => {
-        try {
-            // Call backend logout endpoint if token exists
-            const token = localStorage.getItem("token");
-            if (token) {
-                await api.post("/v1/auth/logout/");
-            }
-        }
-        catch (error) {
-            // Even if backend call fails, we should still clear local storage
-            console.warn("Logout API call failed, but clearing local storage:", error);
-        }
-        finally {
-            // Always clear local storage regardless of API call result
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-        }
+        const refreshToken = localStorage.getItem('refresh');
+        const accessToken = localStorage.getItem('token');
+        return api.post('/v1/auth/logout/', { refresh: refreshToken }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
     },
     forgotPassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/", data);
@@ -93,12 +102,19 @@ export const authAPI = {
     },
     // RESET PASSWORD
     changePassword: async (data) => {
-        const response = await api.post("/v1/auth/accept-invite/", data);
+        const response = await api.post("/v1/auth/change-password", data);
         return response;
     },
     getCurrentUser: async () => {
         const response = await api.get("/v1/auth/me/");
         return response;
+    },
+    verifyOtp: async () => {
+        const response = await api.post("v1/auth/verify-invite/");
+        return response;
+    },
+    resendOtp: ({ email }) => {
+        return api.post('/auth/resend-otp', { email });
     },
 };
 //  System Admin Dashboard
@@ -175,7 +191,7 @@ export const adminAPI = {
 };
 export const employerAPI = {
     inviteEmployee: async () => {
-        const response = await api.post("/v1/employers/");
+        const response = await api.post("/v1/dashboard/invites/");
         return response;
     },
     viewInviteEmployee: async () => {

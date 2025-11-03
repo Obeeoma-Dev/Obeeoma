@@ -3,7 +3,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Container, Row, Col } from "react-bootstrap";
 // Import reusable components.
 import Sidebar from "../../components/admincomponents/adminsidebar";
-import SettingsTabs from "../../components/admincomponents/SettingsTabs";
+import SettingsTabs from "../../components/admincomponents/Settingscomponents/SettingsTabs";
 // Define the AdminSettings page component.
 const AdminSettings = () => {
     return (

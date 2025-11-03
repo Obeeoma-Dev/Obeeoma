@@ -3,10 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 // Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
 import Header from "../../components/admincomponents/adminheader";
-import DashboardStats from "../../components/admincomponents/dashboardstats";
-import PlatformUsageChart from "../../components/admincomponents/platformusage";
-import RecentActivities from "../../components/admincomponents/recentactivities";
-import BottomMetrics from "../../components/admincomponents/buttonmetrics";
+import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
+import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
+import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
+import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -61,7 +61,7 @@ const bottomMetricData = [
     {
         id: "1",
         title: "Organizations",
-        value: "42",
+        value: "0",
         subtitle: "Active organizations",
         linkText: "View all organizations",
         icon: "Building2",
@@ -70,7 +70,7 @@ const bottomMetricData = [
     {
         id: "2",
         title: "AI Recommendations",
-        value: "1,245",
+        value: "0",
         subtitle: "Reviewed today",
         linkText: "View recommendations",
         icon: "Brain",
@@ -79,7 +79,7 @@ const bottomMetricData = [
     {
         id: "3",
         title: "Hotline",
-        value: "324",
+        value: "0",
         subtitle: "Calls received",
         linkText: "View hotline logs",
         icon: "PhoneCall",
@@ -88,7 +88,7 @@ const bottomMetricData = [
     {
         id: "4",
         title: "Subscriptions",
-        value: "$25.8K",
+        value: "$0k",
         subtitle: "Monthly revenue",
         linkText: "View subscriptions",
         icon: "CreditCard",
@@ -102,7 +102,7 @@ const bottomMetricData = [
 const dashboardStatsData = [
     {
         id: "1",
-        value: "42",
+        value: "total_organizations",
         title: "Total Organizations",
         change: "+3 this month",
         icon: "Building2",
@@ -110,7 +110,7 @@ const dashboardStatsData = [
     },
     {
         id: "2",
-        value: "1,284",
+        value: "0",
         title: "Total Clients",
         change: "+124 this week",
         icon: "Users",
@@ -118,7 +118,7 @@ const dashboardStatsData = [
     },
     {
         id: "3",
-        value: "$25,800",
+        value: "$0",
         title: "Monthly Revenue",
         change: "+5.3% this month",
         icon: "CreditCard",
@@ -126,7 +126,7 @@ const dashboardStatsData = [
     },
     {
         id: "4",
-        value: "42",
+        value: "0",
         title: "Hotline Calls Today",
         change: "+8% vs yesterday",
         icon: "PhoneCall",

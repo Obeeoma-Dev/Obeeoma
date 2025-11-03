@@ -1,18 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import * as Icons from "lucide-react";
 /**
- * OrganizationStats component displays top-level metrics
- * using placeholder data for now.
- * Includes a header row with title and action button.
+ * OrganizationStats component displays a grid of organization metrics
+ * Styled similarly to ActivityItem cards with icon, title, value, and change
  */
-const OrganizationStats = () => {
-    // Placeholder data — replace with props or API data when backend is ready
-    const stats = [
-        { title: "Total Organizations", value: 42 },
-        { title: "Total Clients", value: 1284 },
-        { title: "Active Programs", value: 68 },
-        { title: "Regional Coverage", value: 6 },
-    ];
-    return (_jsxs("section", { className: "mb-4", children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx("h4", { className: "text-success fw-semibold", children: "Organizations Overview" }), _jsx(Button, { variant: "success", size: "sm", children: "+ Add Organization" })] }), _jsx(Row, { children: stats.map((stat, index) => (_jsx(Col, { xs: 12, sm: 6, md: 3, className: "mb-3", children: _jsx(Card, { className: "text-center border-success shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "text-muted fs-6", children: stat.title }), _jsx(Card.Text, { className: "fs-3 fw-bold text-success", children: stat.value.toLocaleString() })] }) }) }, index))) })] }));
+const OrganizationStats = ({ stats }) => {
+    return (_jsxs("section", { className: "mb-4", children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx("h4", { className: "fw-semibold text-dark", children: "Organizations" }), _jsx(Button, { variant: "success", size: "sm", children: "+ Add Organization" })] }), _jsx(Row, { className: "gy-4", children: stats.map((stat) => {
+                    // Dynamically select icon from lucide-react
+                    const IconComponent = (Icons[stat.icon] ?? Icons.Activity);
+                    return (_jsx(Col, { xs: 12, md: 6, lg: 3, children: _jsx(Card, { className: "border-0 shadow-sm mb-3", children: _jsxs(Card.Body, { className: "d-flex align-items-start justify-content-between px-2 py-3", children: [_jsxs("div", { className: "d-flex align-items-start gap-3 flex-grow-1", children: [_jsx("div", { className: "rounded d-flex align-items-center justify-content-center", style: { width: "40px", height: "40px" }, children: _jsx(IconComponent, { size: 20, color: "#3CB371" }) }), _jsxs("div", { children: [_jsx("div", { className: "fw-semibold mb-1", children: stat.title }), _jsx("div", { className: "text-muted small", children: stat.value })] })] }), _jsx("div", { className: "text-muted small text-end", children: stat.change })] }) }) }, stat.id));
+                }) })] }));
 };
 export default OrganizationStats;

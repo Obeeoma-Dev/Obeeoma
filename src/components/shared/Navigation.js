@@ -1,6 +1,32 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import logo from "../../assets/Images/obeeomalogoicon2.png";
-import { Link } from "react-router-dom";
-const Navigation = () => (_jsx(Navbar, { expand: "lg", fixed: "top", className: "py-3", style: { backgroundColor: "var(--color-green)" }, children: _jsxs(Container, { children: [_jsx(Navbar.Toggle, { "aria-controls": "nav" }), _jsx(Navbar.Collapse, { id: "nav", className: "justify-content-between", children: _jsxs(Nav, { className: "me-auto", children: [_jsx(Navbar.Brand, { as: Link, to: "/employer-dashboard", children: _jsx("img", { src: logo, alt: "Obeeoma", height: "40" }) }), _jsxs(Nav.Link, { href: "#features", className: "text-white", children: [" ", "Features |", " "] }), _jsxs(Nav.Link, { href: "#benefits", className: "text-white", children: [" ", "Benefits"] })] }) })] }) }));
+// Import necessary components and modules
+import { Navbar, Nav, Container } from "react-bootstrap"; // React-Bootstrap components for layout and styling
+import { Link } from "react-router-dom"; // Enables navigation without page reloads
+import logo from "../../assets/Images/obeeomalogoword1.png"; // Path to the company logo image
+import { useEffect, useState } from "react";
+// Define your nav component. 
+function Navigation() {
+    const [scrolled, setScrolled] = useState(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10); // Adjustment area of the threshold.
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+    return (_jsx(Navbar, { expand: "lg" // This enables responsive collapse on large screens.
+        , fixed: "top" // This keeps the navbar fixed at the top
+        , className: `shadow-sm ${scrolled ? "scrolled" : "transparent"}`, style: {
+            transition: "background-color 0.3s ease",
+            height: "80px", // Set fixed navbar height.
+            minHeight: "80px", // Ensure minimum height.        
+        }, children: _jsxs(Container, { children: [_jsx(Navbar.Brand, { as: Link, to: "/", className: "d-flex align-items-center" // Center logo vertically.
+                    , children: _jsx("img", { src: logo, alt: "Obeeoma" // Accessible alt text for the logo
+                        , style: {
+                            height: "50px", // logo's size.
+                            width: "auto", // Maintaining aspect ratio
+                            marginTop: "-10px", // Adjust vertical position if needed. 
+                            marginBottom: "-10px"
+                        } }) }), _jsx(Navbar.Toggle, { "aria-controls": "nav" }), _jsx(Navbar.Collapse, { id: "nav", className: "justify-content-end", children: _jsxs(Nav, { className: "ms-auto", children: [_jsx(Nav.Link, { href: "#Hero", className: "mx-2", children: "Home |" }), _jsx(Nav.Link, { href: "#features", className: "mx-2", children: "Features |" }), _jsx(Nav.Link, { href: "#benefits", className: "mx-2", children: "Benefits |" })] }) })] }) }));
+}
 export default Navigation;

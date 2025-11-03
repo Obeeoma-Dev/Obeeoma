@@ -6,7 +6,8 @@ export const loginValidationSchema = yup.object({
 export const registerValidationSchema = yup.object({
     username: yup.string().required("Username is required").min(3),
     email: yup.string().required("Email is required").email(),
-    password: yup.string().required("Password is required").min(8),
+    password: yup.string().required("Password is required").min(8, 'Password is too short Should be 8 characters minimum.'),
+    //.matches( /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/,),
     confirm_password: yup
         .string()
         .required("Please confirm your password")
@@ -19,12 +20,12 @@ export const forgotPasswordValidationSchema = yup.object({
         .email("Must be a valid email"),
 });
 export const resetPasswordValidationSchema = yup.object({
-    newPassword: yup
+    password: yup
         .string()
         .required("New Password is required")
-        .min(6, "Password must be at least 6 characters"),
+        .min(8, "Password must be at least 8  characters"),
     confirmNewPassword: yup
         .string()
         .required("Please confirm your new password")
-        .oneOf([yup.ref("newPassword")], "Passwords must match"),
+        .oneOf([yup.ref("password")], "Passwords must match"),
 });

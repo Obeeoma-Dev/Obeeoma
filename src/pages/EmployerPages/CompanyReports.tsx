@@ -1,5 +1,4 @@
 import Layout from "../../components/employercomponents/shared/Layout";
-import ReportsHeader from "../../components/employercomponents/reports/ReportsHeader";
 import WellnessTrends from "../../components/employercomponents/reports/WellnessTrends";
 import DepartmentMetrics from "../../components/employercomponents/reports/DepartmentMetrics";
 import AvailableReports from "../../components/employercomponents/reports/AvailableReports";
@@ -20,7 +19,7 @@ const CompanyReports = () => {
         <Calendar size={16} />
         Date Range
       </button>
-      <button className="btn btn-primary d-flex align-items-center gap-2">
+      <button className="btn btn-success d-flex align-items-center gap-2">
         <Download size={16} />
         Export All
       </button>
@@ -33,7 +32,6 @@ const CompanyReports = () => {
       showSearch={true}
       additionalHeaderContent={additionalHeader}>
       <div className="container-fluid py-4">
-        <ReportsHeader />
         <WellnessTrends />
         <DepartmentMetrics />
         <AvailableReports />

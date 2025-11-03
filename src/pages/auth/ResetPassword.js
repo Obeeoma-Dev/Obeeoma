@@ -1,152 +1,157 @@
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-// // import React, { useEffect } from "react";
-// // import { useDispatch, useSelector } from "react-redux";
-// // import { AppDispatch, RootState } from "../../store/store";
-// // import { resetPassword, clearError } from "../../store/slices/authSlice";
-// // import { useNavigate } from "react-router-dom";
-// // // Assuming you have 'resetPasswordValidationSchema' correctly defined
-// // import { resetPasswordValidationSchema } from "./../../validation/authValidation";
-// // import { Formik } from "formik";
-// // import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
-// // import "bootstrap/dist/css/bootstrap.min.css";
-// // const ResetPassword: React.FC = () => {
-// //   const dispatch = useDispatch<AppDispatch>();
-// //   const navigate = useNavigate();
-// //   // Ensure the error state is cleared on mount
-// //   const { isLoading, error } = useSelector((state: RootState) => state.auth);
-// //   useEffect(() => {
-// //     dispatch(clearError());
-// //   }, [dispatch]);
-// //   // The type definition for handleSubmit payload should match the Formik initialValues and the Redux action payload
-// //   const handleSubmit = (values: {
-// //     token: string;
-// //     newPassword: string;
-// //     confirmNewPassword: string;
-// //   }) => {
-// //     dispatch(
-// //       resetPassword({
-// //         ...values,
-// //         onSuccess: () => navigate("/login"),
-// //       })
-// //     );
-// //   };
-// //   return (
-// //     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-// //       <Card
-// //         className="shadow-lg border-0 overflow-hidden"
-// //         style={{ maxWidth: "900px", width: "100%" }}
-// //       >
-// //         <Row className="g-0">
-// //           {/* Left Side (Form) */}
-// //           <Col md={6} className="p-5 bg-white">
-// //             <h2 className="fw-semibold mb-2">Reset Your Password</h2>
-// //             <p className="text-muted mb-4">
-// //               Enter your new password
-// //             </p>
-// //             {error && (
-// //               <Alert
-// //                 variant="danger"
-// //                 onClose={() => dispatch(clearError())}
-// //                 dismissible
-// //               >
-// //                 {error}
-// //               </Alert>
-// //             )}
-// //             <Formik
-// //               initialValues={{
-// //                 token: "",
-// //                 newPassword: "",
-// //                 confirmNewPassword: "",
-// //                 // You might need to add code/token fields here if they are part of the form
-// //               }}
-// //               validationSchema={resetPasswordValidationSchema}
-// //               onSubmit={handleSubmit}
-// //             >
-// //               {({ handleChange, handleSubmit, values, errors, touched }) => (
-// //                 <Form noValidate onSubmit={handleSubmit}>
-// //                   {/* New Password Field */}
-// //                   <Form.Group className="mb-3" controlId="formNewPassword">
-// //                     <Form.Label visuallyHidden>New Password</Form.Label>
-// //                     <Form.Control
-// //                       type="password"
-// //                       placeholder="New Password"
-// //                       className="py-2"
-// //                       name="newPassword" 
-// //                       value={values.newPassword} 
-// //                       onChange={handleChange} 
-// //                       isInvalid={touched.newPassword && !!errors.newPassword}
-// //                     />
-// //                     <Form.Control.Feedback type="invalid">
-// //                       {errors.newPassword}
-// //                     </Form.Control.Feedback>
-// //                   </Form.Group>
-// //                   {/* Confirm New Password Field */}
-// //                   <Form.Group className="mb-4" controlId="formConfirmPassword">
-// //                     <Form.Label visuallyHidden>Confirm New Password</Form.Label>
-// //                     <Form.Control
-// //                       type="password"
-// //                       placeholder="Confirm New Password"
-// //                       className="py-2"
-// //                       name="confirmNewPassword" 
-// //                       value={values.confirmNewPassword} 
-// //                       onChange={handleChange} 
-// //                       isInvalid={touched.confirmNewPassword && !!errors.confirmNewPassword}
-// //                     />
-// //                     <Form.Control.Feedback type="invalid">
-// //                       {errors.confirmNewPassword}
-// //                     </Form.Control.Feedback>
-// //                   </Form.Group>
-// //                   {/* Submit Button */}
-// //                   <Button
-// //                     variant="success"
-// //                     type="submit"
-// //                     className="w-100 mb-3 py-2 fw-semibold"
-// //                     disabled={isLoading}
-// //                   >
-// //                     {isLoading ? (
-// //                       <>
-// //                         <Spinner
-// //                           as="span"
-// //                           animation="border"
-// //                           size="sm"
-// //                           role="status"
-// //                           aria-hidden="true"
-// //                           className="me-2"
-// //                         />
-// //                         Resetting Password...
-// //                       </>
-// //                     ) : (
-// //                       "Change Password"
-// //                     )}
-// //                   </Button>
-// //                 </Form>
-// //               )}
-// //             </Formik>
-// //           </Col>
-// //           {/* Right Side (Info Panel) */}
-// //           <Col
-// //             md={6}
-// //             className="p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10"
-// //           >
-// //             <h3 className="fw-semibold mb-4">Secure Your Account</h3>
-// //             <p className="text-muted mb-3">
-// //               Resetting your password ensures your account remains safe. Use a
-// //               strong password that you haven’t used before.
-// //             </p>
-// //             <ul className="list-unstyled text-secondary mb-0">
-// //               <li className="mb-2">✔ Protect your sensitive information</li>
-// //               <li className="mb-2">✔ Access your care plan securely</li>
-// //               <li>✔ Continue your wellness journey with peace of mind</li>
-// //             </ul>
-// //           </Col>
-// //         </Row>
-// //       </Card>
-// //     </div>
-// //   );
-// // };
-// // export default ResetPassword;
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+// import React, { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { AppDispatch, RootState } from "../../store/store";
+// import { resetPassword, clearError } from "../../store/slices/authSlice";
+// import { useNavigate } from "react-router-dom";
+// // Assuming you have 'resetPasswordValidationSchema' correctly defined
+// import { resetPasswordValidationSchema } from "./../../validation/authValidation";
+// import { Formik } from "formik";
+// import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+// import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
+// import logo from "./../../assets/Images/green..png"; 
+// const ResetPassword: React.FC = () => {
+//   const dispatch = useDispatch<AppDispatch>();
+//   const navigate = useNavigate();
+//   // Ensure the error state is cleared on mount
+//   const { isLoading, error } = useSelector((state: RootState) => state.auth);
+//   useEffect(() => {
+//     dispatch(clearError());
+//   }, [dispatch]);
+//   // The type definition for handleSubmit payload should match the Formik initialValues and the Redux action payload
+//   const handleSubmit = (values: {
+//     token: string;
+//     newPassword: string;
+//     confirmNewPassword: string;
+//   }) => {
+//     dispatch(
+//       resetPassword({
+//         ...values,
+//         onSuccess: () => navigate("/login"),
+//       })
+//     );
+//   };
+//   return (
+//     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+//       <Card
+//         className="shadow-lg border-0 overflow-hidden"
+//         style={{ maxWidth: "900px", width: "100%" }}
+//       >
+//         <Row className="g-0">
+//           {/* Left Side (Form) */}
+//           <Col md={6} className="p-5 bg-white">
+//             <h2 className="fw-semibold mb-2">Reset Your Password</h2>
+//             <p className="text-muted mb-4">
+//               Enter your new password
+//             </p>
+//             {error && (
+//               <Alert
+//                 variant="danger"
+//                 onClose={() => dispatch(clearError())}
+//                 dismissible
+//               >
+//                 {error}
+//               </Alert>
+//             )}
+//             <Formik
+//               initialValues={{
+//                 token: "",
+//                 newPassword: "",
+//                 confirmNewPassword: "",
+//                 // You might need to add code/token fields here if they are part of the form
+//               }}
+//               validationSchema={resetPasswordValidationSchema}
+//               onSubmit={handleSubmit}
+//             >
+//               {({ handleChange, handleSubmit, values, errors, touched }) => (
+//                 <Form noValidate onSubmit={handleSubmit}>
+//                   {/* New Password Field */}
+//                   <Form.Group className="mb-3" controlId="formNewPassword">
+//                     <Form.Label visuallyHidden>New Password</Form.Label>
+//                     <Form.Control
+//                       type="password"
+//                       placeholder="New Password"
+//                       className="py-2"
+//                       name="newPassword" 
+//                       value={values.newPassword} 
+//                       onChange={handleChange} 
+//                       isInvalid={touched.newPassword && !!errors.newPassword}
+//                     />
+//                     <Form.Control.Feedback type="invalid">
+//                       {errors.newPassword}
+//                     </Form.Control.Feedback>
+//                   </Form.Group>
+//                   {/* Confirm New Password Field */}
+//                   <Form.Group className="mb-4" controlId="formConfirmPassword">
+//                     <Form.Label visuallyHidden>Confirm New Password</Form.Label>
+//                     <Form.Control
+//                       type="password"
+//                       placeholder="Confirm New Password"
+//                       className="py-2"
+//                       name="confirmNewPassword" 
+//                       value={values.confirmNewPassword} 
+//                       onChange={handleChange} 
+//                       isInvalid={touched.confirmNewPassword && !!errors.confirmNewPassword}
+//                     />
+//                     <Form.Control.Feedback type="invalid">
+//                       {errors.confirmNewPassword}
+//                     </Form.Control.Feedback>
+//                   </Form.Group>
+//                   {/* Submit Button */}
+//                   <Button
+//                     variant="success"
+//                     type="submit"
+//                     className="w-100 mb-3 py-2 fw-semibold"
+//                     disabled={isLoading}
+//                   >
+//                     {isLoading ? (
+//                       <>
+//                         <Spinner
+//                           as="span"
+//                           animation="border"
+//                           size="sm"
+//                           role="status"
+//                           aria-hidden="true"
+//                           className="me-2"
+//                         />
+//                         Resetting Password...
+//                       </>
+//                     ) : (
+//                       "Change Password"
+//                     )}
+//                   </Button>
+//                 </Form>
+//               )}
+//             </Formik>
+//           </Col>
+//           {/* Right Side (Info Panel) */}
+//           <Col
+//             md={6}
+//             className="p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10"
+//           >
+//             <h3 className="fw-semibold mb-4">Secure Your Account</h3>
+//             <p className="text-muted mb-3">
+//               Resetting your password ensures your account remains safe. Use a
+//               strong password that you haven’t used before.
+//             </p>
+//             <ul className="list-unstyled text-secondary mb-0">
+//               <li className="mb-2">✔ Protect your sensitive information</li>
+//               <li className="mb-2">✔ Access your care plan securely</li>
+//               <li>✔ Continue your wellness journey with peace of mind</li>
+//             </ul>
+//           </Col>
+//         </Row>
+//       </Card>
+//     </div>
+//   );
+// };
+// export default ResetPassword;
 // import React, { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
+// import { resetPasswordValidationSchema } from "./../../validation/authValidation"
 // import {
 //   Container,
 //   Card,
@@ -154,46 +159,90 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 //   Form as BootstrapForm,
 //   Alert,
 //   Spinner,
+//   InputGroup
 // } from "react-bootstrap";
-// // Mock styles for consistency
+// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome" ;
+// import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+// import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
+// import logo from "./../../assets/Images/green..png"; 
+// 
+// 
 // const customStyles = {
-//   primaryColor: "#3CB371", // Used for links and accents
+//   primaryColor: "#3CB371", // The green 
 //   logoText: "Obeeoma",
 // };
-// // --- Component Definition ---
+// 
+// 
+// type ResetPasswordFormValues = {
+//   token: "";
+//   newPassword: ""; 
+//   confirmNewPassword: "";
+// };
+// 
+// 
+// 
 // const ResetPassword: React.FC = () => {
+//   const [code, setCode] = useState("");
 //   const [password, setPassword] = useState("");
 //   const [confirmPassword, setConfirmPassword] = useState("");
 //   const [error, setError] = useState<string | null>(null);
 //   const [isLoading, setIsLoading] = useState(false);
+//   
+//   const [showPassword, setShowPassword] = useState(false);
+//    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+// 
+//       // function for the eye visibility toggle
+//     const togglePasswordVisibility = () => {
+//         setShowPassword((prev) => !prev);
+//       };
+//   
+// 
+//     const toggleConfirmPasswordVisibility = () => {
+//       setShowConfirmPassword(prev => !prev);
+//     };
+// 
 //   const navigate = useNavigate();
-//   // Mock validation and submission
-//   const handleSubmit = (e: React.FormEvent) => {
+// 
+//   const initialValues: ResetPasswordFormValues = {
+//     newPassword: "",
+//     confirmNewPassword: "",
+//   };
+// 
+//  
+//   const handleSubmit = (values: ResetPasswordFormValues) => {
 //     e.preventDefault();
 //     setError(null);
-//     if (password.length < 6) {
-//       setError("Password must be at least 6 characters.");
+// 
+//     if (!password || !confirmPassword) {
+//       setError("Please fill in both password fields.");
 //       return;
 //     }
+// 
+//     if (password.length < 8) {
+//       setError("Password must be at least 8 characters.");
+//       return;
+//     }
+// 
 //     if (password !== confirmPassword) {
 //       setError("Passwords do not match.");
 //       return;
 //     }
-//     // Mock API call simulation
+// 
+// 
 //     setIsLoading(true);
 //     setTimeout(() => {
 //       setIsLoading(false);
-//       // Success case: navigate to the login page
-//       navigate('/login');
+//       navigate("/login");
 //     }, 1500);
 //   };
+// 
 //   return (
-//     // 1. Full Page Container with positioning for the fixed footer
+// 
 //     <div
 //       style={{
 //         backgroundColor: "#f5f5f5",
 //         minHeight: "100vh",
-//         padding: "50px 0 100px 0", // Extra padding for fixed footer
+//         padding: "50px 0 100px 0", // padding for footer
 //         position: "relative",
 //       }}
 //       className="d-flex justify-content-center align-items-center"
@@ -201,56 +250,133 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 //       <Container>
 //         <div className="d-flex justify-content-center">
 //           <Card
+//           
 //             className="shadow-sm border-0 p-4"
 //             style={{
-//               maxWidth: "450px", // Card width limit
+//               maxWidth: "600px", // Card 
 //               width: "100%",
 //               borderRadius: "8px",
 //               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
 //             }}
 //           >
 //             <Card.Body>
-//               <h3 className="mb-2 fw-semibold text-dark">
+//               <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
+//       <img
+//       src={logo}
+//       alt="Obeeoma Logo"
+//       width="100"
+//       className="mb-1"
+//       />
+//       <p className="m-0 text-center">
+//       
+//       </p>
+//       </div>
+//               <h3 className="mb-2 fw-semibold text-dark" style={{fontFamily:"body"}}>
 //                 Reset Your Password
 //               </h3>
-//               <p className="text-muted mb-4 small">
+//               <p className="text-muted mb-4 small " style={{fontFamily:"body"}}>
 //                 Enter your new password
 //               </p>
+// 
 //               {/* Error Alert */}
 //               {error && (
 //                 <Alert variant="danger" className="py-2">
 //                   {error}
 //                 </Alert>
 //               )}
+// 
 //               <BootstrapForm noValidate onSubmit={handleSubmit}>
-//                 {/* New Password Field */}
+// 
+//                 {/* code */}
 //                 <BootstrapForm.Group className="mb-3">
 //                   <BootstrapForm.Control
-//                     type="password"
-//                     name="password"
-//                     placeholder="New Password"
-//                     value={password}
-//                     onChange={(e) => setPassword(e.target.value)}
+//                     type="text"
+//                     name="code"
+//                     placeholder="Enter the code"
+//                     value={code}
+//                     onChange={(e) => setCode(e.target.value)}
 //                     className="py-2"
-//                     isInvalid={!!error} // Simple invalid styling based on generic error
+//                     isInvalid={!!error} 
 //                   />
 //                 </BootstrapForm.Group>
-//                 <BootstrapForm.Group className="mb-4">
-//                   <BootstrapForm.Control
-//                     type="password"
-//                     name="confirmPassword"
-//                     placeholder="Confirm New Password"
-//                     value={confirmPassword}
-//                     onChange={(e) => setConfirmPassword(e.target.value)}
-//                     className="py-2"
-//                     isInvalid={!!error} // Simple invalid styling based on generic error
-//                   />
-//                 </BootstrapForm.Group>
+//                  <BootstrapForm.Group className="mb-3" controlId="password">
+//                     <InputGroup>
+//                     <BootstrapForm.Control
+//                       style={{fontFamily: "body"}}
+//                       type={showPassword ? "text" : "password"}
+//                       name="password"
+//                       value={values.password}
+//                       onChange={handleChange}
+//                       placeholder="Password"
+//                       className="py-2 border-success border-opacity-25"
+//                       isInvalid={touched.password && !!errors.password}
+//                     />
+//                     <InputGroup.Text 
+//                       onClick={togglePasswordVisibility}
+//                        style={{ 
+//                         cursor: "pointer", 
+//                         backgroundColor: "white" 
+//                       }}>
+//                       <FontAwesomeIcon 
+//                         icon={showPassword ? faEyeSlash : faEyeRegular} 
+//                         style={{ color: customStyles.primaryColor }}
+//                       />
+//                     </InputGroup.Text>
+//                    
+//                     </InputGroup> 
+//                     {(touched.password && !!errors.password) && (
+//                     <div className="invalid-feedback d-block">
+//                         {errors.password}
+//                    </div>
+//                     )}
+//                   </BootstrapForm.Group>
+// 
+//                     {/* Confirm Password Field  */}
+//                     <BootstrapForm.Group className="mb-4" controlId="confirm_password" >
+//                      <InputGroup>
+//                       <BootstrapForm.Control
+//                        style={{fontFamily:"body"}}
+//                         type={showConfirmPassword ? "text" : "password"}
+//                         name="confirm_password"
+//                         placeholder="Confirm Password"
+//                         value={values.confirm_password}
+//                         onChange={handleChange}
+//                         className="py-2 "
+//                         isInvalid={
+//                           !!touched.confirm_password &&
+//                           !!errors.confirm_password
+//                         }
+//                       />
+//                       <InputGroup.Text 
+//                       onClick={toggleConfirmPasswordVisibility}
+//                        style={{ 
+//                         cursor: "pointer", 
+//                         backgroundColor: "white" 
+//                       }}>
+//                       <FontAwesomeIcon 
+//                         icon={showConfirmPassword ? faEyeSlash : faEyeRegular} 
+//                         style={{ color: customStyles.primaryColor }}
+//                       />
+//                      </InputGroup.Text>
+//                     </InputGroup>
+//                      {!!touched.confirm_password && !!errors.confirm_password && (
+//                        <div className="invalid-feedback d-block">
+//                         <ErrorMessage name="confirm_password" /> 
+//                        </div>
+//                        )}
+//                     </BootstrapForm.Group>
+// 
 //                 <Button
-//                   variant="success"
 //                   type="submit"
 //                   className="w-100 mb-3 py-2 fw-semibold"
 //                   disabled={isLoading}
+//                   style={{
+//                     
+//                     backgroundColor: customStyles.primaryColor,
+//                     borderColor: customStyles.primaryColor,
+//                     color: "white",
+//                     boxShadow: "none",
+//                   }}
 //                 >
 //                   {isLoading ? (
 //                     <>
@@ -269,9 +395,17 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 //                   )}
 //                 </Button>
 //               </BootstrapForm>
-//               {/* Optional: Add a link back to login for completeness */}
+// 
+//             
 //               <div className="text-center mt-3">
-//                 <Link to="/login" className="small text-muted text-decoration-none">
+//                 <Link
+//                   to="/login"
+//                   className="small text-decoration-none"
+//                   style={{ color: customStyles.primaryColor,
+//                     fontFamily:"body"
+// 
+//                   }} // 
+//                 >
 //                   Back to Sign in
 //                 </Link>
 //               </div>
@@ -279,114 +413,132 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 //           </Card>
 //         </div>
 //       </Container>
+// 
 //       {/* --- Footer Component --- */}
-//       <footer
-//         className="text-center text-muted py-3 small border-top"
-//         style={{
-//           position: "fixed", 
-//           bottom: "0",
-//           width: "100%",
-//           backgroundColor: "#f5f5f5",
-//           fontSize: "0.8rem",
-//           zIndex: 1000,
-//         }}
-//       >
-//         &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
+//      <footer
+//             className="text-center text-muted py-3 small border-top"
+//             style={{
+//               position: "fixed", //  at the bottom of the viewport
+//               bottom: "0", 
+//               width: "100%",
+//               backgroundColor: "#f5f5f5", 
+//               fontSize: "0.8rem",
+//               zIndex: 1000, 
+//               fontFamily: "body"
+//             }}
+//           > 
+//           <div className="d-flex justify-content-between align-items-center">
+//       <div className="footer-copyright" >
+//         &copy; 2025 {customStyles.logoText}. All rights reserved.
+//       </div>
+//     
+//       <div className="d-flex align-items-center">
 //         <Link
-//           className="mx-3"
-//           style={{ textDecoration: "none" }}
+//           className="text-muted text-decoration-none me-3" 
+//           style={{ fontFamily: "body" }}
 //           role="button"
-//           to="/privacy-policy"
+//           to="/system-admin"
 //         >
 //           Privacy Policy
 //         </Link>
-//         &nbsp;|&nbsp;
-//         <a href="#" className="text-muted" style={{ textDecoration: "none" }}>
+//     
+//         <a 
+//           href="#" 
+//           className="text-muted text-decoration-none me-3" 
+//           style={{ fontFamily: "body"}}
+//         >
 //           Terms of Service
 //         </a>
-//         <span className="mx-3">|</span>
-//         <a href="#" className="text-muted" style={{ textDecoration: "none" }}>
+//     
+//         <a 
+//           href="#" 
+//           className="text-muted text-decoration-none" 
+//           style={{ fontFamily: "body" }}
+//         >
 //           Contact Us
 //         </a>
+//       </div>
+//     </div>
 //       </footer>
 //     </div>
 //   );
 // };
+// 
 // export default ResetPassword;
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, } from "react-bootstrap";
-// Mock styles for consistency
+import { Formik, Form as FormikForm } from "formik";
+import { resetPasswordValidationSchema } from "./../../validation/authValidation";
+import { useDispatch } from "react-redux";
+import { resetPassword } from "../../store/slices/authSlice";
+import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, InputGroup, } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
+import logo from "./../../assets/Images/green..png";
 const customStyles = {
-    primaryColor: "#3CB371", // The green color
+    primaryColor: "#3CB371", // The green
     logoText: "Obeeoma",
 };
-// --- Component Definition ---
 const ResetPassword = () => {
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    // Mock validation and submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setError(null);
-        // Basic client-side validation mock
-        if (!password || !confirmPassword) {
-            setError("Please fill in both password fields.");
-            return;
-        }
-        if (password.length < 6) {
-            setError("Password must be at least 6 characters.");
-            return;
-        }
-        if (password !== confirmPassword) {
-            setError("Passwords do not match.");
-            return;
-        }
-        // Mock API call simulation
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            // Success case: navigate to the login page
-            navigate("/login");
-        }, 1500);
+    const dispatch = useDispatch();
+    // Local state for UI feedback
+    const [apiError, setApiError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    // State for password visibility toggles
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmNewPassword, setShowConfirmPassword] = useState(false);
+    const toggleNewPasswordVisibility = () => setShowNewPassword((prev) => !prev);
+    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
+    // Initial Formik Values
+    const initialValues = {
+        code: "",
+        password: "",
+        confirmNewPassword: "",
     };
-    return (
-    // 1. Full Page Container with positioning for the fixed footer
-    _jsxs("div", { style: {
+    const handleResetSubmit = async (values) => {
+        setApiError(null);
+        setIsLoading(true);
+        try {
+            const payload = {
+                token: values.code,
+                password: values.password,
+                onSuccess: () => navigate("/login", { replace: true }),
+            };
+            await dispatch(resetPassword(payload)).unwrap();
+        }
+        catch (error) {
+            console.error("Password reset failed:", error);
+            setApiError(error || "Failed to reset password. Please try again.");
+        }
+        finally {
+            setIsLoading(false);
+        }
+    };
+    return (_jsxs("div", { style: {
             backgroundColor: "#f5f5f5",
             minHeight: "100vh",
-            padding: "50px 0 100px 0", // Extra padding for fixed footer
+            padding: "50px 0 100px 0",
             position: "relative",
         }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
-                            maxWidth: "450px", // Card width limit
+                            maxWidth: "600px",
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsx("h3", { className: "mb-2 fw-semibold text-dark", children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small", children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsx(BootstrapForm.Group, { className: "mb-3", children: _jsx(BootstrapForm.Control, { type: "password", name: "password", placeholder: "New Password", value: password, onChange: (e) => setPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(BootstrapForm.Group, { className: "mb-4", children: _jsx(BootstrapForm.Control, { type: "password", name: "confirmPassword", placeholder: "Confirm New Password", value: confirmPassword, onChange: (e) => setConfirmPassword(e.target.value), className: "py-2", isInvalid: !!error }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
-                                                // 🟢 Match primary color
-                                                backgroundColor: customStyles.primaryColor,
-                                                borderColor: customStyles.primaryColor,
-                                                color: "white",
-                                                boxShadow: "none",
-                                            }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Changing..."] })) : ("Change Password") })] }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/login", className: "small text-decoration-none", style: { color: customStyles.primaryColor }, children: "Back to Sign in" }) })] }) }) }) }), _jsxs("footer", { className: "text-center text-muted py-3 small border-top", style: {
+                        }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }) }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body" }, children: "Enter the code and your new password." }), apiError && (_jsx(Alert, { variant: "danger", className: "py-2", children: apiError })), _jsx(Formik, { initialValues: initialValues, validationSchema: resetPasswordValidationSchema, onSubmit: handleResetSubmit, children: ({ handleChange, handleSubmit: formikSubmit, values, errors, touched, }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: formikSubmit, children: [values.confirmNewPassword, "-", values.password, _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "code", children: [_jsx(BootstrapForm.Control, { type: "text", name: "code", placeholder: "Enter the reset code", value: values.code, onChange: handleChange, className: "py-2", isInvalid: touched.code && !!errors.code }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: errors.code })] }), _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showNewPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "New Password", className: "py-2 border-success border-opacity-25", isInvalid: touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: toggleNewPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.password && errors.password })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", controlId: "confirmNewPassword", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showConfirmNewPassword ? "text" : "password", name: "confirmNewPassword", placeholder: "Confirm New Password", value: values.confirmNewPassword, onChange: handleChange, className: "py-2 ", isInvalid: touched.confirmNewPassword && !!errors.confirmNewPassword }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showConfirmNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.confirmNewPassword && errors.confirmNewPassword })] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
+                                                    backgroundColor: customStyles.primaryColor,
+                                                    borderColor: customStyles.primaryColor,
+                                                    color: "white",
+                                                    boxShadow: "none",
+                                                }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Changing..."] })) : ("Change Password") })] })) }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/login", className: "small text-decoration-none", style: { color: customStyles.primaryColor, fontFamily: "body" }, children: "Back to Sign in" }) })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
                     position: "fixed",
                     bottom: "0",
                     width: "100%",
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
-                }, children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved. \u00A0", _jsx(Link, { className: "mx-3", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor, // 🟢 Style footer link
-                        }, role: "button", to: "/privacy-policy", children: "Privacy Policy" }), "\u00A0|\u00A0", _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor, // 🟢 Style footer link
-                        }, children: "Terms of Service" }), _jsx("span", { className: "mx-3", children: "|" }), _jsx("a", { href: "#", style: {
-                            textDecoration: "none",
-                            color: customStyles.primaryColor,
-                        }, children: "Contact Us" })] })] }));
+                    fontFamily: "body"
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default ResetPassword;

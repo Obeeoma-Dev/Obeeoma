@@ -1,5 +1,19 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+@font-face {
+  font-family: 'body';
+  src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'heading';
+  src: url('./assets/Fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --color-light-green: #9dd3af;
   --color-primary: #3cb371;
@@ -9,7 +23,7 @@
 
 /* Global styles */
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "body", sans-serif;
   color: #222;
   background-color: #f9f9f9;
 }
@@ -89,6 +103,11 @@ footer a:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
+
+/* .highlight-obeeoma{
+  color: "#3CB371;
+
+} */
 
 .text-green {
   color: var(--color-primary) !important;

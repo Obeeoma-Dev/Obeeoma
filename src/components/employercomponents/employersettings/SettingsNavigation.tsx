@@ -32,7 +32,7 @@ const SettingsNavigation = ({ activeSection, onSectionChange }: SettingsNavigati
                     onClick={() => onSectionChange(section.id)}
                     className={`nav-link d-flex align-items-center gap-2 py-2 px-3 ${
                       activeSection === section.id 
-                        ? 'active bg-primary text-white' 
+                        ? 'active bg-success text-white' 
                         : 'text-dark'
                     }`}
                     style={{ 

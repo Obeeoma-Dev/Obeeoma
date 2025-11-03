@@ -34,7 +34,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                 {/* Top section: icon and change badge */}
                 <div className="d-flex align-items-center justify-content-between mb-3">
                   <div
-                    className={`d-flex align-items-center justify-content-center`}                    
+                    className={`d-flex align-items-center justify-content-center`}
                   >
                     <IconComponent size={20} style={{ color: "#198754" }} />
                   </div>
@@ -49,7 +49,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                 </div>
 
                 {/* Bottom section: title and value */}
-                <div>                  
+                <div>
                   <div className="fs-3 fw-bold text-dark">{stat.value}</div>
                   <div className="text-muted small">{stat.title}</div>
                 </div>

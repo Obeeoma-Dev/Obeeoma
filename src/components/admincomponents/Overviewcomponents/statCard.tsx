@@ -33,7 +33,7 @@ const StatCard: React.FC<StatCardProps> = ({ data }) => {
     Icons.Activity) as React.FC<{ size?: number; color?: string }>;
 
   // Set icon color based on change direction
-  const iconColor = isPositive ? "#059669" : "#dc3545"; // emerald vs red
+  const iconColor = isPositive ? "#3CB371" : "#dc3545"; // emerald vs red
 
   // Set badge variant and text color
   const badgeVariant = isPositive ? "success" : "danger";

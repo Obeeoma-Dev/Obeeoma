@@ -356,14 +356,11 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-// NOTE: I'm importing ErrorMessage and Formik/Form from formik,
-// but for simplicity, I'll use standard state/validation mock here.
-// You would replace this with your actual Formik implementation.
+import logo from "./../../assets/Images/green..png"; 
 
-// Mock styles for consistency with your previous code
 const customStyles = {
   primaryColor: "#3CB371", // Used for links and accents
-  logoText: "Obeeoma",
+  
 };
 
 // --- Component Definition ---
@@ -377,7 +374,7 @@ const ResetPasswordSignIn: React.FC = () => {
   const navigate = useNavigate();
 
   // Mock validation and submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -386,21 +383,47 @@ const ResetPasswordSignIn: React.FC = () => {
       return;
     }
 
-    // Mock API call simulation
+    
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      if (email === "test@error.com") {
-        setError("User not found.");
-      } else {
-        setIsEmailSent(true);
-        navigate("/reset-password");
+    try{
+      const API_URL="https://api-0904.onrender.com/api/v1/auth/accept-invite/";
+    
+
+      const response = await fetch(API_URL,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+       },
+      body: JSON.stringify({ email }),
+        
+      });
+
+      if (!response.ok){
+        const errorData = await response.json()
+        throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
       }
-    }, 1500);
+     setIsEmailSent(true);
+
+     navigate("/reset-password");
+    } catch(err: unknown){
+      console.error("Forgot Password Error:", err);
+     
+     let errorMessage = "An unexpected error occurred. Please try again.";
+
+    // Narrow the type to access the 'message' property
+    if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+    
+    setError(errorMessage)
+      
+      } finally{
+      setIsLoading(false);
+      }
   };
 
   const handleResendCode = () => {
-    // Mock resend logic
+    
     setIsEmailSent(false);
     setIsLoading(true);
     setTimeout(() => {
@@ -420,22 +443,45 @@ const ResetPasswordSignIn: React.FC = () => {
       }}
       className="d-flex justify-content-center align-items-center"
     >
+
+
       <Container>
         <div className="d-flex justify-content-center">
           <Card
             className="shadow-sm border-0 p-4"
             style={{
-              maxWidth: "450px", // Card width limit
+              maxWidth: "600px", // Card width limit
               width: "100%",
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
             }}
           >
             <Card.Body>
-              <h3 className="mb-2 fw-semibold text-dark">
+                    <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
+      <img
+      src={logo}
+      alt="Obeeoma Logo"
+      width="100"
+      className="mb-1"
+      />
+      <p className="m-0 text-center">
+      <small
+      style={{
+      // Uses the custom primary color for the logo text
+      color: customStyles.primaryColor, 
+      fontSize: "8px",
+      fontWeight: "500",
+      fontFamily: "heading"
+      }}
+      >
+
+      </small>
+      </p>
+      </div>
+              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading"}}>
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 small">Send code to email</p>
+              <p className="text-muted mb-4 " style={{fontFamily:"heading"}}>Send code to email</p>
 
               {/* Error Alert */}
               {error && (
@@ -448,6 +494,7 @@ const ResetPasswordSignIn: React.FC = () => {
                 {/* Email Field */}
                 <BootstrapForm.Group className="mb-4">
                   <BootstrapForm.Control
+                    
                     type="email"
                     name="email"
                     placeholder="Email address"
@@ -460,6 +507,8 @@ const ResetPasswordSignIn: React.FC = () => {
                         ? {
                             borderColor: "red",
                             borderWidth: "1.5px",
+                            fontFamily: "body",
+                            
                           }
                         : {}
                     }
@@ -481,6 +530,7 @@ const ResetPasswordSignIn: React.FC = () => {
                     borderColor: customStyles.primaryColor,
                     color: "white",
                     boxShadow: "none",
+                    fontFamily: "body"
                   }}
                 >
                   {isLoading ? (
@@ -492,6 +542,7 @@ const ResetPasswordSignIn: React.FC = () => {
                         role="status"
                         aria-hidden="true"
                         className="me-2"
+                        style={{fontFamily:"body"}}
                       />
                       Sending...
                     </>
@@ -501,9 +552,9 @@ const ResetPasswordSignIn: React.FC = () => {
                 </Button>
               </BootstrapForm>
 
-              {/* Resend Code Logic */}
+              {/* Resend Code  */}
               <div className="text-center mt-3">
-                <span className="text-center text-muted small">
+                <span className="text-center text-muted small" style={{fontFamily: "body"}}>
                   Didn't receive any code?{" "}
                 </span>
                 <Link
@@ -513,6 +564,7 @@ const ResetPasswordSignIn: React.FC = () => {
                     textDecoration: "none",
                     fontWeight: "500",
                     cursor: "pointer",
+                    fontFamily: "body"
                   }}
                   to="#" // Prevent full page reload on click
                   className="small"
@@ -526,50 +578,51 @@ const ResetPasswordSignIn: React.FC = () => {
       </Container>
 
       {/* --- Footer Component --- */}
-      <footer
-        className="text-center text-muted py-3 small border-top"
-        style={{
-          position: "fixed", // Fixed to the viewport
-          bottom: "0",
-          width: "100%",
-          backgroundColor: "#f5f5f5", // Match background
-          fontSize: "0.8rem",
-          zIndex: 1000,
-        }}
-      >
-        &copy; 2025 {customStyles.logoText}. All rights reserved. &nbsp;
-        <Link
-          className="mx-3"
-          style={{ // <-- UPDATED
-            textDecoration: "none",
-            color: customStyles.primaryColor
-          }}
-          role="button"
-          to="/privacy-policy" // Placeholder link
-        >
-          Privacy Policy
-        </Link>
-        &nbsp;|&nbsp;
-        <a
-          href="#"
-          style={{ // <-- UPDATED
-            textDecoration: "none",
-            color: customStyles.primaryColor 
-          }}
-        >
-          Terms of Service
-        </a>
-        <span className="mx-3">|</span>
-        <a
-          href="#"
-          style={{ // <-- UPDATED
-            textDecoration: "none",
-            color: customStyles.primaryColor
-          }}
-        >
-          Contact Us
-        </a>
-      </footer>
+       <footer
+              className="text-center text-muted py-3 small border-top"
+              style={{
+                position: "fixed", //  at the bottom of the viewport
+                bottom: "0", 
+                width: "100%",
+                backgroundColor: "#f5f5f5", 
+                fontSize: "0.8rem",
+                zIndex: 1000, 
+                fontFamily: "body"
+              }}
+            > 
+            <div className="d-flex justify-content-between align-items-center">
+        <div className="footer-copyright" >
+          &copy; 2025 Obeeoma. All rights reserved.
+        </div>
+      
+        <div className="d-flex align-items-center">
+          <Link
+            className="text-muted text-decoration-none me-3" 
+            style={{ fontFamily: "body" }}
+            role="button"
+            to="/system-admin"
+          >
+            Privacy Policy
+          </Link>
+      
+          <a 
+            href="#" 
+            className="text-muted text-decoration-none me-3" 
+            style={{ fontFamily: "body"}}
+          >
+            Terms of Service
+          </a>
+      
+          <a 
+            href="#" 
+            className="text-muted text-decoration-none" 
+            style={{ fontFamily: "body" }}
+          >
+            Contact Us
+          </a>
+        </div>
+      </div>
+        </footer>
     </div>
   );
 };

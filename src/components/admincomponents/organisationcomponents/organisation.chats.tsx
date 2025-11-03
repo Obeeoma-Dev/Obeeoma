@@ -13,7 +13,7 @@ import {
   Legend,
 } from "chart.js";
 
-// ✅ Register chart components with Chart.js
+// Register chart components with Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,7 +32,7 @@ ChartJS.register(
  * Uses placeholder data for now, ready for backend integration later.
  */
 const OrganizationCharts: React.FC = () => {
-  // 📈 Line chart data for organization growth
+  // Line chart data for organization growth
   const growthData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
@@ -46,7 +46,7 @@ const OrganizationCharts: React.FC = () => {
     ],
   };
 
-  // 📊 Bar chart data for client distribution
+  // Bar chart data for client distribution
   const distributionData = {
     labels: ["Wellness Center", "Community Mental Health", "Urban Outreach"],
     datasets: [
@@ -59,7 +59,7 @@ const OrganizationCharts: React.FC = () => {
     ],
   };
 
-  // ✅ Chart options for consistent styling
+  // Chart options for consistent styling
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -98,7 +98,7 @@ const OrganizationCharts: React.FC = () => {
 
   return (
     <Row className="mt-4">
-      {/* 📈 Line Chart Card */}
+      {/* Line Chart Card */}
       <Col md={6} className="mb-4">
         <Card className="shadow-sm h-100">
           <Card.Body>
@@ -110,7 +110,7 @@ const OrganizationCharts: React.FC = () => {
         </Card>
       </Col>
 
-      {/* 📊 Bar Chart Card */}
+      {/* Bar Chart Card */}
       <Col md={6} className="mb-4">
         <Card className="shadow-sm h-100">
           <Card.Body>

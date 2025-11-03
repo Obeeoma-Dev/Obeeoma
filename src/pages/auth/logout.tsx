@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { logout } from "../../store/slices/authSlice";
+import { logoutUserThunk } from "../../store/slices/authSlice";
 
 type LogoutButtonProps = React.ComponentProps<typeof Button>;
 
@@ -11,16 +11,17 @@ const LogoutButton: React.FC<LogoutButtonProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Dispatch logout action to clear Redux state and localStorage
-    dispatch(logout());
-    // Navigate to login page
-    navigate("/login");
+  const handleLogout = async() => {
+   
+    const resultAction = await dispatch(logoutUserThunk());
+    if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
+    navigate("/login", { replace: true });
+    }
   };
 
   return (
     <Button variant="danger" onClick={handleLogout} {...props}>
-      Logout
+      **Logout**
     </Button>
   );
 };

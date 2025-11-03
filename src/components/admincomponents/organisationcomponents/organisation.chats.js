@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Row, Col, Card } from "react-bootstrap";
 import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, } from "chart.js";
-// ✅ Register chart components with Chart.js
+// Register chart components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 /**
  * OrganizationCharts component displays two charts:
@@ -11,7 +11,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
  * Uses placeholder data for now, ready for backend integration later.
  */
 const OrganizationCharts = () => {
-    // 📈 Line chart data for organization growth
+    // Line chart data for organization growth
     const growthData = {
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         datasets: [
@@ -24,7 +24,7 @@ const OrganizationCharts = () => {
             },
         ],
     };
-    // 📊 Bar chart data for client distribution
+    // Bar chart data for client distribution
     const distributionData = {
         labels: ["Wellness Center", "Community Mental Health", "Urban Outreach"],
         datasets: [
@@ -36,7 +36,7 @@ const OrganizationCharts = () => {
             },
         ],
     };
-    // ✅ Chart options for consistent styling
+    // Chart options for consistent styling
     const chartOptions = {
         responsive: true,
         plugins: {

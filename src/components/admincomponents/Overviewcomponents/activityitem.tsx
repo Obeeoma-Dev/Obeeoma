@@ -1,0 +1,71 @@
+import React from "react";
+import * as Icons from "lucide-react";
+import { Card } from "react-bootstrap";
+import { ActivityItem as ActivityItemType } from "./admindashboard";
+
+/**
+ * Props interface for the ActivityItem component
+ * Accepts a single activity object
+ */
+interface ActivityItemProps {
+  data: ActivityItemType;
+}
+
+/**
+ * ActivityItem component displays a single activity entry
+ * Includes icon, type, details, and timestamp
+ * Now wrapped in a Bootstrap Card for semantic clarity and visual consistency
+ */
+const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
+  // Dynamically select icon from lucide-react based on string name
+  const IconComponent =
+    (Icons[data.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
+      size?: number;
+      color?: string;
+    }>;
+
+  // Map iconColor to pastel background colors
+  const bgColorMap: Record<string, string> = {
+    "bg-light": "#f0f4f8",
+    "bg-success": "#e6f4ea",
+    "bg-info": "#e7f1ff",
+    "bg-warning": "#fff4e5",
+    "bg-danger": "#fde7f3",
+  };
+
+  // Fallback to light gray if no match
+  const iconBgColor = bgColorMap[data.iconColor] || "#f0f4f8";
+
+  return (
+    // Bootstrap Card replaces outer div for semantic grouping and styling
+    <Card className="border-0 shadow-sm mb-3">
+      <Card.Body className="d-flex align-items-start justify-content-between px-2 py-3">
+        {/* Left section: icon and text */}
+        <div className="d-flex align-items-start gap-3 flex-grow-1">
+          {/* Icon container with pastel background */}
+          <div
+            className="rounded d-flex align-items-center justify-content-center"
+            style={{
+              backgroundColor: iconBgColor,
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            <IconComponent size={20} color="#3CB371" />
+          </div>
+
+          {/* Text content: type and details */}
+          <div>
+            <div className="fw-semibold mb-1">{data.type}</div>
+            <div className="text-muted small">{data.details}</div>
+          </div>
+        </div>
+
+        {/* Right section: timestamp */}
+        <div className="text-muted small text-end">{data.time}</div>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default ActivityItem;

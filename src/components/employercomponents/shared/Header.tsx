@@ -7,7 +7,7 @@ interface HeaderProps {
   onMenuToggle: () => void;
   additionalContent?: ReactNode;
 }
-
+ const PRIMARY_COLOR = "#3CB371"
 const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: HeaderProps) => {
   return (
     <header className="bg-white border-bottom sticky-top z-30">
@@ -17,6 +17,7 @@ const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: 
             <button
               onClick={onMenuToggle}
               className="btn btn-link p-2"
+              style={{fontFamily:"heading", color: PRIMARY_COLOR}}
             >
               <Menu size={24} />
             </button>
@@ -24,8 +25,8 @@ const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: 
           
           <div className="col">
             <div className="d-flex align-items-center gap-3">
-              <h1 className="h4 fw-bold mb-0">{title}</h1>
-              {additionalContent}
+              <h1 className="h4 fw-bold mb-0 " style={{fontFamily:"heading", color: PRIMARY_COLOR}}>{title} </h1>
+          {additionalContent}
             </div>
           </div>
 
@@ -44,7 +45,8 @@ const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: 
               
               <button className="btn btn-link position-relative p-2 text-dark">
                 <Bell size={20} />
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1"></span>
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1"
+                style={{backgroundColor: PRIMARY_COLOR }}></span>
               </button>
             </div>
           </div>
@@ -55,3 +57,6 @@ const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: 
 };
 
 export default Header;
+
+
+  
