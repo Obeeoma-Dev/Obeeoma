@@ -25,9 +25,7 @@ const Hero = () => {
                                     color: "rgba(255, 255, 255, 0.9)",
                                     fontSize: "1.25rem",
                                     fontFamily: 'heading'
-                                }, children: "Obeeoma professional mental health service." })] }), _jsx(Col, { lg: 6, className: "d-flex justify-content-end", 
-                        // Move this entire column (buttons) slightly down by 30px
-                        style: { position: "relative", top: "150px" }, children: _jsxs("div", { className: "d-flex flex-column flex-sm-row gap-3", children: [_jsx(Button, { className: "rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
+                                }, children: "Obeeoma professional mental health service." })] }), _jsx(Col, { lg: 6, className: "d-flex justify-content-end", style: { position: "relative", top: "150px" }, children: _jsxs("div", { className: "d-flex flex-column flex-sm-row gap-3", children: [_jsx(Button, { className: "rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
                                     , style: {
                                         backgroundColor: "#3CB371", // Initial gree#3CB371n background
                                         borderColor: "#3CB371", // Match border with background

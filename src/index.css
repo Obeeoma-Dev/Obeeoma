@@ -327,3 +327,33 @@ footer a:hover {
   font-family: 'body';
   color: var(--obeeoma-muted);
 }
+
+
+/* Footer effect of the landing page. */
+footer {
+  background-color: #0B6E45;
+  color: #ccc;
+  padding: 3rem 0;
+}
+
+footer h6 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #3CB371;
+  color: var(--obeeoma-green);
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: #aaa;
+}

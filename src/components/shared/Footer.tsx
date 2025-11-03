@@ -12,38 +12,37 @@ interface MenuSection {
 const Footer: React.FC = () => {
   // Define footer sections and their items
   const menuSections: Record<string, MenuSection> = {
-    forspace: {
-      title: "",
+    services: {
+      title: "Services",
       items: [
-        { text: "Privacy Policy", link: "/privacy" },
-        { text: "Crisis Resources", link: "/crisis-resources" },
-      ],
-    },
-    forEmployees: {
-      title: "",
-      items: [
-        { text: "Privacy Policy", link: "/privacy" },
-        { text: "Crisis Resources", link: "/crisis-resources" },
-      ],
-    },
-    forspace2: {
-      title: "",
-      items: [
-        { text: "Sign in", link: "/login" },
-        { text: "Privacy Policy", link: "/privacy" },
-        { text: "Crisis Resources", link: "/crisis-resources" },
+        { text: "For Organizations", link: "/organizations" },
+        { text: "For Employees", link: "/employees" },
+        { text: "Mental Health Assessments", link: "/assessments" },
+
       ],
     },
     company: {
-      title: "",
+      title: "Company",
       items: [
+        { text: "About Us", link: "/about" },
+        { text: "Careers", link: "/careers" },
+        { text: "Blog", link: "/blog" },
         { text: "Contact", link: "/contact" },
+      ],
+    },
+    legal: {
+      title: "Legal",
+      items: [
+        { text: "Privacy Policy", link: "/privacy" },
+        { text: "Terms of Service", link: "/terms" },
+        { text: "Cookie Policy", link: "/cookies" },
+        { text: "HIPAA Compliance", link: "/hipaa" },
       ],
     },
   };
 
   return (
-    <footer className="bg-light py-5" data-testid="footer">
+    <footer className="py-5" data-testid="footer">
       <div className="container">
         {/* Logo Row */}
         <div className="row mb-4">
@@ -65,12 +64,12 @@ const Footer: React.FC = () => {
         <div className="row">
           {/* About Section */}
           <div className="col-lg-3 mb-4" data-testid="footer-section-about">
-            <h6 className="text-dark mb-3" style={{ fontFamily: 'heading' }}>About Obeeoma</h6>
-            <p className="text-muted small mb-4">
+            <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>About Obeeoma</h6>
+            <p className="text-white small mb-4">
               AI-first workplace mental health platform built for Africa. Supporting
               healthier, more productive teams across the continent.
             </p>
-            <p className="text-muted small mb-0">
+            <p className="text-white small mb-0">
               © 2025 Obeeoma. All rights reserved.
             </p>
           </div>
@@ -82,13 +81,13 @@ const Footer: React.FC = () => {
               className="col-lg-3 mb-4"
               data-testid={`footer-section-${key}`}
             >
-              <h6 className="text-dark mb-3" style={{ fontFamily: 'heading' }}>{section.title}</h6>
+              <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>{section.title}</h6>
               <ul className="list-unstyled">
                 {section.items.map((item, index) => (
                   <li key={index} className="mb-2">
                     <Link
                       to={item.link}
-                      className="text-muted text-decoration-none"
+                      className="text-white text-decoration-none"
                     >
                       {item.text}
                     </Link>
