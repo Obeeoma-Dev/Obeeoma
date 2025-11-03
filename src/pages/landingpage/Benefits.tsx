@@ -89,11 +89,27 @@ function BenefitCarousel() {
     return () => cancelAnimationFrame(rafId);
   });
 
+  // Adding a scroll function to be abale to click my pagination dots.
+  const scrollToIndex = (index: number) => {
+    const scrollContainer = scrollRedf.current;
+    if (!scrollContainer) return;
+
+    const singleCount = benefits.length;
+    const halfWidth = scrollContainer.scrollWidth / 2;
+    const cardWidth = halfWidth / singleCount;
+
+    scrollContainer.scrollLeft = index * cardWidth;
+    setActiveIndex(index);
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 5000);
+  };
+
   return (
     <section className="py-5 bg-light" data-testid="benefits-section" aria-label="Benefits">
       <div className="container overflow-hidden">
         <div className="text-center mb-4">
-          <h2 className="display-6 fw-bold mb-3" style={{ fontFamily: "heading" }}>Mental health Features</h2>
+          {/* highlight-obeeoma */}
+          <h2 className="display-6 fw-bold mb-3" style={{ fontFamily: "heading" }}> Why Choose <span style={{ color: "#3CB371" }}>ObeeOma</span> </h2>
           <p className="text-muted lead mb-5">Everything your organization needs to build a mentally healthy workplace</p>
         </div>
 
@@ -181,6 +197,7 @@ function BenefitCarousel() {
           {[...Array(benefits.length)].map((_, i) => (
             <div
               key={i}
+              onClick={() => scrollToIndex(i)}
               style={{
                 width: 10,
                 height: 10,
@@ -188,6 +205,7 @@ function BenefitCarousel() {
                 backgroundColor: i === activeIndex ? "#0f9d59" : "#ccc",
                 margin: "0 4px",
                 transition: "background-color 200ms",
+                cursor: "pointer",
               }}
             />
           ))}

@@ -9,7 +9,9 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <main>
+       <section id="Hero" >
         <Hero />
+        </section>
         <section id="features" className="section-bg py-5">
           <Features />
         </section>

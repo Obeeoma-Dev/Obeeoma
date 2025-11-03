@@ -57,43 +57,18 @@ function Navigation() {
           <Nav className="ms-auto">
             {/* Navigation links */}
 
-            <Nav.Link
-              href="#Home"
-              className="text-#3CB371 mx-2"
-              style={{
-                fontSize: "25px",
-                fontWeight: 75,
-                fontFamily: 'body'
-              }}
-            >
+            <Nav.Link href="#Hero" className="mx-2">
               Home |
             </Nav.Link>
 
-
-            <Nav.Link
-              href="#benefits"
-              className="text-#3CB371 mx-2"
-              style={{
-                fontSize: "25px", // Larger font size.
-                fontWeight: 75, // Semibold.
-                fontFamily: 'body'
-              }}
-            >
+            <Nav.Link href="#features" className="mx-2">
               Features |
             </Nav.Link>
 
-
-            <Nav.Link
-              href="#features"
-              className="text-#3CB371 mx-2"
-              style={{
-                fontSize: "25px", // Larger font size.
-                fontWeight: 75, // text font.
-                fontFamily: 'body'
-              }}
-            >
-              Benefits
+            <Nav.Link href="#benefits" className="mx-2">
+              Benefits |
             </Nav.Link>
+
           </Nav>
         </Navbar.Collapse>
       </Container>

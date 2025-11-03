@@ -21,7 +21,7 @@ const benefits = [
 ];
 // duplicate for seamless looping.
 const extendedBenefits = [...benefits, ...benefits];
-const useImages = true;
+// const useImages = true;
 function BenefitCarousel() {
     // A reference to the scroll container.
     const scrollRedf = useRef(null);
@@ -65,7 +65,20 @@ function BenefitCarousel() {
         rafId = requestAnimationFrame(loop);
         return () => cancelAnimationFrame(rafId);
     });
-    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsx("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: "Mental health Features" }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(false), onMouseLeave: () => setIsPaused(false), style: {
+    // Adding a scroll function to be abale to click my pagination dots.
+    const scrollToIndex = (index) => {
+        const scrollContainer = scrollRedf.current;
+        if (!scrollContainer)
+            return;
+        const singleCount = benefits.length;
+        const halfWidth = scrollContainer.scrollWidth / 2;
+        const cardWidth = halfWidth / singleCount;
+        scrollContainer.scrollLeft = index * cardWidth;
+        setActiveIndex(index);
+        setIsPaused(true);
+        setTimeout(() => setIsPaused(false), 5000);
+    };
+    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsxs("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: [" Why Choose ", _jsx("span", { style: { color: "#3CB371" }, children: "ObeeOma" }), " "] }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(false), onMouseLeave: () => setIsPaused(false), style: {
                         // No snaps and only a continuous scroll
                         gap: "1rem",
                         paddingBottom: "1rem",
@@ -101,13 +114,14 @@ function BenefitCarousel() {
                                                     borderRadius: "50%",
                                                     backgroundColor: "#3CB371",
                                                 }, "aria-hidden": "true", children: _jsx(Icon, { size: 24 }) }), _jsx("h4", { className: "fw-semibold mb-2", children: benefit.title }), _jsx("p", { className: "mb-0 small", children: benefit.description })] })] }) }, index));
-                    }) }), _jsx("div", { className: "d-flex justify-content-center mt-4", children: [...Array(benefits.length)].map((_, i) => (_jsx("div", { style: {
+                    }) }), _jsx("div", { className: "d-flex justify-content-center mt-4", children: [...Array(benefits.length)].map((_, i) => (_jsx("div", { onClick: () => scrollToIndex(i), style: {
                             width: 10,
                             height: 10,
                             borderRadius: "50%",
                             backgroundColor: i === activeIndex ? "#0f9d59" : "#ccc",
                             margin: "0 4px",
                             transition: "background-color 200ms",
+                            cursor: "pointer",
                         } }, i))) })] }) }));
 }
 ;

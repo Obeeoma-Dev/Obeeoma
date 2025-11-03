@@ -261,6 +261,28 @@ footer a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Make nav link text white when navbar is transparent */
+.navbar.transparent .nav-link {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+
+/* Optional: green on hover */
+.navbar.transparent .nav-link:hover {
+  color: #3CB371 !important;
+}
+
+.navbar .nav-link {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'body';
+  /* Make sure 'body' is defined in your fonts */
+}
+
+
+
+
+
 /* The glow effect on the feature cards */
 .feature-card {
   position: relative;
@@ -281,12 +303,27 @@ footer a:hover {
   height: 100%;
   border-radius: inherit;
   background: #3CB371;
-  filter: blur(12px);
+  filter: blur(1px);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 3.00s ease;
   z-index: -1;
 }
 
 .feature-card:hover::before {
   opacity: 5;
+}
+
+.feature-card h6 {
+  font-size: 1.25rem;
+  /* ≈ 20px */
+  font-weight: 600;
+  font-family: 'heading';
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 16px;
+  /* ≈ 16px */
+  font-family: 'body';
+  color: var(--obeeoma-muted);
 }
