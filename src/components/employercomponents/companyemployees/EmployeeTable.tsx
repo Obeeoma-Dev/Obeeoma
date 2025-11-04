@@ -178,13 +178,13 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                         <td className="py-3 text-end">
                           <Checkbox checked={isChecked} onCheckedChange={handleChange} 
                             className="cursor-pointer " />
-                            <input
+                            {/* <input
                               className="form-check-input"
                               type="checkbox"
                               checked={employeeStatus[item.key]}
                               onChange={(e) => handleToggleChange(item.key, e.target.checked)}
                               style={{ width: "3em", height: "1.5em" }}
-                            />
+                            /> */}
                         </td>
                       </tr>
                     ))}
