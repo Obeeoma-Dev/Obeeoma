@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import { AuthProvider } from "./context/AuthContext";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
+
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";

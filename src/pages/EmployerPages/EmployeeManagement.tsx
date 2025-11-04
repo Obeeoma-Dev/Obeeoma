@@ -9,7 +9,7 @@ const EmployeeManagement = () => {
 
   const additionalHeader = (
     <button className="btn btn-success d-flex align-items-center gap-2">
-      <Plus size={16} />
+      <Plus size={16} className="text-white" />
       Add Employee
     </button>
   );
@@ -23,6 +23,7 @@ const EmployeeManagement = () => {
         <div className="container-fluid py-4 px-3">
           <div className="col-lg-12 col-md-9 col-sm-6 mx-auto">
           <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+          //turn below to a modal later
           <AddEmployeeForm />
       </div></div></div>
     </Layout>

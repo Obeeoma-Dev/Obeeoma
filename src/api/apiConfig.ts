@@ -95,8 +95,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       return Promise.reject(error);
     }
   );
- 
- 
 
 }
 export const authAPI = {
@@ -226,8 +224,6 @@ export const adminAPI = {
     const response = await api.get("/v1/admin/trends");
     return response;
   },
-
-  
 
   viewInviteEmployee: async () => {
     const response = await api.get("/v1/employers/view-invites/");

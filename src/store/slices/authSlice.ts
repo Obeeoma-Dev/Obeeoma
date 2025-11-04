@@ -209,7 +209,7 @@ state.user = userData;
 state.isLoading = false;
 state.user = action.payload?.user;
 state.token = action.payload?.access ?? action.payload?.token;
- state.error = null;
+state.error = null;
 
 localStorage.setItem(
  "token",
@@ -223,47 +223,46 @@ localStorage.setItem("user", JSON.stringify(action.payload?.user));
  state.error = action.payload as string;
 })
 
-
  // Forgot Pasword
  .addCase(forgotPassword.pending, (state) => {
- state.isLoading = true;
- state.error = null;
+  state.isLoading = true;
+  state.error = null;
  })
 .addCase(forgotPassword.fulfilled, (state) => {
  state.isLoading = false;
  state.error = null;
 })
 .addCase(forgotPassword.rejected, (state, action) => {
-state.isLoading = false;
- state.error = action.payload as string;})
+  state.isLoading = false;
+  state.error = action.payload as string;})
 
 // Reset Password
 .addCase(resetPassword.pending, (state) => {
-state.isLoading = true;
-state.error = null;
+  state.isLoading = true;
+  state.error = null;
 })
 .addCase(resetPassword.fulfilled, (state) => {
- state.isLoading = false;
- state.error = null;
+  state.isLoading = false;
+  state.error = null;
  })
 .addCase(resetPassword.rejected, (state, action) => {
- state.isLoading = false;
- state.error = action.payload as string;
+  state.isLoading = false;
+  state.error = action.payload as string;
  })
 
  //logout thunk
- .addCase(logoutUserThunk.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(logoutUserThunk.fulfilled, (state) => {
-        
-        state.isLoading = false;
-      })
-      .addCase(logoutUserThunk.rejected, (state) => {
-        state.isLoading = false;
-        
-      });
+  .addCase(logoutUserThunk.pending, (state) => {
+    state.isLoading = true;
+    state.error = null;
+  })
+  .addCase(logoutUserThunk.fulfilled, (state) => {
+    
+    state.isLoading = false;
+  })
+  .addCase(logoutUserThunk.rejected, (state) => {
+    state.isLoading = false;
+    
+  });
  },
 });
 

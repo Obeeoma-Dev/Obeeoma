@@ -66,6 +66,10 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     setIsChecked(checked);
   };
 
+  const loadAddEmployeeForm = () => {
+    // Logic to load the Add Employee form/modal
+  }
+
 
   return (
     <>
@@ -79,8 +83,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       </div>
 
       {/* Search Section */}
-      <div className="row mb-4">
-        <div className="col-12 col-md-6">
+      <div className="row mb-3">
+        <div className="col-8 col-md-6">
           <div className="position-relative">
             <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
             <input
@@ -92,7 +96,50 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
             />
           </div>
         </div>
-      </div>
+        <div className="col-4 col-md-6 text-end"></div> 
+          <button type="button" className="btn btn-success" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
+            onClick={loadAddEmployeeForm}> 
+            Add Employee
+          </button>
+        </div>
+
+        {/* Modal popup for adding employee */}
+        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="employeeInviteModal" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="employeeInviteModal">Invite</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="employee-email" className="col-form-label">Email address:</label>
+                    <input type="text" className="form-control" id="employee-email" />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="phone" className="col-form-label">Phone number:</label>
+                    <textarea className="form-control" id="phone"></textarea>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="department" className="col-form-label">Department:</label>
+                    <textarea className="form-control" id="department"></textarea>
+                  </div>
+                  <div className="form-group">
+                    <a href="#" className="tooltip-test" title="Upload an excel document">Try bulk add</a>.
+                    <input type="file" className="form-control-file" id="upload-excel" />
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-success">Add</button>
+                <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+          </div>
+        </div>
 
       {/* Employees Table */}
       <div className="row">
@@ -107,7 +154,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                       <th className="border-0 py-3 text-muted fw-normal">Email</th>
                       <th className="border-0 py-3 text-muted fw-normal">Department</th>
                       <th className="border-0 py-3 text-muted fw-normal">Status</th>
-                      <th className="border-0 pe-4 py-3 text-muted fw-normal text-end">Deactivate</th>
+                      <th className="border-0 py-3 text-muted fw-normal text-end">Deactivate</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -128,9 +175,16 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                             {employee.status}
                           </span>
                         </td>
-                        <td className="pe-4 py-3 text-end">
+                        <td className="py-3 text-end">
                           <Checkbox checked={isChecked} onCheckedChange={handleChange} 
-                            className="cursor-pointer w-19 h-18" />
+                            className="cursor-pointer " />
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              checked={employeeStatus[item.key]}
+                              onChange={(e) => handleToggleChange(item.key, e.target.checked)}
+                              style={{ width: "3em", height: "1.5em" }}
+                            />
                         </td>
                       </tr>
                     ))}
