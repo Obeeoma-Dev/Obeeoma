@@ -18,7 +18,7 @@ interface EmployeeTableProps {
 
 const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   // TODO: Replace with API data
-  const employees: Employee[] = [
+  const [employees, setEmployees] = useState<Employee[]>([
     {
       id: 1,
       name: "Paul Lwanga",
@@ -51,7 +51,9 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       status: "Pending",
       avatar: "O",
     },
-  ];
+  ]);
+
+  const [showModal, setShowModal] = useState(false);
 
   const filteredEmployees = employees.filter(
     (emp) =>
@@ -60,16 +62,29 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const handleChange = (checked: boolean) => {
-    setIsChecked(checked);
+  const handleStatusChange = (employeeId: number, checked: boolean) => {
+    setEmployees(prevEmployees => 
+      prevEmployees.map(emp => 
+        emp.id === employeeId 
+          ? { ...emp, status: checked ? "Active" : "Inactive" }
+          : emp
+      )
+    );
   };
 
   const loadAddEmployeeForm = () => {
-    // Logic to load the Add Employee form/modal
+    setShowModal(true);
   }
 
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
+  const handleAddEmployee = () => {
+    // TODO: Add logic to handle form submission
+    console.log("Add employee logic here");
+    closeModal();
+  }
 
   return (
     <>
@@ -77,42 +92,44 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       <div className="row mb-4">
         <div className="col-12">
           <div className="d-flex justify-content-between align-items-center">
-            <h2 className="h5 fw-semibold mb-0">Employees</h2>
+            <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
           </div>
         </div>
       </div>
 
-      {/* Search Section */}
+      {/* Search and Add Employee Section */}
       <div className="row mb-3">
-        <div className="col-8 col-md-6">
-          <div className="position-relative">
-            <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
-            <input
-              type="search"
-              placeholder="Search employees..."
-              className="form-control ps-5"
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-            />
+        <div className="col-12">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="position-relative" style={{ width: "300px" }}>
+              <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
+              <input
+                type="search"
+                placeholder="Search employees..."
+                className="form-control ps-5"
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+              />
+            </div>
+            <button 
+              type="button" 
+              className="btn btn-success" 
+              onClick={loadAddEmployeeForm}
+            > 
+              Add Employee
+            </button>
           </div>
         </div>
-        <div className="col-4 col-md-6 text-end"></div> 
-          <button type="button" className="btn btn-success col-3 col-md-5 col-lg-auto" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
-            onClick={loadAddEmployeeForm}> 
-            Add Employee
-          </button>
-        </div>
-        
-        
-      <div className="row mb-3">
+      </div>
 
-        {/* Modal popup for adding employee */}
-        <div className="modal fade" id="employeeInviteModal" tabIndex={-1} role="dialog" aria-labelledby="employeeInviteModal" aria-hidden="true">
+      {/* Modal popup for adding employee */}
+      {showModal && (
+        <div className="modal show d-block" tabIndex={-1} role="dialog">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="employeeInviteModal">Invite employees</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <h5 className="modal-title">Invite employees</h5>
+                <button type="button" className="close" onClick={closeModal}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -120,29 +137,34 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                 <form>
                   <div className="form-group">
                     <label htmlFor="employee-email" className="col-form-label">Email address:</label>
-                    <input type="text" className="form-control" id="employee-email" />
+                    <input type="email" className="form-control" id="employee-email" />
                   </div>
                   <div className="form-group">
                     <label htmlFor="phone" className="col-form-label">Phone number:</label>
-                    <textarea className="form-control" id="phone"></textarea>
+                    <input type="tel" className="form-control" id="phone" />
                   </div>
                   <div className="form-group">
                     <label htmlFor="department" className="col-form-label">Department:</label>
-                    <textarea className="form-control" id="department"></textarea>
+                    <input type="text" className="form-control" id="department" />
                   </div>
                   <div className="form-group">
-                    <a href="#" className="tooltip-test" title="Upload an excel document">Try bulk add</a>.
+                    <a href="#" className="tooltip-test" title="Upload an excel document">Try bulk add</a>
                     <input type="file" className="form-control-file" id="upload-excel" />
                   </div>
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-success">Add</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
+                <button type="button" className="btn btn-success" onClick={handleAddEmployee}>
+                  Add
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={closeModal}>
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      )}
 
       {/* Employees Table */}
       <div className="row">
@@ -174,7 +196,13 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                         <td className="py-3 text-muted">{employee.email}</td>
                         <td className="py-3 text-muted">{employee.department}</td>
                         <td className="py-3">
-                          <span className="badge bg-success bg-opacity-10 text-success">
+                          <span className={`badge ${
+                            employee.status === "Active" 
+                              ? "bg-success bg-opacity-10 text-success" 
+                              : employee.status === "Pending"
+                              ? "bg-warning bg-opacity-10 text-warning"
+                              : "bg-danger bg-opacity-10 text-danger"
+                          }`}>
                             {employee.status}
                           </span>
                         </td>
@@ -184,11 +212,9 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                               className="form-check-input"
                               type="checkbox"
                               role="switch"
-                              defaultChecked={employee.status === "Active"}
+                              checked={employee.status === "Active"}
                               onChange={(e) => {
-                                const checked = (e.target as HTMLInputElement).checked;
-                                // TODO: replace with real update logic (update state or call API)
-                                console.log(`Employee ${employee.id} toggled to ${checked ? "Active" : "Inactive"}`);
+                                handleStatusChange(employee.id, e.target.checked);
                               }}
                               style={{ width: "2.5em", height: "1.25em" }}
                             />
@@ -203,7 +229,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
