@@ -157,7 +157,6 @@ footer a:hover {
 body {
   /*montserrat to be added here*/
   font-family: "Inter", system-ui, sans-serif;
-  font-family: "Inter", system-ui, sans-serif;
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);
   margin: 0;
