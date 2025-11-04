@@ -11,7 +11,6 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 
 interface ChartData {
@@ -89,7 +88,6 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Legend  wrapperStyle={{ fontFamily:"heading", paddingTop: '10px'}}/>
               </PieChart>
             </ResponsiveContainer>
           </div>
