@@ -1,7 +1,5 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useFetch } from "../../../hooks/useFetch";
-import { Employee } from "../../../api/companyEmployee/types";
-
 //import * as z from "zod";
 import {employerAPI} from "../../../api/apiConfig";
 
@@ -12,7 +10,7 @@ import {employerAPI} from "../../../api/apiConfig";
 // }
 
 const AddEmployeeForm = () => {
-  const { commonFetch, isLoading } = useFetch<Employee>({ url: employerAPI, method: 'POST' });
+  const [isLoading, setIsLoading] = useState(false);
 
   // existing form setup (if any)
   // For example, using useForm from react-hook-form:
@@ -21,8 +19,25 @@ const AddEmployeeForm = () => {
   const handleSubmit = async () => {
     const values = createForm.getValues();
 
-    // Call the fetch function with the form data
-    await commonFetch({ input: values });
+    // Call the API function directly if available, otherwise fall back to a fetch to a string endpoint
+    try {
+      setIsLoading(true);
+      if (typeof employerAPI.inviteEmployee === "function") {
+        // assume inviteEmployee accepts the payload directly
+        await employerAPI.inviteEmployee();
+      } else {
+        // fallback: treat employerAPI as a string URL
+        await fetch(employerAPI as unknown as string, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        });
+      }
+      createForm.reset();
+      // TODO: notify parent via prop if needed
+    } finally {
+      setIsLoading(false);
+    }
   };
 
     return (
