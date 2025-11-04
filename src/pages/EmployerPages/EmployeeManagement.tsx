@@ -11,7 +11,7 @@ const EmployeeManagement = () => {
 
   const additionalHeader = (
     <button className="btn btn-success d-flex align-items-center gap-2">
-      <Plus size={16} />
+      <Plus size={16} className="text-white" />
       Add Employee
     </button>
   );

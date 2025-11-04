@@ -95,8 +95,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       return Promise.reject(error);
     }
   );
- 
- 
 
 }
 export const authAPI = {

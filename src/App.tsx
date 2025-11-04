@@ -133,12 +133,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store"; // Adjusted path for clarity
 // import OtpInput from './components/OtpComponent'; 
-import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import your AuthProvider and ProtectedRoute
 // import { AuthProvider } from "./context/AuthContext";
 // import ProtectedRoute from "./components/ProtectedRoute";
+
 
 // Pages
 import Index from "./pages/Index";

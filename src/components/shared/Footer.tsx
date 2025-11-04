@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="py-5" data-testid="footer" style={{ backgroundColor: "#0B6E45" }}>
+    <footer className="py-5" data-testid="footer">
       <div className="container">
         {/* Logo Row */}
         <div className="row mb-4">
