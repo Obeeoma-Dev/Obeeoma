@@ -1,79 +1,157 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {employerAPI} from "../../../api/apiConfig";
 
-//adding employee prop to notify parent component when a new employee is added
-//this will help us refresh the employee list after the employer tries adding a new employee
-// interface AddEmployeeFormProps {
-//   onEmployeeAdded: (employee: Employee) => void;
-// }
+// Define the form schema with Zod
+const employeeSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long"),
+  department: z.string().min(1, "Please select a department"),
+});
 
-const AddEmployeeForm = () => {
+type EmployeeFormData = z.infer<typeof employeeSchema>;
+
+interface AddEmployeeFormProps {
+  showModal: boolean;
+  onClose: () => void;
+  onEmployeeAdded: () => void;
+}
+
+const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  // existing form setup (if any)
-  // For example, using useForm from react-hook-form:
-  const createForm = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<EmployeeFormData>({
+    resolver: zodResolver(employeeSchema),
+  });
 
-  const handleSubmit = async () => {
-    const values = createForm.getValues();
-
-    // Call the API function directly if available, otherwise fall back to a fetch to a string endpoint
+  const onSubmit = async (data: EmployeeFormData) => {
     try {
       setIsLoading(true);
-      if (typeof employerAPI.inviteEmployee === "function") {
-        // assume inviteEmployee accepts the payload directly
-        await employerAPI.inviteEmployee();
-      } else {
-        // fallback: treat employerAPI as a string URL
-        await fetch(employerAPI as unknown as string, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-      }
-      createForm.reset();
-      // TODO: notify parent via prop if needed
+      console.log("Employee data:", data);
+      // TODO: Replace with actual API call
+      // await employerAPI.inviteEmployee(data);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      reset();
+      onEmployeeAdded();
+      onClose();
+    } catch (error) {
+      console.error("Error adding employee:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-    return (
-    <div className="row mt-5">
-      <div className="col-12">
-        <div className="card border-0 shadow-sm">
-          <div className="card-body p-4">
-            <h3 className="h5 fw-semibold mb-4">Add Employees by sending email invite</h3>
-            <div className="row">
-              <div className="col-12 col-md-6">
-                <div className="mb-3">
-                  <label className="form-label fw-medium">Email</label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
-                    placeholder="Enter employee email address"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label fw-medium">Department</label>
-                  <select className="form-select">
-                    <option>Select department</option>
-                    <option>Marketing</option>
-                    <option>HR</option>
-                    <option>Finance</option>
-                    <option>Engineering</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <button className="btn btn-success"
-                  onClick={handleSubmit}
-                  disabled={isLoading} >
-                  {isLoading ? 'Adding...' : 'Add Employee'}
-                </button>
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
+
+  if (!showModal) return null;
+
+  return (
+    <div className="modal fade show d-block" tabIndex={-1} role="dialog" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title fw-semibold">Invite Employee</h5>
+            <button 
+              type="button" 
+              className="close border-0 bg-transparent" 
+              onClick={handleClose}
+              style={{ fontSize: '1.5rem' }}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="form-group mb-3">
+                <label htmlFor="employee-email" className="form-label fw-medium">Email address:</label>
+                <input 
+                  type="email" 
+                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                  id="employee-email"
+                  placeholder="Enter employee email"
+                  {...register("email")}
+                />
+                {errors.email && (
+                  <div className="invalid-feedback d-block">
+                    {errors.email.message}
+                  </div>
+                )}
               </div>
-            </div>
+              
+              <div className="form-group mb-3">
+                <label htmlFor="phone" className="form-label fw-medium">Phone number:</label>
+                <input 
+                  type="tel" 
+                  className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+                  id="phone"
+                  placeholder="Enter phone number"
+                  {...register("phone")}
+                />
+                {errors.phone && (
+                  <div className="invalid-feedback d-block">
+                    {errors.phone.message}
+                  </div>
+                )}
+              </div>
+              
+              <div className="form-group mb-3">
+                <label htmlFor="department" className="form-label fw-medium">Department:</label>
+                <select 
+                  className={`form-select ${errors.department ? 'is-invalid' : ''}`}
+                  id="department"
+                  {...register("department")}
+                >
+                  <option value="">Select department</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="HR">HR</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.department && (
+                  <div className="invalid-feedback d-block">
+                    {errors.department.message}
+                  </div>
+                )}
+              </div>
+              
+              <div className="form-group mb-3">
+                <a href="#" className="text-decoration-none" title="Upload an excel document">
+                  Try bulk add
+                </a>
+                <input type="file" className="form-control-file mt-1" id="upload-excel" />
+              </div>
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button 
+              type="button" 
+              className="btn btn-success" 
+              onClick={handleSubmit(onSubmit)}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Adding...' : 'Add Employee'}
+            </button>
+            <button 
+              type="button" 
+              className="btn btn-secondary" 
+              onClick={handleClose}
+              disabled={isLoading}
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>

@@ -9,7 +9,6 @@ const PricingPlans = () => {
       period: "per month",
       description: "Perfect for small teams",
       features: [
-        "Up to 10 employees",
         "Basic wellness assessments",
         "Email support",
         "Monthly reports",
@@ -23,11 +22,9 @@ const PricingPlans = () => {
       period: "per month",
       description: "Ideal for growing organizations",
       features: [
-        "Up to 50 employees",
         "Advanced analytics",
         "Priority support",
         "Custom assessments",
-        "Weekly reports",
         "API access",
       ],
       current: true,
@@ -41,7 +38,7 @@ const PricingPlans = () => {
         <h3 className="h4 fw-semibold mb-4">Available Plans</h3>
         <div className="row g-4">
           {plans.map((plan, index) => (
-            <div key={index} className="col-12 col-md-4">
+            <div key={index} className="col-12 col-md-6">
               <div className={`card h-100 border-0 shadow-sm ${plan.recommended ? 'border-success' : ''}`}>
                 {plan.recommended && (
                   <div className="card-header bg-success text-white text-center py-2">

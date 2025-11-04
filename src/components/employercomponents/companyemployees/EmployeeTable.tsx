@@ -1,5 +1,14 @@
+      {/* Header Section -- find more interesting words to put here, like company logo or stress quote */}
+      {/* <div className="row mb-4">
+        <div className="col-12">
+          <div className="d-flex justify-content-between align-items-center">
+            <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
+          </div>
+        </div>
+      </div> */}
 import React, { useState } from "react";
 import { Search } from "lucide-react";
+import AddEmployeeForm from "./AddEmployeeForm"; // Adjust import path as needed
 
 interface Employee {
   id: number;
@@ -79,23 +88,14 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     setShowModal(false);
   }
 
-  const handleAddEmployee = () => {
-    // TODO: Add logic to handle form submission
-    console.log("Add employee logic here");
-    closeModal();
+  const handleEmployeeAdded = () => {
+    // Refresh employee list or show success message
+    console.log("Employee added successfully");
+    // You can refetch employees here or update the state
   }
 
   return (
     <>
-      {/* Header Section -- find more interesting words to put here, like company logo or stress quote */}
-      {/* <div className="row mb-4">
-        <div className="col-12">
-          <div className="d-flex justify-content-between align-items-center">
-            <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
-          </div>
-        </div>
-      </div> */}
-
       {/* Search and Add Employee Section */}
       <div className="row mb-3">
         <div className="col-12">
@@ -113,56 +113,20 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
             <button 
               type="button" 
               className="btn btn-success" 
-              onClick={loadAddEmployeeForm} > 
+              onClick={loadAddEmployeeForm}
+            > 
               Add Employee
             </button>
           </div>
         </div>
       </div>
 
-      {/* Modal popup for adding employee */}
-      {showModal && (
-        <div className="modal fade d-block" tabIndex={-1} role="dialog">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Invite employees</h5>
-                <button type="button" className="close align-items-right" onClick={closeModal}>
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="employee-email" className="col-form-label bold">Email address:</label>
-                    <input type="email" className="form-control" id="employee-email" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="phone" className="col-form-label">Phone number:</label>
-                    <input type="tel" className="form-control" id="phone" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="department" className="col-form-label">Department:</label>
-                    <input type="text" className="form-control" id="department" />
-                  </div>
-                  <div className="form-group">
-                    <a href="#" className="tooltip-test mt-2" title="Upload an excel document">Try bulk add</a>
-                    <input type="file" className="form-control-file" id="upload-excel" />
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-success" onClick={handleAddEmployee}>
-                  Add
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={closeModal}>
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Add Employee Modal */}
+      <AddEmployeeForm 
+        showModal={showModal}
+        onClose={closeModal}
+        onEmployeeAdded={handleEmployeeAdded}
+      />
 
       {/* Employees Table */}
       <div className="row">

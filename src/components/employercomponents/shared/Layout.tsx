@@ -96,7 +96,7 @@ const Layout = ({ children, title }: LayoutProps) => {
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
             <div className="d-flex align-items-center justify-content-center">
-              <img src={logo} alt="logo" height="40" />
+              <img src={logo} alt="logo" height="80" />
             </div>
           </button>
           <button 

@@ -81,14 +81,14 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
           <div className="modal-footer border-0">
             <button
               type="button"
-              className="btn btn-outline-secondary"
+              className="btn btn-outline-primary"
               onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-success"
               onClick={onConfirm}
             >
               Continue
