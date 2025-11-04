@@ -35,10 +35,10 @@ describe("Hero Component", () => {
     renderHero();
 
     // Verify Sign Up button is there
-    expect(screen.getByText("Sign Up For Organization")).toBeInTheDocument();
+    expect(screen.getByText("For Organisations")).toBeInTheDocument();
 
     // Verify Sign In button is there
-    expect(screen.getByText("Sign In")).toBeInTheDocument();
+    expect(screen.getByText("For employees")).toBeInTheDocument();
   });
 
   // Test 3: temporarily skipped until badge rendering is implemented
