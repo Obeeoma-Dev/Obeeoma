@@ -97,14 +97,17 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
           </div>
         </div>
         <div className="col-4 col-md-6 text-end"></div> 
-          <button type="button" className="btn btn-success col-3 col-md-5 col-lg-7" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
+          <button type="button" className="btn btn-success col-3 col-md-5 col-lg-auto" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
             onClick={loadAddEmployeeForm}> 
             Add Employee
           </button>
         </div>
+        
+        
+      <div className="row mb-3">
 
         {/* Modal popup for adding employee */}
-        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="employeeInviteModal" aria-hidden="true">
+        <div className="modal fade" id="employeeInviteModal" tabIndex={-1} role="dialog" aria-labelledby="employeeInviteModal" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -176,15 +179,20 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                           </span>
                         </td>
                         <td className="py-3 text-end">
-                          <Checkbox checked={isChecked} onCheckedChange={handleChange} 
-                            className="cursor-pointer " />
-                            {/* <input
+                          <div className="form-check form-switch d-inline-block" style={{ width: "3.5em", textAlign: "right" }}>
+                            <input
                               className="form-check-input"
                               type="checkbox"
-                              checked={employeeStatus[item.key]}
-                              onChange={(e) => handleToggleChange(item.key, e.target.checked)}
-                              style={{ width: "3em", height: "1.5em" }}
-                            /> */}
+                              role="switch"
+                              defaultChecked={employee.status === "Active"}
+                              onChange={(e) => {
+                                const checked = (e.target as HTMLInputElement).checked;
+                                // TODO: replace with real update logic (update state or call API)
+                                console.log(`Employee ${employee.id} toggled to ${checked ? "Active" : "Inactive"}`);
+                              }}
+                              style={{ width: "2.5em", height: "1.25em" }}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -195,6 +203,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 };
