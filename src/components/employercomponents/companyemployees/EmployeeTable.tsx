@@ -97,7 +97,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
           </div>
         </div>
         <div className="col-4 col-md-6 text-end"></div> 
-          <button type="button" className="btn btn-success" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
+          <button type="button" className="btn btn-success col-3 col-md-5 col-lg-7" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
             onClick={loadAddEmployeeForm}> 
             Add Employee
           </button>
