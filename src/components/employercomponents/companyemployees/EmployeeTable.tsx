@@ -124,12 +124,12 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
       {/* Modal popup for adding employee */}
       {showModal && (
-        <div className="modal show d-block" tabIndex={-1} role="dialog">
+        <div className="modal fade d-block" tabIndex={-1} role="dialog">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Invite employees</h5>
-                <button type="button" className="close" onClick={closeModal}>
+                <button type="button" className="close align-items-right" onClick={closeModal}>
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -148,7 +148,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                     <input type="text" className="form-control" id="department" />
                   </div>
                   <div className="form-group">
-                    <a href="#" className="tooltip-test" title="Upload an excel document">Try bulk add</a>
+                    <a href="#" className="tooltip-test mt-2" title="Upload an excel document">Try bulk add</a>
                     <input type="file" className="form-control-file" id="upload-excel" />
                   </div>
                 </form>
