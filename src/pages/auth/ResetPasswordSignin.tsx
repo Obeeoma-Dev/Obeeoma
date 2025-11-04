@@ -386,7 +386,7 @@ const ResetPasswordSignIn: React.FC = () => {
     
     setIsLoading(true);
     try{
-      const API_URL="https://api-0904.onrender.com/api/v1/auth/reset-password/";
+      const API_URL="https://api-0904.onrender.com/api/v1/auth/accept-invite/";
     
 
       const response = await fetch(API_URL,{
@@ -423,7 +423,7 @@ const ResetPasswordSignIn: React.FC = () => {
   };
 
   const handleResendCode = () => {
-    // Mock resend logic
+    
     setIsEmailSent(false);
     setIsLoading(true);
     setTimeout(() => {
@@ -478,10 +478,10 @@ const ResetPasswordSignIn: React.FC = () => {
       </small>
       </p>
       </div>
-              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading"}}>
+              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading" , textAlign: "center" , fontSize: "24px" }}>
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 " style={{fontFamily:"heading"}}>Send code to email</p>
+              <p className="text-muted mb-4 " style={{fontFamily:"heading" , textAlign: "center" , fontSize: "14px" }}>Send code to email</p>
 
               {/* Error Alert */}
               {error && (
@@ -552,7 +552,7 @@ const ResetPasswordSignIn: React.FC = () => {
                 </Button>
               </BootstrapForm>
 
-              {/* Resend Code Logic */}
+              {/* Resend Code  */}
               <div className="text-center mt-3">
                 <span className="text-center text-muted small" style={{fontFamily: "body"}}>
                   Didn't receive any code?{" "}

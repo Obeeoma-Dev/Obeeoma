@@ -11,7 +11,7 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 
-
+export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -153,7 +153,19 @@ export const authAPI = {
     const response = await api.get("/v1/auth/me/");
     return response;
   },
+
+verifyOtp: async()=>{
+  const response = await api.post("v1/auth/verify-invite/");
+  return response;
+},
+
+resendOtp: ({ email }: { email: string }) => {
+        return api.post('/auth/resend-otp', { email });
+    
+    },
 };
+
+
 
 //  System Admin Dashboard
 
@@ -245,7 +257,7 @@ export const adminAPI = {
 
 export const employerAPI = {
   inviteEmployee: async () => {
-    const response = await api.post("/v1/employers/invite-employee/");
+    const response = await api.post("/v1/dashboard/invites/");
     return response;
   },
 

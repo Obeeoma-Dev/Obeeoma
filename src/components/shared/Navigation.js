@@ -27,18 +27,6 @@ function Navigation() {
                             width: "auto", // Maintaining aspect ratio
                             marginTop: "-10px", // Adjust vertical position if needed. 
                             marginBottom: "-10px"
-                        } }) }), _jsx(Navbar.Toggle, { "aria-controls": "nav" }), _jsx(Navbar.Collapse, { id: "nav", className: "justify-content-end", children: _jsxs(Nav, { className: "ms-auto", children: [_jsx(Nav.Link, { href: "#Home", className: "text-#3CB371 mx-2", style: {
-                                    fontSize: "25px",
-                                    fontWeight: 75,
-                                    fontFamily: 'body'
-                                }, children: "Home |" }), _jsx(Nav.Link, { href: "#features", className: "text-#3CB371 mx-2", style: {
-                                    fontSize: "25px", // Larger font size.
-                                    fontWeight: 75, // Semibold.
-                                    fontFamily: 'body'
-                                }, children: "Features |" }), _jsx(Nav.Link, { href: "#benefits", className: "text-#3CB371 mx-2", style: {
-                                    fontSize: "25px", // Larger font size.
-                                    fontWeight: 75, // text font.
-                                    fontFamily: 'body'
-                                }, children: "Benefits" })] }) })] }) }));
+                        } }) }), _jsx(Navbar.Toggle, { "aria-controls": "nav" }), _jsx(Navbar.Collapse, { id: "nav", className: "justify-content-end", children: _jsxs(Nav, { className: "ms-auto", children: [_jsx(Nav.Link, { href: "#Hero", className: "mx-2", children: "Home |" }), _jsx(Nav.Link, { href: "#features", className: "mx-2", children: "Features |" }), _jsx(Nav.Link, { href: "#benefits", className: "mx-2", children: "Benefits |" })] }) })] }) }));
 }
 export default Navigation;

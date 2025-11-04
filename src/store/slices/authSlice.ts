@@ -6,12 +6,17 @@ import {
   RegisterCredentials,
   ForgotPasswordData,
   changePasswordData,
-  LoginSuccessPayload, 
+  LoginSuccessPayload,
+  OtpVerificationPayload,
+  OtpSuccessResponse,
+   ResendOtpPayload, 
+  User
 } from "./../../types/auth";
 import {  authAPI } from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 import { getDashboardRoute } from "../../utils/routing";
+// import { boolean } from "yup";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -131,6 +136,20 @@ export const logoutUserThunk = createAsyncThunk<void,void>(
   }
 );
 
+export const verifyOtpThunk = createAsyncThunk<
+OtpSuccessResponse, 
+OtpVerificationPayload,
+{rejectValue: string}>
+('auth/verifyOtp', async(payload, {rejectWithValue}) =>{
+  try{
+    const response = await authAPI.verifyOtp();
+
+    return response.data as OtpSuccessResponse;
+  }catch(err: unknown){
+    return rejectWithValue(getErrorMessage(err));
+  }
+});
+
 const getUserFromStorage = () => {
 const rawUser = localStorage.getItem("user");
 if (!rawUser || rawUser === "undefined") return null;
@@ -140,12 +159,32 @@ return JSON.parse(rawUser);
  return null;
  }
 };
+// resend otp
+export const resendOtpThunk = createAsyncThunk<
+  { message: string }, 
+  ResendOtpPayload, 
+  { rejectValue: string } 
+>(
+  'auth/resendOtp',
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.resendOtp({ email }); 
+      return response.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || 'Failed to resend code. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const initialState: AuthState = {
 user: getUserFromStorage(),
 token: localStorage.getItem("token"),
 isLoading: false,
 error: null,
+is_verified: false,
+
 };
 
 const authSlice = createSlice({
@@ -251,18 +290,48 @@ localStorage.setItem("user", JSON.stringify(action.payload?.user));
  })
 
  //logout thunk
-  .addCase(logoutUserThunk.pending, (state) => {
-    state.isLoading = true;
-    state.error = null;
-  })
-  .addCase(logoutUserThunk.fulfilled, (state) => {
-    
-    state.isLoading = false;
-  })
-  .addCase(logoutUserThunk.rejected, (state) => {
-    state.isLoading = false;
-    
-  });
+ .addCase(logoutUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        
+        state.isLoading = false;
+      })
+      .addCase(logoutUserThunk.rejected, (state) => {
+        state.isLoading = false;
+        
+      })
+     
+  .addCase(verifyOtpThunk.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+    .addCase(verifyOtpThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        //when updating the user state and local storage with new verified status
+        if (state.user && action.payload.user){
+          state.user = action.payload.user
+          localStorage.setItem("user", JSON.stringify(action.payload.user));
+        }else if(state.user){
+          state.user={...state.user, is_verified: true} as User;
+          localStorage.setItem("user", JSON.stringify(state.user));
+        }
+
+        if (action.payload.token) {
+            state.token = action.payload.token;
+            localStorage.setItem("token", action.payload.token);
+        }
+        state.error = null;
+      })
+      .addCase(verifyOtpThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+        }
+        
+      
+      );
  },
 });
 

@@ -340,7 +340,7 @@ const ResetPasswordSignIn = () => {
         }
         setIsLoading(true);
         try {
-            const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password/";
+            const API_URL = "https://api-0904.onrender.com/api/v1/auth/accept-invite/";
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
@@ -369,7 +369,6 @@ const ResetPasswordSignIn = () => {
         }
     };
     const handleResendCode = () => {
-        // Mock resend logic
         setIsEmailSent(false);
         setIsLoading(true);
         setTimeout(() => {
@@ -395,7 +394,7 @@ const ResetPasswordSignIn = () => {
                                                     fontSize: "8px",
                                                     fontWeight: "500",
                                                     fontFamily: "heading"
-                                                } }) })] }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
+                                                } }) })] }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading", textAlign: "center", fontSize: "24px" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading", textAlign: "center", fontSize: "14px" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
                                                         ? {
                                                             borderColor: "red",
                                                             borderWidth: "1.5px",

@@ -1,30 +1,49 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Shield, Sparkles, Heart, BarChart } from "lucide-react"; // icons used for items
+import { Shield, Sparkles, Heart } from "lucide-react"; // icons used for items
 import "bootstrap/dist/css/bootstrap.min.css"; // bootstrap grid + utilities
 import Personreading from "../../assets/Images/image3.png"; // local left-side illustration
 // Features component renders heading, image and a list of small cards (features)
 const Features = () => {
     // expanded feature list — added items to match the Figma image content (cards only, no styling changes)
     const features = [
-        { icon: Shield, title: "Subscription", desc: "Receive a care plan based on your specific needs and goals." },
-        { icon: BarChart, title: "Progress Tracking", desc: "Monitor your mental health journey with tools that help track your progress and celebrate your achievements." },
-        { icon: Sparkles, title: "Crisis Support", desc: "Immediate access to professional crisis intervention and local mental health resources." },
-        { icon: Heart, title: "Mood Tracking", desc: "Daily mood logging with insights and trends to help you understand your mental health patterns." },
-        { icon: Shield, title: "Complete Privacy", desc: "Your information and conversations are protected with bank-level security and strict privacy controls." },
-        // { icon: Globe, title: "Expert Providers", desc: "Connect with licensed therapists, psychiatrists and counselors specialized in mental health." },
-        { icon: Sparkles, title: "Self Assessments", desc: "Regular mental health check-ins and personalized wellness recommendations." },
-        { icon: Heart, title: "Workplace Support", desc: "Tools and programs to improve team wellbeing, reduce burnout and boost productivity." },
+        {
+            icon: Sparkles,
+            title: "Self-Assessment Tools",
+            desc: "Quick check-ins, daily mood logging, and progress tracking to help you understand and improve your mental wellbeing.",
+        },
+        {
+            icon: Heart,
+            title: "Professional Counseling",
+            desc: "Access personalized care plans, crisis intervention, and workplace mental health support from certified professionals.",
+        },
+        {
+            icon: Shield,
+            title: "Digital Interventions",
+            desc: "24/7 access to secure, science-backed digital tools and private conversations to support your mental health journey.",
+        },
     ];
     // render layout
-    return (_jsxs("section", { "aria-label": "Features", className: "section-bg py-5 position-relative", style: { marginTop: 0, background: "#ffffff", paddingBottom: "3rem" }, children: [_jsxs("div", { className: "container", children: [_jsx("div", { className: "row justify-content-center", children: _jsxs("div", { className: "col-12 text-center", children: [_jsx("h2", { className: "fw-bold mb-3 text-dark", style: { fontFamily: "heading" }, children: "Comprehensive Mental Health Care" }), _jsx("p", { className: "text-muted mb-5", children: "Our platform offers a range of services designed to support your mental health journey." })] }) }), _jsxs("div", { className: "row align-items-start g-4", children: [_jsx("div", { className: "col-lg-6", children: _jsx("img", { src: Personreading, alt: "Person reading", className: "img-fluid rounded shadow-sm", style: { width: "100%", height: "30%", objectFit: "none" }, "data-testid": "features-illustration" }) }), _jsx("div", { className: "col-lg-6", children: _jsx("div", { className: "row", children: features.map((f, i) => {
+    return (_jsxs("section", { "aria-label": "Features", className: "section-bg py-5 position-relative", style: { marginTop: 0, background: "#ffffff", paddingBottom: "3rem" }, children: [_jsxs("div", { className: "container", children: [_jsx("div", { className: "row justify-content-center", children: _jsxs("div", { className: "col-12 text-center", children: [_jsx("h2", { className: "fw-bold mb-3 text-dark", style: { fontFamily: "heading" }, children: "Comprehensive Mental Health Care" }), _jsx("p", { className: "text-muted mb-5", children: "Our platform offers a range of services designed to support your mental health journey." })] }) }), _jsxs("div", { className: "row align-items-center g-5", children: [_jsx("div", { className: "overflow-hidden rounded", style: {
+                                    width: "50%",
+                                    transition: "transform 0.4s ease",
+                                    cursor: "pointer",
+                                }, onMouseEnter: (e) => (e.currentTarget.style.transform = "scale(1.05)"), onMouseLeave: (e) => (e.currentTarget.style.transform = "scale(1)"), children: _jsx("img", { src: Personreading, alt: "Person reading", className: "img-fluid w-100", style: {
+                                        objectFit: "cover",
+                                        borderRadius: "0.75rem",
+                                    }, "data-testid": "features-illustration" }) }), _jsx("div", { className: "col-lg-6", children: _jsx("div", { className: "row", children: features.map((f, i) => {
                                         const Icon = f.icon;
-                                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: "d-flex align-items-start bg-white rounded shadow-sm p-3 mb-3", style: { minHeight: 72 }, "data-testid": `feature-item-${i}`, children: [_jsx("div", { className: "d-flex align-items-center justify-content-center flex-shrink-0 me-3", style: {
+                                        return (_jsx("div", { className: "col-12 col-mb-4", children: _jsxs("div", { className: "feature-card d-flex align-items- mb-5", "data-testid": `feature-item-${i}`, style: {
+                                                    padding: "3rem",
+                                                    border: "1px solid #e0e0e0",
+                                                    borderRadius: "0.75rem",
+                                                    backgroundColor: "#f9fdf9",
+                                                }, children: [_jsx("div", { className: "d-flex align-items-center justify-content-center flex-shrink-0 me-3", style: {
                                                             width: 40,
                                                             height: 40,
-                                                            backgroundColor: "#00A859",
+                                                            backgroundColor: "#3CB371",
                                                             borderRadius: 8,
                                                             color: "#fff",
-                                                        }, "aria-hidden": true, children: _jsx(Icon, { size: 18, className: "text-white" }) }), _jsxs("div", { children: [_jsx("h6", { className: "mb-1", style: { fontSize: 14, fontWeight: 600, fontFamily: "heading" }, children: f.title }), _jsx("p", { className: "mb-0 text-muted", style: { fontSize: 13 }, children: f.desc })] })] }) }, i));
+                                                        }, "aria-hidden": true, children: _jsx(Icon, { size: 18, className: "text-white" }) }), _jsxs("div", { children: [_jsx("h6", { className: "mb-1", style: { fontSize: 15, fontWeight: 600, fontFamily: "heading" }, children: f.title }), _jsx("p", { className: "mb-0 text-muted", style: { fontSize: 14 }, children: f.desc })] })] }) }, i));
                                     }) }) })] })] }), _jsx("div", { style: {
                     position: "absolute",
                     bottom: 0,
