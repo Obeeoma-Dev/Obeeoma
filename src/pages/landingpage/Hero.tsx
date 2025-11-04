@@ -58,7 +58,7 @@ const Hero = () => {
           <Col
             lg={6}
             className="d-flex justify-content-end"
-            
+
             style={{ position: "relative", top: "150px" }}
           >
             {/* Wrapper div to handle button layout and spacing */}
@@ -87,7 +87,7 @@ const Hero = () => {
                 // Navigate to signup page when clicked
                 onClick={() => navigate("/signup")}
               >
-                Sign Up For Organization
+                For Organisations
               </Button>
 
               {/* === Secondary Button: Soft white background, green text === */}
@@ -115,7 +115,7 @@ const Hero = () => {
                 // Navigate to login page when clicked
                 onClick={() => navigate("/login")}
               >
-                Sign In
+                For employees
               </Button>
             </div>
           </Col>
