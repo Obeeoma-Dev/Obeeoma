@@ -604,10 +604,10 @@ const ResetPassword: React.FC = () => {
                   className="mb-1"
                 />
               </div>
-              <h3 className="mb-2 fw-semibold text-dark" style={{ fontFamily: "body", textAlign: "center" , fontSize: "24px" }}>
+              <h3 className="mb-2 fw-semibold text-dark" style={{ fontFamily: "body" }}>
                 Reset Your Password
               </h3>
-              <p className="text-muted mb-4 small " style={{ fontFamily: "body", textAlign: "center" , fontSize: "14px" }}>
+              <p className="text-muted mb-4 small " style={{ fontFamily: "body" }}>
                 Enter the code and your new password.
               </p>
 
