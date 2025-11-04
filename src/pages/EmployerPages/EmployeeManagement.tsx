@@ -25,10 +25,6 @@ const EmployeeManagement = () => {
         <div className="container-fluid py-4 px-3">
           <div className="col-lg-12 col-md-9 col-sm-6 mx-auto">
           <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
-          <Provider store={store}>
-          <AddEmployeeForm />
-          </Provider>
       </div></div></div>
     </Layout>
   );

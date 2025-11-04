@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Search } from "lucide-react";
 
 interface Employee {
@@ -88,14 +87,14 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
   return (
     <>
-      {/* Header Section */}
-      <div className="row mb-4">
+      {/* Header Section -- find more interesting words to put here, like company logo or stress quote */}
+      {/* <div className="row mb-4">
         <div className="col-12">
           <div className="d-flex justify-content-between align-items-center">
             <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Search and Add Employee Section */}
       <div className="row mb-3">
@@ -114,8 +113,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
             <button 
               type="button" 
               className="btn btn-success" 
-              onClick={loadAddEmployeeForm}
-            > 
+              onClick={loadAddEmployeeForm} > 
               Add Employee
             </button>
           </div>
@@ -136,7 +134,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
               <div className="modal-body">
                 <form>
                   <div className="form-group">
-                    <label htmlFor="employee-email" className="col-form-label">Email address:</label>
+                    <label htmlFor="employee-email" className="col-form-label bold">Email address:</label>
                     <input type="email" className="form-control" id="employee-email" />
                   </div>
                   <div className="form-group">
@@ -175,11 +173,11 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                 <table className="table table-hover mb-0">
                   <thead className="bg-light">
                     <tr>
-                      <th className="border-0 ps-4 py-3 text-muted fw-normal">Name</th>
-                      <th className="border-0 py-3 text-muted fw-normal">Email</th>
-                      <th className="border-0 py-3 text-muted fw-normal">Department</th>
-                      <th className="border-0 py-3 text-muted fw-normal">Status</th>
-                      <th className="border-0 py-3 text-muted fw-normal text-end">Deactivate</th>
+                      <th className="border-0 ps-4 py-3 text-muted fw-semibold">Name</th>
+                      <th className="border-0 py-3 text-muted fw-semibold">Email</th>
+                      <th className="border-0 py-3 text-muted fw-semibold">Department</th>
+                      <th className="border-0 py-3 text-muted fw-semibold">Status</th>
+                      <th className="border-0 py-3 text-muted fw-semibold text-end">Deactivate</th>
                     </tr>
                   </thead>
                   <tbody>
