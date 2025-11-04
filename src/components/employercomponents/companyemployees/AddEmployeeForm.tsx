@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-//import * as z from "zod";
+import * as z from "zod";
 import {employerAPI} from "../../../api/apiConfig";
 
 //adding employee prop to notify parent component when a new employee is added
@@ -45,7 +45,7 @@ const AddEmployeeForm = () => {
       <div className="col-12">
         <div className="card border-0 shadow-sm">
           <div className="card-body p-4">
-            <h3 className="h5 fw-semibold mb-4">Add Employee</h3>
+            <h3 className="h5 fw-semibold mb-4">Add Employees by sending email invite</h3>
             <div className="row">
               <div className="col-12 col-md-6">
                 <div className="mb-3">
