@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-light py-5" data-testid="footer">
+    <footer className="py-5" data-testid="footer">
       <div className="container">
         {/* Logo Row */}
         <div className="row mb-4">
