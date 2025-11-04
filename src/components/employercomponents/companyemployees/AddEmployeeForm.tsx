@@ -12,7 +12,7 @@ import {employerAPI} from "../../../api/apiConfig";
 // }
 
 const AddEmployeeForm = () => {
-  const { commonFetch, isLoading } = useFetch<Employee>({ url: employerAPI, method: 'POST' });
+  const { commonFetch, isLoading } = useFetch<Employee>({ url: employerAPI.inviteEmployee.toString(), method: 'POST' });
 
   // existing form setup (if any)
   // For example, using useForm from react-hook-form:
