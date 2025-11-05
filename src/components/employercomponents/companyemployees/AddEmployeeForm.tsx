@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useCreateEmployee } from "../../../api/companyEmployee/requests";
+import { useToast } from "../../../hooks/use-toast";
 
-// Define the form schema with Zod
 const employeeSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long"),
+  email: z.email("Please enter a valid email address").trim(),
+  phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
   department: z.string().min(1, "Please select a department"),
 });
 
@@ -19,7 +19,8 @@ interface AddEmployeeFormProps {
 }
 
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const { createEmployee, isLoading } = useCreateEmployee();
 
   const {
     register,
@@ -32,21 +33,30 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
 
   const onSubmit = async (data: EmployeeFormData) => {
     try {
-      setIsLoading(true);
-      console.log("Employee data:", data);
-      // TODO: Replace with actual API call
-      // await employerAPI.inviteEmployee(data);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Transforming form data to match API expectations
+      const apiData = {
+        emailAddress: data.email,
+        department: data.department,
+      };
+
+      await createEmployee(apiData);
+
+      toast({
+        title: "Success",
+        description: "Employee invitation sent successfully!",
+        message: "Employee invitation sent successfully!",
+      });
+
       reset();
       onEmployeeAdded();
       onClose();
     } catch (error) {
       console.error("Error adding employee:", error);
-    } finally {
-      setIsLoading(false);
+      toast({
+        title: "Error",
+        description: "Failed to add employee. Please try again.",
+        message: "Failed to add employee. Please try again.",
+      });
     }
   };
 
@@ -91,9 +101,9 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
               </div>
               
               <div className="form-group mb-3">
-                <label htmlFor="phone" className="form-label fw-medium">Phone number:</label>
-                <input 
-                  type="tel" 
+                <label htmlFor="phone" className="form-label fw-medium">Phone number (optional):</label>
+                <input
+                  type="tel"
                   className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
                   id="phone"
                   placeholder="Enter phone number"
@@ -128,18 +138,17 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
               </div>
               
               <div className="form-group mb-3">
-                <a href="#" className="text-decoration-none" title="Upload an excel document">
+                <a href="#" className="text-decoration-none" title="Upload an excel document" onClick={(e) => e.preventDefault()}>
                   Try bulk add
                 </a>
-                <input type="file" className="form-control-file mt-1" id="upload-excel" />
+                <input type="file" className="form-control-file mt-1" id="upload-excel" accept=".xlsx,.xls,.csv" />
               </div>
             </form>
           </div>
           <div className="modal-footer">
-            <button 
-              type="button" 
-              className="btn btn-success" 
-              onClick={handleSubmit(onSubmit)}
+            <button
+              type="submit"
+              className="btn btn-success"
               disabled={isLoading}
             >
               {isLoading ? 'Adding...' : 'Add Employee'}

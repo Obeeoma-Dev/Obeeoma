@@ -73,7 +73,7 @@ const EmployerAccountProfile = () => {
   return (
     <Layout title="Settings">
       <div className="container-fluid py-4 px-3">
-        {/* Horizontal Navigation Bar */}
+        {/* Navigation Bar */}
         <div className="row mb-4">
           <div className="col-12">
             <SettingsNavigation 
