@@ -167,6 +167,7 @@ import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
+import CreateProfile from "./pages/EmployerPages/CreateProfile";
 
 
 const queryClient = new QueryClient();
@@ -203,6 +204,7 @@ export default function App(): React.ReactElement {
                 {/* EMPLOYER'S ROUTES */}
                 <Route path="/organization-reports" element={<CompanyReports />} />
                 <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+                <Route path="/create-employer-account" element={<CreateProfile />} />
                 <Route path="/employer-subscription" element={<EmployerSubscription />} />
                 <Route path="/employee-management" element={<EmployeeManagement />} />
                 <Route path="/employer-profile" element={<EmployerAccountProfile />} />

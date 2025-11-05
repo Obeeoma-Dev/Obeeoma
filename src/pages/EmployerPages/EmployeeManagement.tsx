@@ -1,10 +1,7 @@
 import { useState } from "react";
 import Layout from "../../components/employercomponents/shared/Layout";
 import EmployeeTable from "../../components/employercomponents/companyemployees/EmployeeTable";
-import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { Plus } from "lucide-react";
-import {Provider} from "react-redux";
-import {store} from "../../store/store";
 
 const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");

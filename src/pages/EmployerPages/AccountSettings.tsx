@@ -5,14 +5,18 @@ import AccountSection from "../../components/employercomponents/employersettings
 import NotificationsSection from "../../components/employercomponents/employersettings/NotificationSettings";
 import PrivacySection from "../../components/employercomponents/employersettings/PrivacySection";
 import { Save, LogOut } from "lucide-react";
+import { EmployerUser } from "@/types/employer";
 
 const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");
-  const [accountData, setAccountData] = useState({
+  const [accountData, setAccountData] = useState<EmployerUser>({
+    id: "",
+    role: "employer",
+    dateJoined: new Date().toISOString(),
     organizationName: "Acme Corporation",
-    adminUser: "Admin User",
+    username: "Admin User",
     email: "admin@example.com",
-    password: "••••••••",
+    phone: "",
   });
 
   const [notificationSettings, setNotificationSettings] = useState({
@@ -60,7 +64,7 @@ const EmployerAccountProfile = () => {
         return (
           <AccountSection 
             accountData={accountData} 
-            onAccountDataChange={setAccountData} 
+            onAccountDataChange={setAccountData}  
           />
         );
     }
