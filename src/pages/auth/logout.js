@@ -1,22 +1,17 @@
-"use strict";
-// import React, { use, useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "../../store/store";
-// import { useNavigate } from "react-router-dom";
-// import { Button, Modal, Row, Col } from "react-bootstrap";
-// type LogoutButtonProps = React.ComponentProps<typeof Button>;
-// const handleLogout = () => { = (props) => {
-//   const dispatch = useDispatch<AppDispatch>();
-//   const navigate = useNavigate();
-//   useEffect(() => {
-//     localStorage.removeItem("authToken");
-//     navigate("/login");
-//     }, [dispatch, navigate]);
-// }
-// return (
-//     <Button variant="danger" onClick={LogoutPage} {...props}>
-//       Logout
-//     </Button>
-//   );
-// };
-// export default LogoutPage;
+import { jsx as _jsx } from "react/jsx-runtime";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { logoutUserThunk } from "../../store/slices/authSlice";
+const LogoutButton = (props) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        const resultAction = await dispatch(logoutUserThunk());
+        if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
+            navigate("/login", { replace: true });
+        }
+    };
+    return (_jsx(Button, { variant: "danger", onClick: handleLogout, ...props, children: "**Logout**" }));
+};
+export default LogoutButton;

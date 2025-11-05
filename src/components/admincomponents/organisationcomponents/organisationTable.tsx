@@ -1,0 +1,177 @@
+import React, { useState } from "react";
+import {
+  Table,
+  Button,
+  Tabs,
+  Tab,
+  Form,
+  Row,
+  Col,
+  InputGroup,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
+import {
+  FaEye,
+  FaCheckCircle,
+  FaClock,
+  FaTimesCircle,
+  FaSearch,
+} from "react-icons/fa";
+
+
+// Define the shape of organization data
+export interface Organization {
+  id: string;
+  name: string;
+  clients: number;
+  plan: "Premium" | "Enterprise" | "Freemium";
+  status: "Active" | "Pending" | "Inactive";
+  lastActive: string;
+  address: string;
+  programs: number;
+  icon: string; // It is optional because some organisations might not have an icon. 
+}
+
+// Props for the dashboard component
+interface OrganizationDashboardProps {
+  organizations: Organization[];
+}
+
+// Render status icon based on status
+const renderStatusIcon = (status: Organization["status"]) => {
+  switch (status) {
+    case "Active":
+      return <FaCheckCircle className="text-success me-1" />;
+    case "Pending":
+      return <FaClock className="text-warning me-1" />;
+    case "Inactive":
+      return <FaTimesCircle className="text-danger me-1" />;
+    default:
+      return null;
+  }
+};
+
+// Main dashboard component
+const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
+  organizations,
+}) => {
+  // State for search input
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filter organizations by tab category
+  const filterByTab = (tab: string) => {
+    switch (tab) {
+      case "Active":
+        return organizations.filter((org) => org.status === "Active");
+      case "Inactive":
+        return organizations.filter((org) => org.status === "Inactive");
+      case "Premium":
+        return organizations.filter((org) => org.plan === "Premium");
+      case "Freemium":
+        return organizations.filter((org) => org.plan === "Freemium");
+      default:
+        return organizations;
+    }
+  };
+
+  // Filter by search term
+  const filterBySearch = (orgs: Organization[]) =>
+    orgs.filter((org) =>
+      `${org.name} ${org.id} ${org.plan}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+
+  // Render table rows
+  const renderTable = (orgs: Organization[]) => (
+    <Table bordered hover responsive className="shadow-sm">
+      <thead className="table-success align-middle">
+        <tr>
+          <th>Organization</th>
+          <th>Clients</th>
+          <th>Plan</th>
+          <th>Status</th>
+          <th>Last Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {orgs.map((org) => (
+          <tr key={org.id}>
+            {/* Composite cell: name + ID */}
+            <td>
+              <div className="fw-semibold">{org.name}</div>
+              <div className="text-muted small">ID: {org.id}</div>
+            </td>
+
+            {/* Clients */}
+            <td>{org.clients.toLocaleString()}</td>
+
+            {/* Plan */}
+            <td>{org.plan}</td>
+
+            {/* Status with icon */}
+            <td>
+              {renderStatusIcon(org.status)}
+              {org.status}
+            </td>
+
+            {/* Last Active */}
+            <td>
+              {org.lastActive === "Active" ? (
+                <span className="text-success fw-semibold">Active</span>
+              ) : (
+                <span className="text-muted">{org.lastActive}</span>
+              )}
+            </td>
+
+            {/* Actions: single View Details button */}
+            <td>
+              <Link to={`/systemadmin/organizations/${org.id}`}>
+                <Button variant="outline-success" size="sm">
+                  <FaEye className="me-1" />
+                  View Details
+                </Button>
+              </Link>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  );
+
+  return (
+    <div className="mt-4">
+      {/* Heading */}
+      <h5 className="mb-3 fw-semibold text-success">Organization Dashboard</h5>
+
+      {/* Search bar */}
+      <Row className="mb-3">
+        <Col md={6}>
+          <InputGroup>
+            <InputGroup.Text>
+              <FaSearch />
+            </InputGroup.Text>
+            <Form.Control
+              type="text"
+              placeholder="Search by name, ID, or plan..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </InputGroup>
+        </Col>
+      </Row>
+
+      {/* Tabs for filtering */}
+      <Tabs defaultActiveKey="All" className="mb-3" justify>
+        {["All", "Active", "Inactive", "Premium", "Freemium"].map((tab) => (
+          <Tab eventKey={tab} title={tab} key={tab}>
+            {renderTable(filterBySearch(filterByTab(tab)))}
+          </Tab>
+        ))}
+      </Tabs>
+    </div>
+  );
+};
+
+export default OrganizationDashboard;

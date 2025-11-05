@@ -76,8 +76,8 @@ const Header: React.FC = () => {
             <div className="d-flex align-items-center gap-3">
               {/* User info text */}
               <div className="text-end">
-                <div className="text-muted small">Dr.</div>
-                <div className="fw-medium">Obeeoma System Admin</div>
+                <div className="text-muted small"> Dr. </div>
+                <div className="fw-medium"> Obeeoma Systems Adminstrator </div>
               </div>
 
               {/* User avatar with icon */}

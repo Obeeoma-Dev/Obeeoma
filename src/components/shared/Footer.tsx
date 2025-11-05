@@ -1,123 +1,101 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Obeeoma from "../../assets/Images/obeeomalogoword1.png";
 
-const Footer = () => {
+// Define interface for menu items
+interface MenuSection {
+  title: string;
+  items: Array<{ text: string; link: string }>;
+}
+
+const Footer: React.FC = () => {
+  // Define footer sections and their items
+  const menuSections: Record<string, MenuSection> = {
+    services: {
+      title: "Services",
+      items: [
+        { text: "For Organizations", link: "/organizations" },
+        { text: "For Employees", link: "/employees" },
+        { text: "Mental Health Assessments", link: "/assessments" },
+
+      ],
+    },
+    company: {
+      title: "Company",
+      items: [
+        { text: "About Us", link: "/about" },
+        { text: "Careers", link: "/careers" },
+        { text: "Blog", link: "/blog" },
+        { text: "Contact", link: "/contact" },
+      ],
+    },
+    legal: {
+      title: "Legal",
+      items: [
+        { text: "Privacy Policy", link: "/privacy" },
+        { text: "Terms of Service", link: "/terms" },
+        { text: "Cookie Policy", link: "/cookies" },
+        { text: "HIPAA Compliance", link: "/hipaa" },
+      ],
+    },
+  };
+
   return (
-    <footer
-      className="text-light py-5 mt-5"
-      style={{ background: "linear-gradient(135deg, #3CB371, #00A859)" }}
-    >
+    <footer className="py-5" data-testid="footer" style={{ backgroundColor: "#0B6E45" }}>
       <div className="container">
-        <div className="row gy-4">
-          <div className="col-lg-4">
-            <h4 className="fw-bold mb-3">Obeeoma</h4>
-            <p className="small opacity-75">
-              Empowering mental wellness in Africa by connecting employers and
-              employees with tailored mental health solutions.
-            </p>
-          </div>
-
-          <div className="col-6 col-lg-2">
-            <h6 className="fw-semibold mb-3">Company</h6>
-            <ul className="list-unstyled small">
-              <li>
-                <a
-                  href="#about"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#blog"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#careers"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="col-6 col-lg-3">
-            <h6 className="fw-semibold mb-3">Employers</h6>
-            <ul className="list-unstyled small">
-              <li>
-                <a
-                  href="#features"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Features
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#pricing"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#partners"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Partners
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/signup"
-                  className="text-white text-decoration-none opacity-75"
-                >
-                  Get Started
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="col-lg-3">
-            <h6 className="fw-semibold mb-3">Follow Us</h6>
-            <div className="d-flex gap-3">
-              <a href="#" className="text-white fs-5">
-                <i className="bi bi-facebook"></i>
-              </a>
-              <a href="#" className="text-white fs-5">
-                <i className="bi bi-twitter"></i>
-              </a>
-              <a href="#" className="text-white fs-5">
-                <i className="bi bi-linkedin"></i>
-              </a>
-              <a href="#" className="text-white fs-5">
-                <i className="bi bi-instagram"></i>
-              </a>
-            </div>
+        {/* Logo Row */}
+        <div className="row mb-4">
+          <div className="col-12">
+            <img
+              src={Obeeoma}
+              alt="Obeeoma"
+              className="mb-2"
+              style={{
+                height: "40px",
+                width: "auto",
+              }}
+              data-testid="footer-logo"
+            />
           </div>
         </div>
 
-        <hr className="my-4 border-light opacity-25" />
-        <div className="text-center small opacity-75">
-          <p className="small mb-0 opacity-75">
-            Built with ❤️ for wellbeing and purpose. | © 2025 Obeeoma. All
-            Rights Reserved.
-          </p>
+        {/* Content Row */}
+        <div className="row">
+          {/* About Section */}
+          <div className="col-lg-3 mb-4" data-testid="footer-section-about">
+            <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>About Obeeoma</h6>
+            <p className="text-white small mb-4">
+              AI-first workplace mental health platform built for Africa. Supporting
+              healthier, more productive teams across the continent.
+            </p>
+            <p className="text-white small mb-0">
+              © 2025 Obeeoma. All rights reserved.
+            </p>
+          </div>
+
+          {/* Menu Sections */}
+          {Object.entries(menuSections).map(([key, section]) => (
+            <div
+              key={key}
+              className="col-lg-3 mb-4"
+              data-testid={`footer-section-${key}`}
+            >
+              <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>{section.title}</h6>
+              <ul className="list-unstyled">
+                {section.items.map((item, index) => (
+                  <li key={index} className="mb-2">
+                    <Link
+                      to={item.link}
+                      className="text-white text-decoration-none"
+                    >
+                      {item.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </footer>

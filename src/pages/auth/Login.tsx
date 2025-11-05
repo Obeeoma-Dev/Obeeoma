@@ -2,215 +2,269 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
-import { useNavigate } from "react-router-dom";
-import { loginValidationSchema } from "./../../validation/authValidation";
-import { Formik } from "formik";
-// import * as Yup from "yup";
 
-import {
-  Container,
-  Card,
-  Form,
-  Button,
-  ToggleButtonGroup,
-  ToggleButton,
-  Alert,
-  Spinner,
-} from "react-bootstrap";
+import { useNavigate, Link } from "react-router-dom";
+import { loginValidationSchema } from "./../../validation/authValidation";
+
+import { Formik } from "formik";
+
+import { Container, Card, Form, Button, Alert, Spinner, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../assets/Images/obeeomalogoicon4.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
+import logo from "./../../assets/Images/obeeomalogoword1.png";
+
+const customStyles = {
+  primaryColor: "#3CB371",
+  logoText: "Obeeoma",
+};
+
+type DashboardPath =
+  | "/system-admin"
+  | "/employer-dashboard"
+  | "/employee-dashboard";
+
+// Define the padding constant for clarity
+const FOOTER_HEIGHT_PADDING = "80px"; 
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { isLoading, error } = useSelector((state: RootState) => state.auth);
-  const [role, setRole] = useState<string>("Employee");
+  const { isLoading, error, user } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
 
-  const handleSubmit = (values: { username: string; password: string }) => {
-    dispatch(
-      loginUser({
-        ...values,
+  const getDashboardRoute = (role: string): DashboardPath => {
+    const normalizedRole = role?.toLowerCase().trim();
 
-        onSuccess: () => navigate("/employee-dashboard"),
-      }),
-    );
+    switch (normalizedRole) {
+      case "systemadmin":
+        return "/system-admin";
+      case "employer":
+        return "/employer-dashboard";
+      case "employee":
+        return "/employee-dashboard";
+      default:
+        console.warn(
+          `Unrecognized role: ${role}. Falling back to /employer-dashboard.`
+        );
+        return "/employer-dashboard";
+    }
+  };
+
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      const resultAction = await dispatch(
+        loginUser({ username: values.username, password: values.password })
+      ).unwrap();
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const userRole = (resultAction as any)?.role || user?.role;
+      console.log("Final Role Determined:", userRole);
+
+      const destinationPath: DashboardPath = getDashboardRoute(userRole);
+
+      navigate(destinationPath, { replace: true });
+    } catch (err) {
+      // This block catches any error thrown by the 'loginUser' thunk
+      console.error("Login failed (handled by Redux error state):", err);
+    }
   };
 
   return (
-    <div className="min-vh-100 d-flex flex-column justify-content-between bg-light">
-      {/* Header */}
-      <header className="d-flex justify-content-between align-items-center p-3 px-4 border-bottom bg-white">
-        <div className="d-flex align-items-center">
-          <img src={logo} alt="Obeeoma Logo" width="35" className="me-2" />
-          <div>
-            <h5 className="m-0 text-success fw-semibold">Obeeoma</h5>
-            <small className="text-muted">A Happy Heart</small>
+    <div
+      style={{
+        backgroundColor: "#f5f5f5",
+        // Force the div to cover the entire viewport
+        height: "100vh", 
+        width: "100vw", // Use 100vw to cover full width
+        // **CRITICAL FIX:** This must be 'hidden' to prevent scrolling
+        overflow: "hidden", 
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+        // Padding for footer clearance, ensuring card can't go below this line
+        paddingBottom: FOOTER_HEIGHT_PADDING, 
+      }}
+    >
+      <Card
+        className="shadow-sm-border-0 p-4"
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          // Calculate max height based on viewport, vertical padding, and footer clearance
+          maxHeight: `calc(100vh - 40px - ${FOOTER_HEIGHT_PADDING})`,
+          // Allow the card content to scroll *internally* if it exceeds its max height
+          overflow: "auto", 
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Card.Body>
+          <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+            <img
+              src={logo}
+              alt="Obeeoma Logo"
+              style={{
+                height: "50px",
+                width: "auto"
+              }}
+              className="mb-1"
+            />
           </div>
-        </div>
-      </header>
-
-      {/* Center Form */}
-      <Container className="d-flex justify-content-center align-items-center flex-grow-1">
-        <Card
-          className="shadow-sm border-0 p-4"
-          style={{ maxWidth: "480px", width: "100%" }}
-        >
-          <Card.Body>
-            <h3 className="text-center mb-2 fw-semibold text-dark">
-              Sign in to your account
-            </h3>
-            <p className="text-center text-muted mb-4">
-              Welcome back to Obeeoma
-            </p>
-
-            {error && (
-              <Alert
-                variant="danger"
-                onClose={() => dispatch(clearError())}
-                dismissible
-              >
-                {error}
-              </Alert>
-            )}
-
-            <Formik
-              initialValues={{ username: "", password: "" }}
-              validationSchema={loginValidationSchema}
-              onSubmit={handleSubmit}
+          <h3 className="text-center mb-2 fw-semibold text-dark"
+            style={{ fontFamily: 'heading' }}
+          >
+            Welcome to Obeeoma
+          </h3>
+          
+          {error && (
+            <Alert
+              variant="danger"
+              onClose={() => dispatch(clearError())}
+              dismissible
             >
-              {({ handleChange, handleSubmit, values, errors, touched }) => (
-                <Form noValidate onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="username">
-                    <Form.Control
-                      type="text"
-                      name="username"
-                      value={values.username}
-                      onChange={handleChange}
-                      placeholder="Username"
-                      className="py-2 border-success border-opacity-25"
-                      isInvalid={touched.username && !!errors.username}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.username}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+              {error}
+            </Alert>
+          )}
 
-                  <Form.Group className="mb-3" controlId="password">
+          <Formik
+            initialValues={{ username: "", password: "" }}
+            validationSchema={loginValidationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                {/* Email/Username Field */}
+                <Form.Group className="mb-3" controlId="validationFormikUsername">
+                  <Form.Control
+                    type="text"
+                    placeholder="Email or Username"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    isInvalid={touched.username && !!errors.username}
+                    className="py-2"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.username}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Password Field */}
+                <Form.Group className="mb-4" controlId="validationFormikPassword">
+                  <InputGroup>
                     <Form.Control
-                      type="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
                       name="password"
                       value={values.password}
                       onChange={handleChange}
-                      placeholder="Password"
-                      className="py-2 border-success border-opacity-25"
                       isInvalid={touched.password && !!errors.password}
+                      className="py-2"
                     />
+                    <InputGroup.Text 
+                      onClick={togglePasswordVisibility}
+                      style={{ cursor: "pointer", backgroundColor: "white" }}
+                    >
+                      <FontAwesomeIcon 
+                        icon={showPassword ? faEyeSlash : faEyeRegular} 
+                        style={{ color: customStyles.primaryColor }}
+                      />
+                    </InputGroup.Text>
                     <Form.Control.Feedback type="invalid">
                       {errors.password}
                     </Form.Control.Feedback>
-                  </Form.Group>
+                  </InputGroup>
+                </Form.Group>
 
-                  {/* Role + Forgot Password */}
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    <ToggleButtonGroup
-                      type="radio"
-                      name="role"
-                      value={role}
-                      onChange={setRole}
-                    >
-                      <ToggleButton
-                        id="employee"
-                        value="Employee"
-                        variant={
-                          role === "Employee" ? "success" : "outline-success"
-                        }
-                        className="px-3 py-1"
-                      >
-                        Employee
-                      </ToggleButton>
-                      <ToggleButton
-                        id="employer"
-                        value="Employer"
-                        variant={
-                          role === "Employer" ? "success" : "outline-success"
-                        }
-                        className="px-3 py-1"
-                      >
-                        Employer
-                      </ToggleButton>
-                    </ToggleButtonGroup>
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  className="w-100 mb-3 py-2 fw-semibold"
+                  disabled={isLoading}
+                  style={{
+                    backgroundColor: customStyles.primaryColor,
+                    borderColor: customStyles.primaryColor,
+                    color: "white",
+                    boxShadow: "none",
+                  }}
+                >
+                  {isLoading ? (
+                    <>
+                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
+                      Signing in...
+                    </>
+                  ) : (
+                    "Sign In"
+                  )}
+                </Button>
+              </Form>
+            )}
+          </Formik>
 
-                    <a
-                      href="/reset-password-signin"
-                      className="text-success text-decoration-none small"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
-
-                  <Form.Check
-                    type="checkbox"
-                    label="Remember me"
-                    className="mb-3 text-muted"
-                  />
-
-                  <Button
-                    variant="success"
-                    type="submit"
-                    className="w-100 mb-3 py-2 fw-semibold"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <>
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-2"
-                        />
-                        Signing in...
-                      </>
-                    ) : (
-                      "Sign in"
-                    )}
-                  </Button>
-
-                  <div className="text-center">
-                    <span className="text-muted">Don’t have an account? </span>
-                    <a
-                      href="/signup"
-                      className="text-success text-decoration-none fw-semibold"
-                    >
-                      Create an account
-                    </a>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </Card.Body>
-        </Card>
-      </Container>
-
-      {/* Footer */}
-      <footer className="text-center text-muted py-3 small border-top">
-        © 2025 Obeeoma. All rights reserved. &nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Privacy Policy
-        </a>{" "}
-        &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Terms of Service
-        </a>{" "}
-        &nbsp;|&nbsp;
-        <a href="#" className="text-decoration-none text-success">
-          Contact Us
-        </a>
+          <div className="text-center mt-3">
+            <Link
+              to="/reset-password-signin"
+              className="small text-decoration-none"
+              style={{ color: customStyles.primaryColor, fontFamily: "body" }}
+            >
+              Forgot Password?
+            </Link>
+          </div>
+          
+          <div className="text-center mt-3">
+            <span className="small text-muted" style={{ fontFamily: "body" }}>
+              Don't have an account?{" "}
+            </span>
+            <Link
+              to="/signup"
+              className="small text-decoration-none"
+              style={{ color: customStyles.primaryColor, fontFamily: "body", fontWeight: "600" }}
+            >
+              Create Account
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+      
+      {/* --- Fixed Footer Component --- */}
+      <footer
+        className="text-center text-muted py-3 small border-top"
+        style={{
+          position: "fixed",
+          bottom: "0", 
+          width: "100%",
+          backgroundColor: "#f5f5f5", 
+          fontSize: "0.8rem",
+          zIndex: 1000, 
+          fontFamily: "body"
+        }}
+      > 
+        <div className="d-flex justify-content-between align-items-center container">
+          <div className="footer-copyright" >
+            &copy; 2025 {customStyles.logoText}. All rights reserved.
+          </div>
+          <div className="d-flex align-items-center">
+            <Link className="text-muted text-decoration-none me-3" style={{ fontFamily: "body" }} role="button" to="/system-admin">Privacy Policy</Link>
+            <a href="#" className="text-muted text-decoration-none me-3" style={{ fontFamily: "body"}}>Terms of Service</a>
+            <a href="#" className="text-muted text-decoration-none" style={{ fontFamily: "body"}} >Contact Us</a>
+          </div>
+        </div>
       </footer>
     </div>
   );

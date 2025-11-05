@@ -1,0 +1,34 @@
+/* OtpInput.css */
+
+.otp-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  column-gap: 10px;
+  margin: 30px 30px 30px 30px; 
+}
+
+.otp-input {
+  
+  width: 100%; /* Allows flex-box to distribute space */
+  height: 60px;
+  
+  /* Appearance */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1;
+  
+  /* UX Improvements */
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Focus State */
+.otp-input:focus {
+  border-color: #3CB371; /* Theme Color */
+  box-shadow: 0 0 5px rgba(60, 179, 113, 0.5);
+}

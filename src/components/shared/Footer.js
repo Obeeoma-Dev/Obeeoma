@@ -1,6 +1,40 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Obeeoma from "../../assets/Images/obeeomalogoword1.png";
 const Footer = () => {
-    return (_jsx("footer", { className: "text-light py-5 mt-5", style: { background: "linear-gradient(135deg, #3CB371, #00A859)" }, children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "row gy-4", children: [_jsxs("div", { className: "col-lg-4", children: [_jsx("h4", { className: "fw-bold mb-3", children: "Obeeoma" }), _jsx("p", { className: "small opacity-75", children: "Empowering mental wellness in Africa by connecting employers and employees with tailored mental health solutions." })] }), _jsxs("div", { className: "col-6 col-lg-2", children: [_jsx("h6", { className: "fw-semibold mb-3", children: "Company" }), _jsxs("ul", { className: "list-unstyled small", children: [_jsx("li", { children: _jsx("a", { href: "#about", className: "text-white text-decoration-none opacity-75", children: "About" }) }), _jsx("li", { children: _jsx("a", { href: "#blog", className: "text-white text-decoration-none opacity-75", children: "Blog" }) }), _jsx("li", { children: _jsx("a", { href: "#careers", className: "text-white text-decoration-none opacity-75", children: "Careers" }) }), _jsx("li", { children: _jsx("a", { href: "#contact", className: "text-white text-decoration-none opacity-75", children: "Contact" }) })] })] }), _jsxs("div", { className: "col-6 col-lg-3", children: [_jsx("h6", { className: "fw-semibold mb-3", children: "Employers" }), _jsxs("ul", { className: "list-unstyled small", children: [_jsx("li", { children: _jsx("a", { href: "#features", className: "text-white text-decoration-none opacity-75", children: "Features" }) }), _jsx("li", { children: _jsx("a", { href: "#pricing", className: "text-white text-decoration-none opacity-75", children: "Pricing" }) }), _jsx("li", { children: _jsx("a", { href: "#partners", className: "text-white text-decoration-none opacity-75", children: "Partners" }) }), _jsx("li", { children: _jsx("a", { href: "/signup", className: "text-white text-decoration-none opacity-75", children: "Get Started" }) })] })] }), _jsxs("div", { className: "col-lg-3", children: [_jsx("h6", { className: "fw-semibold mb-3", children: "Follow Us" }), _jsxs("div", { className: "d-flex gap-3", children: [_jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-facebook" }) }), _jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-twitter" }) }), _jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-linkedin" }) }), _jsx("a", { href: "#", className: "text-white fs-5", children: _jsx("i", { className: "bi bi-instagram" }) })] })] })] }), _jsx("hr", { className: "my-4 border-light opacity-25" }), _jsx("div", { className: "text-center small opacity-75", children: _jsx("p", { className: "small mb-0 opacity-75", children: "Built with \u2764\uFE0F for wellbeing and purpose. | \u00A9 2025 Obeeoma. All Rights Reserved." }) })] }) }));
+    // Define footer sections and their items
+    const menuSections = {
+        services: {
+            title: "Services",
+            items: [
+                { text: "For Organizations", link: "/organizations" },
+                { text: "For Employees", link: "/employees" },
+                { text: "Mental Health Assessments", link: "/assessments" },
+            ],
+        },
+        company: {
+            title: "Company",
+            items: [
+                { text: "About Us", link: "/about" },
+                { text: "Careers", link: "/careers" },
+                { text: "Blog", link: "/blog" },
+                { text: "Contact", link: "/contact" },
+            ],
+        },
+        legal: {
+            title: "Legal",
+            items: [
+                { text: "Privacy Policy", link: "/privacy" },
+                { text: "Terms of Service", link: "/terms" },
+                { text: "Cookie Policy", link: "/cookies" },
+                { text: "HIPAA Compliance", link: "/hipaa" },
+            ],
+        },
+    };
+    return (_jsx("footer", { className: "py-5", "data-testid": "footer", style: { backgroundColor: "#0B6E45" }, children: _jsxs("div", { className: "container", children: [_jsx("div", { className: "row mb-4", children: _jsx("div", { className: "col-12", children: _jsx("img", { src: Obeeoma, alt: "Obeeoma", className: "mb-2", style: {
+                                height: "40px",
+                                width: "auto",
+                            }, "data-testid": "footer-logo" }) }) }), _jsxs("div", { className: "row", children: [_jsxs("div", { className: "col-lg-3 mb-4", "data-testid": "footer-section-about", children: [_jsx("h6", { className: "text-white mb-3", style: { fontFamily: 'heading' }, children: "About Obeeoma" }), _jsx("p", { className: "text-white small mb-4", children: "AI-first workplace mental health platform built for Africa. Supporting healthier, more productive teams across the continent." }), _jsx("p", { className: "text-white small mb-0", children: "\u00A9 2025 Obeeoma. All rights reserved." })] }), Object.entries(menuSections).map(([key, section]) => (_jsxs("div", { className: "col-lg-3 mb-4", "data-testid": `footer-section-${key}`, children: [_jsx("h6", { className: "text-white mb-3", style: { fontFamily: 'heading' }, children: section.title }), _jsx("ul", { className: "list-unstyled", children: section.items.map((item, index) => (_jsx("li", { className: "mb-2", children: _jsx(Link, { to: item.link, className: "text-white text-decoration-none", children: item.text }) }, index))) })] }, key)))] })] }) }));
 };
 export default Footer;

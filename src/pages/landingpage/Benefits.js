@@ -1,64 +1,128 @@
-import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { FileText, Brain, Users, Calendar, TrendingUp, Heart, CheckCircle2, } from "lucide-react";
-import image3 from "@/assets/Images/image3.png";
-import image4 from "@/assets/Images/alex-green-2.jpg";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useEffect, useRef, useState } from "react";
+// Importing images from Image.
+import teamWellbeingImg from "../../assets/Images/team-wellbing.png";
+import culturallyRelevantImg from "../../assets/Images/culturally-relevant.png";
+import anonymousSecureImg from "../../assets/Images/padlock.png";
+import aiInsightsImg from "../../assets/Images/ai-logo.png";
+import responsiveAppImg from "../../assets/Images/smartphone.png";
+import roiAnalyticsImg from "../../assets/Images/roi-analytics.png";
+// Importing icons (from lucide react library).
+import { Shield, Globe, Brain, Heart, Smartphone, BarChart, } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
-const Benefits = () => {
-    const benefits = [
-        {
-            icon: FileText,
-            title: "Know Just One Plan",
-            description: "Simple, clear and easy-to-understand pricing structure. No hidden fees or unexpected expenses to deal with.",
-        },
-        {
-            icon: Brain,
-            title: "Mood Tracking",
-            description: "Monitor your mental health in a quick-to-use daily diary. Keep an eye on how you feel as time goes by.",
-        },
-        {
-            icon: Users,
-            title: "Crisis Support",
-            description: "Access immediate help. Get the right level of support if you need it, whether it's in the moment or ongoing.",
-        },
-        {
-            icon: Calendar,
-            title: "Mood Checking",
-            description: "Regular check-ins to see how you're doing. Get insights to guide you on your mental wellness journey.",
-        },
-        {
-            icon: TrendingUp,
-            title: "Skill Building",
-            description: "Develop strategies to cope and manage in your situation. Build skills that can enhance your mental strength.",
-        },
-        {
-            icon: Heart,
-            title: "Self Assessments",
-            description: "Regular assessments to track progress and see how your journey is going. Understand yourself better with data.",
-        },
-        {
-            icon: CheckCircle2,
-            title: "Complete Portal",
-            description: "Easy-to-use tools in one place for optimized mental health management. Simple and intuitive interface.",
-        },
-    ];
-    // Divide benefits into rows of 6 cards per side (3x2)
-    const half = Math.ceil(benefits.length / 2);
-    const firstHalf = benefits.slice(0, half);
-    const secondHalf = benefits.slice(half);
-    const renderBenefitsGrid = (benefitSet) => (_jsx("div", { className: "row g-4", children: benefitSet.map((benefit, index) => (_jsx("div", { className: "col-12 col-md-6 col-lg-4", children: _jsx("div", { className: "card h-100 border-0 shadow-sm hover-shadow bg-white rounded-4", children: _jsxs("div", { className: "card-body text-center p-4", children: [_jsx("div", { className: "d-flex justify-content-center align-items-center bg-success-subtle rounded-circle mb-3", style: { width: "60px", height: "60px", margin: "0 auto" }, children: _jsx(benefit.icon, { className: "text-success fs-4" }) }), _jsx("h5", { className: "card-title fw-semibold", children: benefit.title }), _jsx("p", { className: "card-text text-muted small", children: benefit.description })] }) }) }, index))) }));
-    return (_jsxs(_Fragment, { children: [_jsx("section", { className: "py-5", style: {
-                    background: "linear-gradient(180deg, rgba(230, 255, 237, 0.7) 0%, #ffffff 100%)",
-                    marginBottom: "-1rem",
-                }, children: _jsxs("div", { className: "container", children: [_jsxs("div", { className: "text-center mb-5", children: [_jsx("h2", { className: "fw-bold text-success mb-3", children: "Mental Health Care Benefits" }), _jsx("p", { className: "text-muted fs-5 mx-auto", style: { maxWidth: "700px" }, children: "Our platform offers a range of benefits designed to support your mental health journey." })] }), _jsxs("div", { className: "row align-items-center g-5", children: [_jsx("div", { className: "col-lg-7", children: renderBenefitsGrid(firstHalf) }), _jsx("div", { className: "col-lg-5 text-center", children: _jsx("img", { src: image3, alt: "Professional working", className: "img-fluid rounded-4 shadow-lg", style: { maxHeight: "480px", objectFit: "cover" } }) })] })] }) }), _jsxs("section", { className: "py-5", style: {
-                    background: "linear-gradient(180deg, #ffffff 0%, rgba(230, 255, 237, 0.7) 100%)",
-                    marginBottom: "0",
-                }, children: [_jsx("div", { className: "container", children: _jsxs("div", { className: "row align-items-center g-5 flex-lg-row-reverse", children: [_jsx("div", { className: "col-lg-5 text-center", children: _jsx("img", { src: image4, alt: "Supportive conversation", className: "img-fluid rounded-4 shadow-lg", style: { maxHeight: "480px", objectFit: "cover" } }) }), _jsx("div", { className: "col-lg-7", children: renderBenefitsGrid(secondHalf) })] }) }), _jsx("div", { style: {
-                            position: "absolute",
-                            bottom: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100px",
-                            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #00A859 100%)",
-                        } })] })] }));
-};
-export default Benefits;
+// Define an array of benifit. 
+const benefits = [
+    { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous.", image: anonymousSecureImg },
+    { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages.", image: culturallyRelevantImg },
+    { icon: Brain, title: "AI Powered Insights", description: "Smart alerts and tailored suggestions.", image: aiInsightsImg },
+    { icon: Heart, title: "Team Wellbeing", description: "Track morale without breaching privacy", image: teamWellbeingImg },
+    { icon: Smartphone, title: "Responsive Application", description: "Works seamlessly across all devices.", image: responsiveAppImg },
+    { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction", image: roiAnalyticsImg },
+];
+// duplicate for seamless looping.
+const extendedBenefits = [...benefits, ...benefits];
+// const useImages = true;
+function BenefitCarousel() {
+    // A reference to the scroll container.
+    const scrollRedf = useRef(null);
+    // Track which card is active for pagination dots.
+    const [activeIndex, setActiveIndex] = useState(0);
+    // Pause scrolling when true.
+    const [isPaused, setIsPaused] = useState(false);
+    useEffect(() => {
+        const scrollContainer = scrollRedf.current;
+        if (!scrollContainer)
+            return;
+        let rafId = 0;
+        let scrollPosition = scrollContainer.scrollLeft || 0;
+        // Tune the speed.
+        const scrollSpeed = 0.35;
+        // Using duplicated content to loop back.
+        const fullWidth = scrollContainer.scrollWidth;
+        const halfWidth = fullWidth / 2;
+        const singleCount = benefits.length;
+        // approximate card width = halfWidth / singleCount (only original set)
+        const approxCardWidth = halfWidth / singleCount || 300;
+        const loop = () => {
+            if (!isPaused) {
+                // Update the scroll position
+                scrollPosition += scrollSpeed;
+                // Wrap scroll position for seamless looping.
+                if (scrollPosition >= halfWidth) {
+                    scrollPosition -= halfWidth;
+                }
+                // Apply scroll to DOM
+                scrollContainer.scrollLeft = scrollPosition;
+                // update pagination dot.
+                const idx = Math.floor((scrollPosition / approxCardWidth) % singleCount);
+                if (idx !== activeIndex) {
+                    // setActiveIndex can be called here.
+                    setActiveIndex(idx);
+                }
+            }
+            rafId = requestAnimationFrame(loop);
+        };
+        rafId = requestAnimationFrame(loop);
+        return () => cancelAnimationFrame(rafId);
+    });
+    // Adding a scroll function to be abale to click my pagination dots.
+    const scrollToIndex = (index) => {
+        const scrollContainer = scrollRedf.current;
+        if (!scrollContainer)
+            return;
+        const singleCount = benefits.length;
+        const halfWidth = scrollContainer.scrollWidth / 2;
+        const cardWidth = halfWidth / singleCount;
+        scrollContainer.scrollLeft = index * cardWidth;
+        setActiveIndex(index);
+        setIsPaused(true);
+        setTimeout(() => setIsPaused(false), 5000);
+    };
+    return (_jsx("section", { className: "py-5 bg-light", "data-testid": "benefits-section", "aria-label": "Benefits", children: _jsxs("div", { className: "container overflow-hidden", children: [_jsxs("div", { className: "text-center mb-4", children: [_jsxs("h2", { className: "display-6 fw-bold mb-3", style: { fontFamily: "heading" }, children: [" Why Choose ", _jsx("span", { style: { color: "#3CB371" }, children: "ObeeOma" }), " "] }), _jsx("p", { className: "text-muted lead mb-5", children: "Everything your organization needs to build a mentally healthy workplace" })] }), _jsx("div", { ref: scrollRedf, className: "d-flex overflow-hidden px-2", onMouseEnter: () => setIsPaused(false), onMouseLeave: () => setIsPaused(false), style: {
+                        // No snaps and only a continuous scroll
+                        gap: "1rem",
+                        paddingBottom: "1rem",
+                        position: "relative",
+                        overflowX: "hidden",
+                        whiteSpace: "nowrap",
+                    }, children: extendedBenefits.map((benefit, index) => {
+                        // Dynamically render the icons.
+                        const Icon = benefit.icon;
+                        return (_jsx("div", { className: "flex-shrink-0", style: {
+                                scrollSnapAlign: "none",
+                                width: 300,
+                                display: "inline-block",
+                            }, "data-testid": `benefit-card-${index}`, children: _jsxs("div", { className: "card h-100 border-0 p-4 rounded-3 shadow-sm text-center", style: {
+                                    position: "relative",
+                                    backgroundImage: benefit.image ? `url(${benefit.image})` : undefined,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    backgroundRepeat: "no-repeat",
+                                    color: "#fff",
+                                }, children: [_jsx("div", { style: {
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
+                                            right: 0,
+                                            bottom: 0,
+                                            backgroundColor: "rgba(0,0,0,0.4)",
+                                            borderRadius: "inherit",
+                                            zIndex: 0,
+                                        } }), _jsxs("div", { style: { position: "relative", zIndex: 1 }, children: [_jsx("div", { className: "d-inline-flex align-items-center justify-content-center mb-4 mx-auto", style: {
+                                                    width: 64,
+                                                    height: 64,
+                                                    borderRadius: "50%",
+                                                    backgroundColor: "#3CB371",
+                                                }, "aria-hidden": "true", children: _jsx(Icon, { size: 24 }) }), _jsx("h4", { className: "fw-semibold mb-2", children: benefit.title }), _jsx("p", { className: "mb-0 small", children: benefit.description })] })] }) }, index));
+                    }) }), _jsx("div", { className: "d-flex justify-content-center mt-4", children: [...Array(benefits.length)].map((_, i) => (_jsx("div", { onClick: () => scrollToIndex(i), style: {
+                            width: 10,
+                            height: 10,
+                            borderRadius: "50%",
+                            backgroundColor: i === activeIndex ? "#0f9d59" : "#ccc",
+                            margin: "0 4px",
+                            transition: "background-color 200ms",
+                            cursor: "pointer",
+                        } }, i))) })] }) }));
+}
+;
+export default BenefitCarousel;

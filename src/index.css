@@ -1,5 +1,21 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@font-face {
+  font-family: 'body';
+  src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'heading';
+  src: url('./assets/Fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* -----------------------------------------------
    CSS Variables*/
 :root {
@@ -12,13 +28,6 @@
   --obeeoma-text: #222222;
   --obeeoma-muted: #6c757d;
 
-  /* Hero overlay gradient */
-  --hero-gradient: linear-gradient(
-    135deg,
-    rgba(60, 179, 113, 0.02),
-    rgba(60, 179, 113, 0.04)
-  );
-
   /* Border radius and shadow */
   --bs-border-radius: 0.75rem;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
@@ -30,7 +39,7 @@
 ----------------------------------------------- */
 body {
   /*montserrat to be added here*/
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "heading";
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);
   margin: 0;
@@ -43,6 +52,7 @@ a {
   text-decoration: none;
   transition: all 0.25s ease-in-out;
 }
+
 a:hover {
   color: var(--obeeoma-green-dark);
 }
@@ -59,14 +69,6 @@ a:hover {
   overflow: hidden;
   text-align: center;
   color: #fff;
-}
-
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--hero-gradient);
-  z-index: 1;
 }
 
 .hero-section .hero-bg {
@@ -89,6 +91,7 @@ a:hover {
   font-size: 3rem;
   line-height: 1.2;
 }
+
 .hero-section p {
   color: #ff4d4d;
   font-size: 1.25rem;
@@ -98,35 +101,47 @@ a:hover {
   margin-right: auto;
 }
 
+
+/* -----------------------------------------------
+   Responsive Tweaks
+----------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.25rem;
+  }
+
+  .hero-section p {
+    font-size: 1.125rem;
+  }
+}
+
 /* -----------------------------------------------
    Gradient Buttons
 ----------------------------------------------- */
 .btn-green-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--obeeoma-green),
-    var(--obeeoma-green-dark)
-  );
+  background: linear-gradient(135deg,
+      var(--obeeoma-green),
+      var(--obeeoma-green-dark));
   color: #fff !important;
   border: none;
   border-radius: var(--bs-border-radius);
   transition: opacity 0.3s ease-in-out;
 }
+
 .btn-green-gradient:hover {
   opacity: 0.9;
 }
 
 .btn-red-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--obeeoma-red),
-    var(--obeeoma-red-dark)
-  );
+  background: linear-gradient(135deg,
+      var(--obeeoma-red),
+      var(--obeeoma-red-dark));
   color: #fff !important;
   border: none;
   border-radius: var(--bs-border-radius);
   transition: opacity 0.3s ease-in-out;
 }
+
 .btn-red-gradient:hover {
   opacity: 0.9;
 }
@@ -139,15 +154,18 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.85);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .navbar-brand {
   color: var(--obeeoma-green) !important;
   font-weight: 600;
 }
+
 .nav-link {
   color: var(--obeeoma-text) !important;
   font-weight: 500;
   transition: color 0.3s ease;
 }
+
 .nav-link:hover {
   color: var(--obeeoma-green) !important;
 }
@@ -157,15 +175,18 @@ a:hover {
   transform: translateX(-100%);
   opacity: 0;
 }
+
 .sidebar-enter-active {
   transform: translateX(0);
   opacity: 1;
   transition: all 0.3s ease;
 }
+
 .sidebar-exit {
   transform: translateX(0);
   opacity: 1;
 }
+
 .sidebar-exit-active {
   transform: translateX(-100%);
   opacity: 0;
@@ -177,14 +198,17 @@ footer {
   padding: 3rem 0;
   color: var(--obeeoma-muted);
 }
+
 footer h5 {
   color: var(--obeeoma-green);
   margin-bottom: 1rem;
 }
+
 footer a {
   color: var(--obeeoma-muted);
   text-decoration: none;
 }
+
 footer a:hover {
   color: var(--obeeoma-green);
 }
@@ -201,24 +225,133 @@ footer a:hover {
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
+
 .feature-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--card-shadow-lg);
 }
 
-/* -----------------------------------------------
-   Responsive Tweaks
------------------------------------------------ */
-@media (max-width: 768px) {
-  .hero-section h1 {
-    font-size: 2.25rem;
-  }
-  .hero-section p {
-    font-size: 1.125rem;
-  }
+/* This is reflected in the systems admin organisationTable.tsx file */
+.bg-purple {
+  background-color: #6f42c1;
 }
 
-/**
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-*/
+/* This line reflects to the system admin nav bar keeping all icons consitent with the green colour. */
+/* .sidebar-icon-green {
+  color: #3CB371;
+} */
+/* These style blocks handle the styling in the Navigation.tsx transparency and scrolled*/
+.navbar.transparent {
+  /* Transparency */
+  background-color: rgba(255, 255, 255, 0.01);
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+
+  /* avoiding blendng effects */
+  mix-blend-mode: normal;
+}
+
+.navbar.scrolled {
+  background-color: white;
+
+  /* Depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Make nav link text white when navbar is transparent */
+.navbar.transparent .nav-link {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+
+/* Optional: green on hover */
+.navbar.transparent .nav-link:hover {
+  color: #3CB371 !important;
+}
+
+.navbar .nav-link {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'body';
+  /* Make sure 'body' is defined in your fonts */
+}
+
+
+
+
+
+/* The glow effect on the feature cards */
+.feature-card {
+  position: relative;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: #3CB371;
+  filter: blur(1px);
+  opacity: 0;
+  transition: opacity 3.00s ease;
+  z-index: -1;
+}
+
+.feature-card:hover::before {
+  opacity: 5;
+}
+
+.feature-card h6 {
+  font-size: 1.25rem;
+  /* ≈ 20px */
+  font-weight: 600;
+  font-family: 'heading';
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 16px;
+  /* ≈ 16px */
+  font-family: 'body';
+  color: var(--obeeoma-muted);
+}
+
+
+/* Footer effect of the landing page. */
+footer {
+  /* background-color: #0B6E45 !important; */
+  color: #ccc;
+  padding: 3rem 0;
+}
+
+footer h6 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #3CB371;
+  color: var(--obeeoma-green);
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: #aaa;
+}
