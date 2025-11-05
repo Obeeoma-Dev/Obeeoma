@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+iimport React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
@@ -89,10 +89,8 @@ const LoginPage = () => {
       style={{
         backgroundColor: "#f5f5f5",
         // Force the div to cover the entire viewport
-        height: "100vh", 
-        width: "100vw", // Use 100vw to cover full width
-        // **CRITICAL FIX:** This must be 'hidden' to prevent scrolling
-        overflow: "hidden", 
+        height: "100vh",
+        maxWidth: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

@@ -60,9 +60,7 @@ const LoginPage = () => {
             backgroundColor: "#f5f5f5",
             // Force the div to cover the entire viewport
             height: "100vh",
-            width: "100vw", // Use 100vw to cover full width
-            // **CRITICAL FIX:** This must be 'hidden' to prevent scrolling
-            overflow: "hidden",
+            maxWidth: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

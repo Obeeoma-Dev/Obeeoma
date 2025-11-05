@@ -29,6 +29,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
                 "/v1/auth/reset-password/",
                 "/v1/auth/change-password",
                 
+                
               ];
             
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
@@ -175,7 +176,7 @@ verifyOtp: async()=>{
 },
 
 resendOtp: ({ email }: { email: string }) => {
-        return api.post('/auth/resend-otp', { email });
+        return api.post('v1/auth/reset-password/confirm', { email });
     
     },
 };

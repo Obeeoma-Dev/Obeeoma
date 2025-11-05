@@ -124,7 +124,7 @@ export const authAPI = {
         return response;
     },
     resendOtp: ({ email }) => {
-        return api.post('/auth/resend-otp', { email });
+        return api.post('v1/auth/reset-password/confirm', { email });
     },
 };
 //  System Admin Dashboard
