@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form as FormikForm, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../../store/store";
 import { registerUser, clearAuthStatus } from "../../store/slices/authSlice";
+
 import { registerValidationSchema } from "../../validation/authValidation";
 import {
     Container,
@@ -13,13 +15,15 @@ import {
     Card,
     Spinner,
     InputGroup,
-    Row,
-    Col,
+    Row, // Added for two-column layout
+    Col, // Added for two-column layout
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faPhone, faEnvelope, faUser, faMapMarkerAlt, faSitemap, faBuilding, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
-import logo from "./../../assets/Images/obeeomalogoword1.png";
+import logo from "./../../assets/Images/obeeomalogoword1.png"; 
+
+// --- Custom Styles and Data ---
 
 const customStyles = {
     primaryColor: "#3CB371",
@@ -50,18 +54,21 @@ type Role = "employee" | "employer";
 type RegisterFormValues = {
     organizationName: string;
     contactPersonName: string;
-    contactPersonRole: string; 
-    email: string;
-    phoneNumber: string;
-    organisationSize: number | string; 
-    companyEmail: string;
-    Location: string;
+    contactPersonRole: string;
+    email: string; // Contact Email Address
+    phoneNumber: string; // Contact Person's Phone Number
+    organisationSize: number | string;
+    companyEmail: string; // Organization Email Address
+    Location: string; // Organization Location
     password: string;
     confirmPassword: string;
 };
 
+// --- Component Start ---
+
 const Register: React.FC = () => {
-    const [role] = useState<Role>("employer");
+
+    const [role] = useState<Role>("employer"); 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const { error, isLoading } = useSelector((state: RootState) => state.auth);
@@ -90,6 +97,7 @@ const Register: React.FC = () => {
     };
 
     useEffect(() => {
+
         dispatch(clearAuthStatus());
     }, [dispatch]);
 
@@ -114,12 +122,15 @@ const Register: React.FC = () => {
 
         try {
             await dispatch(registerUser(credentials)).unwrap();
+            // Navigate to login page upon successful registration
             navigate("/login", { replace: true });
         } catch (err) {
+            // Error handling
             console.error("Registration failed:", err);
         }
     };
 
+    
     const inputStyle: React.CSSProperties = {
         height: '48px',
         borderRadius: '4px',
@@ -127,10 +138,10 @@ const Register: React.FC = () => {
 
     const inputGroupTextStyle: React.CSSProperties = {
         height: '48px',
-        backgroundColor: 'white', 
-        borderColor: '#ced4da', 
+        backgroundColor: 'white',
+        borderColor: '#ced4da',
         color: customStyles.primaryColor,
-        width: '40px', 
+        width: '40px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -142,13 +153,10 @@ const Register: React.FC = () => {
         borderColor: '#ced4da',
     }
 
-    const labelStyle: React.CSSProperties = {
-        fontWeight: 500,
-        marginBottom: '0.25rem',
-        fontSize: '0.9rem',
-        color: '#333',
-    };
-
+    const formGroupStyle: React.CSSProperties = {
+        marginBottom: '1rem', // Standard margin for a compact, two-column form
+    }
+    // --- End Styling Adjustments ---
 
     return (
         <div
@@ -162,15 +170,15 @@ const Register: React.FC = () => {
                 <div className="d-flex justify-content-center w-100">
                     <Card
                         className="shadow-lg border-0"
-                        style={{ 
-                            maxWidth: "600px", 
-                            width: "100%", 
-                            borderRadius: "10px", 
+                        style={{
+                            maxWidth: "800px", 
+                            borderRadius: "10px",
                             boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
-                            
+
                         }}
                     >
                         <Card.Body style={{ padding: '2.5rem' }} className="d-flex flex-column col-12">
+                            {/* Logo and Title Section */}
                             <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
                                 <img
                                     src={logo}
@@ -178,6 +186,7 @@ const Register: React.FC = () => {
                                     width="100"
                                     className="mb-1"
                                 />
+                                
                             </div>
 
                             <h3 className="text-center mb-2 fw-semibold text-dark" style={{ fontFamily: "heading" }}>
@@ -188,6 +197,7 @@ const Register: React.FC = () => {
                             </p>
                             {error && (<Alert variant="danger" dismissible>{error}</Alert>)}
 
+                            {/* Form Section */}
                             <Formik
                                 validationSchema={registerValidationSchema}
                                 initialValues={initialValues}
@@ -195,11 +205,11 @@ const Register: React.FC = () => {
                             >
                                 {({ handleSubmit, handleChange, values, touched, errors }) => (
                                     <FormikForm noValidate onSubmit={handleSubmit}>
-
                                         <Row>
+                                            {/* Column 1 Fields (Left) */}
                                             <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Organization Name</BootstrapForm.Label>
+                                                {/* Organization Name */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
                                                     <InputGroup>
                                                         <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faBuilding} /></InputGroup.Text>
                                                         <BootstrapForm.Control
@@ -212,37 +222,11 @@ const Register: React.FC = () => {
                                                             isInvalid={!!touched.organizationName && !!errors.organizationName}
                                                         />
                                                     </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="organizationName" />
-                                                    </BootstrapForm.Control.Feedback>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="organizationName" /></BootstrapForm.Control.Feedback>
                                                 </BootstrapForm.Group>
-                                            </Col>
-                                            <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Contact Person Full Name</BootstrapForm.Label>
-                                                    <InputGroup>
-                                                        <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faUser} /></InputGroup.Text>
-                                                        <BootstrapForm.Control
-                                                            type="text"
-                                                            name="contactPersonName"
-                                                            placeholder="Contact Person Full Name"
-                                                            value={values.contactPersonName}
-                                                            onChange={handleChange}
-                                                            style={inputStyle}
-                                                            isInvalid={!!touched.contactPersonName && !!errors.contactPersonName}
-                                                        />
-                                                    </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="contactPersonName" />
-                                                    </BootstrapForm.Control.Feedback>
-                                                </BootstrapForm.Group>
-                                            </Col>
-                                        </Row>
 
-                                        <Row>
-                                            <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Organization Email Address</BootstrapForm.Label>
+                                                {/* Organization Email Address */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
                                                     <InputGroup>
                                                         <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faEnvelope} /></InputGroup.Text>
                                                         <BootstrapForm.Control
@@ -255,37 +239,11 @@ const Register: React.FC = () => {
                                                             isInvalid={!!touched.companyEmail && !!errors.companyEmail}
                                                         />
                                                     </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="companyEmail" />
-                                                    </BootstrapForm.Control.Feedback>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="companyEmail" /></BootstrapForm.Control.Feedback>
                                                 </BootstrapForm.Group>
-                                            </Col>
-                                            <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Contact Email Address</BootstrapForm.Label>
-                                                    <InputGroup>
-                                                        <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faEnvelope} /></InputGroup.Text>
-                                                        <BootstrapForm.Control
-                                                            type="email"
-                                                            name="email"
-                                                            placeholder="Contact Email Address"
-                                                            value={values.email}
-                                                            onChange={handleChange}
-                                                            style={inputStyle}
-                                                            isInvalid={!!touched.email && !!errors.email}
-                                                        />
-                                                    </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="email" />
-                                                    </BootstrapForm.Control.Feedback>
-                                                </BootstrapForm.Group>
-                                            </Col>
-                                        </Row>
 
-                                        <Row>
-                                            <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Organization Size</BootstrapForm.Label>
+                                                {/* Organization Size (Dropdown) */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
                                                     <InputGroup>
                                                         <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faSitemap} /></InputGroup.Text>
                                                         <BootstrapForm.Select
@@ -302,14 +260,65 @@ const Register: React.FC = () => {
                                                             ))}
                                                         </BootstrapForm.Select>
                                                     </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="organisationSize" />
-                                                    </BootstrapForm.Control.Feedback>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="organisationSize" /></BootstrapForm.Control.Feedback>
+                                                </BootstrapForm.Group>
+
+                                                {/* Location */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
+                                                    <InputGroup>
+                                                        <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
+                                                        <BootstrapForm.Control
+                                                            type="text"
+                                                            name="Location"
+                                                            placeholder="Organization Location (e.g., State)"
+                                                            value={values.Location}
+                                                            onChange={handleChange}
+                                                            style={inputStyle}
+                                                            isInvalid={!!touched.Location && !!errors.Location}
+                                                        />
+                                                    </InputGroup>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="Location" /></BootstrapForm.Control.Feedback>
                                                 </BootstrapForm.Group>
                                             </Col>
+
+                                            {/* Column 2 Fields (Right) */}
                                             <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Contact Person Role</BootstrapForm.Label>
+                                                {/* Contact Person Full Name */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
+                                                    <InputGroup>
+                                                        <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faUser} /></InputGroup.Text>
+                                                        <BootstrapForm.Control
+                                                            type="text"
+                                                            name="contactPersonName"
+                                                            placeholder="Contact Person Full Name"
+                                                            value={values.contactPersonName}
+                                                            onChange={handleChange}
+                                                            style={inputStyle}
+                                                            isInvalid={!!touched.contactPersonName && !!errors.contactPersonName}
+                                                        />
+                                                    </InputGroup>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="contactPersonName" /></BootstrapForm.Control.Feedback>
+                                                </BootstrapForm.Group>
+
+                                                {/* Contact Email Address */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
+                                                    <InputGroup>
+                                                        <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faEnvelope} /></InputGroup.Text>
+                                                        <BootstrapForm.Control
+                                                            type="email"
+                                                            name="email"
+                                                            placeholder="Contact Email Address"
+                                                            value={values.email}
+                                                            onChange={handleChange}
+                                                            style={inputStyle}
+                                                            isInvalid={!!touched.email && !!errors.email}
+                                                        />
+                                                    </InputGroup>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="email" /></BootstrapForm.Control.Feedback>
+                                                </BootstrapForm.Group>
+
+                                                {/* Contact Person Role (Dropdown) */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
                                                     <InputGroup>
                                                         <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faUserTie} /></InputGroup.Text>
                                                         <BootstrapForm.Select
@@ -326,37 +335,11 @@ const Register: React.FC = () => {
                                                             ))}
                                                         </BootstrapForm.Select>
                                                     </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="contactPersonRole" />
-                                                    </BootstrapForm.Control.Feedback>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="contactPersonRole" /></BootstrapForm.Control.Feedback>
                                                 </BootstrapForm.Group>
-                                            </Col>
-                                        </Row>
 
-                                        <Row>
-                                            <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Location</BootstrapForm.Label>
-                                                    <InputGroup>
-                                                        <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
-                                                        <BootstrapForm.Control
-                                                            type="text"
-                                                            name="Location"
-                                                            placeholder="Organization Location (e.g., City, Country)"
-                                                            value={values.Location}
-                                                            onChange={handleChange}
-                                                            style={inputStyle}
-                                                            isInvalid={!!touched.Location && !!errors.Location}
-                                                        />
-                                                    </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="Location" />
-                                                    </BootstrapForm.Control.Feedback>
-                                                </BootstrapForm.Group>
-                                            </Col>
-                                            <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3">
-                                                    <BootstrapForm.Label style={labelStyle}>Contact Person's Phone Number</BootstrapForm.Label>
+                                                {/* Contact Person's Phone Number */}
+                                                <BootstrapForm.Group style={formGroupStyle}>
                                                     <InputGroup>
                                                         <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faPhone} /></InputGroup.Text>
                                                         <BootstrapForm.Control
@@ -369,18 +352,16 @@ const Register: React.FC = () => {
                                                             isInvalid={!!touched.phoneNumber && !!errors.phoneNumber}
                                                         />
                                                     </InputGroup>
-                                                    <BootstrapForm.Control.Feedback type="invalid">
-                                                        <ErrorMessage name="phoneNumber" />
-                                                    </BootstrapForm.Control.Feedback>
+                                                    <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="phoneNumber" /></BootstrapForm.Control.Feedback>
                                                 </BootstrapForm.Group>
                                             </Col>
-                                        </Row>
 
-                                        <Row>
+                                            {/* Passwords - Full Width at the Bottom (using two Col md=6 for the horizontal row) */}
                                             <Col md={6}>
-                                                <BootstrapForm.Group className="mb-3" controlId="password">
-                                                    <BootstrapForm.Label style={labelStyle}>Password</BootstrapForm.Label>
+                                                {/* Password */}
+                                                <BootstrapForm.Group style={formGroupStyle} controlId="password">
                                                     <InputGroup>
+                                                        {/* No prepended icon for a cleaner password field next to the other column fields */}
                                                         <BootstrapForm.Control
                                                             type={showPassword ? "text" : "password"}
                                                             name="password"
@@ -397,20 +378,20 @@ const Register: React.FC = () => {
                                                             <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEyeRegular} style={{ color: customStyles.primaryColor }} />
                                                         </InputGroup.Text>
                                                     </InputGroup>
+                                                    {/* Using d-block to ensure it displays correctly within the custom layout */}
                                                     <ErrorMessage name="password" component="div" className="invalid-feedback d-block" />
                                                 </BootstrapForm.Group>
                                             </Col>
-
                                             <Col md={6}>
-                                                <BootstrapForm.Group className="mb-4" controlId="confirmPassword">
-                                                    <BootstrapForm.Label style={labelStyle}>Confirm Password</BootstrapForm.Label>
+                                                {/* Confirm Password */}
+                                                <BootstrapForm.Group style={formGroupStyle} controlId="confirmPassword">
                                                     <InputGroup>
                                                         <BootstrapForm.Control
                                                             type={showConfirmPassword ? "text" : "password"}
                                                             name="confirmPassword"
-                                                            placeholder="Confirm Password"
                                                             value={values.confirmPassword}
                                                             onChange={handleChange}
+                                                            placeholder="Confirm Password"
                                                             style={inputStyle}
                                                             isInvalid={!!touched.confirmPassword && !!errors.confirmPassword}
                                                         />
@@ -425,21 +406,27 @@ const Register: React.FC = () => {
                                                 </BootstrapForm.Group>
                                             </Col>
                                         </Row>
-
-                                        <Button
-                                            type="submit"
-                                            className="w-100 mb-3 py-3 fw-semibold"
-                                            disabled={isLoading}
-                                            style={{
-                                                backgroundColor: customStyles.primaryColor,
-                                                borderColor: customStyles.primaryColor,
-                                                color: "white",
-                                                boxShadow: "none",
-                                                fontFamily: "body",
-                                            }}
-                                        >
-                                            {isLoading ? (<><Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" style={{ fontFamily: "heading" }} />Signing Up...</>) : ("Sign up")}
-                                        </Button>
+                                        
+                                        {/* Sign up Button */}
+                                        <div style={{ padding: '0 15px', marginTop: '1rem' }}>
+                                            <Button
+                                                type="submit"
+                                                className="w-100 py-3 fw-semibold"
+                                                disabled={isLoading}
+                                                style={{
+                                                    backgroundColor: customStyles.primaryColor,
+                                                    borderColor: customStyles.primaryColor,
+                                                    color: "white",
+                                                    boxShadow: "none",
+                                                    fontFamily: "body",
+                                                    marginBottom: '1rem'
+                                                }}
+                                            >
+                                                {isLoading ? (<><Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" style={{ fontFamily: "heading" }} />Signing Up...</>) : ("Sign up")}
+                                            </Button>
+                                        </div>
+                                        
+                                        {/* Already have an account link */}
                                         <p className="text-center mt-3 text-muted">
                                             Already have an account? <Link to="/login" style={{ color: customStyles.primaryColor, textDecoration: "none", fontWeight: "600" }}>Log in</Link>
                                         </p>
@@ -450,6 +437,8 @@ const Register: React.FC = () => {
                     </Card>
                 </div>
             </Container>
+            
+            {/* Footer Section */}
             <footer
                 className="text-center text-muted py-3 small border-top"
                 style={{
@@ -468,7 +457,7 @@ const Register: React.FC = () => {
                             className="text-muted text-decoration-none me-3"
                             style={{ fontFamily: "body" }}
                             role="button"
-                            to="/system-admin"
+                            to="/privacy-policy"
                         >
                             Privacy Policy
                         </Link>
