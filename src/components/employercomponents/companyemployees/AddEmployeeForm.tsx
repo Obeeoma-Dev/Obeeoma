@@ -23,11 +23,8 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
   const { createEmployee, isLoading } = useCreateEmployee();
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<EmployeeFormData>({
+    register, handleSubmit, formState: { errors }, reset,
+    } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeSchema),
   });
 
@@ -36,14 +33,14 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
       // Transforming form data to match API expectations
       const apiData = {
         emailAddress: data.email,
+        phoneNumber: data.phone,
         department: data.department,
       };
 
       await createEmployee(apiData);
-
       toast({
         title: "Success",
-        description: "Employee invitation sent successfully!",
+        description: "Employee invitation sent!",
         message: "Employee invitation sent successfully!",
       });
 

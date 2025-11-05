@@ -6,9 +6,13 @@
           </div>
         </div>
       </div> */}
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm"; // Adjust import path as needed
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEmployeeInvites, clearEmployerError } from "../../../store/slices/employerSlice";
+import { RootState } from "../../../store/store";
+import { useToast } from "../../../hooks/use-toast";
 
 interface Employee {
   id: number;
@@ -25,43 +29,44 @@ interface EmployeeTableProps {
 }
 
 const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
-  // TODO: Replace with API data
-  const [employees, setEmployees] = useState<Employee[]>([
-    {
-      id: 1,
-      name: "Paul Lwanga",
-      email: "paul@example.com",
-      department: "Marketing",
-      status: "Active",
-      avatar: "J",
-    },
-    {
-      id: 2,
-      name: "Alex Agbonifo",
-      email: "alex@example.com",
-      department: "HR",
-      status: "Active",
-      avatar: "A",
-    },
-    {
-      id: 3,
-      name: "Sam Mukwano",
-      email: "sam@example.com",
-      department: "Finance",
-      status: "Active",
-      avatar: "S",
-    },
-    {
-      id: 4,
-      name: "Orena",
-      email: "orenagedion2020@gmail.com",
-      department: "Engineering",
-      status: "Pending",
-      avatar: "O",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const { toast } = useToast();
+  const { invites, isLoading, error } = useSelector((state: RootState) => state.employer);
+
+  // Transform invites to employee format for display
+  interface Invite {
+    id: number;
+    email: string;
+    status: 'accepted' | 'pending' | 'rejected' | string;
+  }
+
+  const employees: Employee[] = (invites as Invite[]).map((invite: Invite): Employee => ({
+    id: invite.id,
+    name: invite.email,
+    email: invite.email,
+    department: "Other",
+    status: invite.status === 'accepted' ? 'Active' : invite.status === 'pending' ? 'Pending' : 'Inactive',
+    avatar: invite.email.charAt(0).toUpperCase(),
+  }));
 
   const [showModal, setShowModal] = useState(false);
+
+  // Fetch employee invites on component mount
+  useEffect(() => {
+    dispatch(fetchEmployeeInvites());
+  }, [dispatch]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        message: error,
+      });
+      dispatch(clearEmployerError());
+    }
+  }, [error, toast, dispatch]);
 
   const filteredEmployees = employees.filter(
     (emp) =>
@@ -71,13 +76,13 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   );
 
   const handleStatusChange = (employeeId: number, checked: boolean) => {
-    setEmployees(prevEmployees => 
-      prevEmployees.map(emp => 
-        emp.id === employeeId 
-          ? { ...emp, status: checked ? "Active" : "Inactive" }
-          : emp
-      )
-    );
+    // Note: Status changes should be handled via API call in a real implementation
+    // For now, we'll show a toast indicating this feature needs backend integration
+    toast({
+      title: "Feature Not Implemented",
+      description: "Status changes require backend API integration",
+      message: "Status changes require backend API integration",
+    });
   };
 
   const loadAddEmployeeForm = () => {
@@ -89,9 +94,13 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   }
 
   const handleEmployeeAdded = () => {
-    // Refresh employee list or show success message
-    console.log("Employee added successfully");
-    // You can refetch employees here or update the state
+    // Refresh the employee invites list after adding a new employee
+    dispatch(fetchEmployeeInvites());
+    toast({
+      title: "Success",
+      description: "Employee invitation sent successfully!",
+      message: "Employee invitation sent successfully!",
+    });
   }
 
   return (
@@ -107,14 +116,12 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                 placeholder="Search employees..."
                 className="form-control ps-5"
                 value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-              />
+                onChange={(e) => onSearchChange(e.target.value)} />
             </div>
             <button 
               type="button" 
               className="btn btn-success" 
-              onClick={loadAddEmployeeForm}
-            > 
+              onClick={loadAddEmployeeForm} > 
               Add Employee
             </button>
           </div>
