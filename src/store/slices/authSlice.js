@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
     }
 });
 // Register Thunk
-export const registerUser = createAsyncThunk("/organization-signup/", async (credentials, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk("auth/organization-signup/", async (credentials, { rejectWithValue }) => {
     const dataWithDefaultRole = {
         ...credentials,
         role: credentials.role || 'employer'
