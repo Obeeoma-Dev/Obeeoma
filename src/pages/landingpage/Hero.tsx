@@ -1,5 +1,5 @@
 // Import React and required hooks
-import React from "react";
+import React, { useEffect } from "react";
 
 // Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
@@ -10,6 +10,9 @@ import heroImage from "@/assets/Images/headerimage.png";
 // Import navigation hook from React Router
 import { useNavigate } from "react-router-dom";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 /**
  * Hero component: renders the landing section with background image,
@@ -17,6 +20,13 @@ import { useNavigate } from "react-router-dom";
  */
 const Hero = () => {
   const navigate = useNavigate(); // Enables navigation via buttons
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // animation duration in ms
+      once: true,     // only animate once
+    });
+  }, []);
 
   return (
     <section
@@ -37,12 +47,13 @@ const Hero = () => {
         className="hero-content container text-center text-lg-start"
         style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }} >
         <Row className="align-items-center" style={{ paddingTop: "4rem" }}>
-          <Col lg={6} className="mb-5 mb-lg-0">
+          <Col lg={6} className="mb-5 mb-lg-0" data-aos="fade-up">
             <h1 className="fw-bold display-5 mb-3"
               style={{ fontFamily: 'heading' }}>
               Start Your Journey to Better Mental Health
             </h1>
             <p
+              data-aos="fade-left" data-aos-delay="100"
               className="lead mb-4"
               style={{
                 color: "rgba(255, 255, 255, 0.9)",
@@ -58,7 +69,7 @@ const Hero = () => {
           <Col
             lg={6}
             className="d-flex justify-content-end"
-
+            data-aos="fade-up" data-aos-delay="200"
             style={{ position: "relative", top: "150px" }}
           >
             {/* Wrapper div to handle button layout and spacing */}

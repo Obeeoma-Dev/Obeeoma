@@ -1,16 +1,26 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+// Import React and required hooks
+import { useEffect } from "react";
 // Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
 // Import the hero image (mocked in tests)
 import heroImage from "@/assets/Images/headerimage.png";
 // Import navigation hook from React Router
 import { useNavigate } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 /**
  * Hero component: renders the landing section with background image,
  * heading, description, and navigation buttons.
  */
 const Hero = () => {
     const navigate = useNavigate(); // Enables navigation via buttons
+    useEffect(() => {
+        AOS.init({
+            duration: 1000, // animation duration in ms
+            once: true, // only animate once
+        });
+    }, []);
     return (_jsx("section", { className: "hero-section d-flex", style: {
             position: "relative",
             minHeight: "100vh",
@@ -21,11 +31,11 @@ const Hero = () => {
             color: "#fff",
             paddingTop: "80px",
             WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0) 100%)"
-        }, children: _jsx("div", { className: "hero-content container text-center text-lg-start", style: { position: "relative", zIndex: 2, paddingTop: "4rem" }, children: _jsxs(Row, { className: "align-items-center", style: { paddingTop: "4rem" }, children: [_jsxs(Col, { lg: 6, className: "mb-5 mb-lg-0", children: [_jsx("h1", { className: "fw-bold display-5 mb-3", style: { fontFamily: 'heading' }, children: "Start Your Journey to Better Mental Health" }), _jsx("p", { className: "lead mb-4", style: {
+        }, children: _jsx("div", { className: "hero-content container text-center text-lg-start", style: { position: "relative", zIndex: 2, paddingTop: "4rem" }, children: _jsxs(Row, { className: "align-items-center", style: { paddingTop: "4rem" }, children: [_jsxs(Col, { lg: 6, className: "mb-5 mb-lg-0", "data-aos": "fade-up", children: [_jsx("h1", { className: "fw-bold display-5 mb-3", style: { fontFamily: 'heading' }, children: "Start Your Journey to Better Mental Health" }), _jsx("p", { "data-aos": "fade-left", "data-aos-delay": "100", className: "lead mb-4", style: {
                                     color: "rgba(255, 255, 255, 0.9)",
                                     fontSize: "1.25rem",
                                     fontFamily: 'heading'
-                                }, children: "Obeeoma professional mental health service." })] }), _jsx(Col, { lg: 6, className: "d-flex justify-content-end", style: { position: "relative", top: "150px" }, children: _jsxs("div", { className: "d-flex flex-column flex-sm-row gap-3", children: [_jsx(Button, { className: "rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
+                                }, children: "Obeeoma professional mental health service." })] }), _jsx(Col, { lg: 6, className: "d-flex justify-content-end", "data-aos": "fade-up", "data-aos-delay": "200", style: { position: "relative", top: "150px" }, children: _jsxs("div", { className: "d-flex flex-column flex-sm-row gap-3", children: [_jsx(Button, { className: "rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
                                     , style: {
                                         backgroundColor: "#3CB371", // Initial gree#3CB371n background
                                         borderColor: "#3CB371", // Match border with background

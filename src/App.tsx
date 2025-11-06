@@ -167,73 +167,76 @@ import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
+import Aboutus from "./pages/landingpage/About/about";
 
 
 const queryClient = new QueryClient();
 
 export default function App(): React.ReactElement {
-  
+
   return (
 
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <BrowserRouter>
-            {/* all routes */}
-            <Provider store={store}>
-              <Routes>
-                {/* === PUBLIC ROUTES === */}
-                <Route path="/" element={<Navigate to="/index" replace />} />
-                <Route path="/index" element={<Index />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<CreateAccount />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
-                <Route path="/accept-invite" element={<AcceptInvite />} />
-                <Route path="/otp-verify" element={<OtpVerificationPage />} />
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <BrowserRouter>
+          {/* all routes */}
+          <Provider store={store}>
+            <Routes>
+              {/* === PUBLIC ROUTES === */}
+              <Route path="/" element={<Navigate to="/index" replace />} />
+              <Route path="/index" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<CreateAccount />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+              <Route path="/accept-invite" element={<AcceptInvite />} />
+              <Route path="/otp-verify" element={<OtpVerificationPage />} />
+              <Route path="/aboutus" element={<Aboutus />} />
+              
 
 
-                {/* === PROTECTED ROUTES === */}
-                {/* To activate ProtectedRoute, uncomment the block below and the imports above */}
-                {/* <Route element={<ProtectedRoute />}> */}
-                
-                {/* EMPLOYEE'S ROUTES */}
-                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              {/* === PROTECTED ROUTES === */}
+              {/* To activate ProtectedRoute, uncomment the block below and the imports above */}
+              {/* <Route element={<ProtectedRoute />}> */}
 
-                {/* EMPLOYER'S ROUTES */}
-                <Route path="/organization-reports" element={<CompanyReports />} />
-                <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-                <Route path="/employer-subscription" element={<EmployerSubscription />} />
-                <Route path="/employee-management" element={<EmployeeManagement />} />
-                <Route path="/employer-profile" element={<EmployerAccountProfile />} />
-                <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
-                <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
+              {/* EMPLOYEE'S ROUTES */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+
+              {/* EMPLOYER'S ROUTES */}
+              <Route path="/organization-reports" element={<CompanyReports />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/employer-subscription" element={<EmployerSubscription />} />
+              <Route path="/employee-management" element={<EmployeeManagement />} />
+              <Route path="/employer-profile" element={<EmployerAccountProfile />} />
+              <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
+              <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
 
 
-                {/* SYSTEMS ADMIN ROUTES */}
-                <Route path="/system-admin/organizations" element={<Organisation />} />
-                <Route path="/systemadmin/organizations/:id" element={<OrganisationDetails />} />
-                <Route path="/system-admin/client-engagement" element={<ClientEngagement />} />
-                <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
-                <Route path="/system-admin/hotline-activity" element={<HotlineActivity />} />
-                <Route path="/system-admin/Subscriptions" element={<SubscriptionPage />} />
-                <Route path="/system-admin/reports" element={<ReportPage />} />
-                
-                {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
-                <Route path="/system-admin" element={<SysAdminDashboard />} />
-                <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
-                <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
+              {/* SYSTEMS ADMIN ROUTES */}
+              <Route path="/system-admin/organizations" element={<Organisation />} />
+              <Route path="/systemadmin/organizations/:id" element={<OrganisationDetails />} />
+              <Route path="/system-admin/client-engagement" element={<ClientEngagement />} />
+              <Route path="/system-admin/ai-management" element={<AIRecommendationsPage />} />
+              <Route path="/system-admin/hotline-activity" element={<HotlineActivity />} />
+              <Route path="/system-admin/Subscriptions" element={<SubscriptionPage />} />
+              <Route path="/system-admin/reports" element={<ReportPage />} />
 
-                {/* Duplicate routes removed for cleaner code */}
+              {/* SYSTEMS ADMIN, SETTING'S ROUTES */}
+              <Route path="/system-admin" element={<SysAdminDashboard />} />
+              <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
+              <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
 
-                {/* === CATCH-ALL ROUTE === */}
-                <Route path="*" element={<NotFound />} />
-                {/* </Route> */}
-              </Routes>
-            </Provider>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    
+              {/* Duplicate routes removed for cleaner code */}
+
+              {/* === CATCH-ALL ROUTE === */}
+              <Route path="*" element={<NotFound />} />
+              {/* </Route> */}
+            </Routes>
+          </Provider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+
   );
 }
