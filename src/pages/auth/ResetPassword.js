@@ -48,6 +48,7 @@ const ResetPassword = () => {
             // Ensure the error is handled safely (e.g., convert to string)
             const errorMessage = typeof error === 'string'
                 ? error
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 : error?.message || "Failed to reset password. Please try again.";
             setApiError(errorMessage);
         }

@@ -81,6 +81,7 @@ const ResetPassword: React.FC = () => {
       // Ensure the error is handled safely (e.g., convert to string)
       const errorMessage = typeof error === 'string'
         ? error
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         : (error as any)?.message || "Failed to reset password. Please try again.";
       setApiError(errorMessage);
     } finally {

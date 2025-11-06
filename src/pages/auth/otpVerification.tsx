@@ -88,6 +88,7 @@ export default function OtpVerificationPage() {
         console.error('OTP Verification Failed:', err);
         // Safely extract the error message from the thunk's rejected value
         const errorMessage =
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (err as any)?.message || (err as string) || 'Verification failed. Please check the code.';
         setLocalError(errorMessage);
         setOtp(''); // Clear OTP on failed attempt for security/fresh start
@@ -114,6 +115,7 @@ export default function OtpVerificationPage() {
       .catch((err: any) => {
         console.error('Resend Failed:', err);
         // Safely extract the error message
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
         setLocalError(errorMessage);
       })

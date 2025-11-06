@@ -34,7 +34,7 @@ export const registerValidationSchema = yup.object().shape({
     phoneNumber: yup
         .string()
         // Simple regex for a typical phone number format check (you may need to adjust this for specific international standards)
-        .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, "Invalid phone number format")
+        .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/, "Invalid phone number format")
         .min(10, "Phone number must be at least 10 digits")
         .required("Contact Person's Phone Number is required"),
     // Password Fields
