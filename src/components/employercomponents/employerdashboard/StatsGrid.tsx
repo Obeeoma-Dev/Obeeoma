@@ -25,7 +25,11 @@ const StatsGrid = ({ stats }: StatsGridProps) => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="row g-2 mb-4 align-items-center">
+=======
+    <div className="row g-2 mb-4">
+>>>>>>> syda
       {stats.map((stat) => {
         const IconComponent = getIcon(stat.icon);
   
