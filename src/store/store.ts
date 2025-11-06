@@ -9,6 +9,7 @@ export const store = configureStore({
     auth: authReducer,
     admin: adminReducer,
     employer: employerReducer,
+  
   },
 });
 

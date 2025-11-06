@@ -3,8 +3,13 @@ import { useState } from "react";
 const DEFAULT_FETCH_OPTIONS = {};
 
 type UseFetchProps = {
+<<<<<<< HEAD
   url: string ;
   method: "GET" | "POST" | "PUT" | "DELETE";
+=======
+  url: string;
+  method: "GET" | "POST" | "PUT" | "DELETE"
+>>>>>>> syda
 };
 
 type CommonFetch = {

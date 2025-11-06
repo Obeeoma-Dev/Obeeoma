@@ -35,7 +35,11 @@ describe("Hero Component", () => {
     renderHero();
 
     // Verify Sign Up button is there
+<<<<<<< HEAD
     expect(screen.getByText("For Organisations")).toBeInTheDocument();
+=======
+    expect(screen.getByText("Sign Up For Organization")).toBeInTheDocument();
+>>>>>>> syda
 
     // Verify Sign In button is there
     expect(screen.getByText("For employees")).toBeInTheDocument();

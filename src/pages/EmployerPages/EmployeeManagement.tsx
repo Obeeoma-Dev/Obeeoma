@@ -3,15 +3,22 @@ import Layout from "../../components/employercomponents/shared/Layout";
 import EmployeeTable from "../../components/employercomponents/companyemployees/EmployeeTable";
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { Plus } from "lucide-react";
+<<<<<<< HEAD
 import {Provider} from "react-redux";
 import {store} from "../../store/store";
+=======
+>>>>>>> syda
 
 const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const additionalHeader = (
     <button className="btn btn-success d-flex align-items-center gap-2">
+<<<<<<< HEAD
       <Plus size={16} className="text-white" />
+=======
+      <Plus size={16} />
+>>>>>>> syda
       Add Employee
     </button>
   );
@@ -25,10 +32,14 @@ const EmployeeManagement = () => {
         <div className="container-fluid py-4 px-3">
           <div className="col-lg-12 col-md-9 col-sm-6 mx-auto">
           <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+<<<<<<< HEAD
 
           <Provider store={store}>
           <AddEmployeeForm />
           </Provider>
+=======
+          <AddEmployeeForm />
+>>>>>>> syda
       </div></div></div>
     </Layout>
   );

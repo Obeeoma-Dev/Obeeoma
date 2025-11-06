@@ -58,7 +58,11 @@ const Hero = () => {
           <Col
             lg={6}
             className="d-flex justify-content-end"
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> syda
             style={{ position: "relative", top: "150px" }}
           >
             {/* Wrapper div to handle button layout and spacing */}
@@ -87,7 +91,11 @@ const Hero = () => {
                 // Navigate to signup page when clicked
                 onClick={() => navigate("/signup")}
               >
+<<<<<<< HEAD
                 For Organisations
+=======
+                Sign Up For Organization
+>>>>>>> syda
               </Button>
 
               {/* === Secondary Button: Soft white background, green text === */}
@@ -115,7 +123,11 @@ const Hero = () => {
                 // Navigate to login page when clicked
                 onClick={() => navigate("/login")}
               >
+<<<<<<< HEAD
                 For employees
+=======
+                Sign In
+>>>>>>> syda
               </Button>
             </div>
           </Col>
