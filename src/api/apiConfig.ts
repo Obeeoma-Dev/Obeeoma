@@ -11,7 +11,7 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 
-export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -25,8 +25,10 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         const requestPath = config.url || '';
         const publicEndpoints = [
                 "/v1/auth/login/",
-                "/v1/auth/signup/",
-                "/v1/auth/reset-password/", 
+                "/v1/organization-signup/",
+                "/v1/auth/reset-password/",
+                "/v1/auth/change-password",
+                
                 
               ];
             
@@ -95,6 +97,8 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       return Promise.reject(error);
     }
   );
+ 
+ 
 
 }
 export const authAPI = {
@@ -106,12 +110,24 @@ export const authAPI = {
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/v1/auth/signup/", {
-      username: credentials.username,
-      email: credentials.email,
+    const response = await api.post("/v1/organization-signup/", {
+      
+      organizationName: credentials.organizationName,
+      phoneNumber: credentials.phoneNumber,
+      organisationSize: credentials.organisationSize, 
+      companyEmail: credentials.companyEmail,
+      Location: credentials.Location,
+      contactPerson: [
+        {
+          fullname: credentials.contactPerson[0].fullname,
+          role: credentials.contactPerson[0].role,
+          email: credentials.contactPerson[0].email, 
+        },
+      ],
+
       password: credentials.password,
-      confirm_password: credentials.confirm_password,
-      role: credentials.role,
+      confirmPassword: credentials.confirmPassword,
+ 
     });
 
     if (response.data.access) {
@@ -160,7 +176,7 @@ verifyOtp: async()=>{
 },
 
 resendOtp: ({ email }: { email: string }) => {
-        return api.post('/auth/resend-otp', { email });
+        return api.post('v1/auth/reset-password/confirm', { email });
     
     },
 };
@@ -236,6 +252,8 @@ export const adminAPI = {
     const response = await api.get("/v1/admin/trends");
     return response;
   },
+
+  
 
   viewInviteEmployee: async () => {
     const response = await api.get("/v1/employers/view-invites/");

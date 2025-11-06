@@ -26,12 +26,4 @@ dist-ssr
 .env
 
 package-lock.json
-
-
-# Ignore TypeScript build info
-*.tsbuildinfo
-# Ignore generated JavaScript files
-# This assumes the .js files are outputs/copies of your .ts files.
-src/**/*.js
-src/**/*.jsx
 node_modules/

@@ -32,7 +32,11 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
     }
 });
 // Register Thunk
+<<<<<<< HEAD
 export const registerUser = createAsyncThunk("auth/signup", async (credentials, { rejectWithValue }) => {
+=======
+export const registerUser = createAsyncThunk("auth/organization-signup/", async (credentials, { rejectWithValue }) => {
+>>>>>>> syda
     const dataWithDefaultRole = {
         ...credentials,
         role: credentials.role || 'employer'

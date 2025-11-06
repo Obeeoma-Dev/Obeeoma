@@ -502,7 +502,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
+<<<<<<< HEAD
 import logo from "./../../assets/Images/green..png"; 
+=======
+import logo from "./../../assets/Images/obeeomalogoword1.png"; 
+>>>>>>> syda
 
 
 const customStyles = {
@@ -577,15 +581,22 @@ const ResetPassword: React.FC = () => {
     <div
       style={{
         backgroundColor: "#f5f5f5",
+<<<<<<< HEAD
         minHeight: "100vh",
         padding: "50px 0 100px 0",
         position: "relative",
+=======
+        height: "100vh",
+        overflow: "auto",
+        paddingBottom: "80px",
+>>>>>>> syda
       }}
       className="d-flex justify-content-center align-items-center"
     >
       <Container>
         <div className="d-flex justify-content-center">
           <Card
+<<<<<<< HEAD
            className="shadow-sm border-0 p-4"
             style={{
               maxWidth: "600px", 
@@ -593,6 +604,15 @@ const ResetPassword: React.FC = () => {
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
             }} 
+=======
+            className="shadow-sm border-0 p-4"
+            style={{
+              maxWidth: "600px",
+              width: "100%",
+              borderRadius: "8px",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+            }}
+>>>>>>> syda
           >
             <Card.Body>
               {/*  Header and Logo  */}
@@ -600,6 +620,7 @@ const ResetPassword: React.FC = () => {
                 <img
                   src={logo}
                   alt="Obeeoma Logo"
+<<<<<<< HEAD
                   width="100"
                   className="mb-1"
                 />
@@ -608,6 +629,19 @@ const ResetPassword: React.FC = () => {
                 Reset Your Password
               </h3>
               <p className="text-muted mb-4 small " style={{ fontFamily: "body" }}>
+=======
+                  style={{
+                    height: "50px",
+                    width: "auto"
+                  }}
+                  className="mb-1"
+                />
+              </div>
+              <h3 className="mb-2 fw-semibold text-dark" style={{ fontFamily: "body", textAlign: "center" , fontSize: "24px" }}>
+                Reset Your Password
+              </h3>
+              <p className="text-muted mb-4 small " style={{ fontFamily: "body", textAlign: "center" , fontSize: "14px" }}>
+>>>>>>> syda
                 Enter the code and your new password.
               </p>
 
@@ -635,7 +669,11 @@ const ResetPassword: React.FC = () => {
                   {values.confirmNewPassword }-
                   {values.password }
                     {/* Code Field */}
+<<<<<<< HEAD
                     <BootstrapForm.Group className="mb-3" controlId="code">
+=======
+                    {/* <BootstrapForm.Group className="mb-3" controlId="code">
+>>>>>>> syda
                       <BootstrapForm.Control
                         type="text"
                         name="code" 
@@ -648,7 +686,11 @@ const ResetPassword: React.FC = () => {
                       <BootstrapForm.Control.Feedback type="invalid">
                         {errors.code}
                       </BootstrapForm.Control.Feedback>
+<<<<<<< HEAD
                     </BootstrapForm.Group>
+=======
+                    </BootstrapForm.Group> */}
+>>>>>>> syda
 
                     {/* New Password Field  */}
                     <BootstrapForm.Group className="mb-3" controlId="password"> 

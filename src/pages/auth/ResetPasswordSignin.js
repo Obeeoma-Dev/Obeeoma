@@ -319,7 +319,11 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, } from "react-bootstrap";
+<<<<<<< HEAD
 import logo from "./../../assets/Images/green..png";
+=======
+import logo from "./../../assets/Images/obeeomalogoword1.png";
+>>>>>>> syda
 const customStyles = {
     primaryColor: "#3CB371", // Used for links and accents
 };
@@ -340,7 +344,11 @@ const ResetPasswordSignIn = () => {
         }
         setIsLoading(true);
         try {
+<<<<<<< HEAD
             const API_URL = "https://api-0904.onrender.com/api/v1/auth/accept-invite/";
+=======
+            const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password/";
+>>>>>>> syda
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
@@ -380,14 +388,21 @@ const ResetPasswordSignIn = () => {
     // 1. Full Page Container with positioning for the fixed footer
     _jsxs("div", { style: {
             backgroundColor: "#f5f5f5",
+<<<<<<< HEAD
             minHeight: "100vh",
             padding: "50px 0 100px 0", // Extra padding for fixed footer
             position: "relative",
+=======
+            height: "100vh",
+            overflow: "auto",
+            paddingBottom: "80px",
+>>>>>>> syda
         }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
                             maxWidth: "600px", // Card width limit
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+<<<<<<< HEAD
                         }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: [_jsx("img", { src: logo, alt: "Obeeoma Logo", width: "100", className: "mb-1" }), _jsx("p", { className: "m-0 text-center", children: _jsx("small", { style: {
                                                     // Uses the custom primary color for the logo text
                                                     color: customStyles.primaryColor,
@@ -395,6 +410,12 @@ const ResetPasswordSignIn = () => {
                                                     fontWeight: "500",
                                                     fontFamily: "heading"
                                                 } }) })] }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
+=======
+                        }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
+                                            height: "50px",
+                                            width: "auto"
+                                        }, className: "mb-1" }) }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading", textAlign: "center", fontSize: "24px" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading", textAlign: "center", fontSize: "14px" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
+>>>>>>> syda
                                                         ? {
                                                             borderColor: "red",
                                                             borderWidth: "1.5px",

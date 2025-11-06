@@ -129,10 +129,11 @@ import React from "react";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Router, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store"; // Adjusted path for clarity
 // import OtpInput from './components/OtpComponent'; 
+import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Import your AuthProvider and ProtectedRoute
@@ -143,7 +144,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
-import CreateAccount from "./pages/auth/Register";
+import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
@@ -178,15 +179,16 @@ export default function App(): React.ReactElement {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
-          <BrowserRouter>
+           <BrowserRouter> 
             {/* all routes */}
             <Provider store={store}>
+              {/* <Router> */}
               <Routes>
                 {/* === PUBLIC ROUTES === */}
                 <Route path="/" element={<Navigate to="/index" replace />} />
                 <Route path="/index" element={<Index />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<CreateAccount />} />
+                <Route path="/signup" element={<Register />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
                 <Route path="/accept-invite" element={<AcceptInvite />} />
@@ -230,6 +232,7 @@ export default function App(): React.ReactElement {
                 <Route path="*" element={<NotFound />} />
                 {/* </Route> */}
               </Routes>
+              {/* </Router> */}
             </Provider>
           </BrowserRouter>
         </TooltipProvider>
