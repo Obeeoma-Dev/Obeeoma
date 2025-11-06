@@ -66,13 +66,10 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     setIsChecked(checked);
   };
 
-<<<<<<< HEAD
   const loadAddEmployeeForm = () => {
     // Logic to load the Add Employee form/modal
   }
 
-=======
->>>>>>> syda
 
   return (
     <>
@@ -86,13 +83,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       </div>
 
       {/* Search Section */}
-<<<<<<< HEAD
       <div className="row mb-3">
         <div className="col-8 col-md-6">
-=======
-      <div className="row mb-4">
-        <div className="col-12 col-md-6">
->>>>>>> syda
           <div className="position-relative">
             <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
             <input
@@ -104,7 +96,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
             />
           </div>
         </div>
-<<<<<<< HEAD
         <div className="col-4 col-md-6 text-end"></div> 
           <button type="button" className="btn btn-success" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
             onClick={loadAddEmployeeForm}> 
@@ -149,9 +140,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
             </div>
           </div>
         </div>
-=======
-      </div>
->>>>>>> syda
 
       {/* Employees Table */}
       <div className="row">
@@ -166,11 +154,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                       <th className="border-0 py-3 text-muted fw-normal">Email</th>
                       <th className="border-0 py-3 text-muted fw-normal">Department</th>
                       <th className="border-0 py-3 text-muted fw-normal">Status</th>
-<<<<<<< HEAD
                       <th className="border-0 py-3 text-muted fw-normal text-end">Deactivate</th>
-=======
-                      <th className="border-0 pe-4 py-3 text-muted fw-normal text-end">Deactivate</th>
->>>>>>> syda
                     </tr>
                   </thead>
                   <tbody>
@@ -191,7 +175,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                             {employee.status}
                           </span>
                         </td>
-<<<<<<< HEAD
                         <td className="py-3 text-end">
                           <Checkbox checked={isChecked} onCheckedChange={handleChange} 
                             className="cursor-pointer " />
@@ -202,11 +185,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                               onChange={(e) => handleToggleChange(item.key, e.target.checked)}
                               style={{ width: "3em", height: "1.5em" }}
                             /> */}
-=======
-                        <td className="pe-4 py-3 text-end">
-                          <Checkbox checked={isChecked} onCheckedChange={handleChange} 
-                            className="cursor-pointer w-19 h-18" />
->>>>>>> syda
                         </td>
                       </tr>
                     ))}
