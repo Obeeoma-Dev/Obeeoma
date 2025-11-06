@@ -26,23 +26,16 @@ export default function OtpVerificationPage() {
     };
     const { user, isLoading, error: authError } = useSelector((state) => state.auth);
     const dashboardRoute = useSelector(selectUserDashboardRoute);
-    // Use the email for the OTP process, typically from the user object after login/registration
-    // NOTE: If this page is used for *Password Reset*, the email should come from
-    // a separate state (like a resetPasswordSlice) or query parameter, not the auth.user object.
     const email = user?.email;
     useEffect(() => {
-        // 1. Guard against direct access if the user state is empty/unintended for verification
-        // *CORRECTION*: Changed target of fallback navigation from '/otp-verify' (which loops) to '/login'.
         if (!user || !email) {
-            navigate('/login', { replace: true });
+            navigate('/otp-verify', { replace: true });
             return;
         }
-        // 2. Redirect if already verified (Standard Registration Flow)
+        // 2. Redirect if already 
         if (user.is_verified) {
-            navigate(dashboardRoute || '/login', { replace: true });
+            navigate(dashboardRoute || '/otp-verify', { replace: true });
         }
-        // NOTE: If this component is *only* for Password Reset, the logic above (checking user status) 
-        // should be replaced with checks for the reset token/state.
     }, [email, user, navigate, dashboardRoute]);
     // Effect to clear local error when OTP changes
     useEffect(() => {
@@ -62,9 +55,6 @@ export default function OtpVerificationPage() {
         }))
             .unwrap()
             .then(() => {
-            // Successful verification - Navigate to the next appropriate route.
-            // If this is *registration* verification, navigate to the dashboard.
-            // If this is *password reset*, navigate to the password change page.
             navigate(dashboardRoute || '/login', { replace: true });
         })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -86,8 +76,6 @@ export default function OtpVerificationPage() {
         dispatch(resendOtpThunk({ email }))
             .unwrap()
             .then(() => {
-            // Use a less intrusive method than `alert`, like a toast or notification.
-            // For this example, an alert is kept but a comment added.
             window.alert('New verification code sent to your email!');
             setOtp(''); // Clear OTP input after resend
         })

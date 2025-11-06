@@ -681,7 +681,6 @@
 // };
 
 // export default ResetPasswordSignIn;
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -692,11 +691,10 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-import logo from "./../../assets/Images/obeeomalogoword1.png"; 
+import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
   primaryColor: "#3CB371", // Used for links and accents
-  
 };
 
 // --- Component Definition ---
@@ -710,7 +708,7 @@ const ResetPasswordSignIn: React.FC = () => {
   const navigate = useNavigate();
 
   // Mock validation and submission
-  const handleSubmit = async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -719,52 +717,53 @@ const ResetPasswordSignIn: React.FC = () => {
       return;
     }
 
-    
     setIsLoading(true);
-    try{
-      const API_URL="https://api-0904.onrender.com/api/v1/auth/reset-password/";
-    
+    try {
+      const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password/";
 
-      const response = await fetch(API_URL,{
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-       },
-      body: JSON.stringify({ email }),
-        
+        },
+        body: JSON.stringify({ email }),
       });
 
-      if (!response.ok){
+      if (!response.ok) {
         const errorData = await response.json()
         throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
       }
-     setIsEmailSent(true);
-
-     navigate("/reset-password");
-    } catch(err: unknown){
-      console.error("Forgot Password Error:", err);
-     
-     let errorMessage = "An unexpected error occurred. Please try again.";
-
-    // Narrow the type to access the 'message' property
-    if (err instanceof Error) {
-      errorMessage = err.message;
-    }
-    
-    setError(errorMessage)
       
-      } finally{
-      setIsLoading(false);
+      setIsEmailSent(true);
+      // Navigate only if the API call is successful and an email is sent
+      navigate("/reset-password");
+    } catch (err: unknown) {
+      console.error("Forgot Password Error:", err);
+
+      let errorMessage = "An unexpected error occurred. Please try again.";
+
+      // Narrow the type to access the 'message' property
+      if (err instanceof Error) {
+        errorMessage = err.message;
       }
+
+      setError(errorMessage)
+
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleResendCode = () => {
-    
+    setError(null); // Clear previous error
     setIsEmailSent(false);
     setIsLoading(true);
+    
+    // Simulate API call for resend
     setTimeout(() => {
       setIsLoading(false);
       setIsEmailSent(true);
+      // NOTE: In a real app, you would typically call handleSubmit or a similar function here.
     }, 1500);
   };
 
@@ -779,8 +778,6 @@ const ResetPasswordSignIn: React.FC = () => {
       }}
       className="d-flex justify-content-center align-items-center"
     >
-
-
       <Container>
         <div className="d-flex justify-content-center">
           <Card
@@ -793,40 +790,36 @@ const ResetPasswordSignIn: React.FC = () => {
             }}
           >
             <Card.Body>
-                    <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{fontFamily: "heading"}}>
-      <img
-      src={logo}
-      alt="Obeeoma Logo"
-      style={{
-        height: "50px",
-        width: "auto"
-      }}
-      className="mb-1"
-      />
-      </div>
-              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading" , textAlign: "center" , fontSize: "24px" }}>
+              {/* Header and Logo */}
+              <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+                <img
+                  src={logo}
+                  alt="Obeeoma Logo"
+                  style={{
+                    height: "50px",
+                    width: "auto"
+                  }}
+                  className="mb-1"
+                />
+              </div>
+              <h3 className="display-6 fw-bold mb-1" style={{ fontFamily: "heading", textAlign: "center", fontSize: "24px" }}>
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 " style={{fontFamily:"heading" , textAlign: "center" , fontSize: "14px" }}>Send code to email</p>
+              <p className="text-muted mb-4 " style={{ fontFamily: "heading", textAlign: "center", fontSize: "14px" }}>Send code to email</p>
 
-              {/* Error Alert */}
-              {error && (
-                <Alert variant="danger" className="py-2">
-                  {error}
-                </Alert>
-              )}
-              {/* Error Alert */}
+              {/* Error Alert (Only one is needed) */}
               {error && (
                 <Alert variant="danger" className="py-2">
                   {error}
                 </Alert>
               )}
 
+              {/* Bootstrap Form (Only one is needed) */}
               <BootstrapForm noValidate onSubmit={handleSubmit}>
                 {/* Email Field */}
                 <BootstrapForm.Group className="mb-4">
                   <BootstrapForm.Control
-                    
+
                     type="email"
                     name="email"
                     placeholder="Email address"
@@ -837,41 +830,11 @@ const ResetPasswordSignIn: React.FC = () => {
                     style={
                       error
                         ? {
-                            borderColor: "red",
-                            borderWidth: "1.5px",
-                            fontFamily: "body",
-                            
-                          }
-                        : {}
-                    }
-                  />
-                  {/* Custom Error Message Display based on your image */}
-                  {error && (
-                    <div className="invalid-feedback d-block small mt-1 text-danger">
-                      {error}
-                    </div>
-                  )}
-                </BootstrapForm.Group>
-              <BootstrapForm noValidate onSubmit={handleSubmit}>
-                {/* Email Field */}
-                <BootstrapForm.Group className="mb-4">
-                  <BootstrapForm.Control
-                    
-                    type="email"
-                    name="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="py-2"
-                    isInvalid={!!error}
-                    style={
-                      error
-                        ? {
-                            borderColor: "red",
-                            borderWidth: "1.5px",
-                            fontFamily: "body",
-                            
-                          }
+                          borderColor: "red",
+                          borderWidth: "1.5px",
+                          fontFamily: "body",
+
+                        }
                         : {}
                     }
                   />
@@ -887,7 +850,7 @@ const ResetPasswordSignIn: React.FC = () => {
                   type="submit"
                   className="w-100 mb-3 py-2 fw-semibold"
                   disabled={isLoading || isEmailSent}
-                  style={{ // <-- UPDATED
+                  style={{
                     backgroundColor: customStyles.primaryColor,
                     borderColor: customStyles.primaryColor,
                     color: "white",
@@ -904,7 +867,7 @@ const ResetPasswordSignIn: React.FC = () => {
                         role="status"
                         aria-hidden="true"
                         className="me-2"
-                        style={{fontFamily:"body"}}
+                        style={{ fontFamily: "body" }}
                       />
                       Sending...
                     </>
@@ -914,9 +877,9 @@ const ResetPasswordSignIn: React.FC = () => {
                 </Button>
               </BootstrapForm>
 
-              {/* Resend Code  */}
+              {/* Resend Code */}
               <div className="text-center mt-3">
-                <span className="text-center text-muted small" style={{fontFamily: "body"}}>
+                <span className="text-center text-muted small" style={{ fontFamily: "body" }}>
                   Didn't receive any code?{" "}
                 </span>
                 <Link
@@ -939,157 +902,54 @@ const ResetPasswordSignIn: React.FC = () => {
         </div>
       </Container>
 
-      {/* --- Footer Component --- */}
-       <footer
-              className="text-center text-muted py-3 small border-top"
-              style={{
-                position: "fixed", //  at the bottom of the viewport
-                bottom: "0", 
-                width: "100%",
-                backgroundColor: "#f5f5f5", 
-                fontSize: "0.8rem",
-                zIndex: 1000, 
-                fontFamily: "body"
-              }}
-            > 
-            <div className="d-flex justify-content-between align-items-center">
-        <div className="footer-copyright" >
-          &copy; 2025 Obeeoma. All rights reserved.
-        </div>
-      
-        <div className="d-flex align-items-center">
-          <Link
-            className="text-muted text-decoration-none me-3" 
-            style={{ fontFamily: "body" }}
-            role="button"
-            to="/system-admin"
-          >
-            Privacy Policy
-          </Link>
-      
-          <a 
-            href="#" 
-            className="text-muted text-decoration-none me-3" 
-            style={{ fontFamily: "body"}}
-          >
-            Terms of Service
-          </a>
-      
-          <a 
-            href="#" 
-            className="text-muted text-decoration-none" 
-            style={{ fontFamily: "body" }}
-          >
-            Contact Us
-          </a>
-        </div>
-      </div>
-        </footer>
-                <Button
-                  type="submit"
-                  className="w-100 mb-3 py-2 fw-semibold"
-                  disabled={isLoading || isEmailSent}
-                  style={{ // <-- UPDATED
-                    backgroundColor: customStyles.primaryColor,
-                    borderColor: customStyles.primaryColor,
-                    color: "white",
-                    boxShadow: "none",
-                    fontFamily: "body"
-                  }}
-                >
-                  {isLoading ? (
-                    <>
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-2"
-                        style={{fontFamily:"body"}}
-                      />
-                      Sending...
-                    </>
-                  ) : (
-                    "Send Code"
-                  )}
-                </Button>
-              </BootstrapForm>
+      {/* --- Footer Component (Only one is needed) --- */}
+      <footer
+        className="text-center text-muted py-3 small border-top"
+        style={{
+          position: "fixed", // at the bottom of the viewport
+          bottom: "0",
+          width: "100%",
+          backgroundColor: "#f5f5f5",
+          fontSize: "0.8rem",
+          zIndex: 1000,
+          fontFamily: "body"
+        }}
+      >
+        <div className="d-flex justify-content-between align-items-center container">
+          <div className="footer-copyright" >
+            &copy; 2025 Obeeoma. All rights reserved.
+          </div>
 
-              {/* Resend Code  */}
-              <div className="text-center mt-3">
-                <span className="text-center text-muted small" style={{fontFamily: "body"}}>
-                  Didn't receive any code?{" "}
-                </span>
-                <Link
-                  onClick={handleResendCode}
-                  style={{
-                    color: customStyles.primaryColor,
-                    textDecoration: "none",
-                    fontWeight: "500",
-                    cursor: "pointer",
-                    fontFamily: "body"
-                  }}
-                  to="#" // Prevent full page reload on click
-                  className="small"
-                >
-                  Send Code again
-                </Link>
-              </div>
-            </Card.Body>
-          </Card>
-        </div>
-      </Container>
+          <div className="d-flex align-items-center">
+            <Link
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+              role="button"
+              to="/system-admin"
+            >
+              Privacy Policy
+            </Link>
 
-      {/* --- Footer Component --- */}
-       <footer
-              className="text-center text-muted py-3 small border-top"
-              style={{
-                position: "fixed", //  at the bottom of the viewport
-                bottom: "0", 
-                width: "100%",
-                backgroundColor: "#f5f5f5", 
-                fontSize: "0.8rem",
-                zIndex: 1000, 
-                fontFamily: "body"
-              }}
-            > 
-            <div className="d-flex justify-content-between align-items-center">
-        <div className="footer-copyright" >
-          &copy; 2025 Obeeoma. All rights reserved.
+            <a
+              href="#"
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+            >
+              Terms of Service
+            </a>
+
+            <a
+              href="#"
+              className="text-muted text-decoration-none"
+              style={{ fontFamily: "body" }}
+            >
+              Contact Us
+            </a>
+          </div>
         </div>
-      
-        <div className="d-flex align-items-center">
-          <Link
-            className="text-muted text-decoration-none me-3" 
-            style={{ fontFamily: "body" }}
-            role="button"
-            to="/system-admin"
-          >
-            Privacy Policy
-          </Link>
-      
-          <a 
-            href="#" 
-            className="text-muted text-decoration-none me-3" 
-            style={{ fontFamily: "body"}}
-          >
-            Terms of Service
-          </a>
-      
-          <a 
-            href="#" 
-            className="text-muted text-decoration-none" 
-            style={{ fontFamily: "body" }}
-          >
-            Contact Us
-          </a>
-        </div>
-      </div>
-        </footer>
+      </footer>
     </div>
   );
 };
 
-export default ResetPasswordSignIn;
 export default ResetPasswordSignIn;

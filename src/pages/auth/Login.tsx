@@ -11,7 +11,6 @@ import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
 
 import { Container, Card, Form, Button, Alert, Spinner, InputGroup } from "react-bootstrap";
-import { Container, Card, Form, Button, Alert, Spinner, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';

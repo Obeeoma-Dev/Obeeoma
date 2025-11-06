@@ -37,7 +37,6 @@ const contact_role_options = [
 // --- Component Start ---
 const Register = () => {
     const [role] = useState("employer");
-    const [role] = useState("employer");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { error, isLoading } = useSelector((state) => state.auth);
@@ -61,10 +60,6 @@ const Register = () => {
         password: "",
         confirmPassword: "",
     };
-    useEffect(() => {
-        dispatch(clearAuthStatus());
-    }, [dispatch]);
-    const handleSubmit = async (values) => {
     useEffect(() => {
         dispatch(clearAuthStatus());
     }, [dispatch]);

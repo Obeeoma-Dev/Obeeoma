@@ -8,6 +8,15 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 // // import { Formik } from "formik";
 // // import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
 // // import "bootstrap/dist/css/bootstrap.min.css";
+// // import React, { useEffect } from "react";
+// // import { useDispatch, useSelector } from "react-redux";
+// // import { AppDispatch, RootState } from "../../store/store";
+// // import { forgotPassword, clearError } from "../../store/slices/authSlice";
+// // import { useNavigate } from "react-router-dom";
+// // import { forgotPasswordValidationSchema } from "./../../validation/authValidation";
+// // import { Formik } from "formik";
+// // import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
+// // import "bootstrap/dist/css/bootstrap.min.css";
 // // // The `: React.FC` defines this as a Functional Component in TypeScript.
 // // const ResetPasswordSignin: React.FC = () => {
 // //   // `useDispatch` is typed with `AppDispatch` for type-safe actions.
@@ -146,15 +155,6 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 //   const [error, setError] = useState<string | null>(null);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [isEmailSent, setIsEmailSent] = useState(false);
-// // import React, { useEffect } from "react";
-// // import { useDispatch, useSelector } from "react-redux";
-// // import { AppDispatch, RootState } from "../../store/store";
-// // import { forgotPassword, clearError } from "../../store/slices/authSlice";
-// // import { useNavigate } from "react-router-dom";
-// // import { forgotPasswordValidationSchema } from "./../../validation/authValidation";
-// // import { Formik } from "formik";
-// // import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
-// // import "bootstrap/dist/css/bootstrap.min.css";
 // // // The `: React.FC` defines this as a Functional Component in TypeScript.
 // // const ResetPasswordSignin: React.FC = () => {
 // //   // `useDispatch` is typed with `AppDispatch` for type-safe actions.
@@ -379,6 +379,88 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 //                 Reset Password to Sign in
 //               </h3>
 //               <p className="text-muted mb-4 small">Send code to email</p>
+//     // 1. Full Page Container with positioning for the fixed footer
+//     <div
+//       style={{
+//         backgroundColor: "#f5f5f5",
+//         minHeight: "100vh",
+//         padding: "50px 0 100px 0", // Extra padding for fixed footer
+//         position: "relative",
+//       }}
+//       className="d-flex justify-content-center align-items-center"
+//     >
+//       <Container>
+//         <div className="d-flex justify-content-center">
+//           <Card
+//             className="shadow-sm border-0 p-4"
+//             style={{
+//               maxWidth: "450px", // Card width limit
+//               width: "100%",
+//               borderRadius: "8px",
+//               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+//             }}
+//           >
+//             <Card.Body>
+//               <h3 className="mb-2 fw-semibold text-dark">
+//                 Reset Password to Sign in
+//               </h3>
+//               <p className="text-muted mb-4 small">Send code to email</p>
+//               {/* Error Alert */}
+//               {error && (
+//                 <Alert variant="danger" className="py-2">
+//                   {error}
+//                 </Alert>
+//               )}
+//               <BootstrapForm noValidate onSubmit={handleSubmit}>
+//                 {/* Email Field */}
+//                 <BootstrapForm.Group className="mb-4">
+//                   <BootstrapForm.Control
+//                     type="email"
+//                     name="email"
+//                     placeholder="Email address"
+//                     value={email}
+//                     onChange={(e) => setEmail(e.target.value)}
+//                     className="py-2"
+//                     isInvalid={!!error}
+//                     style={
+//                       error
+//                         ? {
+//                             borderColor: "red",
+//                             borderWidth: "1.5px",
+//                           }
+//                         : {}
+//                     }
+//                   />
+//                   {/* Custom Error Message Display based on your image */}
+//                   {error && (
+//                     <div className="invalid-feedback d-block small mt-1 text-danger">
+//                       {error}
+//                     </div>
+//                   )}
+//                 </BootstrapForm.Group>
+//                 <Button
+//                   variant="success"
+//                   type="submit"
+//                   className="w-100 mb-3 py-2 fw-semibold"
+//                   disabled={isLoading || isEmailSent}
+//                 >
+//                   {isLoading ? (
+//                     <>
+//                       <Spinner
+//                         as="span"
+//                         animation="border"
+//                         size="sm"
+//                         role="status"
+//                         aria-hidden="true"
+//                         className="me-2"
+//                       />
+//                       Sending...
+//                     </>
+//                   ) : (
+//                     "Send Code"
+//                   )}
+//                 </Button>
+//               </BootstrapForm>
 //               {/* Error Alert */}
 //               {error && (
 //                 <Alert variant="danger" className="py-2">
@@ -488,88 +570,6 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 //           Contact Us
 //         </a>
 //       </footer>
-//     // 1. Full Page Container with positioning for the fixed footer
-//     <div
-//       style={{
-//         backgroundColor: "#f5f5f5",
-//         minHeight: "100vh",
-//         padding: "50px 0 100px 0", // Extra padding for fixed footer
-//         position: "relative",
-//       }}
-//       className="d-flex justify-content-center align-items-center"
-//     >
-//       <Container>
-//         <div className="d-flex justify-content-center">
-//           <Card
-//             className="shadow-sm border-0 p-4"
-//             style={{
-//               maxWidth: "450px", // Card width limit
-//               width: "100%",
-//               borderRadius: "8px",
-//               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-//             }}
-//           >
-//             <Card.Body>
-//               <h3 className="mb-2 fw-semibold text-dark">
-//                 Reset Password to Sign in
-//               </h3>
-//               <p className="text-muted mb-4 small">Send code to email</p>
-//               {/* Error Alert */}
-//               {error && (
-//                 <Alert variant="danger" className="py-2">
-//                   {error}
-//                 </Alert>
-//               )}
-//               <BootstrapForm noValidate onSubmit={handleSubmit}>
-//                 {/* Email Field */}
-//                 <BootstrapForm.Group className="mb-4">
-//                   <BootstrapForm.Control
-//                     type="email"
-//                     name="email"
-//                     placeholder="Email address"
-//                     value={email}
-//                     onChange={(e) => setEmail(e.target.value)}
-//                     className="py-2"
-//                     isInvalid={!!error}
-//                     style={
-//                       error
-//                         ? {
-//                             borderColor: "red",
-//                             borderWidth: "1.5px",
-//                           }
-//                         : {}
-//                     }
-//                   />
-//                   {/* Custom Error Message Display based on your image */}
-//                   {error && (
-//                     <div className="invalid-feedback d-block small mt-1 text-danger">
-//                       {error}
-//                     </div>
-//                   )}
-//                 </BootstrapForm.Group>
-//                 <Button
-//                   variant="success"
-//                   type="submit"
-//                   className="w-100 mb-3 py-2 fw-semibold"
-//                   disabled={isLoading || isEmailSent}
-//                 >
-//                   {isLoading ? (
-//                     <>
-//                       <Spinner
-//                         as="span"
-//                         animation="border"
-//                         size="sm"
-//                         role="status"
-//                         aria-hidden="true"
-//                         className="me-2"
-//                       />
-//                       Sending...
-//                     </>
-//                   ) : (
-//                     "Send Code"
-//                   )}
-//                 </Button>
-//               </BootstrapForm>
 //               {/* Resend Code Logic */}
 //               <div className="text-center mt-3">
 //                 <span className="text-center text-muted small">
@@ -664,6 +664,7 @@ const ResetPasswordSignIn = () => {
                 throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
             }
             setIsEmailSent(true);
+            // Navigate only if the API call is successful and an email is sent
             navigate("/reset-password");
         }
         catch (err) {
@@ -680,11 +681,14 @@ const ResetPasswordSignIn = () => {
         }
     };
     const handleResendCode = () => {
+        setError(null); // Clear previous error
         setIsEmailSent(false);
         setIsLoading(true);
+        // Simulate API call for resend
         setTimeout(() => {
             setIsLoading(false);
             setIsEmailSent(true);
+            // NOTE: In a real app, you would typically call handleSubmit or a similar function here.
         }, 1500);
     };
     return (
@@ -722,14 +726,13 @@ const ResetPasswordSignIn = () => {
                                                 fontFamily: "body"
                                             }, to: "#" // Prevent full page reload on click
                                             , className: "small", children: "Send Code again" })] })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
-                    position: "fixed", //  at the bottom of the viewport
+                    position: "fixed", // at the bottom of the viewport
                     bottom: "0",
                     width: "100%",
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
                     fontFamily: "body"
-                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsx("div", { className: "footer-copyright", children: "\u00A9 2025 Obeeoma. All rights reserved." }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsx("div", { className: "footer-copyright", children: "\u00A9 2025 Obeeoma. All rights reserved." }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
-export default ResetPasswordSignIn;
 export default ResetPasswordSignIn;
