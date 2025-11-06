@@ -11,10 +11,6 @@ import {
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
-<<<<<<< HEAD
-=======
-  Legend,
->>>>>>> syda
 } from "recharts";
 
 interface ChartData {
@@ -92,10 +88,6 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-<<<<<<< HEAD
-=======
-                <Legend  wrapperStyle={{ fontFamily:"heading", paddingTop: '10px'}}/>
->>>>>>> syda
               </PieChart>
             </ResponsiveContainer>
           </div>

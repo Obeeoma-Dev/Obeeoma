@@ -2,6 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
+
   role: "systemadmin" | "employer" | "employee";
   is_verified: boolean;
 }

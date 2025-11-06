@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import OtpInput from '../../components/OtpComponent';
-import { AppDispatch, RootState } from '../../store/store';
-import {
-  verifyOtpThunk,
-  resendOtpThunk, 
-  selectUserDashboardRoute,
-} from '../../store/slices/authSlice';
-import logo from './../../assets/Images/green..png';
-
-=======
 import { AppDispatch, RootState } from '../../store/store';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
@@ -26,26 +15,17 @@ import logo from './../../assets/Images/obeeomalogoword1.png';
 const customStyles = {
   primaryColor: "#3CB371",
 };
->>>>>>> syda
 
 const OTP_LENGTH = 6;
 
 export default function OtpVerificationPage() {
   const [otp, setOtp] = useState('');
-<<<<<<< HEAD
-  const [localError, setLocalError] = useState<string | null>(null); 
-  const [isResendLoading, setIsResendLoading] = useState(false); 
-=======
   const [localError, setLocalError] = useState<string | null>(null);
   const [isResendLoading, setIsResendLoading] = useState(false);
->>>>>>> syda
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-<<<<<<< HEAD
- 
-=======
   // Define style object outside the component or memoize if it's based on props
   const otpGroupStyle: React.CSSProperties = {
     display: 'flex',
@@ -55,66 +35,25 @@ export default function OtpVerificationPage() {
     margin: '0 auto 30px', 
   };
 
->>>>>>> syda
   const { user, isLoading, error: authError } = useSelector(
     (state: RootState) => state.auth
   );
   const dashboardRoute = useSelector(selectUserDashboardRoute);
-
-<<<<<<< HEAD
   const email = user?.email;
 
   useEffect(() => {
     
     if (!user || !email) {
-      
-      navigate('/otp-verify', { replace: true });
+      navigate('/otp-verify', { replace: true }); 
       return;
     }
-  
+
+    // 2. Redirect if already 
     if (user.is_verified) {
-      navigate(dashboardRoute || '/', { replace: true });
+      navigate(dashboardRoute || '/otp-verify', { replace: true });
     }
+    
    
-  }, [email, user, navigate, dashboardRoute]);
-
-  // const handleOtpChange = (newOtpValue: string) => {
-  //   setOtp(newOtpValue);
-  //   setLocalError(null); 
-  //   
-  //   if (newOtpValue.length === OTP_LENGTH && email) {
-  //     handleVerify(newOtpValue);
-  //   }
-  // };
-
-  const handleVerify = (otpCode: string) => {
-    if (otpCode.length !== OTP_LENGTH || !email) {
-        setLocalError('Please enter a valid 6-digit code.');
-        return;
-    }
-    
-    // Dispatch for the thunk from authslice
-=======
-  // Use the email for the OTP process, typically from the user object after login/registration
-  // NOTE: If this page is used for *Password Reset*, the email should come from
-  // a separate state (like a resetPasswordSlice) or query parameter, not the auth.user object.
-  const email = user?.email;
-
-  useEffect(() => {
-    // 1. Guard against direct access if the user state is empty/unintended for verification
-    // *CORRECTION*: Changed target of fallback navigation from '/otp-verify' (which loops) to '/login'.
-    if (!user || !email) {
-      navigate('/login', { replace: true }); 
-      return;
-    }
-
-    // 2. Redirect if already verified (Standard Registration Flow)
-    if (user.is_verified) {
-      navigate(dashboardRoute || '/login', { replace: true });
-    }
-    
-    // NOTE: If this component is *only* for Password Reset, the logic above (checking user status) 
-    // should be replaced with checks for the reset token/state.
   }, [email, user, navigate, dashboardRoute]);
 
 
@@ -133,7 +72,6 @@ export default function OtpVerificationPage() {
 
     setLocalError(null);
 
->>>>>>> syda
     dispatch(
       verifyOtpThunk({
         email: email,
@@ -142,30 +80,8 @@ export default function OtpVerificationPage() {
     )
       .unwrap()
       .then(() => {
-<<<<<<< HEAD
-        
-        navigate(dashboardRoute || '/reset-password', { replace: true });
-      })
-      
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((err: any) => {
-        console.error('OTP Verification Failed:', err);
-        const errorMessage =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (err as any)?.message || 'Verification failed. Please check the code.';
-        setLocalError(errorMessage);
-      });
-  };
-
-  
-  const handleResendCode = () => {
-    if (!email) {
-      setLocalError('Email address is missing. Cannot resend code.');
-=======
-        // Successful verification - Navigate to the next appropriate route.
-        // If this is *registration* verification, navigate to the dashboard.
-        // If this is *password reset*, navigate to the password change page.
-        navigate(dashboardRoute || '/login', { replace: true });
+     
+        navigate(dashboardRoute || 'otp-verify', { replace: true });
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((err: any) => {
@@ -181,41 +97,24 @@ export default function OtpVerificationPage() {
   const handleResendCode = () => {
     if (!email) {
       setLocalError('Email address is missing. Please try logging in again.');
->>>>>>> syda
       return;
     }
 
     setIsResendLoading(true);
-<<<<<<< HEAD
-    setLocalError(null);
-    
-    
-    dispatch(resendOtpThunk({ email }))
-      .unwrap()
-      .then(() => {
-        alert('New verification code sent to your email!');
-        setOtp('');
-=======
     setLocalError(null); // Clear previous errors
 
     dispatch(resendOtpThunk({ email }))
       .unwrap()
       .then(() => {
-        // Use a less intrusive method than `alert`, like a toast or notification.
-        // For this example, an alert is kept but a comment added.
+       
         window.alert('New verification code sent to your email!');
         setOtp(''); // Clear OTP input after resend
->>>>>>> syda
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((err: any) => {
         console.error('Resend Failed:', err);
-<<<<<<< HEAD
-        const errorMessage = err || 'Failed to resend code. Please try again later.';
-=======
         // Safely extract the error message
         const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
->>>>>>> syda
         setLocalError(errorMessage);
       })
       .finally(() => {
@@ -225,41 +124,6 @@ export default function OtpVerificationPage() {
 
   const isAnyLoading = isLoading || isResendLoading;
   
-<<<<<<< HEAD
-  
-  // if (!user || !email) {
-  //   return <div>Loading user details or redirecting...</div>;
-  // }
-  // 
-  return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 shadow-lg text-center">
-        <div
-          className="d-flex flex-column align-items-center justify-content-center mb-4"
-          style={{ fontFamily: 'heading' }}
-        >
-          <img
-            src={logo}
-            alt="Obeeoma Logo"
-            width="100"
-            className="mb-1"
-          />
-          <p className="m-0 text-center"></p>
-
-          <h2 className="mb-4">Check Your Email</h2>
-          <p className="text-muted mb-4">
-            We sent a verification code to email. Please enter the{' '}
-            {OTP_LENGTH}-digit code.
-          </p>
-          <h4>Enter verification code</h4>
-        </div>
-
-        <OtpInput
-          value={otp}
-          valueLength={OTP_LENGTH}
-          onChange={setOtp}
-        />
-=======
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       {/* CARD Container */}
@@ -323,61 +187,26 @@ export default function OtpVerificationPage() {
         </Button>
           
         {/* Resend Link */}
->>>>>>> syda
         <div className="text-center mt-3">
           <span
             className="text-center text-muted small"
             style={{ fontFamily: 'body' }}
           >
-<<<<<<< HEAD
-            Didn't receive any code?{' '}
-=======
             Did not receive the code?{' '}
->>>>>>> syda
           </span>
           <Link
             onClick={handleResendCode}
             style={{
               color: '#3CB371',
               textDecoration: 'none',
-<<<<<<< HEAD
-              fontWeight: '500',
-              cursor: isResendLoading ? 'not-allowed' : 'pointer',
-              fontFamily: 'body',
-=======
               fontWeight: '600',
               cursor: isResendLoading || !email ? 'not-allowed' : 'pointer',
               fontFamily: 'body',
               opacity: isResendLoading || !email ? 0.6 : 1, // Visual feedback for disabled state
->>>>>>> syda
             }}
             to="#"
             className="small"
           >
-<<<<<<< HEAD
-            {isResendLoading ? 'Sending...' : 'Send Code again'}
-          </Link>
-        </div>
-
-        <button
-          className="btn mt-4"
-          style={{ backgroundColor: '#3CB371', borderColor: '#3CB371' }}
-          
-          onClick={() => handleVerify(otp)} 
-          disabled={otp.length !== OTP_LENGTH || isAnyLoading}
-        >
-          {isLoading ? 'Verifying...' : 'Verify Account'}
-        </button>
-
-        
-        {(localError || authError) && (
-          <div className="text-danger mt-3">{localError || authError}</div>
-        )}
-      </div>
-    </div>
-  );
-}
-=======
             {isResendLoading ? 'Sending...' : 'Resend'}
           </Link>
         </div>
@@ -395,4 +224,3 @@ export default function OtpVerificationPage() {
     </div>
   );
 } 
->>>>>>> syda
