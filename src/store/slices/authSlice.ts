@@ -15,8 +15,8 @@ import {
 import {  authAPI } from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
-import { getDashboardRoute } from "../../utils/routing";
 // import { boolean } from "yup";
+import { getDashboardRoute } from "../../utils/routing";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -62,7 +62,7 @@ RegisterCredentials,
 { rejectValue: string }
 
 >(
-"auth/signup",
+"auth/organization-signup/",
 async (credentials, {rejectWithValue},  
 ) => {
   const dataWithDefaultRole = {
@@ -78,6 +78,7 @@ return rejectWithValue(getErrorMessage(error));
  },
 );
 
+// Forgot password Thunk
 // Forgot password Thunk
 export const forgotPassword = createAsyncThunk(
 "auth/reset-password",
@@ -95,6 +96,7 @@ return rejectWithValue(getErrorMessage(error));
  },
 );
 
+// Reset password Thunk
 // Reset password Thunk
 export const resetPassword = createAsyncThunk(
  "auth/change-password",
@@ -150,6 +152,7 @@ OtpVerificationPayload,
   }
 });
 
+
 const getUserFromStorage = () => {
 const rawUser = localStorage.getItem("user");
 if (!rawUser || rawUser === "undefined") return null;
@@ -159,6 +162,7 @@ return JSON.parse(rawUser);
  return null;
  }
 };
+
 // resend otp
 export const resendOtpThunk = createAsyncThunk<
   { message: string }, 
@@ -184,7 +188,6 @@ token: localStorage.getItem("token"),
 isLoading: false,
 error: null,
 is_verified: false,
-
 };
 
 const authSlice = createSlice({
@@ -205,6 +208,11 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("refresh");
+      // Calling the async logout function
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("refresh");
     },
     clearError: (state) => {
       state.error = null;
@@ -219,6 +227,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.user = action.payload.user || action.payload;
         state.user = action.payload.user || action.payload;
         state.token = action.payload.access || action.payload.token;
         state.error = null;
@@ -248,7 +257,7 @@ state.user = userData;
 state.isLoading = false;
 state.user = action.payload?.user;
 state.token = action.payload?.access ?? action.payload?.token;
-state.error = null;
+ state.error = null;
 
 localStorage.setItem(
  "token",
@@ -262,31 +271,32 @@ localStorage.setItem("user", JSON.stringify(action.payload?.user));
  state.error = action.payload as string;
 })
 
+
  // Forgot Pasword
  .addCase(forgotPassword.pending, (state) => {
-  state.isLoading = true;
-  state.error = null;
+ state.isLoading = true;
+ state.error = null;
  })
 .addCase(forgotPassword.fulfilled, (state) => {
  state.isLoading = false;
  state.error = null;
 })
 .addCase(forgotPassword.rejected, (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload as string;})
+state.isLoading = false;
+ state.error = action.payload as string;})
 
 // Reset Password
 .addCase(resetPassword.pending, (state) => {
-  state.isLoading = true;
-  state.error = null;
+state.isLoading = true;
+state.error = null;
 })
 .addCase(resetPassword.fulfilled, (state) => {
-  state.isLoading = false;
-  state.error = null;
+ state.isLoading = false;
+ state.error = null;
  })
 .addCase(resetPassword.rejected, (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload as string;
+ state.isLoading = false;
+ state.error = action.payload as string;
  })
 
  //logout thunk

@@ -1,37 +1,27 @@
-import { useState } from "react";
-import Layout from "../../components/employercomponents/shared/Layout";
-import EmployeeTable from "../../components/employercomponents/companyemployees/EmployeeTable";
-import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
-import { Plus } from "lucide-react";
-import {Provider} from "react-redux";
-import {store} from "../../store/store";
+// Inside AddEmployeeForm.tsx
 
-const EmployeeManagement = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+import React from 'react';
 
-  const additionalHeader = (
-    <button className="btn btn-success d-flex align-items-center gap-2">
-      <Plus size={16} className="text-white" />
-      Add Employee
-    </button>
-  );
+// 1. Define the props interface
+interface AddEmployeeFormProps {
+  onClose: () => void; // A function that takes no arguments and returns nothing
+  // Add other props here if needed, e.g., onSubmit
+}
 
+// 2. Use the interface in the component function signature
+const AddEmployeeForm: React.FC<AddEmployeeFormProps> = ({ onClose }) => {
+  // ... form logic ...
+  
   return (
-    <Layout 
-      title="Employee Management" 
-      showSearch={true}
-      additionalHeaderContent={additionalHeader}>
-      <div className="row gy-4">
-        <div className="container-fluid py-4 px-3">
-          <div className="col-lg-12 col-md-9 col-sm-6 mx-auto">
-          <EmployeeTable searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
-          <Provider store={store}>
-          <AddEmployeeForm />
-          </Provider>
-      </div></div></div>
-    </Layout>
+    <div className="card p-4">
+      <h5 className="card-title">Add New Employee</h5>
+      {/* Example button to close the form */}
+      <button className="btn btn-sm btn-outline-secondary float-end" onClick={onClose}>
+        Close Form
+      </button>
+      {/* ... your actual form elements ... */}
+    </div>
   );
 };
 
-export default EmployeeManagement;
+export default AddEmployeeForm;
