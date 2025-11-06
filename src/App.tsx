@@ -163,7 +163,7 @@ import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings"
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
-import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
+// import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
@@ -186,7 +186,7 @@ export default function App(): React.ReactElement {
                 {/* === PUBLIC ROUTES === */}
                 <Route path="/" element={<Navigate to="/index" replace />} />
                 <Route path="/index" element={<Index />} />
-                <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Register />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
@@ -205,7 +205,7 @@ export default function App(): React.ReactElement {
                 <Route path="/organization-reports" element={<CompanyReports />} />
                 <Route path="/employer-dashboard" element={<EmployerDashboard />} />
                 <Route path="/employer-subscription" element={<EmployerSubscription />} />
-                <Route path="/employee-management" element={<EmployeeManagement />} />
+                {/* <Route path="/employee-management" element={<EmployeeManagement />} /> */}
                 <Route path="/employer-profile" element={<EmployerAccountProfile />} />
                 <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
                 <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
