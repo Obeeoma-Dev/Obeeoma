@@ -36,7 +36,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       </Navbar>
 
       {/* Main Content */}
-      <main className="flex-grow-1 col-12 d-flex align-items-center justify-content-center py-4">
+      <main className="flex-grow-1 d-flex align-items-center justify-content-center py-4">
         {children}
       </main>
 

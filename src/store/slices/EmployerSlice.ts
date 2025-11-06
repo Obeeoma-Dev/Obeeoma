@@ -128,8 +128,6 @@ export const fetchEmployerDashboardSummary = createAsyncThunk(
   }
 );
 
-
-
 const initialState: EmployerState = {
   invites: [],
   billing: null,

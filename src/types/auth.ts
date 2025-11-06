@@ -4,6 +4,8 @@ export interface User {
   email: string;
   role: "systemadmin" | "employer" | "employee";
   is_verified: boolean;
+  role: "systemadmin" | "employer" | "employee";
+  is_verified: boolean;
 }
 
 export interface LoginCredentials {

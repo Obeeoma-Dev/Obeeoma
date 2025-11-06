@@ -50,11 +50,14 @@ export const registerValidationSchema = yup.object().shape({
 });
 export const resetPasswordValidationSchema = yup.object({
     password: yup
+    password: yup
         .string()
         .required("New Password is required")
+        .min(8, "Password must be at least 8  characters"),
         .min(8, "Password must be at least 8  characters"),
     confirmNewPassword: yup
         .string()
         .required("Please confirm your new password")
+        .oneOf([yup.ref("password")], "Passwords must match"),
         .oneOf([yup.ref("password")], "Passwords must match"),
 });

@@ -1,8 +1,12 @@
 import axios from "axios";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
+export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
     baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
     headers: {
         'Content-Type': 'application/json',
     },
@@ -69,10 +73,12 @@ export const setupApiInterceptors = (store) => {
 };
 export const authAPI = {
     // Login endpoint
+    // Login endpoint
     login: async (credentials) => {
         const response = await api.post("/v1/auth/login/", credentials);
         return response;
     },
+    // Register endpoint
     // Register endpoint
     register: async (credentials) => {
         const response = await api.post("/v1/organization-signup/", {
@@ -105,6 +111,15 @@ export const authAPI = {
                 'Authorization': `Bearer ${accessToken}`,
             },
         });
+    //for logout
+    logout: async () => {
+        const refreshToken = localStorage.getItem('refresh');
+        const accessToken = localStorage.getItem('token');
+        return api.post('/v1/auth/logout/', { refresh: refreshToken }, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+            },
+        });
     },
     forgotPassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/", data);
@@ -112,6 +127,7 @@ export const authAPI = {
     },
     // RESET PASSWORD
     changePassword: async (data) => {
+        const response = await api.post("/v1/auth/change-password", data);
         const response = await api.post("/v1/auth/change-password", data);
         return response;
     },
@@ -131,21 +147,26 @@ export const authAPI = {
 export const adminAPI = {
     getDashboardStats: async () => {
         const response = await api.get("/v1/admin/statistics/");
+        const response = await api.get("/v1/admin/statistics/");
         return response;
     },
     getAllUsers: async () => {
+        const response = await api.get("/v1/admin/users/");
         const response = await api.get("/v1/admin/users/");
         return response;
     },
     deleteUser: async (userId) => {
         const response = await api.delete(`/v1/admin/users/${userId}/`);
+        const response = await api.delete(`/v1/admin/users/${userId}/`);
         return response;
     },
     getDashboardSummary: async () => {
         const response = await api.get("/v1/admin/overview");
+        const response = await api.get("/v1/admin/overview");
         return response;
     },
     addEmployee: async () => {
+        const response = await api.post("/v1/admin/invites/");
         const response = await api.post("/v1/admin/invites/");
         return response;
     },
@@ -163,25 +184,55 @@ export const adminAPI = {
     },
     changeCrisisInsights: async () => {
         const response = await api.post("/v1/admin/crisis-insights/changes/");
+        const response = await api.get("/v1/admin/crisis-insights/views/");
+        return response;
+    },
+    postCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/add/");
+        return response;
+    },
+    putCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/update/");
+        return response;
+    },
+    changeCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/changes/");
         return response;
     },
     getEmployeeEngagement: async () => {
         const response = await api.post("/v1/admin/employee-engagement/");
+        const response = await api.post("/v1/admin/employee-engagement/");
         return response;
     },
+    // getFeatureUsage: async () => {
     // getFeatureUsage: async () => {
     //   const response = await api.get("/v1/dashboard/feature-usage/");
     //   return response;
     // },
     createFeatureUsage: async () => {
         const response = await api.post("/v1/admin/feature-usage");
+        const response = await api.post("/v1/admin/feature-usage");
         return response;
     },
     getReports: async () => {
         const response = await api.post("/v1/admin/reports/");
+        const response = await api.post("/v1/admin/reports/");
         return response;
     },
     getTrends: async () => {
+        const response = await api.get("/v1/admin/trends");
+        return response;
+    },
+    viewInviteEmployee: async () => {
+        const response = await api.get("/v1/employers/view-invites/");
+        return response;
+    },
+    viewSubscription: async () => {
+        const response = await api.post("/v1/employer/billing/add-subscription/");
+        return response;
+    },
+    viewBilling: async () => {
+        const response = await api.get("/v1/employer/billing/view");
         const response = await api.get("/v1/admin/trends");
         return response;
     },
@@ -200,7 +251,14 @@ export const adminAPI = {
     // employer endpoints
 };
 export const employerAPI = {
+};
+export const employerAPI = {
     inviteEmployee: async () => {
+        const response = await api.post("/v1/dashboard/invites/");
+        return response;
+    },
+    viewInviteEmployee: async () => {
+        const response = await api.get("/v1/employers/view-invites/");
         const response = await api.post("/v1/dashboard/invites/");
         return response;
     },
@@ -210,12 +268,23 @@ export const employerAPI = {
     },
     viewSubscription: async () => {
         const response = await api.post("/v1/employer/billing/add-subscription/");
+        const response = await api.post("/v1/employer/billing/add-subscription/");
         return response;
     },
     viewBilling: async () => {
         const response = await api.get("/v1/employer/billing/view");
         return response;
     },
+    getEngagement: async () => {
+        const response = await api.get("/v1/employer/engagements/");
+        return response;
+    },
+    getReports: async () => {
+        const response = await api.post("/v1/employer/reports/");
+        return response;
+    },
+    getemployerdashboardSummary: async () => {
+        const response = await api.get("/v1/employer/overview");
     getEngagement: async () => {
         const response = await api.get("/v1/employer/engagements/");
         return response;

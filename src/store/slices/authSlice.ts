@@ -1,3 +1,4 @@
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   AuthState,
@@ -10,14 +11,34 @@ import {
   OtpSuccessResponse,
    ResendOtpPayload, 
   User
+  LoginSuccessPayload,
+  OtpVerificationPayload,
+  OtpSuccessResponse,
+   ResendOtpPayload, 
+  User
 } from "./../../types/auth";
+import {  authAPI } from "../../api/apiConfig";
+import api from "../../api/apiConfig";
 import {  authAPI } from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 import { getDashboardRoute } from "../../utils/routing";
 // import { boolean } from "yup";
+import { getDashboardRoute } from "../../utils/routing";
+// import { boolean } from "yup";
 
 const getErrorMessage = (error: unknown): string => {
+  if (axios.isAxiosError(error)) {
+ return (
+(error.response?.data as { detail?: string })?.detail ||
+error.message ||
+"An unknown error occurred"
+ );
+ }
+if (error instanceof Error) {
+ return error.message;
+}
+return "An unexpected error occurred";
   if (axios.isAxiosError(error)) {
  return (
 (error.response?.data as { detail?: string })?.detail ||
@@ -78,7 +99,21 @@ return rejectWithValue(getErrorMessage(error));
 );
 
 // Forgot password Thunk
+// Forgot password Thunk
 export const forgotPassword = createAsyncThunk(
+"auth/reset-password",
+async (
+data: ForgotPasswordData & { onSuccess?: () => void },
+{ rejectWithValue },
+) => {
+try {
+ const response = await authAPI.forgotPassword(data);
+ data.onSuccess?.();
+ return response.data;
+} catch (error: unknown) {
+return rejectWithValue(getErrorMessage(error));
+}
+ },
 "auth/reset-password",
 async (
 data: ForgotPasswordData & { onSuccess?: () => void },
@@ -95,7 +130,22 @@ return rejectWithValue(getErrorMessage(error));
 );
 
 // Reset password Thunk
+// Reset password Thunk
 export const resetPassword = createAsyncThunk(
+ "auth/change-password",
+async (
+ data: changePasswordData & { onSuccess?: () => void },
+ { rejectWithValue },
+) => {
+try {
+const response = await authAPI.changePassword(data);
+data.onSuccess?.();
+return response.data;
+ } catch (error: unknown) {
+ return rejectWithValue(getErrorMessage(error));
+
+}
+ },
  "auth/change-password",
 async (
  data: changePasswordData & { onSuccess?: () => void },
@@ -149,7 +199,51 @@ OtpVerificationPayload,
   }
 });
 
+export const logoutUserThunk = createAsyncThunk<void,void>(
+  "auth/logout",
+
+  async (_, { dispatch}) => {
+    try {
+      
+      await authAPI.logout()
+
+    } catch (error: unknown){
+    console.error("Server logout failed, but client session clearing.", getErrorMessage(error));
+    }
+  finally {
+      
+      dispatch(logout())
+    // localStorage.removeItem("token");
+    // localStorage.removeItem("user");
+    // localStorage.removeItem("refresh")
+
+    delete api.defaults.headers.common["Authorization"];
+    }
+  }
+);
+
+export const verifyOtpThunk = createAsyncThunk<
+OtpSuccessResponse, 
+OtpVerificationPayload,
+{rejectValue: string}>
+('auth/verifyOtp', async(payload, {rejectWithValue}) =>{
+  try{
+    const response = await authAPI.verifyOtp();
+
+    return response.data as OtpSuccessResponse;
+  }catch(err: unknown){
+    return rejectWithValue(getErrorMessage(err));
+  }
+});
+
 const getUserFromStorage = () => {
+const rawUser = localStorage.getItem("user");
+if (!rawUser || rawUser === "undefined") return null;
+try {
+return JSON.parse(rawUser);
+} catch {
+ return null;
+ }
 const rawUser = localStorage.getItem("user");
 if (!rawUser || rawUser === "undefined") return null;
 try {
@@ -176,8 +270,32 @@ export const resendOtpThunk = createAsyncThunk<
     }
   }
 );
+// resend otp
+export const resendOtpThunk = createAsyncThunk<
+  { message: string }, 
+  ResendOtpPayload, 
+  { rejectValue: string } 
+>(
+  'auth/resendOtp',
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.resendOtp({ email }); 
+      return response.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || 'Failed to resend code. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const initialState: AuthState = {
+user: getUserFromStorage(),
+token: localStorage.getItem("token"),
+isLoading: false,
+error: null,
+is_verified: false,
+
 user: getUserFromStorage(),
 token: localStorage.getItem("token"),
 isLoading: false,
@@ -195,10 +313,20 @@ const authSlice = createSlice({
       state.error = null;
     },
 
+    clearAuthStatus: (state) => { 
+      state.isLoading = false;
+      state.error = null;
+    },
+
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.error = null;
+      // Calling the async logout function
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("refresh");
       // Calling the async logout function
 
       localStorage.removeItem("token");
@@ -219,9 +347,21 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user || action.payload;
+        state.user = action.payload.user || action.payload;
         state.token = action.payload.access || action.payload.token;
         state.error = null;
 
+   localStorage.setItem(
+ "token",
+ action.payload.access || action.payload.token,
+);
+
+ localStorage.setItem("user", JSON.stringify(action.payload.user)); 
+})
+.addCase(loginUser.rejected, (state, action) => {
+state.isLoading = false;
+state.error = action.payload as string;
+ })
    localStorage.setItem(
  "token",
  action.payload.access || action.payload.token,
@@ -334,6 +474,18 @@ state.error = null;
       );
  },
 });
+
+
+export const { logout, clearError, clearAuthStatus } = authSlice.actions;
+
+// Selectors  are used for easy access
+export const selectUserDashboardRoute = (state: { auth: AuthState }) => {
+  return getDashboardRoute(state.auth.user);
+};
+
+export const selectIsAuthenticated = (state: { auth: AuthState }) => {
+  return !!state.auth.user && !!state.auth.token;
+};
 
 
 export const { logout, clearError, clearAuthStatus } = authSlice.actions;

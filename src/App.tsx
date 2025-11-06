@@ -140,12 +140,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import { AuthProvider } from "./context/AuthContext";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
+
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
+import AcceptInvite from "./pages/auth/accept-invite";
+import OtpVerificationPage from "./pages/auth/otpVerification";
 import AcceptInvite from "./pages/auth/accept-invite";
 import OtpVerificationPage from "./pages/auth/otpVerification";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
@@ -163,7 +166,7 @@ import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings"
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
-// import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
+import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
@@ -205,7 +208,7 @@ export default function App(): React.ReactElement {
                 <Route path="/organization-reports" element={<CompanyReports />} />
                 <Route path="/employer-dashboard" element={<EmployerDashboard />} />
                 <Route path="/employer-subscription" element={<EmployerSubscription />} />
-                {/* <Route path="/employee-management" element={<EmployeeManagement />} /> */}
+                <Route path="/employee-management" element={<EmployeeManagement />} />
                 <Route path="/employer-profile" element={<EmployerAccountProfile />} />
                 <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
                 <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />

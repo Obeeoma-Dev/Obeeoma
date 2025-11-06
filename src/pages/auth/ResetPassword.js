@@ -469,79 +469,29 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form as FormikForm } from "formik";
 import { resetPasswordValidationSchema } from "./../../validation/authValidation";
-import { useDispatch } from "react-redux";
-import { resetPassword } from "../../store/slices/authSlice";
-import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, InputGroup, } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
-import logo from "./../../assets/Images/obeeomalogoword1.png";
-const customStyles = {
-    primaryColor: "#3CB371", // The green
-    logoText: "Obeeoma",
-};
+import { Formik } from "formik";
+import { Row, Col, Form, Button, Card, Alert, Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 const ResetPassword = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // Local state for UI feedback
-    const [apiError, setApiError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    // State for password visibility toggles
-    const [showNewPassword, setShowNewPassword] = useState(false);
-    const [showConfirmNewPassword, setShowConfirmPassword] = useState(false);
-    const toggleNewPasswordVisibility = () => setShowNewPassword((prev) => !prev);
-    const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
-    // Initial Formik Values
-    const initialValues = {
-        code: "",
-        password: "",
-        confirmNewPassword: "",
+    const navigate = useNavigate();
+    // Ensure the error state is cleared on mount
+    const { isLoading, error } = useSelector((state) => state.auth);
+    useEffect(() => {
+        dispatch(clearError());
+    }, [dispatch]);
+    // The type definition for handleSubmit payload should match the Formik initialValues and the Redux action payload
+    const handleSubmit = (values) => {
+        dispatch(resetPassword({
+            ...values,
+            onSuccess: () => navigate("/login"),
+        }));
     };
-    const handleResetSubmit = async (values) => {
-        setApiError(null);
-        setIsLoading(true);
-        try {
-            const payload = {
-                token: values.code,
-                password: values.password,
-                onSuccess: () => navigate("/login", { replace: true }),
-            };
-            await dispatch(resetPassword(payload)).unwrap();
-        }
-        catch (error) {
-            console.error("Password reset failed:", error);
-            setApiError(error || "Failed to reset password. Please try again.");
-        }
-        finally {
-            setIsLoading(false);
-        }
-    };
-    return (_jsxs("div", { style: {
-            backgroundColor: "#f5f5f5",
-            height: "100vh",
-            overflow: "auto",
-            paddingBottom: "80px",
-        }, className: "d-flex justify-content-center align-items-center", children: [_jsx(Container, { children: _jsx("div", { className: "d-flex justify-content-center", children: _jsx(Card, { className: "shadow-sm border-0 p-4", style: {
-                            maxWidth: "600px",
-                            width: "100%",
-                            borderRadius: "8px",
-                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                        }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
-                                            height: "50px",
-                                            width: "auto"
-                                        }, className: "mb-1" }) }), _jsx("h3", { className: "mb-2 fw-semibold text-dark", style: { fontFamily: "body", textAlign: "center", fontSize: "24px" }, children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4 small ", style: { fontFamily: "body", textAlign: "center", fontSize: "14px" }, children: "Enter the code and your new password." }), apiError && (_jsx(Alert, { variant: "danger", className: "py-2", children: apiError })), _jsx(Formik, { initialValues: initialValues, validationSchema: resetPasswordValidationSchema, onSubmit: handleResetSubmit, children: ({ handleChange, handleSubmit: formikSubmit, values, errors, touched, }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: formikSubmit, children: [values.confirmNewPassword, "-", values.password, _jsxs(BootstrapForm.Group, { className: "mb-3", controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showNewPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "New Password", className: "py-2 border-success border-opacity-25", isInvalid: touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: toggleNewPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.password && errors.password })] }), _jsxs(BootstrapForm.Group, { className: "mb-4", controlId: "confirmNewPassword", children: [_jsxs(InputGroup, { children: [_jsx(BootstrapForm.Control, { style: { fontFamily: "body" }, type: showConfirmNewPassword ? "text" : "password", name: "confirmNewPassword", placeholder: "Confirm New Password", value: values.confirmNewPassword, onChange: handleChange, className: "py-2 ", isInvalid: touched.confirmNewPassword && !!errors.confirmNewPassword }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showConfirmNewPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: touched.confirmNewPassword && errors.confirmNewPassword })] }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
-                                                    backgroundColor: customStyles.primaryColor,
-                                                    borderColor: customStyles.primaryColor,
-                                                    color: "white",
-                                                    boxShadow: "none",
-                                                }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Changing..."] })) : ("Change Password") })] })) }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/login", className: "small text-decoration-none", style: { color: customStyles.primaryColor, fontFamily: "body" }, children: "Back to Sign in" }) })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
-                    position: "fixed",
-                    bottom: "0",
-                    width: "100%",
-                    backgroundColor: "#f5f5f5",
-                    fontSize: "0.8rem",
-                    zIndex: 1000,
-                    fontFamily: "body"
-                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
+    return (_jsx("div", { className: "d-flex align-items-center justify-content-center min-vh-100 bg-light", children: _jsx(Card, { className: "shadow-lg border-0 overflow-hidden", style: { maxWidth: "900px", width: "100%" }, children: _jsxs(Row, { className: "g-0", children: [_jsxs(Col, { md: 6, className: "p-5 bg-white", children: [_jsx("h2", { className: "fw-semibold mb-2", children: "Reset Your Password" }), _jsx("p", { className: "text-muted mb-4", children: "Enter your new password" }), error && (_jsx(Alert, { variant: "danger", onClose: () => dispatch(clearError()), dismissible: true, children: error })), _jsx(Formik, { initialValues: {
+                                    newPassword: "",
+                                    confirmNewPassword: "",
+                                    // You might need to add code/token fields here if they are part of the form
+                                }, validationSchema: resetPasswordValidationSchema, onSubmit: handleSubmit, children: ({ handleChange, handleSubmit, values, errors, touched }) => (_jsxs(Form, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(Form.Group, { className: "mb-3", controlId: "formNewPassword", children: [_jsx(Form.Label, { visuallyHidden: true, children: "New Password" }), _jsx(Form.Control, { type: "password", placeholder: "New Password", className: "py-2", name: "newPassword", value: values.newPassword, onChange: handleChange, isInvalid: touched.newPassword && !!errors.newPassword }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.newPassword })] }), _jsxs(Form.Group, { className: "mb-4", controlId: "formConfirmPassword", children: [_jsx(Form.Label, { visuallyHidden: true, children: "Confirm New Password" }), _jsx(Form.Control, { type: "password", placeholder: "Confirm New Password", className: "py-2", name: "confirmNewPassword", value: values.confirmNewPassword, onChange: handleChange, isInvalid: touched.confirmNewPassword && !!errors.confirmNewPassword }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.confirmNewPassword })] }), _jsx(Button, { variant: "success", type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Resetting Password..."] })) : ("Change Password") })] })) })] }), _jsxs(Col, { md: 6, className: "p-5 text-dark d-flex flex-column justify-content-center bg-success bg-opacity-10", children: [_jsx("h3", { className: "fw-semibold mb-4", children: "Secure Your Account" }), _jsx("p", { className: "text-muted mb-3", children: "Resetting your password ensures your account remains safe. Use a strong password that you haven\u2019t used before." }), _jsxs("ul", { className: "list-unstyled text-secondary mb-0", children: [_jsx("li", { className: "mb-2", children: "\u2714 Protect your sensitive information" }), _jsx("li", { className: "mb-2", children: "\u2714 Access your care plan securely" }), _jsx("li", { children: "\u2714 Continue your wellness journey with peace of mind" })] })] })] }) }) }));
 };
 export default ResetPassword;
