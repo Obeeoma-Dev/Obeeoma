@@ -135,10 +135,6 @@ import { store } from "./../src/store/store";
 // import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// Import your AuthProvider and ProtectedRoute
-// import { AuthProvider } from "./context/AuthContext";
-// import ProtectedRoute from "./components/ProtectedRoute";
-
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
@@ -165,7 +161,7 @@ import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings"; // D
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
-
+import CreateProfile from "./pages/EmployerPages/CreateProfile";
 
 const queryClient = new QueryClient();
 
@@ -196,15 +192,15 @@ export default function App(): React.ReactElement {
                 {/* EMPLOYEE'S ROUTES */}
                 <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
 
-                {/* EMPLOYER'S ROUTES */}
-                <Route path="/organization-reports" element={<CompanyReports />} />
-                <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-                <Route path="/employer-subscription" element={<EmployerSubscription />} />
-                {/* <Route path="/employee-management" element={<EmployeeManagement />} /> */}
-                {/* Note: EmployerAccountProfile and EmployerAccountSettingsPage seem to point to the same file, using both paths */}
-                <Route path="/employer-profile" element={<EmployerAccountProfile />} /> 
-                <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
-                <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
+              {/* EMPLOYER'S ROUTES */}
+              <Route path="/organization-reports" element={<CompanyReports />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/create-employer-account" element={<CreateProfile />} />
+              <Route path="/employer-subscription" element={<EmployerSubscription />} />
+              <Route path="/employee-management" element={<EmployeeManagement />} />
+              <Route path="/employer-profile" element={<EmployerAccountProfile />} />
+              <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
+              <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
 
                 {/* SYSTEMS ADMIN ROUTES */}
                 <Route path="/system-admin" element={<SysAdminDashboard />} /> {/* Main Admin Dashboard */}
