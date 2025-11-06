@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Obeeoma from "../../assets/Images/obeeomalogoword1.png";
+import Obeeomalogo from "../../assets/Images/obeeomalogoword1.png";
 
 // Define interface for menu items
 interface MenuSection {
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
         <div className="row mb-4">
           <div className="col-12">
             <img
-              src={Obeeoma}
+              src={Obeeomalogo}
               alt="Obeeoma"
               className="mb-2"
               style={{

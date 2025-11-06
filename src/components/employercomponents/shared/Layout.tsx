@@ -10,7 +10,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import logo from "../../../assets/Images/green..png";
+import logo from "../../../assets/Images/obeeomalogoword1.png";
 
 interface LayoutProps {
   children: ReactNode;
