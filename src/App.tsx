@@ -2,7 +2,8 @@ import React from "react";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+// Removed 'Router' from import as it's not used when BrowserRouter is present
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"; 
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store"; // Adjusted path for clarity
 
@@ -11,11 +12,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
-import CreateAccount from "./pages/auth/Register";
+import Register from "./pages/auth/Register"; // Renamed from CreateAccount in the comments
 import ResetPassword from "./pages/auth/ResetPassword";
+import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
-import OtpVerificationPage from "./pages/auth/otpVerification";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
@@ -30,8 +31,7 @@ import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription
 import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings"
-import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
-import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
+import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings"; // Duplicate, but kept for clarity if different
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
@@ -40,7 +40,7 @@ import CreateProfile from "./pages/EmployerPages/CreateProfile";
 const queryClient = new QueryClient();
 
 export default function App(): React.ReactElement {
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

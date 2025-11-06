@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
 
-// import { LoginSuccessPayload } from "../../types/auth"; //not used
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
+
 
 import { Formik } from "formik";
 
@@ -15,21 +15,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
-import logo from "./../../assets/Images/green..png";
+import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
   primaryColor: "#3CB371",
-  // /lightPink: "#f8d7da",
   logoText: "Obeeoma",
 };
 
-
-
-// type UserRole = "employer" | "systemadmin" | "employee";
 type DashboardPath =
   | "/system-admin"
   | "/employer-dashboard"
   | "/employee-dashboard";
+
+// Define the padding constant for clarity
+const FOOTER_HEIGHT_PADDING = "80px"; 
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,10 +36,8 @@ const LoginPage = () => {
   const { isLoading, error, user } = useSelector(
     (state: RootState) => state.auth
   );
-  // const [role, setRole] = useState<string>("employer");
   const [showPassword, setShowPassword] = useState(false);
 
-  // function for the eye visibility toggle
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
@@ -57,10 +54,8 @@ const LoginPage = () => {
         return "/system-admin";
       case "employer":
         return "/employer-dashboard";
-
       case "employee":
         return "/employee-dashboard";
-
       default:
         console.warn(
           `Unrecognized role: ${role}. Falling back to /employer-dashboard.`
@@ -78,9 +73,6 @@ const LoginPage = () => {
         loginUser({ username: values.username, password: values.password })
       ).unwrap();
 
-      // const roleFromPayload = (resultAction as any)?.user?.role;
-
-      //  const userRole = roleFromPayload || user?.role || "employer"; // Fallback to 'employer'
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userRole = (resultAction as any)?.role || user?.role;
       console.log("Final Role Determined:", userRole);
@@ -89,7 +81,7 @@ const LoginPage = () => {
 
       navigate(destinationPath, { replace: true });
     } catch (err) {
-      // This block catches any error thrown by the 'loginUser' thunk (e.g., 401 Unauthorized, network error).
+      // This block catches any error thrown by the 'loginUser' thunk
       console.error("Login failed (handled by Redux error state):", err);
     }
   };
@@ -98,247 +90,179 @@ const LoginPage = () => {
     <div
       style={{
         backgroundColor: "#f5f5f5",
-        minHeight: "100vh",
-        paddingTop: "50px",
+        // Force the div to cover the entire viewport
+        height: "100vh",
+        maxWidth: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+        // Padding for footer clearance, ensuring card can't go below this line
+        paddingBottom: FOOTER_HEIGHT_PADDING, 
       }}
-      className="min-vh-100 d-flex flex-column justify-content-center  align-items-start"
     >
-      <Container className="d-flex justify-content-center align-items- start">
-        <Card
-          className="shadow-sm border-0 p-4"
-          style={{
-            maxWidth: "600px",
-            width: "100%",
-            border: "none",
-            borderRadius: "8px",
-            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1) ",
-          }}
-        >
-
-          <Card.Body>
-            <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
-              <img
-                src={logo}
-                alt="Obeeoma Logo"
-                width="100"
-                className="mb-1"
-              />
-              <p className="m-0 text-center">
-
-              </p>
-            </div>
-            <h3 className="text-center mb-2 fw-semibold text-dark"
-              style={{ fontFamily: 'heading' }}
+      <Card
+        className="shadow-sm-border-0 p-4"
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          // Calculate max height based on viewport, vertical padding, and footer clearance
+          maxHeight: `calc(100vh - 40px - ${FOOTER_HEIGHT_PADDING})`,
+          // Allow the card content to scroll *internally* if it exceeds its max height
+          overflow: "auto", 
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Card.Body>
+          <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+            <img
+              src={logo}
+              alt="Obeeoma Logo"
+              style={{
+                height: "50px",
+                width: "auto"
+              }}
+              className="mb-1"
+            />
+          </div>
+          <h3 className="text-center mb-2 fw-semibold text-dark"
+            style={{ fontFamily: 'heading' }}
+          >
+            Welcome to Obeeoma
+          </h3>
+          
+          {error && (
+            <Alert
+              variant="danger"
+              onClose={() => dispatch(clearError())}
+              dismissible
             >
-              Sign in to your account
-            </h3>
-            <p className="text-center text-muted mb-4"
-              style={{ fontFamily: 'heading' }}
-            >
+              {error}
+            </Alert>
+          )}
 
-            </p>
-
-            {error && (
-              <Alert
-                variant="danger"
-                onClose={() => dispatch(clearError())}
-                dismissible
-              >
-                {error}
-              </Alert>
-            )}
-
-
-            {/* {user && (
-              <Alert variant="success" style={{fontFamily:"body"}}>
-                Welcome, {user.username}! Redirecting...
-              </Alert>
-            )} */}
-
-            <Formik
-              initialValues={{ username: "", password: "" }}
-              validationSchema={loginValidationSchema}
-              onSubmit={handleSubmit}
-            >
-              {({
-                handleChange,
-                handleSubmit: formikSubmit,
-                values,
-                errors,
-                touched,
-              }) => (
-                <Form noValidate onSubmit={formikSubmit}>
-                  {/* Form fields... */}
-                  <Form.Group className="mb-3" controlId="username">
-
-                    <Form.Control
-
-                      type="text"
-                      style={{ fontFamily: "body" }}
-                      name="username"
-                      value={values.username}
-                      onChange={handleChange}
-                      placeholder="Username"
-                      className="py-2 border-success border-opacity-25"
-                      isInvalid={touched.username && !!errors.username}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.username}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="password">
-                    <InputGroup>
-                      <Form.Control
-                        style={{ fontFamily: "body" }}
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                        placeholder="Password"
-                        className="py-2 border-success border-opacity-25"
-                        isInvalid={touched.password && !!errors.password}
-                      />
-                      <InputGroup.Text
-                        onClick={togglePasswordVisibility}
-                        style={{
-                          cursor: "pointer",
-                          backgroundColor: "white"
-                        }}>
-                        <FontAwesomeIcon
-                          icon={showPassword ? faEyeSlash : faEyeRegular}
-                          style={{ color: customStyles.primaryColor }}
-                        />
-                      </InputGroup.Text>
-
-                    </InputGroup>
-                    {(touched.password && !!errors.password) && (
-                      <div className="invalid-feedback d-block">
-                        {errors.password}
-                      </div>
-                    )}
-                  </Form.Group>
-
-                  {/* Forgot Password */}
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                    <Link
-                      to="/reset-password-signin"
-                      className="small"
-                      style={{
-                        color: customStyles.primaryColor,
-                        textDecoration: "none",
-                        fontFamily: "body"
-                      }}
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-
-                  <Form.Check
-                    type="checkbox"
-                    label="Remember me"
-                    className="mb-3 text-muted"
+          <Formik
+            initialValues={{ username: "", password: "" }}
+            validationSchema={loginValidationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                {/* Email/Username Field */}
+                <Form.Group className="mb-3" controlId="validationFormikUsername">
+                  <Form.Control
+                    type="text"
+                    placeholder="Email or Username"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    isInvalid={touched.username && !!errors.username}
+                    className="py-2"
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.username}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-                  <Button
-                    type="submit"
-                    className="w-100 mb-3 py-2 fw-semibold"
-                    disabled={isLoading}
-                    style={{
-                      backgroundColor: customStyles.primaryColor,
-                      borderColor: customStyles.primaryColor,
-                      color: "white",
-                      boxShadow: "none",
-                      fontFamily: "body"
-                    }}
-                  >
-                    {isLoading ? (
-                      <>
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-2"
-                        />
-                        Signing in...
-                      </>
-                    ) : (
-                      "Sign in"
-                    )}
-                  </Button>
-
-                  <div className="text-center mt-4" style={{ fontFamily: "body" }}>
-                    <span className="text-center mt-">
-                      Don’t have an account?{" "}
-                    </span>
-
-                    <Link
-                      className=""
-                      style={{
-                        color: customStyles.primaryColor,
-                        textDecoration: "none",
-                        marginLeft: "5px",
-                        fontWeight: "500",
-                        fontFamily: "body"
-                      }}
-                      role="button"
-                      to="/signup"
+                {/* Password Field */}
+                <Form.Group className="mb-4" controlId="validationFormikPassword">
+                  <InputGroup>
+                    <Form.Control
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      name="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      isInvalid={touched.password && !!errors.password}
+                      className="py-2"
+                    />
+                    <InputGroup.Text 
+                      onClick={togglePasswordVisibility}
+                      style={{ cursor: "pointer", backgroundColor: "white" }}
                     >
-                      Create an account
-                    </Link>
-                  </div>
-                </Form>
-              )}
+                      <FontAwesomeIcon 
+                        icon={showPassword ? faEyeSlash : faEyeRegular} 
+                        style={{ color: customStyles.primaryColor }}
+                      />
+                    </InputGroup.Text>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.password}
+                    </Form.Control.Feedback>
+                  </InputGroup>
+                </Form.Group>
 
-            </Formik>
-          </Card.Body>
-        </Card>
-      </Container>
-      <div></div>
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  className="w-100 mb-3 py-2 fw-semibold"
+                  disabled={isLoading}
+                  style={{
+                    backgroundColor: customStyles.primaryColor,
+                    borderColor: customStyles.primaryColor,
+                    color: "white",
+                    boxShadow: "none",
+                  }}
+                >
+                  {isLoading ? (
+                    <>
+                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
+                      Signing in...
+                    </>
+                  ) : (
+                    "Sign In"
+                  )}
+                </Button>
+              </Form>
+            )}
+          </Formik>
+
+          <div className="text-center mt-3">
+            <Link
+              to="/reset-password-signin"
+              className="small text-decoration-none"
+              style={{ color: customStyles.primaryColor, fontFamily: "body" }}
+            >
+              Forgot Password?
+            </Link>
+          </div>
+          
+          <div className="text-center mt-3">
+            <span className="small text-muted" style={{ fontFamily: "body" }}>
+              Don't have an account?{" "}
+            </span>
+            <Link
+              to="/signup"
+              className="small text-decoration-none"
+              style={{ color: customStyles.primaryColor, fontFamily: "body", fontWeight: "600" }}
+            >
+              Create Account
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+      
+      {/* --- Fixed Footer Component --- */}
       <footer
         className="text-center text-muted py-3 small border-top"
         style={{
-          position: "fixed", //  at the bottom of the viewport
-          bottom: "0",
+          position: "fixed",
+          bottom: "0", 
           width: "100%",
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "#f5f5f5", 
           fontSize: "0.8rem",
-          zIndex: 1000,
+          zIndex: 1000, 
           fontFamily: "body"
         }}
-      >
-        <div className="d-flex justify-content-between align-items-center">
+      > 
+        <div className="d-flex justify-content-between align-items-center container">
           <div className="footer-copyright" >
             &copy; 2025 {customStyles.logoText}. All rights reserved.
           </div>
-
           <div className="d-flex align-items-center">
-            <Link
-              className="text-muted text-decoration-none me-3"
-              style={{ fontFamily: "body" }}
-              role="button"
-              to="/system-admin"
-            >
-              Privacy Policy
-            </Link>
-
-            <a
-              href="#"
-              className="text-muted text-decoration-none me-3"
-              style={{ fontFamily: "body" }}
-            >
-              Terms of Service
-            </a>
-
-            <a
-              href="#"
-              className="text-muted text-decoration-none"
-              style={{ fontFamily: "body" }}
-            >
-              Contact Us
-            </a>
+            <Link className="text-muted text-decoration-none me-3" style={{ fontFamily: "body" }} role="button" to="/system-admin">Privacy Policy</Link>
+            <a href="#" className="text-muted text-decoration-none me-3" style={{ fontFamily: "body"}}>Terms of Service</a>
+            <a href="#" className="text-muted text-decoration-none" style={{ fontFamily: "body"}} >Contact Us</a>
           </div>
         </div>
       </footer>

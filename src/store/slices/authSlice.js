@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authAPI } from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios from "axios";
-import { getDashboardRoute } from "../../utils/routing";
 // import { boolean } from "yup";
+import { getDashboardRoute } from "../../utils/routing";
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
         return (error.response?.data?.detail ||
@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
     }
 });
 // Register Thunk
-export const registerUser = createAsyncThunk("auth/signup", async (credentials, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk("auth/organization-signup/", async (credentials, { rejectWithValue }) => {
     const dataWithDefaultRole = {
         ...credentials,
         role: credentials.role || 'employer'
@@ -46,6 +46,7 @@ export const registerUser = createAsyncThunk("auth/signup", async (credentials, 
     }
 });
 // Forgot password Thunk
+// Forgot password Thunk
 export const forgotPassword = createAsyncThunk("auth/reset-password", async (data, { rejectWithValue }) => {
     try {
         const response = await authAPI.forgotPassword(data);
@@ -56,6 +57,7 @@ export const forgotPassword = createAsyncThunk("auth/reset-password", async (dat
         return rejectWithValue(getErrorMessage(error));
     }
 });
+// Reset password Thunk
 // Reset password Thunk
 export const resetPassword = createAsyncThunk("auth/change-password", async (data, { rejectWithValue }) => {
     try {
@@ -137,6 +139,10 @@ const authSlice = createSlice({
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             localStorage.removeItem("refresh");
+            // Calling the async logout function
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            localStorage.removeItem("refresh");
         },
         clearError: (state) => {
             state.error = null;
@@ -151,6 +157,7 @@ const authSlice = createSlice({
         })
             .addCase(loginUser.fulfilled, (state, action) => {
             state.isLoading = false;
+            state.user = action.payload.user || action.payload;
             state.user = action.payload.user || action.payload;
             state.token = action.payload.access || action.payload.token;
             state.error = null;
