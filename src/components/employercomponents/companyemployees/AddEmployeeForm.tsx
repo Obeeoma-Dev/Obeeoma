@@ -134,10 +134,32 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                 )}
               </div>
               
-              <div className="form-group mb-3">
-                <a href="#" className="text-decoration-none" title="Upload an excel document" onClick={(e) => e.preventDefault()}>
+              <div className="form-group mt-1 mb-3">
+                <button
+                  type="button"
+                  className="btn btn-link p-0 text-decoration-none"
+                  title="Upload an excel document"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const input = document.getElementById('upload-excel') as HTMLInputElement | null;
+                    if (!input) return;
+                    const onChange = () => {
+                      const file = input.files?.[0];
+                      if (!file) return;
+                      toast({
+                        title: 'File selected',
+                        description: file.name,
+                        message: file.name,
+                      });
+                      input.removeEventListener('change', onChange);
+                      // TODO: process or upload the file here (e.g. send to API or parse client-side)
+                    };
+                    input.addEventListener('change', onChange);
+                    input.click();
+                  }}
+                >
                   Try bulk add
-                </a>
+                </button>
                 <input type="file" className="form-control-file mt-1" id="upload-excel" accept=".xlsx,.xls,.csv" />
               </div>
             </form>
