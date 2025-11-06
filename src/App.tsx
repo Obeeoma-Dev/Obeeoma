@@ -2,7 +2,7 @@ import React from "react";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Router, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store"; // Adjusted path for clarity
 
@@ -11,10 +11,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
-import CreateAccount from "./pages/auth/Register";
+import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
+import PrivacyPolicy from "./pages/landingpage/Policy";
+import Terms from "./pages/landingpage/Terms";
 import OtpVerificationPage from "./pages/auth/otpVerification";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";

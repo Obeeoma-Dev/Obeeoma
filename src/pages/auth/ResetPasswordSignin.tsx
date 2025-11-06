@@ -356,7 +356,7 @@ import {
   Alert,
   Spinner,
 } from "react-bootstrap";
-import logo from "./../../assets/Images/green..png"; 
+import logo from "./../../assets/Images/obeeomalogoword1.png"; 
 
 const customStyles = {
   primaryColor: "#3CB371", // Used for links and accents
@@ -386,7 +386,7 @@ const ResetPasswordSignIn: React.FC = () => {
     
     setIsLoading(true);
     try{
-      const API_URL="https://api-0904.onrender.com/api/v1/auth/accept-invite/";
+      const API_URL="https://api-0904.onrender.com/api/v1/auth/reset-password/";
     
 
       const response = await fetch(API_URL,{
@@ -437,9 +437,9 @@ const ResetPasswordSignIn: React.FC = () => {
     <div
       style={{
         backgroundColor: "#f5f5f5",
-        minHeight: "100vh",
-        padding: "50px 0 100px 0", // Extra padding for fixed footer
-        position: "relative",
+        height: "100vh",
+        overflow: "auto",
+        paddingBottom: "80px",
       }}
       className="d-flex justify-content-center align-items-center"
     >
@@ -461,27 +461,17 @@ const ResetPasswordSignIn: React.FC = () => {
       <img
       src={logo}
       alt="Obeeoma Logo"
-      width="100"
+      style={{
+        height: "50px",
+        width: "auto"
+      }}
       className="mb-1"
       />
-      <p className="m-0 text-center">
-      <small
-      style={{
-      // Uses the custom primary color for the logo text
-      color: customStyles.primaryColor, 
-      fontSize: "8px",
-      fontWeight: "500",
-      fontFamily: "heading"
-      }}
-      >
-
-      </small>
-      </p>
       </div>
-              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading"}}>
+              <h3 className="display-6 fw-bold mb-1" style={{fontFamily:"heading" , textAlign: "center" , fontSize: "24px" }}>
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 " style={{fontFamily:"heading"}}>Send code to email</p>
+              <p className="text-muted mb-4 " style={{fontFamily:"heading" , textAlign: "center" , fontSize: "14px" }}>Send code to email</p>
 
               {/* Error Alert */}
               {error && (

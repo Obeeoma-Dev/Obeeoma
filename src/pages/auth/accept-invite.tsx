@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Row, Col, Card, Button, Alert } from "react-bootstrap";
 import { CheckCircle, Mail, ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
+<<<<<<< HEAD
+=======
+import logo from "../../assets/Images/obeeomalogoword1.png";
+>>>>>>> syda
 
 const AcceptInvite: React.FC = () => {
   const navigate = useNavigate();
@@ -17,7 +21,19 @@ const AcceptInvite: React.FC = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+=======
+    <div 
+      style={{
+        backgroundColor: "#f5f5f5",
+        height: "100vh",
+        overflow: "auto",
+        paddingBottom: "80px",
+      }}
+      className="d-flex align-items-center justify-content-center"
+    >
+>>>>>>> syda
       <Card
         className="shadow-lg border-0 overflow-hidden"
         style={{ maxWidth: "600px", width: "100%" }}
@@ -25,6 +41,20 @@ const AcceptInvite: React.FC = () => {
         <Row className="g-0">
           {/* Left Side - Success Message */}
           <Col md={12} className="p-5 bg-white text-center">
+<<<<<<< HEAD
+=======
+            <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+              <img
+                src={logo}
+                alt="Obeeoma Logo"
+                style={{
+                  height: "50px",
+                  width: "auto"
+                }}
+                className="mb-1"
+              />
+            </div>
+>>>>>>> syda
             <div className="mb-4">
               <CheckCircle 
                 size={64} 

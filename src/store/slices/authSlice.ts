@@ -62,7 +62,11 @@ RegisterCredentials,
 { rejectValue: string }
 
 >(
+<<<<<<< HEAD
 "auth/signup",
+=======
+"auth/organization-signup/",
+>>>>>>> syda
 async (credentials, {rejectWithValue},  
 ) => {
   const dataWithDefaultRole = {
@@ -248,7 +252,11 @@ state.user = userData;
 state.isLoading = false;
 state.user = action.payload?.user;
 state.token = action.payload?.access ?? action.payload?.token;
+<<<<<<< HEAD
 state.error = null;
+=======
+ state.error = null;
+>>>>>>> syda
 
 localStorage.setItem(
  "token",
@@ -262,16 +270,25 @@ localStorage.setItem("user", JSON.stringify(action.payload?.user));
  state.error = action.payload as string;
 })
 
+<<<<<<< HEAD
  // Forgot Pasword
  .addCase(forgotPassword.pending, (state) => {
   state.isLoading = true;
   state.error = null;
+=======
+
+ // Forgot Pasword
+ .addCase(forgotPassword.pending, (state) => {
+ state.isLoading = true;
+ state.error = null;
+>>>>>>> syda
  })
 .addCase(forgotPassword.fulfilled, (state) => {
  state.isLoading = false;
  state.error = null;
 })
 .addCase(forgotPassword.rejected, (state, action) => {
+<<<<<<< HEAD
   state.isLoading = false;
   state.error = action.payload as string;})
 
@@ -287,6 +304,23 @@ localStorage.setItem("user", JSON.stringify(action.payload?.user));
 .addCase(resetPassword.rejected, (state, action) => {
   state.isLoading = false;
   state.error = action.payload as string;
+=======
+state.isLoading = false;
+ state.error = action.payload as string;})
+
+// Reset Password
+.addCase(resetPassword.pending, (state) => {
+state.isLoading = true;
+state.error = null;
+})
+.addCase(resetPassword.fulfilled, (state) => {
+ state.isLoading = false;
+ state.error = null;
+ })
+.addCase(resetPassword.rejected, (state, action) => {
+ state.isLoading = false;
+ state.error = action.payload as string;
+>>>>>>> syda
  })
 
  //logout thunk
