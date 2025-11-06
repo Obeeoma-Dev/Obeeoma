@@ -55,7 +55,7 @@ export default function OtpVerificationPage() {
         }))
             .unwrap()
             .then(() => {
-            navigate(dashboardRoute || '/login', { replace: true });
+            navigate(dashboardRoute || 'otp-verify', { replace: true });
         })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .catch((err) => {
