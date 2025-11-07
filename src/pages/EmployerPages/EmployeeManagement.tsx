@@ -8,11 +8,7 @@ const EmployeeManagement = () => {
 
   const additionalHeader = (
     <button className="btn btn-success d-flex align-items-center gap-2">
-<<<<<<< HEAD
-      <Plus size={16} className="text-white" />
-=======
       <Plus size={16} />
->>>>>>> syda
       Add Employee
     </button>
   );
