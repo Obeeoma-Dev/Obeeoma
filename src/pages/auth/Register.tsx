@@ -32,12 +32,12 @@ const customStyles = {
 };
 
 const organisation_size_options = [
-    { label: "Select Size", value: "" },
-    { label: "1-10 Employees", value: "1-10" },
-    { label: "11-50 Employees", value: "11-50" },
-    { label: "51-200 Employees", value: "51-200" },
-    { label: "201-500 Employees", value: "201-500" },
-    { label: "500+ Employees", value: "500+" },
+    { label: "Select Size", value: 0 },
+    { label: "1-10 Employees", value: 10 },
+    { label: "11-50 Employees", value: 50 },
+    { label: "51-200 Employees", value: 200 },
+    { label: "201-500 Employees", value: 500 },
+    { label: "500+ Employees", value: 600 },
 ];
 
 const contact_role_options = [
@@ -111,13 +111,13 @@ const Register: React.FC = () => {
             password: values.password,
             confirmPassword: values.confirmPassword,
             role: role,
-            contactPerson: [
+            contactPerson:
                 {
                     fullname: values.contactPersonName,
                     role: values.contactPersonRole,
                     email: values.email,
                 },
-            ],
+            
         };
 
         try {

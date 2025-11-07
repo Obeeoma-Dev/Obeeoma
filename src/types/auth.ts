@@ -19,7 +19,7 @@ export interface ContactPerson {
 
 export interface RegisterCredentials {
   phoneNumber: string;
-  contactPerson: ContactPerson[];
+  contactPerson: ContactPerson;
   organizationName: string;
   organisationSize: number | string;
   companyEmail: string;
