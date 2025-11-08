@@ -12,17 +12,18 @@ const AboutHeader: React.FC = () => {
                 color: "white",
                 paddingTop: "6rem",
                 paddingBottom: "6rem",
+                position: "relative",
             }}
         >
             <Container>
-                <Row className="justify-content-center text-center">
-                    <Col md={8}>
+                <Row className="justify-content-start text-start">
+                    <Col md={12}>
                         {/* Logo and heading side-by-side */}
                         <div
                             style={{
                                 display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
+                                // alignItems: "center",
+                                // justifyContent: "center",
                                 gap: "1rem", // This is the space between logo and heading.
                                 marginBottom: "2rem", // This is the space below the row.
                             }}
@@ -58,7 +59,7 @@ const AboutHeader: React.FC = () => {
                             style={{
                                 fontSize: "1.25rem",
                                 maxWidth: "800px",
-                                margin: "0 auto",
+                                // margin: "0 auto",
                             }}
                         >
                             We are a dedicated team of mental health professionals committed to providing compassionate, evidence-based care for individuals experiencing anxiety disorders and related mental health challenges.
@@ -66,6 +67,19 @@ const AboutHeader: React.FC = () => {
                     </Col>
                 </Row>
             </Container>
+
+            {/* Overlay below the header to fade it in to other components. */}
+            <div
+                style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "150px",
+                    background: "linear-gradient(to bottom, rgba(60,179,113,0) 0%, rgba(60,179,113,1) 100%)",
+                    zIndex: 1,
+                }}
+            />
         </div>
     );
 };

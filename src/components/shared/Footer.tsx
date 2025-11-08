@@ -18,6 +18,7 @@ const Footer: React.FC = () => {
         { text: "For Organizations", link: "/organizations" },
         { text: "For Employees", link: "/employees" },
         { text: "Mental Health Assessments", link: "/assessments" },
+
       ],
     },
     company: {
@@ -41,13 +42,13 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="py-5" data-testid="footer">
+    <footer className="py-5 bg-success" data-testid="footer">
       <div className="container">
         {/* Logo Row */}
         <div className="row mb-4">
           <div className="col-12">
             <img
-              src={Obeeoma} // Using Obeeomalogo from the single import
+              src={Obeeoma}
               alt="Obeeoma"
               className="mb-2"
               style={{
