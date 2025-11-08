@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import missionImage from "../../../assets/Images/potraidtraditional.jpg";
+import missionImage from "../../assets/Images/potraidtraditional.jpg";
 import { FaUsers, FaClock, FaSmile } from "react-icons/fa";
 
 const AboutMission: React.FC = () => {
