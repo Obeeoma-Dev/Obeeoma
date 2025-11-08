@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import floralTop from "../../../assets/Images/generate a white log.png";
+import floralTop from "../../assets/Images/generate a white log.png";
 
 const AboutHeader: React.FC = () => {
     return (
