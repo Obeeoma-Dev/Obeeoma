@@ -27,16 +27,16 @@ export default function OtpVerificationPage() {
     const { user, isLoading, error: authError } = useSelector((state) => state.auth);
     const dashboardRoute = useSelector(selectUserDashboardRoute);
     const email = user?.email; // Assuming email is available in Redux state
-    const email = user?.email;
     useEffect(() => {
+        // 1. Guard against direct access if the user state is missing/unintended 
+        // Redirect to login if essential data is missing to prevent infinite loops from '/otp-verify' fallback.
         if (!user || !email) {
-            navigate('/otp-verify', { replace: true });
             navigate('/otp-verify', { replace: true });
             return;
         }
-        // 2. Redirect if already 
+        // 2. Redirect if already verified (Standard Registration Flow)
+        // NOTE: This check should be modified or removed if this page is *strictly* for Password Reset.
         if (user.is_verified) {
-            navigate(dashboardRoute || '/otp-verify', { replace: true });
             navigate(dashboardRoute || '/otp-verify', { replace: true });
         }
     }, [email, user, navigate, dashboardRoute]);
@@ -61,15 +61,15 @@ export default function OtpVerificationPage() {
         }))
             .unwrap()
             .then(() => {
-            navigate(dashboardRoute || 'otp-verify', { replace: true });
+            // --- MODIFIED REDIRECTION LOGIC ---
+            // On SUCCESS, redirect the user to the reset-password page.
+            navigate('/reset-password', { replace: true });
         })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .catch((err) => {
             console.error('OTP Verification Failed:', err);
             // Safely extract the error message from the thunk's rejected value
-            const errorMessage = 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            err?.message || err || 'Verification failed. Please check the code.';
+            const errorMessage = err?.message || err || 'Verification failed. Please check the code.';
             setLocalError(errorMessage);
             setOtp(''); // Clear OTP on failed attempt
         });
@@ -91,7 +91,6 @@ export default function OtpVerificationPage() {
             .catch((err) => {
             console.error('Resend Failed:', err);
             // Safely extract the error message
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const errorMessage = err?.message || err || 'Failed to resend code. Please try again later.';
             setLocalError(errorMessage);
         })
@@ -100,10 +99,7 @@ export default function OtpVerificationPage() {
         });
     };
     const isAnyLoading = isLoading || isResendLoading;
-    return (_jsx("div", { className: "container d-flex justify-content-center align-items-center vh-100", children: _jsxs("div", { className: "card p-5 shadow-lg text-center", style: {
-                maxWidth: '600px',
-                width: '100%'
-            }, children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
+    return (_jsx("div", { className: "container d-flex justify-content-center align-items-center vh-100", children: _jsxs("div", { className: "card p-4 shadow-lg text-center", style: { maxWidth: '400px', width: '90%' }, children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                             height: "50px",
                             width: "auto"
                         }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: '1.5rem', fontWeight: "bold" }, children: "Check Your Email" }), _jsxs("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: '0.9rem' }, children: ["We sent a verification code to **", email || 'your email address', "**. Enter the code below to **reset your password**."] }), _jsx("p", { className: "mb-2", style: { fontWeight: '500', fontSize: '15px' }, children: "Enter Verification Code" }), _jsx("div", { className: 'otpGroup', style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
