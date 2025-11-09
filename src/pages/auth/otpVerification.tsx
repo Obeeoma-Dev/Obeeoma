@@ -35,26 +35,27 @@ export default function OtpVerificationPage() {
     margin: '0 auto 30px', 
   };
 
-  const { user, isLoading, error: authError } = useSelector(
-    (state: RootState) => state.auth
-  );
-  const dashboardRoute = useSelector(selectUserDashboardRoute);
-  const email = user?.email;
+  const { user, isLoading, error: authError } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const dashboardRoute = useSelector(selectUserDashboardRoute);
+  const email = user?.email; // Assuming email is available in Redux state
 
-  useEffect(() => {
-    
-    if (!user || !email) {
-      navigate('/otp-verify', { replace: true }); 
-      return;
-    }
+  useEffect(() => {
+    // 1. Guard against direct access if the user state is missing/unintended 
+    // Redirect to login if essential data is missing to prevent infinite loops from '/otp-verify' fallback.
+    if (!user || !email) {
+      navigate('/otp-verify', { replace: true }); 
+      return;
+    }
 
-    // 2. Redirect if already 
-    if (user.is_verified) {
-      navigate(dashboardRoute || '/otp-verify', { replace: true });
-    }
-    
-   
-  }, [email, user, navigate, dashboardRoute]);
+    // 2. Redirect if already verified (Standard Registration Flow)
+    // NOTE: This check should be modified or removed if this page is *strictly* for Password Reset.
+    if (user.is_verified) {
+      navigate(dashboardRoute || '/otp-verify', { replace: true });
+    }
+    
+  }, [email, user, navigate, dashboardRoute]);
 
 
   // Effect to clear local error when OTP changes
@@ -64,36 +65,39 @@ export default function OtpVerificationPage() {
     }
   }, [otp, localError]);
 
-  const handleVerify = (otpCode: string) => {
-    if (otpCode.length !== OTP_LENGTH || !email) {
-      setLocalError('Please enter a valid 6-digit code.');
-      return;
-    }
+  /**
+   * Handles the OTP verification process and redirects on success.
+   */
+  const handleVerify = (otpCode: string) => {
+    if (otpCode.length !== OTP_LENGTH || !email) {
+      setLocalError('Please enter a valid 6-digit code.');
+      return;
+    }
 
     setLocalError(null);
 
-    dispatch(
-      verifyOtpThunk({
-        email: email,
-        otp_code: otpCode,
-      })
-    )
-      .unwrap()
-      .then(() => {
-     
-        navigate(dashboardRoute || 'otp-verify', { replace: true });
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((err: any) => {
-        console.error('OTP Verification Failed:', err);
-        // Safely extract the error message from the thunk's rejected value
-        const errorMessage =
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (err as any)?.message || (err as string) || 'Verification failed. Please check the code.';
-        setLocalError(errorMessage);
-        setOtp(''); // Clear OTP on failed attempt for security/fresh start
-      });
-  };
+    dispatch(
+      verifyOtpThunk({
+        //email: email,
+        otp_code: otpCode,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        // --- MODIFIED REDIRECTION LOGIC ---
+        // On SUCCESS, redirect the user to the reset-password page.
+        navigate('/reset-password', { replace: true });
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .catch((err: any) => {
+        console.error('OTP Verification Failed:', err);
+        // Safely extract the error message from the thunk's rejected value
+        const errorMessage =
+          (err as any)?.message || (err as string) || 'Verification failed. Please check the code.';
+        setLocalError(errorMessage);
+        setOtp(''); // Clear OTP on failed attempt
+      });
+  };
 
   const handleResendCode = () => {
     if (!email) {
@@ -104,130 +108,125 @@ export default function OtpVerificationPage() {
     setIsResendLoading(true);
     setLocalError(null); // Clear previous errors
 
-    dispatch(resendOtpThunk({ email }))
-      .unwrap()
-      .then(() => {
-       
-        window.alert('New verification code sent to your email!');
-        setOtp(''); // Clear OTP input after resend
-      })
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .catch((err: any) => {
-        console.error('Resend Failed:', err);
-        // Safely extract the error message
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
-        setLocalError(errorMessage);
-      })
-      .finally(() => {
-        setIsResendLoading(false);
-      });
-  };
+    dispatch(resendOtpThunk({ email }))
+      .unwrap()
+      .then(() => {
+        window.alert('New verification code sent to your email!');
+        setOtp(''); // Clear OTP input after resend
+      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .catch((err: any) => {
+        console.error('Resend Failed:', err);
+        // Safely extract the error message
+        const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
+        setLocalError(errorMessage);
+      })
+      .finally(() => {
+        setIsResendLoading(false);
+      });
+  };
 
-  const isAnyLoading = isLoading || isResendLoading;
-  
-  return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      {/* CARD Container */}
-      <div 
-        className="card p-5 shadow-lg text-center" 
-        style={{ 
-          maxWidth: '600px', 
-          width: '100%' 
-        }} 
-      >
-        <div className="d-flex flex-column align-items-center justify-content-center mb-4">
-          <img
-            src={logo}
-            alt="Obeeoma Logo"
-            style={{
-              height: "50px",
-              width: "auto"
-            }}
-            className="mb-1"
-          />
-        </div>
-    
-        {/* Title & Description */}
-        <h2 className="text-center mb-2" style={{ fontFamily:"body", fontSize: '1.5rem', fontWeight: "bold" }}>Check Your Email</h2>
-        <p className="text-muted mb-4" style={{ fontFamily:"body", fontSize: '0.9rem' }}>
-          We sent a verification code to **{email || 'your email address'}**. Enter the code below to {user?.is_verified ? 'complete login' : 'verify your account'}.
-        </p>
+  const isAnyLoading = isLoading || isResendLoading;
+  
+  return (
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      {/* CARD Container */}
+      <div 
+        className="card p-4 shadow-lg text-center"
+        style={{ maxWidth: '400px', width: '90%' }} 
+      >
+        <div className="d-flex flex-column align-items-center justify-content-center mb-4">
+          <img
+            src={logo}
+            alt="Obeeoma Logo"
+            style={{
+              height: "50px",
+              width: "auto"
+            }}
+            className="mb-1"
+          />
+        </div>
+    
+        {/* Title & Description */}
+        <h2 className="text-center mb-2" style={{ fontFamily:"body", fontSize: '1.5rem', fontWeight: "bold" }}>Check Your Email</h2>
+        <p className="text-muted mb-4" style={{ fontFamily:"body", fontSize: '0.9rem' }}>
+          We sent a verification code to **{email || 'your email address'}**. Enter the code below to **reset your password**.
+        </p>
 
-        <p className="mb-2" style={{ fontWeight: '500', fontSize: '15px' }}>Enter Verification Code</p>
-        
-        {/* OTP Input */}
-        <div className='otpGroup' style={otpGroupStyle}>
-          <OtpInput
-            value={otp}
-            valueLength={OTP_LENGTH}
-            onChange={setOtp}
-          />
-        </div>
-        
-        {/* Error/Loading Messages */}
-        {(localError || authError) && (
-          <div className="text-danger mt-1 mb-3 small fw-bold">
-            {localError || authError}
-          </div>
-        )}
-          
-        {/* Verify Button */}
-        <Button
-          type="button"
-          className="w-100 mb-3 py-2 fw-semibold"
-          // Disable if OTP length is wrong or if any operation is loading
-          disabled={otp.length !== OTP_LENGTH || isAnyLoading}
-          onClick={() => handleVerify(otp)}
-          style={{
-            backgroundColor: customStyles.primaryColor,
-            borderColor: customStyles.primaryColor,
-            color: "white",
-            boxShadow: "none",
-            fontFamily: "body",
-            opacity: (otp.length !== OTP_LENGTH || isAnyLoading) ? 0.6 : 1 // Visual feedback for disabled state
-          }}
-        >
-          {isLoading ? 'Verifying...' : 'Verify Code'} 
-        </Button>
-          
-        {/* Resend Link */}
-        <div className="text-center mt-3">
-          <span
-            className="text-center text-muted small"
-            style={{ fontFamily: 'body' }}
-          >
-            Did not receive the code?{' '}
-          </span>
-          <Link
-            onClick={handleResendCode}
-            style={{
-              color: '#3CB371',
-              textDecoration: 'none',
-              fontWeight: '600',
-              cursor: isResendLoading || !email ? 'not-allowed' : 'pointer',
-              fontFamily: 'body',
-              opacity: isResendLoading || !email ? 0.6 : 1, // Visual feedback for disabled state
-            }}
-            to="#"
-            className="small"
-          >
-            {isResendLoading ? 'Sending...' : 'Resend'}
-          </Link>
-        </div>
-    
-        {/* "Back to Sign In" link */}
-        <div className="mt-4">
-          <Link 
-            to="/login" 
-            style={{ color: '#3CB371', textDecoration: 'none', fontSize: '14px' }}
-          >
-            ← Back to Sign In
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+        <p className="mb-2" style={{ fontWeight: '500', fontSize: '15px' }}>Enter Verification Code</p>
+        
+        {/* OTP Input */}
+        <div className='otpGroup' style={otpGroupStyle}>
+          <OtpInput
+            value={otp}
+            valueLength={OTP_LENGTH}
+            onChange={setOtp}
+          />
+        </div>
+        
+        {/* Error/Loading Messages */}
+        {(localError || authError) && (
+          <div className="text-danger mt-1 mb-3 small fw-bold">
+            {localError || authError}
+          </div>
+        )}
+          
+        {/* Verify Button */}
+        <Button
+          type="button"
+          className="w-100 mb-3 py-2 fw-semibold"
+          // Disable if OTP length is wrong or if any operation is loading
+          disabled={otp.length !== OTP_LENGTH || isAnyLoading}
+          onClick={() => handleVerify(otp)}
+          style={{
+            backgroundColor: customStyles.primaryColor,
+            borderColor: customStyles.primaryColor,
+            color: "white",
+            boxShadow: "none",
+            fontFamily: "body",
+            opacity: (otp.length !== OTP_LENGTH || isAnyLoading) ? 0.6 : 1 // Visual feedback for disabled state
+          }}
+        >
+          {isLoading ? 'Verifying...' : 'Verify Code'} 
+        </Button>
+          
+        {/* Resend Link */}
+        <div className="text-center mt-3">
+          <span
+            className="text-center text-muted small"
+            style={{ fontFamily: 'body' }}
+          >
+            Did not receive the code?{' '}
+          </span>
+          <Link
+            onClick={handleResendCode}
+            style={{
+              color: '#3CB371',
+              textDecoration: 'none',
+              fontWeight: '600',
+              cursor: isResendLoading || !email ? 'not-allowed' : 'pointer',
+              fontFamily: 'body',
+              opacity: isResendLoading || !email ? 0.6 : 1, // Visual feedback for disabled state
+            }}
+            to="#"
+            className="small"
+          >
+            {isResendLoading ? 'Sending...' : 'Resend'}
+          </Link>
+        </div>
+    
+        {/* "Back to Sign In" link */}
+        <div className="mt-4">
+          <Link 
+            to="/login" 
+            style={{ color: '#3CB371', textDecoration: 'none', fontSize: '14px' }}
+          >
+            ← Back to Sign In
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // import React, { useState, useEffect } from 'react';
@@ -271,21 +270,27 @@ export default function OtpVerificationPage() {
 //     (state: RootState) => state.auth
 //   );
 //   const dashboardRoute = useSelector(selectUserDashboardRoute);
+
+//   // Use the email for the OTP process, typically from the user object after login/registration
+//   // NOTE: If this page is used for *Password Reset*, the email should come from
+//   // a separate state (like a resetPasswordSlice) or query parameter, not the auth.user object.
 //   const email = user?.email;
 
 //   useEffect(() => {
-    
+//     // 1. Guard against direct access if the user state is empty/unintended for verification
+//     // *CORRECTION*: Changed target of fallback navigation from '/otp-verify' (which loops) to '/login'.
 //     if (!user || !email) {
 //       navigate('/otp-verify', { replace: true }); 
 //       return;
 //     }
 
-//     // 2. Redirect if already 
+//     // 2. Redirect if already verified (Standard Registration Flow)
 //     if (user.is_verified) {
 //       navigate(dashboardRoute || '/otp-verify', { replace: true });
 //     }
     
-   
+//     // NOTE: If this component is *only* for Password Reset, the logic above (checking user status) 
+//     // should be replaced with checks for the reset token/state.
 //   }, [email, user, navigate, dashboardRoute]);
 
 
@@ -312,15 +317,16 @@ export default function OtpVerificationPage() {
 //     )
 //       .unwrap()
 //       .then(() => {
-     
-//         navigate(dashboardRoute || 'otp-verify', { replace: true });
+//         // Successful verification - Navigate to the next appropriate route.
+//         // If this is *registration* verification, navigate to the dashboard.
+//         // If this is *password reset*, navigate to the password change page.
+//         navigate(dashboardRoute || '/reset-password', { replace: true });
 //       })
 //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //       .catch((err: any) => {
 //         console.error('OTP Verification Failed:', err);
 //         // Safely extract the error message from the thunk's rejected value
 //         const errorMessage =
-//           // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //           (err as any)?.message || (err as string) || 'Verification failed. Please check the code.';
 //         setLocalError(errorMessage);
 //         setOtp(''); // Clear OTP on failed attempt for security/fresh start
@@ -339,7 +345,8 @@ export default function OtpVerificationPage() {
 //     dispatch(resendOtpThunk({ email }))
 //       .unwrap()
 //       .then(() => {
-       
+//         // Use a less intrusive method than `alert`, like a toast or notification.
+//         // For this example, an alert is kept but a comment added.
 //         window.alert('New verification code sent to your email!');
 //         setOtp(''); // Clear OTP input after resend
 //       })
@@ -347,7 +354,6 @@ export default function OtpVerificationPage() {
 //       .catch((err: any) => {
 //         console.error('Resend Failed:', err);
 //         // Safely extract the error message
-//         // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //         const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
 //         setLocalError(errorMessage);
 //       })

@@ -26,14 +26,17 @@ export default function OtpVerificationPage() {
     };
     const { user, isLoading, error: authError } = useSelector((state) => state.auth);
     const dashboardRoute = useSelector(selectUserDashboardRoute);
+    const email = user?.email; // Assuming email is available in Redux state
     const email = user?.email;
     useEffect(() => {
         if (!user || !email) {
+            navigate('/otp-verify', { replace: true });
             navigate('/otp-verify', { replace: true });
             return;
         }
         // 2. Redirect if already 
         if (user.is_verified) {
+            navigate(dashboardRoute || '/otp-verify', { replace: true });
             navigate(dashboardRoute || '/otp-verify', { replace: true });
         }
     }, [email, user, navigate, dashboardRoute]);
@@ -43,6 +46,9 @@ export default function OtpVerificationPage() {
             setLocalError(null);
         }
     }, [otp, localError]);
+    /**
+     * Handles the OTP verification process and redirects on success.
+     */
     const handleVerify = (otpCode) => {
         if (otpCode.length !== OTP_LENGTH || !email) {
             setLocalError('Please enter a valid 6-digit code.');
@@ -50,7 +56,7 @@ export default function OtpVerificationPage() {
         }
         setLocalError(null);
         dispatch(verifyOtpThunk({
-            email: email,
+            //email: email,
             otp_code: otpCode,
         }))
             .unwrap()
@@ -65,7 +71,7 @@ export default function OtpVerificationPage() {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             err?.message || err || 'Verification failed. Please check the code.';
             setLocalError(errorMessage);
-            setOtp(''); // Clear OTP on failed attempt for security/fresh start
+            setOtp(''); // Clear OTP on failed attempt
         });
     };
     const handleResendCode = () => {
@@ -100,7 +106,7 @@ export default function OtpVerificationPage() {
             }, children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                             height: "50px",
                             width: "auto"
-                        }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: '1.5rem', fontWeight: "bold" }, children: "Check Your Email" }), _jsxs("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: '0.9rem' }, children: ["We sent a verification code to **", email || 'your email address', "**. Enter the code below to ", user?.is_verified ? 'complete login' : 'verify your account', "."] }), _jsx("p", { className: "mb-2", style: { fontWeight: '500', fontSize: '15px' }, children: "Enter Verification Code" }), _jsx("div", { className: 'otpGroup', style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
+                        }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: '1.5rem', fontWeight: "bold" }, children: "Check Your Email" }), _jsxs("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: '0.9rem' }, children: ["We sent a verification code to **", email || 'your email address', "**. Enter the code below to **reset your password**."] }), _jsx("p", { className: "mb-2", style: { fontWeight: '500', fontSize: '15px' }, children: "Enter Verification Code" }), _jsx("div", { className: 'otpGroup', style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
                     // Disable if OTP length is wrong or if any operation is loading
                     disabled: otp.length !== OTP_LENGTH || isAnyLoading, onClick: () => handleVerify(otp), style: {
                         backgroundColor: customStyles.primaryColor,
