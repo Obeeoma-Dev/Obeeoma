@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-// Use one of the imports, Obeeomalogo is used in the JSX below
-import Obeeomalogo from "../../assets/Images/obeeomalogoword1.png"; 
+import Obeeoma from "../../assets/Images/obeeomalogoword2.png";
 
 // Define interface for menu items
 interface MenuSection {
@@ -19,6 +18,7 @@ const Footer: React.FC = () => {
         { text: "For Organizations", link: "/organizations" },
         { text: "For Employees", link: "/employees" },
         { text: "Mental Health Assessments", link: "/assessments" },
+
       ],
     },
     company: {
@@ -42,17 +42,17 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="py-5" data-testid="footer">
+    <footer className="py-5 bg-success" data-testid="footer">
       <div className="container">
         {/* Logo Row */}
         <div className="row mb-4">
           <div className="col-12">
             <img
-              src={Obeeomalogo} // Using Obeeomalogo from the single import
+              src={Obeeoma}
               alt="Obeeoma"
               className="mb-2"
               style={{
-                height: "40px",
+                height: "50px",
                 width: "auto",
               }}
               data-testid="footer-logo"
