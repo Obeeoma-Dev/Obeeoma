@@ -26,23 +26,19 @@ export default function OtpVerificationPage() {
     };
     const { user, isLoading, error: authError } = useSelector((state) => state.auth);
     const dashboardRoute = useSelector(selectUserDashboardRoute);
-    // Use the email for the OTP process, typically from the user object after login/registration
-    // NOTE: If this page is used for *Password Reset*, the email should come from
-    // a separate state (like a resetPasswordSlice) or query parameter, not the auth.user object.
-    const email = user?.email;
+    const email = user?.email; // Assuming email is available in Redux state
     useEffect(() => {
-        // 1. Guard against direct access if the user state is empty/unintended for verification
-        // *CORRECTION*: Changed target of fallback navigation from '/otp-verify' (which loops) to '/login'.
+        // 1. Guard against direct access if the user state is missing/unintended 
+        // Redirect to login if essential data is missing to prevent infinite loops from '/otp-verify' fallback.
         if (!user || !email) {
-            navigate('/login', { replace: true });
+            navigate('/otp-verify', { replace: true });
             return;
         }
         // 2. Redirect if already verified (Standard Registration Flow)
+        // NOTE: This check should be modified or removed if this page is *strictly* for Password Reset.
         if (user.is_verified) {
-            navigate(dashboardRoute || '/login', { replace: true });
+            navigate(dashboardRoute || '/otp-verify', { replace: true });
         }
-        // NOTE: If this component is *only* for Password Reset, the logic above (checking user status) 
-        // should be replaced with checks for the reset token/state.
     }, [email, user, navigate, dashboardRoute]);
     // Effect to clear local error when OTP changes
     useEffect(() => {
@@ -50,6 +46,9 @@ export default function OtpVerificationPage() {
             setLocalError(null);
         }
     }, [otp, localError]);
+    /**
+     * Handles the OTP verification process and redirects on success.
+     */
     const handleVerify = (otpCode) => {
         if (otpCode.length !== OTP_LENGTH || !email) {
             setLocalError('Please enter a valid 6-digit code.');
@@ -57,15 +56,14 @@ export default function OtpVerificationPage() {
         }
         setLocalError(null);
         dispatch(verifyOtpThunk({
-            email: email,
+            //email: email,
             otp_code: otpCode,
         }))
             .unwrap()
             .then(() => {
-            // Successful verification - Navigate to the next appropriate route.
-            // If this is *registration* verification, navigate to the dashboard.
-            // If this is *password reset*, navigate to the password change page.
-            navigate(dashboardRoute || '/login', { replace: true });
+            // --- MODIFIED REDIRECTION LOGIC ---
+            // On SUCCESS, redirect the user to the reset-password page.
+            navigate('/reset-password', { replace: true });
         })
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .catch((err) => {
@@ -73,7 +71,7 @@ export default function OtpVerificationPage() {
             // Safely extract the error message from the thunk's rejected value
             const errorMessage = err?.message || err || 'Verification failed. Please check the code.';
             setLocalError(errorMessage);
-            setOtp(''); // Clear OTP on failed attempt for security/fresh start
+            setOtp(''); // Clear OTP on failed attempt
         });
     };
     const handleResendCode = () => {
@@ -86,8 +84,6 @@ export default function OtpVerificationPage() {
         dispatch(resendOtpThunk({ email }))
             .unwrap()
             .then(() => {
-            // Use a less intrusive method than `alert`, like a toast or notification.
-            // For this example, an alert is kept but a comment added.
             window.alert('New verification code sent to your email!');
             setOtp(''); // Clear OTP input after resend
         })
@@ -106,7 +102,7 @@ export default function OtpVerificationPage() {
     return (_jsx("div", { className: "container d-flex justify-content-center align-items-center vh-100", children: _jsxs("div", { className: "card p-4 shadow-lg text-center", style: { maxWidth: '400px', width: '90%' }, children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                             height: "50px",
                             width: "auto"
-                        }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: '1.5rem', fontWeight: "bold" }, children: "Check Your Email" }), _jsxs("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: '0.9rem' }, children: ["We sent a verification code to **", email || 'your email address', "**. Enter the code below to ", user?.is_verified ? 'complete login' : 'verify your account', "."] }), _jsx("p", { className: "mb-2", style: { fontWeight: '500', fontSize: '15px' }, children: "Enter Verification Code" }), _jsx("div", { className: 'otpGroup', style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
+                        }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: '1.5rem', fontWeight: "bold" }, children: "Check Your Email" }), _jsxs("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: '0.9rem' }, children: ["We sent a verification code to **", email || 'your email address', "**. Enter the code below to **reset your password**."] }), _jsx("p", { className: "mb-2", style: { fontWeight: '500', fontSize: '15px' }, children: "Enter Verification Code" }), _jsx("div", { className: 'otpGroup', style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
                     // Disable if OTP length is wrong or if any operation is loading
                     disabled: otp.length !== OTP_LENGTH || isAnyLoading, onClick: () => handleVerify(otp), style: {
                         backgroundColor: customStyles.primaryColor,

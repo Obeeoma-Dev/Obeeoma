@@ -53,7 +53,7 @@ export const resetPasswordValidationSchema = yup.object({
         .string()
         .required("New Password is required")
         .min(8, "Password must be at least 8  characters"),
-    confirmNewPassword: yup
+    confirmPassword: yup
         .string()
         .required("Please confirm your new password")
         .oneOf([yup.ref("password")], "Passwords must match"),

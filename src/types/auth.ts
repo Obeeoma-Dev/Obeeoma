@@ -33,8 +33,10 @@ export interface ForgotPasswordData {
 }
 
 export interface changePasswordData {
-  token: string;
+  //token: string;
   password: string;
+  confirmPassword: string;
+
 }
 
 export interface AuthState {
@@ -52,7 +54,7 @@ export interface LoginSuccessPayload {
 }
 
 export interface OtpVerificationPayload {
-  email: string;
+  //email: string;
   otp_code: string;
 }
 
