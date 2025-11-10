@@ -15,13 +15,13 @@ import {
     Card,
     Spinner,
     InputGroup,
-    Row, // Added for two-column layout
-    Col, // Added for two-column layout
+    Row,
+    Col,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash, faPhone, faEnvelope, faUser, faMapMarkerAlt, faSitemap, faBuilding, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
-import logo from "./../../assets/Images/obeeomalogoword1.png"; 
+import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 // --- Custom Styles and Data ---
 
@@ -68,7 +68,7 @@ type RegisterFormValues = {
 
 const Register: React.FC = () => {
 
-    const [role] = useState<Role>("employer"); 
+    const [role] = useState<Role>("employer");
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const { error, isLoading } = useSelector((state: RootState) => state.auth);
@@ -117,7 +117,7 @@ const Register: React.FC = () => {
                     role: values.contactPersonRole,
                     email: values.email,
                 },
-            
+
         };
 
         try {
@@ -130,7 +130,7 @@ const Register: React.FC = () => {
         }
     };
 
-    
+
     const inputStyle: React.CSSProperties = {
         height: '48px',
         borderRadius: '4px',
@@ -171,7 +171,7 @@ const Register: React.FC = () => {
                     <Card
                         className="shadow-lg border-0"
                         style={{
-                            maxWidth: "800px", 
+                            maxWidth: "800px",
                             borderRadius: "10px",
                             boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
 
@@ -182,11 +182,15 @@ const Register: React.FC = () => {
                             <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
                                 <img
                                     src={logo}
-                                    alt={`${customStyles.logoText} Logo`}
-                                    width="100"
+                                    alt="Obeeoma Logo"
+                                    style={{
+                                        height: "50px",
+                                        width: "auto"
+                                    }}
                                     className="mb-1"
                                 />
-                                
+
+
                             </div>
 
                             <h3 className="text-center mb-2 fw-semibold text-dark" style={{ fontFamily: "heading" }}>
@@ -356,7 +360,7 @@ const Register: React.FC = () => {
                                                 </BootstrapForm.Group>
                                             </Col>
 
-                                            {/* Passwords - Full Width at the Bottom (using two Col md=6 for the horizontal row) */}
+                                            {/* Passwords - Full Width at the Bottom (using Col md=6 for two side-by-side inputs) */}
                                             <Col md={6}>
                                                 {/* Password */}
                                                 <BootstrapForm.Group style={formGroupStyle} controlId="password">
@@ -405,28 +409,28 @@ const Register: React.FC = () => {
                                                     <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback d-block" />
                                                 </BootstrapForm.Group>
                                             </Col>
+
+                                            {/* Sign up Button - Now in a full-width Col (12) to match the outer form content width */}
+                                            <Col md={12} className="mt-2 mb-3"> 
+                                                <Button
+                                                    type="submit"
+                                                    className="w-100 py-3 fw-semibold"
+                                                    disabled={isLoading}
+                                                    style={{
+                                                        backgroundColor: customStyles.primaryColor,
+                                                        borderColor: customStyles.primaryColor,
+                                                        color: "white",
+                                                        boxShadow: "none",
+                                                        fontFamily: "body",
+                                                    }}
+                                                >
+                                                    {isLoading ? (<><Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" style={{ fontFamily: "heading" }} />Signing Up...</>) : ("Sign up")}
+                                                </Button>
+                                            </Col>
+
                                         </Row>
                                         
-                                        {/* Sign up Button */}
-                                        <div style={{ padding: '0 15px', marginTop: '1rem' }}>
-                                            <Button
-                                                type="submit"
-                                                className="w-100 py-3 fw-semibold"
-                                                disabled={isLoading}
-                                                style={{
-                                                    backgroundColor: customStyles.primaryColor,
-                                                    borderColor: customStyles.primaryColor,
-                                                    color: "white",
-                                                    boxShadow: "none",
-                                                    fontFamily: "body",
-                                                    marginBottom: '1rem'
-                                                }}
-                                            >
-                                                {isLoading ? (<><Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" style={{ fontFamily: "heading" }} />Signing Up...</>) : ("Sign up")}
-                                            </Button>
-                                        </div>
-                                        
-                                        {/* Already have an account link */}
+                                        {/* Already have an account link - Placed outside the Row for full-width alignment */}
                                         <p className="text-center mt-3 text-muted">
                                             Already have an account? <Link to="/login" style={{ color: customStyles.primaryColor, textDecoration: "none", fontWeight: "600" }}>Log in</Link>
                                         </p>
@@ -437,7 +441,7 @@ const Register: React.FC = () => {
                     </Card>
                 </div>
             </Container>
-            
+
             {/* Footer Section */}
             <footer
                 className="text-center text-muted py-3 small border-top"
@@ -447,7 +451,7 @@ const Register: React.FC = () => {
                     fontFamily: "body"
                 }}
             >
-                <div className="d-flex justify-content-between align-items-center container">
+                <Container className="d-flex justify-content-between align-items-center">
                     <div className="footer-copyright" >
                         &copy; 2025 {customStyles.logoText}. All rights reserved.
                     </div>
@@ -478,7 +482,7 @@ const Register: React.FC = () => {
                             Contact Us
                         </a>
                     </div>
-                </div>
+                </Container>
             </footer>
         </div>
     );
