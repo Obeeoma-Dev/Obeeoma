@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import floralTop from "../../assets/Images/generate a white log.png";
+import floralTop from "../../assets/Images/whitelogo.png";
 
 const AboutHeader: React.FC = () => {
     return (
@@ -36,6 +36,8 @@ const AboutHeader: React.FC = () => {
                                     height: "50px", // Slightly larger for visibility
                                     width: "50px",
                                     objectFit: "contain",
+                                    boxShadow: "0 0 25px rgba(255, 255, 255, 0.8)",
+
                                 }}
                                 data-testid="about-header-icon"
                             />
