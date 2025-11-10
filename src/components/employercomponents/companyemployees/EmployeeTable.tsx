@@ -1,6 +1,18 @@
-import React, { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+      {/* Header Section -- find more interesting words to put here, like company logo or stress quote */}
+      {/* <div className="row mb-4">
+        <div className="col-12">
+          <div className="d-flex justify-content-between align-items-center">
+            <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
+          </div>
+        </div>
+      </div> */}
+import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
+import AddEmployeeForm from "./AddEmployeeForm"; // Adjust import path as needed
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEmployeeInvites, clearEmployerError } from "../../../store/slices/employerSlice";
+import { RootState } from "../../../store/store";
+import { useToast } from "../../../hooks/use-toast";
 
 interface Employee {
   id: number;
@@ -17,41 +29,44 @@ interface EmployeeTableProps {
 }
 
 const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
-  // TODO: Replace with API data
-  const employees: Employee[] = [
-    {
-      id: 1,
-      name: "Paul Lwanga",
-      email: "paul@example.com",
-      department: "Marketing",
-      status: "Active",
-      avatar: "J",
-    },
-    {
-      id: 2,
-      name: "Alex Agbonifo",
-      email: "alex@example.com",
-      department: "HR",
-      status: "Active",
-      avatar: "A",
-    },
-    {
-      id: 3,
-      name: "Sam Mukwano",
-      email: "sam@example.com",
-      department: "Finance",
-      status: "Active",
-      avatar: "S",
-    },
-    {
-      id: 4,
-      name: "Orena",
-      email: "orenagedion2020@gmail.com",
-      department: "Engineering",
-      status: "Pending",
-      avatar: "O",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { toast } = useToast();
+  const { invites, isLoading, error } = useSelector((state: RootState) => state.employer);
+
+  // Transform invites to employee format for display
+  interface Invite {
+    id: number;
+    email: string;
+    status: 'accepted' | 'pending' | 'rejected' | string;
+  }
+
+  const employees: Employee[] = (invites as Invite[]).map((invite: Invite): Employee => ({
+    id: invite.id,
+    name: invite.email,
+    email: invite.email,
+    department: "Other",
+    status: invite.status === 'accepted' ? 'Active' : invite.status === 'pending' ? 'Pending' : 'Inactive',
+    avatar: invite.email.charAt(0).toUpperCase(),
+  }));
+
+  const [showModal, setShowModal] = useState(false);
+
+  // Fetch employee invites on component mount
+  useEffect(() => {
+    dispatch(fetchEmployeeInvites());
+  }, [dispatch]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Error",
+        description: error,
+        message: error,
+      });
+      dispatch(clearEmployerError());
+    }
+  }, [error, toast, dispatch]);
 
   const filteredEmployees = employees.filter(
     (emp) =>
@@ -60,86 +75,65 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const handleChange = (checked: boolean) => {
-    setIsChecked(checked);
+  const handleStatusChange = (employeeId: number, checked: boolean) => {
+    // Note: Status changes should be handled via API call in a real implementation
+    // For now, we'll show a toast indicating this feature needs backend integration
+    toast({
+      title: "Feature Not Implemented",
+      description: "Status changes require backend API integration",
+      message: "Status changes require backend API integration",
+    });
   };
 
   const loadAddEmployeeForm = () => {
-    // Logic to load the Add Employee form/modal
+    setShowModal(true);
   }
 
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
+  const handleEmployeeAdded = () => {
+    // Refresh the employee invites list after adding a new employee
+    dispatch(fetchEmployeeInvites());
+    toast({
+      title: "Success",
+      description: "Employee invitation sent successfully!",
+      message: "Employee invitation sent successfully!",
+    });
+  }
 
   return (
     <>
-      {/* Header Section */}
-      <div className="row mb-4">
+      {/* Search and Add Employee Section */}
+      <div className="row mb-3">
         <div className="col-12">
           <div className="d-flex justify-content-between align-items-center">
-            <h2 className="h5 fw-semibold mb-0">Employees</h2>
+            <div className="position-relative" style={{ width: "300px" }}>
+              <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
+              <input
+                type="search"
+                placeholder="Search employees..."
+                className="form-control ps-5"
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)} />
+            </div>
+            <button 
+              type="button" 
+              className="btn btn-success" 
+              onClick={loadAddEmployeeForm} > 
+              Add Employee
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Search Section */}
-      <div className="row mb-3">
-        <div className="col-8 col-md-6">
-          <div className="position-relative">
-            <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
-            <input
-              type="search"
-              placeholder="Search employees..."
-              className="form-control ps-5"
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="col-4 col-md-6 text-end"></div> 
-          <button type="button" className="btn btn-success" data-toggle="modal" data-target="#employeeInviteModal" data-whatever="@mdo"
-            onClick={loadAddEmployeeForm}> 
-            Add Employee
-          </button>
-        </div>
-
-        {/* Modal popup for adding employee */}
-        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="employeeInviteModal" aria-hidden="true">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="employeeInviteModal">Invite</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="employee-email" className="col-form-label">Email address:</label>
-                    <input type="text" className="form-control" id="employee-email" />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="phone" className="col-form-label">Phone number:</label>
-                    <textarea className="form-control" id="phone"></textarea>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="department" className="col-form-label">Department:</label>
-                    <textarea className="form-control" id="department"></textarea>
-                  </div>
-                  <div className="form-group">
-                    <a href="#" className="tooltip-test" title="Upload an excel document">Try bulk add</a>.
-                    <input type="file" className="form-control-file" id="upload-excel" />
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-success">Add</button>
-                <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-          </div>
-        </div>
+      {/* Add Employee Modal */}
+      <AddEmployeeForm 
+        showModal={showModal}
+        onClose={closeModal}
+        onEmployeeAdded={handleEmployeeAdded}
+      />
 
       {/* Employees Table */}
       <div className="row">
@@ -150,11 +144,11 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                 <table className="table table-hover mb-0">
                   <thead className="bg-light">
                     <tr>
-                      <th className="border-0 ps-4 py-3 text-muted fw-normal">Name</th>
-                      <th className="border-0 py-3 text-muted fw-normal">Email</th>
-                      <th className="border-0 py-3 text-muted fw-normal">Department</th>
-                      <th className="border-0 py-3 text-muted fw-normal">Status</th>
-                      <th className="border-0 py-3 text-muted fw-normal text-end">Deactivate</th>
+                      <th className="border-0 ps-4 py-3 text-muted fw-semibold">Name</th>
+                      <th className="border-0 py-3 text-muted fw-semibold">Email</th>
+                      <th className="border-0 py-3 text-muted fw-semibold">Department</th>
+                      <th className="border-0 py-3 text-muted fw-semibold">Status</th>
+                      <th className="border-0 py-3 text-muted fw-semibold text-end">Deactivate</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -171,20 +165,29 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                         <td className="py-3 text-muted">{employee.email}</td>
                         <td className="py-3 text-muted">{employee.department}</td>
                         <td className="py-3">
-                          <span className="badge bg-success bg-opacity-10 text-success">
+                          <span className={`badge ${
+                            employee.status === "Active" 
+                              ? "bg-success bg-opacity-10 text-success" 
+                              : employee.status === "Pending"
+                              ? "bg-warning bg-opacity-10 text-warning"
+                              : "bg-danger bg-opacity-10 text-danger"
+                          }`}>
                             {employee.status}
                           </span>
                         </td>
                         <td className="py-3 text-end">
-                          <Checkbox checked={isChecked} onCheckedChange={handleChange} 
-                            className="cursor-pointer " />
-                            {/* <input
+                          <div className="form-check form-switch d-inline-block" style={{ width: "3.5em", textAlign: "right" }}>
+                            <input
                               className="form-check-input"
                               type="checkbox"
-                              checked={employeeStatus[item.key]}
-                              onChange={(e) => handleToggleChange(item.key, e.target.checked)}
-                              style={{ width: "3em", height: "1.5em" }}
-                            /> */}
+                              role="switch"
+                              checked={employee.status === "Active"}
+                              onChange={(e) => {
+                                handleStatusChange(employee.id, e.target.checked);
+                              }}
+                              style={{ width: "2.5em", height: "1.25em" }}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}

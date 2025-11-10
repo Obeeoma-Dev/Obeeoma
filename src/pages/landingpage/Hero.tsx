@@ -98,7 +98,7 @@ const Hero = () => {
                 // Navigate to signup page when clicked
                 onClick={() => navigate("/signup")}
               >
-                For Organisations
+                For Organizations
               </Button>
 
               {/* === Secondary Button: Soft white background, green text === */}
@@ -126,7 +126,7 @@ const Hero = () => {
                 // Navigate to login page when clicked
                 onClick={() => navigate("/login")}
               >
-                For employees
+                For Employees
               </Button>
             </div>
           </Col>
