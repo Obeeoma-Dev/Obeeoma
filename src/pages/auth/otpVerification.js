@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
-import { verifyOtpThunk, resendOtpThunk, selectUserDashboardRoute, } from '../../store/slices/authSlice';
+import { verifyOtpThunk, resendOtpThunk } from '../../store/slices/authSlice';
 import logo from './../../assets/Images/obeeomalogoword1.png';
 const customStyles = {
     primaryColor: "#3CB371",
@@ -17,16 +17,10 @@ export default function OtpVerificationPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // Define style object outside the component or memoize if it's based on props
-    const otpGroupStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        width: 'auto',
-        columnGap: '8px',
-        margin: '0 auto 30px',
-    };
+    const otpGroupStyle = { display: 'flex', justifyContent: 'center', width: 'auto', columnGap: '8px', margin: '0 auto 30px' };
     const { user, isLoading, error: authError } = useSelector((state) => state.auth);
-    const dashboardRoute = useSelector(selectUserDashboardRoute);
-    const email = user?.email; // Assuming email is available in Redux state
+    // const dashboardRoute = useSelector(selectUserDashboardRoute);
+    const email = user?.email; // Get email from authenticated user state
     // Effect to clear local error when OTP changes
     useEffect(() => {
         if (otp.length > 0 && localError) {
@@ -55,7 +49,9 @@ export default function OtpVerificationPage() {
             .catch((err) => {
             console.error('OTP Verification Failed:', err);
             // Safely extract the error message from the thunk's rejected value
-            const errorMessage = err?.message || err || 'Verification failed. Please check the code.';
+            const errorMessage = 
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            err?.message || err || 'Verification failed. Please check the code.';
             setLocalError(errorMessage);
             setOtp(''); // Clear OTP on failed attempt
         });
@@ -66,7 +62,7 @@ export default function OtpVerificationPage() {
             return;
         }
         setIsResendLoading(true);
-        setLocalError(null); // Clear previous errors
+        setLocalError(null); //Clear previous errors
         dispatch(resendOtpThunk({ email }))
             .unwrap()
             .then(() => {
@@ -76,7 +72,7 @@ export default function OtpVerificationPage() {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .catch((err) => {
             console.error('Resend Failed:', err);
-            // Safely extract the error message
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const errorMessage = err?.message || err || 'Failed to resend code. Please try again later.';
             setLocalError(errorMessage);
         })

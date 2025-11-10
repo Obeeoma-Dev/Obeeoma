@@ -8,13 +8,13 @@ import {
   LoginSuccessPayload,
   OtpVerificationPayload,
   OtpSuccessResponse,
-    ResendOtpPayload,
-  // User // User type is not directly used in initial state, relying on inferred type
+  ResendOtpPayload,
+// User // User type is not directly used in initial state, relying on inferred type
 } from "./../../types/auth";
-import {  authAPI } from "../../api/apiConfig";
+import {authAPI} from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
-import { getDashboardRoute } from "../../utils/routing";
+import {getDashboardRoute} from "../../utils/routing";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {

@@ -4,45 +4,33 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store/store';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
-import {verifyOtpThunk, resendOtpThunk,selectUserDashboardRoute} from '../../store/slices/authSlice';
+import {verifyOtpThunk, resendOtpThunk} from '../../store/slices/authSlice';
 import logo from './../../assets/Images/obeeomalogoword1.png';
 
 const customStyles = {
-  primaryColor: "#3CB371",
+primaryColor: "#3CB371",
 };
 
 const OTP_LENGTH = 6;
 
-export default function OtpVerificationPage() {
-  const [otp, setOtp] = useState('');
-  const [localError, setLocalError] = useState<string | null>(null);
-  const [isResendLoading, setIsResendLoading] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-  // Define style object outside the component or memoize if it's based on props
-  const otpGroupStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    width: 'auto',
-    columnGap: '8px', 
-    margin: '0 auto 30px', 
-};
+export default function OtpVerificationPage() {const [otp, setOtp] = useState('');
+const [localError, setLocalError] = useState<string | null>(null);
+ const [isResendLoading, setIsResendLoading] = useState(false);
+ const dispatch = useDispatch<AppDispatch>();
+ const navigate = useNavigate();
+// Define style object outside the component or memoize if it's based on props
+const otpGroupStyle: React.CSSProperties = {display: 'flex', justifyContent: 'center', width: 'auto', columnGap: '8px', margin: '0 auto 30px'};
 const { user, isLoading, error: authError } = useSelector(
     (state: RootState) => state.auth
   );
-  const dashboardRoute = useSelector(selectUserDashboardRoute);
-  const email = user?.email; // Assuming email is available in Redux state
-
- 
-
-
-  // Effect to clear local error when OTP changes
-  useEffect(() => {
-    if (otp.length > 0 && localError) {
-      setLocalError(null);
-    }
-  }, [otp, localError]);
-
+  // const dashboardRoute = useSelector(selectUserDashboardRoute);
+  const email = user?.email; // Get email from authenticated user state
+//Effect to clear local error when OTP changes
+useEffect(() => {
+if (otp.length > 0 && localError) {
+setLocalError(null);
+}
+ }, [otp, localError]);
   /**
    * Handles the OTP verification process and redirects on success.
    */
@@ -52,12 +40,12 @@ const { user, isLoading, error: authError } = useSelector(
       return;
     }
 
-    setLocalError(null);
+ setLocalError(null);
 
     dispatch(
       verifyOtpThunk({
         //email: email,
-        otp_code: otpCode,
+       otp_code: otpCode,
       })
     )
       .unwrap()
@@ -71,31 +59,30 @@ const { user, isLoading, error: authError } = useSelector(
         console.error('OTP Verification Failed:', err);
         // Safely extract the error message from the thunk's rejected value
         const errorMessage =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (err as any)?.message || (err as string) || 'Verification failed. Please check the code.';
         setLocalError(errorMessage);
         setOtp(''); // Clear OTP on failed attempt
       });
   };
+const handleResendCode = () => {
+if (!email) {
+setLocalError('Email address is missing. Please try logging in again.');
+return;
+}
 
-  const handleResendCode = () => {
-    if (!email) {
-      setLocalError('Email address is missing. Please try logging in again.');
-      return;
-    }
-
-    setIsResendLoading(true);
-    setLocalError(null); // Clear previous errors
-
-    dispatch(resendOtpThunk({email}))
-      .unwrap()
-      .then(() => {
-        window.alert('New verification code sent to your email!');
-        setOtp(''); // Clear OTP input after resend
-      })
+setIsResendLoading(true);
+setLocalError(null); //Clear previous errors
+ dispatch(resendOtpThunk({email}))
+    .unwrap()
+    .then(() => {
+      window.alert('New verification code sent to your email!');
+      setOtp(''); // Clear OTP input after resend
+    })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((err: any) => {
         console.error('Resend Failed:', err);
-        // Safely extract the error message
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
         setLocalError(errorMessage);
       })
@@ -103,9 +90,9 @@ const { user, isLoading, error: authError } = useSelector(
         setIsResendLoading(false);
       });
   };
-  const isAnyLoading = isLoading || isResendLoading;
+ const isAnyLoading = isLoading || isResendLoading;
   
-  return (
+return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       {/* CARD Container */}
       <div 

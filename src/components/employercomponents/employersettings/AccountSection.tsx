@@ -8,7 +8,7 @@ interface AccountSectionProps {
   onAccountDataChange: (data: EmployerUser) => void;
 }
 
-interface ValidationErrors extends Partial<Record<keyof EmployerUser, string>> {}
+type ValidationErrors = Partial<Record<keyof EmployerUser, string>>;
 
 const TIME_ZONES = [
   'UTC-05:00 Eastern Time (US & Canada)',

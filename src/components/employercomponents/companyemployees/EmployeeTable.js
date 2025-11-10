@@ -79,7 +79,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }) => {
                                                                 ? "bg-success bg-opacity-10 text-success"
                                                                 : employee.status === "Pending"
                                                                     ? "bg-warning bg-opacity-10 text-warning"
-                                                                    : "bg-danger bg-opacity-10 text-danger"}`, children: employee.status }) }), _jsx("td", { className: "py-3 text-end", children: _jsx("div", { className: "form-check form-switch d-inline-block", style: { width: "3.5em", textAlign: "right" }, children: _jsx("input", { className: "form-check-input", type: "checkbox", role: "switch", checked: employee.status === "Active", onChange: (e) => {
+                                                                    : "bg-danger bg-opacity-10 text-danger"}`, children: employee.status }) }), _jsx("td", { className: "py-3 text-end", children: _jsx("div", { className: "form-check form-switch d-inline-block", style: { width: "3.5em", textAlign: "right" }, children: _jsx("input", { className: "form-check-input", type: "checkbox", role: "switch", checked: employee.status === "Active", onChange: () => {
                                                                     handleStatusChange();
                                                                 }, style: { width: "2.5em", height: "1.25em" } }) }) })] }, employee.id)))) })] }) }) }) }) }) })] }));
 };
