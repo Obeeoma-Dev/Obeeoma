@@ -161,7 +161,8 @@ import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings"; // D
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
-import CreateProfile from "./pages/EmployerPages/CreateProfile";
+import CreateProfile from "./pages/EmployerPages/CreateProfile";import Aboutus from "./pages/landingpage/About/about";
+
 
 const queryClient = new QueryClient();
 
@@ -185,6 +186,7 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
               <Route path="/accept-invite" element={<AcceptInvite />} />
               <Route path="/otp-verify" element={<OtpVerificationPage />} />
+              <Route path="/aboutus" element={<Aboutus />} />
 
               {/* === PROTECTED ROUTES WRAPPER (Uncomment to activate) === */}
               {/* <Route element={<ProtectedRoute />}> */}

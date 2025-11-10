@@ -111,13 +111,13 @@ export const authAPI = {
       organisationSize: credentials.organisationSize, 
       companyEmail: credentials.companyEmail,
       Location: credentials.Location,
-      contactPerson: [
+      contactPerson: 
         {
-          fullname: credentials.contactPerson[0].fullname,
-          role: credentials.contactPerson[0].role,
-          email: credentials.contactPerson[0].email, 
+          fullname: credentials.contactPerson.fullname,
+          role: credentials.contactPerson.role,
+          email: credentials.contactPerson.email, 
         },
-      ],
+  
 
       password: credentials.password,
       confirmPassword: credentials.confirmPassword,
