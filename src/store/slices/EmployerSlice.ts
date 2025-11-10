@@ -1,4 +1,3 @@
-// slices/employer/employerSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { employerAPI } from '../../api/apiConfig';
