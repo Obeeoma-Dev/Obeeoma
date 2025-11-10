@@ -1,6 +1,6 @@
 import { useFetch } from "../../hooks/useFetch";
-import { CreateEmployeeInput, GetEmployeeInput, Employee } from "./types"
-
+import { Employee } from "../../types/employer";
+import { GetEmployeeInput, CreateEmployeeInput } from "../../types/employer";
 
 export const useGetEmployee = () => {
  // adding <Employee> after useFetch will give the "data" value the type Employee. 
@@ -10,7 +10,7 @@ export const useGetEmployee = () => {
     method: "GET" 
   });
 
-  const getEmployee = (input: GetEmployeeInput) => commonFetch({ input});
+  const getEmployee = (input: GetEmployeeInput) => commonFetch({ input: input as unknown as Record<string, unknown> });
   return { getEmployee, isLoading, data };
 };
 
@@ -20,6 +20,6 @@ export const useCreateEmployee = () => {
     method: "POST" 
   });
 
-  const createEmployee = (input: CreateEmployeeInput ) => commonFetch({ input });
+  const createEmployee = (input: CreateEmployeeInput ) => commonFetch({ input: input as unknown as Record<string, unknown> });
   return { createEmployee, isLoading, data };
 };
