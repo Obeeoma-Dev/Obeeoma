@@ -61,7 +61,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
   // Fetch employee invites on component mount
   useEffect(() => {
-    // @ts-ignore - Redux toolkit thunks don't always auto-infer dispatch type easily
+    // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
     dispatch(fetchEmployeeInvites());
   }, [dispatch]);
 
@@ -73,7 +73,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
         message: `Error: ${error}`,
         duration: 5000,
       });
-      // @ts-ignore
+    
       dispatch(clearEmployerError());
     }
   }, [error, toast, dispatch]);
@@ -85,7 +85,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleStatusChange = (employeeId: number, checked: boolean) => {
+  const handleStatusChange = () => {
     // Note: Status changes should be handled via API call in a real implementation
     toast({
       // Use the expected 'message' prop
@@ -117,7 +117,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
     // Optionally re-fetch to ensure data is completely fresh, 
     // though the inviteEmployee thunk should ideally update the state locally.
-    // @ts-ignore
+    // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
     dispatch(fetchEmployeeInvites());
   }
 
@@ -216,8 +216,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                                 type="checkbox"
                                 role="switch"
                                 checked={employee.status === "Active"}
-                                onChange={(e) => {
-                                  handleStatusChange(Number(employee.id), e.target.checked);
+                                onChange={() => {
+                                  handleStatusChange();
                                 }}
                                 style={{ width: "2.5em", height: "1.25em" }}
                               />

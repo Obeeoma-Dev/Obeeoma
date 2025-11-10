@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Building, User, Mail, Lock } from "lucide-react";
+import { Building, User, Mail} from "lucide-react";
 import { Link } from 'react-router-dom';
 import { EmployerUser } from '../../../types/employer';
 
