@@ -6,107 +6,91 @@ import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
 
 import {
-  verifyOtpThunk,
-  resendOtpThunk,
-  selectUserDashboardRoute,
+  verifyOtpThunk,
+  resendOtpThunk,
+  selectUserDashboardRoute,
 } from '../../store/slices/authSlice';
 import logo from './../../assets/Images/obeeomalogoword1.png';
 
 const customStyles = {
-  primaryColor: "#3CB371",
+  primaryColor: "#3CB371",
 };
 
 const OTP_LENGTH = 6;
 
 export default function OtpVerificationPage() {
-  const [otp, setOtp] = useState('');
-  const [localError, setLocalError] = useState<string | null>(null);
-  const [isResendLoading, setIsResendLoading] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [localError, setLocalError] = useState<string | null>(null);
+  const [isResendLoading, setIsResendLoading] = useState(false);
 
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-
-  // Define style object outside the component or memoize if it's based on props
-  const otpGroupStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    width: 'auto',
-    columnGap: '8px', 
-    margin: '0 auto 30px', 
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const { user, isLoading, error: authError } = useSelector(
     (state: RootState) => state.auth
   );
   const dashboardRoute = useSelector(selectUserDashboardRoute);
-  const email = user?.email; // Assuming email is available in Redux state
+  const email = user?.email; // A email is in Redux state
 
+//   useEffect(() => {
+//   
+// //     if (!user || !email) {
+// //       navigate('/login', { replace: true }); 
+// //       return;
+// //     }
+
+//    
+//   }, [email, user, navigate, dashboardRoute]);
+
+
+  // Effect to clear local error when OTP changes
   useEffect(() => {
-    // 1. Guard against direct access if the user state is missing/unintended 
-    // Redirect to login if essential data is missing to prevent infinite loops from '/otp-verify' fallback.
-    if (!user || !email) {
-      navigate('/otp-verify', { replace: true }); 
-      return;
+    if (otp.length > 0 && localError) {
+      setLocalError(null);
     }
+  }, [otp, localError]);
 
-    // 2. Redirect if already verified (Standard Registration Flow)
-    // NOTE: This check should be modified or removed if this page is *strictly* for Password Reset.
-    if (user.is_verified) {
-      navigate(dashboardRoute || '/otp-verify', { replace: true });
-    }
+  
+  //Handles the OTP verification process and redirects on success.
     
-  }, [email, user, navigate, dashboardRoute]);
-
-
-  // Effect to clear local error when OTP changes
-  useEffect(() => {
-    if (otp.length > 0 && localError) {
-      setLocalError(null);
-    }
-  }, [otp, localError]);
-
-  /**
-   * Handles the OTP verification process and redirects on success.
-   */
   const handleVerify = (otpCode: string) => {
     if (otpCode.length !== OTP_LENGTH || !email) {
       setLocalError('Please enter a valid 6-digit code.');
       return;
     }
 
-    setLocalError(null);
+    setLocalError(null);
 
     dispatch(
       verifyOtpThunk({
-        //email: email,
+        // email: email, // Optional, depends on your API
         otp_code: otpCode,
       })
     )
       .unwrap()
       .then(() => {
-        // --- MODIFIED REDIRECTION LOGIC ---
-        // On SUCCESS, redirect the user to the reset-password page.
+       //Redirect the user to the reset-password page.
         navigate('/reset-password', { replace: true });
       })
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((err: any) => {
         console.error('OTP Verification Failed:', err);
-        // Safely extract the error message from the thunk's rejected value
+        // to capture the errors for better visibility
         const errorMessage =
-          (err as any)?.message || (err as string) || 'Verification failed. Please check the code.';
+          err?.message || err?.detail || 'Verification failed. Please check the code.';
         setLocalError(errorMessage);
         setOtp(''); // Clear OTP on failed attempt
       });
   };
 
-  const handleResendCode = () => {
-    if (!email) {
-      setLocalError('Email address is missing. Please try logging in again.');
-      return;
-    }
+  const handleResendCode = () => {
+    if (!email) {
+      setLocalError('Email address is missing. Please try logging in again.');
+      return;
+    }
 
-    setIsResendLoading(true);
-    setLocalError(null); // Clear previous errors
+    setIsResendLoading(true);
+    setLocalError(null); // Clear previous errors
 
     dispatch(resendOtpThunk({ email }))
       .unwrap()
@@ -117,8 +101,8 @@ export default function OtpVerificationPage() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .catch((err: any) => {
         console.error('Resend Failed:', err);
-        // Safely extract the error message
-        const errorMessage = (err as any)?.message || (err as string) || 'Failed to resend code. Please try again later.';
+        // for visible error
+        const errorMessage = err?.message || err?.detail || 'Failed to resend code. Please try again later.';
         setLocalError(errorMessage);
       })
       .finally(() => {
@@ -133,7 +117,7 @@ export default function OtpVerificationPage() {
       {/* CARD Container */}
       <div 
         className="card p-4 shadow-lg text-center"
-        style={{ maxWidth: '400px', width: '90%' }} 
+        style={{ maxWidth: '600px', width: '100%' }} // Adjusted maxWidth
       >
         <div className="d-flex flex-column align-items-center justify-content-center mb-4">
           <img
@@ -150,13 +134,20 @@ export default function OtpVerificationPage() {
         {/* Title & Description */}
         <h2 className="text-center mb-2" style={{ fontFamily:"body", fontSize: '1.5rem', fontWeight: "bold" }}>Check Your Email</h2>
         <p className="text-muted mb-4" style={{ fontFamily:"body", fontSize: '0.9rem' }}>
-          We sent a verification code to **{email || 'your email address'}**. Enter the code below to **reset your password**.
+          We sent a verification code to **{email || 'your email'}**. Enter the code below to reset your password.
         </p>
 
         <p className="mb-2" style={{ fontWeight: '500', fontSize: '15px' }}>Enter Verification Code</p>
         
-        {/* OTP Input */}
-        <div className='otpGroup' style={otpGroupStyle}>
+        {/* OTP Input - Centering applied here */}
+        <div 
+          className='otp-group'
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'center', // **This ensures the OtpInput component is centered**
+            marginBottom: '1.5rem' // Added margin for spacing
+          }}
+        >
           <OtpInput
             value={otp}
             valueLength={OTP_LENGTH}
@@ -175,7 +166,6 @@ export default function OtpVerificationPage() {
         <Button
           type="button"
           className="w-100 mb-3 py-2 fw-semibold"
-          // Disable if OTP length is wrong or if any operation is loading
           disabled={otp.length !== OTP_LENGTH || isAnyLoading}
           onClick={() => handleVerify(otp)}
           style={{
@@ -184,7 +174,7 @@ export default function OtpVerificationPage() {
             color: "white",
             boxShadow: "none",
             fontFamily: "body",
-            opacity: (otp.length !== OTP_LENGTH || isAnyLoading) ? 0.6 : 1 // Visual feedback for disabled state
+            opacity: (otp.length !== OTP_LENGTH || isAnyLoading) ? 0.6 : 1
           }}
         >
           {isLoading ? 'Verifying...' : 'Verify Code'} 
@@ -206,7 +196,7 @@ export default function OtpVerificationPage() {
               fontWeight: '600',
               cursor: isResendLoading || !email ? 'not-allowed' : 'pointer',
               fontFamily: 'body',
-              opacity: isResendLoading || !email ? 0.6 : 1, // Visual feedback for disabled state
+              opacity: isResendLoading || !email ? 0.6 : 1,
             }}
             to="#"
             className="small"
@@ -221,7 +211,7 @@ export default function OtpVerificationPage() {
             to="/login" 
             style={{ color: '#3CB371', textDecoration: 'none', fontSize: '14px' }}
           >
-            ← Back to Sign In
+             Back to Sign In
           </Link>
         </div>
       </div>

@@ -67,10 +67,10 @@ const Hero = () => {
             data-aos="fade-up" data-aos-delay="200"
             style={{ position: "relative", top: "150px" }}
           >
-            {/* Wrapper div to handle button layout and spacing */}
+            //* Wrapper div to handle button layout and spacing */
             <div className="d-flex flex-column flex-sm-row gap-3">
 
-              //* === Primary Button: Green background, white text === */
+              //* Primary Button: Green background, white text === */
               <Button
                 className="rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
                 style={{
@@ -90,19 +90,17 @@ const Hero = () => {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
                     "#3CB371";
                 }}
-                // Navigate to signup page when clicked
-                onClick={() => navigate("/signup")}
-              >
-                For Organizations
+
+                onClick={() => navigate("/signup")}>For Organizations
               </Button>
 
               <Button
-                className="rounded-pill px-5 py-3 fw-semibold" // Rounded shape, same padding, bold font
+                className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
-                  backgroundColor: "#3CB371", // Green text
+                  backgroundColor: "#3CB371", 
                   color: "rgba(250, 250, 250, 0.85)", // white background
-                  border: "1px solid #3CB371", // Green border to match text
-                  outline: "none", // Remove focus outline
+                  border: "1px solid #3CB371", 
+                  outline: "none", 
                   boxShadow: "none", // Remove default shadow when focused
                   transition: "all 0.3s ease", // Smooth hover transition
                   fontFamily: 'heading'

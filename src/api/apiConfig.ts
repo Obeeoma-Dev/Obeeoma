@@ -5,6 +5,8 @@ import {
   RegisterCredentials,
   ForgotPasswordData,
   changePasswordData,
+  OtpVerificationPayload
+
 } from "@/types/auth";
 
 const API_BASE_URL =
@@ -26,7 +28,10 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         const publicEndpoints = [
                 "/v1/auth/login/",
                 "/v1/auth/signup/",
-                "/v1/auth/reset-password/", 
+                "/v1/auth/reset-password/",
+                "/v1/auth/change-password",
+                "v1/organization-signup/",
+                "v1/auth/verify-invite/",
                 
               ];
             
@@ -162,8 +167,8 @@ export const authAPI = {
     return response;
   },
 
-verifyOtp: async()=>{
-  const response = await api.post("v1/auth/verify-invite/");
+verifyOtp: async(payload: OtpVerificationPayload)=>{
+  const response = await api.post("v1/auth/verify-invite/", payload);
   return response;
 },
 
