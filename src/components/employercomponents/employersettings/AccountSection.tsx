@@ -150,19 +150,6 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData,
           <div className="col-12 col-md-6">
             <label className="form-label fw-medium">Password</label>
             <div className="position-relative">
-              <Lock
-                size={16}
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-                aria-hidden="true"
-              />
-              <input
-                type="password"
-                className="form-control ps-5"
-                value="••••••••"
-                readOnly
-                style={{ borderRadius: "8px" }}
-                aria-label="Password field (read-only)"
-              />
               <div className="form-text text-muted mt-1">
                 <Link to="reset-password" className="text-success text-decoration-none">Use OTP to change your password</Link>
               </div>
