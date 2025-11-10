@@ -59,18 +59,14 @@ const Hero = () => {
               Obeeoma professional mental health service.
             </p>
           </Col>
-
-          //* Right column containing the two buttons */
           <Col
             lg={6}
             className="d-flex justify-content-end"
             data-aos="fade-up" data-aos-delay="200"
             style={{ position: "relative", top: "150px" }}
           >
-            //* Wrapper div to handle button layout and spacing */
             <div className="d-flex flex-column flex-sm-row gap-3">
 
-              //* Primary Button: Green background, white text === */
               <Button
                 className="rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
                 style={{
