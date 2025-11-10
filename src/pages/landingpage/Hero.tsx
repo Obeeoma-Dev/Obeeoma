@@ -13,11 +13,6 @@ import { useNavigate } from "react-router-dom";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
-/**
- * Hero component: renders the landing section with background image,
- * heading, description, and navigation buttons.
- */
 const Hero = () => {
   const navigate = useNavigate(); // Enables navigation via buttons
 
@@ -65,7 +60,7 @@ const Hero = () => {
             </p>
           </Col>
 
-          {/* Right column containing the two buttons */}
+          //* Right column containing the two buttons */
           <Col
             lg={6}
             className="d-flex justify-content-end"
@@ -75,7 +70,7 @@ const Hero = () => {
             {/* Wrapper div to handle button layout and spacing */}
             <div className="d-flex flex-column flex-sm-row gap-3">
 
-              {/* === Primary Button: Green background, white text === */}
+              //* === Primary Button: Green background, white text === */
               <Button
                 className="rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
                 style={{
@@ -101,7 +96,6 @@ const Hero = () => {
                 For Organizations
               </Button>
 
-              {/* === Secondary Button: Soft white background, green text === */}
               <Button
                 className="rounded-pill px-5 py-3 fw-semibold" // Rounded shape, same padding, bold font
                 style={{

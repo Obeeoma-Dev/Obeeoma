@@ -160,6 +160,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                 >
                   Try bulk add
                 </button>
+                <br />
                 <input type="file" className="form-control-file mt-1" id="upload-excel" accept=".xlsx,.xls,.csv" />
               </div>
             </form>
