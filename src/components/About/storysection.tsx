@@ -70,7 +70,7 @@ export function OurStorySection() {
                         {/* Section Label */}
                         <p
                             style={{
-                                fontSize: '0.75rem',
+                                fontFamily: "heading",
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
                                 color: '#a7f3d0', // Tailwind's emerald-200
@@ -83,8 +83,7 @@ export function OurStorySection() {
                         {/* Section Heading */}
                         <h2
                             style={{
-                                fontSize: '2.5rem',
-                                fontWeight: 700,
+                                fontFamily: "body",
                                 marginBottom: '2rem',
                             }}
                         >
@@ -99,6 +98,7 @@ export function OurStorySection() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '1.5rem',
+                                fontFamily: "body"
                             }}
                         >
                             <p>

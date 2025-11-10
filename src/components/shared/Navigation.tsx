@@ -58,15 +58,19 @@ function Navigation() {
             {/* Navigation links */}
 
             <Nav.Link href="#Hero" className="mx-2">
-              Home |
+              Home
             </Nav.Link>
 
-            <Nav.Link href="#features" className="mx-2">
-              Features |
+            <Nav.Link href="/contact-us" className="mx-2">
+              Contact
             </Nav.Link>
 
-            <Nav.Link href="#benefits" className="mx-2">
-              Benefits |
+            <Nav.Link href="/about-us" className="mx-2">
+              About
+            </Nav.Link>
+
+            <Nav.Link href="/blog" className="mx-2">
+              Blog
             </Nav.Link>
 
           </Nav>

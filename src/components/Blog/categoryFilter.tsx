@@ -11,7 +11,7 @@ export function CategoryFilter({
     onCategoryChange,
 }: CategoryFilterProps) {
     return (
-        <div className="category-filter" style={{ fontFamily: "body" }}>
+        <div className="category-filter" style={{ fontFamily: "heading" }}>
             <Badge
                 bg="none"
                 className={`category-badge ${activeCategory === 'All' ? 'active' : ''}`}

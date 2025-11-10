@@ -5,7 +5,7 @@ import { Phone, Mail, MapPin, Facebook, Twitter, Instagram } from 'lucide-react'
 // Importing custom components from other files
 import { ContactCard } from '../../../components/Contactus/contactCard';
 import { ContactForm } from '../../../components/Contactus/contactForm';
-// import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
+import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
 // Importing React-Bootstrap components
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
@@ -149,7 +149,7 @@ export const ContactPage: React.FC = () => {
             </footer>
 
             {/* Floating WhatsApp Button */}
-            {/* <FloatingWhatsApp /> */}
+            <FloatingWhatsApp />
         </div>
     );
 };

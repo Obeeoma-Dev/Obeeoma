@@ -675,18 +675,24 @@ form .form-floating .form-control.message-textarea {
   flex-wrap: wrap;
   justify-content: center;
   padding: 2rem 0;
+  font-family: 'heading';
 }
 
 .category-badge {
-  padding: 0.75rem 1.5rem;
+  padding: 0.9rem 2rem;
+  /* wider horizontally */
+  min-width: 140px;
+  /* ensures each badge has a consistent width */
+  text-align: center;
   border-radius: 50px;
-  background: white;
+  background: #00A859;
   color: #6b7280;
   border: 2px solid #e5e7eb;
   cursor: pointer;
   transition: all 0.3s;
+  font-family: 'heading';
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .category-badge:hover {

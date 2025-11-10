@@ -45,17 +45,17 @@ export function BlogCard({
             </div>
             <Card.Body className="blog-card-body">
                 <div className="blog-card-meta">
-                    <span className="blog-card-meta-item">
+                    <span className="blog-card-meta-item" style={{ fontFamily: "body" }}>
                         <Calendar size={14} />
                         {date}
                     </span>
-                    <span className="blog-card-meta-item">
+                    <span className="blog-card-meta-item" style={{ fontFamily: "body" }}>
                         <Clock size={14} />
                         {readTime}
                     </span>
                 </div>
-                <Card.Title className="blog-card-title">{title}</Card.Title>
-                <Card.Text className="blog-card-excerpt">{excerpt}</Card.Text>
+                <Card.Title className="blog-card-title" style={{ fontFamily: "heading" }}>{title}</Card.Title>
+                <Card.Text className="blog-card-excerpt" style={{ fontFamily: "heading" }}>{excerpt}</Card.Text>
                 <div className="blog-card-footer">
                     <div className="blog-card-author">
                         <User size={16} />

@@ -4,7 +4,16 @@ import { Facebook, Twitter, Instagram } from 'lucide-react'
 import { BlogCard } from '../../../components/Blog/blogCard';
 import { BlogHero } from '../../../components/Blog/blogHero';
 import { CategoryFilter } from '../../../components/Blog/categoryFilter';
-// import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
+import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
+
+// Importing images.
+import Africaworkforce from '../../../assets/Images/workforce.png';
+import Freeworkspace from '../../../assets/Images/freeworkspace.png';
+import Aiworkplaces from '../../../assets/Images/aioffice.png';
+import Dailyhabbits from '../../../assets/Images/dailyhabbits.png';
+import Mentallyhealthyworkplace from '../../../assets/Images/mentallyhealthyworkplaces.png';
+import Breakingstigma from '../../../assets/Images/breackingstigma.png';
+import Mentalhealthawareness from '../../../assets/Images/mentalhealthimage.png';
 interface Blog {
     id: number
     title: string
@@ -19,66 +28,84 @@ interface Blog {
 const blogData: Blog[] = [
     {
         id: 1,
-        title: 'Why It Is Okay to Take a Break',
-        excerpt: 'Discover the importance of taking breaks for your mental health and overall well-being. Learn practical strategies to incorporate rest into your daily routine.',
-        image: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&q=80',
-        category: 'Self-Care',
-        date: 'Jan 15, 2025',
-        readTime: '5 min read',
-        author: 'Dr. Sarah Johnson',
+        title: 'Why Employee Mental Health Should Be Every Company’s Priority in 2025',
+        excerpt:
+            'In today’s fast-changing work environment, mental health has become a strategic business priority. Learn why companies that support emotional well-being outperform others.',
+        image: Africaworkforce,
+        category: 'Workplace Wellness',
+        date: 'Jan 20, 2025',
+        readTime: '6 min read',
+        author: 'Obeeoma Editorial Team',
         featured: true,
     },
     {
         id: 2,
-        title: '5 Effective Coping Strategies for Managing Anxiety',
-        excerpt: 'Practical and evidence-based techniques to help you manage anxiety in your daily life and build resilience.',
-        image: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80',
-        category: 'Anxiety',
-        date: 'Jan 12, 2025',
-        readTime: '7 min read',
-        author: 'Michael Chen',
+        title: 'How to Build a Psychologically Safe Workplace',
+        excerpt:
+            'Discover how African organizations can create environments where employees feel safe to speak up, innovate, and collaborate without fear of judgment.',
+        image: Freeworkspace,
+        category: 'Leadership',
+        date: 'Jan 21, 2025',
+        readTime: '5 min read',
+        author: 'Obeeoma Editorial Team',
     },
     {
         id: 3,
-        title: 'BADMINTON: A Holistic Approach to Physical and Mental Wellness',
-        excerpt: 'Explore how physical activities like badminton can significantly improve both your physical health and mental well-being.',
-        image: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80',
-        category: 'Wellness',
-        date: 'Jan 10, 2025',
-        readTime: '6 min read',
-        author: 'Emma Williams',
+        title: 'How AI Is Revolutionizing Employee Mental Health Support',
+        excerpt:
+            'Explore how AI-driven tools are personalizing mental health care in the workplace, helping leaders predict and prevent burnout.',
+        image: Aiworkplaces,
+        category: 'Technology',
+        date: 'Jan 22, 2025',
+        readTime: '5 min read',
+        author: 'Obeeoma Tech Team',
     },
     {
         id: 4,
-        title: 'Understanding Anxiety in a Relationship',
-        excerpt: 'Navigate the complexities of anxiety within relationships and learn how to build stronger, healthier connections.',
-        image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80',
-        category: 'Relationships',
-        date: 'Jan 8, 2025',
-        readTime: '8 min read',
-        author: 'Dr. James Anderson',
+        title: '5 Simple Daily Habits to Boost Your Mental Well-Being at Work',
+        excerpt:
+            'Learn easy, science-backed habits to manage stress, boost mood, and stay productive throughout your workday.',
+        image: Dailyhabbits,
+        category: 'Self-Care',
+        date: 'Jan 23, 2025',
+        readTime: '4 min read',
+        author: 'Obeeoma Wellness Team',
     },
     {
         id: 5,
-        title: 'Common Causes Of Anxiety And Its Preventive Measures',
-        excerpt: 'Identify the root causes of anxiety and discover effective preventive strategies to maintain mental wellness.',
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-        category: 'Anxiety',
-        date: 'Jan 5, 2025',
+        title: 'How HR Leaders Can Champion Mental Health in 2025',
+        excerpt:
+            'From policy creation to manager training, here’s how HR professionals can become the architects of mentally healthy workplaces.',
+        image: Mentallyhealthyworkplace,
+        category: 'HR & Leadership',
+        date: 'Jan 24, 2025',
         readTime: '6 min read',
-        author: 'Dr. Lisa Martinez',
+        author: 'Obeeoma HR Insights',
     },
     {
         id: 6,
-        title: 'Mental Health in Sub-Saharan Africa: A Focus on Affected Communities',
-        excerpt: 'An in-depth look at mental health challenges and solutions in Sub-Saharan African communities.',
-        image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80',
+        title: 'Breaking the Stigma: Mental Health Conversations in African Workplaces',
+        excerpt:
+            'Learn how African professionals are redefining mental health culture by breaking silence and promoting openness in the workplace.',
+        image: Breakingstigma,
         category: 'Community',
-        date: 'Jan 3, 2025',
-        readTime: '10 min read',
-        author: 'Dr. Kwame Osei',
+        date: 'Jan 25, 2025',
+        readTime: '6 min read',
+        author: 'Obeeoma Editorial Team',
     },
-]
+    {
+        id: 7,
+        title: 'Behind Obeeoma: Why We’re Building Africa’s AI Mental Health Platform',
+        excerpt:
+            'Discover the vision and mission behind Obeeoma — Africa’s first AI-powered platform transforming access to mental health care.',
+        image: Mentalhealthawareness,
+        category: 'Innovation',
+        date: 'Jan 26, 2025',
+        readTime: '7 min read',
+        author: 'Obeeoma Founding Team',
+    },
+];
+
 const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
 export function Blog() {
     const [activeCategory, setActiveCategory] = useState('All')
@@ -108,7 +135,7 @@ export function Blog() {
         }
     }
     return (
-        <div className="blog-page">            
+        <div className="blog-page">
             {/* Hero Section */}
             <BlogHero onSearch={handleSearch} />
             {/* Category Filter */}
@@ -181,13 +208,13 @@ export function Blog() {
                         <Col xs={12} md={6} className="text-center text-md-start mb-3 mb-md-0">
                             <div className="blog-footer-social">
                                 <a href="#" className="blog-footer-social-link" aria-label="Facebook">
-                                    <Facebook />
+                                    <Facebook color="white" />
                                 </a>
                                 <a href="#" className="blog-footer-social-link" aria-label="Twitter">
-                                    <Twitter />
+                                    <Twitter color="white" />
                                 </a>
                                 <a href="#" className="blog-footer-social-link" aria-label="Instagram">
-                                    <Instagram />
+                                    <Instagram color="white" />
                                 </a>
                             </div>
                         </Col>
@@ -201,7 +228,7 @@ export function Blog() {
                 </Container>
             </footer>
             {/* Floating WhatsApp Button */}
-            {/* <FloatingWhatsApp /> */}
+            <FloatingWhatsApp />
         </div>
     )
 }
