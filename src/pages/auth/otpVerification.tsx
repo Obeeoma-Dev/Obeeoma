@@ -41,21 +41,7 @@ export default function OtpVerificationPage() {
   const dashboardRoute = useSelector(selectUserDashboardRoute);
   const email = user?.email; // Assuming email is available in Redux state
 
-  useEffect(() => {
-    // 1. Guard against direct access if the user state is missing/unintended 
-    // Redirect to login if essential data is missing to prevent infinite loops from '/otp-verify' fallback.
-    if (!user || !email) {
-      navigate('/otp-verify', { replace: true }); 
-      return;
-    }
-
-    // 2. Redirect if already verified (Standard Registration Flow)
-    // NOTE: This check should be modified or removed if this page is *strictly* for Password Reset.
-    if (user.is_verified) {
-      navigate(dashboardRoute || '/otp-verify', { replace: true });
-    }
-    
-  }, [email, user, navigate, dashboardRoute]);
+ 
 
 
   // Effect to clear local error when OTP changes
@@ -84,7 +70,7 @@ export default function OtpVerificationPage() {
     )
       .unwrap()
       .then(() => {
-        // --- MODIFIED REDIRECTION LOGIC ---
+      
         // On SUCCESS, redirect the user to the reset-password page.
         navigate('/reset-password', { replace: true });
       })
@@ -108,7 +94,7 @@ export default function OtpVerificationPage() {
     setIsResendLoading(true);
     setLocalError(null); // Clear previous errors
 
-    dispatch(resendOtpThunk({ email }))
+    dispatch(resendOtpThunk({email}))
       .unwrap()
       .then(() => {
         window.alert('New verification code sent to your email!');
@@ -133,7 +119,7 @@ export default function OtpVerificationPage() {
       {/* CARD Container */}
       <div 
         className="card p-4 shadow-lg text-center"
-        style={{ maxWidth: '400px', width: '90%' }} 
+        style={{ maxWidth: '700px', width: '100%' }} 
       >
         <div className="d-flex flex-column align-items-center justify-content-center mb-4">
           <img
@@ -150,7 +136,7 @@ export default function OtpVerificationPage() {
         {/* Title & Description */}
         <h2 className="text-center mb-2" style={{ fontFamily:"body", fontSize: '1.5rem', fontWeight: "bold" }}>Check Your Email</h2>
         <p className="text-muted mb-4" style={{ fontFamily:"body", fontSize: '0.9rem' }}>
-          We sent a verification code to **{email || 'your email address'}**. Enter the code below to **reset your password**.
+          We sent a verification code to your email address. Enter the code below to reset your password
         </p>
 
         <p className="mb-2" style={{ fontWeight: '500', fontSize: '15px' }}>Enter Verification Code</p>

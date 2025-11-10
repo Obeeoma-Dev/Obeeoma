@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
@@ -126,12 +125,11 @@ const LoginPage = () => {
               className="mb-1"
             />
           </div>
-          <h3 className="text-center mb-2 fw-semibold text-dark"
-            style={{ fontFamily: 'heading' }}
+          <h3 className="text-center mb-2 fw-semibold text-dark" style={{ fontFamily: "heading" }}
           >
             Welcome to Obeeoma
           </h3>
-          
+          <p></p>
           {error && (
             <Alert
               variant="danger"

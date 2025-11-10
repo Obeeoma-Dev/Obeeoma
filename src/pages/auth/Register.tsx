@@ -169,13 +169,15 @@ const Register: React.FC = () => {
             <Container className="flex-grow-1 d-flex justify-content-center align-items-center py-5">
                 <div className="d-flex justify-content-center w-100">
                     <Card
-                        className="shadow-lg border-0"
-                        style={{
-                            maxWidth: "800px",
-                            borderRadius: "10px",
-                            boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
+                        // className="shadow-lg border-0"
+                        // style={{
+                        //     maxWidth: "800px",
+                        //     borderRadius: "10px",
+                        //     boxShadow: "0 6px 20px rgba(0, 0, 0, 0.15)",
 
-                        }}
+                        // }}
+                        className="card p-4 shadow-lg text-center"
+                       style={{ maxWidth: '700px', width: '100%' }} 
                     >
                         <Card.Body style={{ padding: '2.5rem' }} className="d-flex flex-column col-12">
                             {/* Logo and Title Section */}
