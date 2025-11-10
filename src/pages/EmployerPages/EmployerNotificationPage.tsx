@@ -106,11 +106,6 @@ const NotificationsPage: React.FC = () => {
           />
 
           <hr className="my-4" />
-          
-          <div className="mt-4">
-            <h6 className="text-muted">Settings</h6>
-            {/* Settings content would go here */}
-          </div>
         </div>
       </div>
     </div>

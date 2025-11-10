@@ -1,10 +1,24 @@
 export interface EmployerUser {
   id: string | number;
   username: string;
+  organizationName: string;
   email: string;
   role: 'admin' | 'employer' | 'employee' | string;
   dateJoined: string; // ISO date string
   // Add other user-specific fields
+  address?: string;
+  phone?: string;
+}
+
+export interface AccountData {
+  organizationName: string;
+  username: string;
+  email: string;
+  phone: string;}
+
+export interface AccountSectionProps {
+  accountData: EmployerUser;
+  onAccountDataChange: (data: EmployerUser) => void;
 }
 
 export interface DashboardSummary {
@@ -56,6 +70,24 @@ export interface InviteData {
   role: 'employee'; // Assuming the role is fixed
 }
 
+export interface Employee {
+  id: number;
+  emailAddress: string;
+  phoneNumber?: string;
+  department: string;
+  status: 'accepted' | 'pending' | 'rejected' | string;
+}
+
+export interface GetEmployeeInput {
+  id: number;
+}
+
+export interface CreateEmployeeInput {
+  emailAddress: string;
+  phoneNumber?: string;
+  department: string;
+}
+
 export interface SubscriptionData {
   plan_id: string;
   billing_cycle: 'monthly' | 'annually';
@@ -92,4 +124,17 @@ export interface EmployerState {
   isLoading: boolean;
   isActionLoading: boolean; // For post/action endpoints
   error: string | null;
+}
+
+  export interface NotificationSettings {
+  emailNotifications: boolean;
+  weeklyReports: boolean;
+  browserNotifications: boolean;
+  reportGeneration: boolean;
+}
+
+export interface PrivacySettings {
+  anonymizeData: boolean;
+  enhancedPrivacy: boolean;
+  dataRetentionPeriod: number;
 }

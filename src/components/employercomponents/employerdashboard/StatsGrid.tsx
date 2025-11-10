@@ -36,7 +36,6 @@ const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
   return (
     <div className="row g-2 mb-4">
       {stats.map((stat) => {
-        // Use the utility function to get the correct icon component
         const IconComponent = getIconComponent(stat.icon.toString());
     
         return (
@@ -45,17 +44,14 @@ const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
               <div className="card-body">
                 <div className="d-flex align-items-start gap-3">
                   <div 
-                    // Use the dynamic Bootstrap background class and standard classes
                     className={`rounded-circle bg-${stat.color} d-flex align-items-center justify-content-center flex-shrink-0`} 
                     style={{ 
                       width: "48px", 
                       height: "48px", 
                       fontFamily: "body",
-                      // Removed the conflicting 'color: "#3CB371"' inline style
-                      // as the icon component handles its color via text-white class.
                     }}
                   >
-                    {/* The Icon is correctly styled as white via 'text-white' */}
+
                     <IconComponent className="text-white" size={24} />
                   </div>
                   <div className="flex-grow-1">

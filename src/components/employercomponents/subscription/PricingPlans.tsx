@@ -4,12 +4,11 @@ const PricingPlans = () => {
   // TODO: Replace with API data
   const plans = [
     {
-      name: "Starter",
-      price: "$29",
+      name: "Basic",
+      price: "$0",
       period: "per month",
       description: "Perfect for small teams",
       features: [
-        "Up to 10 employees",
         "Basic wellness assessments",
         "Email support",
         "Monthly reports",
@@ -18,36 +17,18 @@ const PricingPlans = () => {
       recommended: false,
     },
     {
-      name: "Professional",
-      price: "$79",
+      name: "Premium",
+      price: "$99",
       period: "per month",
       description: "Ideal for growing organizations",
       features: [
-        "Up to 50 employees",
         "Advanced analytics",
         "Priority support",
         "Custom assessments",
-        "Weekly reports",
         "API access",
       ],
       current: true,
       recommended: true,
-    },
-    {
-      name: "Enterprise",
-      price: "$199",
-      period: "per month",
-      description: "For large organizations",
-      features: [
-        "Unlimited employees",
-        "Advanced analytics",
-        "24/7 dedicated support",
-        "White-label solutions",
-        "Custom integrations",
-        "SLA guarantee",
-      ],
-      current: false,
-      recommended: false,
     },
   ];
 
@@ -57,10 +38,10 @@ const PricingPlans = () => {
         <h3 className="h4 fw-semibold mb-4">Available Plans</h3>
         <div className="row g-4">
           {plans.map((plan, index) => (
-            <div key={index} className="col-12 col-md-4">
-              <div className={`card h-100 border-0 shadow-sm ${plan.recommended ? 'border-primary' : ''}`}>
+            <div key={index} className="col-12 col-md-6">
+              <div className={`card h-100 border-0 shadow-sm ${plan.recommended ? 'border-success' : ''}`}>
                 {plan.recommended && (
-                  <div className="card-header bg-primary text-white text-center py-2">
+                  <div className="card-header bg-success text-white text-center py-2">
                     <Star size={16} className="me-1" />
                     Recommended
                   </div>
@@ -84,11 +65,11 @@ const PricingPlans = () => {
 
                   <div className="mt-auto">
                     {plan.current ? (
-                      <button className="btn btn-outline-primary w-100" disabled>
+                      <button className="btn btn-outline-success w-100" disabled>
                         Current Plan
                       </button>
                     ) : (
-                      <button className={`btn w-100 ${plan.recommended ? 'btn-primary' : 'btn-outline-primary'}`}>
+                      <button className={`btn w-100 ${plan.recommended ? 'btn-success' : 'btn-outline-success'}`}>
                         Select Plan
                       </button>
                     )}

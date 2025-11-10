@@ -5,6 +5,8 @@ import {
   RegisterCredentials,
   ForgotPasswordData,
   changePasswordData,
+  OtpVerificationPayload
+
 } from "@/types/auth";
 
 const API_BASE_URL =
@@ -26,7 +28,10 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         const publicEndpoints = [
                 "/v1/auth/login/",
                 "/v1/auth/signup/",
-                "/v1/auth/reset-password/", 
+                "/v1/auth/reset-password/",
+                "/v1/auth/change-password",
+                "v1/organization-signup/",
+                "v1/auth/verify-invite/",
                 
               ];
             
@@ -63,7 +68,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 
   api.interceptors.request.use(
     (config) => {
-      
       console.log(" Making API Request:", {
         method: config.method,
         url: config.url,
@@ -73,7 +77,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       return config;
     },
   );
-
 
   api.interceptors.response.use(
     (response) => {
@@ -148,8 +151,6 @@ export const authAPI = {
         );
     },
 
-
-
   forgotPassword: async (data: ForgotPasswordData) => {
     const response = await api.post("/v1/auth/reset-password/", data);
     return response;
@@ -166,8 +167,8 @@ export const authAPI = {
     return response;
   },
 
-verifyOtp: async()=>{
-  const response = await api.post("v1/auth/verify-invite/");
+verifyOtp: async(payload: OtpVerificationPayload)=>{
+  const response = await api.post("v1/auth/verify-invite/", payload);
   return response;
 },
 
@@ -176,8 +177,6 @@ resendOtp: ({ email }: { email: string }) => {
     
     },
 };
-
-
 
 //  System Admin Dashboard
 
@@ -263,13 +262,13 @@ export const adminAPI = {
     const response = await api.get("/v1/employer/billing/view");
     return response;
   },
+};
 
   // employer endpoints
-};
 
 export const employerAPI = {
   inviteEmployee: async () => {
-    const response = await api.post("/v1/dashboard/invites/");
+    const response = await api.post("/api/v1/invitations/");
     return response;
   },
 

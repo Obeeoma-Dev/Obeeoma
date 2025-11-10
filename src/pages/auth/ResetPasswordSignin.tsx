@@ -707,7 +707,7 @@ const ResetPasswordSignIn: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // Mock validation and submission
+  // validation and submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -736,7 +736,7 @@ const ResetPasswordSignIn: React.FC = () => {
       
       setIsEmailSent(true);
       // Navigate only if the API call is successful and an email is sent
-      navigate("/reset-password");
+      navigate("/otp-verify");
     } catch (err: unknown) {
       console.error("Forgot Password Error:", err);
 
