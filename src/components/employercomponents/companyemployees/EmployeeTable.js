@@ -1,18 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-{ /* Header Section -- find more interesting words to put here, like company logo or stress quote */ }
-{ /* <div className="row mb-4">
-  <div className="col-12">
-    <div className="d-flex justify-content-between align-items-center">
-      <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
-    </div>
-  </div>
-</div> */
-}
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import AddEmployeeForm from "./AddEmployeeForm"; // Adjust import path as needed
+import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployeeInvites, clearEmployerError } from "../../../store/slices/employerSlice";
+import { fetchEmployeeInvites, clearEmployerError } from '../../../store/slices/employerSlice';
 import { useToast } from "../../../hooks/use-toast";
 const EmployeeTable = ({ searchQuery, onSearchChange }) => {
     const dispatch = useDispatch();
