@@ -46,9 +46,9 @@ export const inviteEmployee = createAsyncThunk(
 );
 
 // GET /v1/employers/view-invites/
-interface FetchEmployeeInvitesThunkConfig {
-  rejectValue: string;
-}
+// interface FetchEmployeeInvitesThunkConfig {
+//   rejectValue: string;
+// }
 
 export const fetchEmployeeInvites = createAsyncThunk<
   EmployeeInvite[],
@@ -57,12 +57,12 @@ export const fetchEmployeeInvites = createAsyncThunk<
   { rejectValue: string }
 >(
   'employer/fetchInvites',
-  async (_: void, { rejectWithValue }: { rejectWithValue: (value: string) => unknown }) => {
+  async (_:void ) => {
     try {
       const response = await employerAPI.viewInviteEmployee();
       return response.data as EmployeeInvite[];
     } catch (err) {
-      return rejectWithValue('Failed to fetch');
+      return ('Failed to fetch');
     }
   },
 );
