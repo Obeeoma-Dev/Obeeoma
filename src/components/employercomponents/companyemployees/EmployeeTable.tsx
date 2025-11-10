@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployeeInvites, clearEmployerError, inviteEmployee } from '../../../store/slices/employerSlice';
+import { fetchEmployeeInvites, clearEmployerError, inviteEmployee } from '../../../store/slices/EmployerSlice';
 import { RootState } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
 
