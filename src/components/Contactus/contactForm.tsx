@@ -17,7 +17,7 @@ export function ContactForm() {
     });
 
     // useState hook to track which input field is currently focused
-    const [focusedField, setFocusedField] = useState<string | null>(null);
+    const [, setFocusedField] = useState<string | null>(null);
 
     // Handle input and textarea changes
     const handleChange = (

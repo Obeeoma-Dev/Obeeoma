@@ -110,7 +110,7 @@ const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Commun
 export function Blog() {
     const [activeCategory, setActiveCategory] = useState('All')
     const [filteredBlogs, setFilteredBlogs] = useState(blogData)
-    const [isVisible, setIsVisible] = useState(false)
+    const [, setIsVisible] = useState(false)
     useEffect(() => {
         setIsVisible(true)
     }, [])
