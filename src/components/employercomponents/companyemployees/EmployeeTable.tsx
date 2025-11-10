@@ -1,16 +1,8 @@
-      {/* Header Section -- find more interesting words to put here, like company logo or stress quote */}
-      {/* <div className="row mb-4">
-        <div className="col-12">
-          <div className="d-flex justify-content-between align-items-center">
-            <h2 className="h5 fw-semibold mb-0 text-success">Employees</h2>
-          </div>
-        </div>
-      </div> */}
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import AddEmployeeForm from "./AddEmployeeForm"; // Adjust import path as needed
+import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployeeInvites, clearEmployerError } from "../../../store/slices/employerSlice";
+import { fetchEmployeeInvites, clearEmployerError, inviteEmployee } from '../../../store/slices/employerSlice';
 import { RootState } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
 
@@ -31,8 +23,12 @@ interface EmployeeTableProps {
 const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
-  const { invites, isLoading, error } = useSelector((state: RootState) => state.employer);
-
+interface InvitesState {
+  invites: typeof inviteEmployee;
+  isLoading: boolean;
+  error: string | null;
+}
+const { invites, isLoading, error } = useSelector((state: RootState) => state.employer as InvitesState);
   // Transform invites to employee format for display
   interface Invite {
     id: number;
