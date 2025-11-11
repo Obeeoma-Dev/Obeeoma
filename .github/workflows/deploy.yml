@@ -120,7 +120,7 @@ jobs:
 
       # Build and push Docker image 
       - name: Build and Push Docker Image
-        run: docker push myusername/obeeoma:latest
+        run: docker push obeema/obeeoma:latest
         
       # Deploy to digital ocean via ssh
       - name: Deploy to Digital Ocean via SSH
