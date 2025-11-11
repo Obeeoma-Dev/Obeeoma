@@ -4,13 +4,13 @@
 FROM node:20-alpine AS build
 
 # Set the working directory inside the container
-WORKDIR /obeoma
+WORKDIR /obeeoma
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies 
-RUN npm install --silent
+RUN npm install
 
 # Copy the rest of the application source code
 COPY . .
@@ -20,13 +20,13 @@ RUN npm run build
 
 
 # Stage 2: Serve the static files with a lightweight web server (Nginx)
-FROM nginx:alpine AS final
+FROM nginx:stable-alpine
 
 # Copy the built React application from the 'build' stage into Nginx's public folder
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /obeeoma/dist /usr/share/nginx/html
 
 #  Copy a custom Nginx configuration file (see Step 1.3)
- COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+#  COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose the default Nginx HTTP port
 EXPOSE 80
