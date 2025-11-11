@@ -120,7 +120,7 @@ jobs:
 
       # Build and push Docker image 
       - name: Build and Push Docker Image
-        run: docker push obeema/obeeoma:latest
+        run: docker push ${{secrets.DOCKER_USERNAME}}/obeeoma:latest
         
       # Deploy to digital ocean via ssh
       - name: Deploy to Digital Ocean via SSH
@@ -131,10 +131,10 @@ jobs:
             key: ${{ secrets.DROPLET_SSH_KEY }}
             port: ${{ secrets.DROPLET_SSH_PORT }}
             script: |
-                docker pull obeema/obeeoma:latest
+                docker pull ${{secrets.DOCKER_USERNAME}}/obeeoma:latest
                 docker stop obeeoma || true
                 docker rm obeeoma || true
-                docker run -d -p 80:80 --name obeeoma obeema/obeeoma:latest  
+                docker run -d -p 80:80 --name obeeoma ${{secrets.DOCKER_USERNAME}}/obeeoma:latest  
              
      
      
