@@ -21,7 +21,7 @@ export default function OtpVerificationPage() {
     const { user, isLoading, error: authError } = useSelector((state) => state.auth);
     // const dashboardRoute = useSelector(selectUserDashboardRoute);
     const email = user?.email; // Get email from authenticated user state
-    // Effect to clear local error when OTP changes
+    //Effect to clear local error when OTP changes
     useEffect(() => {
         if (otp.length > 0 && localError) {
             setLocalError(null);
