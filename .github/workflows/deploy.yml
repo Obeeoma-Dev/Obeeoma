@@ -136,40 +136,5 @@ jobs:
                 docker rm obeeoma || true
                 docker run -d -p 80:80 --name obeeoma myusername/obeeoma:latest  
              
-      
-      # Save build folder for deployment
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: obeeoma-app-build
-          path: ./dist
-
-  # ----------------
-  # 4. DEPLOYING TO RENDER
-  # ----------------
-  deploy:
-    name: Deploy to Render
-    runs-on: ubuntu-latest
-    needs: build # deploy only if build succeeds
-    if: github.ref == 'refs/heads/main' && success() # only deploy from main branch
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Download verified build artifact from CI
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: obeeoma-app-build
-          path: ./dist
-
-      # Trigger Render deployment using Render API key
-      - name: Deploy to Render
-        env:
-          RENDER_API_KEY: ${{ env.RENDER_API_KEY }}
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer $RENDER_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d '{"serviceId":"service-xxxx","branch":"main"}' \
-            https://api.render.com/v1/services/service-xxxx/deploys
+     
+     
