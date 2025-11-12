@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
     company: {
       title: "Company",
       items: [
-        { text: "About Us", link: "/about" },
+        { text: "About Us", link: "/aboutus" },
         { text: "Careers", link: "/careers" },
         { text: "Blog", link: "/blog" },
         { text: "Contact", link: "/contact" },
