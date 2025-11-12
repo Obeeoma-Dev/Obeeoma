@@ -15,6 +15,9 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/login/",
             "/v1/auth/signup/",
             "/v1/auth/reset-password/",
+            "/v1/auth/change-password",
+            "v1/organization-signup/",
+            "v1/auth/verify-invite/",
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
         // checking the redux token
@@ -81,13 +84,11 @@ export const authAPI = {
             organisationSize: credentials.organisationSize,
             companyEmail: credentials.companyEmail,
             Location: credentials.Location,
-            contactPerson: [
-                {
-                    fullname: credentials.contactPerson[0].fullname,
-                    role: credentials.contactPerson[0].role,
-                    email: credentials.contactPerson[0].email,
-                },
-            ],
+            contactPerson: {
+                fullname: credentials.contactPerson.fullname,
+                role: credentials.contactPerson.role,
+                email: credentials.contactPerson.email,
+            },
             password: credentials.password,
             confirmPassword: credentials.confirmPassword,
         });
@@ -119,8 +120,8 @@ export const authAPI = {
         const response = await api.get("/v1/auth/me/");
         return response;
     },
-    verifyOtp: async () => {
-        const response = await api.post("v1/auth/verify-invite/");
+    verifyOtp: async (payload) => {
+        const response = await api.post("v1/auth/verify-invite/", payload);
         return response;
     },
     resendOtp: ({ email }) => {
@@ -197,11 +198,11 @@ export const adminAPI = {
         const response = await api.get("/v1/employer/billing/view");
         return response;
     },
-    // employer endpoints
 };
+// employer endpoints
 export const employerAPI = {
     inviteEmployee: async () => {
-        const response = await api.post("/v1/dashboard/invites/");
+        const response = await api.post("/api/v1/invitations/");
         return response;
     },
     viewInviteEmployee: async () => {

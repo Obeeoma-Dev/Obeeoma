@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import { z } from "zod";
 
 type OrganizationProfile = {
@@ -75,6 +75,7 @@ const CreateProfile: React.FC = () => {
 
             setSuccessMessage("Profile created successfully.");
             setForm(initialState);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             setErrors((prev) => ({ ...prev, website: err?.message || "Submission failed" }));
         } finally {
@@ -136,7 +137,7 @@ const CreateProfile: React.FC = () => {
                         />
                         Subscribe to candidate updates
                     </label>
-                    <a href="/subscribe" target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}></a>
+                    <a href="/subscribe" target="_blank" rel="noopener noreferrer" style={{ marginLeft: 8 }}>
                         Subscription options
                     </a>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Building, User, Mail, Lock } from "lucide-react";
+import { Building, User, Mail} from "lucide-react";
 import { Link } from 'react-router-dom';
 import { EmployerUser } from '../../../types/employer';
 
@@ -8,7 +8,7 @@ interface AccountSectionProps {
   onAccountDataChange: (data: EmployerUser) => void;
 }
 
-interface ValidationErrors extends Partial<Record<keyof EmployerUser, string>> {}
+type ValidationErrors = Partial<Record<keyof EmployerUser, string>>;
 
 const TIME_ZONES = [
   'UTC-05:00 Eastern Time (US & Canada)',
@@ -150,19 +150,6 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData,
           <div className="col-12 col-md-6">
             <label className="form-label fw-medium">Password</label>
             <div className="position-relative">
-              <Lock
-                size={16}
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-                aria-hidden="true"
-              />
-              <input
-                type="password"
-                className="form-control ps-5"
-                value="••••••••"
-                readOnly
-                style={{ borderRadius: "8px" }}
-                aria-label="Password field (read-only)"
-              />
               <div className="form-text text-muted mt-1">
                 <Link to="reset-password" className="text-success text-decoration-none">Use OTP to change your password</Link>
               </div>

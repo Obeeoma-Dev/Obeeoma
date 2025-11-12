@@ -1,5 +1,5 @@
 // Import React and required hooks
-import React from "react";
+import React, { useEffect } from "react";
 
 // Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
@@ -10,13 +10,18 @@ import heroImage from "@/assets/Images/headerimage.png";
 // Import navigation hook from React Router
 import { useNavigate } from "react-router-dom";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-/**
- * Hero component: renders the landing section with background image,
- * heading, description, and navigation buttons.
- */
 const Hero = () => {
   const navigate = useNavigate(); // Enables navigation via buttons
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // animation duration in ms
+      once: true,     // only animate once
+    });
+  }, []);
 
   return (
     <section
@@ -37,12 +42,13 @@ const Hero = () => {
         className="hero-content container text-center text-lg-start"
         style={{ position: "relative", zIndex: 2, paddingTop: "4rem" }} >
         <Row className="align-items-center" style={{ paddingTop: "4rem" }}>
-          <Col lg={6} className="mb-5 mb-lg-0">
+          <Col lg={6} className="mb-5 mb-lg-0" data-aos="fade-up">
             <h1 className="fw-bold display-5 mb-3"
               style={{ fontFamily: 'heading' }}>
               Start Your Journey to Better Mental Health
             </h1>
             <p
+              data-aos="fade-left" data-aos-delay="100"
               className="lead mb-4"
               style={{
                 color: "rgba(255, 255, 255, 0.9)",
@@ -53,22 +59,14 @@ const Hero = () => {
               Obeeoma professional mental health service.
             </p>
           </Col>
-
-          {/* Right column containing the two buttons */}
           <Col
             lg={6}
             className="d-flex justify-content-end"
-<<<<<<< HEAD
-
-=======
-            
->>>>>>> syda
+            data-aos="fade-up" data-aos-delay="200"
             style={{ position: "relative", top: "150px" }}
           >
-            {/* Wrapper div to handle button layout and spacing */}
             <div className="d-flex flex-column flex-sm-row gap-3">
 
-              {/* === Primary Button: Green background, white text === */}
               <Button
                 className="rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
                 style={{
@@ -88,24 +86,17 @@ const Hero = () => {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor =
                     "#3CB371";
                 }}
-                // Navigate to signup page when clicked
-                onClick={() => navigate("/signup")}
-              >
-<<<<<<< HEAD
-                For Organisations
-=======
-                Sign Up For Organization
->>>>>>> syda
+
+                onClick={() => navigate("/signup")}>For Organizations
               </Button>
 
-              {/* === Secondary Button: Soft white background, green text === */}
               <Button
-                className="rounded-pill px-5 py-3 fw-semibold" // Rounded shape, same padding, bold font
+                className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
-                  backgroundColor: "#3CB371", // Green text
+                  backgroundColor: "#3CB371", 
                   color: "rgba(250, 250, 250, 0.85)", // white background
-                  border: "1px solid #3CB371", // Green border to match text
-                  outline: "none", // Remove focus outline
+                  border: "1px solid #3CB371", 
+                  outline: "none", 
                   boxShadow: "none", // Remove default shadow when focused
                   transition: "all 0.3s ease", // Smooth hover transition
                   fontFamily: 'heading'
@@ -123,11 +114,7 @@ const Hero = () => {
                 // Navigate to login page when clicked
                 onClick={() => navigate("/login")}
               >
-<<<<<<< HEAD
-                For employees
-=======
-                Sign In
->>>>>>> syda
+                For Employees
               </Button>
             </div>
           </Col>

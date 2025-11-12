@@ -73,7 +73,7 @@ function BenefitCarousel() {
         // Apply scroll to DOM
         scrollContainer.scrollLeft = scrollPosition;
 
-        // update pagination dot.
+
         const idx = Math.floor((scrollPosition / approxCardWidth) % singleCount);
         if (idx !== activeIndex) {
           // setActiveIndex can be called here.
@@ -101,7 +101,7 @@ function BenefitCarousel() {
     scrollContainer.scrollLeft = index * cardWidth;
     setActiveIndex(index);
     setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 5000);
+    setTimeout(() => setIsPaused(false), 2000);
   };
 
   return (

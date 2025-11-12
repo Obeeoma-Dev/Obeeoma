@@ -70,6 +70,24 @@ export interface InviteData {
   role: 'employee'; // Assuming the role is fixed
 }
 
+export interface Employee {
+  id: number;
+  emailAddress: string;
+  phoneNumber?: string;
+  department: string;
+  status: 'accepted' | 'pending' | 'rejected' | string;
+}
+
+export interface GetEmployeeInput {
+  id: number;
+}
+
+export interface CreateEmployeeInput {
+  emailAddress: string;
+  phoneNumber?: string;
+  department: string;
+}
+
 export interface SubscriptionData {
   plan_id: string;
   billing_cycle: 'monthly' | 'annually';
