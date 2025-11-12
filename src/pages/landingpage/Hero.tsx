@@ -1,10 +1,5 @@
-// Import React and required hooks
 import React, { useEffect } from "react";
-
-// Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
-
-// Import the hero image (mocked in tests)
 import heroImage from "@/assets/Images/headerimage.png";
 
 // Import navigation hook from React Router
@@ -54,8 +49,7 @@ const Hero = () => {
                 color: "rgba(255, 255, 255, 0.9)",
                 fontSize: "1.25rem",
                 fontFamily: 'heading'
-              }}
-            >
+              }} >
               Obeeoma professional mental health service.
             </p>
           </Col>

@@ -7,7 +7,7 @@ export default function Terms() {
             <p><strong>Effective Date:</strong> November 2025</p>
 
             <p>
-                Welcome to Obeeoma (“we,” “our,” or “us”). These Terms and Conditions (“Terms”) govern your access to and use of the Obeeoma mobile app, website, and all related services (collectively, the “Platform”). By accessing or using Obeeoma, you agree to comply with and be bound by these Terms. If you do not agree, please stop using the Platform immediately.
+                Welcome to <span style={{color: "#3CB371"}}>Obeeoma</span> (“we,” “our,” or “us”). These Terms and Conditions (“Terms”) govern your access to and use of the Obeeoma mobile app, website, and all related services (collectively, the “Platform”). By accessing or using Obeeoma, you agree to comply with and be bound by these Terms. If you do not agree, please stop using the Platform immediately.
             </p>
 
             <h2>1. Overview</h2>

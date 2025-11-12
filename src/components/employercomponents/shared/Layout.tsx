@@ -11,7 +11,9 @@ import {
   X,
 } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -25,16 +27,34 @@ const Layout = ({ children, title }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Get employer data from Redux store
+  const employer = useSelector((state: RootState) => state.employer.currentEmployer);
+  const companyJoinDate = employer?.company?.createdAt 
+    ? new Date(employer.company.createdAt) 
+    : new Date(); // Fallback to current date
 
   const menuItems = [
     { icon: HomeIcon, label: "Home", path: "/employer-dashboard", active: false },
-    { icon: UsersIcon, label: "Employees", path: "/employee-management", active: false },
     { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
     { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
   ].map(item => ({
     ...item,
     active: location.pathname === item.path
   }));
+
+  const [logoRef, isLogoVisible] = useScrollAnimation({
+  threshold: 0.5,
+  rootMargin: '0px 0px -100px 0px'
+});
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
 
   return (
     <div className="min-vh-100 bg-light d-flex flex-column">
@@ -60,15 +80,20 @@ const Layout = ({ children, title }: LayoutProps) => {
             </div>
 
             <div className="col">
-              <h1 
-                className="h4 fw-bold mb-0" 
-                style={{ fontFamily: "heading", color: PRIMARY_COLOR }}
-              >
-                {title}
-              </h1>
+              <div className="d-flex flex-column">
+                <h1 
+                  className="h4 fw-bold mb-0" 
+                  style={{ fontFamily: "heading", color: PRIMARY_COLOR }}
+                >
+                  {title}
+                </h1>
+                <small className="text-muted">
+                  Member since {formatDate(companyJoinDate)}
+                </small>
+              </div>
             </div>
 
-            <div className="col-auto">
+            <div className="col-auto d-flex align-items-center gap-3">
               <button 
                 className="btn btn-link position-relative p-2"
                 style={{ color: PRIMARY_COLOR }}
@@ -80,12 +105,47 @@ const Layout = ({ children, title }: LayoutProps) => {
                   style={{ backgroundColor: PRIMARY_COLOR }}
                 ></span>
               </button>
+              
+              {/* Profile Avatar */}
+              <div className="dropdown">
+                <button 
+                  className="btn btn-link p-0 border-0 dropdown-toggle d-flex align-items-center"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <div 
+                    className="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold"
+                    style={{ width: "40px", height: "40px", fontSize: "16px" }}
+                  >
+                    {employer?.firstName?.charAt(0) || 'U'}
+                    {employer?.lastName?.charAt(0) || ''}
+                  </div>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <button 
+                      className="dropdown-item"
+                      onClick={() => navigate("/employer-settings")}
+                    >
+                      <UserIcon size={16} className="me-2" />
+                      My Account
+                    </button>
+                  </li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li>
+                    <button className="dropdown-item text-danger">
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Sidebar */}
+      {/* Sidebar - Keep existing sidebar code */}
       <aside
         className={`position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`}
         style={{ width: "240px" }}
@@ -95,8 +155,15 @@ const Layout = ({ children, title }: LayoutProps) => {
             onClick={() => navigate("/employer-dashboard")}
             className="btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0"
           >
-            <div className="d-flex align-items-center justify-content-center">
-              <img src={logo} alt="logo" height="80" />
+            <div 
+              ref={logoRef}
+              className="d-flex align-items-center justify-content-center"
+              style={{
+                transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
+                transition: 'transform 0.6s ease-in-out'
+              }}
+            >
+              <img src={logo} alt="logo" height="50" />
             </div>
           </button>
           <button 
