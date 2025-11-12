@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
+import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError} from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite } from "../../../types/employer";
@@ -30,9 +31,18 @@ interface Employee {
 interface EmployeeTableProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  employees: Employee[]; // NEW: Real employee data from API
+  companyId?: string;
+  onEmployeeAdded?: () => void;
 }
 
-const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
+const EmployeeTable: React.FC<EmployeeTableProps> = ({ 
+  searchQuery, 
+  onSearchChange, 
+  employees,
+  companyId,
+  onEmployeeAdded 
+}) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
 
@@ -59,13 +69,24 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  // Fetch employee invites on component mount
+  // Combine invited employees with actual employees
+  const allEmployees: Employee[] = [
+    ...employees,
+    ...invites.map(invite => ({
+      id: invite.id,
+      name: invite.email.split('@')[0], // Use email prefix as name
+      email: invite.email,
+      department: "Pending", // Or use invite.department if available
+      status: invite.status === 'accepted' ? 'active' : 'pending',
+      avatar: invite.email.charAt(0).toUpperCase(),
+    }))
+  ];
+
   useEffect(() => {
     // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
     dispatch(fetchEmployeeInvites());
   }, [dispatch]);
 
-  // Handle errors
   useEffect(() => {
     if (error) {
       toast({
@@ -78,7 +99,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     }
   }, [error, toast, dispatch]);
 
-  const filteredEmployees = employees.filter(
+  const filteredEmployees = allEmployees.filter(
     (emp) =>
       emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -111,6 +132,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     closeModal(); // Close the modal upon success
     toast({
       message: "Employee invitation sent successfully!",
+      duration: 4000,
       duration: 4000,
     });
     

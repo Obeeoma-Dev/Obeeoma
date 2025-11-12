@@ -16,7 +16,7 @@ import {
 } from "recharts";
 
 // Import the chart data type
-import { ChartDataPoint } from "./admindashboard";
+import { EmployeeDataPoint } from "./admindashboard";
 
 /**
  * PlatformUsageChart component renders a responsive line chart
@@ -34,7 +34,7 @@ const PlatformUsageChart: React.FC = () => {
   ];
 
   // Sample data for platform usage over 6 weeks
-  const chartData: ChartDataPoint[] = [
+  const employeeData: EmployeeDataPoint[] = [
     { week: "Week 1", value: 1800 },
     { week: "Week 2", value: 2100 },
     { week: "Week 3", value: 2600 },
@@ -84,7 +84,7 @@ const PlatformUsageChart: React.FC = () => {
         {activeTab === "platform" && (
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart
-              data={chartData}
+              data={employeeData}
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               {/* Clean horizontal grid */}
