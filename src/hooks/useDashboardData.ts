@@ -9,7 +9,7 @@ import {
   fetchEmployees,
   fetchMoodTrends
 } from '../store/slices/EmployerSlice';
-
+import { Employee } from '../types/employer';
 interface DashboardStats {
   totalEmployees: number;
   wellnessIndex: number;
@@ -39,6 +39,7 @@ export const useDashboardData = () => {
 
   const [activities, setActivities] = useState<Activity[]>([]);
 
+  
   useEffect(() => {
     // Fetch all dashboard data on component mount
     dispatch(fetchEmployerDashboardSummary() as any);
@@ -50,7 +51,7 @@ export const useDashboardData = () => {
   }, [dispatch]);
 
   // Calculate department distribution from actual employee data
-  const calculateDepartmentDistribution = () => {
+  const calculateDepartmentDistribution = (employees: Employee[]) => {
     if (employees.length === 0) {
       return departmentDistribution.length > 0 
         ? departmentDistribution 

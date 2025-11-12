@@ -80,7 +80,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
             <EmployeeTable 
               searchQuery={searchQuery} 
               onSearchChange={setSearchQuery}
-              employees={employeeData.employees}
+              employees={employeeData.employees as any} // Temporary cast
               companyId={companyId}
             />
           </div>

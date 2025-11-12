@@ -65,6 +65,25 @@ export interface TrendData {
   value: number;
 }
 
+export interface InviteData {
+  email: string;
+  role: 'employee';
+}
+
+// types/employer.ts
+export interface Employee {
+  id: number | string;
+  name: string;
+  email: string;
+  department: string;
+  status: 'active' | 'inactive' | 'pending';
+  avatar?: string;
+  joinDate?: string;
+  lastActive?: string;
+  phoneNumber?: string;
+}
+
+// Update other interfaces to use this unified Employee type
 export interface EmployeeInvite {
   id: string | number;
   email: string;
@@ -75,17 +94,14 @@ export interface EmployeeInvite {
   sentDate: string;
 }
 
-export interface InviteData {
-  email: string;
-  role: 'employee';
-}
-
-export interface Employee {
+export interface MoodTrend {
   id: number;
-  emailAddress: string;
-  phoneNumber?: string;
-  department: string;
-  status: 'accepted' | 'pending' | 'rejected' | string;
+  employeeId: number;
+  employeeName: string;
+  employeeDepartment: string;
+  moodLevel: number;
+  date: string;
+  timestamp: string;
 }
 
 export interface GetEmployeeInput {
