@@ -150,6 +150,10 @@ export interface EmployerState {
   subscription: SubscriptionData | null;
   departmentDistribution: Array<{ name: string; percentage: number; color: string }>;
   wellnessTrend: Array<{ date: string; score: number }>;
+  // moodTrends: raw mood entries returned from API (contains moodLevel, date, employeeName, employeeDepartment)
+  moodTrends: any[];
+  // employees: list of employee records for the employer
+  employees: Employee[];
   isLoading: boolean;
   isActionLoading: boolean;
   error: string | null;

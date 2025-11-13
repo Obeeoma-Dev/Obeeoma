@@ -5,7 +5,7 @@ import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError } from '../../../store/slices/EmployerSlice';
 import { useToast } from "../../../hooks/use-toast";
-const EmployeeTable = ({ searchQuery, onSearchChange }) => {
+const EmployeeTable = ({ searchQuery, onSearchChange, companyId, onEmployeeAdded }) => {
     const dispatch = useDispatch();
     const { toast } = useToast();
     // 1. SELECT STATE WITH CORRECT TYPE MAPPING
@@ -26,12 +26,22 @@ const EmployeeTable = ({ searchQuery, onSearchChange }) => {
         avatar: invite.email.charAt(0).toUpperCase(),
     }));
     const [showModal, setShowModal] = useState(false);
-    // Fetch employee invites on component mount
+    // Combine invited employees with actual employees
+    const allEmployees = [
+        ...employees,
+        ...invites.map(invite => ({
+            id: invite.id,
+            name: invite.email.split('@')[0], // Use email prefix as name
+            email: invite.email,
+            department: "Pending", // Or use invite.department if available
+            status: invite.status === 'accepted' ? 'active' : 'pending',
+            avatar: invite.email.charAt(0).toUpperCase(),
+        }))
+    ];
     useEffect(() => {
         // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
         dispatch(fetchEmployeeInvites());
     }, [dispatch]);
-    // Handle errors
     useEffect(() => {
         if (error) {
             toast({
@@ -42,7 +52,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }) => {
             dispatch(clearEmployerError());
         }
     }, [error, toast, dispatch]);
-    const filteredEmployees = employees.filter((emp) => emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const filteredEmployees = allEmployees.filter((emp) => emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
         emp.department.toLowerCase().includes(searchQuery.toLowerCase()));
     const handleStatusChange = () => {

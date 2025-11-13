@@ -252,19 +252,7 @@ export const adminAPI = {
   },
 
     getEmployees: async () => {
-    // src/api/axiosInstance.ts
-
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-
-    export const api = axios.create({
-      baseURL: API_BASE_URL,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    // optional default export
-    export default api;
+    const response = await api.get("/v1/employer/employees/");
     return response;
   },
 
@@ -291,7 +279,7 @@ export const adminAPI = {
     return response;
   },
 };
-
+export default api;
 // import axios from "axios";
 // import { RootState } from '../store/store';
 // import {
@@ -560,41 +548,40 @@ export const adminAPI = {
 
 //   // employer endpoints
 
-// export const employerAPI = {
-//   inviteEmployee: async () => {
-//     const response = await api.post("/api/v1/invitations/");
-//     return response;
-//   },
+export const employerAPI = {
+  inviteEmployee: async () => {
+    const response = await api.post("/api/v1/invitations/");
+    return response;
+  },
 
-//   viewInviteEmployee: async () => {
-//     const response = await api.get("/v1/employers/view-invites/");
-//     return response;
-//   },
+  viewInviteEmployee: async () => {
+    const response = await api.get("/v1/employers/view-invites/");
+    return response;
+  },
 
-//   viewSubscription: async () => {
-//     const response = await api.post("/v1/employer/billing/add-subscription/");
-//     return response;
-//   },
+  viewSubscription: async () => {
+    const response = await api.post("/v1/employer/billing/add-subscription/");
+    return response;
+  },
 
-//   viewBilling: async () => {
-//     const response = await api.get("/v1/employer/billing/view");
-//     return response;
-//   },
+  viewBilling: async () => {
+    const response = await api.get("/v1/employer/billing/view");
+    return response;
+  },
 
-//   getEngagement: async () => {
-//     const response = await api.get("/v1/employer/engagements/");
-//     return response;
-//   },
+  getEngagement: async () => {
+    const response = await api.get("/v1/employer/engagements/");
+    return response;
+  },
 
-//   getReports: async () => {
-//     const response = await api.post("/v1/employer/reports/");
-//     return response;
-//   },
+  getReports: async () => {
+    const response = await api.post("/v1/employer/reports/");
+    return response;
+  },
 
-//   getemployerdashboardSummary: async () => {
-//     const response = await api.get("/v1/employer/overview");
-//     return response;
-//   },
-// };
+  getemployerdashboardSummary: async () => {
+    const response = await api.get("/v1/employer/overview");
+    return response;
+  },
+};
 
-// export default api;

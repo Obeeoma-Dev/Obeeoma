@@ -14,6 +14,8 @@ const EmployerAccountProfile = () => {
     role: "employer",
     dateJoined: new Date().toISOString(),
     organizationName: "Acme Corporation",
+    firstName: "",
+    lastName: "",
     username: "Admin User",
     email: "admin@example.com",
     phone: "",

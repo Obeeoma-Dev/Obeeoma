@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
-import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError} from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite } from "../../../types/employer";
@@ -38,8 +37,7 @@ interface EmployeeTableProps {
 
 const EmployeeTable: React.FC<EmployeeTableProps> = ({ 
   searchQuery, 
-  onSearchChange, 
-  employees,
+  onSearchChange,  
   companyId,
   onEmployeeAdded 
 }) => {
@@ -132,7 +130,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
     closeModal(); // Close the modal upon success
     toast({
       message: "Employee invitation sent successfully!",
-      duration: 4000,
       duration: 4000,
     });
     

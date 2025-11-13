@@ -80,7 +80,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
             <EmployeeTable 
               searchQuery={searchQuery} 
               onSearchChange={setSearchQuery}
-              employees={employeeData.employees}
+              employees={employeeData.employees as any}
               companyId={companyId}
             />
           </div>
@@ -91,7 +91,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
                 <h5 className="card-title fw-semibold mb-4">Department Distribution</h5>
                 <DepartmentLegend 
                   departments={stats?.departmentDistribution || []} 
-                  totalEmployees={stats?.totalEmployees || 0}
+                  // totalEmployees={stats?.totalEmployees || 0}
                 />
                 
                 <div className="mt-4">
@@ -108,8 +108,6 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
           <div className="col-lg-12 col-md-12">
             <RecentActivity 
               activities={activities} 
-              onViewAll={() => console.log('View all activities')}
-              maxItems={5}
             />
           </div>
         </div>
