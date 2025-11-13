@@ -1,8 +1,5 @@
 /**
  * Why Choose section with benefits list and images
- * Converted to use React-Bootstrap components for layout and styling
- * All logic preserved from original Tailwind version
- * Code passes ESLint, Jest, and Prettier checks
  */
 
 import React from 'react';
@@ -12,8 +9,8 @@ import { Container, Row, Col, Image, ListGroup } from 'react-bootstrap';
 import { CheckCircleIcon } from 'lucide-react';
 // Import custom scroll animation hook
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';
-import potraidtraditional from '../../assets/Images/potraidtraditional.jpg';
-import nigerian_tradition from '../../assets/Images/nigerian_tradition.jpg';
+import Businesswomen from '../../assets/Images/Businesswomen.jpg';
+import Businessteam from '../../assets/Images/Business-team.jpg';
 
 // Define functional React component
 export function WhyChooseSection() {
@@ -73,27 +70,36 @@ export function WhyChooseSection() {
                             {benefits.map((benefit, index) => (
                                 <ListGroup.Item
                                     key={index}
-                                    className="border-0 d-flex align-items-start mb-3 p-0"
-                                    style={{ transitionDelay: `${index * 100}ms` }}
+                                    className="border-0 d-flex align-items-start mb-3 p-4 rounded shadow-sm"
+                                    style={{
+                                        backgroundColor: '#f9fdf9',
+                                        border: '1px solid #e0e0e0',
+                                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                        cursor: 'pointer',
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1.03)';
+                                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.5)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                        e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+                                    }}
                                 >
                                     {/* Icon column */}
                                     <div className="me-3 mt-1">
-                                        <CheckCircleIcon
-                                            size={28}
-                                            className="text-success flex-shrink-0"
-                                        />
+                                        <CheckCircleIcon size={28} className="text-success flex-shrink-0" />
                                     </div>
 
                                     {/* Text column */}
                                     <div>
-                                        <h5 className="fw-semibold text-dark mb-1">
-                                            {benefit.title}
-                                        </h5>
+                                        <h5 className="fw-semibold text-dark mb-1">{benefit.title}</h5>
                                         {benefit.description && (
                                             <p className="text-muted mb-0">{benefit.description}</p>
                                         )}
                                     </div>
                                 </ListGroup.Item>
+
                             ))}
                         </ListGroup>
                     </Col>
@@ -101,12 +107,17 @@ export function WhyChooseSection() {
                     {/* Right Column: Image */}
                     <Col lg={6}>
                         {/* Bootstrap Image component with rounded corners and shadow */}
-                        <div className="shadow-lg rounded overflow-hidden">
-                            <Image
-                                src={potraidtraditional}
-                                alt="Person with glasses"
-                                fluid
-                            />
+                        <div className="shadow-lg rounded">
+                            <div className="shadow-lg rounded overflow-hidden">
+                                <Image
+                                    src={Businessteam}
+                                    alt="Person with glasses"
+                                    fluid
+                                    className="w-100 h-100 object-fit-cover"
+                                    style={{ objectPosition: 'center' }}
+                                />
+                            </div>
+
                         </div>
                     </Col>
                 </Row>
@@ -116,7 +127,7 @@ export function WhyChooseSection() {
                     <Col lg={6} className="order-lg-1 order-2">
                         <div className="shadow-lg rounded overflow-hidden">
                             <Image
-                                src={nigerian_tradition}
+                                src={Businesswomen}
                                 alt="Happy people embracing"
                                 fluid
                             />

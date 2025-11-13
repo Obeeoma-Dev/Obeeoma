@@ -5,6 +5,8 @@ import { BlogCard } from '../../../components/Blog/blogCard';
 import { BlogHero } from '../../../components/Blog/blogHero';
 import { CategoryFilter } from '../../../components/Blog/categoryFilter';
 import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
+import Navigation from "../../../components/shared/Navigation";
+
 
 // Importing images.
 import Africaworkforce from '../../../assets/Images/workforce.png';
@@ -136,8 +138,13 @@ export function Blog() {
     }
     return (
         <div className="blog-page">
+
+            {/* Navigation Bar */}
+            <Navigation />
+
             {/* Hero Section */}
             <BlogHero onSearch={handleSearch} />
+
             {/* Category Filter */}
             <Container className="my-5">
                 <CategoryFilter
@@ -146,6 +153,8 @@ export function Blog() {
                     onCategoryChange={setActiveCategory}
                 />
             </Container>
+
+
             {/* Featured Blog */}
             {activeCategory === 'All' && filteredBlogs.length > 0 && (
                 <Container className="mb-5">
@@ -157,6 +166,8 @@ export function Blog() {
                     </Row>
                 </Container>
             )}
+
+
             {/* Blog Grid */}
             <Container className="blog-grid-section">
                 <h2 className="blog-section-title">
@@ -175,6 +186,8 @@ export function Blog() {
                     </div>
                 )}
             </Container>
+
+
             {/* Newsletter Section */}
             <div className="blog-newsletter-section">
                 <Container>
@@ -201,6 +214,8 @@ export function Blog() {
                     </Row>
                 </Container>
             </div>
+
+
             {/* Footer */}
             <footer className="blog-footer">
                 <Container>
@@ -227,6 +242,8 @@ export function Blog() {
                     </Row>
                 </Container>
             </footer>
+
+
             {/* Floating WhatsApp Button */}
             <FloatingWhatsApp />
         </div>
