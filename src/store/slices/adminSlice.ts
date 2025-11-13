@@ -1,4 +1,3 @@
-
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { adminAPI } from "../../api/apiConfig";
@@ -11,7 +10,7 @@ import {
   EmployeeEngagementData,
   Report,
   TrendData,
-} from "../../types/admin"; 
+} from "../../types/admin";
 
 // --- Error Handling ---
 const getErrorMessage = (error: unknown): string => {
@@ -30,7 +29,9 @@ const getErrorMessage = (error: unknown): string => {
   return "An unexpected error occurred";
 };
 
+// --- Async Thunks ---
 
+// GET Operations
 export const fetchAdminDashboardStats = createAsyncThunk(
   "admin/fetchStats",
   async (_, { rejectWithValue }) => {
@@ -43,7 +44,6 @@ export const fetchAdminDashboardStats = createAsyncThunk(
   }
 );
 
-// GET /v1/dashboard/users/
 export const fetchAllUsers = createAsyncThunk(
   "admin/fetchAllUsers",
   async (_, { rejectWithValue }) => {
@@ -56,7 +56,6 @@ export const fetchAllUsers = createAsyncThunk(
   }
 );
 
-// GET /v1/dashboard/overview
 export const fetchDashboardSummary = createAsyncThunk(
   "admin/fetchSummary",
   async (_, { rejectWithValue }) => {
@@ -69,7 +68,6 @@ export const fetchDashboardSummary = createAsyncThunk(
   }
 );
 
-// GET /v1/dashboard/crisis-insights/views/
 export const fetchCrisisInsights = createAsyncThunk(
   "admin/fetchCrisisInsights",
   async (_, { rejectWithValue }) => {
@@ -82,39 +80,30 @@ export const fetchCrisisInsights = createAsyncThunk(
   }
 );
 
-
-// Define async thunk for fetching employee engagement data
 export const fetchEmployeeEngagement = createAsyncThunk(
-  "admin/fetchEmployeeEngagement", // Redux action type
+  "admin/fetchEmployeeEngagement",
   async (_, { rejectWithValue }) => {
     try {
-      // Call admin API to fetch engagement data
       const response = await adminAPI.getEmployeeEngagement();
-      return response.data as EmployeeEngagementData; // Cast response to expected type
+      return response.data as EmployeeEngagementData;
     } catch (error: unknown) {
-      // Use shared error handler to extract message
       return rejectWithValue(getErrorMessage(error));
     }
   }
 );
 
-
-// Define async thunk for fetching admin reports
 export const fetchReports = createAsyncThunk(
-  "admin/fetchReports", // Redux action type
+  "admin/fetchReports",
   async (_, { rejectWithValue }) => {
     try {
-      // Call admin API to fetch reports (assumed GET or POST without params)
       const response = await adminAPI.getReports();
-      return response.data as Report[]; // Cast response to expected Report[] type
+      return response.data as Report[];
     } catch (error: unknown) {
-      // Use shared error handler to extract message
       return rejectWithValue(getErrorMessage(error));
     }
   }
 );
 
-// GET /v1/dashboard/trends
 export const fetchTrends = createAsyncThunk(
   "admin/fetchTrends",
   async (_, { rejectWithValue }) => {
@@ -127,16 +116,15 @@ export const fetchTrends = createAsyncThunk(
   }
 );
 
-
+// DELETE Operations
 export const deleteUser = createAsyncThunk(
   "admin/deleteUser",
   async (
-    userId: string | number & { onSuccess?: () => void }, // Added onSuccess pattern
-    { rejectWithValue },
+    userId: string | number & { onSuccess?: () => void },
+    { rejectWithValue }
   ) => {
     try {
       await adminAPI.deleteUser(userId);
-
       return userId;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
@@ -144,15 +132,14 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
-// POST /v1/dashboard/invites/ (Add Employee)
+// POST Operations
 export const addEmployeeInvite = createAsyncThunk(
   "admin/addEmployeeInvite",
   async (
-    inviteData: Record<string, unknown> & { onSuccess?: () => void }, 
-    { rejectWithValue },
+    inviteData: Record<string, unknown> & { onSuccess?: () => void },
+    { rejectWithValue }
   ) => {
     try {
-      // Assuming 'addEmployee' takes the data needed for the invite
       const response = await adminAPI.addEmployee();
       inviteData.onSuccess?.();
       return response.data;
@@ -162,15 +149,13 @@ export const addEmployeeInvite = createAsyncThunk(
   }
 );
 
-// POST /v1/dashboard/crisis-insights/add/
 export const createCrisisInsight = createAsyncThunk(
   "admin/createCrisisInsight",
   async (
-    data: Record<string, unknown> & { onSuccess?: () => void }, 
-    { rejectWithValue },
+    data: Record<string, unknown> & { onSuccess?: () => void },
+    { rejectWithValue }
   ) => {
     try {
-      // Assuming 'postCrisisInsights' takes the data for the new insight
       const response = await adminAPI.postCrisisInsights();
       data.onSuccess?.();
       return response.data as CrisisInsight;
@@ -180,15 +165,13 @@ export const createCrisisInsight = createAsyncThunk(
   }
 );
 
-// POST /v1/dashboard/crisis-insights/update/
 export const updateCrisisInsight = createAsyncThunk(
   "admin/updateCrisisInsight",
   async (
-    data: Record<string, unknown> & { onSuccess?: () => void }, 
-    { rejectWithValue },
+    data: Record<string, unknown> & { onSuccess?: () => void },
+    { rejectWithValue }
   ) => {
     try {
-      // Assuming 'putCrisisInsights' takes the data for the update
       const response = await adminAPI.putCrisisInsights();
       data.onSuccess?.();
       return response.data as CrisisInsight;
@@ -198,30 +181,11 @@ export const updateCrisisInsight = createAsyncThunk(
   }
 );
 
-// POST /v1/dashboard/crisis-insights/changes/
-export const changeCrisisInsight = createAsyncThunk(
-  "admin/changeCrisisInsight",
-  async (
-    data: Record<string, unknown> & { onSuccess?: () => void }, 
-    { rejectWithValue },
-  ) => {
-    try {
-      // Assuming 'changeCrisisInsights' takes the data for the change
-      const response = await adminAPI.changeCrisisInsights();
-      data.onSuccess?.();
-      return response.data as CrisisInsight;
-    } catch (error: unknown) {
-      return rejectWithValue(getErrorMessage(error));
-    }
-  }
-);
-
-// POST /v1/dashboard/feature-usage
 export const createFeatureUsage = createAsyncThunk(
   "admin/createFeatureUsage",
   async (
-    data: Record<string, unknown> & { onSuccess?: () => void }, 
-    { rejectWithValue },
+    data: Record<string, unknown> & { onSuccess?: () => void },
+    { rejectWithValue }
   ) => {
     try {
       const response = await adminAPI.createFeatureUsage();
@@ -233,28 +197,30 @@ export const createFeatureUsage = createAsyncThunk(
   }
 );
 
-
+// --- Initial State ---
 const initialState: AdminState = {
+  // Data collections
   users: [],
-  summary: null,
+  crisisInsights: [],
+  reports: [],
   organisations: [],
   settings: [],
   featureFlags: [],
   EmployeeInvite: [],
+  
+  // Single objects
   stats: null,
-  crisisInsights: [],
+  summary: null,
   employeeEngagement: null,
-  reports: [],
   trends: null,
-
+  
+  // Loading states
   isLoading: false,
   isActionLoading: false,
   error: null,
 };
 
-
-
-
+// --- Slice Definition ---
 const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -262,105 +228,107 @@ const adminSlice = createSlice({
     clearAdminError: (state) => {
       state.error = null;
     },
+    clearAdminLoading: (state) => {
+      state.isLoading = false;
+      state.isActionLoading = false;
+    },
   },
   extraReducers: (builder) => {
-    // --- for consistent state management 
+    // --- Helper functions for consistent state management ---
     const handlePending = (state: AdminState) => {
       state.isLoading = true;
       state.error = null;
     };
+
     const handleActionPending = (state: AdminState) => {
       state.isActionLoading = true;
       state.error = null;
     };
+
     const handleRejected = (state: AdminState, action: PayloadAction<unknown>) => {
       state.isLoading = false;
       state.isActionLoading = false;
       state.error = action.payload as string;
     };
 
+    const handleFulfilled = (state: AdminState) => {
+      state.isLoading = false;
+    };
+
     const handleActionFulfilled = (state: AdminState) => {
       state.isActionLoading = false;
-    }
+    };
 
+    // --- GET Operations ---
     builder
-      // --- Dashboard Stats ---
       .addCase(fetchAdminDashboardStats.pending, handlePending)
       .addCase(fetchAdminDashboardStats.fulfilled, (state, action: PayloadAction<DashboardStats>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.stats = action.payload;
       })
       .addCase(fetchAdminDashboardStats.rejected, handleRejected)
 
-      // --- All Users ---
       .addCase(fetchAllUsers.pending, handlePending)
       .addCase(fetchAllUsers.fulfilled, (state, action: PayloadAction<AdminUser[]>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.users = action.payload;
       })
       .addCase(fetchAllUsers.rejected, handleRejected)
 
-      // --- Dashboard Summary ---
       .addCase(fetchDashboardSummary.pending, handlePending)
       .addCase(fetchDashboardSummary.fulfilled, (state, action: PayloadAction<DashboardSummary>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.summary = action.payload;
       })
       .addCase(fetchDashboardSummary.rejected, handleRejected)
 
-      // --- Crisis Insights (GET) ---
       .addCase(fetchCrisisInsights.pending, handlePending)
       .addCase(fetchCrisisInsights.fulfilled, (state, action: PayloadAction<CrisisInsight[]>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.crisisInsights = action.payload;
       })
       .addCase(fetchCrisisInsights.rejected, handleRejected)
 
-      // --- Employee Engagement (POST/GET) ---
       .addCase(fetchEmployeeEngagement.pending, handlePending)
       .addCase(fetchEmployeeEngagement.fulfilled, (state, action: PayloadAction<EmployeeEngagementData>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.employeeEngagement = action.payload;
       })
       .addCase(fetchEmployeeEngagement.rejected, handleRejected)
 
-      // --- Reports (POST/GET) ---
       .addCase(fetchReports.pending, handlePending)
       .addCase(fetchReports.fulfilled, (state, action: PayloadAction<Report[]>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.reports = action.payload;
       })
       .addCase(fetchReports.rejected, handleRejected)
 
-      // --- Trends (GET) ---
       .addCase(fetchTrends.pending, handlePending)
       .addCase(fetchTrends.fulfilled, (state, action: PayloadAction<TrendData[]>) => {
-        state.isLoading = false;
+        handleFulfilled(state);
         state.trends = action.payload;
       })
-      .addCase(fetchTrends.rejected, handleRejected)
+      .addCase(fetchTrends.rejected, handleRejected);
 
-
-      // --- Delete User ---
+    // --- DELETE Operations ---
+    builder
       .addCase(deleteUser.pending, handleActionPending)
       .addCase(deleteUser.fulfilled, (state, action: PayloadAction<string | number>) => {
         handleActionFulfilled(state);
-        // Remove the user from the state array
         state.users = state.users.filter((user) => user.id !== action.payload);
       })
-      .addCase(deleteUser.rejected, handleRejected)
+      .addCase(deleteUser.rejected, handleRejected);
 
-      // --- Crisis Insight Actions (POST/UPDATE/CHANGE) ---
+    // --- POST Operations ---
+    builder
       .addCase(createCrisisInsight.pending, handleActionPending)
-      .addCase(updateCrisisInsight.pending, handleActionPending)
-      .addCase(changeCrisisInsight.pending, handleActionPending)
-
-      // Add new insight
       .addCase(createCrisisInsight.fulfilled, (state, action: PayloadAction<CrisisInsight>) => {
         handleActionFulfilled(state);
         state.crisisInsights.push(action.payload);
       })
-      // Update existing insight
+      .addCase(createCrisisInsight.rejected, handleRejected)
+
+      .addCase(updateCrisisInsight.pending, handleActionPending)
       .addCase(updateCrisisInsight.fulfilled, (state, action: PayloadAction<CrisisInsight>) => {
         handleActionFulfilled(state);
         const index = state.crisisInsights.findIndex(
@@ -370,32 +338,17 @@ const adminSlice = createSlice({
           state.crisisInsights[index] = action.payload;
         }
       })
-      // Change/Edit insight status/data (assuming it's similar to an update)
-      .addCase(changeCrisisInsight.fulfilled, (state, action: PayloadAction<CrisisInsight>) => {
-        handleActionFulfilled(state);
-        const index = state.crisisInsights.findIndex(
-          (insight) => insight.id === action.payload.id
-        );
-        if (index !== -1) {
-          state.crisisInsights[index] = action.payload;
-        }
-      })
-      .addCase(createCrisisInsight.rejected, handleRejected)
       .addCase(updateCrisisInsight.rejected, handleRejected)
-      .addCase(changeCrisisInsight.rejected, handleRejected)
 
-      // --- Add Employee Invite ---
       .addCase(addEmployeeInvite.pending, handleActionPending)
       .addCase(addEmployeeInvite.fulfilled, handleActionFulfilled)
       .addCase(addEmployeeInvite.rejected, handleRejected)
 
-      // --- Create Feature Usage ---
       .addCase(createFeatureUsage.pending, handleActionPending)
       .addCase(createFeatureUsage.fulfilled, handleActionFulfilled)
       .addCase(createFeatureUsage.rejected, handleRejected);
-      
   },
 });
 
-export const { clearAdminError } = adminSlice.actions;
+export const { clearAdminError, clearAdminLoading } = adminSlice.actions;
 export default adminSlice.reducer;
