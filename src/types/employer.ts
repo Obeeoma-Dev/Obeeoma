@@ -114,23 +114,6 @@ export interface CreateEmployeeInput {
   department: string;
 }
 
-export interface Employee {
-  id: number;
-  emailAddress: string;
-  phoneNumber?: string;
-  department: string;
-  status: 'accepted' | 'pending' | 'rejected' | string;
-}
-
-export interface GetEmployeeInput {
-  id: number;
-}
-
-export interface CreateEmployeeInput {
-  emailAddress: string;
-  phoneNumber?: string;
-  department: string;
-}
 
 export interface SubscriptionData {
   plan_id: string;
