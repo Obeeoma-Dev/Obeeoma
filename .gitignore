@@ -35,3 +35,4 @@ package-lock.json
 src/**/*.js
 src/**/*.jsx
 node_modules/
+register.txt

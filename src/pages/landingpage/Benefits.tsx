@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-// Importing images from Image.
+// Importing images
 import teamWellbeingImg from "../../assets/Images/team-wellbing.png";
 import culturallyRelevantImg from "../../assets/Images/culturally-relevant.png";
 import anonymousSecureImg from "../../assets/Images/padlock.png";
@@ -7,7 +7,7 @@ import aiInsightsImg from "../../assets/Images/ai-logo.png";
 import responsiveAppImg from "../../assets/Images/smartphone.png";
 import roiAnalyticsImg from "../../assets/Images/roi-analytics.png";
 
-// Importing icons (from lucide react library).
+// Importing icons (from lucide react library)
 import {
   Shield,
   Globe,
@@ -18,29 +18,54 @@ import {
 } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// Define an array of benifit. 
+// Define array of benefits
 const benefits = [
-  { icon: Shield, title: "Anonymous & secure", description: "Private, encrypted, and fully anonymous.", image: anonymousSecureImg },
-  { icon: Globe, title: "Culturally Relevant", description: "Built for African workplaces and languages.", image: culturallyRelevantImg },
-  { icon: Brain, title: "AI Powered Insights", description: "Smart alerts and tailored suggestions.", image: aiInsightsImg },
-  { icon: Heart, title: "Team Wellbeing", description: "Track morale without breaching privacy", image: teamWellbeingImg },
-  { icon: Smartphone, title: "Responsive Application", description: "Works seamlessly across all devices.", image: responsiveAppImg },
-  { icon: BarChart, title: "ROI Analytics", description: "See impact on productivity and satisfaction", image: roiAnalyticsImg },
+  {
+    icon: Shield,
+    title: "Anonymous & secure",
+    description: "Private, encrypted, and fully anonymous.",
+    image: anonymousSecureImg,
+  },
+  {
+    icon: Globe,
+    title: "Culturally Relevant",
+    description: "Built for African workplaces and languages.",
+    image: culturallyRelevantImg,
+  },
+  {
+    icon: Brain,
+    title: "AI Powered Insights",
+    description: "Smart alerts and tailored suggestions.",
+    image: aiInsightsImg,
+  },
+  {
+    icon: Heart,
+    title: "Team Wellbeing",
+    description: "Track morale without breaching privacy",
+    image: teamWellbeingImg,
+  },
+  {
+    icon: Smartphone,
+    title: "Responsive Application",
+    description: "Works seamlessly across all devices.",
+    image: responsiveAppImg,
+  },
+  {
+    icon: BarChart,
+    title: "ROI Analytics",
+    description: "See impact on productivity and satisfaction",
+    image: roiAnalyticsImg,
+  },
 ];
 
-// duplicate for seamless looping.
+// Duplicate for seamless looping
 const extendedBenefits = [...benefits, ...benefits];
-// const useImages = true;
 
 function BenefitCarousel() {
-  // A reference to the scroll container.
   const scrollRedf = useRef<HTMLDivElement | null>(null);
-
-  // Track which card is active for pagination dots.
   const [activeIndex, setActiveIndex] = useState(0);
-
-  // Pause scrolling when true.
   const [isPaused, setIsPaused] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null); // Added for hover effect
 
   useEffect(() => {
     const scrollContainer = scrollRedf.current;
@@ -48,48 +73,32 @@ function BenefitCarousel() {
 
     let rafId = 0;
     let scrollPosition = scrollContainer.scrollLeft || 0;
-
-    // Tune the speed.
     const scrollSpeed = 0.35;
 
-    // Using duplicated content to loop back.
     const fullWidth = scrollContainer.scrollWidth;
     const halfWidth = fullWidth / 2;
-
     const singleCount = benefits.length;
-    // approximate card width = halfWidth / singleCount (only original set)
     const approxCardWidth = halfWidth / singleCount || 300;
 
     const loop = () => {
       if (!isPaused) {
-        // Update the scroll position
         scrollPosition += scrollSpeed;
+        if (scrollPosition >= halfWidth) scrollPosition -= halfWidth;
 
-        // Wrap scroll position for seamless looping.
-        if (scrollPosition >= halfWidth) {
-          scrollPosition -= halfWidth;
-        }
-
-        // Apply scroll to DOM
         scrollContainer.scrollLeft = scrollPosition;
 
-        // update pagination dot.
-        const idx = Math.floor((scrollPosition / approxCardWidth) % singleCount);
-        if (idx !== activeIndex) {
-          // setActiveIndex can be called here.
-          setActiveIndex(idx);
-        }
+        const idx = Math.floor(
+          (scrollPosition / approxCardWidth) % singleCount
+        );
+        if (idx !== activeIndex) setActiveIndex(idx);
       }
-
       rafId = requestAnimationFrame(loop);
     };
 
     rafId = requestAnimationFrame(loop);
-
     return () => cancelAnimationFrame(rafId);
   });
 
-  // Adding a scroll function to be abale to click my pagination dots.
   const scrollToIndex = (index: number) => {
     const scrollContainer = scrollRedf.current;
     if (!scrollContainer) return;
@@ -101,37 +110,49 @@ function BenefitCarousel() {
     scrollContainer.scrollLeft = index * cardWidth;
     setActiveIndex(index);
     setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 5000);
+    setTimeout(() => setIsPaused(false), 2000);
   };
 
   return (
-    <section className="py-5 bg-light" data-testid="benefits-section" aria-label="Benefits">
+    <section
+      className="py-5 bg-light"
+      data-testid="benefits-section"
+      aria-label="Benefits"
+    >
       <div className="container overflow-hidden">
         <div className="text-center mb-4">
-          {/* highlight-obeeoma */}
-          <h2 className="display-6 fw-bold mb-3" style={{ fontFamily: "heading" }}> Why Choose <span style={{ color: "#3CB371" }}>ObeeOma</span> </h2>
-          <p className="text-muted lead mb-5">Everything your organization needs to build a mentally healthy workplace</p>
+          <h2
+            className="display-6 fw-bold mb-3"
+            style={{ fontFamily: "heading" }}
+          >
+            Why Choose <span style={{ color: "#3CB371" }}>ObeeOma</span>
+          </h2>
+          <p className="text-muted lead mb-5">
+            Everything your organization needs to build a mentally healthy
+            workplace
+          </p>
         </div>
 
-        {/* Carousel (pause on hover) */}
+        {/* Carousel */}
         <div
           ref={scrollRedf}
           className="d-flex overflow-hidden px-2"
           onMouseEnter={() => setIsPaused(false)}
           onMouseLeave={() => setIsPaused(false)}
           style={{
-            // No snaps and only a continuous scroll
             gap: "1rem",
             paddingBottom: "1rem",
             position: "relative",
-            overflowX: "hidden",
+            overflowX: "visible",
+            overflowY: "visible",
             whiteSpace: "nowrap",
+            paddingTop: "1rem"
           }}
         >
           {extendedBenefits.map((benefit, index) => {
-
-            // Dynamically render the icons.
             const Icon = benefit.icon;
+            const isHovered = hoveredIndex === index; // Detect hover
+
             return (
               <div
                 key={index}
@@ -140,14 +161,21 @@ function BenefitCarousel() {
                   scrollSnapAlign: "none",
                   width: 300,
                   display: "inline-block",
+                  transition: "transform 0.3s ease", // Smooth animation
+                  transform: isHovered ? "scale(1.05)" : "scale(1)", // Enlarge on hover
+                  zIndex: isHovered ? 10 : 1,
                 }}
+                onMouseEnter={() => setHoveredIndex(index)} // Track hover start
+                onMouseLeave={() => setHoveredIndex(null)} // Reset hover
                 data-testid={`benefit-card-${index}`}
               >
                 <div
                   className="card h-100 border-0 p-4 rounded-3 shadow-sm text-center"
                   style={{
                     position: "relative",
-                    backgroundImage: benefit.image ? `url(${benefit.image})` : undefined,
+                    backgroundImage: benefit.image
+                      ? `url(${benefit.image})`
+                      : undefined,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
@@ -213,6 +241,6 @@ function BenefitCarousel() {
       </div>
     </section>
   );
-};
+}
 
 export default BenefitCarousel;

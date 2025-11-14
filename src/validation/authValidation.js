@@ -20,9 +20,12 @@ export const registerValidationSchema = yup.object().shape({
     Location: yup
         .string()
         .required("Location is required"),
-    contactPersonName: yup
+    contactPersonFirstName: yup
         .string()
-        .required("Contact Person Full Name is required"),
+        .required("First Name is required"), // Specific error message
+    contactPersonLastName: yup
+        .string()
+        .required("Last Name is required"), // Specific error message
     email: yup
         .string()
         .email("Must be a valid email format")
