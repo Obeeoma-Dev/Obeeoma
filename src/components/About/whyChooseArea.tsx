@@ -105,10 +105,9 @@ export function WhyChooseSection() {
                     </Col>
 
                     {/* Right Column: Image */}
-                    <Col lg={6}>
-                        {/* Bootstrap Image component with rounded corners and shadow */}
-                        <div className="shadow-lg rounded">
-                            <div className="shadow-lg rounded overflow-hidden">
+                    <Col lg={6} className="order-lg-1 order-2">
+                        <div className="shadow-lg rounded overflow-visible">
+                            <div className="card-scale">
                                 <Image
                                     src={Businessteam}
                                     alt="Person with glasses"
@@ -125,7 +124,7 @@ export function WhyChooseSection() {
                 {/* Second Row: Image on left, empty column on right (preserved original layout) */}
                 <Row className="align-items-center">
                     <Col lg={6} className="order-lg-1 order-2">
-                        <div className="shadow-lg rounded overflow-hidden">
+                        <div className="card-scale">
                             <Image
                                 src={Businesswomen}
                                 alt="Happy people embracing"

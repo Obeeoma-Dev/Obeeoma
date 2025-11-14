@@ -146,7 +146,7 @@ export function Blog() {
             <BlogHero onSearch={handleSearch} />
 
             {/* Category Filter */}
-            <Container className="my-5">
+            <Container fluid className="my-5">
                 <CategoryFilter
                     categories={categories}
                     activeCategory={activeCategory}
