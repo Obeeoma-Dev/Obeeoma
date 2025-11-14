@@ -164,6 +164,7 @@ const Register = () => {
                 // On API Success: 
                 setShowSuccessModal(true); // Show the success modal pop-up
                 setActiveStep((prev) => prev + 1); // Advance stepper visually to Step 2/Verify
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any    
             }
             catch (err) {
                 console.error("Registration failed:", err);
@@ -179,6 +180,7 @@ const Register = () => {
     const handleBack = () => {
         setActiveStep((prev) => prev - 1);
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmit = async (values, { setSubmitting }) => {
         // Only submit if we are on the final data entry step (Step 1, index 1)
         if (activeStep !== 1) {
@@ -204,6 +206,7 @@ const Register = () => {
         try {
             await dispatch(registerUser(credentials)).unwrap();
             setActiveStep(2); // Move to success step on successful registration
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (err) {
             console.error("Registration failed:", err);
@@ -213,6 +216,7 @@ const Register = () => {
             setSubmitting(false);
         }
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderStepContent = (values, handleChange, touched, errors) => {
         switch (activeStep) {
             case 0: // Step 1: Organization Details
