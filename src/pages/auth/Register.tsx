@@ -156,20 +156,20 @@ const Register: React.FC = () => {
     const { error, isLoading } = useSelector((state: RootState) => state.auth);
 
     const [activeStep, setActiveStep] = useState(0);
-    const [phone, setPhone] = useState("");
+    // const [phone, setPhone] = useState("");
 
-    const[DisplayPhone, setDisplayPhone] = useState("");
+    // const[DisplayPhone, setDisplayPhone] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
    
-    const [selectedLocation, setSelectedLocation] = useState<LocationOption | null>(null);
+    // const [ setSelectedLocation] = useState<LocationOption | null>(null);
     
-    const handleLocationChange = (location: LocationOption | null) => {
-        setSelectedLocation(location);
-      }
+    // const handleLocationChange = (location: LocationOption | null) => {
+    //     setSelectedLocation(location);
+    //   }
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(prev => !prev);

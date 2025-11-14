@@ -10,6 +10,7 @@ interface CustomPhoneInputProps extends FieldProps {
     inputStyle: React.CSSProperties;
     // Add dropdownStyle here to be explicit
     dropdownStyle?: React.CSSProperties; 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any  
     [key: string]: any; // To accept other props passed by FormikField
 }
 

@@ -57,6 +57,7 @@ const mockFetchLocations = (inputValue: string): Promise<LocationOption[]> => {
 
 
 const customStyles = {
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any  
   control: (provided: any, state: any) => ({
     ...provided,
     // Mimic Bootstrap's Form.Control height/padding/border
@@ -70,6 +71,7 @@ const customStyles = {
     }
   }),
   // Remove default padding inside the control to make it align with Form.Control
+// eslint-disable-next-line @typescript-eslint/no-explicit-any  
   valueContainer: (provided: any) => ({
     ...provided,
     padding: '0.375rem 0.75rem',

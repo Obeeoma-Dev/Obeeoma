@@ -20,6 +20,10 @@ export const registerValidationSchema = yup.object().shape({
     Location: yup
         .string()
         .required("Location is required"),
+    //  Location: yup.object()
+    //     // Check if the Location object is present and valid
+    //     .required('A location is required.') // <--- This assigns a simple string error
+    //     .nullable(),
     contactPersonFirstName: yup
         .string()
         .required("First Name is required"), // Specific error message
