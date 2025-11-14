@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form as FormikForm, ErrorMessage } from "formik";
-import * as Yup from "yup"; // Import Yup for conditional validation if needed, or directly in schema if you have it
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { registerUser, clearAuthStatus } from "../../store/slices/authSlice";
@@ -22,7 +21,7 @@ import {
     Col,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEyeSlash, faPhone, faEnvelope, faUserTie, faMapMarkerAlt, faSitemap, faBuilding, faArrowRight, faArrowLeft, faCheckCircle, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash, faEnvelope, faUserTie, faMapMarkerAlt, faSitemap, faBuilding, faArrowRight, faArrowLeft, faCheckCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
@@ -228,7 +227,8 @@ const handleNext = async (
             // On API Success: 
             setShowSuccessModal(true); // Show the success modal pop-up
             setActiveStep((prev) => prev + 1); // Advance stepper visually to Step 2/Verify
-            
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any    
         } catch (err: any) {
             console.error("Registration failed:", err);
             setLocalError(err.message || "Registration failed. Please try again.");
@@ -244,7 +244,7 @@ const handleNext = async (
     const handleBack = () => {
         setActiveStep((prev) => prev - 1);
     }
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmit = async (values: RegisterFormValues, { setSubmitting }: any) => {
         // Only submit if we are on the final data entry step (Step 1, index 1)
         if (activeStep !== 1) {
@@ -273,6 +273,7 @@ const handleNext = async (
         try {
             await dispatch(registerUser(credentials)).unwrap();
             setActiveStep(2); // Move to success step on successful registration
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error("Registration failed:", err);
             setLocalError(err.message || "Registration failed. Please try again.");
@@ -281,6 +282,7 @@ const handleNext = async (
         }
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderStepContent = (values: RegisterFormValues, handleChange: (event: React.ChangeEvent<any>) => void, touched: any, errors: any) => {
         switch (activeStep) {
             case 0: // Step 1: Organization Details
