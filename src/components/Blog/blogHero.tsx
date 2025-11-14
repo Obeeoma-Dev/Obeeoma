@@ -91,7 +91,7 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                                 style={{
                                     padding: '0.5rem 1rem',
                                     border: '1px solid #ccc',
-                                    borderRadius: '4px',
+                                    borderRadius: '999px',
                                     marginLeft: '0.5rem',
                                     marginRight: '0.5rem',
                                     fontFamily: 'body',
@@ -107,7 +107,7 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                                     fontFamily: 'body',
                                     padding: '0.5rem 1rem',
                                     border: 'none',
-                                    borderRadius: '4px',
+                                    borderRadius: '999px',
                                     backgroundColor: '#007bff',
                                     color: 'white',
                                     cursor: 'pointer',

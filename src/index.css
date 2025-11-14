@@ -668,46 +668,100 @@ form .form-floating .form-control.message-textarea {
   }
 }
 
-/* Category Filter */
+/* 
+==================================
+  CATEGORY FILTER CONTAINER
+==================================
+*/
+
 .category-filter {
   display: flex;
+  /* Lay out buttons horizontally */
   gap: 1rem;
+  /* Space between buttons */
   flex-wrap: wrap;
+  /* Allow wrapping on small screens */
   justify-content: center;
-  padding: 2rem 0;
+  /* Center all buttons */
+  padding: 3rem 1rem;
+  /* Outer spacing */
   font-family: 'heading';
+  /* Custom font */
+  max-width: 100%;
+  overflow-x: visible;
+  /* Prevent clipping */
 }
 
-.category-badge {
-  padding: 0.9rem 2rem;
-  /* wider horizontally */
-  min-width: 140px;
-  /* ensures each badge has a consistent width */
+/* 
+==================================
+  CATEGORY BUTTON BASE STYLES
+==================================
+*/
+
+.category-btn {
+  all: unset;
+  /* Remove all default button styling */
+  padding: 1.5rem 3rem;
+  /* Vertical + horizontal padding */
+  min-width: 200px;
+  /* Consistent width for all buttons */
   text-align: center;
-  border-radius: 50px;
+  /* Center the text */
+  border-radius: 999px;
+  /* Fully rounded pill shape */
   background: #00A859;
-  color: #6b7280;
+  /* Green background */
+  color: #fff;
+  /* White text */
   border: 2px solid #e5e7eb;
+  /* Light border */
   cursor: pointer;
+  /* Pointer cursor */
   transition: all 0.3s;
+  /* Smooth hover/active transitions */
   font-family: 'heading';
-  font-weight: 500;
-  font-size: 1rem;
+  /* Bring your custom font */
+  font-weight: 700;
+  /* Bold text */
+  font-size: 2.3rem;
+  /* Big readable text */
+  text-transform: uppercase;
+  /* CAPITAL letters */
+  display: inline-block;
+  /* Needed for padding to work */
 }
 
-.category-badge:hover {
+/* 
+==================================
+  HOVER EFFECTS
+==================================
+*/
+
+.category-btn:hover {
   border-color: #3CB371;
+  /* Change border to lighter green */
   color: #3CB371;
+  /* Text becomes lighter green */
   transform: translateY(-2px);
+  /* Lift button upward */
   box-shadow: 0 5px 15px rgba(60, 195, 113, 0.2);
 }
 
-.category-badge.active {
+/* 
+==================================
+  ACTIVE BUTTON (CURRENT CATEGORY)
+==================================
+*/
+
+.category-btn.active {
   background: linear-gradient(135deg, #3CB371, #00A859);
+  /* Gradient */
   color: white;
   border-color: transparent;
+  /* Remove border */
   box-shadow: 0 5px 20px rgba(60, 195, 113, 0.3);
 }
+
 
 /* Blog Section Title */
 .blog-section-title {
@@ -983,6 +1037,7 @@ form .form-floating .form-control.message-textarea {
   cursor: pointer;
   transition: all 0.3s;
   white-space: nowrap;
+  background: linear-gradient(135deg, #ffffff, #f7f7f7);
 }
 
 .blog-newsletter-button:hover {
@@ -1187,4 +1242,29 @@ body {
   outline: 2px solid #10b981;
   /* Green outline similar to Tailwind's emerald-500 */
   outline-offset: 2px;
+}
+
+
+/* Styles of Why choose obeeoma component */
+/* CSS */
+.shadow-lg.rounded {
+  overflow: visible;
+  /* allow scaled child to overlap neighbors */
+}
+
+.card-scale {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-origin: center center;
+  cursor: pointer;
+  display: block;
+  will-change: transform;
+  position: relative;
+}
+
+.card-scale:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
