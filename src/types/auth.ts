@@ -12,7 +12,8 @@ export interface LoginCredentials {
   password: string;
 }
 export interface ContactPerson {
-  fullname: string;
+  firstName: string;
+  lastName: string;
   role: string;
   email: string;
 }

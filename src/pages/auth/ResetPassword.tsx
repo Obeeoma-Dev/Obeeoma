@@ -91,7 +91,7 @@ const ResetPassword: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }; // <--- The duplicated code blocks and the extra closing brace were removed here.
+  }; 
 
   return (
     <div

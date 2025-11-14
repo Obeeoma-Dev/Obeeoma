@@ -118,7 +118,8 @@ export const authAPI = {
       Location: credentials.Location,
       contactPerson: 
         {
-          fullname: credentials.contactPerson.fullname,
+          firstName: credentials.contactPerson.firstName, 
+          lastName: credentials.contactPerson.lastName,
           role: credentials.contactPerson.role,
           email: credentials.contactPerson.email, 
         },

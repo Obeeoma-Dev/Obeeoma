@@ -56,7 +56,7 @@ const ResetPassword = () => {
         finally {
             setIsLoading(false);
         }
-    }; // <--- The duplicated code blocks and the extra closing brace were removed here.
+    };
     return (_jsxs("div", { style: {
             backgroundColor: "#f5f5f5",
             height: "100vh",
