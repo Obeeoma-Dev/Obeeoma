@@ -22,9 +22,14 @@ export const registerValidationSchema = yup.object().shape({
       .oneOf([ 10,50, 200, 500, 600], "Please select a valid organization size")
       .required("Organization Size is required"),
 
-  Location: yup
-      .string()
-      .required("Location is required"),
+//   Location: yup
+//       .string()
+//       .required("Location is required"),
+
+ Location: yup.object()
+    // Check if the Location object is present and valid
+    .required('A location is required.') // <--- This assigns a simple string error
+    .nullable(),
 
   contactPersonFirstName: yup 
     .string()

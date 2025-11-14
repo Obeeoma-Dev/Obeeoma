@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form as FormikForm, ErrorMessage } from "formik";
+import { Formik, Form as FormikForm, ErrorMessage, Field as FormikField } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { registerUser, clearAuthStatus } from "../../store/slices/authSlice";
 
-// Assuming registerValidationSchema is imported, ensure it's built with YUP
+
 import { registerValidationSchema } from "../../validation/authValidation";
-
-
+import FormikPhoneInput from "../../components/PhoneInput";
 import {
     Container,
     Button,
@@ -33,6 +32,78 @@ const customStyles = {
     backgroundColor: "#f0f2f5",
     logoText: "Obeeoma",
 };
+interface LocationOption {
+    label: string;
+    value: string;
+}
+
+const location_options: LocationOption[] = [
+    // --- Initial Selection and Other/Search Option ---
+    { label: "Select Location (State/City/Country)", value: "" },
+    { label: "Other / Type to Search", value: "OTHER" },
+
+    // --- Original US States/Locations ---
+    { label: "New York, USA (NY)", value: "NY" },
+    { label: "California, USA (CA)", value: "CA" },
+    { label: "Texas, USA (TX)", value: "TX" },
+    { label: "Florida, USA (FL)", value: "FL" },
+    { label: "Washington, USA (WA)", value: "WA" },
+
+    // --- 🇳🇬 West Africa (Countries & Key States/Cities) ---
+    // Nigeria
+    { label: "Lagos, Nigeria", value: "NG-LAGOS" },
+    { label: "Abuja, Nigeria", value: "NG-ABUJA" },
+    // Ghana
+    { label: "Accra, Ghana", value: "GH-ACCRA" },
+    { label: "Ghana (Country)", value: "GH" },
+    // Côte d'Ivoire
+    { label: "Abidjan, Côte d'Ivoire", value: "CI-ABIDJAN" },
+    { label: "Côte d'Ivoire (Country)", value: "CI" },
+    // Senegal
+    { label: "Dakar, Senegal", value: "SN-DAKAR" },
+    { label: "Senegal (Country)", value: "SN" },
+    // Other W. Africa
+    { label: "Liberia (Country)", value: "LR" },
+    { label: "Sierra Leone (Country)", value: "SL" },
+
+    // --- 🇰🇪 Other African Countries (E. & S. Africa Focus) ---
+    // South Africa
+    { label: "Johannesburg, South Africa", value: "ZA-JHB" },
+    { label: "South Africa (Country)", value: "ZA" },
+    // Kenya (East Africa)
+    { label: "Nairobi, Kenya", value: "KE-NAIROBI" },
+    { label: "Kenya (Country)", value: "KE" },
+    // Egypt (North Africa)
+    { label: "Cairo, Egypt", value: "EG-CAIRO" },
+    { label: "Egypt (Country)", value: "EG" },
+    // Morocco (North Africa)
+    { label: "Morocco (Country)", value: "MA" },
+    // East African Additions
+    { label: "Tanzania (Country)", value: "TZ" },
+    { label: "Dar es Salaam, Tanzania", value: "TZ-DAR" },
+    { label: "Uganda (Country)", value: "UG" },
+    { label: "Kampala, Uganda", value: "UG-KLA" },
+    { label: "Rwanda (Country)", value: "RW" },
+    { label: "Kigali, Rwanda", value: "RW-KGL" },
+    // Southern African Additions
+    { label: "Zimbabwe (Country)", value: "ZW" },
+    { label: "Zambia (Country)", value: "ZM" },
+
+    // --- 🇪🇺 European Countries ---
+    // United Kingdom
+    { label: "London, UK", value: "GB-LON" },
+    { label: "United Kingdom (Country)", value: "GB" },
+    // France
+    { label: "Paris, France", value: "FR-PARIS" },
+    { label: "France (Country)", value: "FR" },
+    // Germany
+    { label: "Berlin, Germany", value: "DE-BERLIN" },
+    { label: "Germany (Country)", value: "DE" },
+    // Spain
+    { label: "Spain (Country)", value: "ES" },
+    // Italy
+    { label: "Italy (Country)", value: "IT" },
+];
 
 const organisation_size_options = [
     { label: "Select Size", value: "" },
@@ -51,6 +122,14 @@ const contact_role_options = [
     { label: "Office Manager", value: "OFFICE_MANAGER" },
     { label: "Other", value: "OTHER" },
 ];
+
+export interface SearchableLocationProps {
+  // Function to call when a new value is selected
+  onSelectLocation: (location: LocationOption | null) => void;
+  // The currently selected value 
+  value: LocationOption | null;
+}
+
 
 type Role = "employee" | "employer";
 
@@ -77,16 +156,25 @@ const Register: React.FC = () => {
     const { error, isLoading } = useSelector((state: RootState) => state.auth);
 
     const [activeStep, setActiveStep] = useState(0);
+    const [phone, setPhone] = useState("");
+
+    const[DisplayPhone, setDisplayPhone] = useState("");
 
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
    
+    const [selectedLocation, setSelectedLocation] = useState<LocationOption | null>(null);
+    
+    const handleLocationChange = (location: LocationOption | null) => {
+        setSelectedLocation(location);
+      }
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const toggleConfirmPasswordVisibility = () => {
         setShowConfirmPassword(prev => !prev);
     };
+
     // for a pop up modal on successful registration
     const [showSuccessModal, setShowSuccessModal] = useState(false); 
     const [localError, setLocalError] = useState<string | null>(null);
@@ -346,7 +434,7 @@ const handleNext = async (
                             </BootstrapForm.Group>
                         </Col>
 
-                        <Col md={6}>
+                        {/* <Col md={6}>
                             <BootstrapForm.Group style={formGroupStyle}>
                                 <InputGroup>
                                     <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
@@ -359,6 +447,28 @@ const handleNext = async (
                                         style={inputStyle}
                                         isInvalid={!!touched.Location && !!errors.Location}
                                     />
+                                </InputGroup>
+                                <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="Location" /></BootstrapForm.Control.Feedback>
+                            </BootstrapForm.Group>
+                        </Col> */}
+                        <Col md={6}>
+                            <BootstrapForm.Group style={formGroupStyle}>
+                                <InputGroup>
+                                    <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
+                                    <BootstrapForm.Select
+                                        name="Location" // Match field name
+                                        value={values.Location}
+                                        onChange={handleChange}
+                                        style={inputStyle}
+                                        isInvalid={!!touched.Location && !!errors.Location}
+                                    >
+                                        {/* Using the new location_options array */}
+                                        {location_options.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                                {option.label}
+                                            </option>
+                                        ))}
+                                    </BootstrapForm.Select>
                                 </InputGroup>
                                 <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="Location" /></BootstrapForm.Control.Feedback>
                             </BootstrapForm.Group>
@@ -415,20 +525,19 @@ const handleNext = async (
                         </Col>
 
                         <Col md={6}>
-                            <BootstrapForm.Group style={formGroupStyle}>
-                                <BootstrapForm.Control
-                                    type="tel"
-                                    name="phoneNumber"
-                                    placeholder="Contact Person Phone Number"
-                                    value={values.phoneNumber}
-                                    onChange={handleChange}
-                                    style={inputStyle}
-                                    isInvalid={!!touched.phoneNumber && !!errors.phoneNumber}
-                                />
-                                <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="phoneNumber" /></BootstrapForm.Control.Feedback>
-                            </BootstrapForm.Group>
-                        </Col>
-
+                        <BootstrapForm.Group style={formGroupStyle}>
+                            <FormikField
+                                name="phoneNumber"
+                                component={FormikPhoneInput}
+                                inputStyle={inputStyle} // Pass the style prop down
+                                dropdownStyle={{ zIndex: 9999 }}
+                                placeholder="Contact Person Phone Number"
+                                // The FormikPhoneInput component handles Formik integration internally
+                            />
+                            {/* We use a separate ErrorMessage since the phone input isn't a standard Bootstrap control */}
+                            <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback d-block" />
+                        </BootstrapForm.Group>
+                    </Col>
                         <Col md={6}>
                             <BootstrapForm.Group style={formGroupStyle}>
                                 <InputGroup>

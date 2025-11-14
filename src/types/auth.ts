@@ -72,6 +72,9 @@ export interface ResendOtpPayload {
 
 
 
+
+
+
 export interface RegisterPayload {
   email: string;
   organizationName: string;
