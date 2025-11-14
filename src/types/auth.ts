@@ -57,7 +57,7 @@ export interface LoginSuccessPayload {
 
 export interface OtpVerificationPayload {
   //email: string;
-  otp_code: string;
+  otp_code: string | number
 }
 
 export interface OtpSuccessResponse {
@@ -69,6 +69,9 @@ export interface OtpSuccessResponse {
 export interface ResendOtpPayload {
   email: string;
 }
+
+
+
 
 
 
