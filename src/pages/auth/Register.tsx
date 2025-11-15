@@ -145,6 +145,8 @@ type RegisterFormValues = {
     Location: string;
     password: string;
     confirmPassword: string;
+    otherContactPersonRole: string;
+    otherLocation: string; // New field for custom location
 };
 
 const stepperSteps = ["Organization", "Contact", "Verify"];
@@ -197,6 +199,8 @@ const Register: React.FC = () => {
         Location: "",
         password: "",
         confirmPassword: "",
+        otherContactPersonRole: "",
+        otherLocation: "", // Initialize new field
     };
 
     useEffect(() => {
@@ -232,6 +236,19 @@ const Register: React.FC = () => {
         justifyContent: 'center',
     }
     
+    // Function to determine the final role and location values for the API call
+    const getFinalValues = (values: RegisterFormValues) => {
+        const finalContactRole = values.contactPersonRole === 'OTHER' 
+            ? values.otherContactPersonRole // Use the text input value
+            : values.contactPersonRole;    // Use the selected option value
+        
+        const finalLocation = values.Location === 'OTHER'
+            ? values.otherLocation
+            : values.Location;
+
+        return { finalContactRole, finalLocation };
+    }
+    
     // to handle step navigation when user clicks on step labels and icons 
     const handleStepNavigation = (stepIndex: number) => {
         // Map step index to a specific route
@@ -255,8 +272,8 @@ const Register: React.FC = () => {
         // setCurrentStep(stepIndex); 
     };
     const stepFields = [
-        ['organizationName', 'companyEmail', 'organisationSize', 'Location'], // Step 0: Organization Details
-        ['contactPersonFirstName', 'contactPersonLastName', 'email', 'contactPersonRole', 'phoneNumber', 'password', 'confirmPassword'], // Step 1: Contact/Access Details
+        ['organizationName', 'companyEmail', 'organisationSize', 'Location', 'otherLocation'], // Step 0: Organization Details (Include otherLocation for validation if 'OTHER' is selected)
+        ['contactPersonFirstName', 'contactPersonLastName', 'otherContactPersonRole', 'email', 'contactPersonRole', 'phoneNumber', 'password', 'confirmPassword'], // Step 1: Contact/Access Details
         [], // Step 2 (Success - no fields to validate)
     ];
 
@@ -272,7 +289,12 @@ const handleNext = async (
 
     // 1. Validation Check for Current Step
     const newTouched: { [key: string]: boolean } = {};
-    currentStepFields.forEach(field => { newTouched[field] = true; });
+    currentStepFields.forEach(field => { 
+        // Only set touched for conditional fields if the condition is met
+        if (field === 'otherLocation' && values.Location !== 'OTHER') return;
+        if (field === 'otherContactPersonRole' && values.contactPersonRole !== 'OTHER') return;
+        newTouched[field] = true; 
+    });
     setTouched(newTouched);
     
     const allErrors = await validateForm(values); 
@@ -297,14 +319,18 @@ const handleNext = async (
     // 2. Conditional API Submission (Triggered only on Step 1 to Step 2 transition)
     if (activeStep === 1) {
         
+        const { finalContactRole, finalLocation } = getFinalValues(values);
+
         // Prepare API Payload
         const credentials = {
             organizationName: values.organizationName, phoneNumber: values.phoneNumber,
             organisationSize: values.organisationSize, companyEmail: values.companyEmail,
-            Location: values.Location, password: values.password, confirmPassword: values.confirmPassword,
+            Location: finalLocation, // Use the final calculated location
+            password: values.password, confirmPassword: values.confirmPassword,
             role: role, contactPerson: {
                 firstName: values.contactPersonFirstName, lastName: values.contactPersonLastName,
-                role: values.contactPersonRole, email: values.email,
+                role: finalContactRole, // Use the final calculated role
+                email: values.email,
             },
         };
 
@@ -340,12 +366,14 @@ const handleNext = async (
             return;
         }
 
+        const { finalContactRole, finalLocation } = getFinalValues(values);
+
         const credentials = {
             organizationName: values.organizationName,
             phoneNumber: values.phoneNumber,
             organisationSize: values.organisationSize,
             companyEmail: values.companyEmail,
-            Location: values.Location,
+            Location: finalLocation, // Use final location
             password: values.password,
             confirmPassword: values.confirmPassword,
             role: role,
@@ -353,7 +381,7 @@ const handleNext = async (
             {
                 firstName: values.contactPersonFirstName,
                 lastName: values.contactPersonLastName,
-                role: values.contactPersonRole,
+                role: finalContactRole, // Use final role
                 email: values.email,
             },
         };
@@ -433,24 +461,8 @@ const handleNext = async (
                                 <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="organisationSize" /></BootstrapForm.Control.Feedback>
                             </BootstrapForm.Group>
                         </Col>
-
-                        {/* <Col md={6}>
-                            <BootstrapForm.Group style={formGroupStyle}>
-                                <InputGroup>
-                                    <InputGroup.Text style={inputGroupTextStyle}><FontAwesomeIcon icon={faMapMarkerAlt} /></InputGroup.Text>
-                                    <BootstrapForm.Control
-                                        type="text"
-                                        name="Location"
-                                        placeholder="Organization Location (e.g., State)"
-                                        value={values.Location}
-                                        onChange={handleChange}
-                                        style={inputStyle}
-                                        isInvalid={!!touched.Location && !!errors.Location}
-                                    />
-                                </InputGroup>
-                                <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="Location" /></BootstrapForm.Control.Feedback>
-                            </BootstrapForm.Group>
-                        </Col> */}
+                        
+                        {/* Location Select and Conditional Text Input */}
                         <Col md={6}>
                             <BootstrapForm.Group style={formGroupStyle}>
                                 <InputGroup>
@@ -460,17 +472,36 @@ const handleNext = async (
                                         value={values.Location}
                                         onChange={handleChange}
                                         style={inputStyle}
-                                        isInvalid={!!touched.Location && !!errors.Location}
+                                        isInvalid={!!touched.Location && !!errors.Location && values.Location !== 'OTHER'} // Validation for select
                                     >
-                                        {/* Using the new location_options array */}
                                         {location_options.map((option) => (
                                             <option key={option.value} value={option.value}>
                                                 {option.label}
                                             </option>
                                         ))}
                                     </BootstrapForm.Select>
+                                    
+                                    {values.Location === 'OTHER' && (
+                                        <BootstrapForm.Control
+                                            type="text"
+                                            name="otherLocation"
+                                            placeholder="Type State/City/Country"
+                                            value={values.otherLocation}
+                                            onChange={handleChange}
+                                            style={inputStyle}
+                                            isInvalid={!!touched.otherLocation && !!errors.otherLocation}
+                                        />
+                                    )}
                                 </InputGroup>
-                                <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="Location" /></BootstrapForm.Control.Feedback>
+                                {/* Display error message for either field */}
+                                <BootstrapForm.Control.Feedback type="invalid" className={values.Location !== 'OTHER' ? 'd-block' : ''}>
+                                    <ErrorMessage name="Location" />
+                                </BootstrapForm.Control.Feedback>
+                                {values.Location === 'OTHER' && (
+                                    <BootstrapForm.Control.Feedback type="invalid" className="d-block">
+                                        <ErrorMessage name="otherLocation" />
+                                    </BootstrapForm.Control.Feedback>
+                                )}
                             </BootstrapForm.Group>
                         </Col>
                     </Row>
@@ -538,6 +569,8 @@ const handleNext = async (
                             <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback d-block" />
                         </BootstrapForm.Group>
                     </Col>
+                        
+                        {/* Contact Role Select and Conditional Text Input */}
                         <Col md={6}>
                             <BootstrapForm.Group style={formGroupStyle}>
                                 <InputGroup>
@@ -547,7 +580,7 @@ const handleNext = async (
                                         value={values.contactPersonRole}
                                         onChange={handleChange}
                                         style={inputStyle}
-                                        isInvalid={!!touched.contactPersonRole && !!errors.contactPersonRole}
+                                        isInvalid={!!touched.contactPersonRole && !!errors.contactPersonRole && values.contactPersonRole !== 'OTHER'} // Validation for select
                                     >
                                         {contact_role_options.map((option) => (
                                             <option key={option.label} value={option.value}>
@@ -555,8 +588,28 @@ const handleNext = async (
                                             </option>
                                         ))}
                                     </BootstrapForm.Select>
+                                    
+                                    {values.contactPersonRole === 'OTHER' && (
+                                        <BootstrapForm.Control
+                                            type="text"
+                                            name="otherContactPersonRole"
+                                            placeholder="Type your role"
+                                            value={values.otherContactPersonRole}
+                                            onChange={handleChange}
+                                            style={inputStyle}
+                                            isInvalid={!!touched.otherContactPersonRole && !!errors.otherContactPersonRole}
+                                        />
+                                    )}
                                 </InputGroup>
-                                <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="contactPersonRole" /></BootstrapForm.Control.Feedback>
+                                {/* Display error message for either field */}
+                                <BootstrapForm.Control.Feedback type="invalid" className={values.contactPersonRole !== 'OTHER' ? 'd-block' : ''}>
+                                    <ErrorMessage name="contactPersonRole" />
+                                </BootstrapForm.Control.Feedback>
+                                {values.contactPersonRole === 'OTHER' && (
+                                    <BootstrapForm.Control.Feedback type="invalid" className="d-block">
+                                        <ErrorMessage name="otherContactPersonRole" />
+                                    </BootstrapForm.Control.Feedback>
+                                )}
                             </BootstrapForm.Group>
                         </Col>
 
