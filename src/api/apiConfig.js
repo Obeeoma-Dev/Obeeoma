@@ -125,8 +125,8 @@ export const authAPI = {
         const response = await api.post("v1/auth/verify-invite/", payload);
         return response;
     },
-    resendOtp: ({ email }) => {
-        return api.post('/auth/resend-otp', { email });
+    resendOtp: (payload) => {
+        return api.post('v1/auth/verify-invite', payload);
     },
 };
 //  System Admin Dashboard

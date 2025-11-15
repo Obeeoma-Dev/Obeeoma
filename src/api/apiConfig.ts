@@ -173,8 +173,8 @@ verifyOtp: async(payload: OtpVerificationPayload)=>{
   return response;
 },
 
-resendOtp: ({ email }: { email: string }) => {
-        return api.post('/auth/resend-otp', { email });
+resendOtp: (payload: OtpVerificationPayload) => {
+        return api.post('v1/auth/verify-invite', payload);
     
     },
 };

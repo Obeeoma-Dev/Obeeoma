@@ -122,7 +122,7 @@ export const logoutUserThunk = createAsyncThunk<void,void>(
   }
 );
 
-// Verify OTP Thunk (Unchanged)
+// Verify OTP Thunk 
 export const verifyOtpThunk = createAsyncThunk<
   OtpSuccessResponse, 
   OtpVerificationPayload,
@@ -150,14 +150,13 @@ const getUserFromStorage = () => {
 // Resend OTP Thunk (Unchanged)
 export const resendOtpThunk = createAsyncThunk<
   { message: string }, 
-  ResendOtpPayload, 
+  OtpVerificationPayload, 
   { rejectValue: string } 
 >(
   'auth/resendOtp',
-  async ({ email }, { rejectWithValue }) => {
+  async (payload, { rejectWithValue }) => {
     try {
-      // NOTE: Ensure your authAPI.resendOtp is correctly implemented to send the email
-      const response = await authAPI.resendOtp({ email }); 
+      const response = await authAPI.resendOtp(payload); 
       return response.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
