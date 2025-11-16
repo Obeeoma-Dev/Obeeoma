@@ -28,8 +28,44 @@ const getErrorMessage = (error: unknown): string => {
 };
 
 // --- Async Thunks ---
+interface LogTransactionPayload {
+    tx_ref: string;
+    plan: string;
+    amount: number;
+}
+
+// NOTE: In a real application, the backend API endpoint (e.g., '/api/v1/verify-payment') 
+// would perform the critical step of calling Flutterwave's V3 API to verify the transaction
+// ID received in the response before granting access.
+
+export const logTransactionSuccess = createAsyncThunk<
+  { message: string }, 
+  LogTransactionPayload, 
+  { rejectValue: string } 
+>(
+  'auth/logTransactionSuccess',
+  async (payload, { rejectWithValue }) => {
+    try {
+      // REPLACE with your actual backend endpoint for payment verification
+      const response = await axios.post('YOUR_BACKEND_API_URL/verify-payment', payload, {
+        // You would typically include a JWT token in the headers here
+        // headers: { Authorization: `Bearer ${getAuthToken()}` } 
+      }); 
+      
+      // Assuming your backend responds with a success message after verification and update
+      return response.data;
+
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || 'Failed to verify transaction on the server.';
+      // Log the error for debugging
+      console.error("Backend Verification Error:", error); 
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 // POST /v1/employers/invite/
+
 export const inviteEmployee = createAsyncThunk<
   EmployeeInvite, // Fulfilled value type
   { email: string } & { onSuccess?: () => void }, // Payload type

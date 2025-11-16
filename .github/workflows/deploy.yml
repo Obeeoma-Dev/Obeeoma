@@ -135,11 +135,12 @@ jobs:
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.DROPLET_IP }}
-          username: root
+          username: obeeoma
           key: ${{ secrets.DROPLET_SSH_KEY }}
           port: ${{ secrets.DROPLET_SSH_PORT }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/obeeoma:latest
-            docker stop obeeoma || true
-            docker rm obeeoma || true
-            docker run -d -p 80:80 --name obeeoma ${{ secrets.DOCKER_USERNAME }}/obeeoma:latest
+            cd /home/obeeoma/obeeoma_project
+            docker pull ${{ secrets.DOCKER_USERNAME }}/obeeoma:latest 
+            docker compose pull frontend
+            docker compose up -d frontend --force-recreate
+            
