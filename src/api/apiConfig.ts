@@ -94,11 +94,15 @@ export const authAPI = {
       organisationSize: credentials.organisationSize,
       companyEmail: credentials.companyEmail,
       Location: credentials.Location,
-      contactPerson: {
-        fullname: credentials.contactPerson.fullname,
-        role: credentials.contactPerson.role,
-        email: credentials.contactPerson.email,
-      },
+      contactPerson: 
+        {
+          firstName: credentials.contactPerson.firstName, 
+          lastName: credentials.contactPerson.lastName,
+          role: credentials.contactPerson.role,
+          email: credentials.contactPerson.email, 
+        },
+  
+
       password: credentials.password,
       confirmPassword: credentials.confirmPassword,
     });
@@ -144,9 +148,10 @@ export const authAPI = {
     return response;
   },
 
-  resendOtp: ({ email }: { email: string }) => {
-    return api.post('/auth/resend-otp', { email });
-  },
+resendOtp: (payload: OtpVerificationPayload) => {
+        return api.post('v1/auth/verify-invite', payload);
+    
+    },
 };
 
 // --- Admin API ---

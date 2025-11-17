@@ -22,9 +22,9 @@ const getIconComponent = (iconName: string): LucideIcon => {
 interface StatItem {
   title: string;
   value: string | number;
-  // icon property is now more specifically typed as a key of the IconMap
   icon: keyof typeof IconMap; 
   color: string; // Expected to be a Bootstrap color suffix (e.g., 'primary', 'danger')
+  onClick?: () => void; // Optional callback for clickable items like "Add Employee"
 }
 
 interface StatsGridProps {
@@ -40,7 +40,26 @@ const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
     
         return (
           <div key={stat.title} className="col-12 col-sm-6 col-lg-3">
-            <div className="card h-100 border-0 shadow-sm">
+            <div 
+              className="card h-100 border-0 shadow-sm"
+              style={{
+                cursor: stat.onClick ? 'pointer' : 'default',
+                transition: stat.onClick ? 'transform 0.2s, box-shadow 0.2s' : 'none',
+              }}
+              onClick={stat.onClick}
+              onMouseEnter={(e) => {
+                if (stat.onClick) {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (stat.onClick) {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '';
+                }
+              }}
+            >
               <div className="card-body">
                 <div className="d-flex align-items-start gap-3">
                   <div 
@@ -49,8 +68,7 @@ const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
                       width: "48px", 
                       height: "48px", 
                       fontFamily: "body",
-                    }}
-                  >
+                    }} >
 
                     <IconComponent className="text-white" size={24} />
                   </div>

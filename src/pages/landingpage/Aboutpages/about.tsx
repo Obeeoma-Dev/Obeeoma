@@ -1,5 +1,5 @@
 import React from "react";
-// import { Header } from "../../../components/About/headerAbout";
+import Navigation from "../../../components/shared/Navigation";
 import { MissionValuesSection } from "../../../components/About/missionValueSection";
 import { AboutUsHero } from "../../../components/About/overlaysection";
 import { OurStorySection } from "../../../components/About/storysection";
@@ -9,6 +9,7 @@ import { FloatingWhatsApp } from "../../../components/Contactus/floatingWhatsup"
 const About: React.FC = () => {
     return (
         <>
+            <Navigation />
             <AboutUsHero />
             <OurStorySection />
             <MissionValuesSection />

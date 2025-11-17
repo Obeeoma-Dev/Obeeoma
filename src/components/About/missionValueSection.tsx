@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';
-
+import Bussinesshandshake from '../../assets/Images/bussinesshandshake.jpg';
 /**
  * Mission and Values section with background image.
  * Uses React-Bootstrap for layout and inline styles for fade-in animations.
@@ -32,7 +32,7 @@ export function MissionValuesSection() {
                 }}
             >
                 <img
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&h=900&fit=crop"
+                    src={Bussinesshandshake}
                     alt="Workplace background"
                     style={{
                         width: '100%',

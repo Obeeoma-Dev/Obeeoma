@@ -1,3 +1,5 @@
+
+
 import { Check, Star } from "lucide-react";
 
 const PricingPlans = () => {
@@ -65,11 +67,14 @@ const PricingPlans = () => {
 
                   <div className="mt-auto">
                     {plan.current ? (
+
                       <button className="btn btn-outline-success w-100" disabled>
+                        
                         Current Plan
                       </button>
                     ) : (
                       <button className={`btn w-100 ${plan.recommended ? 'btn-success' : 'btn-outline-success'}`}>
+                        {/* https://sandbox.flutterwave.com/pay/6vid9cx0vxei */}
                         Select Plan
                       </button>
                     )}
