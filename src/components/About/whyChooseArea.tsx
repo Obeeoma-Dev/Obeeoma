@@ -5,7 +5,7 @@ import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
 // Import icon from Lucide React library
-import { CheckCircleIcon } from 'lucide-react';
+import { Sparkles, DollarSign, Lock, Globe, CheckCircleIcon } from 'lucide-react';
 
 // Import custom scroll animation hook
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';
@@ -25,19 +25,35 @@ export function WhyChooseSection() {
     const benefits = [
         {
             title: 'AI-first & innovative',
-            description: "Built for Africa's young, digital-savvy workforce",
+            description: "Built for Africa's young, digital-savvy workforce with cutting-edge technology",
+            icon: <Sparkles size={20} color="#fff" />,
+            bgColor: 'linear-gradient(135deg, #a855f7, #ec4899)', // for icon box
+            accent: '#a855f7',
+            accentRgb: '168, 85, 247', // R,G,B
         },
         {
             title: 'Affordable & scalable',
-            description: 'Flexible subscription model for organizations of all sizes',
+            description: 'Flexible subscription models for organizations of all sizes',
+            icon: <DollarSign size={20} color="#fff" />,
+            bgColor: '#10b981',
+            accent: '#10b981',
+            accentRgb: '16, 185, 129',
         },
         {
-            title: 'Confidential, stigma-free, and always accessible',
+            title: 'Confidential & stigma-free',
             description: 'Safe space for mental health support without judgment',
+            icon: <Lock size={20} color="#fff" />,
+            bgColor: '#3b82f6',
+            accent: '#3b82f6',
+            accentRgb: '59, 130, 246',
         },
         {
             title: 'Culturally relevant',
             description: "Designed with Africa's unique workplace dynamics in mind",
+            icon: <Globe size={20} color="#fff" />,
+            bgColor: '#f97316',
+            accent: '#f97316',
+            accentRgb: '249, 115, 22',
         },
     ];
 
@@ -71,48 +87,25 @@ export function WhyChooseSection() {
                             {/* Loop through each benefit and render a card */}
                             {benefits.map((benefit, index) => (
                                 <Col key={index} lg={6} md={6} sm={12}>
-                                    {/* Card container with hover effect */}
+                                    {/* Card wrapper with dynamic CSS variables for color and hover effects */}
                                     <div
-                                        className="d-flex align-items-start p-5 rounded shadow-sm h-100"
-                                        style={{
-                                            backgroundColor: '#f9fdf9', // light background
-                                            border: '1px solid #e0e0e0', // subtle border
-                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease', // smooth hover
-                                            cursor: 'pointer', // pointer cursor
-                                            minHeight: '240px', // taller card
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.transform = 'scale(1.03)'; // zoom on hover
-                                            e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)'; // deeper shadow
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.transform = 'scale(1)'; // reset zoom
-                                            e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)'; // soft shadow
-                                        }}
+                                        className="benefit-card d-flex align-items-start p-5 rounded h-100"
+                                        style={
+                                            {
+                                                '--accent': benefit.accent,
+                                                '--accent-rgb': benefit.accentRgb,
+                                                '--icon-bg': benefit.bgColor,
+                                            } as React.CSSProperties
+                                        }
                                     >
-                                        {/* Icon box on the left side */}
-                                        <div
-                                            style={{
-                                                width: '48px', // square size
-                                                height: '48px',
-                                                backgroundColor: '#047857', // emerald green
-                                                borderRadius: '0.5rem', // rounded corners
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                flexShrink: 0, // prevent shrinking
-                                                marginRight: '1rem', // spacing from text
-                                                marginTop: '0.25rem', // vertical alignment
-                                            }}
-                                        >
-                                            {/* White check icon inside box */}
-                                            <CheckCircleIcon size={24} color="#fff" />
+                                        {/* Icon box with dynamic background color */}
+                                        <div className="icon-box me-3 mt-1 flex-shrink-0">
+                                            {benefit.icon}
                                         </div>
 
-                                        {/* Text content on the right side */}
+                                        {/* Text content: title and description */}
                                         <div>
                                             <h5 className="fw-semibold text-dark mb-2">{benefit.title}</h5>
-                                            {/* Show description only if it exists */}
                                             {benefit.description && (
                                                 <p className="text-muted mb-0">{benefit.description}</p>
                                             )}

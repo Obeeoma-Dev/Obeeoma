@@ -363,14 +363,13 @@ footer a:hover {
 
 /* Footer effect of the landing page. */
 footer {
-  /* background-color: #0B6E45 !important; */
   color: #ccc;
   padding: 3rem 0;
 }
 
 footer h6 {
   color: #fff;
-  font-weight: 600;
+  font-weight: 900;
   margin-bottom: 1rem;
 }
 
@@ -381,13 +380,21 @@ footer a {
 }
 
 footer a:hover {
-  color: #3CB371;
-  color: var(--obeeoma-green);
+  color: #fff;
+  /* Bright white */
+  font-weight: 700;
+  /* subtle glow */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-footer p {
-  font-size: 0.875rem;
+/* footer p {
+  font-size: 1.125rem;
   color: #aaa;
+} */
+
+.footer-text {
+  font-size: 1.15rem;
+  color: white;
 }
 
 
@@ -1267,4 +1274,71 @@ body {
   transform: scale(1.05);
   z-index: 10;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/*==================================*/
+/* === Benefit Card Styling === */
+
+/* Base card style */
+.benefit-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  /* subtle gray border */
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  /* soft shadow */
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+  cursor: pointer;
+  min-height: 220px;
+  will-change: transform;
+}
+
+/* Hover effect: lift, glow, tint */
+.benefit-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.10),
+    /* deeper shadow */
+    0 0 0 6px rgba(var(--accent-rgb), 0.08);
+  /* glow ring */
+  border-color: var(--accent);
+  /* accent border */
+  background-color: rgba(var(--accent-rgb), 0.06);
+  /* subtle tint */
+}
+
+/* Icon box styling */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--icon-bg);
+  /* dynamic background */
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.18);
+}
+
+/* Icon box hover effect */
+.benefit-card:hover .icon-box {
+  transform: scale(1.12);
+  /* grow icon box */
+  box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.28);
+  /* stronger glow */
+}
+
+/* Icon inside box scales with hover */
+.icon-box svg {
+  transition: transform 220ms ease;
+}
+
+.benefit-card:hover .icon-box svg {
+  transform: scale(1.08);
+  /* grow icon */
 }
