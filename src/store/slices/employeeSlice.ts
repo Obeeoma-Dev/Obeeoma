@@ -16,16 +16,16 @@ const employeeSlice = createSlice({
   name: "employee",
   initialState,
   reducers: {
-    setEmployee: (state, action: PayloadAction<any>) => {
+    setEmployee: (state: EmployeeState, action: PayloadAction<any>) => {
       state.currentEmployee = action.payload;
     },
-    clearEmployee: (state) => {
+    clearEmployee: (state: EmployeeState) => {
       state.currentEmployee = null;
     },
-    setEmployeeLoading: (state, action: PayloadAction<boolean>) => {
+    setEmployeeLoading: (state: EmployeeState, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    setEmployeeError: (state, action: PayloadAction<string | null>) => {
+    setEmployeeError: (state: EmployeeState, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
   },

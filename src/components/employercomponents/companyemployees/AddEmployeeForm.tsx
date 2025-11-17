@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useCreateEmployee } from "../../../api/companyEmployee/requests";
 import { useToast } from "../../../hooks/use-toast";
-import { inviteEmployee } from "@/store/slices/EmployerSlice";
-import { useDispatch } from 'react-redux';
+import { inviteEmployee, fetchEmployeeInvites } from "../../../store/slices/EmployerSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from "../../../store/store";
 
 const employeeSchema = z.object({
   email: z.email("Please enter a valid email address").trim(),
@@ -21,9 +21,9 @@ interface AddEmployeeFormProps {
 }
 
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { toast } = useToast();
-  const { createEmployee, isLoading } = useCreateEmployee();
+  const { isActionLoading, error } = useSelector((state: RootState) => state.employer);
 
   const {
     register, handleSubmit, formState: { errors }, reset,
@@ -33,28 +33,39 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
 
   const onSubmit = async (data: EmployeeFormData) => {
     try {
-      // Transforming form data to match API expectations
-      const apiData = {
-        emailAddress: data.email,
-        phoneNumber: data.phone,
+      // Transform form data to match API expectations (use email directly, not emailAddress)
+      const result = await dispatch(inviteEmployee({
+        email: data.email,
+        phone: data.phone,
         department: data.department,
-      };
+      }));
 
-      await createEmployee(apiData);
-      toast({
-        title: "Success",
-        description: "Employee invitation sent!",
-        message: "Employee invitation sent successfully!",
-      });
+      // Check if the thunk was fulfilled
+      if (inviteEmployee.fulfilled.match(result)) {
+        toast({
+          title: "Success",
+          description: "Employee invitation sent!",
+          message: "Employee invitation sent successfully!",
+        });
 
-      reset();
-      onEmployeeAdded();
-      onClose();
+        reset();
+        onEmployeeAdded();
+        onClose();
+        
+        // Refresh the employee invites list
+        dispatch(fetchEmployeeInvites());
+      } else if (inviteEmployee.rejected.match(result)) {
+        toast({
+          title: "Error",
+          description: result.payload || "Failed to add employee. Please try again.",
+          message: result.payload || "Failed to add employee. Please try again.",
+        });
+      }
     } catch (error) {
       console.error("Error adding employee:", error);
       toast({
         title: "Error",
-        description: "Failed to add employee. Please try again.",
+        description: error instanceof Error ? error.message : "An unexpected error occurred.",
         message: "Failed to add employee. Please try again.",
       });
     }
@@ -172,15 +183,15 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
             <button
               type="submit"
               className="btn btn-success"
-              disabled={isLoading}
+              disabled={isActionLoading}
             >
-              {isLoading ? 'Adding...' : 'Add Employee'}
+              {isActionLoading ? 'Adding...' : 'Add Employee'}
             </button>
             <button 
               type="button" 
               className="btn btn-secondary" 
               onClick={handleClose}
-              disabled={isLoading}
+              disabled={isActionLoading}
             >
               Close
             </button>

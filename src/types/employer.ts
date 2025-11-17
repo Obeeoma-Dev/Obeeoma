@@ -141,6 +141,7 @@ export interface EmployerEngagementData {
 export interface EmployerState {
   currentEmployer: EmployerUser | null;
   invites: EmployeeInvite[];
+  employees: Employee[];
   billing: BillingDetails | null;
   engagement: EmployerEngagementData | null;
   reports: Report[];
