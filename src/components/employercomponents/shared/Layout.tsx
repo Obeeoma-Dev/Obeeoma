@@ -163,7 +163,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                 transition: 'transform 0.6s ease-in-out'
               }}
             >
-              <img src={logo} alt="logo" height="50" />
+              <img src={logo} alt="logo" />
             </div>
           </button>
           <button 
