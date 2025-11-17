@@ -95,7 +95,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
                 />
                 
                 <div className="mt-4">
-                  <h5 className="card-title fw-semibold mb-4">Wellness Trend</h5>
+                  <h5 className="card-titl e fw-semibold mb-4">Wellness Trend</h5>
                   <WellnessGraph 
                     data={stats?.wellnessTrend || []} 
                     moodData={employeeData.moodTrends}

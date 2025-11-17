@@ -4,23 +4,32 @@ import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError } from '../../../store/slices/EmployerSlice';
-import { EmployeeInvite, Employee } from "../../../types/employer";
+import { EmployeeInvite, Employee } from '../../../types/employer';
 import { RootState } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
 
 interface EmployeeTableProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  employees: Employee[]; // NEW: Real employee data from API
+  employees: Employee[];
   companyId?: string;
   onEmployeeAdded?: () => void;
+}
+
+// Define the combined employee type
+interface CombinedEmployee extends Omit<Employee, 'id'> {
+  id: string | number;
+  name: string;
+  email: string;
+  department: string;
+  status: 'active' | 'pending' | 'inactive';
+  avatar: string;
 }
 
 const EmployeeTable: React.FC<EmployeeTableProps> = ({ 
   searchQuery, 
   onSearchChange, 
   employees,
-  companyId,
   onEmployeeAdded 
 }) => {
   const dispatch = useDispatch();
@@ -37,15 +46,22 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
 
   const [showModal, setShowModal] = useState(false);
 
-  // Combine invited employees with actual employees
-  const allEmployees: Employee[] = [
-    ...employees,
-    ...invites.map(invite => ({
-      id: invite.id,
-      name: invite.email.split('@')[0], // Use email prefix as name
+  // Combine invited employees with actual employees - FIXED TYPE
+  const allEmployees: CombinedEmployee[] = [
+    ...employees.map(emp => ({
+      id: emp.id,
+      name: emp.name || `${emp.name }`,
+      email: emp.email,
+      department: emp.department || 'Unknown',
+      status: emp.status as 'active' | 'pending' | 'inactive',
+      avatar: emp.avatar || (emp.name ? emp.name.charAt(0).toUpperCase() : 'E'),
+    })),
+    ...invites.map((invite: EmployeeInvite) => ({
+      id: invite.id || `invite-${invite.email}`,
+      name: invite.email.split('@')[0],
       email: invite.email,
-      department: "Pending", // Or use invite.department if available
-      status: invite.status === 'accepted' ? 'active' : 'pending',
+      department: invite.department || "Pending",
+      status: (invite.status == 'accepted' ? 'active' : 'pending') as 'active' | 'pending' | 'inactive',
       avatar: invite.email.charAt(0).toUpperCase(),
     }))
   ];
@@ -113,10 +129,8 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
           showModal={showModal}
           onClose={() => setShowModal(false)}
           onEmployeeAdded={handleEmployeeAdded}
-          companyId={companyId}
         />
 
-        {/* Rest of the table component remains the same */}
         <div className="table-responsive">
           <table className="table table-hover mb-0">
             <thead className="bg-light">
@@ -192,6 +206,17 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
               )}
             </tbody>
           </table>
+        </div>
+        
+        {/* Pagination */}
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <div className="text-muted">
+            Showing {filteredEmployees.length} of {allEmployees.length} employees
+          </div>
+          <div className="d-flex gap-2">
+            <button className="btn btn-sm btn-outline-secondary">Previous</button>
+            <button className="btn btn-sm btn-outline-secondary">Next</button>
+          </div>
         </div>
       </div>
     </div>

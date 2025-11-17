@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useCreateEmployee } from "../../../api/companyEmployee/requests";
 import { useToast } from "../../../hooks/use-toast";
+import { inviteEmployee } from "@/store/slices/EmployerSlice";
+import { useDispatch } from 'react-redux';
 
 const employeeSchema = z.object({
   email: z.email("Please enter a valid email address").trim(),
@@ -19,6 +21,7 @@ interface AddEmployeeFormProps {
 }
 
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
+  const dispatch = useDispatch();
   const { toast } = useToast();
   const { createEmployee, isLoading } = useCreateEmployee();
 
