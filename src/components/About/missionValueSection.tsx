@@ -85,6 +85,7 @@ export function MissionValuesSection() {
                                     fontWeight: 700,
                                     color: '#047857', // emerald-700
                                     marginBottom: '1.5rem',
+                                    fontFamily: 'heading'
                                 }}
                             >
                                 Our Mission
@@ -94,6 +95,7 @@ export function MissionValuesSection() {
                                     fontSize: '1.25rem',
                                     lineHeight: 1.6,
                                     color: '#374151', // gray-700
+                                    fontFamily: 'body'
                                 }}
                             >
                                 To make{' '}
@@ -120,6 +122,7 @@ export function MissionValuesSection() {
                                     fontWeight: 700,
                                     color: '#047857',
                                     marginBottom: '1.5rem',
+                                    fontFamily: 'heading'
                                 }}
                             >
                                 Our Values
@@ -129,6 +132,7 @@ export function MissionValuesSection() {
                                     fontSize: '1.25rem',
                                     lineHeight: 1.6,
                                     color: '#374151',
+                                    fontFamily: 'body'
                                 }}
                             >
                                 A future where{' '}

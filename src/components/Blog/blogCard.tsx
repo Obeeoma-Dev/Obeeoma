@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Card } from 'react-bootstrap'
-import { Calendar, Clock, ArrowRight, User } from 'lucide-react'
+import { Calendar, Clock, User } from 'lucide-react'
 interface BlogCardProps {
     id: number
     title: string
@@ -61,13 +61,13 @@ export function BlogCard({
                         <User size={16} />
                         <span>{author}</span>
                     </div>
-                    <a href="#" className="blog-card-link" style={{ fontFamily: "body" }}>
+                    {/* <a href="#" className="blog-card-link" style={{ fontFamily: "body" }}>
                         Read More
                         <ArrowRight
                             size={16}
                             className={`blog-card-arrow ${isHovered ? 'hovered' : ''}`}
                         />
-                    </a>
+                    </a> */}
                 </div>
             </Card.Body>
         </Card>

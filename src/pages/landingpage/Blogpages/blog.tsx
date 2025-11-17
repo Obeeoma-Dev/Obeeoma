@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { Facebook, Twitter, Instagram } from 'lucide-react'
 import { BlogCard } from '../../../components/Blog/blogCard';
 import { BlogHero } from '../../../components/Blog/blogHero';
-import { CategoryFilter } from '../../../components/Blog/categoryFilter';
+// import { CategoryFilter } from '../../../components/Blog/categoryFilter';
 import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
 import Navigation from "../../../components/shared/Navigation";
 
@@ -146,18 +146,19 @@ export function Blog() {
             <BlogHero onSearch={handleSearch} />
 
             {/* Category Filter */}
-            <Container fluid className="my-5">
+            {/* <Container fluid className="my-5">
                 <CategoryFilter
                     categories={categories}
                     activeCategory={activeCategory}
                     onCategoryChange={setActiveCategory}
                 />
-            </Container>
-
+            </Container> */}
+            {/* Margin to create space between the two components */}
+            <div style={{ marginBottom: "120px" }}></div>
 
             {/* Featured Blog */}
             {activeCategory === 'All' && filteredBlogs.length > 0 && (
-                <Container className="mb-5">
+                <Container className="mb-5 mt-5">
                     <h2 className="blog-section-title" style={{ fontFamily: "heading" }}>Featured Article</h2>
                     <Row>
                         <Col xs={12}>
@@ -188,7 +189,7 @@ export function Blog() {
             </Container>
 
 
-            {/* Newsletter Section */}
+            {/* Newsletter Section
             <div className="blog-newsletter-section">
                 <Container>
                     <Row className="justify-content-center">
@@ -213,7 +214,7 @@ export function Blog() {
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div> */}
 
 
             {/* Footer */}

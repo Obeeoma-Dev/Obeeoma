@@ -26,7 +26,7 @@ export function WhyChooseSection() {
         {
             title: 'AI-first & innovative',
             description: "Built for Africa's young, digital-savvy workforce with cutting-edge technology",
-            icon: <Sparkles size={20} color="#fff" />,
+            icon: <Sparkles size={40} color="#fff" />,
             bgColor: 'linear-gradient(135deg, #a855f7, #ec4899)', // for icon box
             accent: '#a855f7',
             accentRgb: '168, 85, 247', // R,G,B
@@ -34,7 +34,7 @@ export function WhyChooseSection() {
         {
             title: 'Affordable & scalable',
             description: 'Flexible subscription models for organizations of all sizes',
-            icon: <DollarSign size={20} color="#fff" />,
+            icon: <DollarSign size={40} color="#fff" />,
             bgColor: '#10b981',
             accent: '#10b981',
             accentRgb: '16, 185, 129',
@@ -42,7 +42,7 @@ export function WhyChooseSection() {
         {
             title: 'Confidential & stigma-free',
             description: 'Safe space for mental health support without judgment',
-            icon: <Lock size={20} color="#fff" />,
+            icon: <Lock size={40} color="#fff" />,
             bgColor: '#3b82f6',
             accent: '#3b82f6',
             accentRgb: '59, 130, 246',
@@ -50,7 +50,7 @@ export function WhyChooseSection() {
         {
             title: 'Culturally relevant',
             description: "Designed with Africa's unique workplace dynamics in mind",
-            icon: <Globe size={20} color="#fff" />,
+            icon: <Globe size={40} color="#fff" />,
             bgColor: '#f97316',
             accent: '#f97316',
             accentRgb: '249, 115, 22',
@@ -70,7 +70,7 @@ export function WhyChooseSection() {
                         }`}
                 >
                     {/* Main heading */}
-                    <h2 className="display-5 fw-bold text-dark mb-3">Why Choose Obeeoma?</h2>
+                    <h2 className="display-5 fw-bold text-dark mb-3" style={{ fontFamily: "heading" }}>Why Choose Obeeoma?</h2>
                 </div>
 
                 {/* First Row: Benefits list */}
@@ -88,8 +88,7 @@ export function WhyChooseSection() {
                             {benefits.map((benefit, index) => (
                                 <Col key={index} lg={6} md={6} sm={12}>
                                     {/* Card wrapper with dynamic CSS variables for color and hover effects */}
-                                    <div
-                                        className="benefit-card d-flex align-items-start p-5 rounded h-100"
+                                    <div className="benefit-card p-5 h-100 d-flex flex-column justify-content-start"
                                         style={
                                             {
                                                 '--accent': benefit.accent,
@@ -99,15 +98,15 @@ export function WhyChooseSection() {
                                         }
                                     >
                                         {/* Icon box with dynamic background color */}
-                                        <div className="icon-box me-3 mt-1 flex-shrink-0">
+                                        <div className="icon-box mb-4">
                                             {benefit.icon}
                                         </div>
 
                                         {/* Text content: title and description */}
                                         <div>
-                                            <h5 className="fw-semibold text-dark mb-2">{benefit.title}</h5>
+                                            <h5 className="fw-bold text-dark mb-2" style={{ fontFamily: "heading", fontSize: '22px' }}>{benefit.title}</h5>
                                             {benefit.description && (
-                                                <p className="text-muted mb-0">{benefit.description}</p>
+                                                <p className="text-muted mb-3" style={{ fontFamily: "body", fontSize: '16px' }}>{benefit.description}</p>
                                             )}
                                         </div>
                                     </div>
