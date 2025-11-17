@@ -42,6 +42,18 @@ export function MissionValuesSection() {
                 />
             </div>
 
+            {/* Dark Overlay Layer */}
+            <div
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundColor: 'rgba(0,0,0,0.2)', // adjust opacity here
+                    zIndex: 1,
+                }}
+            />
+
+
+
             {/* Foreground Content */}
             <div
                 style={{

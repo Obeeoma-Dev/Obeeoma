@@ -66,15 +66,15 @@ export const ContactPage: React.FC = () => {
                 <Row className={`g-4 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}
                     style={{ transform: "translateY(-100px)" }}
                 >
-                    <Col md={4}>
+                    <Col md={5}>
                         <ContactCard icon={Phone} title="Call Us" content="08064780856" link="tel:08064780856" />
                     </Col>
-                    <Col md={4}>
+                    <Col md={5}>
                         <ContactCard icon={Mail} title="Email Us" content="hello@obeeoma.com" link="mailto:hello@obeeoma.com" />
                     </Col>
-                    <Col md={4}>
+                    {/* <Col md={4}>
                         <ContactCard icon={MapPin} title="Visit Us" content="Lagos, Nigeria" />
-                    </Col>
+                    </Col> */}
                 </Row>
             </Container>
 

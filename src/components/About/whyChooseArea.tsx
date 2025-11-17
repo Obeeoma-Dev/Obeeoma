@@ -1,21 +1,24 @@
-/**
- * Why Choose section with benefits list and images
- */
-
+// Import React library
 import React from 'react';
+
 // Import Bootstrap components for layout and styling
-import { Container, Row, Col, Image, ListGroup } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
+
 // Import icon from Lucide React library
 import { CheckCircleIcon } from 'lucide-react';
+
 // Import custom scroll animation hook
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';
+
+// Import image asset
 import Businesswomen from '../../assets/Images/Businesswomen.jpg';
-import Businessteam from '../../assets/Images/Business-team.jpg';
 
 // Define functional React component
 export function WhyChooseSection() {
-    // Initialize scroll animation hooks for title and list visibility
+    // Hook for animating the title when it enters the viewport
     const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.3 });
+
+    // Hook for animating the benefits list when it enters the viewport
     const [listRef, listVisible] = useScrollAnimation({ threshold: 0.3 });
 
     // Define an array of benefits to display
@@ -30,7 +33,7 @@ export function WhyChooseSection() {
         },
         {
             title: 'Confidential, stigma-free, and always accessible',
-            description: '',
+            description: 'Safe space for mental health support without judgment',
         },
         {
             title: 'Culturally relevant',
@@ -38,102 +41,108 @@ export function WhyChooseSection() {
         },
     ];
 
-    // Component return markup
+    // Return JSX markup for the component
     return (
-        // Section container for the entire "Why Choose" block
+        // Section wrapper with padding and background color
         <section className="why-choose-section py-5 bg-light">
-            {/* Bootstrap Container centers content and adds horizontal padding */}
+            {/* Bootstrap container centers content and adds horizontal padding */}
             <Container>
-                {/* Title Section */}
+                {/* Title section with scroll animation */}
                 <div
-                    ref={titleRef} // Reference for scroll animation
+                    ref={titleRef}
                     className={`text-center mb-5 transition-all ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
                         }`}
                 >
-                    {/* Main section heading */}
-                    <h2 className="display-5 fw-bold text-dark mb-3">
-                        Why Choose Obeeoma?
-                    </h2>
+                    {/* Main heading */}
+                    <h2 className="display-5 fw-bold text-dark mb-3">Why Choose Obeeoma?</h2>
                 </div>
 
-                {/* First Row: Text on left, image on right */}
+                {/* First Row: Benefits list */}
                 <Row className="align-items-center mb-5">
-                    {/* Benefits List Column */}
+                    {/* Column for benefits list with scroll animation */}
                     <Col
-                        lg={6}
-                        ref={listRef} // Reference for scroll animation
+                        lg={12}
+                        ref={listRef}
                         className={`transition-all ${listVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-n3'
                             }`}
                     >
-                        {/* ListGroup for neatly stacked list items */}
-                        <ListGroup variant="flush">
+                        {/* Row to layout cards side by side */}
+                        <Row className="gy-4 gx-4">
+                            {/* Loop through each benefit and render a card */}
                             {benefits.map((benefit, index) => (
-                                <ListGroup.Item
-                                    key={index}
-                                    className="border-0 d-flex align-items-start mb-3 p-4 rounded shadow-sm"
-                                    style={{
-                                        backgroundColor: '#f9fdf9',
-                                        border: '1px solid #e0e0e0',
-                                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                        cursor: 'pointer',
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1.03)';
-                                        e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.5)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
-                                    }}
-                                >
-                                    {/* Icon column */}
-                                    <div className="me-3 mt-1">
-                                        <CheckCircleIcon size={28} className="text-success flex-shrink-0" />
-                                    </div>
+                                <Col key={index} lg={6} md={6} sm={12}>
+                                    {/* Card container with hover effect */}
+                                    <div
+                                        className="d-flex align-items-start p-5 rounded shadow-sm h-100"
+                                        style={{
+                                            backgroundColor: '#f9fdf9', // light background
+                                            border: '1px solid #e0e0e0', // subtle border
+                                            transition: 'transform 0.3s ease, box-shadow 0.3s ease', // smooth hover
+                                            cursor: 'pointer', // pointer cursor
+                                            minHeight: '240px', // taller card
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = 'scale(1.03)'; // zoom on hover
+                                            e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)'; // deeper shadow
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = 'scale(1)'; // reset zoom
+                                            e.currentTarget.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)'; // soft shadow
+                                        }}
+                                    >
+                                        {/* Icon box on the left side */}
+                                        <div
+                                            style={{
+                                                width: '48px', // square size
+                                                height: '48px',
+                                                backgroundColor: '#047857', // emerald green
+                                                borderRadius: '0.5rem', // rounded corners
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                flexShrink: 0, // prevent shrinking
+                                                marginRight: '1rem', // spacing from text
+                                                marginTop: '0.25rem', // vertical alignment
+                                            }}
+                                        >
+                                            {/* White check icon inside box */}
+                                            <CheckCircleIcon size={24} color="#fff" />
+                                        </div>
 
-                                    {/* Text column */}
-                                    <div>
-                                        <h5 className="fw-semibold text-dark mb-1">{benefit.title}</h5>
-                                        {benefit.description && (
-                                            <p className="text-muted mb-0">{benefit.description}</p>
-                                        )}
+                                        {/* Text content on the right side */}
+                                        <div>
+                                            <h5 className="fw-semibold text-dark mb-2">{benefit.title}</h5>
+                                            {/* Show description only if it exists */}
+                                            {benefit.description && (
+                                                <p className="text-muted mb-0">{benefit.description}</p>
+                                            )}
+                                        </div>
                                     </div>
-                                </ListGroup.Item>
-
+                                </Col>
                             ))}
-                        </ListGroup>
-                    </Col>
-
-                    {/* Right Column: Image */}
-                    <Col lg={6} className="order-lg-1 order-2">
-                        <div className="shadow-lg rounded overflow-visible">
-                            <div className="card-scale">
-                                <Image
-                                    src={Businessteam}
-                                    alt="Person with glasses"
-                                    fluid
-                                    className="w-100 h-100 object-fit-cover"
-                                    style={{ objectPosition: 'center' }}
-                                />
-                            </div>
-
-                        </div>
+                        </Row>
                     </Col>
                 </Row>
 
-                {/* Second Row: Image on left, empty column on right (preserved original layout) */}
-                <Row className="align-items-center">
-                    <Col lg={6} className="order-lg-1 order-2">
-                        <div className="card-scale">
+                {/* Second Row: Image section */}
+                <Row className="justify-content-center align-items-center">
+                    <Col lg={10}>
+                        {/* Image container with fixed height */}
+                        <div className="card-scale" style={{ height: '500px' }}>
                             <Image
                                 src={Businesswomen}
                                 alt="Happy people embracing"
                                 fluid
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                }}
                             />
                         </div>
                     </Col>
 
-                    {/* Empty right column (kept for layout consistency) */}
+                    {/* Empty column for layout balance */}
                     <Col lg={6} className="order-lg-2 order-1" />
                 </Row>
             </Container>
