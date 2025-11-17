@@ -1,5 +1,5 @@
 import React from "react";
-import { Shield, Sparkles, Heart } from "lucide-react"; // icons used for items
+import { Shield, Sparkles, Smartphone } from "lucide-react"; // icons used for items
 import "bootstrap/dist/css/bootstrap.min.css"; // bootstrap grid + utilities
 import Personreading from "../../assets/Images/image3.png"; // local left-side illustration
 
@@ -20,12 +20,12 @@ const Features: React.FC = () => {
       desc: "Quick check-ins, daily mood logging, and progress tracking to help you understand and improve your mental wellbeing.",
     },
     {
-      icon: Heart,
-      title: "Professional Counseling",
+      icon: Shield,
+      title: "Secure & Anonymous ",
       desc: "Access personalized care plans, crisis intervention, and workplace mental health support from certified professionals.",
     },
     {
-      icon: Shield,
+      icon: Smartphone,
       title: "Digital Interventions",
       desc: "24/7 access to secure, science-backed digital tools and private conversations to support your mental health journey.",
     },
@@ -133,7 +133,6 @@ const Features: React.FC = () => {
           left: 0,
           width: "100%",
           height: 80,
-          background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230,255,237,0.7) 100%)",
         }}
         aria-hidden
       />

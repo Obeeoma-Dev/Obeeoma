@@ -57,19 +57,19 @@ function Navigation() {
           <Nav className="ms-auto">
             {/* Navigation links */}
 
-            <Nav.Link href="#Hero" className="mx-2">
+            <Nav.Link as={Link} to="/Index" className="mx-2">
               Home
             </Nav.Link>
 
-            <Nav.Link href="/contact-us" className="mx-2">
+            <Nav.Link as={Link} to="/contact-us" className="mx-2">
               Contact
             </Nav.Link>
 
-            <Nav.Link href="/about-us" className="mx-2">
+            <Nav.Link as={Link} to="/about-us" className="mx-2">
               About
             </Nav.Link>
 
-            <Nav.Link href="/blog" className="mx-2">
+            <Nav.Link as={Link} to="/blog" className="mx-2">
               Blog
             </Nav.Link>
 

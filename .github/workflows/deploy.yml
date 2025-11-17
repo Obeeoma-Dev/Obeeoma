@@ -36,19 +36,19 @@ jobs:
 
       # Step 4: Run ESLint to check for code issues (fails if any errors or warnings)
       - name: Run ESLint
-        run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
+        run: npx eslint "src//*.{js,jsx,ts,tsx}" --max-warnings=0
         # Lints all JavaScript and TypeScript files in the src folder
         # --max-warnings=0 ensures the job fails even if there are warnings
 
-      # Syep 5: Automatically fix Prettier formatting issues
+      # Step 5: Automatically fix Prettier formatting issues
       - name: Auto-fix Prettier formatting
-        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}"
+        run: npx prettier --write "src//*.{js,jsx,ts,tsx}"
         # This rewrites files in the src folder to match your Prettier config
-        # It’s safe and automatic—no manual edits needed
+        # It's safe and automatic—no manual edits needed
 
       # Step 6: Check Prettier formatting (fails if any file is still misformatted)
       - name: Check Prettier formatting
-        run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
+        run: npx prettier --check "src//*.{js,jsx,ts,tsx}"
         # Verifies that all files are properly formatted
         # If any file is not formatted, the job fails
 
@@ -89,7 +89,7 @@ jobs:
           path: coverage/
 
   # ----------------
-  # 3. BUILD REACT APP
+  # 3. BUILD & DEPLOY
   # ----------------
   build:
     name: Build Application
@@ -107,34 +107,40 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Build a React application
+      # Build the React application
       - name: Build React App
         run: npm run build
 
-      # Logging in to docker hub
+      # Set up Docker Buildx for better build performance
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build and push Docker image 
+      # Build and push Docker image
       - name: Build and Push Docker Image
-        run: docker push myusername/obeeoma:latest
-        
-      # Deploy to digital ocean via ssh
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/obeeoma:latest
+
+      # Deploy to Digital Ocean via SSH
       - name: Deploy to Digital Ocean via SSH
         uses: appleboy/ssh-action@v0.1.6
         with:
-            host: ${{ secrets.DROPLET_IP }}
-            username: root
-            key: ${{ secrets.DROPLET_SSH_KEY }}
-            port: ${{ secrets.DROPLET_SSH_PORT }}
-            script: |
-                docker pull myusername/obeeoma:latest
-                docker stop obeeoma || true
-                docker rm obeeoma || true
-                docker run -d -p 80:80 --name obeeoma myusername/obeeoma:latest  
-             
-     
-     
+          host: ${{ secrets.DROPLET_IP }}
+          username: obeeoma
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          port: ${{ secrets.DROPLET_SSH_PORT }}
+          script: |
+            cd /home/obeeoma/obeeoma_project
+            docker pull ${{ secrets.DOCKER_USERNAME }}/obeeoma:latest 
+            docker compose pull frontend
+            docker compose up -d frontend --force-recreate
+            

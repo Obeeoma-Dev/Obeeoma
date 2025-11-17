@@ -9,6 +9,11 @@ import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup'
 // Importing React-Bootstrap components
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 
+import Navigation from "../../../components/shared/Navigation";
+
+// Importing the header background image. 
+import ContactBG from "../../../assets/Images/contacts.jpg";
+
 // Define the functional component using TypeScript
 export const ContactPage: React.FC = () => {
     // State to handle animation visibility
@@ -22,8 +27,23 @@ export const ContactPage: React.FC = () => {
 
     return (
         <div className="d-flex flex-column min-vh-100">
+
+            {/* Navigation Bar */}
+            <Navigation />
+
+
             {/* Hero Section */}
-            <div className="position-relative" style={{ height: '500px', overflow: 'hidden' }}>
+            <div
+                className="position-relative"
+                style={{
+                    height: "500px",
+                    overflow: "hidden",
+                    backgroundImage: `url(${ContactBG})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                }}
+            >
                 {/* Gradient overlay */}
                 <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: 'linear-gradient(to right, rgba(11,110,69,0.9), rgba(0,168,89,0.9))', zIndex: 1 }}></div>
 
@@ -39,6 +59,7 @@ export const ContactPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+
 
             {/* Contact Methods Section */}
             <Container className="mt-n12 position-relative" style={{ zIndex: 3 }}>
@@ -56,6 +77,7 @@ export const ContactPage: React.FC = () => {
                     </Col>
                 </Row>
             </Container>
+
 
             {/* Main Content Section */}
             <Container className="py-5">
@@ -98,6 +120,7 @@ export const ContactPage: React.FC = () => {
                         </Card>
                     </Col>
 
+
                     {/* Right Column - Form */}
                     <Col lg={6} className={`${isVisible ? 'opacity-100 translateX-0' : 'opacity-0 translateX-3'} transition-opacity`}>
                         <Card className="p-4 p-lg-5 shadow">
@@ -110,18 +133,20 @@ export const ContactPage: React.FC = () => {
                 </Row>
             </Container>
 
+
             {/* Call to Action Section */}
             <Container className="py-5">
                 <Row className="g-0">
                     <Col lg={6} className="d-flex flex-column justify-content-center p-4 p-lg-5" style={{ background: 'linear-gradient(to bottom right, #00A859, #0B6E45)', borderRadius: '1.5rem' }}>
                         <h2 className="display-5 text-white mb-3" style={{ fontFamily: "heading" }}>We're here to help! You can call us!</h2>
                         <p className="fs-5 text-white-50 mb-3" style={{ fontFamily: "body" }}>Speak directly with our support team for immediate assistance</p>
-                        <Button href="tel:+2347034387683" variant="light" className="text-success rounded-pill d-inline-flex align-items-center gap-2" style={{ fontFamily: "body" }}>
-                            <Phone size={24} />
+                        <Button href="tel:+08064780856" variant="light" className="text-success rounded-pill d-inline-flex align-items-center gap-2" style={{ fontFamily: "body" }}>
+                            <Phone size={24} />+08064780856
                         </Button>
                     </Col>
                 </Row>
             </Container>
+
 
             {/* Footer */}
             <footer className="bg-success text-white py-4">
@@ -147,6 +172,7 @@ export const ContactPage: React.FC = () => {
                     </Row>
                 </Container>
             </footer>
+
 
             {/* Floating WhatsApp Button */}
             <FloatingWhatsApp />

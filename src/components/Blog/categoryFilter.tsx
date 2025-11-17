@@ -1,34 +1,44 @@
-import React from 'react'
-import { Badge } from 'react-bootstrap'
+import React from 'react';
+import { Button } from 'react-bootstrap';
+
 interface CategoryFilterProps {
-    categories: string[]
-    activeCategory: string
-    onCategoryChange: (category: string) => void
+    categories: string[];
+    activeCategory: string;
+    onCategoryChange: (category: string) => void;
 }
+
+/**
+ * CategoryFilter component renders a list of category buttons.
+ * Each button changes the active category when clicked.
+ * The styling is handled purely via CSS classes.
+ */
 export function CategoryFilter({
     categories,
     activeCategory,
     onCategoryChange,
 }: CategoryFilterProps) {
     return (
-        <div className="category-filter" style={{ fontFamily: "heading" }}>
-            <Badge
-                bg="none"
-                className={`category-badge ${activeCategory === 'All' ? 'active' : ''}`}
+        <div className="category-filter" style={{ fontFamily: 'heading' }}>
+            {/* Button for "All Articles" */}
+            <Button
+                variant="none" // Removes Bootstrap default background
+                className={`category-btn ${activeCategory === 'All' ? 'active' : ''}`}
                 onClick={() => onCategoryChange('All')}
             >
                 All Articles
-            </Badge>
+            </Button>
+
+            {/* Render all dynamic category buttons */}
             {categories.map((category) => (
-                <Badge
+                <Button
                     key={category}
-                    bg="none"
-                    className={`category-badge ${activeCategory === category ? 'active' : ''}`}
+                    variant="none"
+                    className={`category-btn ${activeCategory === category ? 'active' : ''}`}
                     onClick={() => onCategoryChange(category)}
                 >
                     {category}
-                </Badge>
+                </Button>
             ))}
         </div>
-    )
+    );
 }
