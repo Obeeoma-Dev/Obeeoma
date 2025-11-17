@@ -54,7 +54,8 @@ export const logTransactionSuccess = createAsyncThunk<
       
       // Assuming your backend responds with a success message after verification and update
       return response.data;
-
+      
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || 'Failed to verify transaction on the server.';
       // Log the error for debugging
