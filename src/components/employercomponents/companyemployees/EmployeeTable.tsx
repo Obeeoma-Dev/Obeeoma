@@ -277,10 +277,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
             <button className="btn btn-sm btn-outline-secondary">Next</button>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    </>);
 
 export default EmployeeTable;
 

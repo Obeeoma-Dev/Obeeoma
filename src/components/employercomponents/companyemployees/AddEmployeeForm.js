@@ -2,42 +2,55 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useCreateEmployee } from "../../../api/companyEmployee/requests";
 import { useToast } from "../../../hooks/use-toast";
+import { inviteEmployee, fetchEmployeeInvites } from "../../../store/slices/EmployerSlice";
+import { useDispatch, useSelector } from 'react-redux';
 const employeeSchema = z.object({
     email: z.email("Please enter a valid email address").trim(),
     phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
     department: z.string().min(1, "Please select a department"),
 });
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
+    const dispatch = useDispatch();
     const { toast } = useToast();
-    const { createEmployee, isLoading } = useCreateEmployee();
+    const { isActionLoading, error } = useSelector((state) => state.employer);
     const { register, handleSubmit, formState: { errors }, reset, } = useForm({
         resolver: zodResolver(employeeSchema),
     });
     const onSubmit = async (data) => {
         try {
-            // Transforming form data to match API expectations
-            const apiData = {
-                emailAddress: data.email,
-                phoneNumber: data.phone,
+            // Transform form data to match API expectations (use email directly, not emailAddress)
+            const result = await dispatch(inviteEmployee({
+                email: data.email,
+                phone: data.phone,
                 department: data.department,
-            };
-            await createEmployee(apiData);
-            toast({
-                title: "Success",
-                description: "Employee invitation sent!",
-                message: "Employee invitation sent successfully!",
-            });
-            reset();
-            onEmployeeAdded();
-            onClose();
+            }));
+            // Check if the thunk was fulfilled
+            if (inviteEmployee.fulfilled.match(result)) {
+                toast({
+                    title: "Success",
+                    description: "Employee invitation sent!",
+                    message: "Employee invitation sent successfully!",
+                });
+                reset();
+                onEmployeeAdded();
+                onClose();
+                // Refresh the employee invites list
+                dispatch(fetchEmployeeInvites());
+            }
+            else if (inviteEmployee.rejected.match(result)) {
+                toast({
+                    title: "Error",
+                    description: result.payload || "Failed to add employee. Please try again.",
+                    message: result.payload || "Failed to add employee. Please try again.",
+                });
+            }
         }
         catch (error) {
             console.error("Error adding employee:", error);
             toast({
                 title: "Error",
-                description: "Failed to add employee. Please try again.",
+                description: error instanceof Error ? error.message : "An unexpected error occurred.",
                 message: "Failed to add employee. Please try again.",
             });
         }
@@ -67,6 +80,6 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
                                                 };
                                                 input.addEventListener('change', onChange);
                                                 input.click();
-                                            }, children: "Try bulk add" }), _jsx("br", {}), _jsx("input", { type: "file", className: "form-control-file mt-1", id: "upload-excel", accept: ".xlsx,.xls,.csv" })] })] }) }), _jsxs("div", { className: "modal-footer", children: [_jsx("button", { type: "submit", className: "btn btn-success", disabled: isLoading, children: isLoading ? 'Adding...' : 'Add Employee' }), _jsx("button", { type: "button", className: "btn btn-secondary", onClick: handleClose, disabled: isLoading, children: "Close" })] })] }) }) }));
+                                            }, children: "Try bulk add" }), _jsx("br", {}), _jsx("input", { type: "file", className: "form-control-file mt-1", id: "upload-excel", accept: ".xlsx,.xls,.csv" })] })] }) }), _jsxs("div", { className: "modal-footer", children: [_jsx("button", { type: "submit", className: "btn btn-success", disabled: isActionLoading, children: isActionLoading ? 'Adding...' : 'Add Employee' }), _jsx("button", { type: "button", className: "btn btn-secondary", onClick: handleClose, disabled: isActionLoading, children: "Close" })] })] }) }) }));
 };
 export default AddEmployeeForm;
