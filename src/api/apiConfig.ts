@@ -4,7 +4,7 @@ import {
   LoginCredentials,
   RegisterCredentials,
   ForgotPasswordData,
-  // ChangePasswordData,
+  changePasswordData,
   OtpVerificationPayload
 } from "@/types/auth";
 
@@ -133,10 +133,10 @@ export const authAPI = {
     return response;
   },
 
-  // changePassword: async (data: ChangePasswordData) => {
-  //   const response = await api.post("/v1/auth/change-password", data);
-  //   return response;
-  // },
+  changePassword: async (data: changePasswordData) => {
+    const response = await api.post("/v1/auth/change-password", data);
+    return response;
+  },
 
   getCurrentUser: async () => {
     const response = await api.get("/v1/auth/me/");
@@ -259,23 +259,23 @@ export const employerAPI = {
   },
 
   getEmployees: async () => {
-    const response = await api.get("/v1/employees/");
+    const response = await api.get("/v1/dashboard/employees/");
     return response;
   },
 
   // Analytics & Dashboard
   getemployerdashboardSummary: async () => {
-    const response = await api.get("/v1/employer/overview");
+    const response = await api.get("/v1/dashboard/employer/overview");
     return response;
   },
 
   getEngagement: async () => {
-    const response = await api.get("/v1/employer/engagements/");
+    const response = await api.get("/v1/dashboard/employer/engagements/");
     return response;
   },
 
   getReports: async () => {
-    const response = await api.post("/v1/employer/reports/");
+    const response = await api.post("/v1/dashboard/employer/reports/");
     return response;
   },
 

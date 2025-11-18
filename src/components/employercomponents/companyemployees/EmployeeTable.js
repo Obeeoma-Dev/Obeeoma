@@ -1,4 +1,4 @@
-import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
@@ -8,28 +8,17 @@ import { useToast } from "../../../hooks/use-toast";
 const EmployeeTable = ({ searchQuery, onSearchChange, employees, onEmployeeAdded }) => {
     const dispatch = useDispatch();
     const { toast } = useToast();
-    // 1. SELECT STATE WITH CORRECT TYPE MAPPING
-    const { invites, isLoading, isActionLoading, error } = useSelector((state) => ({
+    const { invites, isLoading, error } = useSelector((state) => ({
         invites: state.employer.invites,
         isLoading: state.employer.isLoading,
         isActionLoading: state.employer.isActionLoading,
         error: state.employer.error,
     }));
-    // 2. MAP INVITES TO DISPLAY FORMAT
-    const employees = invites.map((invite) => ({
-        id: invite.id,
-        name: invite.email, // Using email as name if actual name isn't available
-        email: invite.email,
-        department: "Other", // Placeholder based on original code
-        // Assuming the EmployeeInvite type has a 'status' field that can be 'accepted', 'pending', etc.
-        status: invite.status === 'accepted' ? 'Active' : invite.status === 'pending' ? 'Pending' : 'Inactive',
-        avatar: invite.email.charAt(0).toUpperCase(),
-    }));
     const [showModal, setShowModal] = useState(false);
     // Combine invited employees with actual employees - FIXED TYPE
     const allEmployees = [
         ...employees.map(emp => ({
-            id: emp.id,
+            id: String(emp.id),
             name: emp.name || `${emp.name}`,
             email: emp.email,
             department: emp.department || 'Unknown',
@@ -37,7 +26,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange, employees, onEmployeeAdded
             avatar: emp.avatar || (emp.name ? emp.name.charAt(0).toUpperCase() : 'E'),
         })),
         ...invites.map((invite) => ({
-            id: invite.id || `invite-${invite.email}`,
+            id: String(invite.id || `invite-${invite.email}`),
             name: invite.email.split('@')[0],
             email: invite.email,
             department: invite.department || "Pending",
@@ -46,13 +35,11 @@ const EmployeeTable = ({ searchQuery, onSearchChange, employees, onEmployeeAdded
         }))
     ];
     useEffect(() => {
-        // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
         dispatch(fetchEmployeeInvites());
     }, [dispatch]);
     useEffect(() => {
         if (error) {
             toast({
-                // Provide the required 'message' property and an optional duration
                 message: `Error: ${error}`,
                 duration: 5000,
             });
@@ -62,225 +49,28 @@ const EmployeeTable = ({ searchQuery, onSearchChange, employees, onEmployeeAdded
     const filteredEmployees = allEmployees.filter((emp) => emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
         emp.department.toLowerCase().includes(searchQuery.toLowerCase()));
-    const handleStatusChange = () => {
-        // Note: Status changes should be handled via API call in a real implementation
-        toast({
-            // Use the expected 'message' prop
-            message: "Status changes require backend API integration",
-            duration: 4000,
-        });
-    };
-    const loadAddEmployeeForm = () => {
-        setShowModal(true);
-    };
-    const closeModal = () => {
-        setShowModal(false);
-    };
-    // 3. REFRESH INVITATION LIST AFTER SUCCESSFUL INVITE
     const handleEmployeeAdded = () => {
-        // This function is called by the modal upon successful POST action completion.
-        // The inviteEmployee thunk already handles adding the new invite to the state, 
-        // so a re-fetch (fetchEmployeeInvites) is often redundant unless the API doesn't 
-        // return the full list. We'll keep the toast and close the modal.
-        closeModal(); // Close the modal upon success
+        setShowModal(false);
         toast({
             message: "Employee invitation sent successfully!",
             duration: 4000,
         });
-        // Optionally re-fetch to ensure data is completely fresh, 
-        // though the inviteEmployee thunk should ideally update the state locally.
-        // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
+        onEmployeeAdded?.();
         dispatch(fetchEmployeeInvites());
     };
-    return (_jsxs(_Fragment, { children: [_jsx("div", { className: "row mb-3", children: _jsx("div", { className: "col-12", children: _jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsxs("div", { className: "position-relative", style: { width: "300px" }, children: [_jsx(Search, { className: "position-absolute top-50 start-0 translate-middle-y ms-3 text-muted", size: 16 }), _jsx("input", { type: "search", placeholder: "Search employees...", className: "form-control ps-5", value: searchQuery, onChange: (e) => onSearchChange(e.target.value) })] }), _jsx("button", { type: "button", className: "btn btn-success", onClick: loadAddEmployeeForm, disabled: isActionLoading, children: isActionLoading ? 'Sending...' : 'Add Employee' })] }) }) }), _jsx(AddEmployeeForm, { showModal: showModal, onClose: () => setShowModal(false), onEmployeeAdded: handleEmployeeAdded }), _jsx("div", { className: "table-responsive", children: _jsxs("table", { className: "table table-hover mb-0", children: [_jsx("thead", { className: "bg-light", children: _jsxs("tr", { children: [_jsx("th", { className: "border-0 ps-4 py-3 text-muted fw-semibold", children: "Worker" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold", children: "Email" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold", children: "Department" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold", children: "Status" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold text-end", children: "Actions" })] }) }), _jsx("tbody", { children: isLoading ? (_jsx("tr", { children: _jsxs("td", { colSpan: 5, className: "text-center py-5", children: [_jsx("div", { className: "spinner-border text-primary", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading..." }) }), _jsx("p", { className: "mt-2 text-muted", children: "Fetching employees..." })] }) })) : filteredEmployees.length === 0 ? (_jsx("tr", { children: _jsx("td", { colSpan: 5, className: "text-center py-5 text-muted", children: "No employees found." }) })) : (filteredEmployees.map((employee) => (_jsxs("tr", { children: [_jsx("td", { className: "ps-4 py-3", children: _jsxs("div", { className: "d-flex align-items-center gap-3", children: [_jsx("div", { className: "rounded-circle bg-light d-flex align-items-center justify-content-center", style: { width: "40px", height: "40px" }, children: _jsx("span", { className: "fw-bold text-primary", children: employee.avatar }) }), _jsx("span", { className: "fw-medium", children: employee.name })] }) }), _jsx("td", { className: "py-3 text-muted", children: employee.email }), _jsx("td", { className: "py-3 text-muted", children: employee.department }), _jsx("td", { className: "py-3", children: _jsx("span", { className: `badge ${employee.status === "active"
-                                                ? "bg-success bg-opacity-10 text-success"
-                                                : employee.status === "pending"
-                                                    ? "bg-warning bg-opacity-10 text-warning"
-                                                    : "bg-danger bg-opacity-10 text-danger"}`, children: employee.status.charAt(0).toUpperCase() + employee.status.slice(1) }) }), _jsx("td", { className: "py-3 text-end", children: _jsxs("div", { className: "d-flex justify-content-end gap-2", children: [_jsx("button", { className: "btn btn-sm btn-outline-primary", onClick: () => { }, children: "Edit" }), _jsx("button", { className: "btn btn-sm btn-outline-danger", onClick: () => { }, children: "Remove" })] }) })] }, employee.id)))) })] }) }), _jsxs("div", { className: "d-flex justify-content-between align-items-center mt-3", children: [_jsxs("div", { className: "text-muted", children: ["Showing ", filteredEmployees.length, " of ", allEmployees.length, " employees"] }), _jsxs("div", { className: "d-flex gap-2", children: [_jsx("button", { className: "btn btn-sm btn-outline-secondary", children: "Previous" }), _jsx("button", { className: "btn btn-sm btn-outline-secondary", children: "Next" })] })] })] }));
-    export default EmployeeTable;
-    // import React, { useState, useEffect } from "react";
-    // import { Search } from "lucide-react";
-    // import AddEmployeeForm from "./AddEmployeeForm";
-    // import { useDispatch, useSelector } from "react-redux";
-    // import { fetchEmployeeInvites, clearEmployerError, inviteEmployee } from '../../../store/slices/EmployerSlice';
-    // import { RootState } from "../../../store/store";
-    // import { useToast } from "../../../hooks/use-toast";
-    // interface Employee {
-    //   id: number;
-    //   name: string;
-    //   email: string;
-    //   department: string;
-    //   status: string;
-    //   avatar: string;
-    // }
-    // interface EmployeeTableProps {
-    //   searchQuery: string;
-    //   onSearchChange: (query: string) => void;
-    // }
-    // const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
-    //   const dispatch = useDispatch();
-    //   const { toast } = useToast();
-    // interface InvitesState {
-    //   invites: typeof inviteEmployee;
-    //   isLoading: boolean;
-    //   error: string | null;
-    // }
-    // const { invites, isLoading, error } = useSelector((state: RootState) => state.employer as InvitesState);
-    //   // Transform invites to employee format for display
-    //   interface Invite {
-    //     id: number;
-    //     email: string;
-    //     status: 'accepted' | 'pending' | 'rejected' | string;
-    //   }
-    //   const employees: Employee[] = (invites as Invite[]).map((invite: Invite): Employee => ({
-    //     id: invite.id,
-    //     name: invite.email,
-    //     email: invite.email,
-    //     department: "Other",
-    //     status: invite.status === 'accepted' ? 'Active' : invite.status === 'pending' ? 'Pending' : 'Inactive',
-    //     avatar: invite.email.charAt(0).toUpperCase(),
-    //   }));
-    //   const [showModal, setShowModal] = useState(false);
-    //   // Fetch employee invites on component mount
-    //   useEffect(() => {
-    //     dispatch(fetchEmployeeInvites());
-    //   }, [dispatch]);
-    //   // Handle errors
-    //   useEffect(() => {
-    //     if (error) {
-    //       toast({
-    //         title: "Error",
-    //         description: error,
-    //         message: error,
-    //       });
-    //       dispatch(clearEmployerError());
-    //     }
-    //   }, [error, toast, dispatch]);
-    //   const filteredEmployees = employees.filter(
-    //     (emp) =>
-    //       emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //       emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
-    //   );
-    //   const handleStatusChange = (employeeId: number, checked: boolean) => {
-    //     // Note: Status changes should be handled via API call in a real implementation
-    //     // For now, we'll show a toast indicating this feature needs backend integration
-    //     toast({
-    //       title: "Feature Not Implemented",
-    //       description: "Status changes require backend API integration",
-    //       message: "Status changes require backend API integration",
-    //     });
-    //   };
-    //   const loadAddEmployeeForm = () => {
-    //     setShowModal(true);
-    //   }
-    //   const closeModal = () => {
-    //     setShowModal(false);
-    //   }
-    //   const handleEmployeeAdded = () => {
-    //     // Refresh the employee invites list after adding a new employee
-    //     dispatch(fetchEmployeeInvites());
-    //     toast({
-    //       title: "Success",
-    //       description: "Employee invitation sent successfully!",
-    //       message: "Employee invitation sent successfully!",
-    //     });
-    //   }
-    //   return (
-    //     <>
-    //       {/* Search and Add Employee Section */}
-    //       <div className="row mb-3">
-    //         <div className="col-12">
-    //           <div className="d-flex justify-content-between align-items-center">
-    //             <div className="position-relative" style={{ width: "300px" }}>
-    //               <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
-    //               <input
-    //                 type="search"
-    //                 placeholder="Search employees..."
-    //                 className="form-control ps-5"
-    //                 value={searchQuery}
-    //                 onChange={(e) => onSearchChange(e.target.value)} />
-    //             </div>
-    //             <button 
-    //               type="button" 
-    //               className="btn btn-success" 
-    //               onClick={loadAddEmployeeForm} > 
-    //               Add Employee
-    //             </button>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       {/* Add Employee Modal */}
-    //       <AddEmployeeForm 
-    //         showModal={showModal}
-    //         onClose={closeModal}
-    //         onEmployeeAdded={handleEmployeeAdded}
-    //       />
-    //       {/* Employees Table */}
-    //       <div className="row">
-    //         <div className="col-12">
-    //           <div className="card border-0 shadow-sm">
-    //             <div className="card-body p-0">
-    //               <div className="table-responsive">
-    //                 <table className="table table-hover mb-0">
-    //                   <thead className="bg-light">
-    //                     <tr>
-    //                       <th className="border-0 ps-4 py-3 text-muted fw-semibold">Name</th>
-    //                       <th className="border-0 py-3 text-muted fw-semibold">Email</th>
-    //                       <th className="border-0 py-3 text-muted fw-semibold">Department</th>
-    //                       <th className="border-0 py-3 text-muted fw-semibold">Status</th>
-    //                       <th className="border-0 py-3 text-muted fw-semibold text-end">Deactivate</th>
-    //                     </tr>
-    //                   </thead>
-    //                   <tbody>
-    //                     {filteredEmployees.map((employee) => (
-    //                       <tr key={employee.id}>
-    //                         <td className="ps-4 py-3">
-    //                           <div className="d-flex align-items-center gap-3">
-    //                             <div className="rounded-circle bg-light d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
-    //                               <span className="fw-bold text-primary">{employee.avatar}</span>
-    //                             </div>
-    //                             <span className="fw-medium">{employee.name}</span>
-    //                           </div>
-    //                         </td>
-    //                         <td className="py-3 text-muted">{employee.email}</td>
-    //                         <td className="py-3 text-muted">{employee.department}</td>
-    //                         <td className="py-3">
-    //                           <span className={`badge ${
-    //                             employee.status === "Active" 
-    //                               ? "bg-success bg-opacity-10 text-success" 
-    //                               : employee.status === "Pending"
-    //                               ? "bg-warning bg-opacity-10 text-warning"
-    //                               : "bg-danger bg-opacity-10 text-danger"
-    //                           }`}>
-    //                             {employee.status}
-    //                           </span>
-    //                         </td>
-    //                         <td className="py-3 text-end">
-    //                           <div className="form-check form-switch d-inline-block" style={{ width: "3.5em", textAlign: "right" }}>
-    //                             <input
-    //                               className="form-check-input"
-    //                               type="checkbox"
-    //                               role="switch"
-    //                               checked={employee.status === "Active"}
-    //                               onChange={(e) => {
-    //                                 handleStatusChange(employee.id, e.target.checked);
-    //                               }}
-    //                               style={{ width: "2.5em", height: "1.25em" }}
-    //                             />
-    //                           </div>
-    //                         </td>
-    //                       </tr>
-    //                     ))}
-    //                   </tbody>
-    //                 </table>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </>
-    //   );
-    // };
-    // export default EmployeeTable;
+    return (_jsx("div", { className: "card border-0 shadow-sm", children: _jsxs("div", { className: "card-body", children: [_jsx("div", { className: "row mb-3", children: _jsx("div", { className: "col-12", children: _jsx("div", { className: "d-flex justify-content-between align-items-center", children: _jsxs("div", { className: "position-relative", style: { width: "300px" }, children: [_jsx(Search, { className: "position-absolute top-50 start-0 translate-middle-y ms-3 text-muted", size: 16 }), _jsx("input", { type: "search", placeholder: "Search employees...", className: "form-control ps-5", value: searchQuery, onChange: (e) => onSearchChange(e.target.value) })] }) }) }) }), _jsx(AddEmployeeForm, { showModal: showModal, onClose: () => setShowModal(false), onEmployeeAdded: handleEmployeeAdded }), _jsx("div", { className: "table-responsive", children: _jsxs("table", { className: "table table-hover mb-0", children: [_jsx("thead", { className: "bg-light", children: _jsxs("tr", { children: [_jsx("th", { className: "border-0 ps-4 py-3 text-muted fw-semibold", children: "Worker" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold", children: "Email" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold", children: "Department" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold", children: "Status" }), _jsx("th", { className: "border-0 py-3 text-muted fw-semibold text-end", children: "Actions" })] }) }), _jsx("tbody", { children: isLoading ? (_jsx("tr", { children: _jsxs("td", { colSpan: 5, className: "text-center py-5", children: [_jsx("div", { className: "spinner-border text-primary", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading..." }) }), _jsx("p", { className: "mt-2 text-muted", children: "Fetching employees..." })] }) })) : filteredEmployees.length === 0 ? (_jsx("tr", { children: _jsx("td", { colSpan: 5, className: "text-center py-5 text-muted", children: "No employees found." }) })) : (filteredEmployees.map((employee) => (_jsxs("tr", { children: [_jsx("td", { className: "ps-4 py-3", children: _jsxs("div", { className: "d-flex align-items-center gap-3", children: [_jsx("div", { className: "rounded-circle bg-light d-flex align-items-center justify-content-center", style: { width: "40px", height: "40px" }, children: _jsx("span", { className: "fw-bold text-primary", children: employee.avatar }) }), _jsx("span", { className: "fw-medium", children: employee.name })] }) }), _jsx("td", { className: "py-3 text-muted", children: employee.email }), _jsx("td", { className: "py-3 text-muted", children: employee.department }), _jsx("td", { className: "py-3", children: _jsx("span", { className: `badge ${employee.status === "active"
+                                                    ? "bg-success bg-opacity-10 text-success"
+                                                    : employee.status === "pending"
+                                                        ? "bg-warning bg-opacity-10 text-warning"
+                                                        : "bg-danger bg-opacity-10 text-danger"}`, children: employee.status.charAt(0).toUpperCase() + employee.status.slice(1) }) }), _jsx("td", { className: "py-3 text-end", children: _jsx("div", { className: "d-flex justify-content-end gap-2", children: _jsx("button", { className: `btn btn-sm ${employee.status === "inactive"
+                                                        ? "btn-outline-success"
+                                                        : "btn-outline-warning"}`, onClick: () => {
+                                                        const newStatus = employee.status === "inactive" ? "active" : "inactive";
+                                                        toast({
+                                                            message: `Employee status changed to ${newStatus}`,
+                                                            duration: 3000,
+                                                        });
+                                                        // TODO: Dispatch action to update employee status in Redux store
+                                                    }, children: employee.status === "inactive" ? "Reactivate" : "Deactivate" }) }) })] }, employee.id)))) })] }) }), _jsxs("div", { className: "d-flex justify-content-between align-items-center mt-3", children: [_jsxs("div", { className: "text-muted", children: ["Showing ", filteredEmployees.length, " of ", allEmployees.length, " employees"] }), _jsxs("div", { className: "d-flex gap-2", children: [_jsx("button", { className: "btn btn-sm btn-outline-secondary", children: "Previous" }), _jsx("button", { className: "btn btn-sm btn-outline-secondary", children: "Next" })] })] })] }) }));
 };
+export default EmployeeTable;

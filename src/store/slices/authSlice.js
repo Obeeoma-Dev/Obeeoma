@@ -233,7 +233,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
-            // *** ✅ FIX: ADD RESEND OTP THUNK REDUCERS ***
+            // *** FIX: ADD RESEND OTP THUNK REDUCERS ***
             .addCase(resendOtpThunk.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -246,7 +246,6 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         });
-        // **********************************************
     },
 });
 export const { logout, clearError, clearAuthStatus } = authSlice.actions;

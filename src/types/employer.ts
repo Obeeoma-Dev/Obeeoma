@@ -153,7 +153,7 @@ export interface EmployerState {
   // moodTrends: raw mood entries returned from API (contains moodLevel, date, employeeName, employeeDepartment)
   moodTrends: any[];
   // employees: list of employee records for the employer
-  employees: Employee[];
+  // employees: Employee[];
   isLoading: boolean;
   isActionLoading: boolean;
   error: string | null;

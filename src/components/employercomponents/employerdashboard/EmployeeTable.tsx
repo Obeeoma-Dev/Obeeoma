@@ -4,7 +4,7 @@ import AddEmployeeForm from "../companyemployees/AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError} from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite } from "../../../types/employer";
-import { RootState } from "../../../store/store";
+import { RootState, AppDispatch  } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
 
 // Define the required structure of the data received from the Redux state
@@ -30,7 +30,7 @@ interface EmployeeTableProps {
 }
 
 const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { toast } = useToast();
 
   // 1. SELECT STATE WITH CORRECT TYPE MAPPING
@@ -55,10 +55,16 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
+
+  const dispatch = useDispatch<AppDispatch>(); 
+
+// Now, TypeScript knows this dispatch function can handle thunks
+// and the error will be resolved.
+dispatch(fetchEmployeeInvites());
   // Fetch employee invites on component mount
-  useEffect(() => {
-    dispatch(fetchEmployeeInvites());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchEmployeeInvites());
+  // }, [dispatch]);
 
   // Handle errors
   useEffect(() => {
