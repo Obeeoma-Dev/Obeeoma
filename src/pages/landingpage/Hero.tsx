@@ -1,4 +1,7 @@
+// Import React and required hooks
 import React, { useEffect } from "react";
+
+// Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
 import heroImage from "@/assets/Images/headerimage.png";
 

@@ -62,6 +62,7 @@ export default function OtpVerificationPage() {
             window.alert('New verification code sent to your email! Please check your inbox.');
             setOtp(''); // Clear OTP input
             setResendTimer(RESEND_COOLDOWN_SECONDS); // Start the cooldown timer
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (err) {
             console.error('Resend Failed:', err);
@@ -89,6 +90,7 @@ export default function OtpVerificationPage() {
             // On SUCCESS, redirect
             navigate('/reset-password', { replace: true });
         })
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .catch((err) => {
             console.error('OTP Verification Failed:', err);
             const errorMessage = err?.message || 'Verification failed. Please check the code.';

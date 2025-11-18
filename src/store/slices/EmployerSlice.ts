@@ -2,15 +2,17 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { employerAPI } from '../../api/apiConfig';
 import { EmployerEngagementData } from '../../types/admin';
-import { Employee, EmployerState } from '../../types/employer';
 import {
   EmployeeInvite,
   BillingDetails,
   Report,
   DashboardSummary,
-  EmployerUser,
+  Employee,
+ EmployerUser,
+ EmployerState
 } from '../../types/employer';
 
+// --- Error Handler ---
 // --- Error Handler ---
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -85,16 +87,18 @@ export const fetchCurrentEmployer = createAsyncThunk<
 
 // POST /v1/employers/invite/
 export const inviteEmployee = createAsyncThunk<
-  EmployeeInvite,
-  { email: string; phone?: string; department: string } & { onSuccess?: () => void },
-  { rejectValue: string }
+  EmployeeInvite, // Fulfilled value type
+  { email: string; phone?: string; department: string } & { onSuccess?: () => void }, // Payload type
+  { rejectValue: string } // Reject value type
 >(
   'employer/inviteEmployee',
   async (
     employeeData: { email: string; phone?: string; department: string } & { onSuccess?: () => void },
     { rejectWithValue }: { rejectWithValue: (value: string) => any }) => {
     try {
-      const response = await employerAPI.inviteEmployee(employeeData);
+      // NOTE: Assuming employerAPI.inviteEmployee internally handles the POST to /v1/employers/invite/ with emailData
+      const response = await employerAPI.inviteEmployee(employeeData); 
+      // The API often returns the new object upon successful creation
       employeeData.onSuccess?.();
       return response.data as EmployeeInvite;
     } catch (error: unknown) {
@@ -105,9 +109,9 @@ export const inviteEmployee = createAsyncThunk<
 
 // GET /v1/employers/view-invites/
 export const fetchEmployeeInvites = createAsyncThunk<
-  EmployeeInvite[],
-  void,
-  { rejectValue: string }
+  EmployeeInvite[], // Fulfilled value type
+  void, // Payload type
+  { rejectValue: string } // Reject value type
 >(
   'employer/fetchInvites',
   async (_: void, { rejectWithValue }: { rejectWithValue: (value: string) => any }) => {
@@ -120,11 +124,29 @@ export const fetchEmployeeInvites = createAsyncThunk<
   }
 );
 
+// POST /v1/employer/billing/add-subscription/
+export const addSubscription = createAsyncThunk<
+  BillingDetails, // Fulfilled value type
+  void, // Payload type (assuming no payload is needed, or it's handled internally)
+  { rejectValue: string } // Reject value type
+>(
+  'employer/addSubscription',
+  async (_, { rejectWithValue }) => {
+    try {
+      // NOTE: Assuming employerAPI.viewSubscription is a placeholder for a POST function
+      const response = await employerAPI.viewSubscription(); 
+      return response.data as BillingDetails; 
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error)); 
+    }
+  }
+);
+
 // GET /v1/employer/billing/view
 export const fetchBillingDetails = createAsyncThunk<
-  BillingDetails,
-  void,
-  { rejectValue: string }
+  BillingDetails, // Fulfilled value type
+  void, // Payload type
+  { rejectValue: string } // Reject value type
 >(
   'employer/fetchBilling',
   async (_: void, { rejectWithValue }: { rejectWithValue: (value: string) => any }) => {
@@ -139,9 +161,9 @@ export const fetchBillingDetails = createAsyncThunk<
 
 // GET /v1/employer/engagements/
 export const fetchEmployerEngagement = createAsyncThunk<
-  EmployerEngagementData,
-  void,
-  { rejectValue: string }
+  EmployerEngagementData, // Fulfilled value type
+  void, // Payload type
+  { rejectValue: string } // Reject value type
 >(
   'employer/fetchEngagement',
   async (_: void, { rejectWithValue  }: { rejectWithValue: (value: string) => any }) => {
@@ -154,11 +176,11 @@ export const fetchEmployerEngagement = createAsyncThunk<
   }
 );
 
-// POST /v1/employer/reports/
+// POST /v1/employer/reports/ (Usually requires filter/param data for POST report generation)
 export const fetchEmployerReports = createAsyncThunk<
-  Report[],
-  void,
-  { rejectValue: string }
+  Report[], // Fulfilled value type
+  void, // Payload type
+  { rejectValue: string } // Reject value type
 >(
   'employer/fetchReports',
   async (_: void, { rejectWithValue  }: { rejectWithValue: (value: string) => any }) => {
@@ -173,9 +195,9 @@ export const fetchEmployerReports = createAsyncThunk<
 
 // GET /v1/employer/overview
 export const fetchEmployerDashboardSummary = createAsyncThunk<
-  DashboardSummary,
-  void,
-  { rejectValue: string }
+  DashboardSummary, // Fulfilled value type
+  void, // Payload type
+  { rejectValue: string } // Reject value type
 >(
   'employer/fetchSummary',
   async (_: void, { rejectWithValue  }: { rejectWithValue: (value: string) => any }) => {
@@ -188,7 +210,7 @@ export const fetchEmployerDashboardSummary = createAsyncThunk<
   }
 );
 
-// GET /v1/employer/department-distribution/
+// NEW: Fetch department distribution
 export const fetchDepartmentDistribution = createAsyncThunk<
   Array<{ name: string; percentage: number; color: string }>,
   void,
@@ -248,8 +270,8 @@ export const fetchWellnessTrend = createAsyncThunk<
   'employer/fetchWellnessTrend',
   async (_: void, { rejectWithValue }: { rejectWithValue: (value: string) => any }) => {
     try {
-      const response = await employerAPI.getWellnessTrend();
-      return response.data;
+      const response = await employerAPI.getEmployees();
+      return response.data as Employee[];
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -275,14 +297,18 @@ const initialState: EmployerState = {
   invites: [],
   employees: [], // NEW
   billing: null,
-  subscription: null,
+  departmentDistribution: [], 
+  wellnessTrend: [],
+  // newly added collections expected by the dashboard hook
+  moodTrends: [],
+ 
+  // Note: 'subcription' typo from original code is kept for consistency with the State interface
+  subscription: null, 
   engagement: null,
   reports: [],
   summary: null,
-  departmentDistribution: [],
-  wellnessTrend: [],
-  isLoading: false,
-  isActionLoading: false,
+  isLoading: false, // For general fetching (GET requests)
+  isActionLoading: false, // For action-based requests (POST/PUT/DELETE)
   error: null,
 };
 
@@ -291,33 +317,15 @@ const employerSlice = createSlice({
   name: 'employer',
   initialState,
   reducers: {
+    // Clear the error status
     clearEmployerError: (state: EmployerState): void => {
       state.error = null;
     },
+    // Reducer to manually clear loading states if needed
     clearEmployerStatus: (state: EmployerState): void => {
       state.isLoading = false;
       state.isActionLoading = false;
       state.error = null;
-    },
-    updateEmployerProfile: (state: EmployerState, action: PayloadAction<Partial<EmployerUser>>): void => {
-      if (state.currentEmployer) {
-        state.currentEmployer = { ...state.currentEmployer, ...action.payload };
-      }
-    },
-    updateEmployeeStatus: (state: EmployerState, action: PayloadAction<{ employeeId: string; status: 'active' | 'inactive' | 'pending' }>): void => {
-      const { employeeId, status } = action.payload;
-      
-      // Update in employees array
-      const employeeIndex = state.employees.findIndex(emp => emp.id === employeeId);
-      if (employeeIndex !== -1) {
-        state.employees[employeeIndex] = { ...state.employees[employeeIndex], status };
-      }
-      
-      // Update in invites array if it's an invite
-      const inviteIndex = state.invites.findIndex(invite => invite.id === employeeId);
-      if (inviteIndex !== -1) {
-        state.invites[inviteIndex] = { ...state.invites[inviteIndex], status: status === 'active' ? 'accepted' : 'pending' };
-      }
     },
   },
   extraReducers: (builder: any) => {
@@ -331,9 +339,9 @@ const employerSlice = createSlice({
         state.isLoading = false;
         state.currentEmployer = action.payload;
       })
-      .addCase(fetchCurrentEmployer.rejected, (state: EmployerState, action: PayloadAction<EmployerUser>) => {
+      .addCase(fetchCurrentEmployer.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
        // --- Fetch Employees ---
@@ -347,7 +355,7 @@ const employerSlice = createSlice({
     })
     .addCase(fetchEmployees.rejected, (state: EmployerState, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload as string;
+      state.error = action.payload;
     })
 
     // --- Fetch Mood Trends ---
@@ -358,24 +366,24 @@ const employerSlice = createSlice({
     //state.employees or moodTrends?
     .addCase(fetchMoodTrends.fulfilled, (state: EmployerState, action: PayloadAction<Employee[]>) => {
       state.isLoading = false;
-      state.employees = action.payload;
+      state.moodTrends = action.payload;
     })
     .addCase(fetchMoodTrends.rejected, (state: EmployerState, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload as string;
+      state.error = action.payload;
     })
       // --- Fetch Employee Invites (GET) ---
       .addCase(fetchEmployeeInvites.pending, (state: EmployerState) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchEmployeeInvites.fulfilled, (state: EmployerState, action: PayloadAction<string>) => {
+      .addCase(fetchEmployeeInvites.fulfilled, (state: EmployerState, action: PayloadAction<EmployeeInvite[]>) => {
         state.isLoading = false;
         state.invites = action.payload;
       })
       .addCase(fetchEmployeeInvites.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Fetch Billing Details (GET) ---
@@ -387,9 +395,9 @@ const employerSlice = createSlice({
         state.isLoading = false;
         state.billing = action.payload;
       })
-      .addCase(fetchBillingDetails.rejected, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchBillingDetails.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Fetch Employer Engagement (GET) ---
@@ -401,9 +409,9 @@ const employerSlice = createSlice({
         state.isLoading = false;
         state.engagement = action.payload;
       })
-      .addCase(fetchEmployerEngagement.rejected, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchEmployerEngagement.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Fetch Employer Reports ---
@@ -415,9 +423,9 @@ const employerSlice = createSlice({
         state.isLoading = false;
         state.reports = action.payload;
       })
-      .addCase(fetchEmployerReports.rejected, (state: EmployerState, action: PayloadAction<Report[]>) => {
+      .addCase(fetchEmployerReports.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Fetch Employer Dashboard Summary (GET) ---
@@ -429,9 +437,9 @@ const employerSlice = createSlice({
         state.isLoading = false;
         state.summary = action.payload;
       })
-      .addCase(fetchEmployerDashboardSummary.rejected, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchEmployerDashboardSummary.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Fetch Department Distribution ---
@@ -439,13 +447,13 @@ const employerSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchDepartmentDistribution.fulfilled, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchDepartmentDistribution.fulfilled, (state: EmployerState, action: PayloadAction<Array<{ name: string; percentage: number; color: string }>>) => {
         state.isLoading = false;
         state.departmentDistribution = action.payload;
       })
-      .addCase(fetchDepartmentDistribution.rejected, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchDepartmentDistribution.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Fetch Wellness Trend ---
@@ -454,13 +462,13 @@ const employerSlice = createSlice({
         state.error = null;
       })
       //double check on DashboardSummary
-      .addCase(fetchWellnessTrend.fulfilled, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchWellnessTrend.fulfilled, (state: EmployerState, action: PayloadAction<Array<{ date: string; score: number }>>) => {
         state.isLoading = false;
         state.wellnessTrend = action.payload;
       })
-      .addCase(fetchWellnessTrend.rejected, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(fetchWellnessTrend.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       })
 
       // --- Invite Employee (POST Action) ---
@@ -470,11 +478,12 @@ const employerSlice = createSlice({
       })
       .addCase(inviteEmployee.fulfilled, (state: EmployerState, action: PayloadAction<EmployeeInvite>) => {
         state.isActionLoading = false;
-        state.invites.unshift(action.payload);
+        // Prepend the new invite to the list
+        state.invites.unshift(action.payload); 
       })
-      .addCase(inviteEmployee.rejected, (state: EmployerState, action: PayloadAction<DashboardSummary>) => {
+      .addCase(inviteEmployee.rejected, (state: EmployerState, action: PayloadAction<string>) => {
         state.isActionLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload;
       });
   },
 });

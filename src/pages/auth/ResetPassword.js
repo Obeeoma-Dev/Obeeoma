@@ -11,8 +11,8 @@ const ResetPasswordSignIn = () => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    // Renamed isEmailSent to isCodeSentSuccess for clarity on resend logic
-    const [isCodeSentSuccess, setIsCodeSentSuccess] = useState(false);
+    // FIX: Removed the unused state variable
+    // const [isCodeSentSuccess, setIsCodeSentSuccess] = useState(false); 
     const navigate = useNavigate();
     // Unified function for sending/resending the password reset code
     const sendPasswordResetCode = async (e) => {
@@ -23,7 +23,8 @@ const ResetPasswordSignIn = () => {
             return;
         }
         setIsLoading(true);
-        setIsCodeSentSuccess(false); // Reset success state on a new attempt
+        // FIX: Removed the setter call for the removed state
+        // setIsCodeSentSuccess(false); // Reset success state on a new attempt
         try {
             const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password/";
             const response = await fetch(API_URL, {
@@ -37,7 +38,8 @@ const ResetPasswordSignIn = () => {
                 const errorData = await response.json();
                 throw new Error(errorData.message || `Failed to send code with status: ${response.status}`);
             }
-            setIsCodeSentSuccess(true);
+            // FIX: Removed the setter call for the removed state
+            // setIsCodeSentSuccess(true);
             // Navigate only if the API call is successful and an email is sent
             navigate("/otp-verify");
         }
@@ -50,7 +52,8 @@ const ResetPasswordSignIn = () => {
                 errorMessage = err.message;
             }
             setError(errorMessage);
-            setIsCodeSentSuccess(false); // Ensure success state is false on error
+            // FIX: Removed the setter call for the removed state
+            // setIsCodeSentSuccess(false); // Ensure success state is false on error
         }
         finally {
             setIsLoading(false);
@@ -65,6 +68,7 @@ const ResetPasswordSignIn = () => {
         // Resend the code using the unified function
         sendPasswordResetCode();
     };
+    // The rest of the return statement (JSX) remains the same.
     return (
     // 1. Full Page Container with positioning for the fixed footer
     _jsxs("div", { style: {

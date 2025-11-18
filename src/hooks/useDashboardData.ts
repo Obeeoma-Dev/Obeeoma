@@ -5,9 +5,9 @@ import {
   fetchEmployerDashboardSummary, 
   fetchDepartmentDistribution, 
   fetchWellnessTrend,
-  fetchEmployeeInvites,
+  fetchMoodTrends,
   fetchEmployees,
-  fetchMoodTrends
+  fetchEmployeeInvites,
 } from '../store/slices/EmployerSlice';
 import { Employee } from '../types/employer';
 

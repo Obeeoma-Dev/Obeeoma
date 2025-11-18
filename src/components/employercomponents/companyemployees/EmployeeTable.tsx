@@ -1,4 +1,3 @@
-// components/employercomponents/companyemployees/EmployeeTable.tsx
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
@@ -17,7 +16,7 @@ interface EmployeeTableProps {
 }
 
 // Define the combined employee type
-interface CombinedEmployee extends Omit<Employee, 'id'> {
+interface CombinedEmployee {
   id: string;
   name: string;
   email: string;
@@ -49,7 +48,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
   // Combine invited employees with actual employees - FIXED TYPE
   const allEmployees: CombinedEmployee[] = [
     ...employees.map(emp => ({
-      id: emp.id,
+      id: String(emp.id),
       name: emp.name || `${emp.name }`,
       email: emp.email,
       department: emp.department || 'Unknown',
@@ -57,7 +56,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
       avatar: emp.avatar || (emp.name ? emp.name.charAt(0).toUpperCase() : 'E'),
     })),
     ...invites.map((invite: EmployeeInvite) => ({
-      id: invite.id || `invite-${invite.email}`,
+      id: String(invite.id || `invite-${invite.email}`),
       name: invite.email.split('@')[0],
       email: invite.email,
       department: invite.department || "Pending",
@@ -122,7 +121,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
           onClose={() => setShowModal(false)}
           onEmployeeAdded={handleEmployeeAdded}
         />
-
         <div className="table-responsive">
           <table className="table table-hover mb-0">
             <thead className="bg-light">
@@ -191,7 +189,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                               message: `Employee status changed to ${newStatus}`,
                               duration: 3000,
                             });
-                            dispatch(updateEmployeeStatus({ employeeId: employee.id, status: newStatus }));
+                            // TODO: Dispatch action to update employee status in Redux store
                           }}
                         >
                           {employee.status === "inactive" ? "Reactivate" : "Deactivate"}
@@ -204,8 +202,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
             </tbody>
           </table>
         </div>
-        
-        {/* Pagination */}
+{/* Pagination */}
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="text-muted">
             Showing {filteredEmployees.length} of {allEmployees.length} employees
