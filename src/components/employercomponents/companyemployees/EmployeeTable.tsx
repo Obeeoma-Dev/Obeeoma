@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployeeInvites, clearEmployerError } from '../../../store/slices/EmployerSlice';
+import { fetchEmployeeInvites, clearEmployerError, updateEmployeeStatus } from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite, Employee } from '../../../types/employer';
 import { RootState } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
@@ -18,11 +18,11 @@ interface EmployeeTableProps {
 
 // Define the combined employee type
 interface CombinedEmployee extends Omit<Employee, 'id'> {
-  id: string | number;
+  id: string;
   name: string;
   email: string;
   department: string;
-  status: 'active' | 'pending' | 'inactive';
+  status: string;
   avatar: string;
 }
 
@@ -35,7 +35,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
   const dispatch = useDispatch();
   const { toast } = useToast();
 
-  const { invites, isLoading, isActionLoading, error } = useSelector(
+  const { invites, isLoading, error } = useSelector(
     (state: RootState) => ({
       invites: state.employer.invites,
       isLoading: state.employer.isLoading,
@@ -113,14 +113,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                   onChange={(e) => onSearchChange(e.target.value)}
                 />
               </div>
-              <button 
-                type="button" 
-                className="btn btn-success" 
-                onClick={() => setShowModal(true)} 
-                disabled={isActionLoading}
-              > 
-                {isActionLoading ? 'Sending...' : 'Add Employee'}
-              </button>
             </div>
           </div>
         </div>
@@ -188,16 +180,21 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                     <td className="py-3 text-end">
                       <div className="d-flex justify-content-end gap-2">
                         <button 
-                          className="btn btn-sm btn-outline-primary"
-                          onClick={() => {/* Edit functionality */}}
+                          className={`btn btn-sm ${
+                            employee.status === "inactive" 
+                              ? "btn-outline-success" 
+                              : "btn-outline-warning"
+                          }`}
+                          onClick={() => {
+                            const newStatus = employee.status === "inactive" ? "active" : "inactive";
+                            toast({
+                              message: `Employee status changed to ${newStatus}`,
+                              duration: 3000,
+                            });
+                            dispatch(updateEmployeeStatus({ employeeId: employee.id, status: newStatus }));
+                          }}
                         >
-                          Edit
-                        </button>
-                        <button 
-                          className="btn btn-sm btn-outline-danger"
-                          onClick={() => {/* Remove functionality */}}
-                        >
-                          Remove
+                          {employee.status === "inactive" ? "Reactivate" : "Deactivate"}
                         </button>
                       </div>
                     </td>

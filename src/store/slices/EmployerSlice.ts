@@ -84,7 +84,6 @@ export const fetchCurrentEmployer = createAsyncThunk<
 );
 
 // POST /v1/employers/invite/
-
 export const inviteEmployee = createAsyncThunk<
   EmployeeInvite,
   { email: string; phone?: string; department: string } & { onSuccess?: () => void },
@@ -256,6 +255,20 @@ export const fetchWellnessTrend = createAsyncThunk<
     }
   });
 
+  // POST /v1/employer/billing/add-subscription/
+  export const addSubscription = createAsyncThunk(
+    'dashboard/billing',
+    async (_: void, { rejectWithValue }: { rejectWithValue: (value: unknown) => unknown }) => {
+      try {
+        // NOTE: Assuming employerAPI.viewSubscription is a placeholder for a POST function
+        const response = await employerAPI.viewSubscription(); // Call API without unused param
+        return response.data as BillingDetails; // Return typed billing details
+      } catch (error: unknown) {
+        return rejectWithValue(getErrorMessage(error)); // Handle error gracefully
+      }
+    }
+  );
+
 // --- Initial State ---
 const initialState: EmployerState = {
   currentEmployer: null,
@@ -291,6 +304,21 @@ const employerSlice = createSlice({
         state.currentEmployer = { ...state.currentEmployer, ...action.payload };
       }
     },
+    updateEmployeeStatus: (state: EmployerState, action: PayloadAction<{ employeeId: string; status: 'active' | 'inactive' | 'pending' }>): void => {
+      const { employeeId, status } = action.payload;
+      
+      // Update in employees array
+      const employeeIndex = state.employees.findIndex(emp => emp.id === employeeId);
+      if (employeeIndex !== -1) {
+        state.employees[employeeIndex] = { ...state.employees[employeeIndex], status };
+      }
+      
+      // Update in invites array if it's an invite
+      const inviteIndex = state.invites.findIndex(invite => invite.id === employeeId);
+      if (inviteIndex !== -1) {
+        state.invites[inviteIndex] = { ...state.invites[inviteIndex], status: status === 'active' ? 'accepted' : 'pending' };
+      }
+    },
   },
   extraReducers: (builder: any) => {
     builder
@@ -322,7 +350,6 @@ const employerSlice = createSlice({
       state.error = action.payload as string;
     })
 
-    // --- Fetch Mood Trends ---
     // --- Fetch Mood Trends ---
     .addCase(fetchMoodTrends.pending, (state: EmployerState) => {
       state.isLoading = true;
@@ -452,92 +479,10 @@ const employerSlice = createSlice({
   },
 });
 
-export const { clearEmployerError, clearEmployerStatus, updateEmployerProfile } = employerSlice.actions;
+export const { clearEmployerError, clearEmployerStatus, updateEmployerProfile, updateEmployeeStatus } = employerSlice.actions;
 export default employerSlice.reducer;
 
-// import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-// import axios, { AxiosError } from 'axios';
-// import { employerAPI } from '../../api/apiConfig';
-// import {
-//   EmployerState,
-//   EmployeeInvite,
-//   BillingDetails,
-//   EmployerEngagementData,
-//   Report,
-//   DashboardSummary,
-// } from '../../types/employer';
 
-// // --- Error Handler (Copied from Auth Slice pattern) ---
-// const getErrorMessage = (error: unknown): string => {
-//   if (axios.isAxiosError(error)) {
-//     const axiosError = error as AxiosError;
-//     return (
-//       (axiosError.response?.data as { detail?: string; error?: string })?.detail ||
-//       (axiosError.response?.data as { detail?: string; error?: string })?.error ||
-//       axiosError.message ||
-//       "An unknown error occurred"
-//     );
-//   }
-//   if (error instanceof Error) {
-//     return error.message;
-//   }
-//   return "An unexpected error occurred";
-// };
-
-// export const inviteEmployee = createAsyncThunk(
-//   'employer/inviteEmployee',
-//   async (
-//     emailData: { email: string } & { onSuccess?: () => void }, 
-//     { rejectWithValue }: { rejectWithValue: (value: unknown) => unknown },
-//   ) => {
-//     try {
-//       // NOTE: Assuming employerAPI.inviteEmployee internally uses POST /v1/employers/ with emailData
-//       const response = await employerAPI.inviteEmployee();
-//       emailData.onSuccess?.();
-//       // The API often returns the new object upon successful creation
-//       return response.data as EmployeeInvite;
-//     } catch (error: unknown) {
-//       return rejectWithValue(getErrorMessage(error));
-//     }
-//   }
-// );
-
-// // GET /v1/employers/view-invites/
-// // interface FetchEmployeeInvitesThunkConfig {
-// //   rejectValue: string;
-// // }
-
-// export const fetchEmployeeInvites = createAsyncThunk<
-//   EmployeeInvite[],
-//   void,
-//   // FetchEmployeeInvitesThunkConfig
-//   { rejectValue: string }
-// >(
-//   'employer/fetchInvites',
-//   async (_:void ) => {
-//     try {
-//       const response = await employerAPI.viewInviteEmployee();
-//       return response.data as EmployeeInvite[];
-//     } catch (err) {
-//       return ('Failed to fetch');
-//     }
-//   },
-// );
-
-
-// // POST /v1/employer/billing/add-subscription/
-// export const addSubscription = createAsyncThunk(
-//   'employer/addSubscription',
-//   async (_: void, { rejectWithValue }: { rejectWithValue: (value: unknown) => unknown }) => {
-//     try {
-//       // NOTE: Assuming employerAPI.viewSubscription is a placeholder for a POST function
-//       const response = await employerAPI.viewSubscription(); // Call API without unused param
-//       return response.data as BillingDetails; // Return typed billing details
-//     } catch (error: unknown) {
-//       return rejectWithValue(getErrorMessage(error)); // Handle error gracefully
-//     }
-//   }
-// );
 
 // // GET /v1/employer/billing/view
 // export const fetchBillingDetails = createAsyncThunk(
@@ -592,17 +537,6 @@ export default employerSlice.reducer;
 //   }
 // );
 
-// const initialState: EmployerState = {
-//   invites: [],
-//   billing: null,
-//   subcription: null,
-//   engagement: null,
-//   reports: [],
-//   summary: null,
-//   isLoading: false,
-//   isActionLoading: false,
-//   error: null,
-// };
 
 // const employerSlice = createSlice<EmployerState>({
 //   name: 'employer',
