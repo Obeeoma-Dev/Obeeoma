@@ -53,7 +53,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
       email: emp.email,
       department: emp.department || 'Unknown',
       status: emp.status as 'active' | 'pending' | 'inactive',
-      avatar: emp.avatar || (emp.name ? emp.name.charAt(0).toUpperCase() : 'E'),
     })),
     ...invites.map((invite: EmployeeInvite) => ({
       id: String(invite.id || `invite-${invite.email}`),
@@ -61,7 +60,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
       email: invite.email,
       department: invite.department || "Pending",
       status: (invite.status == 'accepted' ? 'active' : 'pending') as 'active' | 'pending' | 'inactive',
-      avatar: invite.email.charAt(0).toUpperCase(),
     }))
   ];
 
@@ -153,12 +151,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                   <tr key={employee.id}>
                     <td className="ps-4 py-3">
                       <div className="d-flex align-items-center gap-3">
-                        <div 
-                          className="rounded-circle bg-light d-flex align-items-center justify-content-center" 
-                          style={{ width: "40px", height: "40px" }}
-                        >
-                          <span className="fw-bold text-primary">{employee.avatar}</span>
-                        </div>
                         <span className="fw-medium">{employee.name}</span>
                       </div>
                     </td>
@@ -189,7 +181,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                               message: `Employee status changed to ${newStatus}`,
                               duration: 3000,
                             });
-                            // TODO: Dispatch action to update employee status in Redux store
+                            dispatch(updateEmployeeStatus({ employeeId: employee.id, status: newStatus as 'active' | 'inactive' | 'pending' }));
                           }}
                         >
                           {employee.status === "inactive" ? "Reactivate" : "Deactivate"}
