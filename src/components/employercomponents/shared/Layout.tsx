@@ -157,10 +157,20 @@ const Layout = ({ children, title }: LayoutProps) => {
               className="d-flex align-items-center justify-content-center"
               style={{
                 transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
-                transition: 'transform 0.6s ease-in-out'
+                transition: 'transform 0.6s ease-in-out',
+                margin: '0.5rem 0',
+                padding: '0.75rem 1rem'
               }}
             >
-              <img src={logo} alt="logo" />
+              <img 
+                src={logo} 
+                alt="logo"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  objectFit: 'contain'
+                }}
+              />
             </div>
           </button>
           <button 
