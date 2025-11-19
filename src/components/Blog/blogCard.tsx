@@ -24,7 +24,7 @@ export function BlogCard({
     featured = false,
     animationDelay = 0,
 }: BlogCardProps) {
-    const [isHovered, setIsHovered] = useState(false)
+    const [, setIsHovered] = useState(false)
     return (
         <Card
             className={`blog-card h-100 ${featured ? 'blog-card-featured' : ''}`}

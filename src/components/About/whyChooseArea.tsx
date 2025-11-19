@@ -5,7 +5,7 @@ import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
 // Import icon from Lucide React library
-import { Sparkles, DollarSign, Lock, Globe, CheckCircleIcon } from 'lucide-react';
+import { Sparkles, DollarSign, Lock, Globe } from 'lucide-react';
 
 // Import custom scroll animation hook
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';

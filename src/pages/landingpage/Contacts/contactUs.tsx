@@ -1,7 +1,7 @@
 // ContactPage.tsx
 import React, { useEffect, useState } from 'react';
 // Importing icons from lucide-react
-import { Phone, Mail, Facebook, Twitter, Instagram } from 'lucide-react';
+import { Phone, Mail } from 'lucide-react';
 // Importing custom components from other files
 import { ContactCard } from '../../../components/Contactus/contactCard';
 import { ContactForm } from '../../../components/Contactus/contactForm';

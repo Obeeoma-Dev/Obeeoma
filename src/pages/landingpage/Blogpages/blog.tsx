@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { Facebook, Twitter, Instagram } from 'lucide-react'
 import { BlogCard } from '../../../components/Blog/blogCard';
 import { BlogHero } from '../../../components/Blog/blogHero';
 // import { CategoryFilter } from '../../../components/Blog/categoryFilter';
@@ -111,9 +110,9 @@ const blogData: Blog[] = [
     },
 ];
 
-const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
+// const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
 export function Blog() {
-    const [activeCategory, setActiveCategory] = useState('All')
+    const [activeCategory] = useState('All')
     const [filteredBlogs, setFilteredBlogs] = useState(blogData)
     const [, setIsVisible] = useState(false)
     useEffect(() => {
