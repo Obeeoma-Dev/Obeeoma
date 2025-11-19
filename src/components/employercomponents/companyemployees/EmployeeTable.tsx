@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployeeInvites, clearEmployerError, updateEmployeeStatus } from '../../../store/slices/EmployerSlice';
+import { fetchEmployeeInvites, clearEmployerError } from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite, Employee } from '../../../types/employer';
 import { RootState } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
@@ -22,14 +22,13 @@ interface CombinedEmployee {
   email: string;
   department: string;
   status: string;
-  avatar: string;
 }
 
-const EmployeeTable: React.FC<EmployeeTableProps> = ({ 
-  searchQuery, 
-  onSearchChange, 
-  employees: propEmployees,
-  onEmployeeAdded 
+const EmployeeTable: React.FC<EmployeeTableProps> = ({
+  searchQuery,
+  onSearchChange,
+  employees,
+  onEmployeeAdded
 }) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
@@ -47,10 +46,10 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
 
   // Combine invited employees with actual employees - FIXED TYPE
   const allEmployees: CombinedEmployee[] = [
-    ...employees.map(emp => ({
+    ...(employees || []).map((emp: Employee) => ({
       id: String(emp.id),
       name: emp.name || `${emp.name }`,
-      email: emp.email,
+      email: emp.email || '',
       department: emp.department || 'Unknown',
       status: emp.status as 'active' | 'pending' | 'inactive',
     })),
@@ -77,8 +76,8 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
     }
   }, [error, toast, dispatch]);
 
-  const filteredEmployees = displayEmployees.filter(
-    (emp) =>
+  const filteredEmployees = allEmployees.filter(
+    (emp: CombinedEmployee) =>
       emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
@@ -147,7 +146,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                   </td>
                 </tr>
               ) : (
-                filteredEmployees.map((employee) => (
+                filteredEmployees.map((employee: CombinedEmployee) => (
                   <tr key={employee.id}>
                     <td className="ps-4 py-3">
                       <div className="d-flex align-items-center gap-3">
@@ -169,20 +168,13 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
                     </td>
                     <td className="py-3 text-end">
                       <div className="d-flex justify-content-end gap-2">
-                        <button 
+                        <button
                           className={`btn btn-sm ${
-                            employee.status === "inactive" 
-                              ? "btn-outline-success" 
+                            employee.status === "inactive"
+                              ? "btn-outline-success"
                               : "btn-outline-warning"
                           }`}
-                          onClick={() => {
-                            const newStatus = employee.status === "inactive" ? "active" : "inactive";
-                            toast({
-                              message: `Employee status changed to ${newStatus}`,
-                              duration: 3000,
-                            });
-                            dispatch(updateEmployeeStatus({ employeeId: employee.id, status: newStatus as 'active' | 'inactive' | 'pending' }));
-                          }}
+                          disabled
                         >
                           {employee.status === "inactive" ? "Reactivate" : "Deactivate"}
                         </button>

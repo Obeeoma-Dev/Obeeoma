@@ -40,6 +40,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
       const result = await dispatch(inviteEmployee({
         email: data.email,
         department: data.department,
+        
         onSuccess: () => {
           reset();
           onEmployeeAdded();
@@ -63,8 +64,8 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
       } else if (inviteEmployee.rejected.match(result)) {
         toast({
           title: "Error",
-          description: result.payload || "Failed to add employee. Please try again.",
-          message: result.payload || "Failed to add employee. Please try again.",
+          description: (result.payload as string) || "Failed to add employee. Please try again.",
+          message: (result.payload as string) || "Failed to add employee. Please try again.",
         });
       }
     } catch (error) {
@@ -202,19 +203,20 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                 <br />
                 <input type="file" className="form-control-file mt-1" id="upload-excel" accept=".xlsx,.xls,.csv" />
               </div>
+
+              <button
+                type="submit"
+                className="btn btn-success"
+                disabled={isActionLoading}
+              >
+                {isActionLoading ? 'Adding...' : 'Add Employee'}
+              </button>
             </form>
           </div>
           <div className="modal-footer">
             <button
-              type="submit"
-              className="btn btn-success"
-              disabled={isActionLoading}
-            >
-              {isActionLoading ? 'Adding...' : 'Add Employee'}
-            </button>
-            <button 
-              type="button" 
-              className="btn btn-secondary" 
+              type="button"
+              className="btn btn-secondary"
               onClick={handleClose}
               disabled={isActionLoading}
             >

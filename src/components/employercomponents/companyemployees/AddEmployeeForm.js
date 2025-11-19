@@ -5,16 +5,19 @@ import * as z from "zod";
 import { useToast } from "../../../hooks/use-toast";
 import { inviteEmployee, fetchEmployeeInvites } from "../../../store/slices/EmployerSlice";
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from "react";
 const employeeSchema = z.object({
     email: z.email("Please enter a valid email address").trim(),
     phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
     department: z.string().min(1, "Please select a department"),
+    otherDepartment: z.string().optional(),
 });
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
     const dispatch = useDispatch();
     const { toast } = useToast();
     const { isActionLoading, error } = useSelector((state) => state.employer);
-    const { register, handleSubmit, formState: { errors }, reset, } = useForm({
+    const [selectedDepartment, setSelectedDepartment] = useState("");
+    const { register, handleSubmit, formState: { errors }, reset, watch, } = useForm({
         resolver: zodResolver(employeeSchema),
     });
     const onSubmit = async (data) => {
@@ -22,8 +25,11 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
             // Transform form data to match API expectations (use email directly, not emailAddress)
             const result = await dispatch(inviteEmployee({
                 email: data.email,
-                phone: data.phone,
                 department: data.department,
+                onSuccess: () => {
+                    reset();
+                    onEmployeeAdded();
+                },
             }));
             // Check if the thunk was fulfilled
             if (inviteEmployee.fulfilled.match(result)) {
@@ -61,7 +67,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
     };
     if (!showModal)
         return null;
-    return (_jsx("div", { className: "modal fade show d-block", tabIndex: -1, role: "dialog", style: { backgroundColor: 'rgba(0,0,0,0.5)' }, children: _jsx("div", { className: "modal-dialog modal-dialog-centered", role: "document", children: _jsxs("div", { className: "modal-content", children: [_jsxs("div", { className: "modal-header", children: [_jsx("h5", { className: "modal-title fw-semibold", children: "Invite Employee" }), _jsx("button", { type: "button", className: "close border-0 bg-transparent", onClick: handleClose, style: { fontSize: '1.5rem' }, children: _jsx("span", { "aria-hidden": "true", children: "\u00D7" }) })] }), _jsx("div", { className: "modal-body", children: _jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [_jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "employee-email", className: "form-label fw-medium", children: "Email address:" }), _jsx("input", { type: "email", className: `form-control ${errors.email ? 'is-invalid' : ''}`, id: "employee-email", placeholder: "Enter employee email", ...register("email") }), errors.email && (_jsx("div", { className: "invalid-feedback d-block", children: errors.email.message }))] }), _jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "phone", className: "form-label fw-medium", children: "Phone number (optional):" }), _jsx("input", { type: "tel", className: `form-control ${errors.phone ? 'is-invalid' : ''}`, id: "phone", placeholder: "Enter phone number", ...register("phone") }), errors.phone && (_jsx("div", { className: "invalid-feedback d-block", children: errors.phone.message }))] }), _jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "department", className: "form-label fw-medium", children: "Department:" }), _jsxs("select", { className: `form-select ${errors.department ? 'is-invalid' : ''}`, id: "department", ...register("department"), children: [_jsx("option", { value: "", children: "Select department" }), _jsx("option", { value: "Marketing", children: "Marketing" }), _jsx("option", { value: "HR", children: "HR" }), _jsx("option", { value: "Finance", children: "Finance" }), _jsx("option", { value: "Engineering", children: "Engineering" }), _jsx("option", { value: "Other", children: "Other" })] }), errors.department && (_jsx("div", { className: "invalid-feedback d-block", children: errors.department.message }))] }), _jsxs("div", { className: "form-group mt-1 mb-3", children: [_jsx("button", { type: "button", className: "btn btn-link p-0 text-decoration-none", title: "Upload an excel document", onClick: (e) => {
+    return (_jsx("div", { className: "modal fade show d-block", tabIndex: -1, role: "dialog", style: { backgroundColor: 'rgba(0,0,0,0.5)' }, children: _jsx("div", { className: "modal-dialog modal-dialog-centered", role: "document", children: _jsxs("div", { className: "modal-content", children: [_jsxs("div", { className: "modal-header", children: [_jsx("h5", { className: "modal-title fw-semibold", children: "Invite Employee" }), _jsx("button", { type: "button", className: "close border-0 bg-transparent", onClick: handleClose, style: { fontSize: '1.5rem' }, children: _jsx("span", { "aria-hidden": "true", children: "\u00D7" }) })] }), _jsx("div", { className: "modal-body", children: _jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [_jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "employee-email", className: "form-label fw-medium", children: "Email address:" }), _jsx("input", { type: "email", className: `form-control ${errors.email ? 'is-invalid' : ''}`, id: "employee-email", placeholder: "Enter employee email", ...register("email") }), errors.email && (_jsx("div", { className: "invalid-feedback d-block", children: errors.email.message }))] }), _jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "phone", className: "form-label fw-medium", children: "Phone number (optional):" }), _jsx("input", { type: "tel", className: `form-control ${errors.phone ? 'is-invalid' : ''}`, id: "phone", placeholder: "Enter phone number", ...register("phone") }), errors.phone && (_jsx("div", { className: "invalid-feedback d-block", children: errors.phone.message }))] }), _jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "department", className: "form-label fw-medium", children: "Department:" }), _jsxs("select", { className: `form-select ${errors.department ? 'is-invalid' : ''}`, id: "department", ...register("department"), onChange: (e) => setSelectedDepartment(e.target.value), children: [_jsx("option", { value: "", children: "Select department" }), _jsx("option", { value: "Marketing", children: "Marketing" }), _jsx("option", { value: "HR", children: "HR" }), _jsx("option", { value: "Finance", children: "Finance" }), _jsx("option", { value: "Engineering", children: "Engineering" }), _jsx("option", { value: "Other", children: "Other" })] }), errors.department && (_jsx("div", { className: "invalid-feedback d-block", children: errors.department.message }))] }), selectedDepartment === "Other" && (_jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "other-department", className: "form-label fw-medium", children: "Please specify other department:" }), _jsx("textarea", { className: `form-control ${errors.otherDepartment ? 'is-invalid' : ''}`, id: "other-department", placeholder: "Enter your department name", rows: 3, ...register("otherDepartment") }), errors.otherDepartment && (_jsx("div", { className: "invalid-feedback d-block", children: errors.otherDepartment.message }))] })), _jsxs("div", { className: "form-group mt-1 mb-3", children: [_jsx("button", { type: "button", className: "btn btn-link p-0 text-decoration-none", title: "Upload an excel document", onClick: (e) => {
                                                 e.preventDefault();
                                                 const input = document.getElementById('upload-excel');
                                                 if (!input)
