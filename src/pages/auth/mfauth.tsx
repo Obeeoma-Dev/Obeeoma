@@ -97,11 +97,11 @@ const { mfaSetupData, isLoading, error, isMfaSetupConfirmed, accessToken }: {
                 </div>
             );
         }
-        // Should theoretically not happen if the component is guarded by route/auth checks
+      
         return null; 
     }
 
-    // Main UI Render (Once mfaSetupData is available)
+    // Main UI Render 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 p-3" style={{ backgroundColor: "#f5f5f5" }}>
           <Card className="shadow-sm p-4" style={{ maxWidth: "600px", width: "100%", borderRadius: "8px" }}>
@@ -124,7 +124,7 @@ const { mfaSetupData, isLoading, error, isMfaSetupConfirmed, accessToken }: {
               <div className="secret-key-area text-center mb-4">
                 <p className="mb-1"><strong>Or manually enter Secret Key:</strong></p>
                 <code className="p-2 border rounded d-inline-block" style={{ userSelect: showSecret ? 'text' : 'none', backgroundColor: '#eee' }}>
-                  {showSecret ? mfaSetupData.secret : '••••••••••••••••••••••••••••••••'}
+                  {showSecret ? mfaSetupData.secret : '........'}
                 </code>
                 <Button 
                   variant="link" 

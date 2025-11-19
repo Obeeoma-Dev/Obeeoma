@@ -15,6 +15,8 @@ import Register from "./pages/auth/Register"; // Renamed from CreateAccount in t
 import ResetPassword from "./pages/auth/ResetPassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
+import TermsPage from "./pages/landingpage/Terms";
+import PrivacyPage from "./pages/landingpage/Policy";
 import AcceptInvite from "./pages/auth/accept-invite";
 import MfaSetupPage from "./pages/auth/mfauth";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
@@ -65,6 +67,8 @@ export default function App(): React.ReactElement {
               <Route path="/mfa-setup" element={<MfaSetupPage />} />
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/blog" element={<Blog />} />
 
               {/* === PROTECTED ROUTES WRAPPER (Uncomment to activate) === */}
