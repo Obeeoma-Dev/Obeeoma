@@ -15,6 +15,7 @@ import {authAPI} from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 import {getDashboardRoute} from "../../utils/routing";
+import { RootState } from '../store';
 
 const getErrorMessage = (error: unknown): string => {
     if (axios.isAxiosError(error)) {
@@ -160,36 +161,59 @@ export const resendOtpThunk = createAsyncThunk<
 
 
 //  MFA Thunks
-
-
-// 1. Setup MFA Thunk (Server returns QR code/secret)
 export const setupMfa = createAsyncThunk<
-    MfaSetupData, 
-    void, 
-    { rejectValue: string }
->('auth/setupMfa', async (_, { rejectWithValue }) => {
+    MfaSetupData, // Return type on success
+    void,         // Argument type 
+    { 
+        rejectValue: string; 
+        state: RootState; // ThunkAPI configuration
+    }
+>('auth/setupMfa', async (_, { rejectWithValue, getState }) => {
     try {
-        const response = await authAPI.setupMfa(); 
-        return response.data as MfaSetupData;
+        const state = getState();
+        const accessToken = state.auth.accessToken; // Access token from state
+
+        if (!accessToken) {
+            return rejectWithValue('Authentication token is missing. Cannot start MFA setup.');
+        }
+
+        //  passing the required accessToken
+        // authAPI.fetchMfaSetupData returns MfaSetupData directly, 
+        const response = await authAPI.fetchMfaSetupData(accessToken); 
+        
+        return response; 
     } catch (err: unknown) {
         return rejectWithValue(getErrorMessage(err));
     }
 });
 
-// 2. Confirm MFA Thunk (Send code to verify setup)
+
+
 export const confirmMfa = createAsyncThunk<
     void, // Typically returns nothing or a success message
     { code: string }, 
-    { rejectValue: string }
->('auth/confirmMfa', async (payload, { rejectWithValue }) => {
+    { 
+        rejectValue: string;
+        state: RootState; 
+    } 
+>('auth/confirmMfa', async (payload, { rejectWithValue, getState }) => {
     try {
-        await authAPI.confirmMfa(payload);
-        // Success payload is void, but action.payload will be 'undefined'
+        const state = getState();
+        
+        // The path to your access token will be: state.<reducerName>.<tokenProperty>
+        const accessToken = state.auth.accessToken; // Adjust if 'accessToken' is named differently
+
+        if (!accessToken) {
+            return rejectWithValue('Authentication token is missing. Please log in again.');
+        }
+
+        // Pass the required arguments
+        await authAPI.confirmMfaSetup(payload.code, accessToken); 
+        
     } catch (err: unknown) {
-        return rejectWithValue(getErrorMessage(err));
+        return rejectWithValue(getErrorMessage(err)); 
     }
 });
-
 
 // State Setup
 
@@ -384,7 +408,7 @@ const authSlice = createSlice({
             })
             
             // -----------------------------------
-            // ✅ MFA Confirmation: Verify the code
+            // MFA Confirmation: Verify the code
             // -----------------------------------
             .addCase(confirmMfa.pending, (state) => {
                 state.isLoading = true;

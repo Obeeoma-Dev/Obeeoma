@@ -128,6 +128,18 @@ export const authAPI = {
     resendOtp: (payload) => {
         return api.post('v1/auth/verify-invite', payload);
     },
+    // --- 4. Multi-Factor Authentication (MFA) ---
+    // (Consolidated from the separate exports using the authApiClient wrapper)
+    /** Fetches the necessary data (e.g., QR code URL, secret) to set up MFA. */
+    fetchMfaSetupData: async (accessToken) => {
+        // This function needs the logic from your external authApiClient
+        return authApiClient('/auth/mfa/setup/', 'POST', undefined, accessToken);
+    },
+    /** Confirms the MFA setup by verifying the generated code. */
+    confirmMfaSetup: async (code, accessToken) => {
+        // This function needs the logic from your external authApiClient
+        return authApiClient('/auth/mfa/confirm/', 'POST', { code }, accessToken);
+    },
 };
 //  System Admin Dashboard
 export const adminAPI = {

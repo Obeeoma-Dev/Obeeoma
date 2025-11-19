@@ -1,5 +1,4 @@
-"use strict";
-// src/pages/MfaSetupPage.tsx
+// "use strict";
 import React, { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +53,7 @@ const { mfaSetupData, isLoading, error, isMfaSetupConfirmed, accessToken }: {
         }
         // If accessToken becomes null (due to logout in slice, often from a 401 error), redirect to login
         if (!accessToken) {
-            navigate("/login", { replace: true });
+            navigate("/mfa-setup", { replace: true });
         }
     }, [isMfaSetupConfirmed, accessToken, navigate]);
 
@@ -73,7 +72,7 @@ const { mfaSetupData, isLoading, error, isMfaSetupConfirmed, accessToken }: {
         dispatch(confirmMfa({ code }));
     };
 
-    // --- Render Logic ---
+    
     
     // Show spinner while fetching the initial QR code data
     if (isLoading && !mfaSetupData) {

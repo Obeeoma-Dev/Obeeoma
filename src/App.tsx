@@ -16,6 +16,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
+import MfaSetupPage from "./pages/auth/mfauth";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import PaymentSuccessPage from './pages/EmployerPages/subscription/Successmessage';
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
@@ -61,6 +62,7 @@ export default function App(): React.ReactElement {
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
               <Route path="/accept-invite" element={<AcceptInvite />} />
               <Route path="/otp-verify" element={<OtpVerificationPage />} />
+              <Route path="/mfa-setup" element={<MfaSetupPage />} />
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />

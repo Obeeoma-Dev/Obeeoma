@@ -5,9 +5,13 @@ import {
   RegisterCredentials,
   ForgotPasswordData,
   changePasswordData,
-  OtpVerificationPayload
+  OtpVerificationPayload,
+  MfaSetupData
 
 } from "@/types/auth";
+
+
+declare const authApiClient: any;
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -177,6 +181,33 @@ resendOtp: (payload: OtpVerificationPayload) => {
         return api.post('v1/auth/verify-invite', payload);
     
     },
+
+
+// --- 4. Multi-Factor Authentication (MFA) ---
+    // (Consolidated from the separate exports using the authApiClient wrapper)
+
+    /** Fetches the necessary data (e.g., QR code URL, secret) to set up MFA. */
+    fetchMfaSetupData: async (accessToken: string): Promise<MfaSetupData> => {
+        // This function needs the logic from your external authApiClient
+        return authApiClient(
+            '/auth/mfa/setup/', 
+            'POST', 
+            undefined, 
+            accessToken
+        );
+    },
+
+    /** Confirms the MFA setup by verifying the generated code. */
+    confirmMfaSetup: async (code: string, accessToken: string): Promise<{ detail: string }> => {
+        // This function needs the logic from your external authApiClient
+        return authApiClient(
+            '/auth/mfa/confirm/', 
+            'POST', 
+            { code }, 
+            accessToken
+        );
+    },
+    
 };
 
 //  System Admin Dashboard
