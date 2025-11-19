@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Card } from 'react-bootstrap'
-import { Calendar, Clock, ArrowRight, User } from 'lucide-react'
+import { Calendar, Clock, User } from 'lucide-react'
 interface BlogCardProps {
     id: number
     title: string
@@ -24,10 +24,10 @@ export function BlogCard({
     featured = false,
     animationDelay = 0,
 }: BlogCardProps) {
-    const [isHovered, setIsHovered] = useState(false)
+    const [, setIsHovered] = useState(false)
     return (
         <Card
-            className={`blog-card ${featured ? 'blog-card-featured' : ''}`}
+            className={`blog-card h-100 ${featured ? 'blog-card-featured' : ''}`}
             style={{ animationDelay: `${animationDelay}ms` }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -61,13 +61,13 @@ export function BlogCard({
                         <User size={16} />
                         <span>{author}</span>
                     </div>
-                    <a href="#" className="blog-card-link" style={{ fontFamily: "body" }}>
+                    {/* <a href="#" className="blog-card-link" style={{ fontFamily: "body" }}>
                         Read More
                         <ArrowRight
                             size={16}
                             className={`blog-card-arrow ${isHovered ? 'hovered' : ''}`}
                         />
-                    </a>
+                    </a> */}
                 </div>
             </Card.Body>
         </Card>
