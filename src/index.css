@@ -401,16 +401,16 @@ footer a:hover {
 
 /******************************************/
 /* Styles for the About Us footer section */
-.about-footer-section {
+/* .about-footer-section {
   background-image: url("/images/handsgreeting.jpg");
   /* Replace with your actual image path */
-  background-size: cover;
+/* background-size: cover;
   background-position: center;
-  position: relative;
-}
+  position: relative; */
+/* }
 
 /* Green overlay */
-.about-footer-section::before {
+/* .about-footer-section::before {
   content: "";
   position: absolute;
   top: 0;
@@ -419,14 +419,14 @@ footer a:hover {
   height: 100%;
   background-color: rgba(0, 128, 0, 0.6);
   /* Semi-transparent green */
-  z-index: 1;
-}
+/* z-index: 1;
+} */
 
 /* Ensure content is above overlay */
-.about-footer-section .container {
+/* .about-footer-section .container {
   position: relative;
   z-index: 2;
-}
+} */
 
 
 /*****************************/
@@ -474,7 +474,7 @@ footer a:hover {
 
 /* Make textarea taller inside floating label */
 form .form-floating .form-control.message-textarea {
-  height: 250px;
+  height: 163px;
   /* or whatever height you want */
   resize: none;
   /* optional, prevents user from resizing */
@@ -645,6 +645,12 @@ form .form-floating .form-control.message-textarea {
   padding: 0.75rem 1rem 0.75rem 3rem;
   font-size: 1rem;
   background: transparent;
+  height: 2.5rem;
+  /* Set consistent height */
+  line-height: 9.15rem;
+  /* Vertically center text */
+  padding-left: 3rem;
+  /* Keep space for icon */
 }
 
 .blog-search-input::placeholder {
@@ -674,6 +680,33 @@ form .form-floating .form-control.message-textarea {
     font-size: 0.9rem;
   }
 }
+
+.blog-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* legacy */
+  line-clamp: 3;
+  /* modern */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5rem;
+  /* keeps all excerpts same height */
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
 
 /* 
 ==================================

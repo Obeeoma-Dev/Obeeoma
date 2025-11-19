@@ -27,7 +27,7 @@ export function BlogCard({
     const [isHovered, setIsHovered] = useState(false)
     return (
         <Card
-            className={`blog-card ${featured ? 'blog-card-featured' : ''}`}
+            className={`blog-card h-100 ${featured ? 'blog-card-featured' : ''}`}
             style={{ animationDelay: `${animationDelay}ms` }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

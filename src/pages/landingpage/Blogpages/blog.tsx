@@ -16,6 +16,9 @@ import Dailyhabbits from '../../../assets/Images/dailyhabbits.png';
 import Mentallyhealthyworkplace from '../../../assets/Images/mentallyhealthyworkplaces.png';
 import Breakingstigma from '../../../assets/Images/breackingstigma.png';
 import Mentalhealthawareness from '../../../assets/Images/mentalhealthimage.png';
+
+// Importing the social handle footer.
+import Footer from "../../../components/shared/socialhandlesfooter";
 interface Blog {
     id: number
     title: string
@@ -217,7 +220,7 @@ export function Blog() {
             </div> */}
 
 
-            {/* Footer */}
+            {/* Footer
             <footer className="blog-footer">
                 <Container>
                     <Row className="align-items-center">
@@ -242,7 +245,8 @@ export function Blog() {
                         </Col>
                     </Row>
                 </Container>
-            </footer>
+            </footer> */}
+            <Footer />
 
 
             {/* Floating WhatsApp Button */}

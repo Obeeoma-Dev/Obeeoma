@@ -53,7 +53,7 @@ export function OurStorySection() {
                         md={6}
                         ref={contentRef}
                         style={{
-                            backgroundColor: '#047857', // Tailwind's emerald-700
+                            backgroundColor: '#0B6E45',
                             color: '#ffffff',
                             padding: '2rem',
                             paddingTop: '3rem',
