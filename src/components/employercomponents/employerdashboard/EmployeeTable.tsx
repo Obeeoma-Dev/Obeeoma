@@ -3,7 +3,7 @@ import { Search } from "lucide-react";
 import AddEmployeeForm from "../companyemployees/AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError} from '../../../store/slices/EmployerSlice';
-import { EmployeeInvite } from "../../../types/employer";
+import { EmployeeInvite, Employee } from "../../../types/employer";
 import { RootState } from "../../../store/store";
 import { useToast } from "../../../hooks/use-toast";
 
@@ -13,15 +13,6 @@ interface EmployerStateSubset {
   isLoading: boolean;
   isActionLoading: boolean; // Add isActionLoading for clarity
   error: string | null;
-}
-
-// Define the local type for display in the table
-interface Employee {
-  id: number | string;
-  name: string;
-  email: string;
-  department: string; // Placeholder for now
-  status: string;
 }
 
 interface EmployeeTableProps {
@@ -44,7 +35,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   );
 
   // 2. MAP INVITES TO DISPLAY FORMAT
-  const employees: Employee[] = invites.map((invite): Employee => ({
+  const displayEmployees: Employee[] = invites.map((invite): Employee => ({
     id: invite.id,
     name: invite.email, // Using email as name if actual name isn't available
     email: invite.email,
@@ -57,7 +48,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
   // Fetch employee invites on component mount
   useEffect(() => {
-    dispatch(fetchEmployeeInvites());
+    dispatch(fetchEmployeeInvites() as any);
   }, [dispatch]);
 
   // Handle errors
@@ -73,11 +64,11 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
     }
   }, [error, toast, dispatch]);
 
-  const filteredEmployees = employees.filter(
+  const filteredEmployees = displayEmployees.filter(
     (emp) =>
-      emp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      emp.department.toLowerCase().includes(searchQuery.toLowerCase())
+      (emp.name?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+      (emp.email?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false) ||
+      (emp.department?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
   );
 
   const handleStatusChange = () => {
@@ -112,7 +103,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
     // Optionally re-fetch to ensure data is completely fresh, 
     // though the inviteEmployee thunk should ideally update the state locally.
-    dispatch(fetchEmployeeInvites());
+    dispatch(fetchEmployeeInvites() as any);
   }
 
   return (

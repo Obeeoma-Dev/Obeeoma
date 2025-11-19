@@ -98,10 +98,10 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/", data);
         return response;
     },
-    // changePassword: async (data: ChangePasswordData) => {
-    //   const response = await api.post("/v1/auth/change-password", data);
-    //   return response;
-    // },
+    changePassword: async (data) => {
+        const response = await api.post("/v1/auth/change-password", data);
+        return response;
+    },
     getCurrentUser: async () => {
         const response = await api.get("/v1/auth/me/");
         return response;

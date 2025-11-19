@@ -36,9 +36,12 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
       // Transform form data to match API expectations (use email directly, not emailAddress)
       const result = await dispatch(inviteEmployee({
         email: data.email,
-        phone: data.phone,
         department: data.department,
-      }));
+        onSuccess: () => {
+          reset();
+          onEmployeeAdded();
+        },
+      }) as any);
 
       // Check if the thunk was fulfilled
       if (inviteEmployee.fulfilled.match(result)) {
