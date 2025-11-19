@@ -73,8 +73,7 @@ const Layout = ({ children, title }: LayoutProps) => {
               <button
                 onClick={() => setIsSidebarOpen(true)}
                 className="btn btn-link p-2"
-                style={{ fontFamily: "heading", color: PRIMARY_COLOR }}
-              >
+                style={{ fontFamily: "heading", color: PRIMARY_COLOR }} >
                 <Menu size={24} />
               </button>
             </div>
@@ -97,8 +96,7 @@ const Layout = ({ children, title }: LayoutProps) => {
               <button 
                 className="btn btn-link position-relative p-2"
                 style={{ color: PRIMARY_COLOR }}
-                onClick={() => navigate("/employer-notifications")}
-              >
+                onClick={() => navigate("/employer-notifications")} >
                 <Bell size={20} />
                 <span 
                   className="position-absolute top-0 start-100 translate-middle badge rounded-circle p-1"
@@ -126,8 +124,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                   <li>
                     <button 
                       className="dropdown-item"
-                      onClick={() => navigate("/employer-settings")}
-                    >
+                      onClick={() => navigate("/employer-settings")} >
                       <UserIcon size={16} className="me-2" />
                       My Account
                     </button>
@@ -160,10 +157,20 @@ const Layout = ({ children, title }: LayoutProps) => {
               className="d-flex align-items-center justify-content-center"
               style={{
                 transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
-                transition: 'transform 0.6s ease-in-out'
+                transition: 'transform 0.6s ease-in-out',
+                margin: '0.5rem 0',
+                padding: '0.75rem 1rem'
               }}
             >
-              <img src={logo} alt="logo" />
+              <img 
+                src={logo} 
+                alt="logo"
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  objectFit: 'contain'
+                }}
+              />
             </div>
           </button>
           <button 

@@ -151,6 +151,8 @@ export interface EmployerState {
   departmentDistribution: Array<{ name: string; percentage: number; color: string }>;
   wellnessTrend: Array<{ date: string; score: number }>;
   moodTrends: any[];
+  // employees: list of employee records for the employer
+  // employees: Employee[];
   isLoading: boolean;
   isActionLoading: boolean;
   error: string | null;

@@ -5,11 +5,13 @@ import { useToast } from "../../../hooks/use-toast";
 import { inviteEmployee, fetchEmployeeInvites } from "../../../store/slices/EmployerSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from "../../../store/store";
+import { useState } from "react";
 
 const employeeSchema = z.object({
   email: z.email("Please enter a valid email address").trim(),
   phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
   department: z.string().min(1, "Please select a department"),
+  otherDepartment: z.string().optional(),
 });
 
 type EmployeeFormData = z.infer<typeof employeeSchema>;
@@ -24,9 +26,10 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
   const dispatch = useDispatch<AppDispatch>();
   const { toast } = useToast();
   const { isActionLoading, error } = useSelector((state: RootState) => state.employer);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>("");
 
   const {
-    register, handleSubmit, formState: { errors }, reset,
+    register, handleSubmit, formState: { errors }, reset, watch,
     } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeSchema),
   });
@@ -136,6 +139,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                   className={`form-select ${errors.department ? 'is-invalid' : ''}`}
                   id="department"
                   {...register("department")}
+                  onChange={(e) => setSelectedDepartment(e.target.value)}
                 >
                   <option value="">Select department</option>
                   <option value="Marketing">Marketing</option>
@@ -150,6 +154,24 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                   </div>
                 )}
               </div>
+
+              {selectedDepartment === "Other" && (
+                <div className="form-group mb-3">
+                  <label htmlFor="other-department" className="form-label fw-medium">Please specify other department:</label>
+                  <textarea
+                    className={`form-control ${errors.otherDepartment ? 'is-invalid' : ''}`}
+                    id="other-department"
+                    placeholder="Enter your department name"
+                    rows={3}
+                    {...register("otherDepartment")}
+                  />
+                  {errors.otherDepartment && (
+                    <div className="invalid-feedback d-block">
+                      {errors.otherDepartment.message}
+                    </div>
+                  )}
+                </div>
+              )}
               
               <div className="form-group mt-1 mb-3">
                 <button

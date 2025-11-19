@@ -201,20 +201,20 @@ export const employerAPI = {
         return response;
     },
     getEmployees: async () => {
-        const response = await api.get("/v1/employees/");
+        const response = await api.get("/v1/dashboard/employees/");
         return response;
     },
     // Analytics & Dashboard
     getemployerdashboardSummary: async () => {
-        const response = await api.get("/v1/employer/overview");
+        const response = await api.get("/v1/dashboard/employer/overview");
         return response;
     },
     getEngagement: async () => {
-        const response = await api.get("/v1/employer/engagements/");
+        const response = await api.get("/v1/dashboard/employer/engagements/");
         return response;
     },
     getReports: async () => {
-        const response = await api.post("/v1/employer/reports/");
+        const response = await api.post("/v1/dashboard/employer/reports/");
         return response;
     },
     // Wellness Data

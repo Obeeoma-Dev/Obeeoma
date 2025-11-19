@@ -27,11 +27,11 @@ interface StatItem {
   onClick?: () => void; // Optional callback for clickable items like "Add Employee"
 }
 
-interface StatsGridProps {
+interface TopGridProps {
   stats: StatItem[];
 }
 
-const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
+const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
 
   return (
     <div className="row g-2 mb-4">
@@ -58,8 +58,7 @@ const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '';
                 }
-              }}
-            >
+              }} >
               <div className="card-body">
                 <div className="d-flex align-items-start gap-3">
                   <div 
@@ -86,4 +85,4 @@ const StatsGrid: React.FC<StatsGridProps> = ({ stats }) => {
   );
 };
 
-export default StatsGrid;
+export default TopGrid;
