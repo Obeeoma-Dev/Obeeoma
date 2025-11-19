@@ -2,7 +2,6 @@ import React from "react";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// Removed 'Router' from import as it's not used when BrowserRouter is present
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
@@ -18,6 +17,7 @@ import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
+import PaymentSuccessPage from './pages/EmployerPages/subscription/Successmessage';
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
@@ -94,6 +94,7 @@ export default function App(): React.ReactElement {
               {/* SYSTEMS ADMIN SETTINGS ROUTES */}
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
               <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
+              <Route path="/success-message" element={<PaymentSuccessPage />} />
 
               {/* </Route> */} {/* End ProtectedRoute */}
 
