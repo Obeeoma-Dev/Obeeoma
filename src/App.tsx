@@ -15,10 +15,13 @@ import Register from "./pages/auth/Register"; // Renamed from CreateAccount in t
 import ResetPassword from "./pages/auth/ResetPassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
+import TermsPage from "./pages/landingpage/Terms";
+import PrivacyPage from "./pages/landingpage/Policy";
 import AcceptInvite from "./pages/auth/accept-invite";
 import MfaSetupPage from "./pages/auth/mfauth";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import PaymentSuccessPage from './pages/EmployerPages/subscription/Successmessage';
+import EmployeeLandingPage from "./pages/landingpage/Employeelandingpage";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import NotFound from "./pages/NotFound";
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
@@ -65,7 +68,12 @@ export default function App(): React.ReactElement {
               <Route path="/mfa-setup" element={<MfaSetupPage />} />
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/employee-downloadapp" element={<EmployeeLandingPage />} />
+              {/* <Route path="/employee-downloadapp" element={<AppDownloadSection/>} /> */}
+          
 
               {/* === PROTECTED ROUTES WRAPPER (Uncomment to activate) === */}
               {/* <Route element={<ProtectedRoute />}> */}

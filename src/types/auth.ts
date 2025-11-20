@@ -35,7 +35,7 @@ export interface ForgotPasswordData {
 }
 
 export interface changePasswordData {
-  //token: string;
+  email: string;
   new_password: string;
   confirm_password: string;
 

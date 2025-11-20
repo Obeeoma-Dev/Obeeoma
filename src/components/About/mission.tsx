@@ -30,7 +30,7 @@ const AboutMission: React.FC = () => {
                         >
                             Our Mission
                         </h2>
-                        <p
+                        {/* <p
                             className="lead"
                             style={{
                                 fontSize: "1.2rem",
@@ -45,7 +45,7 @@ const AboutMission: React.FC = () => {
                             deep understanding of anxiety disorders, we provide comprehensive
                             care that addresses both the symptoms and underlying causes of
                             mental health challenges.
-                        </p>
+                        </p> */}
 
                         {/* Stats Row with Cards */}
                         <Row className="text-center" style={{ marginTop: "2rem" }}>
