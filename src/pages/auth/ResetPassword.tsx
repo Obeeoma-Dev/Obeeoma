@@ -29,13 +29,13 @@ const customStyles = {
 
 
 type ResetPasswordFormValues = {
-  //code: string; 
+  email: string; 
   new_password: string; 
   confirm_password: string;
 };
 
 type ChangePasswordData = {
-    //: string;
+    email: string;
     new_password: string;
     confirm_password: string, 
     onSuccess?: () => void;
@@ -59,7 +59,7 @@ const ResetPassword: React.FC = () => {
 
   // Initial Formik Values
   const initialValues: ResetPasswordFormValues = {
-    //code: "",
+    email: "",
     new_password: "", 
     confirm_password: "",
   };
@@ -70,7 +70,7 @@ const ResetPassword: React.FC = () => {
 
     try {
         const payload: ChangePasswordData = {
-          //token: values.code,
+          email: values.email,
           confirm_password:values. confirm_password,
           new_password: values.new_password,
           onSuccess: () => navigate("/login", { replace: true }),
@@ -155,27 +155,27 @@ const ResetPassword: React.FC = () => {
                 }) => (
                   <FormikForm noValidate onSubmit={formikSubmit}>
                     {/* Code Field */}
-                    {/* <BootstrapForm.Group className="mb-3" controlId="code">
+                    <BootstrapForm.Group className="mb-3" controlId="email">
                       <BootstrapForm.Control
                         type="text"
-                        name="code" 
-                        placeholder="Enter the reset code"
-                        value={values.code}
+                        name="email" 
+                        placeholder="Enter your email"
+                        value={values.email}
                         onChange={handleChange}
                         className="py-2"
-                        isInvalid={touched.code && !!errors.code}
+                        isInvalid={touched.email && !!errors.email}
                       />
                       <BootstrapForm.Control.Feedback type="invalid">
-                        {errors.code}
+                        {errors.email}
                       </BootstrapForm.Control.Feedback>
-                    </BootstrapForm.Group> */}
+                    </BootstrapForm.Group> 
 
                     {/* New Password Field  */}
-                    <BootstrapForm.Group className="mb-3" controlId="password"> 
+                    <BootstrapForm.Group className="mb-3" controlId="new_password"> 
                       <InputGroup>
                         <BootstrapForm.Control
                           style={{ fontFamily: "body" }}
-                          type={showNewPassword ? "text" : "password"}
+                          type={showNewPassword ? "text" : "new_password"}
                           name="password" 
                           value={values.new_password}
                           onChange={handleChange}
