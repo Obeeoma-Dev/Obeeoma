@@ -147,6 +147,11 @@ export const authAPI = {
   resendOtp: ({ email }: { email: string }) => {
     return api.post('/auth/resend-otp', { email });
   },
+
+  changePassword: async (data: any) => {
+    const response = await api.post("/v1/auth/change-password/", data);
+    return response;
+  },
 };
 
 // --- Admin API ---

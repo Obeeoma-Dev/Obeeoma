@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+git  addimport { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { employerAPI } from '../../api/apiConfig';
 import {
@@ -9,6 +9,8 @@ import {
   Report,
   DashboardSummary,
   EmployerUser,
+  Employee,
+  MoodTrend,
 } from '../../types/employer';
 
 // --- Error Handler ---

@@ -9,7 +9,7 @@ const employeeSchema = z.object({
     phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
     department: z.string().min(1, "Please select a department"),
 });
-const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
+const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded, companyId }) => {
     const { toast } = useToast();
     const { createEmployee, isLoading } = useCreateEmployee();
     const { register, handleSubmit, formState: { errors }, reset, } = useForm({

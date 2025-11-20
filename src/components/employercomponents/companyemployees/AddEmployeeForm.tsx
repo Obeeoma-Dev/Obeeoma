@@ -16,9 +16,10 @@ interface AddEmployeeFormProps {
   showModal: boolean;
   onClose: () => void;
   onEmployeeAdded: () => void;
+  companyId?: string;
 }
 
-const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
+const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded, companyId }: AddEmployeeFormProps) => {
   const { toast } = useToast();
   const { createEmployee, isLoading } = useCreateEmployee();
 

@@ -45,7 +45,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
       name: invite.email.split('@')[0], // Use email prefix as name
       email: invite.email,
       department: "Pending", // Or use invite.department if available
-      status: invite.status === 'accepted' ? 'active' : 'pending',
+      status: (invite.status === 'accepted' ? 'active' : 'pending') as 'active' | 'inactive' | 'pending',
       avatar: invite.email.charAt(0).toUpperCase(),
     }))
   ];

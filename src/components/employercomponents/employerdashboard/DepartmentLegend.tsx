@@ -1,4 +1,4 @@
-so does this go in a import React from 'react';
+import React from 'react';
 
 interface DepartmentData {
   name: string;

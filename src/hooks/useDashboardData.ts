@@ -9,7 +9,7 @@ import {
   fetchEmployees,
   fetchMoodTrends
 } from '../store/slices/EmployerSlice';
-import { Employee } from '../types/employer';
+import { Employee, MoodTrend } from '../types/employer';
 interface DashboardStats {
   totalEmployees: number;
   wellnessIndex: number;
@@ -96,7 +96,7 @@ export const useDashboardData = () => {
     // Group mood trends by date and calculate average
     const dailyAverages: Record<string, { total: number; count: number }> = {};
     
-    moodTrends.forEach(trend => {
+    moodTrends.forEach((trend: MoodTrend) => {
       const date = new Date(trend.date).toLocaleDateString('en-US', { month: 'short' });
       if (!dailyAverages[date]) {
         dailyAverages[date] = { total: 0, count: 0 };
@@ -118,20 +118,20 @@ export const useDashboardData = () => {
     totalEmployees: employees.length || summary.totalEmployees || 0,
     wellnessIndex: summary.wellnessIndex || 0,
     atRisk: summary.atRisk || 0,
-    departmentDistribution: calculateDepartmentDistribution(),
+    departmentDistribution: calculateDepartmentDistribution(employees),
     wellnessTrend: calculateWellnessTrend(),
   } : {
     totalEmployees: employees.length || 0,
     wellnessIndex: 0,
     atRisk: 0,
-    departmentDistribution: calculateDepartmentDistribution(),
+    departmentDistribution: calculateDepartmentDistribution(employees),
     wellnessTrend: calculateWellnessTrend(),
   };
 
   const employeeData = {
     employees: employees,
     moodTrends: moodTrends,
-    departmentDistribution: calculateDepartmentDistribution(),
+    departmentDistribution: calculateDepartmentDistribution(employees),
     wellnessTrend: calculateWellnessTrend()
   };
 
@@ -142,10 +142,10 @@ export const useDashboardData = () => {
     // Add activity for new mood trends
     if (moodTrends.length > 0) {
       const recentMoods = moodTrends
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .sort((a: MoodTrend, b: MoodTrend) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 3);
       
-      recentMoods.forEach((trend, index) => {
+      recentMoods.forEach((trend: MoodTrend, index: number) => {
         generatedActivities.push({
           text: `Mood assessment completed by ${trend.employeeName}`,
           department: trend.employeeDepartment,

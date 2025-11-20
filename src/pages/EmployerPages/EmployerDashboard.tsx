@@ -90,15 +90,13 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
               <div className="card-body">
                 <h5 className="card-title fw-semibold mb-4">Department Distribution</h5>
                 <DepartmentLegend 
-                  departments={stats?.departmentDistribution || []} 
-                  totalEmployees={stats?.totalEmployees || 0}
+                  departments={stats?.departmentDistribution || []}
                 />
                 
                 <div className="mt-4">
                   <h5 className="card-title fw-semibold mb-4">Wellness Trend</h5>
                   <WellnessGraph 
-                    data={stats?.wellnessTrend || []} 
-                    moodData={employeeData.moodTrends}
+                    data={stats?.wellnessTrend || []}
                   />
                 </div>
               </div>
