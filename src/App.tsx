@@ -97,6 +97,8 @@ export default function App(): React.ReactElement {
               <Route path="/system-admin/settings-overview" element={<AdminSettings />} />
               <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
               <Route path="/success-message" element={<PaymentSuccessPage />} />
+              <Route path="/success-message" element={<PaymentSuccessPage />} />
+            
 
               {/* </Route> */} {/* End ProtectedRoute */}
 
