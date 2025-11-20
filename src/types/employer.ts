@@ -70,20 +70,20 @@ export interface InviteData {
   role: 'employee';
 }
 
-// types/employer.ts
+// Unified Employee type for all employee-related operations
 export interface Employee {
   id: number | string;
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
+  emailAddress?: string;
   department: string;
-  status: 'active' | 'inactive' | 'pending';
+  status: 'active' | 'inactive' | 'pending' | 'accepted' | 'rejected' | string;
   avatar?: string;
   joinDate?: string;
   lastActive?: string;
   phoneNumber?: string;
 }
 
-// Update other interfaces to use this unified Employee type
 export interface EmployeeInvite {
   id: string | number;
   email: string;
@@ -114,6 +114,7 @@ export interface CreateEmployeeInput {
   department: string;
 }
 
+
 export interface SubscriptionData {
   plan_id: string;
   billing_cycle: 'monthly' | 'annually';
@@ -142,7 +143,6 @@ export interface EmployerState {
   currentEmployer: EmployerUser | null;
   invites: EmployeeInvite[];
   employees: Employee[];
-  moodTrends: MoodTrend[];
   billing: BillingDetails | null;
   engagement: EmployerEngagementData | null;
   reports: Report[];
@@ -150,6 +150,9 @@ export interface EmployerState {
   subscription: SubscriptionData | null;
   departmentDistribution: Array<{ name: string; percentage: number; color: string }>;
   wellnessTrend: Array<{ date: string; score: number }>;
+  moodTrends: any[];
+  // employees: list of employee records for the employer
+  // employees: Employee[];
   isLoading: boolean;
   isActionLoading: boolean;
   error: string | null;

@@ -4,7 +4,7 @@ import {
   LoginCredentials,
   RegisterCredentials,
   ForgotPasswordData,
-  // ChangePasswordData,
+  changePasswordData,
   OtpVerificationPayload
 } from "@/types/auth";
 
@@ -31,7 +31,12 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/reset-password/",
         "/v1/auth/change-password",
         "v1/organization-signup/",
+        "v1/dashboard/overview/",
         "v1/auth/verify-invite/",
+
+
+
+
       ];
       
       const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
@@ -94,11 +99,15 @@ export const authAPI = {
       organisationSize: credentials.organisationSize,
       companyEmail: credentials.companyEmail,
       Location: credentials.Location,
-      contactPerson: {
-        fullname: credentials.contactPerson.fullname,
-        role: credentials.contactPerson.role,
-        email: credentials.contactPerson.email,
-      },
+      contactPerson: 
+        {
+          firstName: credentials.contactPerson.firstName, 
+          lastName: credentials.contactPerson.lastName,
+          role: credentials.contactPerson.role,
+          email: credentials.contactPerson.email, 
+        },
+  
+
       password: credentials.password,
       confirmPassword: credentials.confirmPassword,
     });
@@ -129,10 +138,10 @@ export const authAPI = {
     return response;
   },
 
-  // changePassword: async (data: ChangePasswordData) => {
-  //   const response = await api.post("/v1/auth/change-password", data);
-  //   return response;
-  // },
+  changePassword: async (data: changePasswordData) => {
+    const response = await api.post("/v1/auth/change-password", data);
+    return response;
+  },
 
   getCurrentUser: async () => {
     const response = await api.get("/v1/auth/me/");
@@ -243,71 +252,84 @@ export const adminAPI = {
 export const employerAPI = {
   // Profile
   getCurrentEmployer: async () => {
-    const response = await api.get("/v1/employers/me/");
+    const response = await api.get("/v1/users/");
     return response;
   },
 
+  // Dashboard Settings
+  getDashboardSettings: async () => {
+    const response = await api.get("/v1/settings/");
+    return response;
+  },
+
+  //change links back to correct ones it i
   // Employee Management
   inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
-    const response = await api.post("/v1/employers/invite/", employeeData);
+    const response = await api.post("/v1/invitations/", employeeData);
     return response;
   },
 
   viewInviteEmployee: async () => {
-    const response = await api.get("/v1/employers/view-invites/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
   getEmployees: async () => {
-    const response = await api.get("/v1/employees/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
   // Analytics & Dashboard
   getemployerdashboardSummary: async () => {
-    const response = await api.get("/v1/employer/overview");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
   getEngagement: async () => {
-    const response = await api.get("/v1/employer/engagements/");
+    const response = await api.get("/v1/tests-by-type/");
     return response;
   },
 
   getReports: async () => {
-    const response = await api.post("/v1/employer/reports/");
+    const response = await api.post("/v1/wellness-reports/");
     return response;
   },
 
   // Wellness Data
   getMoodTrends: async () => {
-    const response = await api.get("/v1/employees/moodTrends/");
+    const response = await api.get("/v1/progress/");
     return response;
   },
 
   getDepartmentDistribution: async () => {
-    const response = await api.get("/v1/employer/department-distribution/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
+    postDepartmentDistribution: async () => {
+    const response = await api.post("/v1/invitations/");
+    return response;
+  },
+
+
   getWellnessTrend: async () => {
-    const response = await api.get("/v1/employer/wellness-trend/");
+    const response = await api.get("/v1/progress/");
     return response;
   },
 
   getRecentActivities: async () => {
-    const response = await api.get("/v1/employer/recent-activities/");
+    const response = await api.get("/v1/dashboard/recent-activities/");
     return response;
   },
 
   // Billing
   viewSubscription: async () => {
-    const response = await api.post("/v1/employer/billing/add-subscription/");
+    const response = await api.post("/v1/dashboard/billing/add-subscription/");
     return response;
   },
 
   viewBilling: async () => {
-    const response = await api.get("/v1/employer/billing/view");
+    const response = await api.get("/v1/dashboard/billing/view");
     return response;
   },
 };

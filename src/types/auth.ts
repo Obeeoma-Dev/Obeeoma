@@ -12,7 +12,8 @@ export interface LoginCredentials {
   password: string;
 }
 export interface ContactPerson {
-  fullname: string;
+  firstName: string;
+  lastName: string;
   role: string;
   email: string;
 }
@@ -56,7 +57,7 @@ export interface LoginSuccessPayload {
 
 export interface OtpVerificationPayload {
   //email: string;
-  otp_code: string;
+  otp_code: string | number
 }
 
 export interface OtpSuccessResponse {
@@ -68,6 +69,9 @@ export interface OtpSuccessResponse {
 export interface ResendOtpPayload {
   email: string;
 }
+
+
+
 
 
 

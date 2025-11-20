@@ -1,4 +1,7 @@
+// Import React and required hooks
 import React, { useEffect } from "react";
+
+// Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
 import heroImage from "@/assets/Images/headerimage.png";
 
@@ -30,7 +33,7 @@ const Hero = () => {
         backgroundRepeat: "no-repeat",
         color: "#fff",
         paddingTop: "80px",
-        WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0) 100%)"
+        WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0.5) 95%, rgba(0,0,0,0) 100%)"
       }}
     >
       <div
@@ -62,54 +65,68 @@ const Hero = () => {
             <div className="d-flex flex-column flex-sm-row gap-3">
 
               <Button
-                className="rounded-pill px-5 py-3 fw-semibold" // Rounded edges, padding, bold text
+                className="rounded-pill px-5 py-3 fw-semibold" // Rounded, padded, bold
                 style={{
-                  backgroundColor: "#3CB371", // Initial gree#3CB371n background
-                  borderColor: "#3CB371", // Match border with background
-                  color: "#fff", // White text color
-                  transition: "all 0.3s ease", // Smooth color transition on hover
-                  fontFamily: 'heading'
+                  backgroundColor: "#0B6E45", // Default dark green background
+                  borderColor: "#0B6E45", // Match border color
+                  color: "#fff", // Default white text
+                  transition: "all 0.3s ease", // Smooth color transitions
+                  fontFamily: "body", // Custom font
                 }}
-                // When hovered: make green slightly darker
+                // On hover: switch to light green background with dark green text
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#0B6E45";
+                  const btn = e.currentTarget as HTMLButtonElement;
+                  btn.style.backgroundColor = "#fff"; // Light green background
+                  btn.style.color = "#0B6E45"; // Dark green text
                 }}
-                // When mouse leaves: restore the original green
+                // On leave: revert to dark green background with white text
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#3CB371";
+                  const btn = e.currentTarget as HTMLButtonElement;
+                  btn.style.backgroundColor = "#0B6E45"; // Dark green background
+                  btn.style.color = "#fff"; // White text
                 }}
-
-                onClick={() => navigate("/signup")}>For Organizations
+                // On click: navigate to signup page
+                onClick={() => navigate("/signup")}
+              >
+                For Organizations
               </Button>
+
 
               <Button
                 className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
-                  backgroundColor: "#3CB371", 
-                  color: "rgba(250, 250, 250, 0.85)", // white background
-                  border: "1px solid #3CB371", 
-                  outline: "none", 
-                  boxShadow: "none", // Remove default shadow when focused
-                  transition: "all 0.3s ease", // Smooth hover transition
-                  fontFamily: 'heading'
+                  backgroundColor: "#fff", // Default: white background
+                  color: "#00A859", // Default: green text
+                  border: "2px solid #00A859", // Match border to green
+                  outline: "none",
+                  boxShadow: "none",
+                  transition: "all 0.3s ease", // Smooth color transition
+                  fontFamily: "body",
                 }}
-                // On hover: make background fully white
+
+                onFocus={(e) => {
+                  e.currentTarget.style.outline = "none";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+
+                // On hover: swap to green background and white text
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#0B6E45";
+                  const btn = e.currentTarget as HTMLButtonElement;
+                  btn.style.backgroundColor = "#00A859";
+                  btn.style.color = "#fff";
                 }}
-                // On mouse leave: revert to soft white
+                // On mouse leave: revert to white background and green text
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                    "#3CB371";
+                  const btn = e.currentTarget as HTMLButtonElement;
+                  btn.style.backgroundColor = "#fff";
+                  btn.style.color = "#00A859";
                 }}
                 // Navigate to login page when clicked
                 onClick={() => navigate("/login")}
               >
                 For Employees
               </Button>
+
             </div>
           </Col>
         </Row>

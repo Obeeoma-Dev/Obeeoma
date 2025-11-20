@@ -26,9 +26,18 @@ export const registerValidationSchema = yup.object().shape({
       .string()
       .required("Location is required"),
 
-  contactPersonName: yup
-      .string()
-      .required("Contact Person Full Name is required"),
+//  Location: yup.object()
+//     // Check if the Location object is present and valid
+//     .required('A location is required.') // <--- This assigns a simple string error
+//     .nullable(),
+
+  contactPersonFirstName: yup 
+    .string()
+    .required("First Name is required"), // Specific error message
+
+  contactPersonLastName: yup 
+    .string()
+    .required("Last Name is required"), // Specific error message
 
   email: yup
       .string()

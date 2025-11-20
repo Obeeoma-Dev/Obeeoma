@@ -2,7 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home as HomeIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
+import { Home as HomeIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
+import { useSelector } from "react-redux";
+import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 import { useSelector } from "react-redux";
 import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 const PRIMARY_COLOR = "#3CB371";
@@ -10,6 +13,11 @@ const Layout = ({ children, title }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    // Get employer data from Redux store
+    const employer = useSelector((state) => state.employer.currentEmployer);
+    const companyJoinDate = employer?.company?.createdAt
+        ? new Date(employer.company.createdAt)
+        : new Date(); // Fallback to current date
     // Get employer data from Redux store
     const employer = useSelector((state) => state.employer.currentEmployer);
     const companyJoinDate = employer?.company?.createdAt

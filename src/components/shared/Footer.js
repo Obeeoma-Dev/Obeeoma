@@ -10,16 +10,14 @@ const Footer = () => {
             items: [
                 { text: "For Organizations", link: "/organizations" },
                 { text: "For Employees", link: "/employees" },
-                { text: "Mental Health Assessments", link: "/assessments" },
             ],
         },
         company: {
             title: "Company",
             items: [
-                { text: "About Us", link: "/aboutus" },
-                { text: "Careers", link: "/careers" },
+                { text: "About Us", link: "/about-us" },
                 { text: "Blog", link: "/blog" },
-                { text: "Contact", link: "/contact" },
+                { text: "Contact", link: "/contact-us" },
             ],
         },
         legal: {
@@ -27,8 +25,6 @@ const Footer = () => {
             items: [
                 { text: "Privacy Policy", link: "/privacy" },
                 { text: "Terms of Service", link: "/terms" },
-                { text: "Cookie Policy", link: "/cookies" },
-                { text: "HIPAA Compliance", link: "/hipaa" },
             ],
         },
     };

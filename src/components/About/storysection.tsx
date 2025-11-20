@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';
-import Africa from '../../assets/Images/africa.jpg';
+import Digitalmap from '../../assets/Images/Digital-map-of-africa-network-connection.jpg';
 
 /**
  * Our Story section with split layout.
@@ -38,7 +38,7 @@ export function OurStorySection() {
                         }}
                     >
                         <img
-                            src={Africa}
+                            src={Digitalmap}
                             alt="Professional woman in green dress"
                             style={{
                                 width: '100%',
@@ -67,28 +67,34 @@ export function OurStorySection() {
                             transform: contentVisible ? 'translateX(0)' : 'translateX(40px)',
                         }}
                     >
-                        {/* Section Label */}
-                        <p
+                        {/* Main Heading */}
+                        <h2
                             style={{
                                 fontFamily: "heading",
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                color: '#a7f3d0', // Tailwind's emerald-200
-                                marginBottom: '1rem',
+                                textTransform: "uppercase",
+                                letterSpacing: "0.1em",
+                                color: "#a7f3d0",
+                                marginBottom: "1rem",
+                                fontSize: "2.5rem", // larger size for emphasis
+                                fontWeight: "700",
                             }}
                         >
                             Our Story
-                        </p>
+                        </h2>
 
-                        {/* Section Heading */}
-                        <h2
+                        {/* Supporting Paragraph */}
+                        <p
                             style={{
                                 fontFamily: "body",
-                                marginBottom: '2rem',
+                                marginBottom: "2rem",
+                                fontSize: "1.125rem", // around text-lg
+                                lineHeight: "1.6",
+                                color: "#d1d5db", // subtle gray for contrast
                             }}
                         >
-                            Help for Anxiety Disorder.
-                        </h2>
+                            HELP FOR ANXIETY AND DEPRESSION
+                        </p>
+
 
                         {/* Section Paragraphs */}
                         <div

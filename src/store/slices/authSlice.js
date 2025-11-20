@@ -79,7 +79,7 @@ export const logoutUserThunk = createAsyncThunk("auth/logout", async (_, { dispa
         delete api.defaults.headers.common["Authorization"];
     }
 });
-// Verify OTP Thunk (Unchanged)
+// Verify OTP Thunk 
 export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload, { rejectWithValue }) => {
     try {
         const response = await authAPI.verifyOtp(payload);
@@ -101,10 +101,9 @@ const getUserFromStorage = () => {
     }
 };
 // Resend OTP Thunk (Unchanged)
-export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async ({ email }, { rejectWithValue }) => {
+export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
     try {
-        // NOTE: Ensure your authAPI.resendOtp is correctly implemented to send the email
-        const response = await authAPI.resendOtp({ email });
+        const response = await authAPI.resendOtp(payload);
         return response.data;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
@@ -234,7 +233,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
-            // *** ✅ FIX: ADD RESEND OTP THUNK REDUCERS ***
+            // *** FIX: ADD RESEND OTP THUNK REDUCERS ***
             .addCase(resendOtpThunk.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -247,7 +246,6 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         });
-        // **********************************************
     },
 });
 export const { logout, clearError, clearAuthStatus } = authSlice.actions;

@@ -1,10 +1,11 @@
 // EmployerPages/EmployerDashboard.tsx
 import Layout from "../../components/employercomponents/shared/Layout";
-import StatsGrid from "../../components/employercomponents/employerdashboard/StatsGrid";
+import TopGrid from "../../components/employercomponents/employerdashboard/TopGrid";
 import EmployeeTable from "../../components/employercomponents/companyemployees/EmployeeTable";
 import DepartmentLegend from "../../components/employercomponents/employerdashboard/DepartmentLegend";
 import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
+import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
 
@@ -20,6 +21,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
 }) => {
   const { stats, employeeData, activities, loading, error } = useDashboardData();
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
 
   if (loading) {
     return (
@@ -49,6 +51,13 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
   // Transform backend data to component props
   const statsData = stats ? [
     {
+      title: "Add Employee",
+      value: "+",
+      icon: "Users",
+      color: "success",
+      onClick: () => setShowAddEmployeeModal(true),
+    },
+    {
       title: "Active Employees",
       value: stats.totalEmployees.toString(),
       icon: "Users",
@@ -58,13 +67,13 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       title: "Wellness Index",
       value: `${stats.wellnessIndex}%`,
       icon: "TrendingUp",
-      color: "warning",
+      color: "success",
     },
     {
       title: "At Risk",
       value: stats.atRisk.toString(),
       icon: "AlertTriangle",
-      color: "danger",
+      color: "warning",
     },
   ] : [];
 
@@ -73,45 +82,49 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       <div className="container-fluid py-4 px-3">
         <div className="row gy-4">
           <div className="col-lg-12 col-md-10 mx-auto">
-            <StatsGrid stats={statsData} />
+            <TopGrid stats={statsData} />
           </div>
 
-          <div className="col-lg-8 col-md-12">
+          {/* <div className="col-lg-8 col-md-12">
             <EmployeeTable 
               searchQuery={searchQuery} 
               onSearchChange={setSearchQuery}
               employees={employeeData.employees as any} // Temporary cast
               companyId={companyId}
             />
-          </div>
+          </div> */}
 
-          <div className="col-lg-4 col-md-12">
+          {/* <div className="col-lg-4 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
                 <h5 className="card-title fw-semibold mb-4">Department Distribution</h5>
                 <DepartmentLegend 
-                  departments={stats?.departmentDistribution || []}
+                  departments={stats?.departmentDistribution || []} 
                 />
                 
                 <div className="mt-4">
-                  <h5 className="card-title fw-semibold mb-4">Wellness Trend</h5>
+                  <h5 className="card-title fw-semibold mb-4">Engagement Level</h5>
                   <WellnessGraph 
-                    data={stats?.wellnessTrend || []}
+                    data={stats?.wellnessTrend || []} 
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="col-lg-12 col-md-12">
             <RecentActivity 
               activities={activities} 
-              onViewAll={() => console.log('View all activities')}
-              maxItems={5}
             />
           </div>
         </div>
-      </div>
+
+        <AddEmployeeForm 
+          onEmployeeAdded={() => { /* handle refresh or update employees here */ }}
+          showModal={showAddEmployeeModal}
+          onClose={() => setShowAddEmployeeModal(false)}
+        />
+      {/* </div> */}
     </Layout>
   );
 };
