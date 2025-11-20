@@ -17,7 +17,9 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/reset-password/",
             "/v1/auth/change-password",
             "v1/organization-signup/",
-            "v1/auth/verify-invite/",
+            "v1/auth/verify-otp/",
+            "v1/auth/mfa/setup/",
+            "v1/auth/mfa/confirm/",
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
         // checking the redux token
@@ -122,11 +124,11 @@ export const authAPI = {
         return response;
     },
     verifyOtp: async (payload) => {
-        const response = await api.post("v1/auth/verify-invite/", payload);
+        const response = await api.post("v1/auth/verify-otp/", payload);
         return response;
     },
     resendOtp: (payload) => {
-        return api.post('v1/auth/verify-invite', payload);
+        return api.post('v1/auth/verify-otp', payload);
     },
     // --- 4. Multi-Factor Authentication (MFA) ---
     // (Consolidated from the separate exports using the authApiClient wrapper)

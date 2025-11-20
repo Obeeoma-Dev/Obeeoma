@@ -568,17 +568,18 @@ const handleNext = async (
 
                         <Col md={6}>
                         <BootstrapForm.Group style={formGroupStyle}>
+                            <div style={{ position: 'relative', zIndex: 99999}}>
                             <FormikField
                                 name="phoneNumber"
                                 component={FormikPhoneInput}
-                                inputStyle={inputStyle} // Pass the style prop down
-                                dropdownStyle={{ zIndex: 9999 }}
+                                inputStyle={inputStyle} // Pass the style prop down 
                                 placeholder="Contact Person Phone Number"
                                 // The FormikPhoneInput component handles Formik integration internally
                             />
-                            {/* We use a separate ErrorMessage since the phone input isn't a standard Bootstrap control */}
+                            </div>
                             <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback d-block" />
                         </BootstrapForm.Group>
+                       
                     </Col>
                         
                         {/* Contact Role Select and Conditional Text Input */}

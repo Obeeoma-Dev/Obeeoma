@@ -30,14 +30,14 @@ const customStyles = {
 
 type ResetPasswordFormValues = {
   //code: string; 
-  password: string; 
-  confirmPassword: string;
+  new_password: string; 
+  confirm_password: string;
 };
 
 type ChangePasswordData = {
     //: string;
-    password: string;
-    confirmPassword: string, 
+    new_password: string;
+    confirm_password: string, 
     onSuccess?: () => void;
 };
 
@@ -60,8 +60,8 @@ const ResetPassword: React.FC = () => {
   // Initial Formik Values
   const initialValues: ResetPasswordFormValues = {
     //code: "",
-    password: "", 
-    confirmPassword: "",
+    new_password: "", 
+    confirm_password: "",
   };
 
   const handleResetSubmit = async (values: ResetPasswordFormValues) => {
@@ -71,8 +71,8 @@ const ResetPassword: React.FC = () => {
     try {
         const payload: ChangePasswordData = {
           //token: values.code,
-          confirmPassword:values. confirmPassword,
-          password: values.password,
+          confirm_password:values. confirm_password,
+          new_password: values.new_password,
           onSuccess: () => navigate("/login", { replace: true }),
           
         };
@@ -177,11 +177,11 @@ const ResetPassword: React.FC = () => {
                           style={{ fontFamily: "body" }}
                           type={showNewPassword ? "text" : "password"}
                           name="password" 
-                          value={values.password}
+                          value={values.new_password}
                           onChange={handleChange}
                           placeholder="New Password"
                           className="py-2 border-success border-opacity-25"
-                          isInvalid={touched.password && !!errors.password}
+                          isInvalid={touched.new_password && !!errors.new_password}
                         />
                         <InputGroup.Text 
                           onClick={toggleNewPasswordVisibility}
@@ -194,7 +194,7 @@ const ResetPassword: React.FC = () => {
                         </InputGroup.Text>
                       </InputGroup> 
                       <BootstrapForm.Control.Feedback type="invalid" className="d-block">
-                        {touched.password && errors.password}
+                        {touched.new_password && errors.new_password}
                       </BootstrapForm.Control.Feedback>
                     </BootstrapForm.Group>
 
@@ -206,10 +206,10 @@ const ResetPassword: React.FC = () => {
                           type={showConfirmNewPassword ? "text" : "password"}
                           name="confirmPassword" 
                           placeholder="Confirm New Password"
-                          value={values.confirmPassword}
+                          value={values.confirm_password}
                           onChange={handleChange}
                           className="py-2 "
-                          isInvalid={touched.confirmPassword && !!errors.confirmPassword}
+                          isInvalid={touched.confirm_password && !!errors.confirm_password}
                         />
                         <InputGroup.Text 
                           onClick={toggleConfirmPasswordVisibility}
@@ -222,7 +222,7 @@ const ResetPassword: React.FC = () => {
                         </InputGroup.Text>
                       </InputGroup>
                       <BootstrapForm.Control.Feedback type="invalid" className="d-block">
-                        {touched.confirmPassword && errors.confirmPassword}
+                        {touched.confirm_password && errors.confirm_password}
                       </BootstrapForm.Control.Feedback>
                     </BootstrapForm.Group>
 

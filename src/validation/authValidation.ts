@@ -70,12 +70,18 @@ export const registerValidationSchema = yup.object().shape({
 });
 
 export const resetPasswordValidationSchema = yup.object({
-  password: yup
+  new_password: yup
     .string()
     .required("New Password is required")
     .min(8, "Password must be at least 8  characters"),
-  confirmPassword: yup
+  confirm_password: yup
     .string()
     .required("Please confirm your new password")
     .oneOf([yup.ref("password")], "Passwords must match"),
+});
+export const forgotPasswordValidationSchema = yup.object({
+  email: yup
+    .string()
+    .email("Enter a valid email") // Ensures the format is like an email
+    .required("Email address is required"), // Ensures the field is not empty
 });
