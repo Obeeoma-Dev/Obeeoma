@@ -35,7 +35,9 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
                 "/v1/auth/reset-password/",
                 "/v1/auth/change-password",
                 "v1/organization-signup/",
-                "v1/auth/verify-invite/",
+                "v1/auth/verify-otp/",
+                "v1/auth/mfa/setup/",
+                "v1/auth/mfa/confirm/",
                 
               ];
             
@@ -173,12 +175,12 @@ export const authAPI = {
   },
 
 verifyOtp: async(payload: OtpVerificationPayload)=>{
-  const response = await api.post("v1/auth/verify-invite/", payload);
+  const response = await api.post("v1/auth/verify-otp/", payload);
   return response;
 },
 
 resendOtp: (payload: OtpVerificationPayload) => {
-        return api.post('v1/auth/verify-invite', payload);
+        return api.post('v1/auth/verify-otp', payload);
     
     },
 

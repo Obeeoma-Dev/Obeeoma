@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -20,15 +19,18 @@ const customStyles = {
 const ResetPasswordSignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  // FIX: Removed the unused state variable
-  // const [isCodeSentSuccess, setIsCodeSentSuccess] = useState(false); 
+  // FIX: Separate state variables for distinct loading indicators
+  const [isSendingCode, setIsSendingCode] = useState(false); // For initial Send Code button
+  const [isResendingCode, setIsResendingCode] = useState(false); // For Resend Code link
 
   const navigate = useNavigate();
 
   // Unified function for sending/resending the password reset code
-  const sendPasswordResetCode = async (e?: React.FormEvent) => {
-    e?.preventDefault(); // Only prevent default if an event object is provided (i.e., from form submission)
+  const sendPasswordResetCode = async (
+    e?: React.FormEvent,
+    isResend: boolean = false
+  ) => {
+    e?.preventDefault();
     setError(null);
 
     if (!email) {
@@ -36,10 +38,13 @@ const ResetPasswordSignIn: React.FC = () => {
       return;
     }
 
-    setIsLoading(true);
-    // FIX: Removed the setter call for the removed state
-    // setIsCodeSentSuccess(false); // Reset success state on a new attempt
-    
+    // Set the appropriate loading state based on whether it's an initial send or a resend
+    if (isResend) {
+      setIsResendingCode(true);
+    } else {
+      setIsSendingCode(true);
+    }
+
     try {
       const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password/";
 
@@ -53,46 +58,52 @@ const ResetPasswordSignIn: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || `Failed to send code with status: ${response.status}`);
+        throw new Error(
+          errorData.message ||
+            `Failed to send code with status: ${response.status}`
+        );
+      }
+
+      // Navigate only if the API call is successful and an email is sent, 
+      // but only when it's the *initial* send. Resend should not navigate.
+      if (!isResend) {
+          navigate("/otp-verify");
       }
       
-      // FIX: Removed the setter call for the removed state
-      // setIsCodeSentSuccess(true);
-      // Navigate only if the API call is successful and an email is sent
-      navigate("/otp-verify");
     } catch (err: unknown) {
       console.error("Forgot Password Error:", err);
 
-      let errorMessage = "An unexpected error occurred. Please try again.";
+      let errorMessage =
+        "An unexpected error occurred. Please try again.";
 
-      // Narrow the type to access the 'message' property
       if (err instanceof Error) {
-        // Capitalize first letter of error message if needed for display
-        errorMessage = err.message; 
+        errorMessage = err.message;
       }
 
       setError(errorMessage);
-      // FIX: Removed the setter call for the removed state
-      // setIsCodeSentSuccess(false); // Ensure success state is false on error
-
     } finally {
-      setIsLoading(false);
+      // Clear the appropriate loading state
+      if (isResend) {
+        setIsResendingCode(false);
+      } else {
+        setIsSendingCode(false);
+      }
     }
   };
 
   /**
    * Handles the "Send Code again" link click.
-   * It calls the main API function (`sendPasswordResetCode`) to perform the resend.
    */
-  const handleResendCode = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault(); // Prevent default link behavior
-    // Resend the code using the unified function
-    sendPasswordResetCode(); 
+  const handleResendCode = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    // Pass 'true' to indicate this is a resend action
+    sendPasswordResetCode(undefined, true);
   };
 
-  // The rest of the return statement (JSX) remains the same.
+  // --- JSX RENDER ---
   return (
-    // 1. Full Page Container with positioning for the fixed footer
     <div
       style={{
         backgroundColor: "#f5f5f5",
@@ -107,7 +118,7 @@ const ResetPasswordSignIn: React.FC = () => {
           <Card
             className="shadow-sm border-0 p-4"
             style={{
-              maxWidth: "600px", // Card width limit
+              maxWidth: "600px",
               width: "100%",
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
@@ -115,32 +126,51 @@ const ResetPasswordSignIn: React.FC = () => {
           >
             <Card.Body>
               {/* Header and Logo */}
-              <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+              <div
+                className="d-flex flex-column align-items-center justify-content-center mb-4"
+                style={{ fontFamily: "heading" }}
+              >
                 <img
                   src={logo}
                   alt="Obeeoma Logo"
                   style={{
                     height: "50px",
-                    width: "auto"
+                    width: "auto",
                   }}
                   className="mb-1"
                 />
               </div>
-              <h3 className="display-6 fw-bold mb-1" style={{ fontFamily: "heading", textAlign: "center", fontSize: "24px" }}>
+              <h3
+                className="display-6 fw-bold mb-1"
+                style={{
+                  fontFamily: "heading",
+                  textAlign: "center",
+                  fontSize: "24px",
+                }}
+              >
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 " style={{ fontFamily: "heading", textAlign: "center", fontSize: "14px" }}>Send code to email</p>
+              <p
+                className="text-muted mb-4 "
+                style={{
+                  fontFamily: "heading",
+                  textAlign: "center",
+                  fontSize: "14px",
+                }}
+              >
+                Send code to email
+              </p>
 
-              {/* Error Alert (Only one is needed) */}
+              {/* Error Alert */}
               {error && (
                 <Alert variant="danger" className="py-2">
                   {error}
                 </Alert>
               )}
 
-              {/* Bootstrap Form (Only one is needed) */}
-              {/* Use the unified function for form submission */}
-              <BootstrapForm noValidate onSubmit={sendPasswordResetCode}>
+              {/* Bootstrap Form */}
+              {/* Pass isResend=false (default) for initial form submission */}
+              <BootstrapForm noValidate onSubmit={(e) => sendPasswordResetCode(e, false)}> 
                 {/* Email Field */}
                 <BootstrapForm.Group className="mb-4">
                   <BootstrapForm.Control
@@ -150,20 +180,18 @@ const ResetPasswordSignIn: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="py-2"
-                    // Check for general error or if the email field itself is required
-                    isInvalid={!!error && !email} 
+                    isInvalid={!!error && !email}
                     style={
                       error
                         ? {
                             borderColor: "red",
                             borderWidth: "1.5px",
                             fontFamily: "body",
-
                           }
                         : {}
                     }
                   />
-                  {/* Custom Error Message Display based on your image */}
+                  {/* Custom Error Message Display */}
                   {error && (
                     <div className="invalid-feedback d-block small mt-1 text-danger">
                       {error}
@@ -174,17 +202,18 @@ const ResetPasswordSignIn: React.FC = () => {
                 <Button
                   type="submit"
                   className="w-100 mb-3 py-2 fw-semibold"
-                  // Disable only when loading
-                  disabled={isLoading} 
+                  // Use the specific state for this button
+                  disabled={isSendingCode} 
                   style={{
                     backgroundColor: customStyles.primaryColor,
                     borderColor: customStyles.primaryColor,
                     color: "white",
                     boxShadow: "none",
-                    fontFamily: "body"
+                    fontFamily: "body",
                   }}
                 >
-                  {isLoading ? (
+                  {/* Use the specific state for this spinner/text */}
+                  {isSendingCode ? ( 
                     <>
                       <Spinner
                         as="span"
@@ -205,24 +234,29 @@ const ResetPasswordSignIn: React.FC = () => {
 
               {/* Resend Code */}
               <div className="text-center mt-3">
-                <span className="text-center text-muted small" style={{ fontFamily: "body" }}>
+                <span
+                  className="text-center text-muted small"
+                  style={{ fontFamily: "body" }}
+                >
                   Didn't receive any code?{" "}
                 </span>
                 <Link
                   onClick={handleResendCode}
-                  // Disable the resend link while an operation is in progress (loading)
-                  className={`small ${isLoading ? 'disabled-link' : ''}`}
+                  // Use the specific state for this link
+                  className={`small ${isResendingCode ? "disabled-link" : ""}`} 
                   style={{
                     color: customStyles.primaryColor,
                     textDecoration: "none",
                     fontWeight: "500",
-                    cursor: isLoading ? "not-allowed" : "pointer",
-                    opacity: isLoading ? 0.6 : 1,
-                    fontFamily: "body"
+                    // Use the specific state for disabling
+                    cursor: isResendingCode ? "not-allowed" : "pointer", 
+                    opacity: isResendingCode ? 0.6 : 1,
+                    fontFamily: "body",
                   }}
-                  to="#" 
+                  to="#"
                 >
-                  {isLoading ? (
+                  {/* Use the specific state for this spinner/text */}
+                  {isResendingCode ? ( 
                     <>
                       <Spinner
                         as="span"
@@ -245,21 +279,21 @@ const ResetPasswordSignIn: React.FC = () => {
         </div>
       </Container>
 
-      {/* --- Footer Component (Only one is needed) --- */}
+      {/* --- Footer Component --- */}
       <footer
         className="text-center text-muted py-3 small border-top"
         style={{
-          position: "fixed", // at the bottom of the viewport
+          position: "fixed",
           bottom: "0",
           width: "100%",
           backgroundColor: "#f5f5f5",
           fontSize: "0.8rem",
           zIndex: 1000,
-          fontFamily: "body"
+          fontFamily: "body",
         }}
       >
         <div className="d-flex justify-content-between align-items-center container">
-          <div className="footer-copyright" >
+          <div className="footer-copyright">
             &copy; 2025 Obeeoma. All rights reserved.
           </div>
 
