@@ -130,7 +130,7 @@ const ResetPassword: React.FC = () => {
                 Reset Your Password
               </h3>
               <p className="text-muted mb-4 small " style={{ fontFamily: "body", textAlign: "center" , fontSize: "14px" }}>
-                Enter the code and your new password.
+                Enter   your new password.
               </p>
 
               {/* Error Alert */}
@@ -154,7 +154,7 @@ const ResetPassword: React.FC = () => {
                   touched,
                 }) => (
                   <FormikForm noValidate onSubmit={formikSubmit}>
-                    {/* Code Field */}
+                    {/* email Field */}
                     <BootstrapForm.Group className="mb-3" controlId="email">
                       <BootstrapForm.Control
                         type="text"
