@@ -6,7 +6,9 @@ import {
   ForgotPasswordData,
   changePasswordData,
   OtpVerificationPayload,
-  MfaSetupData
+  MfaSetupData,
+  MfaVerifyPayload, 
+  MfaSetupRequestPayload
 
 } from "@/types/auth";
 
@@ -34,6 +36,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
                 "/v1/auth/signup/",
                 "/v1/auth/reset-password/",
                 "/v1/auth/change-password",
+                "/v1/auth/reset-password/complete",
                 "v1/organization-signup/",
                 "v1/auth/verify-otp/",
                 "v1/auth/mfa/setup/",
@@ -169,11 +172,7 @@ export const authAPI = {
     return response;
   },
 
-  getCurrentUser: async () => {
-    const response = await api.get("/v1/auth/me/");
-    return response;
-  },
-
+  
 verifyOtp: async(payload: OtpVerificationPayload)=>{
   const response = await api.post("v1/auth/verify-otp/", payload);
   return response;
@@ -185,30 +184,16 @@ resendOtp: (payload: OtpVerificationPayload) => {
     },
 
 
-// --- 4. Multi-Factor Authentication (MFA) ---
-    // (Consolidated from the separate exports using the authApiClient wrapper)
+fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
+    const response = await api.post("/v1/auth/mfa/setup/", payload);
+    return response;
+  },
 
-    /** Fetches the necessary data (e.g., QR code URL, secret) to set up MFA. */
-    fetchMfaSetupData: async (accessToken: string): Promise<MfaSetupData> => {
-        // This function needs the logic from your external authApiClient
-        return authApiClient(
-            '/auth/mfa/setup/', 
-            'POST', 
-            undefined, 
-            accessToken
-        );
-    },
-
-    /** Confirms the MFA setup by verifying the generated code. */
-    confirmMfaSetup: async (code: string, accessToken: string): Promise<{ detail: string }> => {
-        // This function needs the logic from your external authApiClient
-        return authApiClient(
-            '/auth/mfa/confirm/', 
-            'POST', 
-            { code }, 
-            accessToken
-        );
-    },
+  confirmMfaSetup: async (payload: MfaVerifyPayload) => {
+    // The payload is expected to be an object: { code: string }
+    const response = await api.post("/v1/auth/mfa/confirm/", payload);
+    return response;
+  },
     
 };
 

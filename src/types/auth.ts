@@ -47,6 +47,11 @@ export interface MfaSetupData {
 }
 
 
+export interface MfaVerifyPayload {
+  code: string;
+}
+
+export type MfaSetupRequestPayload = {};
 
 export interface AuthState {
   user: User | null;

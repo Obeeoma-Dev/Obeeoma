@@ -125,7 +125,7 @@ const Hero = () => {
                   btn.style.color = "#00A859";
                 }}
                 // Navigate to login page when clicked
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/employee-downloadapp")}
               >
                 For Employees
               </Button>
