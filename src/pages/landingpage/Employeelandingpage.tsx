@@ -4,9 +4,9 @@ import AppDownloadSection from '../../components/employercomponents/employerdash
 // Import the images as modules. Webpack/Vite/etc. will replace these 
 // imports with the correct public URL paths during the build process.
 // Adjust the relative paths (../../) based on where this file is located relative to src/assets/images/.
-import mainAppScreenshot from '../../assets/images/app-screenshot-employee.png';
-import googlePlayBtn from '../../assets/images/downloadgoogleplay.png';
-import appStoreBtn from '../../assets/images/downloadappstore.png';
+import mainAppScreenshot from '../../assets/Images/app-screenshot-employee.png';
+import googlePlayBtn from '../../assets/Images/downloadgoogleplay.png';
+import appStoreBtn from '../../assets/Images/downloadappstore.png';
 
 
 // 1. Define the component that holds the route/page structure
