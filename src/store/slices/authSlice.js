@@ -101,17 +101,23 @@ const getUserFromStorage = () => {
     }
 };
 // Resend OTP Thunk (Unchanged)
-export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
-    try {
-        const response = await authAPI.resendOtp(payload);
-        return response.data;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }
-    catch (error) {
-        const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
-        return rejectWithValue(errorMessage);
-    }
-});
+// export const resendOtpThunk = createAsyncThunk<
+//   { message: string }, 
+//   OtpVerificationPayload, 
+//   { rejectValue: string } 
+// >(
+//   'auth/resendOtp',
+//   async (payload, { rejectWithValue }) => {
+//     try {
+//       const response = await authAPI.resendOtp(payload); 
+//       return response.data;
+//       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     } catch (error: any) {
+//       const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
+//       return rejectWithValue(errorMessage);
+//     }
+//   }
+// );
 const initialState = {
     user: getUserFromStorage(),
     token: localStorage.getItem("token"),
@@ -230,19 +236,6 @@ const authSlice = createSlice({
             state.error = null;
         })
             .addCase(verifyOtpThunk.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
-        })
-            // *** FIX: ADD RESEND OTP THUNK REDUCERS ***
-            .addCase(resendOtpThunk.pending, (state) => {
-            state.isLoading = true;
-            state.error = null;
-        })
-            .addCase(resendOtpThunk.fulfilled, (state) => {
-            state.isLoading = false;
-            state.error = null;
-        })
-            .addCase(resendOtpThunk.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         });

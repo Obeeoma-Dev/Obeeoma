@@ -85,16 +85,16 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
             <TopGrid stats={statsData} />
           </div>
 
-          {/* <div className="col-lg-8 col-md-12">
+          <div className="col-lg-8 col-md-12">
             <EmployeeTable 
               searchQuery={searchQuery} 
               onSearchChange={setSearchQuery}
               employees={employeeData.employees as any} // Temporary cast
               companyId={companyId}
             />
-          </div> */}
+          </div>
 
-          {/* <div className="col-lg-4 col-md-12">
+           <div className="col-lg-4 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
                 <h5 className="card-title fw-semibold mb-4">Department Distribution</h5>
@@ -109,7 +109,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
                   />
                 </div>
               </div>
-            </div> */}
+            </div> 
           </div>
 
           <div className="col-lg-12 col-md-12">
@@ -124,7 +124,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
           showModal={showAddEmployeeModal}
           onClose={() => setShowAddEmployeeModal(false)}
         />
-      {/* </div> */}
+       </div> 
     </Layout>
   );
 };

@@ -17,8 +17,6 @@ const EmployerAccountProfile = () => {
     firstName: "",
     lastName: "",
     username: "Admin User",
-    firstName: "Admin",
-    lastName: "User",
     email: "admin@example.com",
     phone: "",
   });

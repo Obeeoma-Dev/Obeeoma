@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store/store';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
-import { verifyOtpThunk, resendOtpThunk } from '../../store/slices/authSlice'; 
+import { verifyOtpThunk } from '../../store/slices/authSlice'; 
 import logo from './../../assets/Images/obeeomalogoword1.png';
 
 const customStyles = {
@@ -72,7 +72,7 @@ export default function OtpVerificationPage() {
         setLocalError(null); 
 
         try {
-            await dispatch(resendOtpThunk({ otp_code: '0' })).unwrap(); 
+            await dispatch(verifyOtpThunk({ otp_code: '0' })).unwrap(); 
             
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');

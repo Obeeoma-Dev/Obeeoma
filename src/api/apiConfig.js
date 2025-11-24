@@ -99,10 +99,10 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/", data);
         return response;
     },
-    changePassword: async (data) => {
-        const response = await api.post("/v1/auth/change-password", data);
-        return response;
-    },
+    // changePassword: async (data: changePasswordData) => {
+    //   const response = await api.post("/v1/auth/change-password", data);
+    //   return response;
+    // },
     getCurrentUser: async () => {
         const response = await api.get("/v1/auth/me/");
         return response;
@@ -111,11 +111,8 @@ export const authAPI = {
         const response = await api.post("v1/auth/verify-invite/", payload);
         return response;
     },
-    resendOtp: ({ email }) => {
-        return api.post('/auth/resend-otp', { email });
-    },
-    changePassword: async (data) => {
-        const response = await api.post("/v1/auth/change-password/", data);
+    changePassword: async (changePasswordData) => {
+        const response = await api.post("/v1/auth/change-password/", changePasswordData);
         return response;
     },
 };
@@ -230,7 +227,7 @@ export const employerAPI = {
     },
     // Wellness Data
     getMoodTrends: async () => {
-        const response = await api.get("/v1/progress/");
+        const response = await api.get("/v1/invitations/");
         return response;
     },
     getDepartmentDistribution: async () => {
@@ -242,7 +239,7 @@ export const employerAPI = {
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/v1/progress/");
+        const response = await api.get("/v1/invitations/");
         return response;
     },
     getRecentActivities: async () => {
