@@ -14,7 +14,6 @@ const employeeSchema = z.object({
 });
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
     const dispatch = useDispatch();
-const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded, companyId }) => {
     const { toast } = useToast();
     const { isActionLoading, error } = useSelector((state) => state.employer);
     const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -87,6 +86,6 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded, companyId }) => 
                                                 };
                                                 input.addEventListener('change', onChange);
                                                 input.click();
-                                            }, children: "Try bulk add" }), _jsx("br", {}), _jsx("input", { type: "file", className: "form-control-file mt-1", id: "upload-excel", accept: ".xlsx,.xls,.csv" })] })] }) }), _jsxs("div", { className: "modal-footer", children: [_jsx("button", { type: "submit", className: "btn btn-success", disabled: isActionLoading, children: isActionLoading ? 'Adding...' : 'Add Employee' }), _jsx("button", { type: "button", className: "btn btn-secondary", onClick: handleClose, disabled: isActionLoading, children: "Close" })] })] }) }) }));
+                                            }, children: "Try bulk add" }), _jsx("br", {}), _jsx("input", { type: "file", className: "form-control-file mt-1", id: "upload-excel", accept: ".xlsx,.xls,.csv" })] }), _jsx("button", { type: "submit", className: "btn btn-success", disabled: isActionLoading, children: isActionLoading ? 'Adding...' : 'Add Employee' })] }) }), _jsx("div", { className: "modal-footer", children: _jsx("button", { type: "button", className: "btn btn-secondary", onClick: handleClose, disabled: isActionLoading, children: "Close" }) })] }) }) }));
 };
 export default AddEmployeeForm;
