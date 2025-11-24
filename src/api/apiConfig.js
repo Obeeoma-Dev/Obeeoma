@@ -238,5 +238,14 @@ export const employerAPI = {
         const response = await api.get("/v1/employer/overview");
         return response;
     },
+    viewUsage: async () => {
+        return api.get("/subscription/usage/");
+    },
+    updatePaymentMethod: async (payload) => {
+        return api.post("/v1/employer/billing/update-payment-method/", payload);
+    },
+    viewBillingHistory: async () => {
+        return api.get("v1/dashboard/subscriptions/billing-history/");
+    },
 };
 export default api;

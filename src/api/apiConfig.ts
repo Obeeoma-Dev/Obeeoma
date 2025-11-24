@@ -8,11 +8,12 @@ import {
   OtpVerificationPayload,
   MfaSetupData,
   MfaVerifyPayload, 
-  MfaSetupRequestPayload
-
+  MfaSetupRequestPayload,
+  
+  
 } from "@/types/auth";
 
-
+import {UsageData, PaymentUpdatePayload, InvoiceItem} from "@/types/employer"
 declare const authApiClient: any;
 
 const API_BASE_URL =
@@ -41,6 +42,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
                 "v1/auth/verify-otp/",
                 "v1/auth/mfa/setup/",
                 "v1/auth/mfa/confirm/",
+               
                 
               ];
             
@@ -320,6 +322,21 @@ export const employerAPI = {
     const response = await api.get("/v1/employer/overview");
     return response;
   },
+
+ viewUsage: async () => {
+        return api.get<UsageData>("/subscription/usage/");
+    },
+
+updatePaymentMethod: async (payload: PaymentUpdatePayload) => {
+    return api.post("/v1/employer/billing/update-payment-method/", payload);
+},
+
+
+viewBillingHistory: async () => {
+    return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/"); 
+},
 };
+
+
 
 export default api;
