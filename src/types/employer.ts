@@ -75,10 +75,8 @@ export interface Employee {
   id: number | string;
   name?: string;
   email?: string;
-  emailAddress?: string;
   department: string;
   status: 'active' | 'inactive' | 'pending' | 'accepted' | 'rejected' | string;
-  avatar?: string;
   joinDate?: string;
   lastActive?: string;
   phoneNumber?: string;
