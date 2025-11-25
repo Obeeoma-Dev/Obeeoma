@@ -64,15 +64,15 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       color: "success",
     },
     {
-      title: "Wellness Index",
+      title: "General workers' mood",
       value: `${stats.wellnessIndex}%`,
       icon: "TrendingUp",
       color: "success",
     },
     {
-      title: "At Risk",
+      title: "Help",
       value: stats.atRisk.toString(),
-      icon: "AlertTriangle",
+      icon: "HelpCircle",
       color: "warning",
     },
   ] : [];
@@ -85,14 +85,14 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
             <TopGrid stats={statsData} />
           </div>
 
-          {/* <div className="col-lg-8 col-md-12">
+          <div className="col-lg-8 col-md-12">
             <EmployeeTable 
               searchQuery={searchQuery} 
               onSearchChange={setSearchQuery}
               employees={employeeData.employees as any} // Temporary cast
               companyId={companyId}
             />
-          </div> */}
+          </div> 
 
           {/* <div className="col-lg-4 col-md-12">
             <div className="card border-0 shadow-sm h-100">

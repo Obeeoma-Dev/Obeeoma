@@ -8,7 +8,7 @@ export interface EmployerUser {
   role: 'admin' | 'employer' | 'employee' | string;
   dateJoined: string; // ISO date string
   phone?: string;
-  avatar?: string;
+  compnayLogo?: string;
   company?: {
     id: string | number;
     name: string;
@@ -78,7 +78,7 @@ export interface Employee {
   emailAddress?: string;
   department: string;
   status: 'active' | 'inactive' | 'pending' | 'accepted' | 'rejected' | string;
-  avatar?: string;
+  compnayLogo?: string;
   joinDate?: string;
   lastActive?: string;
   phoneNumber?: string;

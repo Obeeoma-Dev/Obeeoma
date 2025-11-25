@@ -35,7 +35,8 @@ const Layout = ({ children, title }: LayoutProps) => {
     : new Date(); // Fallback to current date
 
   const menuItems = [
-    { icon: HomeIcon, label: "Home", path: "/employer-dashboard", active: false },
+    { icon: HomeIcon, label: "Dashboard", path: "/employer-dashboard", active: false },
+    { icon: UsersIcon, label: "Employee Management", path: "/employee-management", active: false },
     { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
     { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
   ].map(item => ({
@@ -129,9 +130,30 @@ const Layout = ({ children, title }: LayoutProps) => {
                       My Account
                     </button>
                   </li>
+                  <li>
+                    <button 
+                      className="dropdown-item"
+                      onClick={() => navigate("/create-profile")} >
+                      <UserIcon size={16} className="me-2" />
+                      Create Profile
+                    </button>
+                  </li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
-                    <button className="dropdown-item text-danger">
+                    <button 
+                      className="dropdown-item text-danger"
+                      onClick={async () => {
+                        try {
+                          const { authAPI } = await import("../../../api/apiConfig");
+                          await authAPI.logout();
+                          localStorage.removeItem("token");
+                          localStorage.removeItem("refresh");
+                          navigate("/login");
+                        } catch (err) {
+                          // Optionally show error toast
+                        }
+                      }}
+                    >
                       Logout
                     </button>
                   </li>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError } from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite, Employee } from '../../../types/employer';
@@ -83,16 +82,6 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleEmployeeAdded = () => {
-    setShowModal(false);
-    toast({
-      message: "Employee invitation sent successfully!",
-      duration: 4000,
-    });
-    onEmployeeAdded?.();
-    dispatch(fetchEmployeeInvites() as any);
-  };
-
   return (
     <div className="card border-0 shadow-sm">
       <div className="card-body">
@@ -113,16 +102,10 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
           </div>
         </div>
 
-        <AddEmployeeForm 
-          showModal={showModal}
-          onClose={() => setShowModal(false)}
-          onEmployeeAdded={handleEmployeeAdded}
-        />
         <div className="table-responsive">
           <table className="table table-hover mb-0">
             <thead className="bg-light">
               <tr>
-                <th className="border-0 ps-4 py-3 text-muted fw-semibold">Worker</th>
                 <th className="border-0 py-3 text-muted fw-semibold">Email</th>
                 <th className="border-0 py-3 text-muted fw-semibold">Department</th>
                 <th className="border-0 py-3 text-muted fw-semibold">Status</th>
@@ -186,7 +169,7 @@ const EmployeeTable: React.FC<EmployeeTableProps> = ({
             </tbody>
           </table>
         </div>
-{/* Pagination */}
+        {/* Pagination */}
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="text-muted">
             Showing {filteredEmployees.length} of {allEmployees.length} employees
