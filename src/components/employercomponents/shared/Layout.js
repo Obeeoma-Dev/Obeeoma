@@ -2,10 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home as HomeIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
-import { Home as HomeIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
-import { useSelector } from "react-redux";
-import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 import { useSelector } from "react-redux";
 import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 const PRIMARY_COLOR = "#3CB371";
@@ -13,11 +10,6 @@ const Layout = ({ children, title }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    // Get employer data from Redux store
-    const employer = useSelector((state) => state.employer.currentEmployer);
-    const companyJoinDate = employer?.company?.createdAt
-        ? new Date(employer.company.createdAt)
-        : new Date(); // Fallback to current date
     // Get employer data from Redux store
     const employer = useSelector((state) => state.employer.currentEmployer);
     const companyJoinDate = employer?.company?.createdAt
@@ -44,8 +36,14 @@ const Layout = ({ children, title }) => {
     };
     return (_jsxs("div", { className: "min-vh-100 bg-light d-flex flex-column", children: [isSidebarOpen && (_jsx("div", { className: "position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none", onClick: () => setIsSidebarOpen(false) })), _jsx("header", { className: "bg-white border-bottom sticky-top z-30", style: { marginLeft: "240px", width: "calc(100% - 240px)" }, children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsxs("div", { className: "d-flex flex-column", children: [_jsx("h1", { className: "h4 fw-bold mb-0", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: title }), _jsxs("small", { className: "text-muted", children: ["Member since ", formatDate(companyJoinDate)] })] }) }), _jsxs("div", { className: "col-auto d-flex align-items-center gap-3", children: [_jsxs("button", { className: "btn btn-link position-relative p-2", style: { color: PRIMARY_COLOR }, onClick: () => navigate("/employer-notifications"), children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle p-1", style: { backgroundColor: PRIMARY_COLOR } })] }), _jsxs("div", { className: "dropdown", children: [_jsx("button", { className: "btn btn-link p-0 border-0 dropdown-toggle d-flex align-items-center", type: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false", children: _jsxs("div", { className: "rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold", style: { width: "40px", height: "40px", fontSize: "16px" }, children: [employer?.firstName?.charAt(0) || 'U', employer?.lastName?.charAt(0) || ''] }) }), _jsxs("ul", { className: "dropdown-menu dropdown-menu-end", children: [_jsx("li", { children: _jsxs("button", { className: "dropdown-item", onClick: () => navigate("/employer-settings"), children: [_jsx(UserIcon, { size: 16, className: "me-2" }), "My Account"] }) }), _jsx("li", { children: _jsx("hr", { className: "dropdown-divider" }) }), _jsx("li", { children: _jsx("button", { className: "dropdown-item text-danger", children: "Logout" }) })] })] })] })] }) }) }), _jsxs("aside", { className: `position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`, style: { width: "240px" }, children: [_jsxs("div", { className: "p-4 border-bottom d-flex align-items-center justify-content-between", children: [_jsx("button", { onClick: () => navigate("/employer-dashboard"), className: "btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0", children: _jsx("div", { ref: logoRef, className: "d-flex align-items-center justify-content-center", style: {
                                         transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
-                                        transition: 'transform 0.6s ease-in-out'
-                                    }, children: _jsx("img", { src: logo, alt: "logo", height: "50" }) }) }), _jsx("button", { onClick: () => setIsSidebarOpen(false), className: "btn btn-link d-lg-none p-0", style: { color: PRIMARY_COLOR }, children: _jsx(X, { size: 20 }) })] }), _jsx("nav", { className: "px-3 mt-4", children: menuItems.map((item) => (_jsxs("button", { onClick: () => navigate(item.path), className: `w-100 btn d-flex align-items-center gap-3 mb-2 text-start ${item.active ? "bg-light" : "text-dark"}`, style: {
+                                        transition: 'transform 0.6s ease-in-out',
+                                        margin: '0.5rem 0',
+                                        padding: '0.75rem 1rem'
+                                    }, children: _jsx("img", { src: logo, alt: "logo", style: {
+                                            maxWidth: '100%',
+                                            height: 'auto',
+                                            objectFit: 'contain'
+                                        } }) }) }), _jsx("button", { onClick: () => setIsSidebarOpen(false), className: "btn btn-link d-lg-none p-0", style: { color: PRIMARY_COLOR }, children: _jsx(X, { size: 20 }) })] }), _jsx("nav", { className: "px-3 mt-4", children: menuItems.map((item) => (_jsxs("button", { onClick: () => navigate(item.path), className: `w-100 btn d-flex align-items-center gap-3 mb-2 text-start ${item.active ? "bg-light" : "text-dark"}`, style: {
                                 border: "none",
                                 borderRadius: "8px",
                                 padding: "12px",

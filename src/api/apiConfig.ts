@@ -138,10 +138,10 @@ export const authAPI = {
     return response;
   },
 
-  changePassword: async (data: changePasswordData) => {
-    const response = await api.post("/v1/auth/change-password", data);
-    return response;
-  },
+  // changePassword: async (data: changePasswordData) => {
+  //   const response = await api.post("/v1/auth/change-password", data);
+  //   return response;
+  // },
 
   getCurrentUser: async () => {
     const response = await api.get("/v1/auth/me/");
@@ -153,12 +153,10 @@ export const authAPI = {
     return response;
   },
 
-  resendOtp: ({ email }: { email: string }) => {
-    return api.post('/auth/resend-otp', { email });
-  },
+ 
 
-  changePassword: async (data: any) => {
-    const response = await api.post("/v1/auth/change-password/", data);
+  changePassword: async (changePasswordData: any) => {
+    const response = await api.post("/v1/auth/change-password/", changePasswordData);
     return response;
   },
 };
@@ -297,7 +295,7 @@ export const employerAPI = {
 
   // Wellness Data
   getMoodTrends: async () => {
-    const response = await api.get("/v1/progress/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
@@ -313,7 +311,7 @@ export const employerAPI = {
 
 
   getWellnessTrend: async () => {
-    const response = await api.get("/v1/progress/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
