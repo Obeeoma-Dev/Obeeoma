@@ -147,12 +147,11 @@ const ResetPassword: React.FC = () => {
               >
                 {({
                   handleChange,
-                  handleSubmit: formikSubmit,
                   values,
                   errors,
                   touched,
                 }) => (
-                  <FormikForm noValidate onSubmit={formikSubmit}>
+                  <FormikForm noValidate>
                     {/* email Field */}
                     <BootstrapForm.Group className="mb-3" controlId="email">
                       <BootstrapForm.Control
