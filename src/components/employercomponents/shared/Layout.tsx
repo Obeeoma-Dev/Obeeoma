@@ -36,7 +36,7 @@ const Layout = ({ children, title }: LayoutProps) => {
 
   const menuItems = [
     { icon: HomeIcon, label: "Dashboard", path: "/employer-dashboard", active: false },
-    { icon: UsersIcon, label: "Employee Management", path: "/employee-management", active: false },
+    { icon: UsersIcon, label: "Employees", path: "/employee-management", active: false },
     { icon: CreditCard, label: "Subscription", path: "/employer-subscription", active: false },
     { icon: FileText, label: "Reports", path: "/organization-reports", active: false },
   ].map(item => ({
