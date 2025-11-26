@@ -27,6 +27,11 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
           stat.icon as keyof typeof Icons
         ] as LucideIcon;
 
+        // Split the stat.change string into numeric value and rest of the text
+        // Example: "+8% vs yesterday" => value = "+8%", restText = "vs yesterday"
+        const [value, ...rest] = stat.change.split(" ");
+        const restText = rest.join(" ");
+
         return (
           <Col key={stat.id} xs={12} sm={6} md={3} className="mb-4">
             <Card className="shadow-sm border-0 h-100">
@@ -34,18 +39,41 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                 {/* Top section: icon and change badge */}
                 <div className="d-flex align-items-center justify-content-between mb-3">
                   <div
-                    className={`d-flex align-items-center justify-content-center`}
+                    className="d-flex align-items-center justify-content-center"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      backgroundColor: "#e6f4ea !important",
+                      border: "2px solid red !important",
+                      borderRadius: "8px",
+                    }}
                   >
-                    <IconComponent size={20} style={{ color: "#198754" }} />
+                    <IconComponent size={25} style={{ color: stat.change.startsWith('+') ? "#3CB371" : "#dc3545" }} />
                   </div>
+
 
                   {/* Change indicator styled like a badge */}
                   <span
-                    className="badge text-success fw-medium"
-                    style={{ fontSize: "0.75rem", padding: "0.4em 0.6em" }}
+                    className="fw-medium"
+                    style={{
+                      fontSize: "0.75rem",
+                      padding: "0.4em 0.6em",
+                      color: stat.change.startsWith("+") ? "green" : "red",
+                      fontWeight: 600,
+                      display: "inline-block",
+                    }}
                   >
-                    {stat.change}
+                    {stat.id === "4" ? (
+                      // Make whole change text red
+                      <span style={{ color: "red" }}>{stat.change}</span>
+                    ) : (
+                      // Default for all other cards
+                      <>{stat.change}</>
+                    )}
+
                   </span>
+
+
                 </div>
 
                 {/* Bottom section: title and value */}
