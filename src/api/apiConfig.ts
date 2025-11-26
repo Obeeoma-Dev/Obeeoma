@@ -13,8 +13,8 @@ import {
 
 } from "@/types/auth";
 
-import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
-declare const authApiClient: any;
+// import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
+// declare const authApiClient: any;
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";

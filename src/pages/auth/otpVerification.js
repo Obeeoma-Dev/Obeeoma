@@ -57,7 +57,7 @@ export default function OtpVerificationPage() {
         setIsResendLoading(true);
         setLocalError(null);
         try {
-            await dispatch(verifyOtpThunk({ otp_code: '0' })).unwrap();
+            // await dispatch(resendOtpThunk({ code: '0' })).unwrap(); 
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');
             setOtp(''); // Clear OTP input

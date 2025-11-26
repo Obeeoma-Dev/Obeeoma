@@ -34,6 +34,7 @@ import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
+// import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import Aboutus from "./pages/landingpage/Aboutpages/about";
 import { ContactPage } from "./pages/landingpage/Contacts/contactUs";
 import { Blog } from "./pages/landingpage/Blogpages/blog";
