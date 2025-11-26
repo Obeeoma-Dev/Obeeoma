@@ -89,49 +89,6 @@ export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload,
         return rejectWithValue(getErrorMessage(err));
     }
 });
-<<<<<<< HEAD
-// Resend OTP Thunk
-export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
-    try {
-        const response = await authAPI.resendOtp(payload);
-        return response.data;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }
-    catch (error) {
-        const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
-        return rejectWithValue(errorMessage);
-    }
-});
-// -----------------------------------
-// MFA Thunks
-// -----------------------------------
-// MFA Setup: Initiates the process, typically returning the secret key and QR code data.
-export const setupMfa = createAsyncThunk('auth/setupMfa', async (_, { rejectWithValue }) => {
-    try {
-        // We pass an empty object {} to satisfy the 'payload: MfaSetupData'
-        // required by authAPI.fetchMfaSetupData
-        const response = await authAPI.fetchMfaSetupData({});
-        // Return the data from the Axios response
-        return response.data;
-    }
-    catch (err) {
-        return rejectWithValue(getErrorMessage(err));
-    }
-});
-// MFA Confirmation: Verifies the code from the user's authenticator app.
-export const confirmMfa = createAsyncThunk('auth/confirmMfa', async (payload, { rejectWithValue }) => {
-    try {
-        // Correct usage: Pass the payload directly.
-        // The API client handles authentication via the interceptor.
-        await authAPI.confirmMfaSetup(payload);
-    }
-    catch (err) {
-        return rejectWithValue(getErrorMessage(err));
-    }
-});
-// State Setup
-=======
->>>>>>> a97afbd044d22b6739fe3fb742ed882e1856e6f6
 const getUserFromStorage = () => {
     const rawUser = localStorage.getItem("user");
     if (!rawUser || rawUser === "undefined")
@@ -143,8 +100,6 @@ const getUserFromStorage = () => {
         return null;
     }
 };
-<<<<<<< HEAD
-=======
 // Resend OTP Thunk (Unchanged)
 // export const resendOtpThunk = createAsyncThunk<
 //   { message: string }, 
@@ -163,7 +118,6 @@ const getUserFromStorage = () => {
 //     }
 //   }
 // );
->>>>>>> a97afbd044d22b6739fe3fb742ed882e1856e6f6
 const initialState = {
     user: getUserFromStorage(),
     token: localStorage.getItem("token"),
@@ -284,58 +238,6 @@ const authSlice = createSlice({
             .addCase(verifyOtpThunk.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
-<<<<<<< HEAD
-        })
-            // Resend OTP Thunk
-            .addCase(resendOtpThunk.pending, (state) => {
-            state.isLoading = true;
-            state.error = null;
-        })
-            .addCase(resendOtpThunk.fulfilled, (state) => {
-            state.isLoading = false;
-            state.error = null;
-        })
-            .addCase(resendOtpThunk.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
-        })
-            // -----------------------------------
-            // MFA Setup: Get QR Code and Secret
-            // -----------------------------------
-            .addCase(setupMfa.pending, (state) => {
-            state.isLoading = true;
-            state.error = null;
-        })
-            .addCase(setupMfa.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.mfaSetupData = action.payload; // Store the QR code/Secret data
-            state.error = null;
-        })
-            .addCase(setupMfa.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
-            state.mfaSetupData = null;
-        })
-            // -----------------------------------
-            // MFA Confirmation: Verify the code
-            // -----------------------------------
-            .addCase(confirmMfa.pending, (state) => {
-            state.isLoading = true;
-            state.error = null;
-        })
-            .addCase(confirmMfa.fulfilled, (state) => {
-            state.isLoading = false;
-            state.isMfaSetupConfirmed = true; // Set status to confirmed
-            state.error = null;
-            // Optionally clear mfaSetupData here if it's no longer needed after confirmation
-            // state.mfaSetupData = null;
-        })
-            .addCase(confirmMfa.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload;
-            state.isMfaSetupConfirmed = false;
-=======
->>>>>>> a97afbd044d22b6739fe3fb742ed882e1856e6f6
         });
     },
 });
