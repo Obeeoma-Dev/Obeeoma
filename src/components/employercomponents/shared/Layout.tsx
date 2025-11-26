@@ -13,7 +13,7 @@ import {
 import logo from "../../../assets/Images/obeeomalogoword1.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
+import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
 interface LayoutProps {
   children: ReactNode;
   title: string;

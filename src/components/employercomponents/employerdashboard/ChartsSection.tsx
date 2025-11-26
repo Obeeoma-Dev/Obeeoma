@@ -13,16 +13,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface EmployeeData {
+interface ChartData {
   testsByType: { name: string; value: number }[];
   testsByDepartment: { name: string; value: number; color: string }[];
 }
 
-interface EmployeesSectionProps {
-  employeeData: EmployeeData | null;
+interface ChartsSectionProps {
+  chartData: ChartData | null;
 }
 
-const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
+const ChartsSection = ({ chartData }: ChartsSectionProps) => {
   const defaultTestsByType = [
     { name: "Previous week ", value: 2 },
     { name: "This week", value: 1 },
@@ -35,11 +35,11 @@ const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
     { name: "Engineering", value: 25, color: "#ef4444" },
   ];
 
-  const testsByType = (employeeData?.testsByType || defaultTestsByType).map(item => ({
+  const testsByType = (chartData?.testsByType || defaultTestsByType).map(item => ({
     ...item,
     value: Math.round(item.value)
   }));
-  const testsByDepartment = employeeData?.testsByDepartment || defaultTestsByDepartment;
+  const testsByDepartment = chartData?.testsByDepartment || defaultTestsByDepartment;
 
   return (
     <div className="row g-4 mb-4">
@@ -97,4 +97,4 @@ const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
   );
 };
 
-export default EmployeesSection;
+export default ChartsSection;

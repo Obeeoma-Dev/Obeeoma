@@ -147,31 +147,38 @@ const getUserFromStorage = () => {
   }
 };
 
-// Resend OTP Thunk (Unchanged)
-// export const resendOtpThunk = createAsyncThunk<
-//   { message: string }, 
-//   OtpVerificationPayload, 
-//   { rejectValue: string } 
-// >(
-//   'auth/resendOtp',
-//   async (payload, { rejectWithValue }) => {
-//     try {
-//       const response = await authAPI.resendOtp(payload); 
-//       return response.data;
-//       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     } catch (error: any) {
-//       const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
-//       return rejectWithValue(errorMessage);
-//     }
-//   }
-// );
+//Resend OTP Thunk (Unchanged)
+export const resendOtpThunk = createAsyncThunk<
+  { message: string }, 
+  OtpVerificationPayload, 
+  { rejectValue: string } 
+>(
+  'auth/resendOtp',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await authAPI.resendOtp(payload); 
+      return response.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
 
 const initialState: AuthState = {
-  user: getUserFromStorage(),
-  token: localStorage.getItem("token"),
-  isLoading: false,
-  error: null,
-  is_verified: false,
+    user: getUserFromStorage(),
+    token: localStorage.getItem("token"),
+    isLoading: false,
+    error: null,
+    is_verified: false,
+    
+    // Initial State for NEW MFA properties
+    mfaSetupData: null,
+    isMfaSetupConfirmed: false,
+    // The accessToken is already stored in `token` above, 
+    // but keeping this for potential future separation:
+    accessToken: null, 
 };
 
 const authSlice = createSlice({

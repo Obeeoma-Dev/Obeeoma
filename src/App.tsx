@@ -34,7 +34,7 @@ import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
-import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
+// import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import Aboutus from "./pages/landingpage/Aboutpages/about";
 import { ContactPage } from "./pages/landingpage/Contacts/contactUs";
 import { Blog } from "./pages/landingpage/Blogpages/blog";
@@ -74,9 +74,9 @@ export default function App(): React.ReactElement {
 
               {/* EMPLOYER'S ROUTES */}
               <Route path="/organization-reports" element={<CompanyReports />} />
-              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard companyId="your-company-id" />} />
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
-              <Route path="/employee-management" element={<EmployeeManagement />} />
+              {/* <Route path="/employee-management" element={<EmployeeManagement />} /> */}
               {/* Note: EmployerAccountProfile and EmployerAccountSettingsPage seem to point to the same file, using both paths */}
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
               <Route path="/employer-notifications" element={<EmployerNotificationPage />} />

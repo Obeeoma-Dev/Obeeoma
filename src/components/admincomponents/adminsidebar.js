@@ -4,13 +4,13 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
-import logo from "../../assets/Images/obeeomalogoword2.png"; // Obeeoma logo
+import logo from "../../assets/Images/obeeomalogoword1.png"; // Obeeoma logo
 const SideNavButton = ({ id, label, icon, onClick, }) => {
     const location = useLocation();
     const currentPath = location.pathname.split("/")[2];
-    const isActive = currentPath === id;
+    const isActive = (id === "overview" && (currentPath === undefined || currentPath === "")) || currentPath === id;
     const IconComponent = Icons[icon];
-    return (_jsxs(Button, { variant: "light", onClick: onClick, className: `w-100 d-flex align-items-center gap-3 px-3 py-2 text-start mb-2 ${isActive ? "fw-semibold border-start" : ""}`, style: {
+    return (_jsxs(Button, { variant: "light", onClick: onClick, className: `w-100 d-flex align-items-center gap-3 px-3 py-2 text-start ${isActive ? "fw-semibold border-start" : ""}`, style: {
             position: "relative",
             backgroundColor: isActive ? "#e9f5ee" : "transparent",
             borderLeft: isActive ? "4px solid #3CB371" : "4px solid transparent",
@@ -18,12 +18,15 @@ const SideNavButton = ({ id, label, icon, onClick, }) => {
             fontWeight: isActive ? 600 : 400,
             transition: "all 0.2s ease",
             borderRadius: 0,
-            boxShadow: isActive ? "inset 0 0 0 1px #e9f5ee" : "none",
+            boxShadow: "none",
+            marginBottom: "8px",
+            borderTop: "none",
+            borderBottom: "none",
         }, onMouseEnter: (e) => {
             e.currentTarget.style.backgroundColor = "#f1f3f5";
         }, onMouseLeave: (e) => {
             e.currentTarget.style.backgroundColor = isActive ? "#e9f5ee" : "transparent";
-        }, children: [_jsx(IconComponent, { size: 18, color: "#3CB371" }), _jsx("span", { className: "small", children: label }), isActive && (_jsx("div", { style: {
+        }, children: [_jsx(IconComponent, { size: 20, color: "#3CB371" }), _jsx("span", { className: "small", children: label }), isActive && (_jsx("div", { style: {
                     position: "absolute",
                     right: 0,
                     top: 0,
@@ -78,11 +81,11 @@ const AdminSidebar = () => {
             flexDirection: "column",
             justifyContent: "space-between",
         }, children: [_jsx("div", { style: {
-                    padding: "1rem",
+                    padding: "2rem",
                     borderBottom: "1px solid #dee2e6",
                     display: "flex",
                     justifyContent: "center",
-                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "120px", height: "120px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
+                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "180px", height: "50px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
                     // Cast icon to valid React component
                     // const IconComponent = Icons[
                     //   item.icon as keyof typeof Icons
