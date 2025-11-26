@@ -30,6 +30,11 @@ export interface AccountSectionProps {
   onAccountDataChange: (data: EmployerUser) => void;
 }
 
+export interface DashboardProps {
+  companyId?: string;
+  refreshInterval?: number;
+}
+
 export interface DashboardSummary {
   totalEmployees: number;
   wellnessIndex: number;

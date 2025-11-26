@@ -8,16 +8,10 @@ import RecentActivity from "../../components/employercomponents/employerdashboar
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
-
-// Props interface for better type safety
-interface DashboardProps {
-  companyId?: string;
-  refreshInterval?: number;
-}
+import { DashboardProps } from "@/types/employer";
 
 const EmployerDashboard: React.FC<DashboardProps> = ({ 
   companyId, 
-  refreshInterval = 300000 // 5 minutes default
 }) => {
   const { stats, employeeData, activities, loading, error } = useDashboardData();
   const [searchQuery, setSearchQuery] = useState("");
