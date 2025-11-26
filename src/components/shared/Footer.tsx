@@ -59,12 +59,14 @@ const Footer: React.FC = () => {
         <div className="row">
           {/* About Section */}
           <div className="col-lg-3 mb-4" data-testid="footer-section-about">
-            <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>About Obeeoma</h6>
-            <p className="text-white small mb-4">
+            <h6 className="text-white mb-3" style={{
+              fontFamily: 'heading', fontSize: '1rem'
+            }}>About Obeeoma</h6>
+            <p className="footer-text">
               AI-first workplace mental health platform built for Africa. Supporting
               healthier, more productive teams across the continent.
             </p>
-            <p className="text-white small mb-0">
+            <p className="footer-text">
               © 2025 Obeeoma. All rights reserved.
             </p>
           </div>
@@ -76,13 +78,17 @@ const Footer: React.FC = () => {
               className="col-lg-3 mb-4"
               data-testid={`footer-section-${key}`}
             >
-              <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>{section.title}</h6>
+              <h6 className="text-white mb-3" style={{
+                fontFamily: 'heading', fontSize: '1rem'
+              }}>
+                {section.title}
+              </h6>
               <ul className="list-unstyled">
                 {section.items.map((item, index) => (
                   <li key={index} className="mb-2">
                     <Link
                       to={item.link}
-                      className="text-white text-decoration-none"
+                      className="footer-text"
                     >
                       {item.text}
                     </Link>
