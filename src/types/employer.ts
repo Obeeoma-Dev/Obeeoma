@@ -138,3 +138,28 @@ export interface PrivacySettings {
   enhancedPrivacy: boolean;
   dataRetentionPeriod: number;
 }
+
+export interface UsageData {
+  api_calls_used: number;
+  api_calls_limit: number;
+  api_calls_percent: number;
+  seats_used: number;
+  seats_limit: number;
+  seats_percent: number;
+  last_updated: string;
+}
+
+export interface PaymentUpdatePayload {
+    token_id: string; 
+    email: string; // Required for Flutterwave customer 
+}
+
+export interface InvoiceItem {
+    invoice_number: string;
+    date: string; // YYYY-MM-DD format
+    amount: number;
+    currency: string;
+    description: string;
+    status: string;
+    invoice_url: string | null;
+}

@@ -90,7 +90,7 @@ export default function App(): React.ReactElement {
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
               <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
               {/* <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} /> */}
-
+               
               {/* SYSTEMS ADMIN ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} /> {/* Main Admin Dashboard */}
               <Route path="/system-admin/organizations" element={<Organisation />} />
