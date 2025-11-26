@@ -13,8 +13,8 @@ import {
 
 } from "@/types/auth";
 
-import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
-declare const authApiClient: any;
+// import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
+// declare const authApiClient: any;
 
 import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
 declare const authApiClient: any;

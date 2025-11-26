@@ -10,49 +10,41 @@ const api = axios.create({
 });
 // --- Interceptors ---
 export const setupApiInterceptors = (store) => {
-    // Request Interceptor
     api.interceptors.request.use((config) => {
         const requestPath = config.url || '';
         const publicEndpoints = [
             "/v1/auth/login/",
             "/v1/auth/signup/",
             "/v1/auth/reset-password/",
-<<<<<<< HEAD
-            "/v1/auth/change-password",
-            "v1/organization-signup/",
-            "v1/dashboard/overview/",
-            "v1/auth/verify-invite/",
-=======
             "/v1/auth/change-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
             "/v1/auth/verify-otp/",
             "/v1/auth/mfa/setup/",
             "/v1/auth/mfa/confirm/",
->>>>>>> main
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
+        // checking the redux token
         const state = store.getState();
         const token = state.auth.token;
+        //check local storage
         const persistedToken = localStorage.getItem('token');
         const activeToken = token || persistedToken;
         if (activeToken && !isPublicEndpoint) {
+            //  "inject the authorization"
             config.headers.Authorization = `Bearer ${activeToken}`;
         }
         else if (isPublicEndpoint) {
+            // to remove the token header
             delete config.headers.Authorization;
         }
-        console.log("Making API Request:", {
+        console.log(" Making API Request:", {
             method: config.method,
             url: config.url,
             data: config.data,
-            token_injected: !!(activeToken && !isPublicEndpoint),
+            token_injected: !!(token && !isPublicEndpoint),
         });
         return config;
-<<<<<<< HEAD
-    }, (error) => Promise.reject(error));
-    // Response Interceptor
-=======
     }, (error) => {
         return Promise.reject(error);
     });
@@ -66,7 +58,7 @@ export const setupApiInterceptors = (store) => {
     //     return config;
     //   },
     // );
->>>>>>> main
+    // Response Interceptor
     api.interceptors.response.use((response) => {
         console.log("API Response Success:", {
             status: response.status,
@@ -124,28 +116,15 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/", data);
         return response;
     },
-<<<<<<< HEAD
-    // changePassword: async (data: changePasswordData) => {
-    //   const response = await api.post("/v1/auth/change-password", data);
-    //   return response;
-    // },
-    getCurrentUser: async () => {
-        const response = await api.get("/v1/auth/me/");
-=======
     // reset password
     changePassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/complete/", data);
->>>>>>> main
         return response;
     },
     verifyOtp: async (payload) => {
         const response = await api.post("v1/auth/verify-otp/", payload);
         return response;
     },
-<<<<<<< HEAD
-    changePassword: async (changePasswordData) => {
-        const response = await api.post("/v1/auth/change-password/", changePasswordData);
-=======
     resendOtp: (payload) => {
         return api.post('v1/auth/verify-otp/', payload);
     },
@@ -156,7 +135,6 @@ export const authAPI = {
     confirmMfaSetup: async (payload) => {
         // The payload is expected to be an object: { code: string }
         const response = await api.post("/v1/auth/mfa/confirm/", payload);
->>>>>>> main
         return response;
     },
 };
@@ -202,7 +180,10 @@ export const adminAPI = {
         const response = await api.post("/v1/admin/crisis-insights/update/");
         return response;
     },
-    // Analytics
+    changeCrisisInsights: async () => {
+        const response = await api.post("/v1/admin/crisis-insights/changes/");
+        return response;
+    },
     getEmployeeEngagement: async () => {
         const response = await api.post("/v1/admin/employee-engagement/");
         return response;

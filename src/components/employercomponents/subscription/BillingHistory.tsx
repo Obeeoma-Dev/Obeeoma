@@ -8,7 +8,7 @@ import { fetchBillingHistory } from '../../../store/slices/billingSlice';
 
 const BillingHistoryTable: React.FC = () => {
     const dispatch = useDispatch();
-    const { invoices, status, error } = useSelector((state: RootState) => state.billing);
+    // const { invoices, status, error } = useSelector((state: RootState) => state.billing);
 
     useEffect(() => {
         // Fetch history only if it hasn't been fetched or failed
@@ -16,9 +16,9 @@ const BillingHistoryTable: React.FC = () => {
             dispatch(fetchBillingHistory() as any);
         }
     }, [status, dispatch]);
-    
+
     // Helper function to format the amount
-    const formatAmount = (amount: number, currency: string) => 
+    const formatAmount = (amount: number, currency: string) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount);
 
 
@@ -26,24 +26,24 @@ const BillingHistoryTable: React.FC = () => {
         return <Spinner animation="border" size="sm" />;
     }
 
-    if (error) {
-        return <Alert variant="danger">Error loading history: {error}</Alert>;
-    }
+    // if (error) {
+    //     return <Alert variant="danger">Error loading history: {error}</Alert>;
+    // }
 
-    if (invoices.length === 0) {
-        return <Alert variant="info">No billing history found.</Alert>;
-    }
+    // if (invoices.length === 0) {
+    //     return <Alert variant="info">No billing history found.</Alert>;
+    // }
 
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h4 className="mb-0">Billing History</h4>
                 {/* Link to view full page of invoices */}
-                <Button variant="link" size="sm" onClick={() => {/* navigate to full invoice view */}}>
+                <Button variant="link" size="sm" onClick={() => {/* navigate to full invoice view */ }}>
                     VIEW ALL INVOICES
                 </Button>
             </div>
-            
+
             <Table striped bordered hover responsive size="sm">
                 <thead>
                     <tr>
@@ -55,7 +55,7 @@ const BillingHistoryTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {invoices.map((invoice) => (
+                    {/* {invoices.map((invoice) => (
                         <tr key={invoice.invoice_number}>
                             <td>{invoice.date}</td>
                             <td>{invoice.description}</td>
@@ -73,7 +73,7 @@ const BillingHistoryTable: React.FC = () => {
                                 )}
                             </td>
                         </tr>
-                    ))}
+                    ))} */}
                 </tbody>
             </Table>
         </div>
