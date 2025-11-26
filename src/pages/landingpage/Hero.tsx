@@ -99,7 +99,7 @@ const Hero = () => {
                 className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
                   backgroundColor: "#fff", // Default: white background
-                  color: "#00A859", // Default: green text
+                  color: "#0B6E45", // Default: green text
                   border: "2px solid #00A859", // Match border to green
                   outline: "none",
                   boxShadow: "none",
@@ -125,7 +125,7 @@ const Hero = () => {
                   btn.style.color = "#00A859";
                 }}
                 // Navigate to login page when clicked
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/employee-downloadapp")}
               >
                 For Employees
               </Button>

@@ -57,11 +57,12 @@ export default function OtpVerificationPage() {
         setIsResendLoading(true);
         setLocalError(null);
         try {
-            await dispatch(resendOtpThunk({ otp_code: '0' })).unwrap();
+            await dispatch(resendOtpThunk({ code: '0' })).unwrap();
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');
             setOtp(''); // Clear OTP input
             setResendTimer(RESEND_COOLDOWN_SECONDS); // Start the cooldown timer
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (err) {
             console.error('Resend Failed:', err);
@@ -75,20 +76,21 @@ export default function OtpVerificationPage() {
     /**
      * Handles the OTP verification process.
      */
-    const handleVerify = (otpCode) => {
-        if (otpCode.length !== OTP_LENGTH || !email) {
+    const handleVerify = (code) => {
+        if (code.length !== OTP_LENGTH || !email) {
             setLocalError('Please enter a valid 6-digit code and ensure your email is present.');
             return;
         }
         setLocalError(null);
         dispatch(verifyOtpThunk({
-            otp_code: otpCode,
+            code: code,
         }))
             .unwrap()
             .then(() => {
             // On SUCCESS, redirect
             navigate('/reset-password', { replace: true });
         })
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .catch((err) => {
             console.error('OTP Verification Failed:', err);
             const errorMessage = err?.message || 'Verification failed. Please check the code.';

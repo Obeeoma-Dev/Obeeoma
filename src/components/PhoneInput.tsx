@@ -1,5 +1,3 @@
-// FormikPhoneInput.tsx (or whatever file FormikPhoneInput is in)
-
 import React from 'react';
 import { FieldProps } from 'formik';
 import PhoneInput from 'react-phone-input-2';
