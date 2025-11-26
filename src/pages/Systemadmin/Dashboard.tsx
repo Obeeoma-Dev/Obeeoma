@@ -115,11 +115,11 @@ const bottomMetricData: BottomMetricCard[] = [
 const dashboardStatsData: StatCardData[] = [
   {
     id: "1",
-    value: "total_organizations",
+    value: "0",
     title: "Total Organizations",
     change: "+3 this month",
     icon: "Building2",
-    iconColor: "bg-light",
+    iconColor: "bg-success-subtle text-success",
   },
   {
     id: "2",
@@ -127,7 +127,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Total Clients",
     change: "+124 this week",
     icon: "Users",
-    iconColor: "bg-light",
+    iconColor: "bg-primary-subtle text-primary",
   },
   {
     id: "3",
@@ -135,7 +135,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Monthly Revenue",
     change: "+5.3% this month",
     icon: "CreditCard",
-    iconColor: "bg-light",
+    iconColor: "bg-warning-subtle text-warning",
   },
   {
     id: "4",
@@ -143,7 +143,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Hotline Calls Today",
     change: "+8% vs yesterday",
     icon: "PhoneCall",
-    iconColor: "bg-light",
+    iconColor: "bg-danger-subtle text-danger",
   },
 ];
 
