@@ -35,11 +35,23 @@ export interface ForgotPasswordData {
 }
 
 export interface changePasswordData {
-  //token: string;
-  password: string;
-  confirmPassword: string;
+  email: string;
+  new_password: string;
+  confirm_password: string;
 
 }
+
+export interface MfaSetupData {
+    qr_code_base64: string;
+    secret: string;
+}
+
+
+export interface MfaVerifyPayload {
+  code: string;
+}
+
+export type MfaSetupRequestPayload = {};
 
 export interface AuthState {
   user: User | null;
@@ -47,6 +59,9 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
   is_verified: boolean;
+  mfaSetupData: MfaSetupData | null; 
+  isMfaSetupConfirmed: boolean;       
+  accessToken: string | null;
 }
 
 export interface LoginSuccessPayload {
@@ -57,7 +72,7 @@ export interface LoginSuccessPayload {
 
 export interface OtpVerificationPayload {
   //email: string;
-  otp_code: string | number
+  code: string | number
 }
 
 export interface OtpSuccessResponse {
