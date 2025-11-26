@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 "use strict";
-=======
-<<<<<<< HEAD
-"use strict";
-<<<<<<< HEAD
-=======
 <<<<<<< HEAD
 =======
 =======
@@ -18,5 +12,4 @@ const ReportsHeader = () => {
 export default ReportsHeader;
 >>>>>>> syda
 >>>>>>> main
->>>>>>> addEmployee
 >>>>>>> addEmployee
