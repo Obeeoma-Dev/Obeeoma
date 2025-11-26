@@ -8,16 +8,10 @@ import RecentActivity from "../../components/employercomponents/employerdashboar
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
-
-// Props interface for better type safety
-interface DashboardProps {
-  companyId?: string;
-  refreshInterval?: number;
-}
+import { DashboardProps } from "@/types/employer";
 
 const EmployerDashboard: React.FC<DashboardProps> = ({ 
   companyId, 
-  refreshInterval = 300000 // 5 minutes default
 }) => {
   const { stats, employeeData, activities, loading, error } = useDashboardData();
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,15 +58,15 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       color: "success",
     },
     {
-      title: "Wellness Index",
+      title: "General workers' mood",
       value: `${stats.wellnessIndex}%`,
       icon: "TrendingUp",
       color: "success",
     },
     {
-      title: "At Risk",
+      title: "Help",
       value: stats.atRisk.toString(),
-      icon: "AlertTriangle",
+      icon: "HelpCircle",
       color: "warning",
     },
   ] : [];
@@ -92,7 +86,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
               employees={employeeData.employees as any} // Temporary cast
               companyId={companyId}
             />
-          </div>
+          </div> 
 
            <div className="col-lg-4 col-md-12">
             <div className="card border-0 shadow-sm h-100">

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import AddEmployeeForm from "./AddEmployeeForm";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeeInvites, clearEmployerError} from '../../../store/slices/EmployerSlice';
 import { EmployeeInvite } from "../../../types/employer";
@@ -85,42 +84,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
       emp.department.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleStatusChange = () => {
-    // Note: Status changes should be handled via API call in a real implementation
-    toast({
-      // Use the expected 'message' prop
-      message: "Status changes require backend API integration",
-      duration: 4000,
-    });
-  };
-
-  const loadAddEmployeeForm = () => {
-    setShowModal(true);
-  }
-
-  const closeModal = () => {
-    setShowModal(false);
-  }
-
-  // 3. REFRESH INVITATION LIST AFTER SUCCESSFUL INVITE
-  const handleEmployeeAdded = () => {
-    // This function is called by the modal upon successful POST action completion.
-    // The inviteEmployee thunk already handles adding the new invite to the state, 
-    // so a re-fetch (fetchEmployeeInvites) is often redundant unless the API doesn't 
-    // return the full list. We'll keep the toast and close the modal.
-    closeModal(); // Close the modal upon success
-    toast({
-      message: "Employee invitation sent successfully!",
-      duration: 4000,
-    });
-    
-
-    // Optionally re-fetch to ensure data is completely fresh, 
-    // though the inviteEmployee thunk should ideally update the state locally.
-    // @ts-expect-error - Redux toolkit thunks don't always auto-infer dispatch type easily
-    dispatch(fetchEmployeeInvites());
-  }
-
   return (
     <>
       {/* Search and Add Employee Section */}
@@ -148,88 +111,81 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
         </div>
       </div>
 
-      {/* Add Employee Modal (Assuming it handles the actual `inviteEmployee` dispatch) */}
-      <AddEmployeeForm 
-        showModal={showModal}
-        onClose={closeModal}
-        onEmployeeAdded={handleEmployeeAdded}
-      />
-
-      {/* Employees Table */}
-      <div className="row">
-        <div className="col-12">
-          <div className="card border-0 shadow-sm">
-            <div className="card-body p-0">
-              <div className="table-responsive">
-                <table className="table table-hover mb-0">
-                  <thead className="bg-light">
-                    <tr>
-                      <th className="border-0 ps-4 py-3 text-muted fw-semibold">Name</th>
-                      <th className="border-0 py-3 text-muted fw-semibold">Email</th>
-                      <th className="border-0 py-3 text-muted fw-semibold">Department</th>
-                      <th className="border-0 py-3 text-muted fw-semibold">Status</th>
-                      <th className="border-0 py-3 text-muted fw-semibold text-end">Deactivate</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {isLoading ? (
-                      <tr>
-                        <td colSpan={5} className="text-center py-5">
-                          <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                          </div>
-                          <p className="mt-2 text-muted">Fetching invitations...</p>
-                        </td>
-                      </tr>
-                    ) : filteredEmployees.length === 0 ? (
-                      <tr>
-                        <td colSpan={5} className="text-center py-5 text-muted">No invitations found.</td>
-                      </tr>
-                    ) : (
-                      filteredEmployees.map((employee) => (
-                        <tr key={employee.id}>
-                          <td className="ps-4 py-3">
-                            <div className="d-flex align-items-center gap-3">
-                              <div className="rounded-circle bg-light d-flex align-items-center justify-content-center" style={{ width: "40px", height: "40px" }}>
-                                <span className="fw-bold text-primary">{employee.avatar}</span>
-                              </div>
-                              <span className="fw-medium">{employee.name}</span>
-                            </div>
-                          </td>
-                          <td className="py-3 text-muted">{employee.email}</td>
-                          <td className="py-3 text-muted">{employee.department}</td>
-                          <td className="py-3">
-                            <span className={`badge ${
-                              employee.status === "Active" 
-                                ? "bg-success bg-opacity-10 text-success" 
-                                : employee.status === "Pending"
-                                ? "bg-warning bg-opacity-10 text-warning"
-                                : "bg-danger bg-opacity-10 text-danger"
-                            }`}>
-                              {employee.status}
-                            </span>
-                          </td>
-                          <td className="py-3 text-end">
-                            <div className="form-check form-switch d-inline-block" style={{ width: "3.5em", textAlign: "right" }}>
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                role="switch"
-                                checked={employee.status === "Active"}
-                                onChange={() => {
-                                  handleStatusChange();
-                                }}
-                                style={{ width: "2.5em", height: "1.25em" }}
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        <div className="table-responsive">
+          <table className="table table-hover mb-0">
+            <thead className="bg-light">
+              <tr>
+                <th className="border-0 py-3 text-muted fw-semibold">Email</th>
+                <th className="border-0 py-3 text-muted fw-semibold">Department</th>
+                <th className="border-0 py-3 text-muted fw-semibold">Status</th>
+                <th className="border-0 py-3 text-muted fw-semibold text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-5">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    <p className="mt-2 text-muted">Fetching employees...</p>
+                  </td>
+                </tr>
+              ) : filteredEmployees.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-5 text-muted">
+                    No employees found.
+                  </td>
+                </tr>
+              ) : (
+                filteredEmployees.map((employee: CombinedEmployee) => (
+                  <tr key={employee.id}>
+                    <td className="ps-4 py-3">
+                      <div className="d-flex align-items-center gap-3">
+                        <span className="fw-medium">{employee.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 text-muted">{employee.email}</td>
+                    <td className="py-3 text-muted">{employee.department}</td>
+                    <td className="py-3">
+                      <span className={`badge ${
+                        employee.status === "active" 
+                          ? "bg-success bg-opacity-10 text-success" 
+                          : employee.status === "pending"
+                          ? "bg-warning bg-opacity-10 text-warning"
+                          : "bg-danger bg-opacity-10 text-danger"
+                      }`}>
+                        {employee.status.charAt(0).toUpperCase() + employee.status.slice(1)}
+                      </span>
+                    </td>
+                    <td className="py-3 text-end">
+                      <div className="d-flex justify-content-end gap-2">
+                        <button
+                          className={`btn btn-sm ${
+                            employee.status === "inactive"
+                              ? "btn-outline-success"
+                              : "btn-outline-warning"
+                          }`}
+                          disabled
+                        >
+                          {employee.status === "inactive" ? "Reactivate" : "Deactivate"}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        {/* Pagination */}
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <div className="text-muted">
+            Showing {filteredEmployees.length} of {allEmployees.length} employees
+          </div>
+          <div className="d-flex gap-2">
+            <button className="btn btn-sm btn-outline-secondary">Previous</button>
+            <button className="btn btn-sm btn-outline-secondary">Next</button>
           </div>
         </div>
       </div>
