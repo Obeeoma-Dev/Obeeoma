@@ -57,7 +57,11 @@ export default function OtpVerificationPage() {
         setIsResendLoading(true);
         setLocalError(null);
         try {
+<<<<<<< HEAD
             await dispatch(resendOtpThunk({ code: '0' })).unwrap();
+=======
+            await dispatch(verifyOtpThunk({ otp_code: '0' })).unwrap();
+>>>>>>> a97afbd044d22b6739fe3fb742ed882e1856e6f6
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');
             setOtp(''); // Clear OTP input
@@ -76,14 +80,14 @@ export default function OtpVerificationPage() {
     /**
      * Handles the OTP verification process.
      */
-    const handleVerify = (code) => {
-        if (code.length !== OTP_LENGTH || !email) {
+    const handleVerify = (otpCode) => {
+        if (otpCode.length !== OTP_LENGTH || !email) {
             setLocalError('Please enter a valid 6-digit code and ensure your email is present.');
             return;
         }
         setLocalError(null);
         dispatch(verifyOtpThunk({
-            code: code,
+            otp_code: otpCode,
         }))
             .unwrap()
             .then(() => {

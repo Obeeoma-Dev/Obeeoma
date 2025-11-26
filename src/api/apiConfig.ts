@@ -5,12 +5,7 @@ import {
   RegisterCredentials,
   ForgotPasswordData,
   changePasswordData,
-  OtpVerificationPayload,
-  MfaSetupData,
-  MfaVerifyPayload,
-  MfaSetupRequestPayload,
-
-
+  OtpVerificationPayload
 } from "@/types/auth";
 
 
@@ -28,6 +23,7 @@ const api = axios.create({
 });
 
 export const setupApiInterceptors = (store: { getState: () => RootState }) => {
+  // Request Interceptor
   api.interceptors.request.use(
     (config) => {
       const requestPath = config.url || '';
@@ -35,58 +31,39 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/login/",
         "/v1/auth/signup/",
         "/v1/auth/reset-password/",
-        "/v1/auth/change-password/",
-        "/v1/auth/reset-password/complete/",
-        "/v1/organization-signup/",
-        "/v1/auth/verify-otp/",
-        "/v1/auth/mfa/setup/",
-        "/v1/auth/mfa/confirm/",
+        "/v1/auth/change-password",
+        "v1/organization-signup/",
+        "v1/dashboard/overview/",
+        "v1/auth/verify-invite/",
+
+
 
 
       ];
-
+      
       const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
-      // checking the redux token
       const state = store.getState();
       const token = state.auth.token;
-
-      //check local storage
       const persistedToken = localStorage.getItem('token');
-
       const activeToken = token || persistedToken;
 
       if (activeToken && !isPublicEndpoint) {
-        //  "inject the authorization"
         config.headers.Authorization = `Bearer ${activeToken}`;
-
       } else if (isPublicEndpoint) {
-        // to remove the token header
         delete config.headers.Authorization;
       }
-      console.log(" Making API Request:", {
+
+      console.log("Making API Request:", {
         method: config.method,
         url: config.url,
         data: config.data,
-        token_injected: !!(token && !isPublicEndpoint),
+        token_injected: !!(activeToken && !isPublicEndpoint),
       });
+
       return config;
     },
-    (error) => {
-      return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
   );
-
-  // api.interceptors.request.use(
-  //   (config) => {
-  //     console.log(" Making API Request:", {
-  //       method: config.method,
-  //       url: config.url,
-  //       data: config.data,
-  //     });
-
-  //     return config;
-  //   },
-  // );
 
   // Response Interceptor
   api.interceptors.response.use(
@@ -121,24 +98,22 @@ export const authAPI = {
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
     const response = await api.post("/v1/organization-signup/", {
-
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize, 
       companyEmail: credentials.companyEmail,
       Location: credentials.Location,
-      contactPerson:
-      {
-        firstName: credentials.contactPerson.firstName,
-        lastName: credentials.contactPerson.lastName,
-        role: credentials.contactPerson.role,
-        email: credentials.contactPerson.email,
-      },
-
+      contactPerson: 
+        {
+          firstName: credentials.contactPerson.firstName, 
+          lastName: credentials.contactPerson.lastName,
+          role: credentials.contactPerson.role,
+          email: credentials.contactPerson.email, 
+        },
+  
 
       password: credentials.password,
       confirmPassword: credentials.confirmPassword,
-
     });
 
     if (response.data.access) {
@@ -156,7 +131,6 @@ export const authAPI = {
       { refresh: refreshToken },
       {
         headers: {
-
           'Authorization': `Bearer ${accessToken}`,
         },
       }
@@ -168,35 +142,27 @@ export const authAPI = {
     return response;
   },
 
-  // reset password
-  changePassword: async (data: changePasswordData) => {
-    const response = await api.post("/v1/auth/reset-password/complete/", data);
+  // changePassword: async (data: changePasswordData) => {
+  //   const response = await api.post("/v1/auth/change-password", data);
+  //   return response;
+  // },
+
+  getCurrentUser: async () => {
+    const response = await api.get("/v1/auth/me/");
     return response;
   },
-
 
   verifyOtp: async (payload: OtpVerificationPayload) => {
-    const response = await api.post("v1/auth/verify-otp/", payload);
+    const response = await api.post("v1/auth/verify-invite/", payload);
     return response;
   },
 
-  resendOtp: (payload: OtpVerificationPayload) => {
-    return api.post('v1/auth/verify-otp/', payload);
+ 
 
-  },
-
-
-  fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
-    const response = await api.post("/v1/auth/mfa/setup/", payload);
+  changePassword: async (changePasswordData: any) => {
+    const response = await api.post("/v1/auth/change-password/", changePasswordData);
     return response;
   },
-
-  confirmMfaSetup: async (payload: MfaVerifyPayload) => {
-    // The payload is expected to be an object: { code: string }
-    const response = await api.post("/v1/auth/mfa/confirm/", payload);
-    return response;
-  },
-
 };
 
 //  System Admin Dashboard
@@ -239,11 +205,7 @@ export const adminAPI = {
     return response;
   },
 
-  changeCrisisInsights: async () => {
-    const response = await api.post("/v1/admin/crisis-insights/changes/");
-    return response;
-  },
-
+  // Analytics
   getEmployeeEngagement: async () => {
     const response = await api.post("/v1/admin/employee-engagement/");
     return response;
@@ -362,6 +324,17 @@ export const employerAPI = {
     return response;
   },
 
+  // Billing
+  viewSubscription: async () => {
+    const response = await api.post("/v1/dashboard/billing/add-subscription/");
+    return response;
+  },
+
+  viewBilling: async () => {
+    const response = await api.get("/v1/dashboard/billing/view");
+    return response;
+  },
+};
   // // Billing
   // viewSubscription: async () => {
   //   const response = await api.post("/v1/dashboard/billing/add-subscription/");

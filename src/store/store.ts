@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import adminReducer from "./slices/adminSlice";
 import employerReducer from "./slices/EmployerSlice";
+import employeeReducer from "./slices/employeeSlice";
 import { setupApiInterceptors } from '../api/apiConfig';
 import billingReducer from "./slices/billingSlice";
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     admin: adminReducer,
     employer: employerReducer,
     billing: billingReducer,
+    employee: employeeReducer,
   },
 });
 
