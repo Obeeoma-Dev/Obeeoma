@@ -8,10 +8,12 @@ interface Activity {
 
 interface RecentActivityProps {
   activities: Activity[];
+  onViewAll?: () => void;
+  maxItems?: number;
 }
 const PRIMARY_COLOR = "#3CB371"; // Defined the custom color
 
-const RecentActivity = ({ activities }: RecentActivityProps) => {
+const RecentActivity = ({ activities, onViewAll, maxItems = 3 }: RecentActivityProps) => {
   const defaultActivities: Activity[] = [
     {
       text: "A new invitee has joined the platform",
@@ -45,12 +47,13 @@ const RecentActivity = ({ activities }: RecentActivityProps) => {
           fontFamily: "body", // FONT CHANGE 2: Body font
           color: PRIMARY_COLOR, // COLOR CHANGE 1: View All text
         }}
+        onClick={onViewAll}
       >
         View All
       </button>
     </div>
     <div className="list-group list-group-flush" style={{ fontFamily: "body" }}> {/* FONT CHANGE 3: Apply body font to list */}
-      {recentActivity.map((activity, index) => (
+      {recentActivity.slice(0, maxItems).map((activity, index) => (
         <div key={index} className="list-group-item px-0 py-3 border-bottom-0">
           <div className="d-flex align-items-start gap-3">
             <div

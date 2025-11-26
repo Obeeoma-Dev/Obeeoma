@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store/store';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
-import { verifyOtpThunk, resendOtpThunk } from '../../store/slices/authSlice'; 
+import { verifyOtpThunk } from '../../store/slices/authSlice'; 
 import logo from './../../assets/Images/obeeomalogoword1.png';
 
 const customStyles = {

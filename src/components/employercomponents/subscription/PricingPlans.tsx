@@ -36,6 +36,8 @@ const PricingPlans = () => {
     {
       name: "Basic",
       price: "$0",
+      amount: 0,
+      currency: "USD",
       period: "per month",
       description: "Perfect for small teams",
       features: [

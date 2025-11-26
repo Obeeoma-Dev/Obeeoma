@@ -14,7 +14,17 @@ const customStyles = {
     primaryColor: "#3CB371", // The green
     logoText: "Obeeoma",
 };
+<<<<<<< HEAD
+// --- Component Definition ---
+const ResetPasswordSignIn = () => {
+    const [email, setEmail] = useState("");
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    // FIX: Removed the unused state variable
+    // const [isCodeSentSuccess, setIsCodeSentSuccess] = useState(false); 
+=======
 const ResetPassword = () => {
+>>>>>>> main
     const navigate = useNavigate();
     const dispatch = useDispatch();
     // Local state for UI feedback
@@ -34,6 +44,39 @@ const ResetPassword = () => {
     const handleResetSubmit = async (values) => {
         setApiError(null);
         setIsLoading(true);
+<<<<<<< HEAD
+        // FIX: Removed the setter call for the removed state
+        // setIsCodeSentSuccess(false); // Reset success state on a new attempt
+        try {
+            const API_URL = "https://api-0904.onrender.com/api/v1/auth/reset-password/";
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Failed to send code with status: ${response.status}`);
+            }
+            // FIX: Removed the setter call for the removed state
+            // setIsCodeSentSuccess(true);
+            // Navigate only if the API call is successful and an email is sent
+            navigate("/otp-verify");
+        }
+        catch (err) {
+            console.error("Forgot Password Error:", err);
+            let errorMessage = "An unexpected error occurred. Please try again.";
+            // Narrow the type to access the 'message' property
+            if (err instanceof Error) {
+                // Capitalize first letter of error message if needed for display
+                errorMessage = err.message;
+            }
+            setError(errorMessage);
+            // FIX: Removed the setter call for the removed state
+            // setIsCodeSentSuccess(false); // Ensure success state is false on error
+=======
         try {
             const payload = {
                 email: values.email,
@@ -46,12 +89,29 @@ const ResetPassword = () => {
         catch (error) {
             console.error("Password reset failed:", error);
             setApiError(error || "Failed to reset password. Please try again.");
+>>>>>>> main
         }
         finally {
             setIsLoading(false);
         }
     };
+<<<<<<< HEAD
+    /**
+     * Handles the "Send Code again" link click.
+     * It calls the main API function (`sendPasswordResetCode`) to perform the resend.
+     */
+    const handleResendCode = (e) => {
+        e.preventDefault(); // Prevent default link behavior
+        // Resend the code using the unified function
+        sendPasswordResetCode();
+    };
+    // The rest of the return statement (JSX) remains the same.
+    return (
+    // 1. Full Page Container with positioning for the fixed footer
+    _jsxs("div", { style: {
+=======
     return (_jsxs("div", { style: {
+>>>>>>> main
             backgroundColor: "#f5f5f5",
             height: "100vh",
             overflow: "auto",

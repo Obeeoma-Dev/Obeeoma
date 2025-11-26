@@ -16,11 +16,13 @@ import {
 import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
 declare const authApiClient: any;
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
-console.log("API Base URL:", API_BASE_URL);
+import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
+declare const authApiClient: any;
 
+// --- Configuration ---
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -28,6 +30,7 @@ const api = axios.create({
   },
 });
 
+// --- Interceptors ---
 export const setupApiInterceptors = (store: { getState: () => RootState }) => {
   api.interceptors.request.use(
     (config) => {
@@ -89,6 +92,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
   //   },
   // );
 
+  // Response Interceptor
   api.interceptors.response.use(
     (response) => {
       console.log("API Response Success:", {
@@ -99,8 +103,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       return response;
     },
     (error) => {
-      // Log error details on failure
-      console.error(" API Response Error:", {
+      console.error("API Response Error:", {
         status: error.response?.status,
         data: error.response?.data,
         message: error.message,
@@ -109,16 +112,15 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       return Promise.reject(error);
     }
   );
+};
 
-}
+// --- Auth API ---
 export const authAPI = {
-  // Login endpoint
   login: async (credentials: LoginCredentials) => {
     const response = await api.post("/v1/auth/login/", credentials);
     return response;
   },
 
-  // Register endpoint
   register: async (credentials: RegisterCredentials) => {
     const response = await api.post("/v1/organization-signup/", {
 
@@ -147,7 +149,7 @@ export const authAPI = {
 
     return response.data;
   },
-  //for logout
+
   logout: async () => {
     const refreshToken = localStorage.getItem('refresh');
     const accessToken = localStorage.getItem('token');
@@ -199,14 +201,20 @@ export const authAPI = {
 
 };
 
-//  System Admin Dashboard
-
+// --- Admin API ---
 export const adminAPI = {
+  // Dashboard
   getDashboardStats: async () => {
     const response = await api.get("/v1/admin/statistics/");
     return response;
   },
 
+  getDashboardSummary: async () => {
+    const response = await api.get("/v1/admin/overview");
+    return response;
+  },
+
+  // Users
   getAllUsers: async () => {
     const response = await api.get("/v1/admin/users/");
     return response;
@@ -216,24 +224,29 @@ export const adminAPI = {
     const response = await api.delete(`/v1/admin/users/${userId}/`);
     return response;
   },
-  getDashboardSummary: async () => {
-    const response = await api.get("/v1/admin/overview");
-    return response;
-  },
 
+  // Employee Management
   addEmployee: async () => {
     const response = await api.post("/v1/admin/invites/");
     return response;
   },
 
+  viewInviteEmployee: async () => {
+    const response = await api.get("/v1/employers/view-invites/");
+    return response;
+  },
+
+  // Crisis Insights
   getCrisisInsights: async () => {
     const response = await api.get("/v1/admin/crisis-insights/views/");
     return response;
   },
+
   postCrisisInsights: async () => {
     const response = await api.post("/v1/admin/crisis-insights/add/");
     return response;
   },
+
   putCrisisInsights: async () => {
     const response = await api.post("/v1/admin/crisis-insights/update/");
     return response;
@@ -249,16 +262,6 @@ export const adminAPI = {
     return response;
   },
 
-  // getFeatureUsage: async () => {
-  //   const response = await api.get("/v1/dashboard/feature-usage/");
-  //   return response;
-  // },
-
-  createFeatureUsage: async () => {
-    const response = await api.post("/v1/admin/feature-usage");
-    return response;
-  },
-
   getReports: async () => {
     const response = await api.post("/v1/admin/reports/");
     return response;
@@ -269,11 +272,13 @@ export const adminAPI = {
     return response;
   },
 
-  viewInviteEmployee: async () => {
-    const response = await api.get("/v1/employers/view-invites/");
+  // Feature Usage
+  createFeatureUsage: async () => {
+    const response = await api.post("/v1/admin/feature-usage");
     return response;
   },
 
+  // Billing
   viewSubscription: async () => {
     const response = await api.post("/v1/employer/billing/add-subscription/");
     return response;
@@ -285,41 +290,88 @@ export const adminAPI = {
   },
 };
 
-// employer endpoints
-
+// --- Employer API ---
 export const employerAPI = {
-  inviteEmployee: async () => {
-    const response = await api.post("/api/v1/invitations/");
+  // Profile
+  getCurrentEmployer: async () => {
+    const response = await api.get("/v1/users/");
+    return response;
+  },
+
+  // Dashboard Settings
+  getDashboardSettings: async () => {
+    const response = await api.get("/v1/settings/");
+    return response;
+  },
+
+  //change links back to correct ones it i
+  // Employee Management
+  inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
+    const response = await api.post("/v1/invitations/", employeeData);
     return response;
   },
 
   viewInviteEmployee: async () => {
-    const response = await api.get("/v1/employers/view-invites/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
-  viewSubscription: async () => {
-    const response = await api.post("/v1/employer/billing/add-subscription/");
+  getEmployees: async () => {
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
-  viewBilling: async () => {
-    const response = await api.get("/v1/employer/billing/view");
+  // Analytics & Dashboard
+  getemployerdashboardSummary: async () => {
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
   getEngagement: async () => {
-    const response = await api.get("/v1/employer/engagements/");
+    const response = await api.get("/v1/tests-by-type/");
     return response;
   },
 
   getReports: async () => {
-    const response = await api.post("/v1/employer/reports/");
+    const response = await api.post("/v1/wellness-reports/");
     return response;
   },
 
-  getemployerdashboardSummary: async () => {
-    const response = await api.get("/v1/employer/overview");
+  // Wellness Data
+  getMoodTrends: async () => {
+    const response = await api.get("/v1/invitations/");
+    return response;
+  },
+
+  getDepartmentDistribution: async () => {
+    const response = await api.get("/v1/invitations/");
+    return response;
+  },
+
+    postDepartmentDistribution: async () => {
+    const response = await api.post("/v1/invitations/");
+    return response;
+  },
+
+
+  getWellnessTrend: async () => {
+    const response = await api.get("/v1/invitations/");
+    return response;
+  },
+
+  getRecentActivities: async () => {
+    const response = await api.get("/v1/dashboard/recent-activities/");
+    return response;
+  },
+
+  // Billing
+  viewSubscription: async () => {
+    const response = await api.post("/v1/dashboard/billing/add-subscription/");
+    return response;
+  },
+
+  viewBilling: async () => {
+    const response = await api.get("/v1/dashboard/billing/view");
     return response;
   },
 

@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useCreateEmployee } from "../../../api/companyEmployee/requests";
 import { useToast } from "../../../hooks/use-toast";
+import { inviteEmployee, fetchEmployeeInvites } from "../../../store/slices/EmployerSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from "../../../store/store";
+import { useState } from "react";
 
 const employeeSchema = z.object({
   email: z.email("Please enter a valid email address").trim(),
   phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
   department: z.string().min(1, "Please select a department"),
+  otherDepartment: z.string().optional(),
 });
 
 type EmployeeFormData = z.infer<typeof employeeSchema>;
@@ -16,42 +20,60 @@ interface AddEmployeeFormProps {
   showModal: boolean;
   onClose: () => void;
   onEmployeeAdded: () => void;
+  companyId?: string;
 }
 
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
+  const dispatch = useDispatch<AppDispatch>();
   const { toast } = useToast();
-  const { createEmployee, isLoading } = useCreateEmployee();
+  const { isActionLoading, error } = useSelector((state: RootState) => state.employer);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>("");
 
   const {
-    register, handleSubmit, formState: { errors }, reset,
+    register, handleSubmit, formState: { errors }, reset, watch,
     } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeSchema),
   });
 
   const onSubmit = async (data: EmployeeFormData) => {
     try {
-      // Transforming form data to match API expectations
-      const apiData = {
-        emailAddress: data.email,
-        phoneNumber: data.phone,
+      // Transform form data to match API expectations (use email directly, not emailAddress)
+      const result = await dispatch(inviteEmployee({
+        email: data.email,
         department: data.department,
-      };
+        
+        onSuccess: () => {
+          reset();
+          onEmployeeAdded();
+        },
+      }) as any);
 
-      await createEmployee(apiData);
-      toast({
-        title: "Success",
-        description: "Employee invitation sent!",
-        message: "Employee invitation sent successfully!",
-      });
+      // Check if the thunk was fulfilled
+      if (inviteEmployee.fulfilled.match(result)) {
+        toast({
+          title: "Success",
+          description: "Employee invitation sent!",
+          message: "Employee invitation sent successfully!",
+        });
 
-      reset();
-      onEmployeeAdded();
-      onClose();
+        reset();
+        onEmployeeAdded();
+        onClose();
+        
+        // Refresh the employee invites list
+        dispatch(fetchEmployeeInvites());
+      } else if (inviteEmployee.rejected.match(result)) {
+        toast({
+          title: "Error",
+          description: (result.payload as string) || "Failed to add employee. Please try again.",
+          message: (result.payload as string) || "Failed to add employee. Please try again.",
+        });
+      }
     } catch (error) {
       console.error("Error adding employee:", error);
       toast({
         title: "Error",
-        description: "Failed to add employee. Please try again.",
+        description: error instanceof Error ? error.message : "An unexpected error occurred.",
         message: "Failed to add employee. Please try again.",
       });
     }
@@ -119,6 +141,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                   className={`form-select ${errors.department ? 'is-invalid' : ''}`}
                   id="department"
                   {...register("department")}
+                  onChange={(e) => setSelectedDepartment(e.target.value)}
                 >
                   <option value="">Select department</option>
                   <option value="Marketing">Marketing</option>
@@ -133,6 +156,24 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                   </div>
                 )}
               </div>
+
+              {selectedDepartment === "Other" && (
+                <div className="form-group mb-3">
+                  <label htmlFor="other-department" className="form-label fw-medium">Please specify other department:</label>
+                  <textarea
+                    className={`form-control ${errors.otherDepartment ? 'is-invalid' : ''}`}
+                    id="other-department"
+                    placeholder="Enter your department name"
+                    rows={3}
+                    {...register("otherDepartment")}
+                  />
+                  {errors.otherDepartment && (
+                    <div className="invalid-feedback d-block">
+                      {errors.otherDepartment.message}
+                    </div>
+                  )}
+                </div>
+              )}
               
               <div className="form-group mt-1 mb-3">
                 <button
@@ -163,21 +204,22 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                 <br />
                 <input type="file" className="form-control-file mt-1" id="upload-excel" accept=".xlsx,.xls,.csv" />
               </div>
+
+              <button
+                type="submit"
+                className="btn btn-success"
+                disabled={isActionLoading}
+              >
+                {isActionLoading ? 'Adding...' : 'Add Employee'}
+              </button>
             </form>
           </div>
           <div className="modal-footer">
             <button
-              type="submit"
-              className="btn btn-success"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Adding...' : 'Add Employee'}
-            </button>
-            <button 
-              type="button" 
-              className="btn btn-secondary" 
+              type="button"
+              className="btn btn-secondary"
               onClick={handleClose}
-              disabled={isLoading}
+              disabled={isActionLoading}
             >
               Close
             </button>

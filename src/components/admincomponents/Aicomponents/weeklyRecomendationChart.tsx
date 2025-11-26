@@ -17,7 +17,7 @@ import {
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
 // Sample chart data (replace with backend data later)
-const chartData = {
+const employeeData = {
   labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
   datasets: [
     {
@@ -57,7 +57,7 @@ const WeeklyRecommendationsChart: React.FC = () => {
         Weekly Recommendations (Last 6 Weeks)
       </Card.Header>
       <Card.Body>
-        <Line data={chartData} options={chartOptions} />
+        <Line data={employeeData} options={chartOptions} />
       </Card.Body>
     </Card>
   );

@@ -1,21 +1,31 @@
+// EmployerPages/EmployerDashboard.tsx
 import Layout from "../../components/employercomponents/shared/Layout";
-import StatsGrid from "../../components/employercomponents/employerdashboard/StatsGrid";
-import ChartsSection from "../../components/employercomponents/employerdashboard/ChartsSection";
+import TopGrid from "../../components/employercomponents/employerdashboard/TopGrid";
+import EmployeeTable from "../../components/employercomponents/companyemployees/EmployeeTable";
+import DepartmentLegend from "../../components/employercomponents/employerdashboard/DepartmentLegend";
+import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
+import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { useDashboardData } from "../../hooks/useDashboardData";
+import { useState } from "react";
+import { DashboardProps } from "@/types/employer";
 
-const EmployerDashboard = () => {
-  const { stats, chartData, activities, loading, error } = useDashboardData();
+const EmployerDashboard: React.FC<DashboardProps> = ({ 
+  companyId, 
+}) => {
+  const { stats, employeeData, activities, loading, error } = useDashboardData();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
 
   if (loading) {
     return (
       <Layout title="Organization Overview">
         <div className="container-fluid text-center py-5">
-            <div className="spinner-border text-success" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-            <p className="mt-3">Loading dashboard data...</p>
+          <div className="spinner-border text-success" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+          <p className="mt-3">Loading dashboard data...</p>
+        </div>
       </Layout>
     );
   }
@@ -35,38 +45,80 @@ const EmployerDashboard = () => {
   // Transform backend data to component props
   const statsData = stats ? [
     {
+      title: "Add Employee",
+      value: "+",
+      icon: "Users",
+      color: "success",
+      onClick: () => setShowAddEmployeeModal(true),
+    },
+    {
       title: "Active Employees",
       value: stats.totalEmployees.toString(),
       icon: "Users",
       color: "success",
     },
     {
-      title: "Wellness index",
-      value: `${stats.averageScore}%`,
+      title: "General workers' mood",
+      value: `${stats.wellnessIndex}%`,
       icon: "TrendingUp",
-      color: "warning",
+      color: "success",
     },
     {
-      title: "At Risk",
-      value: stats.atRiskDepartments.toString(),
-      icon: "AlertTriangle",
-      color: "danger",
+      title: "Help",
+      value: stats.atRisk.toString(),
+      icon: "HelpCircle",
+      color: "warning",
     },
   ] : [];
 
   return (
-    <Layout title="Organization Overview" >
+    <Layout title="Organization Overview">
       <div className="container-fluid py-4 px-3">
         <div className="row gy-4">
-          </div><div className="col-lg-12 col-md-10 mx-auto">
-            <StatsGrid stats={statsData} />
+          <div className="col-lg-12 col-md-10 mx-auto">
+            <TopGrid stats={statsData} />
           </div>
 
-          <div className="col-lg-12 col-md-10 d-flex flex-column gap-3">
-            <ChartsSection chartData={chartData} />
-            <RecentActivity activities={activities} />
+          <div className="col-lg-8 col-md-12">
+            <EmployeeTable 
+              searchQuery={searchQuery} 
+              onSearchChange={setSearchQuery}
+              employees={employeeData.employees as any} // Temporary cast
+              companyId={companyId}
+            />
+          </div> 
+
+           <div className="col-lg-4 col-md-12">
+            <div className="card border-0 shadow-sm h-100">
+              <div className="card-body">
+                <h5 className="card-title fw-semibold mb-4">Department Distribution</h5>
+                <DepartmentLegend 
+                  departments={stats?.departmentDistribution || []} 
+                />
+                
+                <div className="mt-4">
+                  <h5 className="card-title fw-semibold mb-4">Engagement Level</h5>
+                  <WellnessGraph 
+                    data={stats?.wellnessTrend || []} 
+                  />
+                </div>
+              </div>
+            </div> 
           </div>
+
+          <div className="col-lg-12 col-md-12">
+            <RecentActivity 
+              activities={activities} 
+            />
           </div>
+        </div>
+
+        <AddEmployeeForm 
+          onEmployeeAdded={() => { /* handle refresh or update employees here */ }}
+          showModal={showAddEmployeeModal}
+          onClose={() => setShowAddEmployeeModal(false)}
+        />
+       </div> 
     </Layout>
   );
 };

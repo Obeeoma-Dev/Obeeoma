@@ -1,33 +1,49 @@
 export interface EmployerUser {
   id: string | number;
   username: string;
+  firstName: string;
+  lastName: string;
   organizationName: string;
   email: string;
   role: 'admin' | 'employer' | 'employee' | string;
   dateJoined: string; // ISO date string
-  // Add other user-specific fields
-  address?: string;
   phone?: string;
+  compnayLogo?: string;
+  company?: {
+    id: string | number;
+    name: string;
+    createdAt: string;
+    industry?: string;
+    size?: string;
+  };
 }
 
 export interface AccountData {
   organizationName: string;
   username: string;
   email: string;
-  phone: string;}
+  phone: string;
+}
 
 export interface AccountSectionProps {
   accountData: EmployerUser;
   onAccountDataChange: (data: EmployerUser) => void;
 }
 
+export interface DashboardProps {
+  companyId?: string;
+  refreshInterval?: number;
+}
+
 export interface DashboardSummary {
-  recentActivity: string[]; // Define a more specific type if possible
+  totalEmployees: number;
+  wellnessIndex: number;
+  atRisk: number;
+  recentActivity: string[];
   topMetrics: {
     metricName: string;
     value: number;
   }[];
-  // Add other summary fields
 }
 
 export interface CrisisInsight {
@@ -35,13 +51,11 @@ export interface CrisisInsight {
   title: string;
   content: string;
   status: 'draft' | 'published' | 'archived';
-  // Add other crisis insight fields
 }
 
 export interface EmployeeEngagementData {
   engagementScore: number;
-  sentimentTrend: number[]; // Array of trend values over time
-  // Add other engagement metrics
+  sentimentTrend: number[];
 }
 
 export interface Report {
@@ -49,33 +63,50 @@ export interface Report {
   name: string;
   dateCreated: string;
   downloadUrl: string;
-  // Add other report fields
 }
 
 export interface TrendData {
   period: string;
   value: number;
-  // Add other trend data fields
+}
+
+export interface InviteData {
+  email: string;
+  role: 'employee';
+}
+
+// Unified Employee type for all employee-related operations
+export interface Employee {
+  id: number | string;
+  name?: string;
+  email?: string;
+  emailAddress?: string;
+  department: string;
+  status: 'active' | 'inactive' | 'pending' | 'accepted' | 'rejected' | string;
+  compnayLogo?: string;
+  joinDate?: string;
+  lastActive?: string;
+  phoneNumber?: string;
 }
 
 export interface EmployeeInvite {
   id: string | number;
   email: string;
-  status: 'pending' | 'accepted' | 'expired' | 'active';
-  sentDate: string; // ISO date string
-}
-
-export interface InviteData {
-  email: string;
-  role: 'employee'; // Assuming the role is fixed
-}
-
-export interface Employee {
-  id: number;
-  emailAddress: string;
-  phoneNumber?: string;
+  name?: string;
+  phone?: string;
   department: string;
-  status: 'accepted' | 'pending' | 'rejected' | string;
+  status: 'pending' | 'accepted' | 'expired' | 'active';
+  sentDate: string;
+}
+
+export interface MoodTrend {
+  id: number;
+  employeeId: number;
+  employeeName: string;
+  employeeDepartment: string;
+  moodLevel: number;
+  date: string;
+  timestamp: string;
 }
 
 export interface GetEmployeeInput {
@@ -87,6 +118,7 @@ export interface CreateEmployeeInput {
   phoneNumber?: string;
   department: string;
 }
+
 
 export interface SubscriptionData {
   plan_id: string;
@@ -101,7 +133,6 @@ export interface BillingDetails {
   nextPaymentDate: string;
   amount: number;
   currency: string;
-  
 }
 
 export interface EmployerEngagementData {
@@ -111,22 +142,28 @@ export interface EmployerEngagementData {
     area: string;
     score: number;
   }[];
-  
 }
 
 export interface EmployerState {
+  currentEmployer: EmployerUser | null;
   invites: EmployeeInvite[];
+  employees: Employee[];
   billing: BillingDetails | null;
   engagement: EmployerEngagementData | null;
   reports: Report[];
   summary: DashboardSummary | null;
-  subcription: SubscriptionData | null;
+  subscription: SubscriptionData | null;
+  departmentDistribution: Array<{ name: string; percentage: number; color: string }>;
+  wellnessTrend: Array<{ date: string; score: number }>;
+  moodTrends: any[];
+  // employees: list of employee records for the employer
+  // employees: Employee[];
   isLoading: boolean;
-  isActionLoading: boolean; // For post/action endpoints
+  isActionLoading: boolean;
   error: string | null;
 }
 
-  export interface NotificationSettings {
+export interface NotificationSettings {
   emailNotifications: boolean;
   weeklyReports: boolean;
   browserNotifications: boolean;

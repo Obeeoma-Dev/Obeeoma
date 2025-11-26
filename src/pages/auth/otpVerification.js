@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
-import { verifyOtpThunk, resendOtpThunk } from '../../store/slices/authSlice';
+import { verifyOtpThunk } from '../../store/slices/authSlice';
 import logo from './../../assets/Images/obeeomalogoword1.png';
 const customStyles = {
     primaryColor: "#3CB371",
@@ -57,7 +57,11 @@ export default function OtpVerificationPage() {
         setIsResendLoading(true);
         setLocalError(null);
         try {
+<<<<<<< HEAD
+            await dispatch(verifyOtpThunk({ otp_code: '0' })).unwrap();
+=======
             await dispatch(resendOtpThunk({ code: '0' })).unwrap();
+>>>>>>> main
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');
             setOtp(''); // Clear OTP input

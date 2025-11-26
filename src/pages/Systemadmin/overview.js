@@ -8,7 +8,7 @@
 //   Tooltip,
 //   CartesianGrid,
 // } from "recharts";
-// const chartData = [
+// const employeeData = [
 //   { week: "Week 1", usage: 3000 },
 //   { week: "Week 2", usage: 3200 },
 //   { week: "Week 3", usage: 3400 },
@@ -43,7 +43,7 @@
 //       <div className="bg-white p-6 rounded shadow">
 //         <h3 className="text-lg font-semibold mb-4">Weekly Platform Usage</h3>
 //         <ResponsiveContainer width="100%" height={300}>
-//           <LineChart data={chartData}>
+//           <LineChart data={employeeData}>
 //             <CartesianGrid strokeDasharray="3 3" />
 //             <XAxis dataKey="week" />
 //             <YAxis />
