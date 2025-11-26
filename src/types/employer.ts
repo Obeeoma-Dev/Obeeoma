@@ -115,12 +115,29 @@ export interface EmployerEngagementData {
 }
 
 export interface EmployerState {
+  departmentDistribution: {
+    name: string;
+    percentage: number;
+    color: string;
+  }[];
+  wellnessTrend: {
+    date: string;
+    score: number;
+  }[];
+
+  moodTrends: {
+    date: string;
+    mood: string;
+    count: number;
+  }[];
+  currentEmployer: EmployerUser | null;
+  subscription: SubscriptionData | null;
+  employees: Employee[];
   invites: EmployeeInvite[];
   billing: BillingDetails | null;
   engagement: EmployerEngagementData | null;
   reports: Report[];
   summary: DashboardSummary | null;
-  subcription: SubscriptionData | null;
   isLoading: boolean;
   isActionLoading: boolean; // For post/action endpoints
   error: string | null;

@@ -6,7 +6,6 @@ import logo from "./../../assets/Images/obeeomalogoword1.png";
 const customStyles = {
     primaryColor: "#3CB371", // Used for links and accents
 };
-<<<<<<< HEAD
 // --- Component Definition ---
 const ResetPasswordSignIn = () => {
     const [email, setEmail] = useState("");
@@ -14,9 +13,6 @@ const ResetPasswordSignIn = () => {
     const [isLoading, setIsLoading] = useState(false);
     // FIX: Removed the unused state variable
     // const [isCodeSentSuccess, setIsCodeSentSuccess] = useState(false); 
-=======
-const ResetPassword = () => {
->>>>>>> 318f18af18502a4fc6e456047be04a6e3f662ab7
     const navigate = useNavigate();
     // Unified function for sending/resending the password reset code
     const sendPasswordResetCode = async (e) => {
@@ -27,7 +23,6 @@ const ResetPassword = () => {
             return;
         }
         setIsLoading(true);
-<<<<<<< HEAD
         // FIX: Removed the setter call for the removed state
         // setIsCodeSentSuccess(false); // Reset success state on a new attempt
         try {
@@ -59,26 +54,11 @@ const ResetPassword = () => {
             setError(errorMessage);
             // FIX: Removed the setter call for the removed state
             // setIsCodeSentSuccess(false); // Ensure success state is false on error
-=======
-        try {
-            const payload = {
-                email: values.email,
-                confirm_password: values.confirm_password,
-                new_password: values.new_password,
-                onSuccess: () => navigate("/login", { replace: true }),
-            };
-            await dispatch(resetPassword(payload)).unwrap();
-        }
-        catch (error) {
-            console.error("Password reset failed:", error);
-            setApiError(error || "Failed to reset password. Please try again.");
->>>>>>> 318f18af18502a4fc6e456047be04a6e3f662ab7
         }
         finally {
             setIsLoading(false);
         }
     };
-<<<<<<< HEAD
     /**
      * Handles the "Send Code again" link click.
      * It calls the main API function (`sendPasswordResetCode`) to perform the resend.
@@ -92,9 +72,6 @@ const ResetPassword = () => {
     return (
     // 1. Full Page Container with positioning for the fixed footer
     _jsxs("div", { style: {
-=======
-    return (_jsxs("div", { style: {
->>>>>>> 318f18af18502a4fc6e456047be04a6e3f662ab7
             backgroundColor: "#f5f5f5",
             height: "100vh",
             overflow: "auto",

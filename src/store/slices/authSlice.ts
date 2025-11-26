@@ -167,11 +167,18 @@ const getUserFromStorage = () => {
 // );
 
 const initialState: AuthState = {
-  user: getUserFromStorage(),
-  token: localStorage.getItem("token"),
-  isLoading: false,
-  error: null,
-  is_verified: false,
+    user: getUserFromStorage(),
+    token: localStorage.getItem("token"),
+    isLoading: false,
+    error: null,
+    is_verified: false,
+    
+    // Initial State for NEW MFA properties
+    mfaSetupData: null,
+    isMfaSetupConfirmed: false,
+    // The accessToken is already stored in `token` above, 
+    // but keeping this for potential future separation:
+    accessToken: null, 
 };
 
 const authSlice = createSlice({
