@@ -345,6 +345,7 @@ export const employerAPI = {
 
   viewUsage: async () => {
     return api.get<UsageData>("/subscription/usage/");
+    
   },
 
   updatePaymentMethod: async (payload: PaymentUpdatePayload) => {
