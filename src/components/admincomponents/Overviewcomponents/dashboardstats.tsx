@@ -39,16 +39,10 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                 {/* Top section: icon and change badge */}
                 <div className="d-flex align-items-center justify-content-between mb-3">
                   <div
-                    className="d-flex align-items-center justify-content-center"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      backgroundColor: "#e6f4ea !important",
-                      border: "2px solid red !important",
-                      borderRadius: "8px",
-                    }}
+                    className={`d-flex align-items-center justify-content-center rounded-circle p-3 ${stat.iconColor}`}
+                    style={{ width: "50px", height: "50px" }}
                   >
-                    <IconComponent size={25} style={{ color: stat.change.startsWith('+') ? "#3CB371" : "#dc3545" }} />
+                    <IconComponent size={25} className="icon-color" />
                   </div>
 
 
@@ -58,7 +52,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                     style={{
                       fontSize: "0.75rem",
                       padding: "0.4em 0.6em",
-                      color: stat.change.startsWith("+") ? "green" : "red",
+                      color: stat.change.startsWith("+") ? "#3CB371" : "#dc3545",
                       fontWeight: 600,
                       display: "inline-block",
                     }}

@@ -23,7 +23,8 @@ const SideNavButton = ({
 }) => {
   const location = useLocation();
   const currentPath = location.pathname.split("/")[2];
-  const isActive = currentPath === id;
+  const isActive =
+    (id === "overview" && (currentPath === undefined || currentPath === "")) || currentPath === id;
 
   const IconComponent = Icons[icon] as React.FC<{ size?: number; color?: string }>;
 
@@ -31,8 +32,7 @@ const SideNavButton = ({
     <Button
       variant="light"
       onClick={onClick}
-      className={`w-100 d-flex align-items-center gap-3 px-3 py-2 text-start mb-2 ${isActive ? "fw-semibold border-start" : ""
-        }`}
+      className={`w-100 d-flex align-items-center gap-3 px-3 py-2 text-start ${isActive ? "fw-semibold border-start" : ""}`}
       style={{
         position: "relative",
         backgroundColor: isActive ? "#e9f5ee" : "transparent",
@@ -41,7 +41,10 @@ const SideNavButton = ({
         fontWeight: isActive ? 600 : 400,
         transition: "all 0.2s ease",
         borderRadius: 0,
-        boxShadow: isActive ? "inset 0 0 0 1px #e9f5ee" : "none",
+        boxShadow: "none",
+        marginBottom: "8px",
+        borderTop: "none",
+        borderBottom: "none",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.backgroundColor = "#f1f3f5";
@@ -50,7 +53,7 @@ const SideNavButton = ({
         e.currentTarget.style.backgroundColor = isActive ? "#e9f5ee" : "transparent";
       }}
     >
-      <IconComponent size={18} color="#3CB371" />
+      <IconComponent size={20} color="#3CB371" />
       <span className="small">{label}</span>
       {isActive && (
         <div
@@ -128,7 +131,7 @@ const AdminSidebar: React.FC = () => {
       {/* Top logo only (no text) */}
       <div
         style={{
-          padding: "1rem",
+          padding: "2rem",
           borderBottom: "1px solid #dee2e6",
           display: "flex",
           justifyContent: "center",
@@ -137,7 +140,7 @@ const AdminSidebar: React.FC = () => {
         <img
           src={logo}
           alt="Obeeoma Logo"
-          style={{ width: "120px", height: "120px" }}
+          style={{ width: "180px", height: "50px" }}
         />
       </div>
 
