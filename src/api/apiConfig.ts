@@ -4,7 +4,6 @@ import {
   LoginCredentials,
   RegisterCredentials,
   ForgotPasswordData,
-  changePasswordData,
   OtpVerificationPayload
 } from "@/types/auth";
 

@@ -105,6 +105,8 @@ export interface MoodTrend {
   employeeName: string;
   employeeDepartment: string;
   moodLevel: number;
+  mood: string;
+  count: number;
   date: string;
   timestamp: string;
 }
