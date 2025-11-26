@@ -7,7 +7,7 @@ import { AppDispatch } from "../../store/store";
 import { logout } from "../../store/slices/authSlice";
 import * as Icons from "lucide-react";
 import { Button } from "react-bootstrap";
-import logo from "../../assets/Images/obeeomalogoword2.png"; // Obeeoma logo
+import logo from "../../assets/Images/obeeomalogoword1.png"; // Obeeoma logo
 
 const SideNavButton = ({
   id,
