@@ -7,7 +7,6 @@ import {
   changePasswordData,
   OtpVerificationPayload,
   MfaSetupData
-
 } from "@/types/auth";
 
 
