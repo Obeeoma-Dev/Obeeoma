@@ -17,19 +17,10 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/login/",
             "/v1/auth/signup/",
             "/v1/auth/reset-password/",
-<<<<<<< HEAD
             "/v1/auth/change-password",
             "v1/organization-signup/",
             "v1/dashboard/overview/",
             "v1/auth/verify-invite/",
-=======
-            "/v1/auth/change-password/",
-            "/v1/auth/reset-password/complete/",
-            "/v1/organization-signup/",
-            "/v1/auth/verify-otp/",
-            "/v1/auth/mfa/setup/",
-            "/v1/auth/mfa/confirm/",
->>>>>>> main
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
         const state = store.getState();
@@ -49,24 +40,8 @@ export const setupApiInterceptors = (store) => {
             token_injected: !!(activeToken && !isPublicEndpoint),
         });
         return config;
-<<<<<<< HEAD
     }, (error) => Promise.reject(error));
     // Response Interceptor
-=======
-    }, (error) => {
-        return Promise.reject(error);
-    });
-    // api.interceptors.request.use(
-    //   (config) => {
-    //     console.log(" Making API Request:", {
-    //       method: config.method,
-    //       url: config.url,
-    //       data: config.data,
-    //     });
-    //     return config;
-    //   },
-    // );
->>>>>>> main
     api.interceptors.response.use((response) => {
         console.log("API Response Success:", {
             status: response.status,
@@ -124,39 +99,20 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/", data);
         return response;
     },
-<<<<<<< HEAD
     // changePassword: async (data: changePasswordData) => {
     //   const response = await api.post("/v1/auth/change-password", data);
     //   return response;
     // },
     getCurrentUser: async () => {
         const response = await api.get("/v1/auth/me/");
-=======
-    // reset password
-    changePassword: async (data) => {
-        const response = await api.post("/v1/auth/reset-password/complete/", data);
->>>>>>> main
         return response;
     },
     verifyOtp: async (payload) => {
-        const response = await api.post("v1/auth/verify-otp/", payload);
+        const response = await api.post("v1/auth/verify-invite/", payload);
         return response;
     },
-<<<<<<< HEAD
     changePassword: async (changePasswordData) => {
         const response = await api.post("/v1/auth/change-password/", changePasswordData);
-=======
-    resendOtp: (payload) => {
-        return api.post('v1/auth/verify-otp/', payload);
-    },
-    fetchMfaSetupData: async (payload) => {
-        const response = await api.post("/v1/auth/mfa/setup/", payload);
-        return response;
-    },
-    confirmMfaSetup: async (payload) => {
-        // The payload is expected to be an object: { code: string }
-        const response = await api.post("/v1/auth/mfa/confirm/", payload);
->>>>>>> main
         return response;
     },
 };
@@ -298,15 +254,6 @@ export const employerAPI = {
     viewBilling: async () => {
         const response = await api.get("/v1/dashboard/billing/view");
         return response;
-    },
-    viewUsage: async () => {
-        return api.get("/subscription/usage/");
-    },
-    updatePaymentMethod: async (payload) => {
-        return api.post("/v1/employer/billing/update-payment-method/", payload);
-    },
-    viewBillingHistory: async () => {
-        return api.get("v1/dashboard/subscriptions/billing-history/");
     },
 };
 export default api;
