@@ -29,11 +29,23 @@ interface Employee {
 interface EmployeeTableProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  employees: Employee[];
+  companyId?: string;
 }
 
 const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
+  // const table = useReactTable({
+  //   data: employees,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  //   getPaginationRowModel: getPaginationRowModel(),
+  //   onSortingChange: setSorting,
+  //   getSortedRowModel: getSortedRowModel(),
+  //   onColumnFiltersChange: setColumnFilters,
+  //   getFilteredRowModel: getFilteredRowModel(),
+  // });
 
   // 1. SELECT STATE WITH CORRECT TYPE MAPPING
   const { invites, isLoading, isActionLoading, error } = useSelector(
@@ -99,14 +111,6 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)} />
             </div>
-            <button 
-              type="button" 
-              className="btn btn-success" 
-              onClick={loadAddEmployeeForm} 
-              disabled={isActionLoading} // Disable if an action (like inviting) is loading
-            > 
-              {isActionLoading ? 'Sending...' : 'Add Employee'}
-            </button>
           </div>
         </div>
       </div>
@@ -138,7 +142,8 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
                   </td>
                 </tr>
               ) : (
-                filteredEmployees.map((employee: CombinedEmployee) => (
+                //changed from CombinedEmployee to Employee
+                filteredEmployees.map((employee: Employee) => (
                   <tr key={employee.id}>
                     <td className="ps-4 py-3">
                       <div className="d-flex align-items-center gap-3">
@@ -181,14 +186,13 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
         {/* Pagination */}
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="text-muted">
-            Showing {filteredEmployees.length} of {allEmployees.length} employees
+            Showing {filteredEmployees.length} of {employees.length} employees
           </div>
           <div className="d-flex gap-2">
             <button className="btn btn-sm btn-outline-secondary">Previous</button>
             <button className="btn btn-sm btn-outline-secondary">Next</button>
           </div>
         </div>
-      </div>
     </>
   );
 };

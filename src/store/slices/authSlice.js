@@ -96,8 +96,6 @@ export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload,
         return rejectWithValue(getErrorMessage(err));
     }
 });
-<<<<<<< HEAD
-=======
 // Resend OTP Thunk
 export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
     try {
@@ -138,7 +136,6 @@ export const confirmMfa = createAsyncThunk('auth/confirmMfa', async (payload, { 
     }
 });
 // State Setup
->>>>>>> main
 const getUserFromStorage = () => {
     const rawUser = localStorage.getItem("user");
     if (!rawUser || rawUser === "undefined")
@@ -150,27 +147,6 @@ const getUserFromStorage = () => {
         return null;
     }
 };
-<<<<<<< HEAD
-// Resend OTP Thunk (Unchanged)
-// export const resendOtpThunk = createAsyncThunk<
-//   { message: string }, 
-//   OtpVerificationPayload, 
-//   { rejectValue: string } 
-// >(
-//   'auth/resendOtp',
-//   async (payload, { rejectWithValue }) => {
-//     try {
-//       const response = await authAPI.resendOtp(payload); 
-//       return response.data;
-//       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     } catch (error: any) {
-//       const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
-//       return rejectWithValue(errorMessage);
-//     }
-//   }
-// );
-=======
->>>>>>> main
 const initialState = {
     user: getUserFromStorage(),
     token: localStorage.getItem("token"),
@@ -304,8 +280,6 @@ const authSlice = createSlice({
             .addCase(verifyOtpThunk.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
-<<<<<<< HEAD
-=======
         })
             // Resend OTP Thunk
             .addCase(resendOtpThunk.pending, (state) => {
@@ -355,7 +329,6 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
             state.isMfaSetupConfirmed = false;
->>>>>>> main
         });
     },
 });

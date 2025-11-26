@@ -8,7 +8,7 @@ import { fetchBillingHistory } from '../../../store/slices/billingSlice';
 
 const BillingHistoryTable: React.FC = () => {
     const dispatch = useDispatch();
-    const { invoices, status, error } = useSelector((state: RootState) => state.billing);
+    const { invoices, status, error } = useSelector((state: RootState) => state.billing );
 
     useEffect(() => {
         // Fetch history only if it hasn't been fetched or failed

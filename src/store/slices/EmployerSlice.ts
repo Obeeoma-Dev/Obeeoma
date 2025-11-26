@@ -56,7 +56,7 @@ export const inviteEmployee = createAsyncThunk<
   async (employeeData, { rejectWithValue }) => {
     try {
       // NOTE: Assuming employerAPI.inviteEmployee internally handles the POST to /v1/employers/invite/ with emailData
-      const response = await employerAPI.inviteEmployee(employeeData); 
+      const response = await employerAPI.inviteEmployee(); 
       // The API often returns the new object upon successful creation
       employeeData.onSuccess?.();
       return response.data as EmployeeInvite;

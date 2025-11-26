@@ -13,8 +13,6 @@ import {
 
 } from "@/types/auth";
 
-import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
-declare const authApiClient: any;
 
 import { UsageData, PaymentUpdatePayload, InvoiceItem } from "@/types/employer"
 declare const authApiClient: any;
@@ -272,17 +270,17 @@ export const adminAPI = {
   },
 
   viewInviteEmployee: async () => {
-    const response = await api.get("/v1/employers/view-invites/");
+    const response = await api.get("/v1/dashboard/invitationss/");
     return response;
   },
 
   viewSubscription: async () => {
-    const response = await api.post("/v1/employer/billing/add-subscription/");
+    const response = await api.post("/v1/dashboard/billing/add-subscription/");
     return response;
   },
 
   viewBilling: async () => {
-    const response = await api.get("/v1/employer/billing/view");
+    const response = await api.get("/v1/dashboard/billing/view");
     return response;
   },
 };
@@ -290,13 +288,30 @@ export const adminAPI = {
   // employer endpoints
 
 export const employerAPI = {
+
+  getemployerdashboardSummary: async () => {
+    const response = await api.get("/v1/dashboard/organization-overview/");
+    return response;
+  },
+
+  getEmployees: async () => {
+    const response = await api.get("/v1/invitations/");
+    return response;
+  },
+
+  getCurrentEmployer: async () => {
+    const response = await api.get("/v1/users/");
+    return response;
+  },
+
+  
   inviteEmployee: async () => {
-    const response = await api.post("/api/v1/invitations/");
+    const response = await api.post("/v1/invitations/");
     return response;
   },
 
   viewInviteEmployee: async () => {
-    const response = await api.get("/v1/employers/view-invites/");
+    const response = await api.get("/v1/invitations/");
     return response;
   },
 
@@ -347,16 +362,13 @@ export const employerAPI = {
     return response;
   },
 
-  // Billing
-  viewSubscription: async () => {
-    const response = await api.post("/v1/dashboard/billing/add-subscription/");
-    return response;
-  },
+  // // Billing
+  // viewSubscription: async () => {
+  //   const response = await api.post("/v1/dashboard/billing/add-subscription/");
+  //   return response;
+  // },
 
-  viewBilling: async () => {
-    const response = await api.get("/v1/dashboard/billing/view");
-    return response;
-  },
+
 
   viewUsage: async () => {
     return api.get<UsageData>("/subscription/usage/");
