@@ -79,6 +79,7 @@ export interface InviteData {
 
 export interface Employee {
   id: number;
+  name: string;
   emailAddress: string;
   phoneNumber?: string;
   department: string;
