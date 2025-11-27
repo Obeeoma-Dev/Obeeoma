@@ -1,4 +1,3 @@
-
 export interface EmployerUser {
   id: string | number;
   username: string;
@@ -80,14 +79,10 @@ export interface InviteData {
 
 export interface Employee {
   id: number;
-  employeeId: number;
-  employeeName: string;
-  employeeDepartment: string;
-  moodLevel: number;
-  mood: string;
-  count: number;
-  date: string;
-  timestamp: string;
+  emailAddress: string;
+  phoneNumber?: string;
+  department: string;
+  status: 'accepted' | 'pending' | 'rejected' | string;
 }
 
 export interface GetEmployeeInput {
