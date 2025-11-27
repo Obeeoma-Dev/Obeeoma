@@ -1,11 +1,19 @@
+
 export interface EmployerUser {
   id: string | number;
   username: string;
+  firstName: string;
+  lastName: string;
   organizationName: string;
   email: string;
   role: 'admin' | 'employer' | 'employee' | string;
   dateJoined: string; // ISO date string
-  // Add other user-specific fields
+
+  company? : {
+    id: string | number;
+    name: string;
+    createdAt: string;
+  }
   address?: string;
   phone?: string;
 }
@@ -126,9 +134,16 @@ export interface EmployerState {
   }[];
 
   moodTrends: {
-    date: string;
-    mood: string;
-    count: number;
+  id: number;
+  employeeId: number;
+  employeeName: string;
+  employeeDepartment: string;
+  moodLevel: number;
+  mood: string;
+  count: number;
+  date: string;
+  timestamp: string;
+
   }[];
   currentEmployer: EmployerUser | null;
   subscription: SubscriptionData | null;
@@ -143,6 +158,20 @@ export interface EmployerState {
   error: string | null;
 }
 
+
+
+export interface MoodTrend {
+  id: number;
+  employeeId: number;
+  employeeName: string;
+  employeeDepartment: string;
+  moodLevel: number;
+  mood: string;
+  count: number;
+  date: string;
+  timestamp: string;
+}
+
   export interface NotificationSettings {
   emailNotifications: boolean;
   weeklyReports: boolean;
@@ -155,6 +184,15 @@ export interface PrivacySettings {
   enhancedPrivacy: boolean;
   dataRetentionPeriod: number;
 }
+
+//to add more fields
+export interface DashboardProps {
+
+  companyId: string;
+
+}
+
+
 
 export interface UsageData {
   api_calls_used: number;

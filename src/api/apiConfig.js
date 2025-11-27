@@ -111,6 +111,10 @@ export const authAPI = {
         const response = await api.post("v1/auth/verify-invite/", payload);
         return response;
     },
+    resendOtp: async (payload) => {
+        const response = await api.post("v1/auth/resend-otp/", payload);
+        return response;
+    },
     changePassword: async (changePasswordData) => {
         const response = await api.post("/v1/auth/change-password/", changePasswordData);
         return response;

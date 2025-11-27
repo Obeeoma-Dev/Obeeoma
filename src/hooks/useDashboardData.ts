@@ -90,7 +90,7 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     wellnessTrend, 
     invites,
     employees = [],
-    moodTrends = [],
+    moodTrends,
     isLoading,
     error 
   } = useSelector((state: RootState) => state.employer as EmployerState);

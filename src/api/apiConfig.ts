@@ -153,6 +153,11 @@ export const authAPI = {
     return response;
   },
 
+  resendOtp: async (payload: OtpVerificationPayload) => {
+    const response = await api.post("v1/auth/resend-otp/", payload);
+    return response;
+  },
+
  
 
   changePassword: async (changePasswordData: any) => {

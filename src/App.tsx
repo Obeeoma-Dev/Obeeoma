@@ -74,7 +74,7 @@ export default function App(): React.ReactElement {
 
               {/* EMPLOYER'S ROUTES */}
               <Route path="/organization-reports" element={<CompanyReports />} />
-              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard companyId="your-company-id" />} />
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
               {/* <Route path="/employee-management" element={<EmployeeManagement />} /> */}
               {/* Note: EmployerAccountProfile and EmployerAccountSettingsPage seem to point to the same file, using both paths */}
