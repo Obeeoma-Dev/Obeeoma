@@ -49,7 +49,7 @@ const PlatformUsageChart: React.FC = () => {
       {/* Card body contains tab navigation and chart */}
       <Card.Body>
         {/* Tab navigation using ButtonGroup */}
-        <ButtonGroup className="mb-4">
+        <ButtonGroup className="mb-4 w-100 justify-content-between">
           {tabs.map((tab) => (
             <Button
               key={tab.id}
@@ -73,7 +73,7 @@ const PlatformUsageChart: React.FC = () => {
 
         {/* Dynamic section header with green underline */}
         <h5
-          className="fw-semibold text-dark mb-4 position-relative"
+          className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
         >
           {activeTab === "platform" && "Weekly Platform Usage"}
           {activeTab === "organization" && "Monthly Organization Growth"}
