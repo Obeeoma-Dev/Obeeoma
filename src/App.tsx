@@ -12,13 +12,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register"; // Renamed from CreateAccount in the comments
+import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import AcceptInvite from "./pages/auth/accept-invite";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
+import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
 import NotFound from "./pages/NotFound";
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
@@ -34,7 +35,9 @@ import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
-// import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
+import PaymentSuccessPage from "./pages/EmployerPages/Successmessage";
+import EmployeeLandingPage from "./pages/landingpage/EmployeeLandingPage";
+import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import Aboutus from "./pages/landingpage/Aboutpages/about";
 import { ContactPage } from "./pages/landingpage/Contacts/contactUs";
 import { Blog } from "./pages/landingpage/Blogpages/blog";
@@ -71,16 +74,18 @@ export default function App(): React.ReactElement {
 
               {/* EMPLOYEE'S ROUTES */}
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/employee-downloadapp" element={<EmployeeLandingPage />} />
+              <Route path="/success-message" element={<PaymentSuccessPage />} />
 
               {/* EMPLOYER'S ROUTES */}
               <Route path="/organization-reports" element={<CompanyReports />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard companyId="your-company-id" />} />
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
-              {/* <Route path="/employee-management" element={<EmployeeManagement />} /> */}
+              <Route path="/employee-management" element={<EmployeeManagement />} />
               {/* Note: EmployerAccountProfile and EmployerAccountSettingsPage seem to point to the same file, using both paths */}
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
               <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
-              {/* <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} /> */}
+              <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
 
               {/* SYSTEMS ADMIN ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} /> {/* Main Admin Dashboard */}

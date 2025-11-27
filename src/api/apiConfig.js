@@ -250,6 +250,9 @@ export const employerAPI = {
         const response = await api.get("/v1/dashboard/recent-activities/");
         return response;
     },
+    //   viewUsage: async () => {
+    //   return api.get<UsageData>("/subscription/usage/");
+    // },
     // Billing
     viewSubscription: async () => {
         const response = await api.post("/v1/dashboard/billing/add-subscription/");
@@ -532,9 +535,6 @@ export default api;
 //   getemployerdashboardSummary: async () => {
 //     const response = await api.get("/v1/employer/overview");
 //     return response;
-//   },
-//   viewUsage: async () => {
-//     return api.get<UsageData>("/subscription/usage/");
 //   },
 //   getWellnessTrend: async () => {
 //     const response = await api.get("/v1/employer/wellness-trend/");

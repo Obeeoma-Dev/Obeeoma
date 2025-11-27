@@ -5,6 +5,7 @@ import {
   RegisterCredentials,
   ForgotPasswordData,
   OtpVerificationPayload
+  
 } from "@/types/auth";
 
 import {PaymentUpdatePayload, InvoiceItem} from "@/types/employer";
@@ -324,6 +325,11 @@ export const employerAPI = {
     const response = await api.get("/v1/dashboard/recent-activities/");
     return response;
   },
+
+  //   viewUsage: async () => {
+  //   return api.get<UsageData>("/subscription/usage/");
+  // },
+
 
   // Billing
   viewSubscription: async () => {
@@ -672,9 +678,6 @@ export default api;
 //     return response;
 //   },
 
-//   viewUsage: async () => {
-//     return api.get<UsageData>("/subscription/usage/");
-//   },
 
 
 

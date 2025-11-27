@@ -1,13 +1,12 @@
-import { Users, FileCheck, TrendingUp, AlertTriangle, LucideIcon } from "lucide-react";
+import { Users, FileCheck, TrendingUp, AlertTriangle, LucideIcon, UserRoundMinus, UserRoundPlus, HelpCircle, UsersRound,} from "lucide-react";
 import React from "react";
-
 // --- 1. Define the Icon Mapping outside the component ---
 // This mapping is static and should not be recreated on every render.
 const IconMap: { [key: string]: LucideIcon } = {
-  Users,
-  FileCheck,
+  UserRoundPlus,
+  UsersRound,
   TrendingUp,
-  AlertTriangle,
+  HelpCircle,
 };
 
 // --- 2. Define a Utility Function for Icon Retrieval ---

@@ -1,7 +1,6 @@
 // EmployerPages/EmployerDashboard.tsx
 import Layout from "../../components/employercomponents/shared/Layout";
 import TopGrid from "../../components/employercomponents/employerdashboard/TopGrid";
-import EmployeeTable from "../../components/employercomponents/companyemployees/EmployeeTable";
 import DepartmentLegend from "../../components/employercomponents/employerdashboard/DepartmentLegend";
 import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
@@ -14,7 +13,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
   companyId, 
 }) => {
   const { stats, employeeData, activities, loading, error } = useDashboardData();
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
 
   if (loading) {
@@ -47,7 +46,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
     {
       title: "Add Employee",
       value: "+",
-      icon: "Users",
+      icon: "UserRoundPlus",
       color: "success",
       onClick: () => setShowAddEmployeeModal(true),
     },
@@ -67,7 +66,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       title: "Help",
       value: stats.atRisk.toString(),
       icon: "HelpCircle",
-      color: "warning",
+      color: "secondary",
     },
   ] : [];
 
@@ -78,15 +77,6 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
           <div className="col-lg-12 col-md-10 mx-auto">
             <TopGrid stats={statsData} />
           </div>
-
-          <div className="col-lg-8 col-md-12">
-            <EmployeeTable 
-              searchQuery={searchQuery} 
-              onSearchChange={setSearchQuery}
-              employees={employeeData.employees as any} // Temporary cast
-              companyId={companyId}
-            />
-          </div> 
 
            <div className="col-lg-4 col-md-12">
             <div className="card border-0 shadow-sm h-100">
