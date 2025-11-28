@@ -39,6 +39,56 @@ const EmployerAccountProfile = () => {
     alert("Settings saved successfully!");
   };
 
+  const handleLogoutChanges = () => {
+    // 1. Log the action for debugging purposes
+    console.log("User attempting to log out.");
+    localStorage.removeItem('userToken');
+    sessionStorage.removeItem('userData');
+    
+    
+    alert("You have been successfully logged out.");
+    window.location.href = '/login'; 
+};
+
+// const handleLogoutChanges = async () => {
+//     try {
+//         // Log out the user by making a POST request to the server API
+//         console.log("Attempting to log out...");
+        
+//         // 
+//         const response = await fetch('/api/logout', { 
+//             method: 'POST',
+//             // Include headers if your API requires them (e.g., for CSRF tokens or content type)
+//             // headers: {
+//             //     'Content-Type': 'application/json',
+//             //     'Authorization': `Bearer ${userToken}` 
+//             // }
+//         });
+
+//         if (response.ok) {
+//             // Handle successful logout on the client side
+//             console.log("Logout successful on server.");
+            
+//             // Clear any local user session data (e.g., tokens, user info)
+//             // Example: localStorage.removeItem('userToken');
+//             // Example: dispatch(clearUserSession()); // If using a state management library
+            
+//             // Redirect the user to the login page or home page
+//             alert("You have been successfully logged out.");
+//             // Example: window.location.href = '/login'; 
+
+//         } else {
+//             // Handle server-side errors (e.g., 401 Unauthorized, 500 Internal Server Error)
+//             console.error("Logout failed with status:", response.status);
+//             const errorData = await response.json(); // Attempt to read error message from body
+//             alert(`Logout failed: ${errorData.message || response.statusText}`);
+//         }
+//     } catch (error) {
+//         // Handle network errors (e.g., server is down, no internet connection)
+//         console.error("Network or fetch error during logout:", error);
+//         alert("An unexpected error occurred during logout. Please try again.");
+//     }
+// };
   const renderSection = () => {
     switch (activeSection) {
       case "account":
@@ -100,7 +150,7 @@ const EmployerAccountProfile = () => {
                 Save Changes
               </button>
               <button
-                onClick={handleSaveChanges}
+                onClick={handleLogoutChanges}
                 className="btn btn-danger d-flex align-items-center gap-2"
               >
                 <LogOut size={18} />

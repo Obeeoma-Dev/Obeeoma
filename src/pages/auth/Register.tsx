@@ -861,6 +861,4 @@ const handleNext = async (
         </div>
     )
 }
-
-
 export default Register;
