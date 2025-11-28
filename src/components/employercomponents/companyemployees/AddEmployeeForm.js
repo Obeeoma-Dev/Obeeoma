@@ -1,9 +1,11 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useCreateEmployee } from "../../../api/companyEmployee/requests";
+import { employerAPI } from "../../../api/apiConfig";
 import { useToast } from "../../../hooks/use-toast";
+import { useState } from "react";
+import { UserPlus, Mail, Phone, Building, Upload } from "lucide-react";
 const employeeSchema = z.object({
     email: z.email("Please enter a valid email address").trim(),
     phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
@@ -11,19 +13,21 @@ const employeeSchema = z.object({
 });
 const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
     const { toast } = useToast();
-    const { createEmployee, isLoading } = useCreateEmployee();
+    const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset, } = useForm({
         resolver: zodResolver(employeeSchema),
     });
     const onSubmit = async (data) => {
+        console.log('Form data:', data);
         try {
+            setIsLoading(true);
             // Transforming form data to match API expectations
             const apiData = {
-                emailAddress: data.email,
-                phoneNumber: data.phone,
+                email: data.email,
+                phone: data.phone,
                 department: data.department,
             };
-            await createEmployee(apiData);
+            await employerAPI.inviteEmployee(apiData);
             toast({
                 title: "Success",
                 description: "Employee invitation sent!",
@@ -41,6 +45,9 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
                 message: "Failed to add employee. Please try again.",
             });
         }
+        finally {
+            setIsLoading(false);
+        }
     };
     const handleClose = () => {
         reset();
@@ -48,25 +55,47 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }) => {
     };
     if (!showModal)
         return null;
-    return (_jsx("div", { className: "modal fade show d-block", tabIndex: -1, role: "dialog", style: { backgroundColor: 'rgba(0,0,0,0.5)' }, children: _jsx("div", { className: "modal-dialog modal-dialog-centered", role: "document", children: _jsxs("div", { className: "modal-content", children: [_jsxs("div", { className: "modal-header", children: [_jsx("h5", { className: "modal-title fw-semibold", children: "Invite Employee" }), _jsx("button", { type: "button", className: "close border-0 bg-transparent", onClick: handleClose, style: { fontSize: '1.5rem' }, children: _jsx("span", { "aria-hidden": "true", children: "\u00D7" }) })] }), _jsx("div", { className: "modal-body", children: _jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [_jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "employee-email", className: "form-label fw-medium", children: "Email address:" }), _jsx("input", { type: "email", className: `form-control ${errors.email ? 'is-invalid' : ''}`, id: "employee-email", placeholder: "Enter employee email", ...register("email") }), errors.email && (_jsx("div", { className: "invalid-feedback d-block", children: errors.email.message }))] }), _jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "phone", className: "form-label fw-medium", children: "Phone number (optional):" }), _jsx("input", { type: "tel", className: `form-control ${errors.phone ? 'is-invalid' : ''}`, id: "phone", placeholder: "Enter phone number", ...register("phone") }), errors.phone && (_jsx("div", { className: "invalid-feedback d-block", children: errors.phone.message }))] }), _jsxs("div", { className: "form-group mb-3", children: [_jsx("label", { htmlFor: "department", className: "form-label fw-medium", children: "Department:" }), _jsxs("select", { className: `form-select ${errors.department ? 'is-invalid' : ''}`, id: "department", ...register("department"), children: [_jsx("option", { value: "", children: "Select department" }), _jsx("option", { value: "Marketing", children: "Marketing" }), _jsx("option", { value: "HR", children: "HR" }), _jsx("option", { value: "Finance", children: "Finance" }), _jsx("option", { value: "Engineering", children: "Engineering" }), _jsx("option", { value: "Other", children: "Other" })] }), errors.department && (_jsx("div", { className: "invalid-feedback d-block", children: errors.department.message }))] }), _jsxs("div", { className: "form-group mt-1 mb-3", children: [_jsx("button", { type: "button", className: "btn btn-link p-0 text-decoration-none", title: "Upload an excel document", onClick: (e) => {
-                                                e.preventDefault();
-                                                const input = document.getElementById('upload-excel');
-                                                if (!input)
-                                                    return;
-                                                const onChange = () => {
-                                                    const file = input.files?.[0];
-                                                    if (!file)
-                                                        return;
-                                                    toast({
-                                                        title: 'File selected',
-                                                        description: file.name,
-                                                        message: file.name,
-                                                    });
-                                                    input.removeEventListener('change', onChange);
-                                                    // TODO: process or upload the file here (e.g. send to API or parse client-side)
-                                                };
-                                                input.addEventListener('change', onChange);
-                                                input.click();
-                                            }, children: "Try bulk add" }), _jsx("br", {}), _jsx("input", { type: "file", className: "form-control-file mt-1", id: "upload-excel", accept: ".xlsx,.xls,.csv" })] })] }) }), _jsxs("div", { className: "modal-footer", children: [_jsx("button", { type: "submit", className: "btn btn-success", disabled: isLoading, children: isLoading ? 'Adding...' : 'Add Employee' }), _jsx("button", { type: "button", className: "btn btn-secondary", onClick: handleClose, disabled: isLoading, children: "Close" })] })] }) }) }));
+    return (_jsx("div", { className: "modal fade show d-block", tabIndex: -1, role: "dialog", style: {
+            backgroundColor: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(4px)'
+        }, children: _jsx("div", { className: "modal-dialog modal-dialog-centered modal-lg", role: "document", children: _jsxs("div", { className: "modal-content border-0 shadow-lg", style: {
+                    borderRadius: '16px',
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)'
+                }, children: [_jsxs("div", { className: "modal-header border-0 pb-0", children: [_jsxs("div", { className: "d-flex align-items-center", children: [_jsx("div", { className: "bg-success bg-opacity-10 p-2 rounded-circle me-3", children: _jsx(UserPlus, { size: 24, className: "text-success" }) }), _jsxs("div", { children: [_jsx("h4", { className: "modal-title fw-bold mb-0 text-dark", children: "Invite New Employee" }), _jsx("p", { className: "text-muted small mb-0", children: "Send an invitation to join your organization" })] })] }), _jsx("button", { type: "button", className: "btn-close", onClick: handleClose, "aria-label": "Close", style: { filter: 'none' } })] }), _jsx("div", { className: "modal-body px-4", children: _jsxs("form", { onSubmit: handleSubmit(onSubmit), children: [_jsxs("div", { className: "row g-3", children: [_jsxs("div", { className: "col-12", children: [_jsxs("label", { htmlFor: "employee-email", className: "form-label fw-semibold text-dark mb-2", children: [_jsx(Mail, { size: 16, className: "me-2 text-primary" }), "Email Address ", _jsx("span", { className: "text-danger", children: "*" })] }), _jsx("input", { type: "email", className: `form-control form-control-lg ${errors.email ? 'is-invalid' : ''}`, id: "employee-email", placeholder: "employee@company.com", style: {
+                                                        borderRadius: '8px',
+                                                        border: '2px solid #e9ecef',
+                                                        transition: 'all 0.2s ease'
+                                                    }, ...register("email") }), errors.email && (_jsx("div", { className: "invalid-feedback d-block mt-2", children: errors.email.message }))] }), _jsxs("div", { className: "col-12", children: [_jsxs("label", { htmlFor: "phone", className: "form-label fw-semibold text-dark mb-2", children: [_jsx(Phone, { size: 16, className: "me-2 text-primary" }), "Phone Number ", _jsx("span", { className: "text-muted", children: "(Optional)" })] }), _jsx("input", { type: "tel", className: `form-control form-control-lg ${errors.phone ? 'is-invalid' : ''}`, id: "phone", placeholder: "+1 (555) 123-4567", style: {
+                                                        borderRadius: '8px',
+                                                        border: '2px solid #e9ecef',
+                                                        transition: 'all 0.2s ease'
+                                                    }, ...register("phone") }), errors.phone && (_jsx("div", { className: "invalid-feedback d-block mt-2", children: errors.phone.message }))] }), _jsxs("div", { className: "col-12", children: [_jsxs("label", { htmlFor: "department", className: "form-label fw-semibold text-dark mb-2", children: [_jsx(Building, { size: 16, className: "me-2 text-primary" }), "Department ", _jsx("span", { className: "text-danger", children: "*" })] }), _jsxs("select", { className: `form-select form-select-lg ${errors.department ? 'is-invalid' : ''}`, id: "department", style: {
+                                                        borderRadius: '8px',
+                                                        border: '2px solid #e9ecef',
+                                                        transition: 'all 0.2s ease'
+                                                    }, ...register("department"), children: [_jsx("option", { value: "", children: "Select department" }), _jsx("option", { value: "Marketing", children: "\uD83D\uDCC8 Marketing" }), _jsx("option", { value: "HR", children: "\uD83D\uDC65 Human Resources" }), _jsx("option", { value: "Finance", children: "\uD83D\uDCB0 Finance" }), _jsx("option", { value: "Engineering", children: "\u2699\uFE0F Engineering" }), _jsx("option", { value: "Operations", children: "\uD83C\uDFED Operations" }), _jsx("option", { value: "Sales", children: "\uD83C\uDFAF Sales" }), _jsx("option", { value: "Customer Service", children: "\uD83C\uDFA7 Customer Service" }), _jsx("option", { value: "Other", children: "\uD83D\uDCCB Other" })] }), errors.department && (_jsx("div", { className: "invalid-feedback d-block mt-2", children: errors.department.message }))] })] }), _jsxs("div", { className: "mt-4 p-3 bg-light rounded-3 border", children: [_jsxs("div", { className: "d-flex align-items-center justify-content-between", children: [_jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Upload, { size: 18, className: "text-primary me-2" }), _jsx("span", { className: "fw-medium text-dark", children: "Bulk Import" })] }), _jsx("button", { type: "button", className: "btn btn-outline-primary btn-sm", title: "Upload an excel document", onClick: (e) => {
+                                                        e.preventDefault();
+                                                        const input = document.getElementById('upload-excel');
+                                                        if (!input)
+                                                            return;
+                                                        const onChange = () => {
+                                                            const file = input.files?.[0];
+                                                            if (!file)
+                                                                return;
+                                                            toast({
+                                                                title: 'File selected',
+                                                                description: file.name,
+                                                                message: file.name,
+                                                            });
+                                                            input.removeEventListener('change', onChange);
+                                                            // TODO: process or upload the file here (e.g. send to API or parse client-side)
+                                                        };
+                                                        input.addEventListener('change', onChange);
+                                                        input.click();
+                                                    }, children: "Choose File" })] }), _jsx("p", { className: "text-muted small mt-2 mb-0", children: "Upload a CSV or Excel file to invite multiple employees at once" }), _jsx("input", { type: "file", className: "d-none", id: "upload-excel", accept: ".xlsx,.xls,.csv" })] })] }) }), _jsxs("div", { className: "modal-footer border-0 pt-0", children: [_jsx("button", { type: "button", className: "btn btn-outline-secondary px-4 py-2", onClick: handleClose, disabled: isLoading, style: { borderRadius: '8px' }, children: "Cancel" }), _jsx("button", { type: "submit", className: "btn btn-success px-4 py-2 d-flex align-items-center", disabled: isLoading, onClick: handleSubmit(onSubmit), style: {
+                                    borderRadius: '8px',
+                                    fontWeight: '600',
+                                    minWidth: '140px'
+                                }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx("div", { className: "spinner-border spinner-border-sm me-2", role: "status" }), "Sending..."] })) : (_jsxs(_Fragment, { children: [_jsx(UserPlus, { size: 18, className: "me-2" }), "Send Invite"] })) })] })] }) }) }));
 };
 export default AddEmployeeForm;

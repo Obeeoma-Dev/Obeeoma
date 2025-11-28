@@ -19,6 +19,7 @@ import {
   useReactTable,
   ColumnFiltersState,
 } from '@tanstack/react-table';
+import { json } from "zod";
 
 // Define the required structure of the data received from the Redux state
 interface EmployerStateSubset {
@@ -36,7 +37,9 @@ interface EmployeeTableProps {
 }
 
 const EmployeeTable = ({ searchQuery, onSearchChange, employees }: EmployeeTableProps) => {
-  const dispatch = useDispatch();
+console.log(employees);
+    const dispatch = useDispatch();
+
   const { toast } = useToast();
   
   // Redux state
@@ -176,6 +179,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange, employees }: EmployeeTable
                           header.column.columnDef.header,
                           header.getContext()
                         )}
+                        
                   </th>
                 ))}
               </tr>
