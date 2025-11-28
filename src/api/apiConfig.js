@@ -20,7 +20,7 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/change-password",
             "v1/organization-signup/",
             "v1/dashboard/overview/",
-            "v1/auth/verify-invite/",
+            "v1/auth/otp-verify/",
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
         const state = store.getState();
@@ -60,11 +60,78 @@ export const setupApiInterceptors = (store) => {
     });
 };
 // --- Auth API ---
+// export const authAPI = {
+//   login: async (credentials: LoginCredentials) => {
+//     const response = await api.post("/v1/auth/login/", credentials);
+//     return response;
+//   },
+//   register: async (credentials: RegisterCredentials) => {
+//     const response = await api.post("/v1/organization-signup/", {
+//       organizationName: credentials.organizationName,
+//       phoneNumber: credentials.phoneNumber,
+//       organisationSize: credentials.organisationSize,
+//       companyEmail: credentials.companyEmail,
+//       Location: credentials.Location,
+//       contactPerson: 
+//         {
+//           firstName: credentials.contactPerson.firstName, 
+//           lastName: credentials.contactPerson.lastName,
+//           role: credentials.contactPerson.role,
+//           email: credentials.contactPerson.email, 
+//         },
+//       password: credentials.password,
+//       confirmPassword: credentials.confirmPassword,
+//     });
+//     if (response.data.access) {
+//       localStorage.setItem("token", response.data.access);
+//     }
+//     return response.data;
+//   },
+//   logout: async () => {
+//     const refreshToken = localStorage.getItem('refresh');
+//     const accessToken = localStorage.getItem('token');
+//     return api.post(
+//       '/v1/auth/logout/',
+//       { refresh: refreshToken },
+//       {
+//         headers: {
+//           'Authorization': `Bearer ${accessToken}`,
+//         },
+//       }
+//     );
+//   },
+//   forgotPassword: async (data: ForgotPasswordData) => {
+//     const response = await api.post("/v1/auth/reset-password/", data);
+//     return response;
+//   },
+//   // changePassword: async (data: changePasswordData) => {
+//   //   const response = await api.post("/v1/auth/change-password", data);
+//   //   return response;
+//   // },
+//   getCurrentUser: async () => {
+//     const response = await api.get("/v1/auth/me/");
+//     return response;
+//   },
+//   verifyOtp: async (payload: OtpVerificationPayload) => {
+//     const response = await api.post("v1/auth/otp-verify/", payload);
+//     return response;
+//   },
+//   resendOtp: async (payload: OtpVerificationPayload) => {
+//     const response = await api.post("v1/auth/resend-otp/", payload);
+//     return response;
+//   },
+//   changePassword: async (changePasswordData: any) => {
+//     const response = await api.post("/v1/auth/change-password/", changePasswordData);
+//     return response;
+//   },
+// };
 export const authAPI = {
+    // Login endpoint
     login: async (credentials) => {
         const response = await api.post("/v1/auth/login/", credentials);
         return response;
     },
+    // Register endpoint
     register: async (credentials) => {
         const response = await api.post("/v1/organization-signup/", {
             organizationName: credentials.organizationName,
@@ -86,6 +153,7 @@ export const authAPI = {
         }
         return response.data;
     },
+    //for logout
     logout: async () => {
         const refreshToken = localStorage.getItem('refresh');
         const accessToken = localStorage.getItem('token');
@@ -99,24 +167,25 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/", data);
         return response;
     },
-    // changePassword: async (data: changePasswordData) => {
-    //   const response = await api.post("/v1/auth/change-password", data);
-    //   return response;
-    // },
-    getCurrentUser: async () => {
-        const response = await api.get("/v1/auth/me/");
+    // reset password
+    changePassword: async (data) => {
+        const response = await api.post("/v1/auth/reset-password/complete/", data);
         return response;
     },
     verifyOtp: async (payload) => {
-        const response = await api.post("v1/auth/verify-invite/", payload);
+        const response = await api.post("v1/auth/verify-otp/", payload);
         return response;
     },
-    resendOtp: async (payload) => {
-        const response = await api.post("v1/auth/resend-otp/", payload);
+    resendOtp: (payload) => {
+        return api.post('v1/auth/verify-otp/', payload);
+    },
+    fetchMfaSetupData: async (payload) => {
+        const response = await api.post("/v1/auth/mfa/setup/", payload);
         return response;
     },
-    changePassword: async (changePasswordData) => {
-        const response = await api.post("/v1/auth/change-password/", changePasswordData);
+    confirmMfaSetup: async (payload) => {
+        // The payload is expected to be an object: { code: string }
+        const response = await api.post("/v1/auth/mfa/confirm/", payload);
         return response;
     },
 };

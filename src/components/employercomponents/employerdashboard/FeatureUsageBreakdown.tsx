@@ -7,6 +7,7 @@ interface FeatureUsageData {
   maxUsage: number;
   icon: React.ReactNode;
   color: string;
+  
 }
 
 const FeatureUsageBreakdown: React.FC = () => {
@@ -17,7 +18,7 @@ const FeatureUsageBreakdown: React.FC = () => {
       usage: 85,
       maxUsage: 100,
       icon: <MessageSquare size={20} />,
-      color: '#3CB371'
+      color: '#3CB371',
     },
     {
       feature: 'Team Analytics',
@@ -46,7 +47,7 @@ const FeatureUsageBreakdown: React.FC = () => {
     <div className="feature-usage-breakdown">
       <div className="d-flex align-items-center mb-4">
         <TrendingUp size={20} className="text-primary me-2" />
-        <h6 className="card-title fw-semibold mb-0">Feature Usage</h6>
+        <h6 className="card-title fw-semibold mb-0" style={{fontFamily: 'heading'}}>Feature Usage</h6>
       </div>
 
       <div className="feature-list">
@@ -60,14 +61,16 @@ const FeatureUsageBreakdown: React.FC = () => {
                     width: '32px',
                     height: '32px',
                     backgroundColor: `${feature.color}20`,
-                    color: feature.color
+                    color: feature.color,
+                    fontFamily: 'heading',
+                    
                   }}
                 >
                   {feature.icon}
                 </div>
                 <span className="fw-medium small text-dark">{feature.feature}</span>
               </div>
-              <span className="small fw-semibold text-muted">
+              <span className="small fw-semibold text-muted" style={{fontFamily:'body'}}>
                 {feature.usage}%
               </span>
             </div>
@@ -79,7 +82,8 @@ const FeatureUsageBreakdown: React.FC = () => {
                 style={{
                   width: `${feature.usage}%`,
                   backgroundColor: feature.color,
-                  borderRadius: '3px'
+                  borderRadius: '3px',
+                  fontFamily:'body'
                 }}
                 aria-valuenow={feature.usage}
                 aria-valuemin={0}
@@ -92,7 +96,7 @@ const FeatureUsageBreakdown: React.FC = () => {
 
       <div className="mt-3 pt-3 border-top">
         <div className="d-flex align-items-center justify-content-between">
-          <span className="small text-muted">Overall Usage</span>
+          <span className="small text-muted" style={{fontFamily: 'heading'}}>Overall Usage</span>
           <span className="small fw-semibold text-dark">
             {Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length)}%
           </span>

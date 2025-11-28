@@ -43,11 +43,13 @@ const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: 
                 </div>
               )}
               
-              <button className="btn btn-link position-relative p-2 text-dark">
+              <button className="btn btn-link position-relative p-2 text-dark" >
                 <Bell size={20} />
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1"
-                style={{backgroundColor: PRIMARY_COLOR }}></span>
+                style={{backgroundColor: PRIMARY_COLOR , color:'3CB371'}}></span>
               </button>
+
+              
             </div>
           </div>
         </div>

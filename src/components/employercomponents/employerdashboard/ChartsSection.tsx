@@ -1,6 +1,4 @@
 
- // TODO: Replace with API call to fetch recent activities and default zero data for newly registered companies
-  // Example: const { data: activities, loading } = useRecentActivities();
 import {
   BarChart,
   Bar,
@@ -60,6 +58,7 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
                   dataKey="value"
                   fill="#3CB371"
                   radius={[8, 8, 0, 0]}
+                  fontFamily="heading"
                 />
               </BarChart>
             </ResponsiveContainer>
