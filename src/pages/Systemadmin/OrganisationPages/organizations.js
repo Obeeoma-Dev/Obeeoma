@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
-import OrganizationStats from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
+import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import Header from "../../../components/admincomponents/adminheader";
@@ -51,47 +51,47 @@ const mockOrganizations = [
 const mockStats = [
     {
         id: "1",
-        title: "Organizations",
-        value: "42",
-        change: "+5%",
+        title: "Total Organizations",
+        value: "0",
+        change: "+3 this month",
         icon: "Building2",
-        iconColor: "bg-light",
-        subtitle: "Active organizations",
-        linkText: "View all organizations",
-        color: "emerald",
+        iconColor: "bg-success-subtle text-success",
+        // subtitle: "Active organizations",
+        // linkText: "View all organizations",
+        // color: "emerald",
     },
     {
-        id: "1",
-        title: "Organizations",
-        value: "42",
-        change: "+5%",
-        icon: "Building2",
-        iconColor: "bg-light",
-        subtitle: "Active organizations",
-        linkText: "View all organizations",
-        color: "emerald",
+        id: "2",
+        title: "Total Client",
+        value: "0",
+        change: "+24 this month",
+        icon: "Users",
+        iconColor: "bg-primary-subtle text-primary",
+        // subtitle: "Active organizations",
+        // linkText: "View all organizations",
+        // color: "emerald",
     },
     {
-        id: "1",
-        title: "Organizations",
-        value: "42",
-        change: "+5%",
-        icon: "Building2",
-        iconColor: "bg-light",
-        subtitle: "Active organizations",
-        linkText: "View all organizations",
-        color: "emerald",
+        id: "3",
+        title: "Active Programs",
+        value: "0",
+        change: "+5 this month",
+        icon: "CircleCheckBig",
+        iconColor: "bg-warning-subtle text-primary",
+        // subtitle: "Active organizations",
+        // linkText: "View all organizations",
+        // color: "emerald",
     },
     {
-        id: "1",
-        title: "Organizations",
-        value: "42",
-        change: "+5%",
-        icon: "Building2",
-        iconColor: "bg-light",
-        subtitle: "Active organizations",
-        linkText: "View all organizations",
-        color: "emerald",
+        id: "4",
+        title: "Regional Coverage",
+        value: "0 regions",
+        change: "",
+        icon: "Map",
+        iconColor: "bg-success-subtle text-success",
+        // subtitle: "Active organizations",
+        // linkText: "View all organizations",
+        // color: "emerald",
     },
 ];
 /**
@@ -104,6 +104,6 @@ const OrganizationPage = () => {
                             overflowY: "auto",
                             padding: "1rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(OrganizationStats, { stats: mockStats }), _jsx(OrganizationTable, { organizations: mockOrganizations }), _jsx(OrganizationCharts, {})] }) }) })] })] }));
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: mockStats }) }), _jsx(OrganizationTable, { organizations: mockOrganizations }), _jsx(OrganizationCharts, {})] }) }) })] })] }));
 };
 export default OrganizationPage;
