@@ -1,10 +1,6 @@
-// Import React and required Bootstrap components
 import React from "react";
-// Import Card from react-bootstrap to keep the same container style
 import { Card } from "react-bootstrap";
-// Import all Lucide icons as a dynamic map (kept as-is from your original code)
 import * as Icons from "lucide-react";
-// Import the ActivityItem type from shared dashboard types (kept as-is)
 import { ActivityItem as ActivityItemType } from "./admindashboard";
 
 // Define props interface for the RecentActivities component (kept as-is)
@@ -49,31 +45,30 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
               <React.Fragment key={activity.id}>
                 {/* Activity row */}
                 <div className="d-flex justify-content-between align-items-center">
-                  <div className="d-flex align-items-center gap-3">
-                    <div
-                      className="rounded-circle d-flex align-items-center justify-content-center"
-                      style={{
-                        // backgroundColor: iconBgColor,
-                        width: "50px",
-                        height: "50px",
-                      }}
-                      data-testid={`activity-icon-${activity.id}`}
-                    >
-                      <IconComponent size={22} color={iconFgColor} />
+                  <div className="d-flex align-items-center justify-content-between w-100">
+                    {/* Left: Icon */}
+                    <div className="d-flex align-items-center gap-3">
+                      <div
+                        className="rounded-circle d-flex align-items-center justify-content-center"
+                        style={{ width: "50px", height: "50px" }}
+                        data-testid={`activity-icon-${activity.id}`}
+                      >
+                        <IconComponent size={22} color={iconFgColor} />
+                      </div>
+
+                      {/* Middle: Type + Details */}
+                      <div>
+                        <div className="fw-semibold">{activity.type}</div>
+                        <div className="text-muted small">{activity.details}</div>
+                      </div>
                     </div>
 
-                    <div>
-                      <div className="fw-semibold">{activity.type}</div>
-                      <div className="text-muted small">{activity.details}</div>
-                    </div>
-
-                    <div>
-                      <div className="text-muted small">{activity.time}</div>
-                    </div>
+                    {/* Right: Time */}
+                    <div className="text-muted small text-nowrap">{activity.time}</div>
                   </div>
 
                   <div className="text-end">
-                    <Icons.MoreVertical size={20} color="#6c757d" />
+                    <Icons.ChevronRight size={20} color="#6c757d" />
                   </div>
                 </div>
 

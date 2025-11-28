@@ -1,12 +1,15 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Sidebar from "../../../components/admincomponents/adminsidebar";
-import OrganizationStats, { StatCardData, } from "../../../components/admincomponents/organisationcomponents/OrganisationStats";
+import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable, {
   Organization,
 } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import Header from "../../../components/admincomponents/adminheader";
+
+// Import shared type definitions
+import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
 
 /**
  * Sample organization data for table display.
@@ -55,47 +58,48 @@ const mockOrganizations: Organization[] = [
 const mockStats: StatCardData[] = [
   {
     id: "1",
-    title: "Organizations",
-    value: "42",
-    change: "+5%",
+    title: "Total Organizations",
+    value: "0",
+    change: "+3 this month",
     icon: "Building2",
-    iconColor: "bg-light",
-    subtitle: "Active organizations",
-    linkText: "View all organizations",
-    color: "emerald",
+    iconColor: "bg-success-subtle text-success",
+    // subtitle: "Active organizations",
+    // linkText: "View all organizations",
+    // color: "emerald",
   },
   {
-    id: "1",
-    title: "Organizations",
-    value: "42",
-    change: "+5%",
-    icon: "Building2",
-    iconColor: "bg-light",
-    subtitle: "Active organizations",
-    linkText: "View all organizations",
-    color: "emerald",
+    id: "2",
+    title: "Total Client",
+    value: "0",
+    change: "+24 this month",
+    icon: "Users",
+    iconColor: "bg-primary-subtle text-primary",
+    // subtitle: "Active organizations",
+    // linkText: "View all organizations",
+    // color: "emerald",
   },
   {
-    id: "1",
-    title: "Organizations",
-    value: "42",
-    change: "+5%",
-    icon: "Building2",
-    iconColor: "bg-light",
-    subtitle: "Active organizations",
-    linkText: "View all organizations",
-    color: "emerald",
+    id: "3",
+    title: "Active Programs",
+    value: "0",
+    change: "+5 this month",
+    icon: "CircleCheckBig"
+    ,
+    iconColor: "bg-warning-subtle text-primary",
+    // subtitle: "Active organizations",
+    // linkText: "View all organizations",
+    // color: "emerald",
   },
   {
-    id: "1",
-    title: "Organizations",
-    value: "42",
-    change: "+5%",
-    icon: "Building2",
-    iconColor: "bg-light",
-    subtitle: "Active organizations",
-    linkText: "View all organizations",
-    color: "emerald",
+    id: "4",
+    title: "Regional Coverage",
+    value: "0 regions",
+    change: "",
+    icon: "Map",
+    iconColor: "bg-success-subtle text-success",
+    // subtitle: "Active organizations",
+    // linkText: "View all organizations",
+    // color: "emerald",
   },
 ];
 
@@ -129,7 +133,10 @@ const OrganizationPage: React.FC = () => {
           <div className="flex-grow-1 overflow-auto">
             <Container fluid className="py-4">
               {/* Stats summary with props */}
-              <OrganizationStats stats={mockStats} />
+
+              <Row className="gy-4">
+                <DashboardStats stats={mockStats} />
+              </Row>
 
               {/* Organization table with mock data */}
               <OrganizationTable organizations={mockOrganizations} />
