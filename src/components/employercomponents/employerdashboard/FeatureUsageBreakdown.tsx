@@ -14,28 +14,28 @@ const FeatureUsageBreakdown: React.FC = () => {
   // Mock data - in a real app, this would come from props or API
   const features: FeatureUsageData[] = [
     {
-      feature: 'Employee Surveys',
+      feature: 'Sana AI',
       usage: 85,
       maxUsage: 100,
       icon: <MessageSquare size={20} />,
       color: '#3CB371',
     },
     {
-      feature: 'Team Analytics',
+      feature: 'Journalling',
       usage: 67,
       maxUsage: 100,
       icon: <BarChart3 size={20} />,
       color: '#3CB371'
     },
     {
-      feature: 'Reports Generated',
+      feature: 'Educational Resources',
       usage: 43,
       maxUsage: 100,
       icon: <FileText size={20} />,
       color: '#3CB371'
     },
     {
-      feature: 'Active Users',
+      feature: 'Self assessment',
       usage: 92,
       maxUsage: 100,
       icon: <Users size={20} />,
@@ -50,7 +50,7 @@ const FeatureUsageBreakdown: React.FC = () => {
         <h6 className="card-title fw-semibold mb-0" style={{fontFamily: 'heading'}}>Feature Usage</h6>
       </div>
 
-      <div className="feature-list">
+      <div className="feature-list" style={{fontFamily:'body'}}>
         {features.map((feature, index) => (
           <div key={index} className="feature-item mb-3">
             <div className="d-flex align-items-center justify-content-between mb-2">
@@ -68,7 +68,7 @@ const FeatureUsageBreakdown: React.FC = () => {
                 >
                   {feature.icon}
                 </div>
-                <span className="fw-medium small text-dark">{feature.feature}</span>
+                <span className="fw-medium small text-dark" style={{fontFamily:'body'}}>{feature.feature}</span>
               </div>
               <span className="small fw-semibold text-muted" style={{fontFamily:'body'}}>
                 {feature.usage}%

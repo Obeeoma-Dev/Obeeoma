@@ -124,8 +124,8 @@ export interface EmployerEngagementData {
 
 export interface EmployerState {
   departmentDistribution: {
-    name: string;
-    percentage: number;
+    departmentName: string;
+    workerPercentage: number;
     color: string;
   }[];
   wellnessTrend: {

@@ -10,8 +10,8 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DepartmentData {
-  name: string;
-  percentage: number;
+  departmentName: string;
+  workerPercentage: number;
   color: string;
 }
 
@@ -22,10 +22,10 @@ interface DepartmentLegendProps {
 const DepartmentLegend: React.FC<DepartmentLegendProps> = ({ departments }) => {
   // Prepare data for the doughnut chart
   const data = {
-    labels: departments.map(dept => dept.name),
+    labels: departments.map(dept => dept.departmentName),
     datasets: [
       {
-        data: departments.map(dept => dept.percentage),
+        data: departments.map(dept => dept.workerPercentage),
         backgroundColor: departments.map(dept => dept.color),
         borderColor: departments.map(dept => dept.color),
         borderWidth: 2,
@@ -96,9 +96,9 @@ const DepartmentLegend: React.FC<DepartmentLegendProps> = ({ departments }) => {
                   flexShrink: 0
                 }}
               />
-              <span className="small fw-medium text-dark">{dept.name}</span>
+              <span className="small fw-medium text-dark">{dept.departmentName}</span>
             </div>
-            <span className="small text-muted fw-semibold">{dept.percentage}%</span>
+            <span className="small text-muted fw-semibold">{dept.workerPercentage}%</span>
           </div>
         ))}
       </div>

@@ -2,6 +2,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+
+.top-card{
+    color: #ffffff;
+ }
+
+ .top-card:hover{
+    background-color: hsla(140, 90%, 88%, 0.945);
+    color: #0B6E45;
+  }
+
+  .top-card:hover .top-card-icon{
+    color: #22C55E;
+  }
+
+  .top-card.top-card-icon{
+    color: #22C55E;
+  }
+  .top-card:hover .top-card-title{
+    color: #22C55E;
+  }
+
+  .top-card:hover .top-card-text{
+    color: #ffffff;
+  }
+
+
 @font-face {
   font-family: 'body';
   src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');

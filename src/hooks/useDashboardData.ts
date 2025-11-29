@@ -12,8 +12,8 @@ import {
 import { Employee } from '../types/employer';
 
 interface DepartmentDistributionItem {
-  name: string;
-  percentage: number;
+  departmentName: string;
+  workerPercentage : number;
   color: string;
 }
 
@@ -39,7 +39,7 @@ interface Invite {
 interface MoodTrend {
   date: string;
   moodLevel: number;
-  employeeName?: string;
+  employeedepartmentName?: string;
   employeeDepartment?: string;
   // extend as needed
 }
@@ -113,10 +113,10 @@ export const useDashboardData = (): UseDashboardDataReturn => {
       return departmentDistribution && departmentDistribution.length > 0 
         ? departmentDistribution 
         : [
-            { name: "HR", percentage: 25, color: "#3B82F6" },
-            { name: "Marketing", percentage: 25, color: "#10B981" },
-            { name: "Finance", percentage: 25, color: "#F59E0B" },
-            { name: "Engineering", percentage: 25, color: "#EF4444" }
+            { departmentName: "HR", workerPercentage: 25, color: "#3CB371" },
+            { departmentName: "Marketing", workerPercentage: 25, color: "#1b5e20" },
+            { departmentName: "Finance", workerPercentage: 25, color: "#a5d6a7" },
+            { departmentName: "Engineering", workerPercentage: 25, color: "#4caf50" }
           ];
     }
 
@@ -127,11 +127,11 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     });
 
     const totalEmployees = emps.length;
-    const colors = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#EC4899"];
+    const colors = ["#4caf50", "#10B981", "#a5d6a7", "", "#6789", "#EC4899"];
     
     return Object.entries(departmentCount).map(([dept, count], index) => ({
-      name: dept,
-      percentage: Math.round((count / totalEmployees) * 100),
+      departmentName: dept,
+      workerPercentage: Math.round((count / totalEmployees) * 100),
       color: colors[index % colors.length]
     }));
   };
@@ -205,7 +205,7 @@ export const useDashboardData = (): UseDashboardDataReturn => {
       
       recentMoods.forEach((trend: MoodTrend, index: number) => {
         generatedActivities.push({
-          text: `Mood assessment completed by ${trend.employeeName || 'an employee'}`,
+          text: `Mood assessment completed by ${trend.employeedepartmentName || 'an employee'}`,
           department: trend.employeeDepartment || '',
           time: index === 0 ? '2 hours ago' : index === 1 ? '1 day ago' : '2 days ago'
         });

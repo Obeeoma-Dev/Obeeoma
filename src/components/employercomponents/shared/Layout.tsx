@@ -58,7 +58,7 @@ const Layout = ({ children, title }: LayoutProps) => {
   };
 
   return (
-    <div className="min-vh-100 bg-light d-flex flex-column">
+    <div className="min-vh-100 bg-light d-flex flex-column" style={{fontFamily:'body'}}>
       {isSidebarOpen && (
         <div 
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none"
@@ -67,7 +67,7 @@ const Layout = ({ children, title }: LayoutProps) => {
       )}
 
       {/* Header */}
-      <header className="bg-white border-bottom sticky-top z-30" style={{ marginLeft: "240px", width: "calc(100% - 240px)" }}>
+      <header className="bg-white border-bottom sticky-top z-30" style={{ marginLeft: "240px", width: "calc(100% - 240px) " ,fontFamily:'body' }}>
         <div className="container-fluid">
           <div className="row align-items-center py-3">
             <div className="col-auto d-lg-none">
@@ -87,7 +87,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                 >
                   {title}
                 </h1>
-                <small className="text-muted">
+                <small className="text-muted" style={{fontFamily:'body'}}>
                   Member since {formatDate(companyJoinDate)}
                 </small>
               </div>
@@ -96,7 +96,7 @@ const Layout = ({ children, title }: LayoutProps) => {
             <div className="col-auto d-flex align-items-center gap-3">
               <button 
                 className="btn btn-link position-relative p-2"
-                style={{ color: PRIMARY_COLOR }}
+                style={{ color: PRIMARY_COLOR, fontFamily:'body'}}
                 onClick={() => navigate("/employer-notifications")} >
                 <Bell size={20} />
                 <span 
@@ -115,7 +115,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                 >
                   <div 
                     className="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold"
-                    style={{ width: "40px", height: "40px", fontSize: "16px" }}
+                    style={{ width: "40px", height: "40px", fontSize: "16px", fontFamily:'body' }}
                   >
                     {employer?.firstName?.charAt(0) || 'U'}
                     {employer?.lastName?.charAt(0) || ''}
@@ -135,6 +135,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                       className="dropdown-item"
                       onClick={() => navigate("/create-profile")} >
                       <UserIcon size={16} className="me-2" />
+                      
                       Create Profile
                     </button>
                   </li>
@@ -167,7 +168,7 @@ const Layout = ({ children, title }: LayoutProps) => {
       {/* Sidebar - Keep existing sidebar code */}
       <aside
         className={`position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`}
-        style={{ width: "240px" }}
+        style={{ width: "240px", fontFamily:'body' }}
       >
         <div className="p-4 border-bottom d-flex align-items-center justify-content-between">
           <button
@@ -181,7 +182,8 @@ const Layout = ({ children, title }: LayoutProps) => {
                 transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
                 transition: 'transform 0.6s ease-in-out',
                 margin: '0.5rem 0',
-                padding: '0.75rem 1rem'
+                padding: '0.75rem 1rem',
+                fontFamily:'body'
               }}
             >
               <img 
@@ -219,12 +221,12 @@ const Layout = ({ children, title }: LayoutProps) => {
                 padding: "12px",
                 color: item.active ? PRIMARY_COLOR : "#6c757d",
                 backgroundColor: item.active ? `${PRIMARY_COLOR}15` : "transparent",
-                fontWeight: item.active ? "600" : "400",
+                fontWeight: item.active ? "600" : "400", fontFamily:'body'
               }}
             >
               <item.icon 
                 size={20} 
-                style={{ color: item.active ? PRIMARY_COLOR : "#6c757d" }}
+                style={{ color: item.active ? PRIMARY_COLOR : "#6c757d", fontFamily:'body'}}
               />
               <span className="fw-medium">{item.label}</span>
             </button>

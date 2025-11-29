@@ -62,30 +62,30 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
     );
   }
 
-  // Transform backend data to component props
+  // component props
   const statsData = stats ? [
     {
       title: "Add Employee",
       value: "+",
       icon: "UserRoundPlus",
-      color: "success",
+      color: "#22C55E",
       onClick: () => setShowAddEmployeeModal(true),
     },
     {
-      title: "Active Employees",
+      title: "Total Employees",
       value: stats.totalEmployees.toString(),
       icon: "Users",
-      color: "success",
+      color: "#22C55E",
     },
     {
-      title: "General workers' mood",
-      value: `${stats.wellnessIndex}%`,
+      title: "General Company mood:",
+      value: "ok",
       icon: "TrendingUp",
-      color: "success",
+      color: "#22C55E",
     },
     {
       title: "Help",
-      value: "Contact Us",
+      value: "& support",
       icon: "HelpCircle",
       color: "secondary",
     },
@@ -121,7 +121,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
           <div className="col-lg-6 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title fw-semibold mb-4">Engagement Level</h5>
+                <h5 className="card-title fw-semibold mb-4" style={{fontFamily:'body'}}>Engagement Level</h5>
                 <WellnessGraph
                   data={stats?.wellnessTrend || []}
                 />

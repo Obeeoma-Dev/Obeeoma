@@ -9,7 +9,8 @@ import {
   Report,
   DashboardSummary,
   Employee,
- EmployerUser
+ EmployerUser,
+
 } from '../../types/employer';
 
 const getErrorMessage = (error: unknown): string => {
@@ -163,7 +164,7 @@ export const fetchEmployerDashboardSummary = createAsyncThunk<
 );
 
 export const fetchDepartmentDistribution = createAsyncThunk<
-  Array<{ name: string; percentage: number; color: string }>,
+  Array<{ departmentName: string; workerPercentage: number; color: string }>,
   void,
   { rejectValue: string }
 >(
@@ -171,7 +172,7 @@ export const fetchDepartmentDistribution = createAsyncThunk<
   async (_, { rejectWithValue }) => {
     try {
       const response = await employerAPI.getDepartmentDistribution();
-      return response.data as Array<{ name: string; percentage: number; color: string }>;
+      return response.data as Array<{ departmentName: string; workerPercentage: number; color: string }>;
     } catch (error: unknown) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -363,7 +364,7 @@ const employerSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchDepartmentDistribution.fulfilled, (state, action: PayloadAction<Array<{ name: string; percentage: number; color: string }>>) => {
+      .addCase(fetchDepartmentDistribution.fulfilled, (state, action: PayloadAction<Array<{ departmentName: string; workerPercentage: number; color: string }>>) => {
         state.isLoading = false;
         state.departmentDistribution = action.payload;
       })
@@ -621,7 +622,7 @@ export default employerSlice.reducer;
 
 // // // --- Slice Definition ---
 // // const employerSlice = createSlice({
-// //   name: 'employer',
+// //   departmentName: 'employer',
 // //   initialState,
 // //   reducers: {
 // //     // Clear the error status
@@ -908,7 +909,7 @@ export default employerSlice.reducer;
 // );
 
 // export const fetchDepartmentDistribution = createAsyncThunk<
-//   Array<{ name: string; percentage: number; color: string }>,
+//   Array<{ departmentName: string; workerPercentage: number; color: string }>,
 //   void,
 //   { rejectValue: string }
 // >(
@@ -916,7 +917,7 @@ export default employerSlice.reducer;
 //   async (_, { rejectWithValue }) => {
 //     try {
 //       const response = await employerAPI.getDepartmentDistribution();
-//       return response.data as Array<{ name: string; percentage: number; color: string }>;
+//       return response.data as Array<{ departmentName: string; workerPercentage: number; color: string }>;
 //     } catch (error: unknown) {
 //       return rejectWithValue(getErrorMessage(error));
 //     }
@@ -995,7 +996,7 @@ export default employerSlice.reducer;
 
 // // === Slice ===
 // const employerSlice = createSlice({
-//   name: 'employer',
+//   departmentName: 'employer',
 //   initialState,
 //   reducers: {
 //     clearEmployerError: (state: EmployerState): void => {
@@ -1109,7 +1110,7 @@ export default employerSlice.reducer;
 //         state.isLoading = true;
 //         state.error = null;
 //       })
-//       .addCase(fetchDepartmentDistribution.fulfilled, (state, action: PayloadAction<Array<{ name: string; percentage: number; color: string }>>) => {
+//       .addCase(fetchDepartmentDistribution.fulfilled, (state, action: PayloadAction<Array<{ departmentName: string; workerPercentage: number; color: string }>>) => {
 //         state.isLoading = false;
 //         state.departmentDistribution = action.payload;
 //       })
@@ -1216,7 +1217,7 @@ export default employerSlice.reducer;
 
 
 // const employerSlice = createSlice<EmployerState>({
-//   name: 'employer',
+//   departmentName: 'employer',
 //   initialState,
 //   reducers: {
 //     clearEmployerError: (state: EmployerState): void => {

@@ -63,7 +63,7 @@ const PricingPlans = () => {
   return (
     <div className="row mb-5">
       <div className="col-12">
-        <h3 className="h4 fw-semibold mb-4">Available Plans</h3>
+        <h3 className="h4 fw-semibold mb-4" style={{fontFamily:'body'}}>Available Plans</h3>
         <div className="row g-4">
           {plans.map((plan, index) => {
             // Check if the current plan matches the selected state
@@ -92,14 +92,14 @@ const PricingPlans = () => {
                 <div className={`card h-100 border-0 shadow-sm ${plan.recommended ? 'border-success' : ''}`}>
                   {plan.recommended && (
                     <div className="card-header bg-success text-white text-center py-2">
-                      <Star size={16} className="me-1" />
+                      <Star size={16} className="me-1"  style={{fontFamily:'body'}}/>
                       Recommended
                     </div>
                   )}
                   <div className="card-body p-4 d-flex flex-column">
-                    <h5 className="card-title fw-bold">{plan.name}</h5>
+                    <h5 className="card-title fw-bold"style={{fontFamily:'heading'}}>{plan.name}</h5>
                     <div className="my-3">
-                      <span className="h2 fw-bold">{plan.price}</span>
+                      <span className="h2 fw-bold" style={{fontFamily:'body'}}>{plan.price}</span>
                       <span className="text-muted">/{plan.period}</span>
                     </div>
                     <p className="text-muted mb-4">{plan.description}</p>
