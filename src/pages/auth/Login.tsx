@@ -17,7 +17,7 @@ import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor: "#3CB371",
+  primaryColor:"#22C55E",
   logoText: "Obeeoma",
 };
 

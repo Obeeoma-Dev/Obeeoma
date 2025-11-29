@@ -7,7 +7,8 @@ interface HeaderProps {
   onMenuToggle: () => void;
   additionalContent?: ReactNode;
 }
- const PRIMARY_COLOR = "#3CB371"
+ const PRIMARY_COLOR = "#22C55E";
+
 const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: HeaderProps) => {
   return (
     <header className="bg-white border-bottom sticky-top z-30">

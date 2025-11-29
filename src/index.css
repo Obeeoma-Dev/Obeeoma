@@ -1197,11 +1197,6 @@ form .form-floating .form-control.message-textarea {
 }
 
 
-
-/********************************/
-/* Styling of the CTAsection. */
-/* Custom animations for React-Bootstrap usage */
-
 /* Slow spin animation for circle elements */
 @keyframes spin-slow {
   from {
@@ -1293,4 +1288,35 @@ body {
   transform: scale(1.05);
   z-index: 10;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Custom CSS to overwrite default Bootstrap Blue (#0d6efd) */
+
+/* 1. Active/Hover State for Dropdown Items */
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #FFFFFF !important; /* White text on hover */
+    background-color: #22C55E !important; /* Your Green background */
+}
+
+/* 2. Active State for Dropdown/Navigation (Blue Border/Shadow) */
+.form-control:focus,
+.btn:focus,
+.btn.focus {
+    border-color: #22C55E !important;
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important; /* Green Shadow */
+}
+
+/* 3. Text/Outline Colors for Primary elements (if any blue remains) */
+.text-primary,
+.btn-outline-primary {
+    color: #22C55E !important;
+    border-color: #22C55E !important;
+}
+
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:hover {
+    color: #FFFFFF !important;
+    background-color: #22C55E !important;
 }

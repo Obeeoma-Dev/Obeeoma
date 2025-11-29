@@ -1,5 +1,6 @@
 import { useState, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown'; 
 import {
   Home as HomeIcon,
   Users as UsersIcon,
@@ -14,6 +15,8 @@ import logo from "../../../assets/Images/obeeomalogoword1.png";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
+import {authAPI} from "./../../../api/apiConfig";
+
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -21,7 +24,7 @@ interface LayoutProps {
   additionalHeaderContent?: ReactNode;
 }
 
-const PRIMARY_COLOR = "#3CB371";
+const PRIMARY_COLOR = "#22C55E";
 
 const Layout = ({ children, title }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -45,9 +48,9 @@ const Layout = ({ children, title }: LayoutProps) => {
   }));
 
   const [logoRef, isLogoVisible] = useScrollAnimation({
-  threshold: 0.5,
-  rootMargin: '0px 0px -100px 0px'
-});
+    threshold: 0.5,
+    rootMargin: '0px 0px -100px 0px'
+  });
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -56,6 +59,20 @@ const Layout = ({ children, title }: LayoutProps) => {
       year: 'numeric'
     });
   };
+
+  // --- LOGOUT FUNCTIONALITY ---
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout();
+      localStorage.removeItem("token");
+      localStorage.removeItem("refresh");
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      // Optionally show error toast
+    }
+  };
+  
 
   return (
     <div className="min-vh-100 bg-light d-flex flex-column" style={{fontFamily:'body'}}>
@@ -105,61 +122,59 @@ const Layout = ({ children, title }: LayoutProps) => {
                 ></span>
               </button>
               
-              {/* Profile Avatar */}
-              <div className="dropdown">
-                <button 
-                  className="btn btn-link p-0 border-0 dropdown-toggle d-flex align-items-center"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+              {/* Profile Avatar - REPLACED WITH REACT-BOOTSTRAP DROPDOWN */}
+              <Dropdown align="end"> 
+                {/* --- START OF CHANGES TO REMOVE THE MANUAL CARET --- */}
+                <Dropdown.Toggle 
+                    as="div" 
+                    id="dropdown-profile-avatar" 
+                    // Use d-flex to align the elements (now only the avatar)
+                    className="d-flex align-items-center" 
+                    style={{ cursor: 'pointer' }}
+                    aria-expanded="false" 
                 >
-                  <div 
-                    className="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold"
-                    style={{ width: "40px", height: "40px", fontSize: "16px", fontFamily:'body' }}
-                  >
-                    {employer?.firstName?.charAt(0) || 'U'}
-                    {employer?.lastName?.charAt(0) || ''}
-                  </div>
-                </button>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <button 
-                      className="dropdown-item"
-                      onClick={() => navigate("/employer-settings")} >
-                      <UserIcon size={16} className="me-2" />
-                      My Account
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      className="dropdown-item"
-                      onClick={() => navigate("/create-profile")} >
-                      <UserIcon size={16} className="me-2" />
-                      
-                      Create Profile
-                    </button>
-                  </li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li>
-                    <button 
-                      className="dropdown-item text-danger"
-                      onClick={async () => {
-                        try {
-                          const { authAPI } = await import("../../../api/apiConfig");
-                          await authAPI.logout();
-                          localStorage.removeItem("token");
-                          localStorage.removeItem("refresh");
-                          navigate("/login");
-                        } catch (err) {
-                          // Optionally show error toast
-                        }
-                      }}
+                    {/* The Manual Caret <span> element has been removed from here. 
+                        The dropdown functionality is now indicated only by the existing 
+                        Bootstrap caret placed by default on the far right. 
+                    */}
+                    
+                    {/* Avatar Icon */}
+                    <div 
+                        className="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold"
+                        style={{ width: "40px", height: "40px", fontSize: "16px", fontFamily:'body', backgroundColor: PRIMARY_COLOR }} // Using PRIMARY_COLOR (#22C55E)
                     >
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
+                        {/* Display initials or fallback to 'U' */}
+                        {employer?.firstName?.charAt(0) || 'U'}
+                        {employer?.lastName?.charAt(0) || ''}
+                    </div>
+                </Dropdown.Toggle>
+          
+
+                <Dropdown.Menu>
+                  {/* My Account */}
+                  <Dropdown.Item 
+                    as="button"
+                    onClick={() => navigate("/employer-settings")}
+                  >
+                    <UserIcon size={16} className="me-2" />
+                    My Account
+                  </Dropdown.Item>
+
+                
+
+                  {/* Divider */}
+                  <Dropdown.Divider />
+
+                  {/* Logout */}
+                  <Dropdown.Item 
+                    as="button"
+                    className="text-danger"
+                    onClick={handleLogout} // Uses the new handleLogout function
+                  >
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </div>
@@ -192,7 +207,8 @@ const Layout = ({ children, title }: LayoutProps) => {
                 style={{
                   maxWidth: '100%',
                   height: 'auto',
-                  objectFit: 'contain'
+                  objectFit: 'contain',
+                  color:'#22C55E'
                 }}
               />
             </div>

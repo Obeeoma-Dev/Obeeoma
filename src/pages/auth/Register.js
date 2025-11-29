@@ -14,7 +14,7 @@ import logo from "./../../assets/Images/obeeomalogoword1.png";
 import CustomStepper from "./../../components/stepper";
 import SuccessModal from './../../components/SuccessModal';
 const customStyles = {
-    primaryColor: "#3CB371",
+    primaryColor: "#22C55E",
     backgroundColor: "#f0f2f5",
     logoText: "Obeeoma",
 };

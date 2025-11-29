@@ -632,7 +632,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Container, Card, Button, Form as BootstrapForm, Alert, Spinner, } from "react-bootstrap";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 const customStyles = {
-    primaryColor: "#3CB371", // Used for links and accents
+    primaryColor: "#22C55E", // Used for links and accents
 };
 // --- Component Definition ---
 const ResetPasswordSignIn = () => {

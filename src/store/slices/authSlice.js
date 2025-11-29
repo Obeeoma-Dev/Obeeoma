@@ -5,7 +5,11 @@ import axios from "axios";
 import { getDashboardRoute } from "../../utils/routing";
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
+        // Attempt to get a detailed error message from the response data
         return (error.response?.data?.detail ||
+            // Handle errors that are arrays of messages (common in DRF)
+            error.response?.data?.non_field_errors?.[0] ||
+            // Fallback to the general error message
             error.message ||
             "An unknown error occurred");
     }
@@ -14,7 +18,8 @@ const getErrorMessage = (error) => {
     }
     return "An unexpected error occurred";
 };
-// Login Thunk (Unchanged)
+// Existing Thunks
+// Login Thunk
 export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, { rejectWithValue }) => {
     try {
         const response = await authAPI.login(credentials);
@@ -30,7 +35,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
         return rejectWithValue(errorMessage);
     }
 });
-// Register Thunk (Unchanged)
+// Register Thunk
 export const registerUser = createAsyncThunk("auth/organization-signup/", async (credentials, { rejectWithValue }) => {
     const dataWithDefaultRole = {
         ...credentials,
@@ -44,7 +49,7 @@ export const registerUser = createAsyncThunk("auth/organization-signup/", async 
         return rejectWithValue(getErrorMessage(error));
     }
 });
-// Forgot password Thunk (Unchanged)
+// Forgot password Thunk
 export const forgotPassword = createAsyncThunk("auth/reset-password", async (data, { rejectWithValue }) => {
     try {
         const response = await authAPI.forgotPassword(data);
@@ -55,18 +60,20 @@ export const forgotPassword = createAsyncThunk("auth/reset-password", async (dat
         return rejectWithValue(getErrorMessage(error));
     }
 });
-// Reset password Thunk (Unchanged)
-export const resetPassword = createAsyncThunk("auth/change-password", async (data, { rejectWithValue }) => {
+// Reset password Thunk
+export const resetPassword = createAsyncThunk("auth/reset-password/complete", async (data, { rejectWithValue }) => {
     try {
-        const response = await authAPI.changePassword(data);
-        data.onSuccess?.();
+        // Extract onSuccess so it's not sent to API
+        const { onSuccess, ...apiData } = data;
+        const response = await authAPI.changePassword(apiData);
+        onSuccess?.();
         return response.data;
     }
     catch (error) {
         return rejectWithValue(getErrorMessage(error));
     }
 });
-// Logout Thunk (Unchanged)
+// Logout Thunk
 export const logoutUserThunk = createAsyncThunk("auth/logout", async (_, { dispatch }) => {
     try {
         await authAPI.logout();
@@ -89,18 +96,7 @@ export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload,
         return rejectWithValue(getErrorMessage(err));
     }
 });
-const getUserFromStorage = () => {
-    const rawUser = localStorage.getItem("user");
-    if (!rawUser || rawUser === "undefined")
-        return null;
-    try {
-        return JSON.parse(rawUser);
-    }
-    catch {
-        return null;
-    }
-};
-//Resend OTP Thunk (Unchanged)
+// Resend OTP Thunk
 export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
     try {
         const response = await authAPI.resendOtp(payload);
@@ -112,6 +108,45 @@ export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload,
         return rejectWithValue(errorMessage);
     }
 });
+// -----------------------------------
+// MFA Thunks
+// -----------------------------------
+// MFA Setup: Initiates the process, typically returning the secret key and QR code data.
+export const setupMfa = createAsyncThunk('auth/setupMfa', async (_, { rejectWithValue }) => {
+    try {
+        // We pass an empty object {} to satisfy the 'payload: MfaSetupData'
+        // required by authAPI.fetchMfaSetupData
+        const response = await authAPI.fetchMfaSetupData({});
+        // Return the data from the Axios response
+        return response.data;
+    }
+    catch (err) {
+        return rejectWithValue(getErrorMessage(err));
+    }
+});
+// MFA Confirmation: Verifies the code from the user's authenticator app.
+export const confirmMfa = createAsyncThunk('auth/confirmMfa', async (payload, { rejectWithValue }) => {
+    try {
+        // Correct usage: Pass the payload directly.
+        // The API client handles authentication via the interceptor.
+        await authAPI.confirmMfaSetup(payload);
+    }
+    catch (err) {
+        return rejectWithValue(getErrorMessage(err));
+    }
+});
+// State Setup
+const getUserFromStorage = () => {
+    const rawUser = localStorage.getItem("user");
+    if (!rawUser || rawUser === "undefined")
+        return null;
+    try {
+        return JSON.parse(rawUser);
+    }
+    catch {
+        return null;
+    }
+};
 const initialState = {
     user: getUserFromStorage(),
     token: localStorage.getItem("token"),
@@ -125,6 +160,7 @@ const initialState = {
     // but keeping this for potential future separation:
     accessToken: null,
 };
+// Auth Slice Definition
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -137,6 +173,9 @@ const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.error = null;
+            state.mfaSetupData = null; // Clear MFA data on logout
+            state.isMfaSetupConfirmed = false;
+            state.accessToken = null;
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             localStorage.removeItem("refresh");
@@ -156,6 +195,8 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.user = action.payload.user || action.payload;
             state.token = action.payload.access || action.payload.token;
+            // Since `token` is updated, also update `accessToken` if it's used elsewhere
+            state.accessToken = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
             localStorage.setItem("user", JSON.stringify(action.payload.user));
@@ -164,7 +205,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
-            // Register (Simplified from original due to duplication)
+            // Register
             .addCase(registerUser.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -173,6 +214,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.user = action.payload?.user ?? action.payload;
             state.token = action.payload?.access ?? action.payload?.token;
+            state.accessToken = action.payload?.access ?? action.payload?.token;
             state.error = null;
             localStorage.setItem("token", action.payload?.access || action.payload?.token);
             localStorage.setItem("user", JSON.stringify(action.payload?.user));
@@ -181,7 +223,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
-            // Forgot Pasword (Unchanged)
+            // Forgot Pasword
             .addCase(forgotPassword.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -194,7 +236,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
-            // Reset Password (Unchanged)
+            // Reset Password
             .addCase(resetPassword.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -207,7 +249,7 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         })
-            // Logout Thunk (Unchanged)
+            // Logout Thunk
             .addCase(logoutUserThunk.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -218,7 +260,7 @@ const authSlice = createSlice({
             .addCase(logoutUserThunk.rejected, (state) => {
             state.isLoading = false;
         })
-            // Verify OTP Thunk (Unchanged)
+            // Verify OTP Thunk
             .addCase(verifyOtpThunk.pending, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -238,9 +280,59 @@ const authSlice = createSlice({
             .addCase(verifyOtpThunk.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
+        })
+            // Resend OTP Thunk
+            .addCase(resendOtpThunk.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+            .addCase(resendOtpThunk.fulfilled, (state) => {
+            state.isLoading = false;
+            state.error = null;
+        })
+            .addCase(resendOtpThunk.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        })
+            // -----------------------------------
+            // MFA Setup: Get QR Code and Secret
+            // -----------------------------------
+            .addCase(setupMfa.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+            .addCase(setupMfa.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.mfaSetupData = action.payload; // Store the QR code/Secret data
+            state.error = null;
+        })
+            .addCase(setupMfa.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            state.mfaSetupData = null;
+        })
+            // -----------------------------------
+            // MFA Confirmation: Verify the code
+            // -----------------------------------
+            .addCase(confirmMfa.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+            .addCase(confirmMfa.fulfilled, (state) => {
+            state.isLoading = false;
+            state.isMfaSetupConfirmed = true; // Set status to confirmed
+            state.error = null;
+            // Optionally clear mfaSetupData here if it's no longer needed after confirmation
+            // state.mfaSetupData = null;
+        })
+            .addCase(confirmMfa.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            state.isMfaSetupConfirmed = false;
         });
     },
 });
+// Exports
 export const { logout, clearError, clearAuthStatus } = authSlice.actions;
 // Selectors
 export const selectUserDashboardRoute = (state) => {

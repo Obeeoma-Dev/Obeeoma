@@ -18,28 +18,28 @@ const FeatureUsageBreakdown: React.FC = () => {
       usage: 85,
       maxUsage: 100,
       icon: <MessageSquare size={20} />,
-      color: '#3CB371',
+      color: '#22C55E',
     },
     {
       feature: 'Journalling',
       usage: 67,
       maxUsage: 100,
       icon: <BarChart3 size={20} />,
-      color: '#3CB371'
+      color: '#22C55E'
     },
     {
       feature: 'Educational Resources',
       usage: 43,
       maxUsage: 100,
       icon: <FileText size={20} />,
-      color: '#3CB371'
+      color: '#22C55E'
     },
     {
       feature: 'Self assessment',
       usage: 92,
       maxUsage: 100,
       icon: <Users size={20} />,
-      color: '#3CB371'
+      color: '#22C55E'
     }
   ];
 
@@ -96,18 +96,20 @@ const FeatureUsageBreakdown: React.FC = () => {
 
       <div className="mt-3 pt-3 border-top">
         <div className="d-flex align-items-center justify-content-between">
-          <span className="small text-muted" style={{fontFamily: 'heading'}}>Overall Usage</span>
+          <span className="small text-muted" style={{fontFamily: 'heading',color:'#22C55E'}}>Overall Usage</span>
           <span className="small fw-semibold text-dark">
             {Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length)}%
           </span>
         </div>
         <div className="progress mt-2" style={{ height: '8px' }}>
           <div
-            className="progress-bar bg-success"
+            className="progress-bar "
             role="progressbar"
             style={{
               width: `${Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length)}%`,
-              borderRadius: '4px'
+              borderRadius: '4px',
+              fontFamily: 'heading',
+              backgroundColor:'#22C55E'
             }}
           />
         </div>

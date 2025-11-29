@@ -33,9 +33,9 @@ const WellnessTrends = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="wellness" stroke="#10b981" strokeWidth={2} />
-                <Line type="monotone" dataKey="stress" stroke="#ef4444" strokeWidth={2} />
-                <Line type="monotone" dataKey="engagement" stroke="#3b82f6" strokeWidth={2} />
+                <Line type="monotone" dataKey="wellness" stroke="#77e7c2ff" strokeWidth={2} />
+                <Line type="monotone" dataKey="stress" stroke="#22C55E" strokeWidth={2} />
+                <Line type="monotone" dataKey="engagement" stroke="#606968ff" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>

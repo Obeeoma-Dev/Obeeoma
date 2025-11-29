@@ -694,7 +694,7 @@ import {
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor: "#3CB371", // Used for links and accents
+  primaryColor:"#22C55E", // Used for links and accents
 };
 
 // --- Component Definition ---

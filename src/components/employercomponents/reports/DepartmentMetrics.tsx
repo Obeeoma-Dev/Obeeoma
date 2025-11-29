@@ -32,9 +32,9 @@ const DepartmentMetrics = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="wellness" fill="#10b981" name="Wellness Score" />
-                <Bar dataKey="participation" fill="#3b82f6" name="Participation %" />
-                <Bar dataKey="risk" fill="#ef4444" name="Risk %" />
+                <Bar dataKey="wellness" fill="#9bb6adff" name="Wellness Score" />
+                <Bar dataKey="participation" fill="#22C55E" name="Participation %" />
+                <Bar dataKey="risk" fill="#0d86366b"  name="Risk %" />
               </BarChart>
             </ResponsiveContainer>
           </div>

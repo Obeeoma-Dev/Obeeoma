@@ -35,14 +35,14 @@ const BillingHistoryTable: React.FC = () => {
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center mb-3">
-                <h4 className="mb-0" style={{fontFamily:'body'}}>Billing History</h4>
+                <h4 className="mb-0" style={{fontFamily:'body', color:'#22C55E'}}>Billing History</h4>
                 {/* Link to view full page of invoices */}
                 <Button variant="link" size="sm" onClick={() => {/* navigate to full invoice view */}}>
                     VIEW ALL INVOICES
                 </Button>
             </div>
             
-            <Table striped bordered hover responsive size="sm" style={{fontFamily:'body'}}>
+            <Table striped bordered hover responsive size="sm" style={{fontFamily:'body', color:'#22C55E'}}>
                 <thead>
                     <tr>
                         <th>Date</th>
