@@ -233,7 +233,7 @@ export const employerAPI = {
         return response;
     },
     getEmployees: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/invitations");
         return response;
     },
     // Analytics & Dashboard

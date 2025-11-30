@@ -25,7 +25,10 @@ interface WellnessTrendPoint {
 interface EmployerSummary {
   totalEmployees?: number;
   wellnessIndex?: number;
+  inactiveEmployees?: number;
+  activeEmployees?:number;
   atRisk?: number;
+
   // add other summary fields if present in backend
 }
 
@@ -56,6 +59,8 @@ interface EmployerState {
 }
 
 interface DashboardStats {
+  activeEmployees: number;
+  inactiveEmployees: number;
   totalEmployees: number;
   wellnessIndex: number;
   atRisk: number;
@@ -86,6 +91,7 @@ export const useDashboardData = (): UseDashboardDataReturn => {
   const dispatch = useDispatch<any>();
   const { 
     summary, 
+
     departmentDistribution, 
     wellnessTrend, 
     invites,
@@ -171,14 +177,32 @@ export const useDashboardData = (): UseDashboardDataReturn => {
       .slice(-6); // Last 6 data points
   };
 
+  const countEmployeeStatuses = (employees: Employee[] | null) => {
+  if (!employees) {
+    return { activeEmployees: 0, inactiveEmployees: 0 };
+  }
+  
+  const activeEmployees = employees.filter(emp => emp.status === 'active').length;
+  const inactiveEmployees = employees.filter(emp => emp.status === 'inactive' || emp.status === 'pending').length; // Adjust status logic as needed
+  
+  return { activeEmployees, inactiveEmployees };
+};
+
+const employeeCounts = countEmployeeStatuses(employees);
+
   // Transform Redux state to component props
   const stats: DashboardStats | null = summary ? {
     totalEmployees: (employees && employees.length) || summary.totalEmployees || 0,
+    activeEmployees: employeeCounts.activeEmployees || summary.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || summary.inactiveEmployees || 0,
     wellnessIndex: summary.wellnessIndex || 0,
     atRisk: summary.atRisk || 0,
     departmentDistribution: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
+    
   } : {
+    activeEmployees: employeeCounts.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || 0,
     totalEmployees: (employees && employees.length) || 0,
     wellnessIndex: 0,
     atRisk: 0,

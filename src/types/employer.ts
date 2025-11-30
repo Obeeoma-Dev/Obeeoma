@@ -35,7 +35,12 @@ export interface DashboardSummary {
     value: number;
   }[];
   // Add other summary fields
+
 }
+
+
+
+
 
 export interface CrisisInsight {
   id: string | number;

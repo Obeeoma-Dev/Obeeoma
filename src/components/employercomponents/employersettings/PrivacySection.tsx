@@ -89,12 +89,12 @@ const PrivacySection = ({ privacySettings, onPrivacySettingsChange }: PrivacySec
           <h5 className="h6 fw-semibold mb-3">Data Export & Deletion</h5>
           <div className="row g-2">
             <div className="col-12 col-md-6">
-              <button className="btn btn-outline-primary w-100 btn-sm">
+              <button className="btn  w-100 btn-sm" style={{backgroundColor:'#22C55E'}}>
                 Export All Data
               </button>
             </div>
             <div className="col-12 col-md-6">
-              <button className="btn btn-outline-danger w-100 btn-sm">
+              <button className="btn  w-100 btn-sm">
                 Delete All Data
               </button>
             </div>

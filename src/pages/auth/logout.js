@@ -12,6 +12,6 @@ const LogoutButton = (props) => {
             navigate("/login", { replace: true });
         }
     };
-    return (_jsx(Button, { variant: "danger", onClick: handleLogout, ...props, children: "**Logout**" }));
+    return (_jsx(Button, { variant: "danger", onClick: handleLogout, ...props, children: "Logout" }));
 };
 export default LogoutButton;
