@@ -168,9 +168,7 @@ export const resendOtpThunk = createAsyncThunk<
 );
 
 
-// -----------------------------------
-// MFA Thunks
-// -----------------------------------
+
 
 // MFA Setup: Initiates the process, typically returning the secret key and QR code data.
 export const setupMfa = createAsyncThunk<
@@ -182,7 +180,7 @@ export const setupMfa = createAsyncThunk<
     }
 >('auth/setupMfa', async (_, { rejectWithValue }) => {
     try {
-        // We pass an empty object {} to satisfy the 'payload: MfaSetupData'
+        
         // required by authAPI.fetchMfaSetupData
         const response = await authAPI.fetchMfaSetupData({}); 
         
@@ -195,7 +193,6 @@ export const setupMfa = createAsyncThunk<
 });
 
 
-// MFA Confirmation: Verifies the code from the user's authenticator app.
 export const confirmMfa = createAsyncThunk<
     void, // Typically returns nothing or a success message
     MfaVerifyPayload, // Argument is the payload { code: string }
@@ -204,8 +201,7 @@ export const confirmMfa = createAsyncThunk<
     } 
 >('auth/confirmMfa', async (payload, { rejectWithValue }) => {
     try {
-        // Correct usage: Pass the payload directly.
-        // The API client handles authentication via the interceptor.
+        
         await authAPI.confirmMfaSetup(payload); 
         
     } catch (err: unknown) {

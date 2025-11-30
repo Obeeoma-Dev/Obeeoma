@@ -75,7 +75,7 @@ export const contactStepSchema = yup.object().shape({
     .string()
     .min(8, "Password must be at least 8 characters")
     .matches(passwordRules, { 
-      message: "Password must contain 1 uppercase letter, 1 lowercase letter, and 1 number" 
+      message: "Password must contain 1 uppercase letter, 1 lowercase letter, 1 character and 1 number" 
     })
     .required("Password is required"),
   

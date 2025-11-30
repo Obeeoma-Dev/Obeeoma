@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { registerUser, clearAuthStatus } from "../../store/slices/authSlice";
 
 
-import { getStepValidationSchema  } from "../../validation/authValidation";
+import { getStepValidationSchema } from "../../validation/authValidation";
 import FormikPhoneInput from "../../components/PhoneInput";
 import {
     Container,
@@ -155,7 +155,7 @@ type RegisterFormValues = {
     password: string;
     confirmPassword: string;
     otherContactPersonRole: string;
-    otherLocation: string; // New field for custom location
+    otherLocation: string;
 };
 
 const stepperSteps = ["Organization", "Contact", "Verify"];
@@ -188,7 +188,7 @@ const Register: React.FC = () => {
         navigate("/login", { replace: true });
     };
    
-    // <HIGHLIGHT START> New function to handle redirect after success </HIGHLIGHT END>
+    // New function to handle redirect after success
     const handleContinueToDashboard = () => {
         navigate("/employer-dashboard", { replace: true });
     }
@@ -258,33 +258,16 @@ const Register: React.FC = () => {
    
     // to handle step navigation when user clicks on step labels and icons
     const handleStepNavigation = (stepIndex: number) => {
-        // Map step index to a specific route
-        let path = '';
-        switch (stepIndex) {
-            case 0:
-                path = '/registration/details';
-                break;
-            case 1:
-                path = '/registration/verify'; // The "verify page" you requested
-                break;
-            case 2:
-                path = '/registration/complete';
-                break;
-            default:
-                return;
-        }
-       
-        navigate(path);
-        // // Optional: Update the active step state if you are navigating to a previous step
-        // setCurrentStep(stepIndex);
+        console.log(`Step navigation clicked: ${stepIndex}. Navigation is currently disabled.`);
     };
+
     const stepFields = [
-        ['organizationName', 'companyEmail', 'organisationSize', 'Location', 'otherLocation'], // Step 0: Organization Details (Include otherLocation for validation if 'OTHER' is selected)
+        ['organizationName', 'companyEmail', 'organisationSize', 'Location', 'otherLocation'], // Step 0: Organization Details
         ['contactPersonFirstName', 'contactPersonLastName', 'otherContactPersonRole', 'email', 'contactPersonRole', 'phoneNumber', 'password', 'confirmPassword'], // Step 1: Contact/Access Details
         [], // Step 2 (Success - no fields to validate)
     ];
 
-    // ---  handleNext FUNCTION (Handles Step with accept privacy policy) ---
+    //  handleNext FUNCTION (Handles Step with accept privacy policy)
 const handleNext = async (
     values: RegisterFormValues,
     setTouched: (touched: { [key: string]: boolean }) => void,
@@ -300,6 +283,8 @@ const handleNext = async (
         // Only set touched for conditional fields if the condition is met
         if (field === 'otherLocation' && values.Location !== 'OTHER') return;
         if (field === 'otherContactPersonRole' && values.contactPersonRole !== 'OTHER') return;
+        
+        // Set all fields of the current step as touched to show errors
         newTouched[field] = true;
     });
     setTouched(newTouched);
@@ -365,44 +350,14 @@ const handleNext = async (
     const handleBack = () => {
         setActiveStep((prev) => prev - 1);
     }
+    
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleSubmit = async (values: RegisterFormValues, { setSubmitting }: any) => {
-        // Only submit if we are on the final data entry step (Step 1, index 1)
-        if (activeStep !== 1) {
-            setSubmitting(false);
-            return;
-        }
-
-        const { finalContactRole, finalLocation } = getFinalValues(values);
-
-        const credentials = {
-            organizationName: values.organizationName,
-            phoneNumber: values.phoneNumber,
-            organisationSize: values.organisationSize,
-            companyEmail: values.companyEmail,
-            Location: finalLocation, // Use final location
-            password: values.password,
-            confirmPassword: values.confirmPassword,
-            role: role,
-            contactPerson:
-            {
-                firstName: values.contactPersonFirstName,
-                lastName: values.contactPersonLastName,
-                role: finalContactRole, // Use final role
-                email: values.email,
-            },
-        };
-
-        try {
-            await dispatch(registerUser(credentials)).unwrap();
-            setActiveStep(2); // Move to success step on successful registration
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (err: any) {
-            console.error("Registration failed:", err);
-            setLocalError(err.message || "Registration failed. Please try again.");
-        } finally {
-            setSubmitting(false);
-        }
+    const handleSubmit = async (values: RegisterFormValues, { setSubmitting, setTouched, setErrors, validateForm }: any) => {
+        setSubmitting(true);
+        //  Run validation and set touched using handleNext's logic
+        await handleNext(values, setTouched, setErrors, validateForm); 
+        // handleNext handles the API call if activeStep === 1
+        setSubmitting(false);
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -422,6 +377,7 @@ const handleNext = async (
                                         value={values.organizationName}
                                         onChange={handleChange}
                                         style={inputStyle}
+                                        // <HIGHLIGHT START> Only show invalid if touched AND errors exist </HIGHLIGHT END>
                                         isInvalid={!!touched.organizationName && !!errors.organizationName}
                                     />
                                 </InputGroup>
@@ -440,6 +396,7 @@ const handleNext = async (
                                         value={values.companyEmail}
                                         onChange={handleChange}
                                         style={inputStyle}
+                                        //  Only show invalid if touched AND errors exist
                                         isInvalid={!!touched.companyEmail && !!errors.companyEmail}
                                     />
                                 </InputGroup>
@@ -456,6 +413,7 @@ const handleNext = async (
                                         value={values.organisationSize}
                                         onChange={handleChange}
                                         style={inputStyle}
+                                        //  Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.organisationSize && !!errors.organisationSize}
                                     >
                                         {organisation_size_options.map((option) => (
@@ -479,6 +437,7 @@ const handleNext = async (
                                         value={values.Location}
                                         onChange={handleChange}
                                         style={inputStyle}
+                                        //  Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.Location && !!errors.Location && values.Location !== 'OTHER'} // Validation for select
                                     >
                                         {location_options.map((option) => (
@@ -497,17 +456,18 @@ const handleNext = async (
                                         value={values.otherLocation}
                                         onChange={handleChange}
                                         style={{...inputStyle, marginTop: '1rem'}} // Added margin for separation
+                                        // <Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.otherLocation && !!errors.otherLocation}
                                     />
                                 )}
 
                                 {/* Display error message for either field */}
                                 <BootstrapForm.Control.Feedback type="invalid" className={values.Location !== 'OTHER' ? 'd-block' : ''}>
-                                    <ErrorMessage name="Location" />
+                                    {!!touched.Location && !!errors.Location && <ErrorMessage name="Location" />}
                                 </BootstrapForm.Control.Feedback>
                                 {values.Location === 'OTHER' && (
                                     <BootstrapForm.Control.Feedback type="invalid" className="d-block">
-                                        <ErrorMessage name="otherLocation" />
+                                        {!!touched.otherLocation && !!errors.otherLocation && <ErrorMessage name="otherLocation" />}
                                     </BootstrapForm.Control.Feedback>
                                 )}
                             </BootstrapForm.Group>
@@ -527,6 +487,7 @@ const handleNext = async (
                                     value={values.contactPersonFirstName}
                                     onChange={handleChange}
                                     style={inputStyle}
+                                    // < Only show invalid if touched AND errors exist 
                                     isInvalid={!!touched.contactPersonFirstName && !!errors.contactPersonFirstName}
                                 />
                                 <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="contactPersonFirstName" /></BootstrapForm.Control.Feedback>
@@ -542,6 +503,7 @@ const handleNext = async (
                                     value={values.contactPersonLastName}
                                     onChange={handleChange}
                                     style={inputStyle}
+                                    // Only show invalid if touched AND errors exist 
                                     isInvalid={!!touched.contactPersonLastName && !!errors.contactPersonLastName}
                                 />
                                 <BootstrapForm.Control.Feedback type="invalid"><ErrorMessage name="contactPersonLastName" /></BootstrapForm.Control.Feedback>
@@ -559,6 +521,7 @@ const handleNext = async (
                                         value={values.email}
                                         onChange={handleChange}
                                         style={inputStyle}
+                                        //  Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.email && !!errors.email}
                                     />
                                 </InputGroup>
@@ -577,7 +540,10 @@ const handleNext = async (
                                 // The FormikPhoneInput component handles Formik integration internally
                             />
                             </div>
-                            <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback d-block" />
+                            {/*  Use touched and errors for phone number as well  */}
+                            {!!touched.phoneNumber && !!errors.phoneNumber && (
+                                <ErrorMessage name="phoneNumber" component="div" className="invalid-feedback d-block" />
+                            )}
                         </BootstrapForm.Group>
                        
                     </Col>
@@ -592,6 +558,7 @@ const handleNext = async (
                                         value={values.contactPersonRole}
                                         onChange={handleChange}
                                         style={inputStyle}
+                                        //  Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.contactPersonRole && !!errors.contactPersonRole && values.contactPersonRole !== 'OTHER'} // Validation for select
                                     >
                                         {contact_role_options.map((option) => (
@@ -610,17 +577,18 @@ const handleNext = async (
                                         value={values.otherContactPersonRole}
                                         onChange={handleChange}
                                         style={{...inputStyle, marginTop: '1rem'}} // Added margin for separation
+                                        //  Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.otherContactPersonRole && !!errors.otherContactPersonRole}
                                     />
                                 )}
 
                                 {/* Display error message for either field */}
                                 <BootstrapForm.Control.Feedback type="invalid" className={values.contactPersonRole !== 'OTHER' ? 'd-block' : ''}>
-                                    <ErrorMessage name="contactPersonRole" />
+                                    {!!touched.contactPersonRole && !!errors.contactPersonRole && <ErrorMessage name="contactPersonRole" />}
                                 </BootstrapForm.Control.Feedback>
                                 {values.contactPersonRole === 'OTHER' && (
                                     <BootstrapForm.Control.Feedback type="invalid" className="d-block">
-                                        <ErrorMessage name="otherContactPersonRole" />
+                                        {!!touched.otherContactPersonRole && !!errors.otherContactPersonRole && <ErrorMessage name="otherContactPersonRole" />}
                                     </BootstrapForm.Control.Feedback>
                                 )}
                             </BootstrapForm.Group>
@@ -637,7 +605,8 @@ const handleNext = async (
                                         onChange={handleChange}
                                         placeholder="Password"
                                         style={inputStyle}
-                                        isInvalid={touched.password && !!errors.password}
+                                        //  Only show invalid if touched AND errors exist 
+                                        isInvalid={!!touched.password && !!errors.password}
                                     />
                                     <InputGroup.Text
                                         onClick={togglePasswordVisibility}
@@ -646,7 +615,9 @@ const handleNext = async (
                                         <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEyeRegular} style={{ color: customStyles.primaryColor }} />
                                     </InputGroup.Text>
                                 </InputGroup>
-                                <ErrorMessage name="password" component="div" className="invalid-feedback d-block" />
+                                {!!touched.password && !!errors.password && (
+                                    <ErrorMessage name="password" component="div" className="invalid-feedback d-block" />
+                                )}
                             </BootstrapForm.Group>
                         </Col>
 
@@ -661,6 +632,7 @@ const handleNext = async (
                                         onChange={handleChange}
                                         placeholder="Confirm Password"
                                         style={inputStyle}
+                                        // Only show invalid if touched AND errors exist 
                                         isInvalid={!!touched.confirmPassword && !!errors.confirmPassword}
                                     />
                                     <InputGroup.Text
@@ -670,7 +642,9 @@ const handleNext = async (
                                         <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEyeRegular} style={{ color: customStyles.primaryColor }} />
                                     </InputGroup.Text>
                                 </InputGroup>
-                                <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback d-block" />
+                                {!!touched.confirmPassword && !!errors.confirmPassword && (
+                                    <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback d-block" />
+                                )}
                             </BootstrapForm.Group>
                         </Col>
                     </Row>
@@ -696,7 +670,7 @@ const handleNext = async (
                             </ul>
                         </Card> */}
                        
-                        {/* <HIGHLIGHT START> Added Continue Button </HIGHLIGHT END> */}
+                        {/* Added Continue Button */}
                         <Button
                             onClick={handleContinueToDashboard}
                             className="w-100 py-3 fw-semibold"
@@ -736,7 +710,7 @@ const handleNext = async (
                     <Card
                         className="shadow-lg border-0"
                         style={{
-                            // <HIGHLIGHT START> Increased maxWidth for success step to 700px </HIGHLIGHT END>
+                            // Increased maxWidth for success step to 700px
                             maxWidth: activeStep === 2 ? "700px" : "800px",
                             width: "100%",
                             borderRadius: "8px",
@@ -776,8 +750,11 @@ const handleNext = async (
                             <Formik
                                 validationSchema={getStepValidationSchema(activeStep)}
                                 initialValues={initialValues}
-                                onSubmit={handleSubmit}
+                                //  Change onSubmit to call handleNext/handleSubmit 
+                                onSubmit={handleSubmit} 
                                 validateOnMount={false}
+                                //  Disable validation on blur to prevent errors when switching fields 
+                                validateOnBlur={false} 
                             >
 
                                 {({ handleSubmit, handleChange, values, touched, errors, setTouched, setErrors, validateForm, isSubmitting }) => (
@@ -785,7 +762,7 @@ const handleNext = async (
 
                                         {renderStepContent(values, handleChange, touched, errors)}
 
-                                        {/* <HIGHLIGHT START> Conditional rendering updated: only show Back/Next/Sign Up for steps 0 and 1 </HIGHLIGHT END> */}
+                                        {/* Conditional rendering updated: only show Back/Next/Sign Up for steps 0 and 1 */}
                                         {activeStep < 2 && (
                                             <Row className="mt-3">
                                                 <Col md={activeStep > 0 ? 6 : 12}>
@@ -796,14 +773,17 @@ const handleNext = async (
                                                             className="w-100 py-3 fw-semibold mb-2 mb-md-0"
                                                             disabled={isLoading || isSubmitting}
                                                         >
+                                                            {/* <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> */}
                                                             Back
                                                         </Button>
                                                     )}
                                                 </Col>
                                                 <Col md={activeStep > 0 ? 6 : 12}>
                                                     <Button
-                                                        type={activeStep === 1 ? "submit" : "button"}
-                                                        onClick={activeStep === 0 ? () => handleNext(values, setTouched, setErrors, validateForm) : undefined}
+                                                        
+                                                        //If activeStep === 1, the button is rendered via FormikForm's onSubmit on click, but we will use the onClick handler.
+                                                        type="button" 
+                                                        onClick={() => handleNext(values, setTouched, setErrors, validateForm)}
                                                         className="w-100 py-3 fw-semibold"
                                                         disabled={isLoading || isSubmitting}
                                                         style={{
@@ -816,13 +796,15 @@ const handleNext = async (
                                                         {isLoading || isSubmitting ? (
                                                             <><Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />Signing Up...</>
                                                         ) : (
-                                                            activeStep === 0 ? ("Next") : ("Sign Up")
+                                                            activeStep === 0 ? (<>Next
+                                                            {/* <FontAwesomeIcon icon={faArrowRight} className="ms-2" /> */}
+                                                            </>) : ("Sign Up")
                                                         )}
                                                     </Button>
                                                 </Col>
                                             </Row>
                                         )}
-                                        {/* <HIGHLIGHT END> */}
+                                        
 
                                         {activeStep < 2 && (
                                             <p className="text-center mt-3 text-muted">
@@ -862,3 +844,4 @@ const handleNext = async (
     )
 }
 export default Register;
+

@@ -58,7 +58,7 @@ const styles: StyleMap = {
 
   // .dashboard-button (Base style)
   dashboardButton: {
-    backgroundColor: '#3CB371',
+    backgroundColor: '#22C55E',
     color: 'white',
     border: 'none',
     borderRadius: '4px',
@@ -106,7 +106,7 @@ const PaymentSuccessPage: React.FC = () => {
             viewBox="0 0 52 52"
           >
             {/* The green circle */}
-            <circle cx="26" cy="26" r="25" fill="#3CB371" />
+            <circle cx="26" cy="26" r="25" fill="#22C55E" />
             {/* The white checkmark path */}
             <path
               fill="none"

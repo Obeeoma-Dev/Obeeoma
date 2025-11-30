@@ -27,8 +27,8 @@ const LogoutButton: React.FC<React.PropsWithChildren<LogoutButtonProps>> = ({ ch
     // 4. Navigate to the login page upon success or failure of the logout thunk
     if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
       // Use navigate from react-router-dom 
-    //   navigate("/login", { replace: true });
-    window.location.href = '/login';
+     navigate("/login", { replace: true });
+    // window.location.href = '/login';
     }
 
     
