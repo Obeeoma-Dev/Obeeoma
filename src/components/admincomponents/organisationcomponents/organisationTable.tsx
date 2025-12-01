@@ -37,6 +37,7 @@ interface OrganizationDashboardProps {
   organizations: Organization[];
 }
 
+
 // Render status icon based on status
 const renderStatusIcon = (status: Organization["status"]) => {
   switch (status) {
@@ -84,7 +85,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
 
   // Render table rows
   const renderTable = (orgs: Organization[]) => (
-    <Table bordered hover responsive className="shadow-sm">
+    <Table bordered hover responsive className="shadow-sm table-sm align-middle">
       <thead className="table-success align-middle">
         <tr>
           <th>Organization</th>
@@ -96,54 +97,95 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         </tr>
       </thead>
       <tbody>
-        {orgs.map((org) => (
-          <tr key={org.id}>
-            {/* Composite cell: name + ID */}
-            <td>
-              <div className="fw-semibold">{org.name}</div>
-              <div className="text-muted small">ID: {org.id}</div>
-            </td>
-
-            {/* Clients */}
-            <td>{org.clients.toLocaleString()}</td>
-
-            {/* Plan */}
-            <td>{org.plan}</td>
-
-            {/* Status with icon */}
-            <td>
-              {renderStatusIcon(org.status)}
-              {org.status}
-            </td>
-
-            {/* Last Active */}
-            <td>
-              {org.lastActive === "Active" ? (
-                <span className="text-success fw-semibold">Active</span>
-              ) : (
-                <span className="text-muted">{org.lastActive}</span>
-              )}
-            </td>
-
-            {/* Actions: single View Details button */}
-            <td>
-              <Link to={`/systemadmin/organizations/${org.id}`}>
-                <Button variant="outline-success" size="sm">
-                  <FaEye className="me-1" />
-                  View Details
-                </Button>
-              </Link>
+        {orgs.length === 0 ? (
+          <tr>
+            <td colSpan={6} className="text-center text-muted py-4">
+              No organizations found.
             </td>
           </tr>
-        ))}
+        ) : (
+
+
+          orgs.map((org) => (
+            <tr key={org.id}>
+              {/* Composite cell: name + ID */}
+              <td>
+                <div className="d-flex align-items-center">
+                  {org.icon && org.icon.startsWith("http") && (
+                    <img
+                      src={org.icon}
+                      alt={`${org.name} logo`}
+                      className="me-2"
+                      style={{ width: "32px", height: "32px", objectFit: "cover", borderRadius: "4px" }}
+                    />
+                  )}
+                  <div>
+                    <div className="fw-semibold">{org.name}</div>
+                    <div className="text-muted small">ID: {org.id}</div>
+                  </div>
+                </div>
+              </td>
+
+              {/* Clients */}
+              <td>{org.clients.toLocaleString()}</td>
+
+              {/* Plan */}
+              <td>
+                <span
+                  className={`badge ${org.plan === "Premium"
+                    ? "bg-success"
+                    : org.plan === "Enterprise"
+                      ? "bg-primary"
+                      : "bg-secondary"
+                    }`}
+                >
+                  {org.plan}
+                </span>
+              </td>
+
+              {/* Status with icon */}
+              <td>
+                {renderStatusIcon(org.status)}
+                {org.status}
+              </td>
+
+              {/* Last Active */}
+              <td>
+                <span className="text-muted">{org.lastActive}</span>
+              </td>
+
+              {/* Actions: single View Details button */}
+              <td>
+                <Link to={`/systemadmin/organizations/${org.id}`}>
+                  <Button variant="outline-success" size="sm">
+                    <FaEye className="me-1" />
+                    View Details
+                  </Button>
+                </Link>
+              </td>
+            </tr>
+          ))
+
+        )}
       </tbody>
     </Table>
   );
 
   return (
     <div className="mt-4">
-      {/* Heading */}
-      <h5 className="mb-3 fw-semibold text-success">Organization Dashboard</h5>
+      {/* Heading
+      <h5 className="mb-3 fw-semibold text-success">Organization Dashboard</h5> */}
+
+      <Row className="mb-3 align-items-center">
+        <Col>
+          <h5 className="fw-semibold text-success">Organization Dashboard</h5>
+        </Col>
+        <Col className="text-end">
+          <Button variant="success">
+            + Add Organization
+          </Button>
+        </Col>
+      </Row>
 
       {/* Search bar */}
       <Row className="mb-3">
@@ -155,6 +197,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
             <Form.Control
               type="text"
               placeholder="Search by name, ID, or plan..."
+              aria-label="Search organizations"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -163,7 +206,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       </Row>
 
       {/* Tabs for filtering */}
-      <Tabs defaultActiveKey="All" className="mb-3" justify>
+      <Tabs defaultActiveKey="All" className="mb-3" justify variant="pills" aria-label="Organization filters">
         {["All", "Active", "Inactive", "Premium", "Freemium"].map((tab) => (
           <Tab eventKey={tab} title={tab} key={tab}>
             {renderTable(filterBySearch(filterByTab(tab)))}
