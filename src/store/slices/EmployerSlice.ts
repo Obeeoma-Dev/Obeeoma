@@ -227,6 +227,21 @@ export const fetchEmployees = createAsyncThunk<
   }
 );
 
+export const fetchEmployeeStatus = createAsyncThunk<
+  { active: number; inactive: number; total: number },
+  void,
+  { rejectValue: string }
+>(
+  'employer/fetchEmployeeStatus',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await employerAPI.getEmployeeStatus();
+      return response.data;
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  }
+);
 
 // --- Initial State ---
 const initialState: EmployerState = {
@@ -236,9 +251,7 @@ const initialState: EmployerState = {
   billing: null,
   departmentDistribution: [], 
   wellnessTrend: [],
-  // newly added collections expected by the dashboard hook
   moodTrends: [],
-  // Note: 'subcription' typo from original code is kept for consistency with the State interface
   subscription: null, 
   engagement: null,
   reports: [],
@@ -246,6 +259,13 @@ const initialState: EmployerState = {
   isLoading: false,
   isActionLoading: false,
   error: null,
+  employeeStatus: {
+    active: 0,
+    inactive: 0,
+    total: 0,
+    activePercentage: 0,
+    inactivePercentage: 0,
+  },
 };
 
 // === Slice ===
@@ -297,6 +317,35 @@ const employerSlice = createSlice({
         state.employees = action.payload;
       })
       .addCase(fetchEmployees.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || null;
+      })
+      .addCase(fetchEmployeeStatus.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchEmployeeStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (!state.employeeStatus) {
+          state.employeeStatus = {
+            active: 0,
+            inactive: 0,
+            total: 0,
+            activePercentage: 0,
+            inactivePercentage: 0,
+          };
+        }
+        
+        const { active, inactive, total } = action.payload;
+        state.employeeStatus = {
+          active,
+          inactive,
+          total,
+          activePercentage: total > 0 ? Math.round((active / total) * 100) : 0,
+          inactivePercentage: total > 0 ? Math.round((inactive / total) * 100) : 0,
+        };
+      })
+      .addCase(fetchEmployeeStatus.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || null;
       })

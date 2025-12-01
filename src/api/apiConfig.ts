@@ -185,7 +185,6 @@ export const authAPI = {
 
   },
 
-
   fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
     const response = await api.post("/v1/auth/mfa/setup/", payload);
     return response;
@@ -320,6 +319,11 @@ export const employerAPI = {
   // Analytics & Dashboard
   getemployerdashboardSummary: async () => {
     const response = await api.get("/v1/invitations/");
+    return response;
+  },
+
+  getEmployeeStatus: async () => {
+    const response = await api.get("/v1/employee-status/");
     return response;
   },
 

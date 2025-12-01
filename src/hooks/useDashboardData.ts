@@ -4,6 +4,7 @@ import { RootState } from '../store/store';
 import { 
   fetchEmployerDashboardSummary, 
   fetchDepartmentDistribution, 
+  fetchEmployeeStatus, 
   fetchWellnessTrend,
   fetchMoodTrends,
   fetchEmployees,
@@ -11,10 +12,11 @@ import {
 } from '../store/slices/EmployerSlice';
 import { Employee } from '../types/employer';
 
-interface DepartmentDistributionItem {
+interface DepartmentData {
   departmentName: string;
-  workerPercentage : number;
+  workerPercentage: number;
   color: string;
+  count?: number; // for showing actual count
 }
 
 interface WellnessTrendPoint {
@@ -28,8 +30,8 @@ interface EmployerSummary {
   inactiveEmployees?: number;
   activeEmployees?:number;
   atRisk?: number;
-
-  // add other summary fields if present in backend
+  activePercentage: number;
+  inactivePercentage: number;
 }
 
 interface Invite {
@@ -49,7 +51,7 @@ interface MoodTrend {
 
 interface EmployerState {
   summary?: EmployerSummary | null;
-  departmentDistribution: DepartmentDistributionItem[];
+  departmentData: DepartmentData[];
   wellnessTrend: WellnessTrendPoint[];
   invites: Invite[];
   employees: Employee[];
@@ -59,12 +61,9 @@ interface EmployerState {
 }
 
 interface DashboardStats {
-  activeEmployees: number;
-  inactiveEmployees: number;
-  totalEmployees: number;
   wellnessIndex: number;
   atRisk: number;
-  departmentDistribution: DepartmentDistributionItem[];
+  departmentData: DepartmentData[];
   wellnessTrend: WellnessTrendPoint[];
 }
 
@@ -79,7 +78,10 @@ interface UseDashboardDataReturn {
   employeeData: {
     employees: Employee[];
     moodTrends: MoodTrend[];
-    departmentDistribution: DepartmentDistributionItem[];
+    departmentData: DepartmentData[];
+    activeEmployees: number;
+    inactiveEmployees: number;
+    totalEmployees: number;
     wellnessTrend: WellnessTrendPoint[];
   };
   activities: Activity[];
@@ -114,7 +116,7 @@ export const useDashboardData = (): UseDashboardDataReturn => {
   }, [dispatch]);
 
   // Calculate department distribution from actual employee data
-  const calculateDepartmentDistribution = (emps: Employee[]): DepartmentDistributionItem[] => {
+  const calculateDepartmentDistribution = (emps: Employee[]): DepartmentData[] => {
     if (!emps || emps.length === 0) {
       return departmentDistribution && departmentDistribution.length > 0 
         ? departmentDistribution 
@@ -197,7 +199,7 @@ const employeeCounts = countEmployeeStatuses(employees);
     inactiveEmployees: employeeCounts.inactiveEmployees || summary.inactiveEmployees || 0,
     wellnessIndex: summary.wellnessIndex || 0,
     atRisk: summary.atRisk || 0,
-    departmentDistribution: calculateDepartmentDistribution(employees || []),
+    departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
     
   } : {
@@ -206,14 +208,17 @@ const employeeCounts = countEmployeeStatuses(employees);
     totalEmployees: (employees && employees.length) || 0,
     wellnessIndex: 0,
     atRisk: 0,
-    departmentDistribution: calculateDepartmentDistribution(employees || []),
+    departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
   };
 
   const employeeData = {
+    activeEmployees: employeeCounts.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || 0,
+    totalEmployees: (employees && employees.length) || 0,
     employees: employees || [],
     moodTrends: moodTrends || [],
-    departmentDistribution: calculateDepartmentDistribution(employees || []),
+    departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend()
   };
 
