@@ -1,6 +1,6 @@
 // import Layout from "../../components/employercomponents/shared/Layout";
 // import TopGrid from "../../components/employercomponents/employerdashboard/TopGrid";
-// import DepartmentLegend from "../../components/employercomponents/employerdashboard/DepartmentLegend";
+// import EmployeeStatusLegend from "../../components/employercomponents/employerdashboard/EmployeeStatusLegend ;
 // import FeatureUsageBreakdown from "../../components/employercomponents/employerdashboard/FeatureUsageBreakdown";
 // import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
 // import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
@@ -101,8 +101,7 @@
 //             <div className="card border-0 shadow-sm h-100">
 //               <div className="card-body">
 //                 <h5 className="card-title fw-semibold mb-4">Department Distribution</h5>
-//                 <DepartmentLegend
-//                   departments={stats?.departmentDistribution || []}
+//                 <EmployeeStatusLegend //                   departments={stats?.departmentDistribution || []}
 //                 />
 //               </div>
 //             </div>
@@ -149,7 +148,7 @@
 
 import Layout from "../../components/employercomponents/shared/Layout";
 import TopGrid from "../../components/employercomponents/employerdashboard/TopGrid";
-import DepartmentLegend from "../../components/employercomponents/employerdashboard/DepartmentLegend";
+import EmployeeStatusLegend from "../../components/employercomponents/employerdashboard/EmployeeStatusLegend";
 import FeatureUsageBreakdown from "../../components/employercomponents/employerdashboard/FeatureUsageBreakdown";
 import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
@@ -160,6 +159,7 @@ import { DashboardProps } from "@/types/employer";
 import { useDispatch } from "react-redux";
 import {
   fetchEmployerDashboardSummary,
+  fetchEmployeeStatus,
   fetchEmployeeInvites,
   fetchEmployees,
 } from "../../store/slices/EmployerSlice";
@@ -173,6 +173,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
 
   const refreshDashboardData = () => {
     dispatch(fetchEmployerDashboardSummary());
+    dispatch(fetchEmployeeStatus());
     dispatch(fetchEmployeeInvites());
     dispatch(fetchEmployees());
   };
@@ -204,9 +205,9 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
 
   // Prepare employee status data for the chart
   const employeeStatus = {
-    activeEmployees: stats?.activeEmployees || 0,
-    inactiveEmployees: stats?.inactiveEmployees || 0,
-    totalEmployees: stats?.totalEmployees || 0,
+    activeEmployees: employeeData.activeEmployees || 0,
+    inactiveEmployees: employeeData.inactiveEmployees || 0,
+    totalEmployees: employeeData.totalEmployees || 0,
   };
 
   // component props
@@ -220,7 +221,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
     },
     {
       title: "Total Employees",
-      value: stats.totalEmployees.toString(),
+      value: employeeData.totalEmployees.toString(),
       icon: "Users",
       color: "#22C55E",
     },
@@ -249,9 +250,8 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
           <div className="col-lg-12 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title fw-semibold mb-4">Employee Status Distribution</h5>
-                <DepartmentLegend
-                  employeeStatus={employeeStatus}
+                <h5 className="card-title fw-semibold mb-4">Employee Signups</h5>
+                <EmployeeStatusLegend employeeStatus={employeeStatus}
                 />
               </div>
             </div>

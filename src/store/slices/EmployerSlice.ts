@@ -249,24 +249,61 @@ export const fetchMoodTrends = createAsyncThunk<
     }
 );
 
+export const fetchEmployees = createAsyncThunk<
+  Employee[],
+  void,
+  { rejectValue: string }
+>(
+  'employer/fetchEmployees',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await employerAPI.getEmployees();
+      return response.data as Employee[];
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  }
+);
+
+export const fetchEmployeeStatus = createAsyncThunk<
+  { active: number; inactive: number; total: number },
+  void,
+  { rejectValue: string }
+>(
+  'employer/fetchEmployeeStatus',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await employerAPI.getEmployeeStatus();
+      return response.data;
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  }
+);
+
 // --- Initial State ---
 const initialState: EmployerState = {
-    currentEmployer: null,
-    invites: [],
-    employees: [],
-    billing: null,
-    departmentDistribution: [],
-    wellnessTrend: [],
-    // newly added collections expected by the dashboard hook
-    moodTrends: [],
-    // Note: 'subcription' typo from original code is kept for consistency with the State interface
-    subscription: null,
-    engagement: null,
-    reports: [],
-    summary: null,
-    isLoading: false,
-    isActionLoading: false,
-    error: null,
+  currentEmployer: null,
+  invites: [],
+  employees: [],
+  billing: null,
+  departmentDistribution: [], 
+  wellnessTrend: [],
+  moodTrends: [],
+  subscription: null, 
+  engagement: null,
+  reports: [],
+  summary: null,
+  isLoading: false,
+  isActionLoading: false,
+  error: null,
+  employeeStatus: {
+    active: 0,
+    inactive: 0,
+    total: 0,
+    activePercentage: 0,
+    inactivePercentage: 0,
+  },
 };
 
 // === Slice ===

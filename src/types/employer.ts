@@ -137,7 +137,7 @@ export interface EmployerState {
     date: string;
     score: number;
   }[];
-
+  employeeStatus: EmployeeStatus;
   moodTrends: {
   id: number;
   employeeId: number;
@@ -163,7 +163,13 @@ export interface EmployerState {
   error: string | null;
 }
 
-
+export interface EmployeeStatus {
+  active: number;
+  inactive: number;
+  total: number;
+  activePercentage: number;
+  inactivePercentage: number;
+}
 
 export interface MoodTrend {
   id: number;
