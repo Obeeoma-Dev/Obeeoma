@@ -17,13 +17,13 @@ const PricingPlans = () => {
             // For Basic (free) plan, redirect immediately.
             console.log("Redirecting to /success-message for Basic plan.");
             // **REDIRECTION LOGIC FOR BASIC (FREE) PLAN**
-            // window.location.href = "/success-message"; 
+            window.location.href = "/success-message";
         }
         else {
             // Redirect to payment gateway for other plans (like Premium).
             console.log("Redirecting to payment gateway for Premium plan.");
             // **REDIRECTION LOGIC FOR PREMIUM (PAID) PLAN**
-            // window.location.href = sandboxUrl;
+            window.location.href = sandboxUrl;
         }
     };
     const plans = [

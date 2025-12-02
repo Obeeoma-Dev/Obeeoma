@@ -255,7 +255,7 @@ export const employerAPI = {
         return response;
     },
     getDepartmentDistribution: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/dashboard/departments");
         return response;
     },
     postDepartmentDistribution: async () => {
