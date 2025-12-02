@@ -249,21 +249,7 @@ export const fetchMoodTrends = createAsyncThunk<
     }
 );
 
-export const fetchEmployees = createAsyncThunk<
-  Employee[],
-  void,
-  { rejectValue: string }
->(
-  'employer/fetchEmployees',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getEmployees();
-      return response.data as Employee[];
-    } catch (error: unknown) {
-      return rejectWithValue(getErrorMessage(error));
-    }
-  }
-);
+
 
 export const fetchEmployeeStatus = createAsyncThunk<
   { active: number; inactive: number; total: number },

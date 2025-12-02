@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { 
-  fetchEmployerDashboardSummary, 
-  fetchDepartmentDistribution, 
-  fetchEmployeeStatus, 
+import {
+  fetchEmployerDashboardSummary,
+  fetchDepartmentDistribution,
+  fetchEmployeeStatus,
   fetchWellnessTrend,
   fetchMoodTrends,
   fetchEmployees,
   fetchEmployeeInvites,
 } from '../store/slices/EmployerSlice';
-import { Employee } from '../types/employer';
+import { Employee, EmployerState, MoodTrend } from '../types/employer';
 
 interface DepartmentData {
   departmentName: string;
@@ -23,6 +23,7 @@ interface WellnessTrendPoint {
   date: string;
   score: number;
 }
+
 
 interface EmployerSummary {
   totalEmployees?: number;
@@ -41,26 +42,12 @@ interface Invite {
   // extend as needed
 }
 
-interface MoodTrend {
-  date: string;
-  moodLevel: number;
-  employeedepartmentName?: string;
-  employeeDepartment?: string;
-  // extend as needed
-}
 
-interface EmployerState {
-  summary?: EmployerSummary | null;
-  departmentData: DepartmentData[];
-  wellnessTrend: WellnessTrendPoint[];
-  invites: Invite[];
-  employees: Employee[];
-  moodTrends: MoodTrend[];
-  isLoading: boolean;
-  error?: string | null;
-}
 
 interface DashboardStats {
+  activeEmployees: number;
+  inactiveEmployees: number;
+  totalEmployees: number;
   wellnessIndex: number;
   atRisk: number;
   departmentData: DepartmentData[];
@@ -93,7 +80,6 @@ export const useDashboardData = (): UseDashboardDataReturn => {
   const dispatch = useDispatch<any>();
   const { 
     summary, 
-
     departmentDistribution, 
     wellnessTrend, 
     invites,
@@ -234,7 +220,7 @@ const employeeCounts = countEmployeeStatuses(employees);
       
       recentMoods.forEach((trend: MoodTrend, index: number) => {
         generatedActivities.push({
-          text: `Mood assessment completed by ${trend.employeedepartmentName || 'an employee'}`,
+          text: `Mood assessment completed by ${trend.employeeName || 'an employee'}`,
           department: trend.employeeDepartment || '',
           time: index === 0 ? '2 hours ago' : index === 1 ? '1 day ago' : '2 days ago'
         });

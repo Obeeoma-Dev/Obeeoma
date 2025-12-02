@@ -34,6 +34,11 @@ export interface DashboardSummary {
     metricName: string;
     value: number;
   }[];
+  totalEmployees?: number;
+  activeEmployees?: number;
+  inactiveEmployees?: number;
+  wellnessIndex?: number;
+  atRisk?: number;
   // Add other summary fields
 
 }

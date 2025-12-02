@@ -241,6 +241,10 @@ export const employerAPI = {
         const response = await api.get("/v1/invitations/");
         return response;
     },
+    getEmployeeStatus: async () => {
+        const response = await api.get("/v1/employee-status/");
+        return response;
+    },
     getEngagement: async () => {
         const response = await api.get("/v1/tests-by-type/");
         return response;
