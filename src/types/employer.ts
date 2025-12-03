@@ -10,6 +10,7 @@ export interface EmployerUser {
 
   company? : {
     id: string | number;
+    
     name: string;
     createdAt: string;
   }
