@@ -46,7 +46,7 @@ const NotificationsSection = ({
 
   return (
     <div className="card border-0 shadow-sm">
-      <div className="card-body p-4">
+      <div className="card-body p-2">
         <h3 className="h5 fw-semibold mb-4">Notification Settings</h3>
         <p className="text-muted mb-4">Configure when you'll receive email notifications</p>
         

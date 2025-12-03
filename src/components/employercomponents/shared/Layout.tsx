@@ -205,8 +205,9 @@ const Layout = ({ children, title }: LayoutProps) => {
               ref={logoRef}
               className="d-flex align-items-center justify-content-center"
               style={{
-                transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
-                transition: 'transform 0.6s ease-in-out',
+                //removed spinning effect
+                //transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
+                // transition: 'transform 0.6s ease-in-out',
                 margin: '0.5rem 0',
                 padding: '0.75rem 1rem',
                 fontFamily:'body'

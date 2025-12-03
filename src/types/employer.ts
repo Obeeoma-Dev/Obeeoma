@@ -10,11 +10,15 @@ export interface EmployerUser {
 
   company? : {
     id: string | number;
-    name: string;
+    companySize: number;
     createdAt: string;
   }
   address?: string;
   phone?: string;
+  timeZone?: string;
+  language?: string;
+  dateFormat?: string;
+  contactPerson?: string;
 }
 
 export interface AccountData {

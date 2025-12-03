@@ -153,10 +153,10 @@ import FeatureUsageBreakdown from "../../components/employercomponents/employerd
 import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
-import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
-import { DashboardProps } from "@/types/employer";
 import { useDispatch } from "react-redux";
+import { useDashboardData } from "../../hooks/useDashboardData";
+import { DashboardProps } from "@/types/employer";
 import {
   fetchEmployerDashboardSummary,
   fetchEmployeeStatus,
