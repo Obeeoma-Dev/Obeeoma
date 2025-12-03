@@ -57,6 +57,7 @@
     "daisyui": "^5.1.25",
     "embla-carousel-react": "^8.6.0",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.25",
     "google-places-autocomplete-react": "^1.0.18",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.548.0",

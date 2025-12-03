@@ -205,6 +205,25 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         </Col>
       </Row>
 
+      <style>
+        {`
+    .nav-pills .nav-link.active {
+      background-color: #3CB371 !important;
+      color: white !important;
+    }
+
+    .nav-pills .nav-link {
+      border-radius: 6px;
+      margin-right: 4px;
+    }
+
+    .nav-pills .nav-link:hover {
+      background-color: #2E8B57 !important;
+      color: white !important;
+    }
+  `}
+      </style>
+
       {/* Tabs for filtering */}
       <Tabs defaultActiveKey="All" className="mb-3" justify variant="pills" aria-label="Organization filters">
         {["All", "Active", "Inactive", "Premium", "Freemium"].map((tab) => (

@@ -15,8 +15,8 @@ import Register from "./pages/auth/Register"; // Renamed from CreateAccount in t
 import ResetPassword from "./pages/auth/ResetPassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
-import TermsPage from "./pages/landingpage/Terms";
-import PrivacyPage from "./pages/landingpage/Policy";
+import { TermsAndConditions } from "./pages/landingpage/Terms";
+import { PrivacyPolicy } from "./pages/landingpage/Policy";
 import AcceptInvite from "./pages/auth/accept-invite";
 import MfaSetupPage from "./pages/auth/mfauth";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
@@ -69,12 +69,12 @@ export default function App(): React.ReactElement {
               <Route path="/mfa-setup" element={<MfaSetupPage />} />
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/employee-downloadapp" element={<EmployeeLandingPage />} />
               {/* <Route path="/employee-downloadapp" element={<AppDownloadSection/>} /> */}
-          
+
 
               {/* === PROTECTED ROUTES WRAPPER (Uncomment to activate) === */}
               {/* <Route element={<ProtectedRoute />}> */}
@@ -91,7 +91,7 @@ export default function App(): React.ReactElement {
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
               <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
               {/* <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} /> */}
-               
+
               {/* SYSTEMS ADMIN ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} /> {/* Main Admin Dashboard */}
               <Route path="/system-admin/organizations" element={<Organisation />} />
@@ -107,7 +107,7 @@ export default function App(): React.ReactElement {
               <Route path="/settings-overview/subscription-editor" element={<SubscriptionEditor />} />
               <Route path="/success-message" element={<PaymentSuccessPage />} />
               <Route path="/success-message" element={<PaymentSuccessPage />} />
-            
+
 
               {/* </Route> */} {/* End ProtectedRoute */}
 
