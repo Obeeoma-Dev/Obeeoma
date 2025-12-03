@@ -11,6 +11,8 @@ export interface EmployerUser {
   company? : {
     id: string | number;
     companySize: number;
+    
+    name: string;
     createdAt: string;
   }
   address?: string;

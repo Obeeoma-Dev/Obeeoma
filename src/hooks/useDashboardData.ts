@@ -52,7 +52,15 @@ interface DashboardStats {
   atRisk: number;
   departmentData: DepartmentData[];
   wellnessTrend: WellnessTrendPoint[];
+  generalMood: string;
 }
+
+const computeGeneralMood = (wellnessIndex: number): string => {
+  if (wellnessIndex >= 80) return "Excellent";
+  if (wellnessIndex >= 60) return "Good";
+  if (wellnessIndex >= 40) return "Fair";
+  return "Needs Attention";
+};
 
 interface Activity {
   text: string;
@@ -187,7 +195,7 @@ const employeeCounts = countEmployeeStatuses(employees);
     atRisk: summary.atRisk || 0,
     departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
-    
+    generalMood: computeGeneralMood(summary.wellnessIndex || 0),
   } : {
     activeEmployees: employeeCounts.activeEmployees || 0,
     inactiveEmployees: employeeCounts.inactiveEmployees || 0,
@@ -196,6 +204,7 @@ const employeeCounts = countEmployeeStatuses(employees);
     atRisk: 0,
     departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
+    generalMood: computeGeneralMood(0),
   };
 
   const employeeData = {
