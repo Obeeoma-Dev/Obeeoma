@@ -31,6 +31,7 @@ import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings"
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
+import EmployerEditAccountProfile from "./components/employercomponents/employersettings/EditProfileSection";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
@@ -56,8 +57,8 @@ export default function App(): React.ReactElement {
             <Routes>
 
               {/* === PUBLIC ROUTES === */}
-              <Route path="/" element={<Navigate to="/index" replace />} />
-              <Route path="/index" element={<Index />} />
+{/*               <Route path="/" element={<Navigate to="/" replace />} /> */}
+              <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Register />} />
               <Route path="/reset-password" element={<ResetPassword />} />
@@ -82,6 +83,7 @@ export default function App(): React.ReactElement {
               <Route path="/employer-subscription" element={<EmployerSubscription />} />
               <Route path="/employee-management" element={<EmployeeManagement />} />
               <Route path="/employer-profile" element={<EmployerAccountProfile />} />
+              <Route path="/employer-edit-profile" element={<EmployerEditAccountProfile />} />
               <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
               <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
 
