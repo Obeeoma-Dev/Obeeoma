@@ -122,21 +122,25 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ accountData, on
 
   const validateForm = useCallback(() => {
     const newErrors: ValidationErrors = {};
-    
+
     if (!localData.organizationName?.trim()) {
       newErrors.organizationName = 'Organization name is required.';
     }
-    
+
     if (!localData.username?.trim()) {
       newErrors.username = 'Username is required.';
     }
-    
+
     if (!localData.email?.trim()) {
       newErrors.email = 'Email is required.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(localData.email)) {
       newErrors.email = 'Please enter a valid email address.';
     }
-    
+
+    if (!localData.contactPerson?.trim()) {
+      newErrors.contactPerson = 'Contact person is required.';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [localData]);
