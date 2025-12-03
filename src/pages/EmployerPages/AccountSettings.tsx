@@ -18,7 +18,7 @@ const EmployerAccountProfile = () => {
     id: "",
     role: "employer",
     dateJoined: new Date().toISOString(),
-    organizationName: "Acme Corporation",
+    organizationName: " ",
     firstName: "",
     lastName: "",
     username: "Admin User",
@@ -44,15 +44,12 @@ const EmployerAccountProfile = () => {
     alert("Settings saved successfully!");
   };
 
- 
-
   const renderSection = () => {
     switch (activeSection) {
       case "account":
         return (
           <AccountSection 
             accountData={accountData} 
-            onAccountDataChange={setAccountData} 
           />
         );
       case "notifications":
@@ -73,7 +70,6 @@ const EmployerAccountProfile = () => {
         return (
           <AccountSection 
             accountData={accountData} 
-            onAccountDataChange={setAccountData}  
           />
         );
     }
@@ -94,7 +90,8 @@ const EmployerAccountProfile = () => {
 
         {/* Settings Content */}
         <div className="row">
-          <div className="col-12 col-md-8 col-lg-10 mx-auto">
+          {/* removed  col-md-8 col-lg-10 to keep card for settings at full widths */}
+          <div className="col-12 mx-auto">
             {renderSection()}
             
             {/* Save Changes Button and Logout Button */}
@@ -103,8 +100,7 @@ const EmployerAccountProfile = () => {
               <button
                 onClick={handleSaveChanges}
                 className="btn d-flex align-items-center gap-2"
-                style={{fontFamily:'body', backgroundColor:'#22C55E', color:'white'}}
-              >
+                style={{fontFamily:'body', backgroundColor:'#22C55E', color:'white'}}>
                 <Save size={18} />
                 Save Changes
               </button>
@@ -114,8 +110,7 @@ const EmployerAccountProfile = () => {
                 // Pass Bootstrap classes as a prop
                 className="d-flex align-items-center gap-2" 
                 // Pass custom styles as a prop
-                style={{fontFamily:'body', backgroundColor:'$red-200', color:'white'}}
-              >
+                style={{fontFamily:'body', backgroundColor:'#22C55E', color:'red'}}>
                 {/* Pass the icon and text as children */}
                 <LogOut size={18} />
                 Logout

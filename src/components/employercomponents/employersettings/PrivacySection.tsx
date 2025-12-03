@@ -39,7 +39,7 @@ const PrivacySection = ({ privacySettings, onPrivacySettingsChange }: PrivacySec
 
   return (
     <div className="card border-0 shadow-sm">
-      <div className="card-body p-4">
+      <div className="card-body p-2">
         <h3 className="h5 fw-semibold mb-4">Privacy Settings</h3>
         <p className="text-muted mb-4">Configure how employee data is handled</p>
         

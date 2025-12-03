@@ -48,9 +48,7 @@ const Header = ({ title, showSearch = false, onMenuToggle, additionalContent }: 
                 <Bell size={20} />
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1"
                 style={{backgroundColor: PRIMARY_COLOR , color:'3CB371'}}></span>
-              </button>
-
-              
+              </button>              
             </div>
           </div>
         </div>
