@@ -85,7 +85,21 @@ const AdminSidebar = () => {
                     borderBottom: "1px solid #e9ecef",
                     display: "flex",
                     justifyContent: "center",
+<<<<<<< HEAD
                 }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "45px", objectFit: 'contain' } }) }), _jsx("div", { style: { padding: "1rem 0.5rem", flexGrow: 1, overflowY: 'auto' }, children: menuItems.map((item) => {
+=======
+                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
+                    // Cast icon to valid React component
+                    // const IconComponent = Icons[
+                    //   item.icon as keyof typeof Icons
+                    // ] as React.FC<{
+                    //   size?: number;
+                    //   color?: string;
+                    // }>;
+                    // const isActive =
+                    //   currentPath === item.id ||
+                    //   (item.id === "overview" && currentPath === undefined);
+>>>>>>> 37162f95af956e4c186340fe97c3228f215b9220
                     return (_jsx(SideNavButton, { id: item.id, label: item.label, icon: item.icon, onClick: () => handleMenuClick(item.id) }, item.id));
                 }) }), _jsxs("div", { style: { padding: "0.5rem", borderTop: "1px solid #e9ecef" }, children: [_jsx(SideNavButton, { id: "settings-overview", label: "Settings", icon: "Settings", onClick: handleSettingsClick }), _jsx(SideNavButton, { id: "login", label: "Log Out", icon: "LogOut", onClick: handleLogoutClick, detectActive: false })] })] }));
 };

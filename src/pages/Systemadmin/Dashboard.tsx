@@ -10,6 +10,7 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
+import { BlogTable, BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
 
 // Import shared type definitions
 import {
@@ -147,11 +148,60 @@ const dashboardStatsData: StatCardData[] = [
   },
 ];
 
+
 /**
  * Main Dashboard component
  * Combines sidebar, header, and dashboard content
  */
 const Dashboard: React.FC = () => {
+
+  /* The blog state + handlers */
+  const [blogs, setBlogs] = React.useState<BlogPost[]>([
+    {
+      id: "1",
+      title: "The Future of AI in Healthcare",
+      category: "Health",
+      date: "2025-12-01",
+      status: "published",
+      excerpt: "Exploring how AI is transforming patient care and diagnostics.",
+      imageUrl: "https://via.placeholder.com/150",
+      author: "Dr. Jane Doe",
+      content: "Full article content goes here...",
+      featured: true,
+    },
+    {
+      id: "2",
+      title: "Top 10 Web Development Trends",
+      category: "Tech",
+      date: "2025-11-28",
+      status: "draft",
+      excerpt: "A look at the latest frameworks and tools shaping web dev.",
+      imageUrl: "https://via.placeholder.com/150",
+      author: "ORENA",
+      content: "Full article content goes here...",
+      featured: false,
+    },
+  ]);
+
+
+  const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
+  const [showAddModal, setShowAddModal] = React.useState(false);
+  const [showEditModal, setShowEditModal] = React.useState(false);
+
+  const handleAdd = () => {
+    setShowAddModal(true);
+  };
+
+  const handleEdit = (blog: BlogPost) => {
+    setSelectedBlog(blog);
+    setShowEditModal(true);
+  };
+
+  const handleDelete = (id: string) => {
+    setBlogs(prev => prev.filter(blog => blog.id !== id));
+  };
+
+
   return (
     // Full-height layout with sidebar and main content
     <div className="d-flex vh-100">
@@ -233,6 +283,19 @@ const Dashboard: React.FC = () => {
                   </Card>
                 </Col>
               </Row>
+
+              {/* Blog table */}
+              <Row className="gy-4 mb-4">
+                <Col>
+                  <BlogTable
+                    blogs={blogs}
+                    onAdd={handleAdd}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                  />
+                </Col>
+              </Row>
+
 
               {/* Bottom metric summary cards */}
               <Row className="g-4">

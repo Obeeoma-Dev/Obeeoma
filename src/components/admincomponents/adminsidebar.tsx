@@ -140,7 +140,11 @@ const AdminSidebar: React.FC = () => {
         <img
           src={logo}
           alt="Obeeoma Logo"
+<<<<<<< HEAD
           style={{ width: "160px", height: "45px", objectFit: 'contain' }}
+=======
+          style={{ width: "160px", height: "40px" }}
+>>>>>>> 37162f95af956e4c186340fe97c3228f215b9220
         />
       </div>
 
