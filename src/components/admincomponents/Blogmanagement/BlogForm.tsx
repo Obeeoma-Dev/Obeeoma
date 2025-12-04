@@ -60,7 +60,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
             show={show}
             onHide={onClose}
             placement="end"
-            className="blog-modal"   // 👈 reusing your existing CSS root class
+            className="blog-modal"   // reusing your existing CSS root class
         >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title className="modal-title-custom">
