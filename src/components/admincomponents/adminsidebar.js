@@ -85,7 +85,7 @@ const AdminSidebar = () => {
                     borderBottom: "1px solid #dee2e6",
                     display: "flex",
                     justifyContent: "center",
-                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "180px", height: "50px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
+                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
                     // Cast icon to valid React component
                     // const IconComponent = Icons[
                     //   item.icon as keyof typeof Icons

@@ -140,7 +140,7 @@ const AdminSidebar: React.FC = () => {
         <img
           src={logo}
           alt="Obeeoma Logo"
-          style={{ width: "180px", height: "50px" }}
+          style={{ width: "160px", height: "40px" }}
         />
       </div>
 
