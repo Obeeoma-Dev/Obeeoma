@@ -189,7 +189,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 5. Therapist Services */}
+                        {/* 5. Therapist Services
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -209,9 +209,9 @@ export function TermsAndConditions() {
                                     </Stack>
                                 </Card>
                             </motion.div>
-                        </Col>
+                        </Col> */}
 
-                        {/* 6. Community and AI Chat */}
+                        {/* 5. Community and AI Chat */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -220,7 +220,7 @@ export function TermsAndConditions() {
                                             <MessageCircle className="icon-indigo" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">6. Community and AI Chat</h2>
+                                            <h2 className="h5 fw-bold mb-3">5. Community and AI Chat</h2>
                                             <p className="text-gray mb-2">
                                                 The Obeeoma community and AI chat are designed for emotional support, not for medical emergencies. You agree not to:
                                             </p>
@@ -238,7 +238,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 7. Privacy */}
+                        {/* 6. Privacy */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -247,7 +247,7 @@ export function TermsAndConditions() {
                                             <Lock className="icon-emerald" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">7. Privacy</h2>
+                                            <h2 className="h5 fw-bold mb-3">6. Privacy</h2>
                                             <p className="text-gray small">
                                                 Your use of Obeeoma is also governed by our Privacy Policy, which explains how we
                                                 collect, use, and protect your data. By using the Platform, you consent to our data
@@ -259,7 +259,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 8. Intellectual Property */}
+                        {/* 7. Intellectual Property */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -268,7 +268,7 @@ export function TermsAndConditions() {
                                             <Copyright className="icon-orange" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">8. Intellectual Property</h2>
+                                            <h2 className="h5 fw-bold mb-3">7. Intellectual Property</h2>
                                             <p className="text-gray small">
                                                 All content and technology on Obeeoma (including trademarks, text, software, and graphics)
                                                 are owned by Obeeoma or its licensors. You may not copy, modify, or reproduce any part
@@ -280,7 +280,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 9. Limitation of Liability */}
+                        {/* 8. Limitation of Liability */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -289,7 +289,7 @@ export function TermsAndConditions() {
                                             <ShieldAlert className="icon-red" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">9. Limitation of Liability</h2>
+                                            <h2 className="h5 fw-bold mb-3">8. Limitation of Liability</h2>
                                             <p className="text-gray mb-2">To the fullest extent permitted by law:</p>
                                             <ul className="text-gray small mb-0">
                                                 <li><span className="text-red me-2">•</span>Obeeoma is not liable for any loss, injury, or damages arising from the use or inability to use the Platform</li>
@@ -302,7 +302,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 10. Termination */}
+                        {/* 9. Termination */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -311,7 +311,7 @@ export function TermsAndConditions() {
                                             <XCircle className="icon-gray" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">10. Termination</h2>
+                                            <h2 className="h5 fw-bold mb-3">9. Termination</h2>
                                             <p className="text-gray small">
                                                 You may delete your account anytime. Obeeoma may suspend or terminate your account if
                                                 you violate these Terms or misuse the Platform. Termination does not affect your
@@ -323,7 +323,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 11. Updates to Terms */}
+                        {/* 10. Updates to Terms */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -332,7 +332,7 @@ export function TermsAndConditions() {
                                             <RefreshCw className="icon-yellow" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">11. Updates to Terms</h2>
+                                            <h2 className="h5 fw-bold mb-3">10. Updates to Terms</h2>
                                             <p className="text-gray small">
                                                 We may update these Terms occasionally. Updated versions will be posted on our website or
                                                 in the app. Continued use after updates means you accept the new Terms.
@@ -343,7 +343,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 12. Governing Law */}
+                        {/* 11. Governing Law */}
                         <Col md={6}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3">
@@ -352,7 +352,7 @@ export function TermsAndConditions() {
                                             <Scale className="icon-blue" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">12. Governing Law</h2>
+                                            <h2 className="h5 fw-bold mb-3">11. Governing Law</h2>
                                             <p className="text-gray small">
                                                 These Terms and Conditions are governed by the laws of the Federal Republic of Nigeria.
                                                 Any disputes shall be handled by Nigerian courts.
@@ -363,7 +363,7 @@ export function TermsAndConditions() {
                             </motion.div>
                         </Col>
 
-                        {/* 13. Contact Information */}
+                        {/* 12. Contact Information */}
                         <Col md={12}>
                             <motion.div variants={cardVariants}>
                                 <Card className="h-100 shadow-sm border-custom p-3 bg-emerald-light">
@@ -372,7 +372,7 @@ export function TermsAndConditions() {
                                             <Mail className="icon-white" />
                                         </div>
                                         <div>
-                                            <h2 className="h5 fw-bold mb-3">13. Contact Information</h2>
+                                            <h2 className="h5 fw-bold mb-3">12. Contact Information</h2>
                                             <p className="text-gray small mb-2">For questions or support, contact:</p>
                                             <Stack direction="horizontal" gap={3} className="flex-wrap">
                                                 <motion.a
