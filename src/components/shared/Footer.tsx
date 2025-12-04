@@ -15,8 +15,8 @@ const Footer: React.FC = () => {
     services: {
       title: "Services",
       items: [
-        { text: "For Organizations", link: "/organizations" },
-        { text: "For Employees", link: "/employees" },
+        { text: "For Organizations", link: "/signup" },
+        { text: "For Employees", link: "/login" },
       ],
     },
     company: {

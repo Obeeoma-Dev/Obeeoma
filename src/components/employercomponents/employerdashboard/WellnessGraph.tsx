@@ -8,7 +8,7 @@
 
 // export default function WellnessGraph({
 //   data,
-//   width = 472, // Match image width
+//   width = 472, // Match im9age width
 //   height = 265, // Match image height
 // }: WellnessGraphProps): React.JSX.Element {
 //   // Add debugging
@@ -330,7 +330,7 @@ export default function WellnessGraph({
                   x="30"
                   y={y + 4}
                   fontSize="10"
-                  fill="#666"
+                  fill="#784"
                   textAnchor="end"
                   alignmentBaseline="middle"
                 >

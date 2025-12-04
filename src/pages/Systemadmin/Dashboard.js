@@ -18,7 +18,7 @@ const recentActivityData = [
         details: "Wellness Centre Inc. joined the platform",
         time: "2 hours ago",
         icon: "Building2", // Icon representing an organization or building
-        iconColor: "bg-light", // Bootstrap background color class
+        iconColor: "text-success", // Bootstrap background color class
     },
     {
         id: "2",
@@ -26,7 +26,7 @@ const recentActivityData = [
         details: "New AI recommendation available for review",
         time: "1 hour ago",
         icon: "Brain", // Icon representing AI or intelligence
-        iconColor: "bg-light",
+        iconColor: "text-info",
     },
     {
         id: "3",
@@ -34,7 +34,7 @@ const recentActivityData = [
         details: "12 hotline calls were received",
         time: "45 minutes ago",
         icon: "PhoneCall", // Icon representing phone or hotline
-        iconColor: "bg-light",
+        iconColor: "text-danger",
     },
     {
         id: "4",
@@ -42,7 +42,7 @@ const recentActivityData = [
         details: "45 patients were engaged today",
         time: "30 minutes ago",
         icon: "UserPlus", // Icon representing user engagement or addition
-        iconColor: "bg-light",
+        iconColor: "text-primary",
     },
     {
         id: "5",
@@ -50,7 +50,7 @@ const recentActivityData = [
         details: "University Counseling Center subscribed to the platform",
         time: "25 minutes ago",
         icon: "CreditCard", // Icon representing financial or subscription activity
-        iconColor: "bg-light",
+        iconColor: "text-warning",
     },
 ];
 /**

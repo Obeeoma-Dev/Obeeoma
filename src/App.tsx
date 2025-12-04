@@ -15,6 +15,8 @@ import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
+import { TermsAndConditions } from "./pages/landingpage/Terms";
+import { PrivacyPolicy } from "./pages/landingpage/Policy";
 import AcceptInvite from "./pages/auth/accept-invite";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
@@ -56,21 +58,27 @@ export default function App(): React.ReactElement {
           <Provider store={store}>
             <Routes>
 
-              {/* === PUBLIC ROUTES === */}
-{/*               <Route path="/" element={<Navigate to="/" replace />} /> */}
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Register />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
-              <Route path="/accept-invite" element={<AcceptInvite />} />
-              <Route path="/otp-verify" element={<OtpVerificationPage />} />
-              <Route path="/about-us" element={<Aboutus />} />
-              <Route path="/contact-us" element={<ContactPage />} />
-              <Route path="/blog" element={<Blog />} />
+              {/* === PUBLIC ROUTES === */}
+              <Route path="/" element={<Navigate to="/index" replace />} />
+              <Route path="/index" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Register />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+              <Route path="/accept-invite" element={<AcceptInvite />} />
+              <Route path="/otp-verify" element={<OtpVerificationPage />} />
+              <Route path="/mfa-setup" element={<MfaSetupPage />} />
+              <Route path="/about-us" element={<Aboutus />} />
+              <Route path="/contact-us" element={<ContactPage />} />
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/employee-downloadapp" element={<EmployeeLandingPage />} />
+              {/* <Route path="/employee-downloadapp" element={<AppDownloadSection/>} /> */}
+          
 
-              {/* === PROTECTED ROUTES WRAPPER (Now active) === */}
-              <Route element={<ProtectedRoute />}> 
+              {/* === PROTECTED ROUTES WRAPPER (Uncomment to activate) === */}
+              {/* <Route element={<ProtectedRoute />}> */}
 
               {/* EMPLOYEE'S ROUTES */}
               <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
