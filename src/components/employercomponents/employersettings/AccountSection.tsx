@@ -62,7 +62,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
       <div className="card-body p-2">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h3 className="h5 fw-semibold mb-0" id="account-info-heading">Company Account</h3>
-          <Link to="edit-profile" className="btn btn-success">
+          <Link to="/edit-profile" className="btn btn-success">
             <Edit size={16} className="me-2" />
             Edit Profile
           </Link>
@@ -206,11 +206,12 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
             <div className="border-top pt-4">
               <h5 className="h6 fw-semibold text-muted mb-3">QUICK ACTIONS</h5>
               <div className="d-flex gap-3">
-                <Link to="edit-profile" className="btn btn-outline-success">
+                
+                {/* <Link to="edit-profile" className="btn btn-outline-success">
                   <Edit size={16} className="me-2" />
                   Edit Profile Information
-                </Link>
-                <Link to="reset-password" className="btn btn-outline-secondary">
+                </Link> */}
+                <Link to="/reset-password" className="btn btn-outline-secondary">
                   Change Password
                 </Link>
               </div>

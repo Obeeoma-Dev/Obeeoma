@@ -21,25 +21,54 @@ const WellnessTrends = () => {
   ];
 
   return (
-    <div className="row mb-5">
-      <div className="col-12">
-        <div className="card border-0 shadow-sm">
-          <div className="card-body p-4">
-            <h3 className="h5 fw-semibold mb-4">Wellness Trends</h3>
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart data={wellnessTrends}>
-                <CartesianGrid strokeDasharray="3 3" className="opacity-50" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="wellness" stroke="#77e7c2ff" strokeWidth={2} />
-                <Line type="monotone" dataKey="stress" stroke="#22C55E" strokeWidth={2} />
-                <Line type="monotone" dataKey="engagement" stroke="#606968ff" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+    <div className="p-5 bg-white rounded-lg shadow-md">
+      <h2 className="m-0 mb-2 text-gray-800">Mood Trend</h2>
+      <p className="m-0 mb-5 text-gray-600 text-sm">Automated from aggregated data</p>
+
+      <div className="h-[300px]">
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart
+            data={moodData}
+            margin={{ top: 20, right: 30, left: 40, bottom: 20 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+
+            {/* XAxis with dates */}
+            <XAxis
+              dataKey="date"
+              tick={{ fill: '#666' }}
+              axisLine={{ stroke: '#ccc' }}
+            />
+
+            {/* YAxis with emojis */}
+            <YAxis
+              tick={renderEmojiTick}
+              ticks={[0, 25, 50, 75, 100]}
+              domain={[0, 100]}
+              axisLine={{ stroke: '#ccc' }}
+              tickLine={false}
+              label={{
+                value: 'Mood',
+                angle: -90,
+                position: 'insideLeft',
+                offset: -10,
+                style: { fill: '#666' }
+              }}
+            />
+
+            <Tooltip content={<CustomTooltip />} />
+
+            {/* Mood line */}
+            <Line
+              type="monotone"
+              dataKey="score"
+              stroke="#8884d8"
+              strokeWidth={2}
+              dot={{ r: 4 }}
+              activeDot={{ r: 6 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
