@@ -31,7 +31,7 @@ import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings"
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
-import EditProfilePage from "./pages/EmployerPages/EditProfilePage";
+import EditEmployerProfilePage from "./pages/EmployerPages/EditEmployerProfilePage";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
 import EmployerNotificationPage from "./pages/EmployerPages/EmployerNotificationPage";
 import CompanyReports from "./pages/EmployerPages/CompanyReports";
@@ -56,18 +56,18 @@ export default function App(): React.ReactElement {
           <Provider store={store}>
             <Routes>
 
-              {/* === PUBLIC ROUTES === */}
-{/*               <Route path="/" element={<Navigate to="/" replace />} /> */}
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Register />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
-              <Route path="/accept-invite" element={<AcceptInvite />} />
-              <Route path="/otp-verify" element={<OtpVerificationPage />} />
-              <Route path="/about-us" element={<Aboutus />} />
-              <Route path="/contact-us" element={<ContactPage />} />
-              <Route path="/blog" element={<Blog />} />
+              {/* === PUBLIC ROUTES === */}
+{/*               <Route path="/" element={<Navigate to="/" replace />} /> */}
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Register />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
+              <Route path="/accept-invite" element={<AcceptInvite />} />
+              <Route path="/otp-verify" element={<OtpVerificationPage />} />
+              <Route path="/about-us" element={<Aboutus />} />
+              <Route path="/contact-us" element={<ContactPage />} />
+              <Route path="/blog" element={<Blog />} />
 
               {/* === PROTECTED ROUTES WRAPPER (Now active) === */}
               <Route element={<ProtectedRoute />}> 
@@ -77,15 +77,15 @@ export default function App(): React.ReactElement {
               <Route path="/employee-downloadapp" element={<EmployeeLandingPage />} />
               <Route path="/success-message" element={<PaymentSuccessPage />} />
 
-              {/* EMPLOYER'S ROUTES */}
-              <Route path="/organization-reports" element={<CompanyReports />} />
-              <Route path="/employer-dashboard" element={<EmployerDashboard companyId="your-company-id" />} />
-              <Route path="/employer-subscription" element={<EmployerSubscription />} />
-              <Route path="/employee-management" element={<EmployeeManagement />} />
-              <Route path="/employer-profile" element={<EmployerAccountProfile />} />
-              <Route path="/edit-profile" element={<EditProfilePage />} />
-              <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
-              <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
+              {/* EMPLOYER'S ROUTES */}
+              <Route path="/organization-reports" element={<CompanyReports />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard companyId="your-company-id" />} />
+              <Route path="/employer-subscription" element={<EmployerSubscription />} />
+              <Route path="/employee-management" element={<EmployeeManagement />} />
+              <Route path="/employer-profile" element={<EmployerAccountProfile />} />
+              <Route path="/edit-profile" element={<EditEmployerProfilePage />} />
+              <Route path="/employer-notifications" element={<EmployerNotificationPage />} />
+              <Route path="/employer-settings" element={<EmployerAccountSettingsPage />} />
 
               {/* SYSTEMS ADMIN ROUTES */}
               <Route path="/system-admin" element={<SysAdminDashboard />} /> {/* Main Admin Dashboard */}

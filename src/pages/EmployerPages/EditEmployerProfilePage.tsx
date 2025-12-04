@@ -3,7 +3,7 @@ import Layout from '../../components/employercomponents/shared/Layout';
 import EditProfileSection from '../../components/employercomponents/employersettings/EditProfileSection';
 import { EmployerUser } from '../../types/employer';
 
-const EditProfilePage: React.FC = () => {
+const EditEmployerProfilePage: React.FC = () => {
   const [accountData, setAccountData] = useState<EmployerUser>({
     id: '',
     role: 'employer',
@@ -39,4 +39,4 @@ const EditProfilePage: React.FC = () => {
   );
 };
 
-export default EditProfilePage;
+export default EditEmployerProfilePage;

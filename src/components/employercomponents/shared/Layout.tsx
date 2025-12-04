@@ -17,19 +17,9 @@ import { RootState, AppDispatch } from "../../../store/store";
 import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
 
 import { logoutUserThunk } from "../../../store/slices/authSlice";
+import {EmployerUser} from "../../../../src/types/employer";
 
 
-interface EmployerType {
-     firstName?: string;
-     lastName?: string;
-     email?: string;
-     organizationName: string;
-     company?: {
-         createdAt: string;
-         name?: string;
-     };
-
- }
 
 // Removed formatEmployerName as it's replaced by inline logic
 
@@ -49,7 +39,7 @@ const Layout = ({ children, title }: LayoutProps) => {
   const dispatch = useDispatch<AppDispatch>(); 
   
  
-  const employer = useSelector((state: RootState) => state.employer.currentEmployer) as EmployerType;
+  const employer = useSelector((state: RootState) => state.employer.currentEmployer) as EmployerUser;
   
   // 1. Organization Name Logic (UPDATED: Falls back directly to "User")
   const organizationNameOrDefault = employer?.organizationName 
