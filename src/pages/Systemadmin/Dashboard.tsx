@@ -203,8 +203,8 @@ const Dashboard: React.FC = () => {
             <Container fluid className="py-2">
               {/* Dashboard Title Section */}
               <div className="mb-5">
-                <h2 className="fw-bold mb-1" style={{ fontSize: '1.75rem', color: '#1a1a1a' }}>Dashboard</h2>
-                <p className="text-muted mb-0">Welcome back! Here's your platform overview.</p>
+                <h2 className="fw-bold mb-1" style={{ fontSize: '1.75rem', fontFamily: 'heading', color: '#1a1a1a' }}>Dashboard</h2>
+                <p className="text-muted mb-0" style={{ fontFamily: 'body' }}>Welcome back! Here's your platform overview.</p>
               </div>
 
               {/* Top dashboard stats cards */}
@@ -222,11 +222,11 @@ const Dashboard: React.FC = () => {
               {/* Recent activity feed and Bottom metrics in a 2-column layout */}
               <Row className="g-4 mb-4">
                 {/* Left column: Recent Activities */}
-                <Col lg={7}>
+                <Col>
                   <RecentActivities activities={recentActivityData} />
                 </Col>
 
-                {/* Right column: Quick Stats */}
+                {/* Right column: Quick Stats
                 <Col lg={5}>
                   <Card className="mb-4 shadow-sm border-0 h-100">
                     <Card.Header className="bg-white fw-bold fs-6 px-4 py-3 border-0">Quick Stats</Card.Header>
@@ -256,7 +256,7 @@ const Dashboard: React.FC = () => {
                       </div>
                     </Card.Body>
                   </Card>
-                </Col>
+                </Col> */}
               </Row>
 
 
