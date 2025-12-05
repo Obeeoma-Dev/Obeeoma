@@ -110,7 +110,7 @@ const EmployerAccountProfile = () => {
                 // Pass Bootstrap classes as a prop
                 className="d-flex align-items-center gap-2" 
                 // Pass custom styles as a prop
-                style={{fontFamily:'body', backgroundColor:'#22C55E', color:'red'}}>
+                style={{fontFamily:'body', backgroundColor:'#22C55E', color:'grey'}}>
                 {/* Pass the icon and text as children */}
                 <LogOut size={18} />
                 Logout

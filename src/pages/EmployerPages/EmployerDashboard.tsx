@@ -480,7 +480,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       title: "Add Employee",
       value: "",
       icon: "UserRoundPlus", 
-      color: "primary-purple", // Assuming TopGrid has a style for purple/violet
+      color: "primary-purple",
       description: "Send invites to workers in the company", 
       onClick: () => setShowAddEmployeeModal(true),
     },
@@ -491,7 +491,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
       // Icon matching the two person icon from the image
       icon: "UsersRound", 
       color: PRIMARY_COLOR, // Green
-      description: "Current workforce size", // Added description for consistency
+      description: "Current workforce size"
     },
       // 3. General Company Mood Card
     {

@@ -78,7 +78,7 @@ export const setupApiInterceptors = (store) => {
 export const authAPI = {
     // Login endpoint
     login: async (credentials) => {
-        const response = await api.post("/v1/auth/login/", credentials);
+        const response = await api.post("v1/auth/login/", credentials);
         return response;
     },
     // Register endpoint
