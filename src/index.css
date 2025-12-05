@@ -1776,19 +1776,34 @@ motion.a {
 
 
 
-/* Styles of the blog form */
-.blog-modal .modal-content {
+/* Styles of the blog form using Offcanvas */
+.blog-modal.offcanvas {
   border-radius: 12px;
   border: 1px solid #f1f1f1;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  width: 50% !important;
+  /* half-width drawer */
+  max-width: 600px;
+  /* optional cap */
+  background-color: #ffffff;
 }
 
-/* Modal header */
+/* Offcanvas header */
+.blog-modal .offcanvas-header {
+  border-bottom: 1px solid #f3f4f6;
+  /* gray-100 */
+}
+
 .modal-title-custom {
   font-size: 18px;
   font-weight: 600;
   color: #111827;
   /* gray-900 */
+}
+
+/* Offcanvas body */
+.blog-modal .offcanvas-body {
+  padding: 1.5rem;
 }
 
 .modal-body-custom label {
@@ -1797,10 +1812,28 @@ motion.a {
   /* gray-700 */
 }
 
-/* Footer */
+.modal-body-custom .form-control,
+.modal-body-custom .form-select {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  /* gray-200 */
+}
+
+.modal-body-custom .form-control:focus {
+  border-color: #059669;
+  /* emerald */
+  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+}
+
+/* Footer (custom div inside Offcanvas) */
 .modal-footer-custom {
   border-top: 1px solid #f3f4f6;
   /* gray-100 */
+  padding: 16px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 /* Save button */
@@ -1811,6 +1844,7 @@ motion.a {
   padding: 8px 16px;
   font-size: 14px;
   border-radius: 8px;
+  color: #ffffff;
 }
 
 .save-btn:hover {

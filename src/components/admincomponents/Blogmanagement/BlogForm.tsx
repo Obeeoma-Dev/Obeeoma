@@ -60,7 +60,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
             show={show}
             onHide={onClose}
             placement="end"
-            className="blog-modal"   // 👈 reusing your existing CSS root class
+            className="blog-modal"   // reusing your existing CSS root class
         >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title className="modal-title-custom">
@@ -151,6 +151,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                             onChange={handleChange}
                             as="textarea"
                             rows={2}
+                            placeholder="Brief description of the article preview"
                         />
                     </Form.Group>
 
@@ -162,6 +163,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                             onChange={handleChange}
                             as="textarea"
                             rows={5}
+                            placeholder="Write your article content here"
                         />
                     </Form.Group>
                 </Form>

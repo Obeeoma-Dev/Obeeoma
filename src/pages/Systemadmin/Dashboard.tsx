@@ -11,7 +11,7 @@ import PlatformUsageChart from "../../components/admincomponents/Overviewcompone
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 import { BlogTable, BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
-
+import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 // Import shared type definitions
 import {
   ActivityItem,
@@ -156,32 +156,7 @@ const dashboardStatsData: StatCardData[] = [
 const Dashboard: React.FC = () => {
 
   /* The blog state + handlers */
-  const [blogs, setBlogs] = React.useState<BlogPost[]>([
-    {
-      id: "1",
-      title: "The Future of AI in Healthcare",
-      category: "Health",
-      date: "2025-12-01",
-      status: "published",
-      excerpt: "Exploring how AI is transforming patient care and diagnostics.",
-      imageUrl: "https://via.placeholder.com/150",
-      author: "Dr. Jane Doe",
-      content: "Full article content goes here...",
-      featured: true,
-    },
-    {
-      id: "2",
-      title: "Top 10 Web Development Trends",
-      category: "Tech",
-      date: "2025-11-28",
-      status: "draft",
-      excerpt: "A look at the latest frameworks and tools shaping web dev.",
-      imageUrl: "https://via.placeholder.com/150",
-      author: "ORENA",
-      content: "Full article content goes here...",
-      featured: false,
-    },
-  ]);
+  const [blogs, setBlogs] = React.useState<BlogPost[]>([]);
 
 
   const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
@@ -245,15 +220,11 @@ const Dashboard: React.FC = () => {
                 </Col>
               </Row>
 
-              {/* Blog table */}
+
+              {/* Platform usage chart */}
               <Row className="gy-4 mb-4">
                 <Col>
-                  <BlogTable
-                    blogs={blogs}
-                    onAdd={handleAdd}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                  />
+                  <BlogManager />
                 </Col>
               </Row>
 
