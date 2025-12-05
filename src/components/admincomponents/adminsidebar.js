@@ -76,27 +76,17 @@ const AdminSidebar = () => {
             width: "250px",
             height: "100vh",
             backgroundColor: "#ffffff",
-            borderRight: "1px solid #dee2e6",
+            borderRight: "1px solid #e9ecef",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
         }, children: [_jsx("div", { style: {
-                    padding: "2rem",
-                    borderBottom: "1px solid #dee2e6",
+                    padding: "1.5rem",
+                    borderBottom: "1px solid #e9ecef",
                     display: "flex",
                     justifyContent: "center",
-                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "40px" } }) }), _jsx("div", { style: { padding: "1rem 0", flexGrow: 1 }, children: menuItems.map((item) => {
-                    // Cast icon to valid React component
-                    // const IconComponent = Icons[
-                    //   item.icon as keyof typeof Icons
-                    // ] as React.FC<{
-                    //   size?: number;
-                    //   color?: string;
-                    // }>;
-                    // const isActive =
-                    //   currentPath === item.id ||
-                    //   (item.id === "overview" && currentPath === undefined);
+                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "45px", objectFit: 'contain' } }) }), _jsx("div", { style: { padding: "1rem 0.5rem", flexGrow: 1, overflowY: 'auto' }, children: menuItems.map((item) => {
                     return (_jsx(SideNavButton, { id: item.id, label: item.label, icon: item.icon, onClick: () => handleMenuClick(item.id) }, item.id));
-                }) }), _jsxs("div", { style: { padding: "1rem", borderTop: "1px solid #dee2e6" }, children: [_jsx(SideNavButton, { id: "settings-overview", label: "Settings", icon: "Settings", onClick: handleSettingsClick }), _jsx(SideNavButton, { id: "login", label: "Log Out", icon: "LogOut", onClick: handleLogoutClick, detectActive: false })] })] }));
+                }) }), _jsxs("div", { style: { padding: "0.5rem", borderTop: "1px solid #e9ecef" }, children: [_jsx(SideNavButton, { id: "settings-overview", label: "Settings", icon: "Settings", onClick: handleSettingsClick }), _jsx(SideNavButton, { id: "login", label: "Log Out", icon: "LogOut", onClick: handleLogoutClick, detectActive: false })] })] }));
 };
 export default AdminSidebar;

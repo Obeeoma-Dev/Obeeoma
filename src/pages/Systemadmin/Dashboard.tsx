@@ -1,7 +1,7 @@
 // src/pages/Dashboard.tsx
 
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 // Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
@@ -193,30 +193,69 @@ const Dashboard: React.FC = () => {
           style={{
             flex: 1,
             overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            padding: '2rem 1.5rem',
+            backgroundColor: '#f5f7fa',
           }}
         >
 
           {/* Scrollable content below header */}
           <div className="flex-grow-1 overflow-auto">
-            <Container fluid className="py-4">
+            <Container fluid className="py-2">
+              {/* Dashboard Title Section */}
+              <div className="mb-5">
+                <h2 className="fw-bold mb-1" style={{ fontSize: '1.75rem', color: '#1a1a1a' }}>Dashboard</h2>
+                <p className="text-muted mb-0">Welcome back! Here's your platform overview.</p>
+              </div>
+
               {/* Top dashboard stats cards */}
-              <Row className="gy-4">
+              <Row className="g-4 mb-5">
                 <DashboardStats stats={dashboardStatsData} />
               </Row>
 
               {/* Platform usage chart */}
-              <Row className="gy-4">
+              <Row className="g-4 mb-5">
                 <Col>
                   <PlatformUsageChart />
                 </Col>
               </Row>
 
-              {/* Recent activity feed */}
-              <Row className="gy-4">
-                <Col>
+              {/* Recent activity feed and Bottom metrics in a 2-column layout */}
+              <Row className="g-4 mb-4">
+                {/* Left column: Recent Activities */}
+                <Col lg={7}>
                   <RecentActivities activities={recentActivityData} />
+                </Col>
+
+                {/* Right column: Quick Stats */}
+                <Col lg={5}>
+                  <Card className="mb-4 shadow-sm border-0 h-100">
+                    <Card.Header className="bg-white fw-bold fs-6 px-4 py-3 border-0">Quick Stats</Card.Header>
+                    <Card.Body className="px-4 py-3">
+                      <div className="d-flex flex-column gap-3">
+                        <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#f0f9f7' }}>
+                          <div>
+                            <div className="small text-muted">Active Users</div>
+                            <div className="h5 fw-bold text-dark mb-0">2,450</div>
+                          </div>
+                          <div className="text-success fw-semibold">+12%</div>
+                        </div>
+                        <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#f0f5ff' }}>
+                          <div>
+                            <div className="small text-muted">Platform Health</div>
+                            <div className="h5 fw-bold text-dark mb-0">99.8%</div>
+                          </div>
+                          <div className="text-primary fw-semibold">Excellent</div>
+                        </div>
+                        <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#fffaf0' }}>
+                          <div>
+                            <div className="small text-muted">Support Tickets</div>
+                            <div className="h5 fw-bold text-dark mb-0">24</div>
+                          </div>
+                          <div className="text-warning fw-semibold">In Progress</div>
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
                 </Col>
               </Row>
 
@@ -230,7 +269,7 @@ const Dashboard: React.FC = () => {
 
 
               {/* Bottom metric summary cards */}
-              <Row className="gy-4">
+              <Row className="g-4">
                 <BottomMetrics metrics={bottomMetricData} />
               </Row>
             </Container>

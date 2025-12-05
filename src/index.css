@@ -29,17 +29,18 @@
   --obeeoma-muted: #6c757d;
 
   /* Border radius and shadow */
-  --bs-border-radius: 0.75rem;
-  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  --card-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+  --bs-border-radius: 0.6rem;
+  --card-shadow: 0 2px 8px rgba(16,24,40,0.06);
+  --card-shadow-lg: 0 8px 20px rgba(16,24,40,0.08);
+  --ui-muted: #6b7280;
+  --ui-bg-soft: #f7faf9;
 }
 
 /* -----------------------------------------------
    Global Page Styling
 ----------------------------------------------- */
 body {
-  /*montserrat to be added here*/
-  font-family: "heading";
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);
   margin: 0;
@@ -309,6 +310,105 @@ footer a:hover {
   font-weight: 900;
   font-family: 'body';
   /* Make sure 'body' is defined in your fonts */
+}
+
+/* Settings tabs: show green underline on hover only; avoid button-like active styles */
+.settings-nav .nav-link {
+  background: transparent !important;
+  border: none !important;
+  color: var(--obeeoma-muted) !important;
+  padding-bottom: 0.4rem;
+  margin-right: 0.75rem;
+  border-bottom: 3px solid transparent;
+  border-radius: 0 !important;
+  transition: color 0.15s ease, border-bottom-color 0.15s ease, background-color 0.15s ease;
+}
+
+.settings-nav .nav-link:hover {
+  color: var(--obeeoma-green) !important;
+  border-bottom-color: var(--obeeoma-green) !important;
+  background: transparent !important;
+}
+
+/* Remove the default active pill/tab button look; we don't want a pressed/button style on click */
+.settings-nav .nav-link.active {
+  background: transparent !important;
+  color: var(--obeeoma-text) !important;
+  box-shadow: none !important;
+  border: none !important;
+  /* keep no underline for active state so hover controls the underline */
+  border-bottom-color: transparent !important;
+}
+
+/* Make sure nav items don't get extra padding from bootstrap */
+.settings-nav .nav-item {
+  margin-bottom: 0 !important;
+}
+
+/* Compact settings card used across System Admin settings pages */
+.settings-card-compact {
+  padding: 0.8rem !important;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--card-shadow);
+  background: white;
+}
+
+.settings-card-compact .card-header {
+  padding: 0.4rem 0 0.6rem 0 !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--obeeoma-text);
+  background: transparent;
+  border: 0;
+}
+
+.settings-card-compact .card-body,
+.settings-card-compact > .card-body {
+  padding: 0.5rem !important;
+}
+
+.settings-section-compact {
+  padding: 0.5rem !important;
+  background: #fff;
+}
+
+.settings-compact-list {
+  max-height: 5.25rem; /* keep lists short */
+  overflow: hidden;
+}
+
+/* Section header used inside cards for consistent spacing */
+.settings-section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--obeeoma-text);
+  margin-bottom: 6px;
+}
+
+.settings-subtitle {
+  font-size: 0.8rem;
+  color: var(--ui-muted);
+  margin-bottom: 8px;
+}
+
+/* Primary save button styling for settings pages */
+.settings-save-btn {
+  background: linear-gradient(90deg, var(--obeeoma-green), var(--obeeoma-green-dark));
+  border: none;
+  box-shadow: none;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+
+.settings-save-btn:disabled {
+  opacity: 0.6;
+}
+
+/* Container to keep settings centered and constrained */
+.settings-main-container {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 
