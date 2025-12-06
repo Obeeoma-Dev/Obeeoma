@@ -114,7 +114,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
-    const response = await api.post("/v1/auth/login/", credentials);
+    const response = await api.post("v1/auth/login/", credentials);
     return response;
   },
 
