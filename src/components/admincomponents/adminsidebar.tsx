@@ -145,7 +145,7 @@ const AdminSidebar: React.FC = () => {
       </div>
 
       {/* Navigation menu */}
-      <div style={{ padding: "1rem 0.5rem", flexGrow: 1, overflowY: 'auto' }}>
+      <div style={{ padding: "1rem 0.5rem", fontFamily: 'body', flexGrow: 1, overflowY: 'auto' }}>
         {menuItems.map((item) => {
           return (
             <SideNavButton
@@ -160,7 +160,7 @@ const AdminSidebar: React.FC = () => {
       </div>
 
       {/* Bottom section: Settings and Logout */}
-      <div style={{ padding: "0.5rem", borderTop: "1px solid #e9ecef" }}>
+      <div style={{ padding: "0.5rem", fontFamily: 'body', borderTop: "1px solid #e9ecef" }}>
         <SideNavButton
           id="settings-overview"
           label="Settings"

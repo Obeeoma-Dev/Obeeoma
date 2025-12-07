@@ -41,19 +41,19 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({ metrics }) =
                   {/* Top section: icon and title */}
                   <div className="d-flex align-items-center gap-3 mb-3">
                     <div
-                      className="rounded-2 d-flex align-items-center justify-content-center flex-shrink-0"
+                      className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
                       style={{ width: "44px", height: "44px", backgroundColor: '#f0f5f2' }}
                     >
                       <IconComponent size={22} color={iconColor} />
                     </div>
-                    <h6 className="text-muted fw-500 mb-0" style={{ fontSize: '0.85rem' }}>{metric.title}</h6>
+                    <h6 className="text-muted fw-500 mb-0" style={{ fontSize: '0.85rem', fontFamily: 'body' }}>{metric.title}</h6>
                   </div>
 
                   {/* Main value */}
-                  <h3 className="fw-bold mb-2" style={{ fontSize: '1.75rem', color: '#1a1a1a' }}>{metric.value}</h3>
+                  <h3 className="fw-bold mb-2" style={{ fontSize: '1.75rem', color: '#1a1a1a', fontFamily: 'body' }}>{metric.value}</h3>
 
                   {/* Subtitle */}
-                  <p className="text-muted small mb-3" style={{ fontSize: '0.85rem' }}>{metric.subtitle}</p>
+                  <p className="text-muted small mb-3" style={{ fontSize: '0.85rem', fontFamily: 'body' }}>{metric.subtitle}</p>
 
                   {/* Link CTA */}
                   <Button

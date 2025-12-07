@@ -220,7 +220,7 @@ const Dashboard: React.FC = () => {
               </Row>
 
               {/* Recent activity feed and Bottom metrics in a 2-column layout */}
-              <Row className="g-4 mb-4">
+              <Row className="g-4 mb-5">
                 {/* Left column: Recent Activities */}
                 <Col>
                   <RecentActivities activities={recentActivityData} />
@@ -261,7 +261,7 @@ const Dashboard: React.FC = () => {
 
 
               {/* Platform usage chart */}
-              <Row className="gy-4 mb-4">
+              <Row className="gy-4 mb-5">
                 <Col>
                   <BlogManager />
                 </Col>

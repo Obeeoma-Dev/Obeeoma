@@ -36,7 +36,7 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 </div>
 
                 {/* Add Article Button */}
-                <Button className="blogtable-add-button d-flex align-items-center gap-2" onClick={onAdd}>
+                <Button className="blogtable-add-button d-flex align-items-center gap-2" style={{ fontFamily: 'body' }} onClick={onAdd}>
                     <PlusIcon size={16} />
                     Add Article
                 </Button>

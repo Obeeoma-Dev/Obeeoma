@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // Import React and required Bootstrap components
 import { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, ButtonGroup, Button } from "react-bootstrap";
 // Import chart components from Recharts
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, } from "recharts";
 /**
@@ -28,20 +28,18 @@ const PlatformUsageChart = () => {
     ];
     return (
     // Bootstrap Card container for chart section
-    _jsx(Card, { className: "mb-4 shadow-sm border-0", children: _jsxs(Card.Body, { className: "p-4", children: [_jsx("div", { className: "d-flex gap-4 mb-5 border-bottom pb-3", children: tabs.map((tab) => (_jsx(Button, { variant: "link", onClick: () => setActiveTab(tab.id), "aria-pressed": activeTab === tab.id, className: `p-0 border-0 text-decoration-none fw-500 ${activeTab === tab.id ? "text-success" : "text-muted"}`, style: {
+    _jsx(Card, { className: "mb-4 shadow-sm border-0", children: _jsxs(Card.Body, { children: [_jsx(ButtonGroup, { className: "mb-4 w-100 justify-content-between", children: tabs.map((tab) => (_jsx(Button, { variant: "light", onClick: () => setActiveTab(tab.id), "aria-pressed": activeTab === tab.id, className: `px-3 py-2 border-0 position-relative ${activeTab === tab.id ? "fw-semibold text-success" : "text-secondary"}`, style: {
                             backgroundColor: "transparent",
-                            fontSize: '0.95rem',
-                            transition: "color 0.2s ease",
                             borderBottom: activeTab === tab.id ? "3px solid #3CB371" : "3px solid transparent",
-                            paddingBottom: activeTab === tab.id ? '3px' : '3px',
-                        }, children: tab.label }, tab.id))) }), _jsxs("h6", { className: "fw-semibold text-dark mb-4", style: { fontSize: '1rem', color: '#1a1a1a' }, children: [activeTab === "platform" && "Weekly Platform Usage", activeTab === "organization" && "Monthly Organization Growth", activeTab === "subscription" && "Monthly Subscription Revenue"] }), activeTab === "platform" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(AreaChart, { data: employeeData, margin: { top: 10, right: 30, left: -20, bottom: 0 }, children: [_jsx(CartesianGrid, { stroke: "#e9ecef", strokeDasharray: "0", vertical: false }), _jsx(XAxis, { dataKey: "week", tick: { fontSize: 12, fill: "#6c757d" }, axisLine: false, tickLine: false }), _jsx(YAxis, { tick: { fontSize: 12, fill: "#6c757d" }, axisLine: false, tickLine: false }), _jsx(Tooltip, { contentStyle: {
+                            borderRadius: 0,
+                            transition: "border-bottom 0.2s ease",
+                            boxShadow: activeTab === tab.id ? "0 2px 0 #19875466" : "none",
+                        }, children: tab.label }, tab.id))) }), _jsxs("h5", { className: "fw-semibold text-dark mb-4 md-4 position-relative ms-5", children: [activeTab === "platform" && "Weekly Platform Usage", activeTab === "organization" && "Monthly Organization Growth", activeTab === "subscription" && "Monthly Subscription Revenue"] }), activeTab === "platform" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(AreaChart, { data: employeeData, margin: { top: 20, right: 30, left: 0, bottom: 0 }, children: [_jsx(CartesianGrid, { stroke: "#dee2e6", strokeDasharray: "0", vertical: false }), _jsx(XAxis, { dataKey: "week", tick: { fontSize: 12, fill: "#6c757d" }, axisLine: false, tickLine: false }), _jsx(YAxis, { tick: { fontSize: 12, fill: "#6c757d" }, axisLine: false, tickLine: false }), _jsx(Tooltip, { contentStyle: {
                                     backgroundColor: "#ffffff",
                                     border: "1px solid #dee2e6",
                                     fontSize: "0.875rem",
                                     color: "#212529",
-                                    borderRadius: '8px',
-                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                                } }), _jsx(Area, { type: "natural", dataKey: "value", stroke: "#3CB371", strokeWidth: 3, fill: "#3CB371", fillOpacity: 0.08, dot: { r: 4, stroke: "#3CB371", strokeWidth: 2, fill: "#ffffff" }, activeDot: { r: 6 } })] }) })), activeTab === "organization" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(LineChart, { data: [
+                                } }), _jsx(Area, { type: "natural", dataKey: "value", stroke: "#198754", strokeWidth: 3, fill: "#198754", fillOpacity: 0.1, dot: { r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }, activeDot: { r: 5 } })] }) })), activeTab === "organization" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(LineChart, { data: [
                             { week: "Week 1", value: 1200 },
                             { week: "Week 2", value: 1500 },
                             { week: "Week 3", value: 1800 },

@@ -47,49 +47,48 @@ const PlatformUsageChart: React.FC = () => {
     // Bootstrap Card container for chart section
     <Card className="mb-4 shadow-sm border-0">
       {/* Card body contains tab navigation and chart */}
-      <Card.Body className="p-4">
+      <Card.Body>
         {/* Tab navigation using ButtonGroup */}
-        <div className="d-flex gap-4 mb-5 border-bottom pb-3">
+        <ButtonGroup className="mb-4 w-100 justify-content-between">
           {tabs.map((tab) => (
             <Button
               key={tab.id}
-              variant="link"
+              variant="light"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`p-0 border-0 text-decoration-none fw-500 ${activeTab === tab.id ? "text-success" : "text-muted"
+              className={`px-3 py-2 border-0 position-relative ${activeTab === tab.id ? "fw-semibold text-success" : "text-secondary"
                 }`}
               style={{
                 backgroundColor: "transparent",
-                fontSize: '0.95rem',
-                transition: "color 0.2s ease",
                 borderBottom: activeTab === tab.id ? "3px solid #3CB371" : "3px solid transparent",
-                paddingBottom: activeTab === tab.id ? '3px' : '3px',
+                borderRadius: 0,
+                transition: "border-bottom 0.2s ease",
+                boxShadow: activeTab === tab.id ? "0 2px 0 #19875466" : "none",
               }}
             >
               {tab.label}
             </Button>
           ))}
-        </div>
+        </ButtonGroup>
 
-        {/* Dynamic section header */}
-        <h6
-          className="fw-semibold text-dark mb-4"
-          style={{ fontSize: '1rem', color: '#1a1a1a' }}
+        {/* Dynamic section header with green underline */}
+        <h5
+          className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
         >
           {activeTab === "platform" && "Weekly Platform Usage"}
           {activeTab === "organization" && "Monthly Organization Growth"}
           {activeTab === "subscription" && "Monthly Subscription Revenue"}
-        </h6>
+        </h5>
 
         {/* Render chart only when 'platform' tab is active */}
         {activeTab === "platform" && (
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart
               data={employeeData}
-              margin={{ top: 10, right: 30, left: -20, bottom: 0 }}
+              margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               {/* Clean horizontal grid */}
-              <CartesianGrid stroke="#e9ecef" strokeDasharray="0" vertical={false} />
+              <CartesianGrid stroke="#dee2e6" strokeDasharray="0" vertical={false} />
 
               {/* X-axis with subtle styling */}
               <XAxis
@@ -113,8 +112,6 @@ const PlatformUsageChart: React.FC = () => {
                   border: "1px solid #dee2e6",
                   fontSize: "0.875rem",
                   color: "#212529",
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                 }}
               />
 
@@ -122,12 +119,12 @@ const PlatformUsageChart: React.FC = () => {
               <Area
                 type="natural"
                 dataKey="value"
-                stroke="#3CB371"
+                stroke="#198754"
                 strokeWidth={3}
-                fill="#3CB371"
-                fillOpacity={0.08}
-                dot={{ r: 4, stroke: "#3CB371", strokeWidth: 2, fill: "#ffffff" }}
-                activeDot={{ r: 6 }}
+                fill="#198754"
+                fillOpacity={0.1}
+                dot={{ r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }}
+                activeDot={{ r: 5 }}
               />
             </AreaChart>
           </ResponsiveContainer>

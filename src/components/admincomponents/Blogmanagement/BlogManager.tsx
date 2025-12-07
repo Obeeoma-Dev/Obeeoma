@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BlogTable } from "./BlogTable";
 import { BlogForm } from "./BlogForm"; // the Offcanvas form
 import { BlogPost } from "./BlogTable"; // import the type
+import { ConfirmModal } from "./../Reusedcomponents/ConfirmModal";
 
 export function BlogManager() {
 
@@ -34,6 +35,8 @@ export function BlogManager() {
     const [showForm, setShowForm] = useState(false);
     const [formMode, setFormMode] = useState<"add" | "edit">("add");
     const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
+    const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+
 
 
     // Add new article
@@ -52,8 +55,17 @@ export function BlogManager() {
 
     // Delete article
     function handleDelete(id: string) {
-        setBlogs((prev) => prev.filter((b) => b.id !== id));
+        setDeleteConfirm(id); // open the confirm modal
     }
+
+    // Confirmation handler delete.
+    function confirmDelete() {
+        if (!deleteConfirm) return;
+        setBlogs((prev) => prev.filter((b) => b.id !== deleteConfirm));
+        setDeleteConfirm(null); // close modal
+    }
+
+
 
 
 
@@ -88,7 +100,15 @@ export function BlogManager() {
                 onSubmit={handleSubmit}
             />
 
-
+            <ConfirmModal
+                show={!!deleteConfirm}
+                title="Delete Article"
+                message="Are you sure you want to delete this article? This action cannot be undone."
+                confirmText="Delete"
+                cancelText="Cancel"
+                onConfirm={confirmDelete}
+                onCancel={() => setDeleteConfirm(null)}
+            />
         </>
     );
 }

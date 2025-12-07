@@ -30,8 +30,8 @@
 
   /* Border radius and shadow */
   --bs-border-radius: 0.6rem;
-  --card-shadow: 0 2px 8px rgba(16,24,40,0.06);
-  --card-shadow-lg: 0 8px 20px rgba(16,24,40,0.08);
+  --card-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
+  --card-shadow-lg: 0 8px 20px rgba(16, 24, 40, 0.08);
   --ui-muted: #6b7280;
   --ui-bg-soft: #f7faf9;
 }
@@ -363,7 +363,7 @@ footer a:hover {
 }
 
 .settings-card-compact .card-body,
-.settings-card-compact > .card-body {
+.settings-card-compact>.card-body {
   padding: 0.5rem !important;
 }
 
@@ -373,7 +373,8 @@ footer a:hover {
 }
 
 .settings-compact-list {
-  max-height: 5.25rem; /* keep lists short */
+  max-height: 5.25rem;
+  /* keep lists short */
   overflow: hidden;
 }
 
@@ -1792,7 +1793,7 @@ motion.a {
 
 
 .blogtable-add-button:hover {
-  background-color: #047857 !important;
+  background-color: #0B6E45 !important;
 }
 
 /* TABLE HEADER */
@@ -1832,8 +1833,8 @@ motion.a {
 
 /* STATUS BADGES */
 .badge.blogtable-status-published {
-  background: #d1fae5 !important;
-  color: #065f46 !important;
+  background: #9DD3AF !important;
+  color: #0B6E45 !important;
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 12px;
@@ -1859,8 +1860,8 @@ motion.a {
 }
 
 .blogtable-edit-btn:hover {
-  background: #d1fae5 !important;
-  color: #059669 !important;
+  background: #9DD3AF !important;
+  color: #0B6E45 !important;
 }
 
 .blogtable-delete-btn:hover {
@@ -1964,4 +1965,12 @@ motion.a {
   border-color: #059669;
   /* emerald */
   box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+}
+
+
+/* Styling the background of the organisation interface on the system admin dashboard */
+.page-background {
+  background-color: #f5f6f8;
+  /* soft grey */
+  min-height: 100%;
 }

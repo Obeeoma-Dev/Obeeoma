@@ -218,7 +218,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     }
 
     .nav-pills .nav-link:hover {
-      background-color: #2E8B57 !important;
+      background-color: #0B6E45 !important;
       color: white !important;
     }
   `}

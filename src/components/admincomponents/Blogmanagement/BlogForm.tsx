@@ -63,7 +63,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
             className="blog-modal"   // reusing your existing CSS root class
         >
             <Offcanvas.Header closeButton>
-                <Offcanvas.Title className="modal-title-custom">
+                <Offcanvas.Title className="modal-title-custom" style={{ fontFamily: 'heading' }}>
                     {mode === "add" ? "Add New Article" : "Edit Article"}
                 </Offcanvas.Title>
             </Offcanvas.Header>
@@ -73,7 +73,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                     <Row className="mb-3">
                         <Col md={8}>
                             <Form.Group>
-                                <Form.Label>Title</Form.Label>
+                                <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Title</Form.Label>
                                 <Form.Control
                                     name="title"
                                     value={formData.title}
@@ -84,7 +84,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                         </Col>
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Category</Form.Label>
+                                <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Category</Form.Label>
                                 <Form.Control
                                     name="category"
                                     value={formData.category}
@@ -98,7 +98,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                     <Row className="mb-3">
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Date</Form.Label>
+                                <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     name="date"
@@ -109,7 +109,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                         </Col>
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Status</Form.Label>
+                                <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Status</Form.Label>
                                 <Form.Select
                                     name="status"
                                     value={formData.status}
@@ -122,7 +122,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                         </Col>
                         <Col md={4}>
                             <Form.Group>
-                                <Form.Label>Author</Form.Label>
+                                <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Author</Form.Label>
                                 <Form.Control
                                     name="author"
                                     value={formData.author}
@@ -134,7 +134,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                     </Row>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Article Image URL</Form.Label>
+                        <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Article Image URL</Form.Label>
                         <Form.Control
                             name="imageUrl"
                             value={formData.imageUrl}
@@ -144,7 +144,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Excerpt</Form.Label>
+                        <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Excerpt</Form.Label>
                         <Form.Control
                             name="excerpt"
                             value={formData.excerpt}
@@ -156,7 +156,7 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                        <Form.Label>Content</Form.Label>
+                        <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Content</Form.Label>
                         <Form.Control
                             name="content"
                             value={formData.content}
@@ -166,10 +166,27 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
                             placeholder="Write your article content here"
                         />
                     </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label className="fw-semibold" style={{ fontFamily: 'body' }}>Featured</Form.Label>
+                        <Form.Check
+                            type="switch"
+                            id="featured-switch"
+                            label="Mark this article as featured"
+                            checked={formData.featured}
+                            onChange={(e) =>
+                                setFormData((prev) => ({ ...prev, featured: e.target.checked }))
+                            }
+                        />
+                    </Form.Group>
+
+
                 </Form>
             </Offcanvas.Body>
 
-            <div className="modal-footer-custom d-flex justify-content-end p-3">
+            <div className="modal-footer-custom d-flex justify-content-end p-3"
+                style={{ fontFamily: 'body' }}
+            >
                 <Button variant="secondary" onClick={onClose}>
                     Cancel
                 </Button>

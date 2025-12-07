@@ -23,7 +23,9 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
     // Card container for the Recent Activities section (kept class names)
     <Card className="mb-4 shadow-sm border-0 h-100">
       {/* Card header with section title (kept the same) */}
-      <Card.Header className="bg-white fw-bold fs-6 px-4 py-3 border-0">
+      <Card.Header className="bg-white fw-bold fs-5 px-4 py-3 border-0"
+        style={{ fontFamily: 'heading' }}
+      >
         Recent Activities
       </Card.Header>
 
@@ -49,7 +51,7 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
                     {/* Left: Icon */}
                     <div className="d-flex align-items-center gap-3">
                       <div
-                        className="rounded-2 d-flex align-items-center justify-content-center flex-shrink-0"
+                        className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
                         style={{ width: "48px", height: "48px", backgroundColor: '#f0f5f2' }}
                         data-testid={`activity-icon-${activity.id}`}
                       >
@@ -58,13 +60,13 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
 
                       {/* Middle: Type + Details */}
                       <div>
-                        <div className="fw-600 text-dark" style={{ fontSize: '0.95rem' }}>{activity.type}</div>
-                        <div className="text-muted small" style={{ fontSize: '0.85rem' }}>{activity.details}</div>
+                        <div className="fw-600 text-dark" style={{ fontSize: '0.95rem', fontFamily: 'body' }}>{activity.type}</div>
+                        <div className="text-muted small" style={{ fontSize: '0.85rem', fontFamily: 'body' }}>{activity.details}</div>
                       </div>
                     </div>
 
                     {/* Right: Time */}
-                    <div className="text-muted small text-nowrap ms-3" style={{ fontSize: '0.8rem' }}>{activity.time}</div>
+                    <div className="text-muted small text-nowrap ms-3" style={{ fontSize: '0.8rem', fontFamily: 'body' }}>{activity.time}</div>
                   </div>
                 </div>
 

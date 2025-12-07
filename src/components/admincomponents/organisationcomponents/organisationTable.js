@@ -57,7 +57,7 @@ const OrganizationDashboard = ({ organizations, }) => {
     }
 
     .nav-pills .nav-link:hover {
-      background-color: #2E8B57 !important;
+      background-color: #0B6E45 !important;
       color: white !important;
     }
   ` }), _jsx(Tabs, { defaultActiveKey: "All", className: "mb-3", justify: true, variant: "pills", "aria-label": "Organization filters", children: ["All", "Active", "Inactive", "Premium", "Freemium"].map((tab) => (_jsx(Tab, { eventKey: tab, title: tab, children: renderTable(filterBySearch(filterByTab(tab))) }, tab))) })] }));
