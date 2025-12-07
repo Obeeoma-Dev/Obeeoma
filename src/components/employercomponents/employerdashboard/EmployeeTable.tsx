@@ -147,24 +147,6 @@ console.log(employees);
 
   return (
     <>
-      {/* Search Section */}
-      <div className="row mb-3">
-        <div className="col-12">
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="position-relative" style={{ width: "300px" }}>
-              <Search className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" size={16} />
-              <input
-                type="search"
-                placeholder="Search employees..."
-                className="form-control ps-5"
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Table */}
       <div className="table-responsive">
         <table className="table table-hover mb-0">

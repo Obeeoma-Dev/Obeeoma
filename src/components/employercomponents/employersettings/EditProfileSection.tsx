@@ -11,10 +11,12 @@ interface EditProfileSectionProps {
 type ValidationErrors = Partial<Record<keyof EmployerUser, string>>;
 
 const TIME_ZONES = [
-  'UTC-05:00 Eastern Time (US & Canada)',
-  'UTC-08:00 Pacific Time (US & Canada)',
-  'UTC+00:00 Greenwich Mean Time',
-  'UTC+01:00 Central European Time',
+  'UTC-01:00 Cape Verde Time (CVT)',
+  'UTC+00:00 Greenwich Mean Time (GMT)',
+  'UTC+01:00 West Africa Time (WAT)',
+  'UTC+02:00 Central Africa Time (CAT)',
+  'UTC+03:00 East Africa Time (EAT)',
+  'UTC+04:00 Seychelles/Mauritius Time (SCT/MUT)',
 ];
 
 const LANGUAGES = ['English', 'Spanish', 'French', 'German'];
@@ -172,7 +174,7 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ accountData, on
     <div className="card border-0 shadow-sm">
       <div className="card-body p-4">
         <div className="d-flex align-items-center mb-4">
-          <Link to=".." className="btn btn-outline-secondary me-3">
+          <Link to="/employer-settings" className="btn btn-outline-secondary me-3">
             <ArrowLeft size={16} />
           </Link>
           <h3 className="h5 fw-semibold mb-0">Edit Company Profile</h3>
@@ -209,7 +211,7 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ accountData, on
             <div>
               <label 
                 htmlFor="profileImageUpload" 
-                className={`btn ${isUploading ? 'btn-secondary' : 'btn-outline-success'}`}
+                className={`btn ${isUploading ? 'btn-secondary' : 'btn'}`}
               >
                 <Upload size={16} className="me-2" />
                 {isUploading ? 'Uploading...' : 'Upload Logo'}
@@ -270,7 +272,7 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ accountData, on
               </div>
 
               <div className="col-12 col-md-6">
-                <label htmlFor="contact-person" className="form-label fw-medium">Contact Person *</label>
+                <label htmlFor="contact-person" className="form-label fw-medium">Contact Person </label>
                 <div className="position-relative">
                   <Contact size={16} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
                   <input
@@ -387,12 +389,13 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({ accountData, on
           {/* Action Buttons */}
           <div className="col-12 mt-5">
             <div className="d-flex justify-content-end gap-3 pt-4 border-top">
-              <Link to=".." className="btn btn-outline-secondary">
+              <Link to="/employer-settings" className="btn btn-outline-secondary">
                 Cancel
               </Link>
               <button
                 type="button"
-                className="btn btn-success"
+                className="btn "
+                style={{backgroundColor:'#22C55E', color:'#FFFFFFFF'}}
                 onClick={handleSave}
               >
                 Save Changes

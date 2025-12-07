@@ -108,9 +108,9 @@ const EmployerAccountProfile = () => {
               {/*: Using the Redux-connected LogoutButton */}
               <LogoutButton
                 // Pass Bootstrap classes as a prop
-                className="d-flex align-items-center gap-2" 
+                className="d-flex align-items-center gap-2"
                 // Pass custom styles as a prop
-                style={{fontFamily:'body', backgroundColor:'#22C55E', color:'grey'}}>
+                style={{fontFamily:'body', backgroundColor:'#FFFFFFFF', color:'grey', border: 'none'}}>
                 {/* Pass the icon and text as children */}
                 <LogOut size={18} />
                 Logout

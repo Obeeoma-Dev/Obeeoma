@@ -117,7 +117,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
               <div className="col-12 col-md-6">
                 <div className="bg-light rounded p-3 h-100">
                   <div className="d-flex align-items-center mb-2">
-                    <Users size={16} className="text-success me-2" />
+                    <Users size={16} className=" me-2" style={{color:'#22C55E'}}/>
                     <span className="small text-muted">Company Size</span>
                   </div>
                   <p className="fw-medium mb-0">{formatDisplayValue(localData.company?.companySize.toString() )}</p>
@@ -127,7 +127,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
               <div className="col-12 col-md-6">
                 <div className="bg-light rounded p-3 h-100">
                   <div className="d-flex align-items-center mb-2">
-                    <Mail size={16} className="text-success me-2" />
+                    <Mail size={16} className=" me-2" style={{color:'#22C55E'}} />
                     <span className="small text-muted">Email Address</span>
                   </div>
                   <p className="fw-medium mb-0">{formatDisplayValue(localData.email)}</p>
@@ -144,7 +144,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
               <div className="col-12 col-md-6">
                 <div className="bg-light rounded p-3 h-100">
                   <div className="d-flex align-items-center mb-2">
-                    <User size={16} className="text-success me-2" />
+                    <User size={16} className="me-2" style={{color:'#22C55E'}} />
                     <span className="small text-muted">Admin User</span>
                   </div>
                   <p className="fw-medium mb-0">{formatDisplayValue(localData.username)}</p>
@@ -155,7 +155,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
                 <div className="bg-light rounded p-3 h-100">
                   <div className="d-flex align-items-center mb-2 justify-content-between">
                     <Lock size={16} className="text-success me-2" />
-                    <Link to="reset-password" className="text-success text-decoration-none small">
+                    <Link to="/reset-password" className="text-success text-decoration-none small">
                       Change Password
                     </Link>
                   </div>

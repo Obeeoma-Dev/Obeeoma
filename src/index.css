@@ -3,6 +3,31 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 
+/* Custom class to target the slider */
+.data-retention-slider {
+    /* Ensures the color is applied at a high specificity */
+    accent-color: #22C55E !important; 
+}
+
+/* For older browsers or more granular control: */
+
+/* Styling the Slider Thumb (the circular handle) */
+.data-retention-slider::-webkit-slider-thumb {
+    background-color: #22C55E;
+}
+
+.data-retention-slider::-moz-range-thumb {
+    background-color: #22C55E;
+}
+
+/* Styling the Track Fill (the line to the left of the thumb) */
+.data-retention-slider::-webkit-progress-value {
+    background-color: #22C55E;
+}
+
+
+
+
 .top-card{
     color: #ffffff;
  }
@@ -1318,5 +1343,21 @@ body {
 .nav-pills .nav-link.active,
 .nav-pills .nav-link:hover {
     color: #FFFFFF !important;
+    background-color: #22C55E !important;
+}
+
+/* Custom styles for toggle switches (form switches) to use green instead of blue */
+.form-check-input:checked {
+    background-color: #22C55E !important;
+    border-color: #22C55E !important;
+}
+
+.form-check-input:focus {
+    border-color: #22C55E !important;
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important;
+}
+
+.form-check-input[type="checkbox"]:checked + label,
+.form-check-input[type="checkbox"]:indeterminate + label {
     background-color: #22C55E !important;
 }
