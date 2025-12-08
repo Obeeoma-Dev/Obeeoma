@@ -3,14 +3,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Modal from 'react-bootstrap/Modal';
 import {
-  Home as HomeIcon,
-  Users as UsersIcon,
-  User as UserIcon, 
-  CreditCard,
-  FileText,
-  Bell,
-  Menu,
-  X,
+Home as HomeIcon,
+Users as UsersIcon,
+User as UserIcon, 
+CreditCard,
+FileText,
+Bell,
+Menu,
+X,
 } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
 import { useSelector, useDispatch } from "react-redux"; 
@@ -158,8 +158,8 @@ const Layout = ({ children, title }: LayoutProps) => {
                     className="d-flex align-items-center gap-2"
                     style={{ cursor: 'pointer' }}
                     aria-expanded="false" 
-                >
-                    {/* START: Display Name and User Icon */}
+ >
+           {/* START: Display Name and User Icon */}
                     <div className="text-end d-none d-md-block" style={{ lineHeight: 1 }}>
                         
                         {/* 1. Organization Name/Fallback */}
