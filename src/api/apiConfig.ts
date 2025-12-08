@@ -388,6 +388,15 @@ export const employerAPI = {
   viewBillingHistory: async () => {
     return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");
   },
+
+  // Data Export & Deletion
+  exportAllData: async () => {
+    return api.get("/v1/employer/data/export/", { responseType: 'blob' });
+  },
+
+  deleteAllData: async () => {
+    return api.delete("/v1/employer/data/delete-all/");
+  },
 };
 
 
@@ -781,4 +790,3 @@ export default api;
 // };
 
 // export default api;
-

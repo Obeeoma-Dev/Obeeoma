@@ -10,6 +10,7 @@ import { logoutUserThunk } from "../../../store/slices/authSlice";
 const PRIMARY_COLOR = "#22C55E";
 const Layout = ({ children, title }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();

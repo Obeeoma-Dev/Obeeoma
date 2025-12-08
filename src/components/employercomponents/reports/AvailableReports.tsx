@@ -49,8 +49,8 @@ const AvailableReports = () => {
                   <div className="d-flex justify-content-between align-items-center mt-3">
                     {/* Frequency Badge */}
                     <span
-                      className="badge text-white"
-                      style={{ backgroundColor: PRIMARY_COLOR, color: "white" }}
+                      className=".fs-5 text"
+                      style={{  color: "#000000" }}
                     >
                       {report.frequency}
                     </span>

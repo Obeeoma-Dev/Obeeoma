@@ -1,6 +1,7 @@
 import { useState, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Dropdown from 'react-bootstrap/Dropdown'; 
+import Dropdown from 'react-bootstrap/Dropdown';
+import Modal from 'react-bootstrap/Modal';
 import {
   Home as HomeIcon,
   Users as UsersIcon,
@@ -34,6 +35,7 @@ const PRIMARY_COLOR = "#22C55E";
 
 const Layout = ({ children, title }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>(); 
@@ -1598,6 +1600,3 @@ export default Layout;
 // };
 
 // export default Layout;
-
-
-
