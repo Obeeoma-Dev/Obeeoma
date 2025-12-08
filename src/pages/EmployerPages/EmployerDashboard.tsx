@@ -10,12 +10,14 @@ import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
 import { DashboardProps } from "@/types/employer";
 import { useDispatch } from "react-redux";
+import { EmployeeEngagementData } from '../../types/admin';
 import {
   fetchEmployerDashboardSummary,
   fetchEmployeeStatus,
   fetchEmployeeInvites,
   fetchEmployees,
 } from "../../store/slices/EmployerSlice";
+import EngagementTrend from "@/components/employercomponents/employerdashboard/EngagementTrend";
 
 const EmployerDashboard: React.FC<DashboardProps> = ({
   companyId,
@@ -143,8 +145,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
                 <h5 className="card-title fw-semibold mb-4">Engagement Level</h5>
-                <EmployeeStatusLegend employeeStatus={employeeStatus}
-                />
+                <EngagementTrend />
               </div>
             </div>
           </div>
