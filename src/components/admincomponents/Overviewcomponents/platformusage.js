@@ -18,7 +18,7 @@ const PlatformUsageChart = () => {
         { id: "subscription", label: "Subscription Revenue" },
     ];
     // Sample data for platform usage over 6 weeks
-    const employeeData = [
+    const chartData = [
         { week: "Week 1", value: 1800 },
         { week: "Week 2", value: 2100 },
         { week: "Week 3", value: 2600 },

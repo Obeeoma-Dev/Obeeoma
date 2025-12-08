@@ -1,3 +1,8 @@
+import React, { useState } from 'react';
+import { employerAPI } from '@/api/apiConfig';
+import { useToast } from '@/hooks/use-toast';
+import { Download } from 'lucide-react';
+
 interface PrivacySettings {
   anonymizeData: boolean;
   enhancedPrivacy: boolean;
@@ -10,6 +15,9 @@ interface PrivacySectionProps {
 }
 
 const PrivacySection = ({ privacySettings, onPrivacySettingsChange }: PrivacySectionProps) => {
+  const { toast } = useToast();
+  const [isExporting, setIsExporting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const handleToggleChange = (field: keyof PrivacySettings, value: boolean) => {
     onPrivacySettingsChange({
       ...privacySettings,
@@ -22,6 +30,59 @@ const PrivacySection = ({ privacySettings, onPrivacySettingsChange }: PrivacySec
       ...privacySettings,
       dataRetentionPeriod: value
     });
+  };
+
+  const handleExportData = async () => {
+    setIsExporting(true);
+    try {
+      const response = await employerAPI.exportAllData();
+      // Create blob and download
+      const blob = new Blob([response.data], {
+        type: 'application/octet-stream'
+      });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'organization-data-export.zip';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      toast({
+        message: "Data export completed successfully",
+      });
+    } catch (error) {
+      console.error('Export error:', error);
+      toast({
+        message: "Failed to export data. Please try again.",
+      });
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleDeleteData = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to permanently delete all organization data? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    setIsDeleting(true);
+    try {
+      await employerAPI.deleteAllData();
+      toast({
+        message: "All organization data has been permanently deleted",
+      });
+    } catch (error) {
+      console.error('Delete error:', error);
+      toast({
+        message: "Failed to delete data. Please try again.",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const privacyItems = [
@@ -39,7 +100,7 @@ const PrivacySection = ({ privacySettings, onPrivacySettingsChange }: PrivacySec
 
   return (
     <div className="card border-0 shadow-sm">
-      <div className="card-body p-4">
+      <div className="card-body p-2">
         <h3 className="h5 fw-semibold mb-4">Privacy Settings</h3>
         <p className="text-muted mb-4">Configure how employee data is handled</p>
         
@@ -89,13 +150,43 @@ const PrivacySection = ({ privacySettings, onPrivacySettingsChange }: PrivacySec
           <h5 className="h6 fw-semibold mb-3">Data Export & Deletion</h5>
           <div className="row g-2">
             <div className="col-12 col-md-6">
-              <button className="btn btn-outline-primary w-100 btn-sm">
-                Export All Data
+              <button
+                className="btn w-100 btn-sm d-flex align-items-center justify-content-center gap-2"
+                style={{backgroundColor:'#22C55E', color:'#FFFFFFFF'}}
+                onClick={handleExportData}
+                disabled={isExporting}
+              >
+                {isExporting ? (
+                  <>
+                    <div className="spinner-border spinner-border-sm" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    Exporting...
+                  </>
+                ) : (
+                  <>
+                    <Download size={16} />
+                    Export All Data
+                  </>
+                )}
               </button>
             </div>
             <div className="col-12 col-md-6">
-              <button className="btn btn-outline-danger w-100 btn-sm">
-                Delete All Data
+              <button
+                className="btn btn-secondary w-100 btn-sm d-flex align-items-center justify-content-center gap-2"  style={{color:'white'}}
+                onClick={handleDeleteData}
+                disabled={isDeleting}
+              >
+                {isDeleting ? (
+                  <>
+                    <div className="spinner-border spinner-border-sm" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                    Deleting...
+                  </>
+                ) : (
+                  'Delete All Data'
+                )}
               </button>
             </div>
           </div>

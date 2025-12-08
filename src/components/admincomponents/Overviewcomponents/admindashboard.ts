@@ -39,7 +39,7 @@ export interface ActivityItem {
 /**
  * Represents a data point in the chart
  */
-export interface EmployeeDataPoint {
+export interface ChartDataPoint {
   // Week label (e.g., "Week 1")
   week: string;
   // Usage value for that week

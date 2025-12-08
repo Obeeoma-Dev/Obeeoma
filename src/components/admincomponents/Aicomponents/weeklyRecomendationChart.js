@@ -5,7 +5,7 @@ import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement
 // Register chart components
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 // Sample chart data (replace with backend data later)
-const employeeData = {
+const chartData = {
     labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
     datasets: [
         {
@@ -37,6 +37,6 @@ const chartOptions = {
 };
 // Functional component with chart integration
 const WeeklyRecommendationsChart = () => {
-    return (_jsxs(Card, { className: "shadow-sm mb-4", children: [_jsx(Card.Header, { className: "fw-semibold", children: "Weekly Recommendations (Last 6 Weeks)" }), _jsx(Card.Body, { children: _jsx(Line, { data: employeeData, options: chartOptions }) })] }));
+    return (_jsxs(Card, { className: "shadow-sm mb-4", children: [_jsx(Card.Header, { className: "fw-semibold", children: "Weekly Recommendations (Last 6 Weeks)" }), _jsx(Card.Body, { children: _jsx(Line, { data: chartData, options: chartOptions }) })] }));
 };
 export default WeeklyRecommendationsChart;
