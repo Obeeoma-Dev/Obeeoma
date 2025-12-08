@@ -450,7 +450,7 @@ export default function OtpVerificationPage() {
                                 fontFamily: 'body',
                                 opacity: isResendDisabled ? 0.6 : 1, // Visual feedback for disabled state
                             }}
-                            to="#"
+                            to=""
                             className="small"
                             role="button"
                         >

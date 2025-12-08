@@ -330,5 +330,5 @@ export default function OtpVerificationPage() {
                                 cursor: isResendDisabled ? 'not-allowed' : 'pointer',
                                 fontFamily: 'body',
                                 opacity: isResendDisabled ? 0.6 : 1, // Visual feedback for disabled state
-                            }, to: "#", className: "small", role: "button", children: isResendLoading ? 'Sending...' : 'Resend' }))] }), _jsx("div", { className: "mt-4", children: _jsx(Link, { to: "/login", style: { color: PRIMARY_COLOR, textDecoration: 'none', fontSize: '14px' }, children: "\u2190 Back to Sign In" }) })] }) }));
+                            }, to: "/reset-password", className: "small", role: "button", children: isResendLoading ? 'Sending...' : 'Resend' }))] }), _jsx("div", { className: "mt-4", children: _jsx(Link, { to: "/login", style: { color: PRIMARY_COLOR, textDecoration: 'none', fontSize: '14px' }, children: "\u2190 Back to Sign In" }) })] }) }));
 }
