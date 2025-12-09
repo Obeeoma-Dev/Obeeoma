@@ -20,8 +20,6 @@ import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
 import { logoutUserThunk } from "../../../store/slices/authSlice";
 import {EmployerUser} from "../../../../src/types/employer";
 
-
-
 // Removed formatEmployerName as it's replaced by inline logic
 
 interface LayoutProps {
@@ -46,9 +44,7 @@ const Layout = ({ children, title }: LayoutProps) => {
   // 1. Organization Name Logic (UPDATED: Falls back directly to "User")
   const organizationNameOrDefault = employer?.organizationName 
     ? employer.organizationName 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const dispatch = useDispatch<AppDispatch>();
+    : "User";
   const companyJoinDate = employer?.company?.createdAt 
     ? new Date(employer.company.createdAt) 
     : new Date(); // Fallback to current date
