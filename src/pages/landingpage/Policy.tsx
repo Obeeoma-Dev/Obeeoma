@@ -1,3 +1,4 @@
+import { cubicBezier } from "framer-motion";
 import React from 'react'
 import { motion } from 'framer-motion'
 // React-Bootstrap components used to replace Tailwind utility classes
@@ -32,7 +33,7 @@ const cardVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeInOut"
+      ease: cubicBezier(0.22, 1, 0.36, 1)
     },
   },
 }

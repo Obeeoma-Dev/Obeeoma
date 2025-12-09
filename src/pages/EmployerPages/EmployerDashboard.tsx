@@ -9,7 +9,6 @@ import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
 import { DashboardProps } from "@/types/employer";
 import { useDispatch } from "react-redux";
-import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../store/store";
 import {
   fetchEmployerDashboardSummary,
