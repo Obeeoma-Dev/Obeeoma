@@ -149,7 +149,7 @@ console.log(employees);
     <>
       {/* Table */}
       <div className="table-responsive">
-        <table className="table table-hover mb-0">
+        <table className="table table-hover mb-0 px-3">
           <thead className="bg-light">
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
