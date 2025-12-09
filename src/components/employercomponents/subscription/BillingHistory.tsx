@@ -11,7 +11,7 @@ const BillingHistoryTable: React.FC = () => {
     useEffect(() => {
         // Fetch history only if it hasn't been fetched or failed
         if (status === 'idle') {
-            dispatch(fetchBillingHistory() as any);
+            dispatch(fetchBillingHistory() );
         }
     }, [status, dispatch]);
     
@@ -53,7 +53,7 @@ const BillingHistoryTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {invoices.map((invoice) => (
+                    {invoices.map((invoice: any) => (
                         <tr key={invoice.invoice_number}>
                             <td>{invoice.date}</td>
                             <td>{invoice.description}</td>

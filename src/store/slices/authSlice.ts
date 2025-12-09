@@ -10,7 +10,6 @@ import {
     OtpSuccessResponse,
     MfaSetupData, 
     MfaVerifyPayload,
-  MfaSetupRequestPayload 
 } from "./../../types/auth";
 import {authAPI} from "../../api/apiConfig";
 import api from "../../api/apiConfig";

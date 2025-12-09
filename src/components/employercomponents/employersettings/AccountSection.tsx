@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Building, User, Mail, Users, Contact, Edit, Calendar, Globe, FileText, Lock } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { Building, User, Mail, Users, Edit, Calendar, Globe, FileText, Lock } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { EmployerUser } from '../../../types/employer';
 

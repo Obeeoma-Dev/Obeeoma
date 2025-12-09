@@ -29,8 +29,8 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
 
         // Split the stat.change string into numeric value and rest of the text
         // Example: "+8% vs yesterday" => value = "+8%", restText = "vs yesterday"
-        const [value, ...rest] = stat.change.split(" ");
-        const restText = rest.join(" ");
+        const [...rest] = stat.change.split(" ");
+        // const restText = rest.join(" ");
 
         return (
           <Col key={stat.id} xs={12} sm={6} md={3} className="mb-4">

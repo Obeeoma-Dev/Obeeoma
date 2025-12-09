@@ -20,7 +20,7 @@ import {
     Col,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEyeSlash, faEnvelope, faUserTie, faMapMarkerAlt, faSitemap, faBuilding, faArrowRight, faArrowLeft, faCheckCircle, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash, faEnvelope, faUserTie, faMapMarkerAlt, faSitemap, faBuilding, faCheckCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 

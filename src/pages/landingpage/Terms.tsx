@@ -1,6 +1,5 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Container, Row, Col, Card, Stack } from 'react-bootstrap';
+import { Container, Col, Card, Stack } from 'react-bootstrap';
 import Navigation from '../../components/shared/Navigation';
 import Footer from '../../components/shared/Footer';
 import {
@@ -8,7 +7,6 @@ import {
     UserCheck,
     UserPlus,
     CreditCard,
-    Stethoscope,
     MessageCircle,
     Lock,
     Copyright,
@@ -17,7 +15,6 @@ import {
     RefreshCw,
     Scale,
     Mail,
-    AlertTriangle
 } from 'lucide-react';
 // import './TermsAndConditions.css'; // Custom CSS for colors & spacing
 
