@@ -46,9 +46,9 @@ const Layout = ({ children, title }: LayoutProps) => {
   // 1. Organization Name Logic (UPDATED: Falls back directly to "User")
   const organizationNameOrDefault = employer?.organizationName 
     ? employer.organizationName 
-    : "User"; // Fallback directly to "User"
-
-  // 2. Company Join Date Logic (existing format)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch<AppDispatch>();
   const companyJoinDate = employer?.company?.createdAt 
     ? new Date(employer.company.createdAt) 
     : new Date(); // Fallback to current date

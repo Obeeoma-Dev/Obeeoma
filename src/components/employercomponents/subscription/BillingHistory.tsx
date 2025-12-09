@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import { RootState } from '../../../store/store';
+import type { AppDispatch } from "../../../store/store";
 import { fetchBillingHistory } from '../../../store/slices/billingSlice';
 
 const BillingHistoryTable: React.FC = () => {
@@ -11,7 +12,7 @@ const BillingHistoryTable: React.FC = () => {
     useEffect(() => {
         // Fetch history only if it hasn't been fetched or failed
         if (status === 'idle') {
-            dispatch(fetchBillingHistory() );
+            dispatch(fetchBillingHistory());
         }
     }, [status, dispatch]);
     

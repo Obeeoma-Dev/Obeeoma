@@ -9,6 +9,8 @@ import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
 import { DashboardProps } from "@/types/employer";
 import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../../store/store";
 import {
   fetchEmployerDashboardSummary,
   fetchEmployeeStatus,
@@ -17,7 +19,7 @@ import {
 } from "../../store/slices/EmployerSlice";
 
 const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { stats, employeeData, activities, loading, error } = useDashboardData();
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
 

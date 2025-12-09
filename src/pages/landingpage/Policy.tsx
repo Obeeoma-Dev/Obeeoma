@@ -32,7 +32,7 @@ const cardVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1]
+      ease: "easeInOut"
     },
   },
 }
@@ -47,7 +47,7 @@ const heroVariants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] 
+      ease: "easeInOut"
     },
   },
 }
@@ -279,7 +279,7 @@ export function PrivacyPolicy() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
                 <Card className="text-center">
                   <Card.Body>
