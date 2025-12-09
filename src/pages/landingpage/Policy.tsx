@@ -48,7 +48,7 @@ const heroVariants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: "easeInOut"
+      ease: cubicBezier(0.22, 1, 0.36, 1)
     },
   },
 }

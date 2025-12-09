@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../../../store/store';
 import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import { RootState } from '../../../store/store';
-import type { AppDispatch } from "../../../store/store";
 import { fetchBillingHistory } from '../../../store/slices/billingSlice';
 
 const BillingHistoryTable: React.FC = () => {
