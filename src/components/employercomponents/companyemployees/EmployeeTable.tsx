@@ -157,7 +157,7 @@ const EmployeeTable = ({ searchQuery, onSearchChange }: EmployeeTableProps) => {
 
       {/* Employees Table */}
       <div className="row">
-        <div className="col-12">
+        <div className="col-12 p-3">
           <div className="card border-0 shadow-sm">
             <div className="card-body p-0">
               <div className="table-responsive">

@@ -57,7 +57,7 @@ function Navigation() {
           <Nav className="ms-auto">
             {/* Navigation links */}
 
-            <Nav.Link as={Link} to="/Index" className="mx-2">
+            <Nav.Link as={Link} to="/" className="mx-2">
               Home
             </Nav.Link>
 
