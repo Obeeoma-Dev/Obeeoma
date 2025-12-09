@@ -31,14 +31,14 @@ export function ContactCard({
                     height: "64px", // Circle height
                     background: "linear-gradient(to bottom right, #9DD3AF, #00A859)", // Gradient color
                     transition: "transform 0.3s ease", // Smooth scaling animation
-                    fontFamily: "body",
+                    fontFamily: "body"
                 }}
                 // Adding a hover scale for the icon.
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
                 {/* Display the icon passed as a prop */}
-                <Icon size={45} color="white" />
+                <Icon size={32} color="white" />
             </div>
 
             {/* Title text */}
@@ -64,11 +64,7 @@ export function ContactCard({
                         borderRadius: "20px", // Rounded edges
                         padding: "20px", // Inner spacing
                         transition: "all 0.3s ease", // Smooth hover animation
-                        fontFamily: "body",
-                        height: '100%',
-                        justifyContent: 'space-between',
-
-
+                        fontFamily: "body"
                     }}
 
                     // Adding a lift effect on card hover:

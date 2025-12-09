@@ -3,8 +3,6 @@ import React, { useEffect } from "react";
 
 // Import layout and button components from React Bootstrap
 import { Button, Row, Col } from "react-bootstrap";
-
-// Import the hero image (mocked in tests)
 import heroImage from "@/assets/Images/headerimage.png";
 
 // Import navigation hook from React Router
@@ -54,8 +52,7 @@ const Hero = () => {
                 color: "rgba(255, 255, 255, 0.9)",
                 fontSize: "1.25rem",
                 fontFamily: 'heading'
-              }}
-            >
+              }} >
               Obeeoma professional mental health service.
             </p>
           </Col>
@@ -99,7 +96,7 @@ const Hero = () => {
                 className="rounded-pill px-5 py-3 fw-semibold"
                 style={{
                   backgroundColor: "#fff", // Default: white background
-                  color: "#0B6E45", // Default: green text
+                  color: "#00A859", // Default: green text
                   border: "2px solid #00A859", // Match border to green
                   outline: "none",
                   boxShadow: "none",

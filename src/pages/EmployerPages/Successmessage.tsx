@@ -13,8 +13,8 @@ const styles: StyleMap = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh', 
-    backgroundColor: '#f7f7f7', 
+    minHeight: '100vh',
+    backgroundColor: '#f7f7f7',
     fontFamily: 'Arial, sans-serif',
     padding: '20px',
   },
@@ -58,7 +58,7 @@ const styles: StyleMap = {
 
   // .dashboard-button (Base style)
   dashboardButton: {
-    backgroundColor: '#3CB371', 
+    backgroundColor: '#22C55E',
     color: 'white',
     border: 'none',
     borderRadius: '4px',
@@ -67,14 +67,14 @@ const styles: StyleMap = {
     fontFamily: 'body',
     fontWeight: '600',
     cursor: 'pointer',
-    width: '100%', 
+    width: '100%',
     marginBottom: '30px',
     transition: 'background-color 0.2s',
   },
-  
-  // Note: Hover effect is not possible with simple inline styles, 
  
-  
+  // Note: Hover effect is not possible with simple inline styles,
+ 
+ 
   // .email-note
   emailNote: {
     fontSize: '14px',
@@ -97,7 +97,7 @@ const PaymentSuccessPage: React.FC = () => {
   return (
     <div style={styles.confirmationContainer}>
       <div style={styles.confirmationCard}>
-        
+       
         {/* Checkmark Icon (SVG is defined here) */}
         <div style={styles.successIconWrapper}>
           <svg
@@ -106,7 +106,7 @@ const PaymentSuccessPage: React.FC = () => {
             viewBox="0 0 52 52"
           >
             {/* The green circle */}
-            <circle cx="26" cy="26" r="25" fill="#3CB371" />
+            <circle cx="26" cy="26" r="25" fill="#22C55E" />
             {/* The white checkmark path */}
             <path
               fill="none"
@@ -116,22 +116,22 @@ const PaymentSuccessPage: React.FC = () => {
             />
           </svg>
         </div>
-        
+       
         <h1 style={styles.title}>
           Payment Successful!
         </h1>
-        
+       
         <p style={styles.message}>
           Thank you for your payment. Your transaction has been completed successfully.
         </p>
-        
+       
         <button
           style={styles.dashboardButton}
           onClick={handleGoToDashboard}
         >
           Go to Employer Dashboard
         </button>
-        
+       
         <p style={styles.emailNote}>
           A confirmation email has been sent to your registered email address.
         </p>

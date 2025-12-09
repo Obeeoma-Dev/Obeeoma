@@ -6,16 +6,20 @@ import * as Icons from "lucide-react";
  * Represents a statistical metric card with current value and change percentage
  */
 export interface StatCardData {
-  id: string; // Unique identifier
-  title: string; // Display title
-  value: string | number; // Current value
-  change: string; // Percentage change
-  icon: string; // Icon name from lucide-react
-  iconColor: string; // Background color class
-  linkText: string; // CTA link text
-  subtitle: string; // Subtitle description
-  color: string; // Color scheme name
+  // Unique identifier for the stat card
+  id: string;
+  // Display title for the metric
+  title: string;
+  // Current value of the metric (number or formatted string)
+  value: string | number;
+  // Percentage change from previous period (positive or negative)
+  change: string;
+  // Icon name from lucide-react to display
+  icon: string;
+  // Color scheme for the icon background
+  iconColor: string;
 }
+
 
 /**
  * Props interface for OrganizationStats component

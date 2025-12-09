@@ -2,17 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import adminReducer from "./slices/adminSlice";
 import employerReducer from "./slices/EmployerSlice";
-import billingReducer from "./slices/billingSlice"
+import employeeReducer from "./slices/employeeSlice";
 import { setupApiInterceptors } from '../api/apiConfig';
-
+import billingReducer from "./slices/billingSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     admin: adminReducer,
     employer: employerReducer,
-    billing: billingReducer
-  
-  
+    billing: billingReducer,
+    employee: employeeReducer,
   },
 });
 

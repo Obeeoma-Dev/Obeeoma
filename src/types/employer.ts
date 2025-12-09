@@ -1,13 +1,24 @@
 export interface EmployerUser {
   id: string | number;
   username: string;
+  firstName: string;
+  lastName: string;
   organizationName: string;
   email: string;
   role: 'admin' | 'employer' | 'employee' | string;
   dateJoined: string; // ISO date string
-  // Add other user-specific fields
+
+  company? : {
+    id: string | number;
+    companySize: number;
+    createdAt: string;
+  }
   address?: string;
   phone?: string;
+  timeZone?: string;
+  language?: string;
+  dateFormat?: string;
+  contactPerson?: string;
 }
 
 export interface AccountData {
@@ -27,8 +38,18 @@ export interface DashboardSummary {
     metricName: string;
     value: number;
   }[];
+  totalEmployees?: number;
+  activeEmployees?: number;
+  inactiveEmployees?: number;
+  wellnessIndex?: number;
+  atRisk?: number;
   // Add other summary fields
+
 }
+
+
+
+
 
 export interface CrisisInsight {
   id: string | number;
@@ -72,6 +93,7 @@ export interface InviteData {
 
 export interface Employee {
   id: number;
+  name: string;
   emailAddress: string;
   phoneNumber?: string;
   department: string;
@@ -115,15 +137,59 @@ export interface EmployerEngagementData {
 }
 
 export interface EmployerState {
+  departmentDistribution: {
+    departmentName: string;
+    workerPercentage: number;
+    color: string;
+  }[];
+  wellnessTrend: {
+    date: string;
+    score: number;
+  }[];
+  employeeStatus: EmployeeStatus;
+  moodTrends: {
+  id: number;
+  employeeId: number;
+  employeeName: string;
+  employeeDepartment: string;
+  moodLevel: number;
+  mood: string;
+  count: number;
+  date: string;
+  timestamp: string;
+
+  }[];
+  currentEmployer: EmployerUser | null;
+  subscription: SubscriptionData | null;
+  employees: Employee[];
   invites: EmployeeInvite[];
   billing: BillingDetails | null;
   engagement: EmployerEngagementData | null;
   reports: Report[];
   summary: DashboardSummary | null;
-  subcription: SubscriptionData | null;
   isLoading: boolean;
   isActionLoading: boolean; // For post/action endpoints
   error: string | null;
+}
+
+export interface EmployeeStatus {
+  active: number;
+  inactive: number;
+  total: number;
+  activePercentage: number;
+  inactivePercentage: number;
+}
+
+export interface MoodTrend {
+  id: number;
+  employeeId: number;
+  employeeName: string;
+  employeeDepartment: string;
+  moodLevel: number;
+  mood: string;
+  count: number;
+  date: string;
+  timestamp: string;
 }
 
   export interface NotificationSettings {
@@ -138,6 +204,15 @@ export interface PrivacySettings {
   enhancedPrivacy: boolean;
   dataRetentionPeriod: number;
 }
+
+//to add more fields
+export interface DashboardProps {
+
+  companyId: string;
+
+}
+
+
 
 export interface UsageData {
   api_calls_used: number;

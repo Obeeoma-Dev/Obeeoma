@@ -1,17 +1,66 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import {
+  fetchEmployerDashboardSummary,
+  fetchDepartmentDistribution,
+  fetchEmployeeStatus,
+  fetchWellnessTrend,
+  fetchMoodTrends,
+  fetchEmployees,
+  fetchEmployeeInvites,
+} from '../store/slices/EmployerSlice';
+import { Employee, EmployerState, MoodTrend } from '../types/employer';
 
-// TODO: Define proper API types based on your backend
+interface DepartmentData {
+  departmentName: string;
+  workerPercentage: number;
+  color: string;
+  count?: number; // for showing actual count
+}
+
+interface WellnessTrendPoint {
+  date: string;
+  score: number;
+}
+
+
+interface EmployerSummary {
+  totalEmployees?: number;
+  wellnessIndex?: number;
+  inactiveEmployees?: number;
+  activeEmployees?:number;
+  atRisk?: number;
+  activePercentage: number;
+  inactivePercentage: number;
+}
+
+interface Invite {
+  id?: string;
+  email?: string;
+  invitedAt?: string;
+  // extend as needed
+}
+
+
+
 interface DashboardStats {
+  activeEmployees: number;
+  inactiveEmployees: number;
   totalEmployees: number;
-  totalTests: number;
-  averageScore: number;
-  atRiskDepartments: number;
+  wellnessIndex: number;
+  atRisk: number;
+  departmentData: DepartmentData[];
+  wellnessTrend: WellnessTrendPoint[];
+  generalMood: string;
 }
 
-interface ChartData {
-  testsByType: Array<{ name: string; value: number }>;
-  testsByDepartment: Array<{ name: string; value: number; color: string }>;
-}
+const computeGeneralMood = (wellnessIndex: number): string => {
+  if (wellnessIndex >= 80) return "Excellent";
+  if (wellnessIndex >= 60) return "Good";
+  if (wellnessIndex >= 40) return "Fair";
+  return "Needs Attention";
+};
 
 interface Activity {
   text: string;
@@ -19,81 +68,198 @@ interface Activity {
   time: string;
 }
 
-export const useDashboardData = () => {
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [chartData, setChartData] = useState<ChartData | null>(null);
+interface UseDashboardDataReturn {
+  stats: DashboardStats | null;
+  employeeData: {
+    employees: Employee[];
+    moodTrends: MoodTrend[];
+    departmentData: DepartmentData[];
+    activeEmployees: number;
+    inactiveEmployees: number;
+    totalEmployees: number;
+    wellnessTrend: WellnessTrendPoint[];
+  };
+  activities: Activity[];
+  loading: boolean;
+  error?: string | null;
+}
+
+export const useDashboardData = (): UseDashboardDataReturn => {
+  const dispatch = useDispatch<any>();
+  const { 
+    summary, 
+    departmentDistribution, 
+    wellnessTrend, 
+    invites,
+    employees = [],
+    moodTrends,
+    isLoading,
+    error 
+  } = useSelector((state: RootState) => state.employer as EmployerState);
+
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        setLoading(true);
-        
-        // TODO: Replace with actual API calls
-        // Example API calls:
-        // const statsResponse = await fetch('/api/dashboard/stats');
-        // const chartResponse = await fetch('/api/dashboard/charts');
-        // const activitiesResponse = await fetch('/api/dashboard/activities');
-        
-        // const statsData = await statsResponse.json();
-        // const chartData = await chartResponse.json();
-        // const activitiesData = await activitiesResponse.json();
-        
-        // setStats(statsData);
-        // setChartData(chartData);
-        // setActivities(activitiesData);
-        
-        // Mock data for demonstration
-        setStats({
-          totalEmployees: 4,
-          totalTests: 6,
-          averageScore: 61,
-          atRiskDepartments: 0
-        });
-        
-        setChartData({
-          testsByType: [
-            { name: "Well-being Check", value: 2 },
-            { name: "Burnout Risk", value: 1 },
-          ],
-          testsByDepartment: [
-            { name: "Marketing", value: 25, color: "#10b981" },
-            { name: "HR", value: 25, color: "#60a5fa" },
-            { name: "Finance", value: 25, color: "#f59e0b" },
-            { name: "Engineering", value: 25, color: "#ef4444" },
-          ]
-        });
-        
-        setActivities([
-          {
-            text: "A new employee invitaion request was accepted",
-            department: "Engineering",
-            time: "2 hours ago",
-          },
-          {
-            text: "Department Marketing completed monthly assessments",
-            department: "",
-            time: "1 day ago",
-          },
-          {
-            text: "New wellness resources added to the platform",
-            department: "",
-            time: "2 days ago",
-          },
-        ]);
-        
-      } catch (err) {
-        setError('Failed to fetch dashboard data');
-        console.error('Dashboard data fetch error:', err);
-      } finally {
-        setLoading(false);
+    // Fetch all dashboard data on component mount
+    dispatch(fetchEmployerDashboardSummary());
+    dispatch(fetchDepartmentDistribution());
+    dispatch(fetchWellnessTrend());
+    dispatch(fetchEmployeeInvites());
+    dispatch(fetchEmployees());
+    dispatch(fetchMoodTrends());
+  }, [dispatch]);
+
+  // Calculate department distribution from actual employee data
+  const calculateDepartmentDistribution = (emps: Employee[]): DepartmentData[] => {
+    if (!emps || emps.length === 0) {
+      return departmentDistribution && departmentDistribution.length > 0 
+        ? departmentDistribution 
+        : [
+            { departmentName: "HR", workerPercentage: 25, color: "#3CB371" },
+            { departmentName: "Marketing", workerPercentage: 25, color: "#1b5e20" },
+            { departmentName: "Finance", workerPercentage: 25, color: "#a5d6a7" },
+            { departmentName: "Engineering", workerPercentage: 25, color: "#4caf50" }
+          ];
+    }
+
+    const departmentCount: Record<string, number> = {};
+    emps.forEach(employee => {
+      const dept = employee.department || 'Unknown';
+      departmentCount[dept] = (departmentCount[dept] || 0) + 1;
+    });
+
+    const totalEmployees = emps.length;
+    const colors = ["#4caf50", "#10B981", "#a5d6a7", "", "#6789", "#EC4899"];
+    
+    return Object.entries(departmentCount).map(([dept, count], index) => ({
+      departmentName: dept,
+      workerPercentage: Math.round((count / totalEmployees) * 100),
+      color: colors[index % colors.length]
+    }));
+  };
+
+  // Calculate wellness trend from mood data
+  const calculateWellnessTrend = (): WellnessTrendPoint[] => {
+    if (!moodTrends || moodTrends.length === 0) {
+      return wellnessTrend && wellnessTrend.length > 0 
+        ? wellnessTrend 
+        : [
+            { date: 'Jan', score: 65 },
+            { date: 'Feb', score: 72 },
+            { date: 'Mar', score: 68 },
+            { date: 'Apr', score: 75 },
+            { date: 'May', score: 70 },
+            { date: 'Jun', score: 78 }
+          ];
+    }
+
+    // Group mood trends by month label and calculate average
+    const dailyAverages: Record<string, { total: number; count: number }> = {};
+    
+    moodTrends.forEach((trend: MoodTrend) => {
+      const date = new Date(trend.date).toLocaleDateString('en-US', { month: 'short' });
+      if (!dailyAverages[date]) {
+        dailyAverages[date] = { total: 0, count: 0 };
       }
-    };
+      dailyAverages[date].total += trend.moodLevel;
+      dailyAverages[date].count += 1;
+    });
 
-    fetchDashboardData();
-  }, []);
+    return Object.entries(dailyAverages)
+      .map(([date, data]) => ({
+        date,
+        score: Math.round(data.total / data.count)
+      }))
+      .slice(-6); // Last 6 data points
+  };
 
-  return { stats, chartData, activities, loading, error };
+  const countEmployeeStatuses = (employees: Employee[] | null) => {
+  if (!employees) {
+    return { activeEmployees: 0, inactiveEmployees: 0 };
+  }
+  
+  const activeEmployees = employees.filter(emp => emp.status === 'active').length;
+  const inactiveEmployees = employees.filter(emp => emp.status === 'inactive' || emp.status === 'pending').length; // Adjust status logic as needed
+  
+  return { activeEmployees, inactiveEmployees };
+};
+
+const employeeCounts = countEmployeeStatuses(employees);
+
+  // Transform Redux state to component props
+  const stats: DashboardStats | null = summary ? {
+    totalEmployees: (employees && employees.length) || summary.totalEmployees || 0,
+    activeEmployees: employeeCounts.activeEmployees || summary.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || summary.inactiveEmployees || 0,
+    wellnessIndex: summary.wellnessIndex || 0,
+    atRisk: summary.atRisk || 0,
+    departmentData: calculateDepartmentDistribution(employees || []),
+    wellnessTrend: calculateWellnessTrend(),
+    generalMood: computeGeneralMood(summary.wellnessIndex || 0),
+  } : {
+    activeEmployees: employeeCounts.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || 0,
+    totalEmployees: (employees && employees.length) || 0,
+    wellnessIndex: 0,
+    atRisk: 0,
+    departmentData: calculateDepartmentDistribution(employees || []),
+    wellnessTrend: calculateWellnessTrend(),
+    generalMood: computeGeneralMood(0),
+  };
+
+  const employeeData = {
+    activeEmployees: employeeCounts.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || 0,
+    totalEmployees: (employees && employees.length) || 0,
+    employees: employees || [],
+    moodTrends: moodTrends || [],
+    departmentData: calculateDepartmentDistribution(employees || []),
+    wellnessTrend: calculateWellnessTrend()
+  };
+
+  // Generate activities from real data
+  useEffect(() => {
+    const generatedActivities: Activity[] = [];
+    
+    // Add activity for new mood trends
+    if (moodTrends && moodTrends.length > 0) {
+      const recentMoods = [...moodTrends]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 3);
+      
+      recentMoods.forEach((trend: MoodTrend, index: number) => {
+        generatedActivities.push({
+          text: `Mood assessment completed by ${trend.employeeName || 'an employee'}`,
+          department: trend.employeeDepartment || '',
+          time: index === 0 ? '2 hours ago' : index === 1 ? '1 day ago' : '2 days ago'
+        });
+      });
+    }
+
+    // Add default activities if not enough real data
+    if (generatedActivities.length < 3) {
+      generatedActivities.push(
+        {
+          text: "New wellness resources added to the platform",
+          department: "",
+          time: "2 days ago",
+        },
+        {
+          text: "Department completed monthly assessments",
+          department: "Engineering",
+          time: "1 day ago",
+        }
+      );
+    }
+
+    setActivities(generatedActivities.slice(0, 3)); // Show only 3 most recent
+  }, [moodTrends, employees]);
+
+  return { 
+    stats, 
+    employeeData, 
+    activities, 
+    loading: isLoading, 
+    error 
+  };
 };

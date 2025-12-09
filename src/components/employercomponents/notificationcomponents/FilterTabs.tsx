@@ -26,11 +26,12 @@ const FilterTabs: React.FC<FilterTabsProps> = ({
         {filters.map((filter) => (
           <button
             key={filter.key}
-            className={`btn ${
-              activeFilter === filter.key 
-                ? 'btn-success' 
-                : 'btn-outline-secondary'
-            } position-relative`}
+            className={`btn position-relative`}
+            style={{
+              backgroundColor: activeFilter === filter.key ? '#22C55E' : undefined,
+              borderColor: activeFilter === filter.key ? '#22C55E' : undefined,
+              color: activeFilter === filter.key ? 'white' : undefined
+            }}
             onClick={() => onFilterChange(filter.key)}
           >
             {filter.label}

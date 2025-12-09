@@ -2,6 +2,57 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+
+/* Custom class to target the slider */
+.data-retention-slider {
+    /* Ensures the color is applied at a high specificity */
+    accent-color: #22C55E !important; 
+}
+
+/* For older browsers or more granular control: */
+
+/* Styling the Slider Thumb (the circular handle) */
+.data-retention-slider::-webkit-slider-thumb {
+    background-color: #22C55E;
+}
+
+.data-retention-slider::-moz-range-thumb {
+    background-color: #22C55E;
+}
+
+/* Styling the Track Fill (the line to the left of the thumb) */
+.data-retention-slider::-webkit-progress-value {
+    background-color: #22C55E;
+}
+
+
+
+
+.top-card{
+    color: #ffffff;
+ }
+
+ .top-card:hover{
+    background-color: hsla(140, 90%, 88%, 0.945);
+    color: #0B6E45;
+  }
+
+  .top-card:hover .top-card-icon{
+    color: #22C55E;
+  }
+
+  .top-card.top-card-icon{
+    color: #22C55E;
+  }
+  .top-card:hover .top-card-title{
+    color: #22C55E;
+  }
+
+  .top-card:hover .top-card-text{
+    color: #ffffff;
+  }
+
+
 @font-face {
   font-family: 'body';
   src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');
@@ -363,13 +414,14 @@ footer a:hover {
 
 /* Footer effect of the landing page. */
 footer {
+  /* background-color: #0B6E45 !important; */
   color: #ccc;
   padding: 3rem 0;
 }
 
 footer h6 {
   color: #fff;
-  font-weight: 900;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -380,37 +432,29 @@ footer a {
 }
 
 footer a:hover {
-  color: #fff;
-  /* Bright white */
-  font-weight: 700;
-  /* subtle glow */
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  color: #3CB371;
+  color: var(--obeeoma-green);
 }
 
-/* footer p {
-  font-size: 1.125rem;
+footer p {
+  font-size: 0.875rem;
   color: #aaa;
-} */
-
-.footer-text {
-  font-size: 1.15rem;
-  color: white;
 }
 
 
 
 /******************************************/
 /* Styles for the About Us footer section */
-/* .about-footer-section {
+.about-footer-section {
   background-image: url("/images/handsgreeting.jpg");
   /* Replace with your actual image path */
-/* background-size: cover;
+  background-size: cover;
   background-position: center;
-  position: relative; */
-/* }
+  position: relative;
+}
 
 /* Green overlay */
-/* .about-footer-section::before {
+.about-footer-section::before {
   content: "";
   position: absolute;
   top: 0;
@@ -419,14 +463,14 @@ footer a:hover {
   height: 100%;
   background-color: rgba(0, 128, 0, 0.6);
   /* Semi-transparent green */
-/* z-index: 1;
-} */
+  z-index: 1;
+}
 
 /* Ensure content is above overlay */
-/* .about-footer-section .container {
+.about-footer-section .container {
   position: relative;
   z-index: 2;
-} */
+}
 
 
 /*****************************/
@@ -474,7 +518,7 @@ footer a:hover {
 
 /* Make textarea taller inside floating label */
 form .form-floating .form-control.message-textarea {
-  height: 163px;
+  height: 250px;
   /* or whatever height you want */
   resize: none;
   /* optional, prevents user from resizing */
@@ -507,29 +551,29 @@ form .form-floating .form-control.message-textarea {
 }
 
 .blog-nav-link {
-  color: #6b7280 !important;
+  color: #6b7280;
   transition: color 0.3s;
   margin: 0 1rem;
 }
 
 .blog-nav-link:hover {
-  color: #3CB371 !important;
+  color: #3CB371;
 }
 
 .blog-nav-link-active {
-  color: #3CB371 !important;
+  color: #3CB371;
   font-weight: 600;
   margin: 0 1rem;
 }
 
 .blog-nav-link-right {
-  color: #3CB371 !important;
+  color: #3CB371;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .blog-nav-link-right:hover {
-  color: #00A859 !important;
+  color: #00A859;
 }
 
 /* Blog Hero */
@@ -645,12 +689,6 @@ form .form-floating .form-control.message-textarea {
   padding: 0.75rem 1rem 0.75rem 3rem;
   font-size: 1rem;
   background: transparent;
-  height: 2.5rem;
-  /* Set consistent height */
-  line-height: 9.15rem;
-  /* Vertically center text */
-  padding-left: 3rem;
-  /* Keep space for icon */
 }
 
 .blog-search-input::placeholder {
@@ -680,33 +718,6 @@ form .form-floating .form-control.message-textarea {
     font-size: 0.9rem;
   }
 }
-
-.blog-card-excerpt {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  /* legacy */
-  line-clamp: 3;
-  /* modern */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 4.5rem;
-  /* keeps all excerpts same height */
-}
-
-.blog-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.blog-card-body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-
 
 /* 
 ==================================
@@ -1211,11 +1222,6 @@ form .form-floating .form-control.message-textarea {
 }
 
 
-
-/********************************/
-/* Styling of the CTAsection. */
-/* Custom animations for React-Bootstrap usage */
-
 /* Slow spin animation for circle elements */
 @keyframes spin-slow {
   from {
@@ -1309,69 +1315,49 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
-/*==================================*/
-/* === Benefit Card Styling === */
+/* Custom CSS to overwrite default Bootstrap Blue (#0d6efd) */
 
-/* Base card style */
-.benefit-card {
-  background: #ffffff;
-  /* border: 12px solid #e5e7eb; */
-  /* subtle gray border */
-  border-radius: 20px;
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09);
-  /* soft shadow */
-  transition:
-    transform 220ms ease,
-    box-shadow 220ms ease,
-    border-color 220ms ease,
-    background-color 220ms ease;
-  cursor: pointer;
-  min-height: 220px;
-  will-change: transform;
+/* 1. Active/Hover State for Dropdown Items */
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #FFFFFF !important; /* White text on hover */
+    background-color: #22C55E !important; /* Your Green background */
 }
 
-/* Hover effect: lift, glow, tint */
-.benefit-card:hover {
-  transform: translateY(-3px);
-  /* box-shadow: */
-  /* 0 10px 24px rgba(0, 0, 0, 0.10), */
-  /* deeper shadow */
-  /* 0 0 0 6px rgba(var(--accent-rgb), 0.08); */
-  /* glow ring */
-  /* border-color: var(--accent); */
-  /* accent border */
-  /* background-color: rgba(var(--accent-rgb), 0.06); */
-  /* subtle tint */
+/* 2. Active State for Dropdown/Navigation (Blue Border/Shadow) */
+.form-control:focus,
+.btn:focus,
+.btn.focus {
+    border-color: #22C55E !important;
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important; /* Green Shadow */
 }
 
-/* Icon box styling */
-.icon-box {
-  width: 70px;
-  height: 70px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--icon-bg);
-  /* dynamic background */
-  transition: transform 220ms ease, box-shadow 220ms ease;
-  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.18);
+/* 3. Text/Outline Colors for Primary elements (if any blue remains) */
+.text-primary,
+.btn-outline-primary {
+    color: #22C55E !important;
+    border-color: #22C55E !important;
 }
 
-/* Icon box hover effect */
-.benefit-card:hover .icon-box {
-  transform: scale(1.12);
-  /* grow icon box */
-  box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.28);
-  /* stronger glow */
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:hover {
+    color: #FFFFFF !important;
+    background-color: #22C55E !important;
 }
 
-/* Icon inside box scales with hover */
-.icon-box svg {
-  transition: transform 220ms ease;
+/* Custom styles for toggle switches (form switches) to use green instead of blue */
+.form-check-input:checked {
+    background-color: #22C55E !important;
+    border-color: #22C55E !important;
 }
 
-.benefit-card:hover .icon-box svg {
-  transform: scale(1.08);
-  /* grow icon */
+.form-check-input:focus {
+    border-color: #22C55E !important;
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important;
+}
+
+.form-check-input[type="checkbox"]:checked + label,
+.form-check-input[type="checkbox"]:indeterminate + label {
+    background-color: #22C55E !important;
 }

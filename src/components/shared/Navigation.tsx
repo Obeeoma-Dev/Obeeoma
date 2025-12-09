@@ -61,6 +61,10 @@ function Navigation() {
               Home
             </Nav.Link>
 
+            <Nav.Link as={Link} to="/contact-us" className="mx-2">
+              Contact
+            </Nav.Link>
+
             <Nav.Link as={Link} to="/about-us" className="mx-2">
               About
             </Nav.Link>
@@ -69,9 +73,6 @@ function Navigation() {
               Blog
             </Nav.Link>
 
-            <Nav.Link as={Link} to="/contact-us" className="mx-2">
-              Contact
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

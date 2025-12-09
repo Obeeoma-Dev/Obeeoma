@@ -69,7 +69,6 @@ export function CTASection() {
                     style={{
                         fontSize: '2.75rem',
                         lineHeight: 1.3,
-                        fontFamily: 'heading'
                     }}
                 >
                     Find Happiness. Connect with Us Today!
@@ -99,7 +98,7 @@ export function CTASection() {
                         }}
                     >
                         {/* Text displayed inside the button */}
-                        <span className="position-relative z-1" style={{ fontFamily: "body" }}>Ask for help</span>
+                        <span className="position-relative z-1">Ask for help</span>
 
                         {/* Soft blurred overlay that glows subtly on hover */}
                         <div

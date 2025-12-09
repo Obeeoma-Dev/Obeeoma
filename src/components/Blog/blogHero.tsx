@@ -89,6 +89,8 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 style={{
+                                    padding: '0.5rem 1rem',
+                                    border: '1px solid #ccc',
                                     borderRadius: '999px',
                                     marginLeft: '0.5rem',
                                     marginRight: '0.5rem',

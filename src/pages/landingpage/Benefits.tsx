@@ -160,7 +160,6 @@ function BenefitCarousel() {
                 style={{
                   scrollSnapAlign: "none",
                   width: 300,
-                  height: 250,
                   display: "inline-block",
                   transition: "transform 0.3s ease", // Smooth animation
                   transform: isHovered ? "scale(1.05)" : "scale(1)", // Enlarge on hover
@@ -198,9 +197,7 @@ function BenefitCarousel() {
                   />
 
                   {/* Content layer */}
-                  <div style={{
-                    position: "relative", zIndex: 1, marginTop: "14px"
-                  }}>
+                  <div style={{ position: "relative", zIndex: 1 }}>
                     <div
                       className="d-inline-flex align-items-center justify-content-center mb-4 mx-auto"
                       style={{
@@ -211,12 +208,7 @@ function BenefitCarousel() {
                       }}
                       aria-hidden="true"
                     >
-                      <Icon size={24}
-                        style={{
-                          transform: isHovered ? "scale(1.2)" : "scale(1)", // scale only
-                          transition: "transform 0.3s ease", // smooth animation
-                        }}
-                      />
+                      <Icon size={24} />
                     </div>
 
                     <h4 className="fw-semibold mb-2">{benefit.title}</h4>

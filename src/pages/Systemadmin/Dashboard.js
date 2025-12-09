@@ -1,4 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+// src/pages/Dashboard.tsx
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 // Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
@@ -7,6 +9,7 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
+import { BlogTable } from "../../components/admincomponents/Blogmanagement/BlogTable";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -18,7 +21,7 @@ const recentActivityData = [
         details: "Wellness Centre Inc. joined the platform",
         time: "2 hours ago",
         icon: "Building2", // Icon representing an organization or building
-        iconColor: "bg-light", // Bootstrap background color class
+        iconColor: "text-success", // Bootstrap background color class
     },
     {
         id: "2",
@@ -26,7 +29,7 @@ const recentActivityData = [
         details: "New AI recommendation available for review",
         time: "1 hour ago",
         icon: "Brain", // Icon representing AI or intelligence
-        iconColor: "bg-light",
+        iconColor: "text-info",
     },
     {
         id: "3",
@@ -34,7 +37,7 @@ const recentActivityData = [
         details: "12 hotline calls were received",
         time: "45 minutes ago",
         icon: "PhoneCall", // Icon representing phone or hotline
-        iconColor: "bg-light",
+        iconColor: "text-danger",
     },
     {
         id: "4",
@@ -42,7 +45,7 @@ const recentActivityData = [
         details: "45 patients were engaged today",
         time: "30 minutes ago",
         icon: "UserPlus", // Icon representing user engagement or addition
-        iconColor: "bg-light",
+        iconColor: "text-primary",
     },
     {
         id: "5",
@@ -50,7 +53,7 @@ const recentActivityData = [
         details: "University Counseling Center subscribed to the platform",
         time: "25 minutes ago",
         icon: "CreditCard", // Icon representing financial or subscription activity
-        iconColor: "bg-light",
+        iconColor: "text-warning",
     },
 ];
 /**
@@ -102,11 +105,11 @@ const bottomMetricData = [
 const dashboardStatsData = [
     {
         id: "1",
-        value: "total_organizations",
+        value: "0",
         title: "Total Organizations",
         change: "+3 this month",
         icon: "Building2",
-        iconColor: "bg-light",
+        iconColor: "bg-success-subtle text-success",
     },
     {
         id: "2",
@@ -114,7 +117,7 @@ const dashboardStatsData = [
         title: "Total Clients",
         change: "+124 this week",
         icon: "Users",
-        iconColor: "bg-light",
+        iconColor: "bg-primary-subtle text-primary",
     },
     {
         id: "3",
@@ -122,7 +125,7 @@ const dashboardStatsData = [
         title: "Monthly Revenue",
         change: "+5.3% this month",
         icon: "CreditCard",
-        iconColor: "bg-light",
+        iconColor: "bg-warning-subtle text-warning",
     },
     {
         id: "4",
@@ -130,7 +133,7 @@ const dashboardStatsData = [
         title: "Hotline Calls Today",
         change: "+8% vs yesterday",
         icon: "PhoneCall",
-        iconColor: "bg-light",
+        iconColor: "bg-danger-subtle text-danger",
     },
 ];
 /**
@@ -138,6 +141,46 @@ const dashboardStatsData = [
  * Combines sidebar, header, and dashboard content
  */
 const Dashboard = () => {
+    /* The blog state + handlers */
+    const [blogs, setBlogs] = React.useState([
+        {
+            id: "1",
+            title: "The Future of AI in Healthcare",
+            category: "Health",
+            date: "2025-12-01",
+            status: "published",
+            excerpt: "Exploring how AI is transforming patient care and diagnostics.",
+            imageUrl: "https://via.placeholder.com/150",
+            author: "Dr. Jane Doe",
+            content: "Full article content goes here...",
+            featured: true,
+        },
+        {
+            id: "2",
+            title: "Top 10 Web Development Trends",
+            category: "Tech",
+            date: "2025-11-28",
+            status: "draft",
+            excerpt: "A look at the latest frameworks and tools shaping web dev.",
+            imageUrl: "https://via.placeholder.com/150",
+            author: "ORENA",
+            content: "Full article content goes here...",
+            featured: false,
+        },
+    ]);
+    const [selectedBlog, setSelectedBlog] = React.useState(null);
+    const [showAddModal, setShowAddModal] = React.useState(false);
+    const [showEditModal, setShowEditModal] = React.useState(false);
+    const handleAdd = () => {
+        setShowAddModal(true);
+    };
+    const handleEdit = (blog) => {
+        setSelectedBlog(blog);
+        setShowEditModal(true);
+    };
+    const handleDelete = (id) => {
+        setBlogs(prev => prev.filter(blog => blog.id !== id));
+    };
     return (
     // Full-height layout with sidebar and main content
     _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
@@ -145,6 +188,6 @@ const Dashboard = () => {
                             overflowY: 'auto',
                             padding: '1rem',
                             backgroundColor: '#f8f9fa',
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-4", children: _jsx(Col, { children: _jsx(BlogTable, { blogs: blogs, onAdd: handleAdd, onEdit: handleEdit, onDelete: handleDelete }) }) }), _jsx(Row, { className: "gy-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
 };
 export default Dashboard;
