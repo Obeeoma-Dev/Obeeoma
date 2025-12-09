@@ -48,7 +48,7 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                 style={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.60)', // semi-transparent dark overlay
+                    backgroundColor: 'rgba(0, 0, 0, 0.59)', // semi-transparent dark overlay
                     zIndex: 1, // sits behind text but above background
                 }}
             ></div>
@@ -66,7 +66,7 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                 {/* Text content with fade-in animation based on visibility */}
                 <div className={`blog-hero-text ${isVisible ? 'visible' : ''}`}>
                     {/* Main title */}
-                    <h1 className="blog-hero-title" style={{ fontFamily: 'heading' }}>
+                    <h1 className="blog-hero-title fw-bold display-5 mb-3" >
                         Insights & Resources
                     </h1>
 
