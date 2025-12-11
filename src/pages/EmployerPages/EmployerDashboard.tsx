@@ -140,7 +140,8 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           <div className="col-lg-12 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title fw-semibold mb-4">Engagement Level</h5>
+                <h5 className="card-title 
+                ">Engagement Level</h5>
                 <EmployeeStatusLegend employeeStatus={employeeStatus}
                 />
               </div>

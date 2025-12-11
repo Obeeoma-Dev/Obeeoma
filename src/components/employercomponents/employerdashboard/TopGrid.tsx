@@ -103,7 +103,7 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
                   {isTotalEmployees ? (
                     // Layout for "Total Employees"
                     <>
-                      <h6 className=" fw-bold mb-2" style={{ color: "#166534", fontSize: '0.8rem' }}>
+                      <h6 className=" fw-bold mb-2" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
                         {stat.title}
                       </h6>
                       <h4 className="fw-semibold mb-0" style={{ color: "#166534" }}>
@@ -113,15 +113,15 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
                   ) : isMoodCard ? (
                     // Layout for "General Company Mood"
                     <div>
-                      <h6 className="fw-semibold mb-0" style={{ color: "#166534", fontSize: '0.7rem' }}>
+                      <h6 className="fw-semibold mb-0" style={{ color: "#000008ff", fontSize: '0.7rem' }}>
                         {stat.title}
                       </h6>
-                      <span style={{ fontSize: '1.75rem' }}>🙂</span>
+                      <span style={{ fontSize: '1.6rem' }}>🙂</span>
                     </div>
                   ) : (
                     // Default layout for "Add Employee" and "Help & Support"
                     <div>
-                      <h6 className="fw-bold mb-1" style={{ color: "#166534", fontSize: '0.8rem' }}>
+                      <h6 className="fw-semibold mb-0" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
                         {stat.title}
                       </h6>
                       {stat.description && (
