@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
+
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 
@@ -16,7 +17,7 @@ import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor: "#3CB371",
+  primaryColor:"#22C55E",
   logoText: "Obeeoma",
 };
 
@@ -150,7 +151,7 @@ const LoginPage = () => {
                 <Form.Group className="mb-3" controlId="validationFormikUsername">
                   <Form.Control
                     type="text"
-                    placeholder="Username"
+                    placeholder="Email or Username"
                     name="username"
                     value={values.username}
                     onChange={handleChange}
@@ -258,8 +259,8 @@ const LoginPage = () => {
           </div>
           <div className="d-flex align-items-center">
             <Link className="text-muted text-decoration-none me-3" style={{ fontFamily: "body" }} role="button" to="/system-admin">Privacy Policy</Link>
-            <a href="/terms" className="text-muted text-decoration-none me-3" style={{ fontFamily: "body"}}>Terms of Service</a>
-            <a href="/contact-us" className="text-muted text-decoration-none" style={{ fontFamily: "body"}} >Contact Us</a>
+            <a href="#" className="text-muted text-decoration-none me-3" style={{ fontFamily: "body"}}>Terms of Service</a>
+            <a href="#" className="text-muted text-decoration-none" style={{ fontFamily: "body"}} >Contact Us</a>
           </div>
         </div>
       </footer>

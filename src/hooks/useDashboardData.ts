@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { 
-  fetchEmployerDashboardSummary, 
-  fetchDepartmentDistribution, 
+import {
+  fetchEmployerDashboardSummary,
+  fetchDepartmentDistribution,
   fetchWellnessTrend,
   fetchMoodTrends,
   fetchEmployees,
   fetchEmployeeInvites,
 } from '../store/slices/EmployerSlice';
-import { Employee } from '../types/employer';
+import { Employee, EmployerState, MoodTrend } from '../types/employer';
 
-interface DepartmentDistributionItem {
-  name: string;
-  percentage: number;
+interface DepartmentData {
+  departmentName: string;
+  workerPercentage: number;
   color: string;
+  count?: number; // for showing actual count
 }
 
 interface WellnessTrendPoint {
@@ -22,46 +23,41 @@ interface WellnessTrendPoint {
   score: number;
 }
 
-interface EmployerSummary {
-  totalEmployees?: number;
-  wellnessIndex?: number;
-  atRisk?: number;
-  // add other summary fields if present in backend
-}
 
-interface Invite {
-  id?: string;
-  email?: string;
-  invitedAt?: string;
-  // extend as needed
-}
+// interface EmployerSummary {
+//   totalEmployees?: number;
+//   wellnessIndex?: number;
+//   inactiveEmployees?: number;
+//   activeEmployees?:number;
+//   atRisk?: number;
+//   activePercentage: number;
+//   inactivePercentage: number;
+// }
 
-interface MoodTrend {
-  date: string;
-  moodLevel: number;
-  employeeName?: string;
-  employeeDepartment?: string;
-  // extend as needed
-}
-
-interface EmployerState {
-  summary?: EmployerSummary | null;
-  departmentDistribution: DepartmentDistributionItem[];
-  wellnessTrend: WellnessTrendPoint[];
-  invites: Invite[];
-  employees: Employee[];
-  moodTrends: MoodTrend[];
-  isLoading: boolean;
-  error?: string | null;
-}
+// interface Invite {
+//   id?: string;
+//   email?: string;
+//   invitedAt?: string;
+//   // extend as needed
+// }
 
 interface DashboardStats {
+  activeEmployees: number;
+  inactiveEmployees: number;
   totalEmployees: number;
   wellnessIndex: number;
   atRisk: number;
-  departmentDistribution: DepartmentDistributionItem[];
+  departmentData: DepartmentData[];
   wellnessTrend: WellnessTrendPoint[];
+  generalMood: string;
 }
+
+const computeGeneralMood = (wellnessIndex: number): string => {
+  if (wellnessIndex >= 80) return "Excellent";
+  if (wellnessIndex >= 60) return "Good";
+  if (wellnessIndex >= 40) return "Fair";
+  return "Needs Attention";
+};
 
 interface Activity {
   text: string;
@@ -74,7 +70,10 @@ interface UseDashboardDataReturn {
   employeeData: {
     employees: Employee[];
     moodTrends: MoodTrend[];
-    departmentDistribution: DepartmentDistributionItem[];
+    departmentData: DepartmentData[];
+    activeEmployees: number;
+    inactiveEmployees: number;
+    totalEmployees: number;
     wellnessTrend: WellnessTrendPoint[];
   };
   activities: Activity[];
@@ -88,9 +87,8 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     summary, 
     departmentDistribution, 
     wellnessTrend, 
-    invites,
     employees = [],
-    moodTrends = [],
+    moodTrends,
     isLoading,
     error 
   } = useSelector((state: RootState) => state.employer as EmployerState);
@@ -108,15 +106,15 @@ export const useDashboardData = (): UseDashboardDataReturn => {
   }, [dispatch]);
 
   // Calculate department distribution from actual employee data
-  const calculateDepartmentDistribution = (emps: Employee[]): DepartmentDistributionItem[] => {
+  const calculateDepartmentDistribution = (emps: Employee[]): DepartmentData[] => {
     if (!emps || emps.length === 0) {
       return departmentDistribution && departmentDistribution.length > 0 
         ? departmentDistribution 
         : [
-            { name: "HR", percentage: 25, color: "#3B82F6" },
-            { name: "Marketing", percentage: 25, color: "#10B981" },
-            { name: "Finance", percentage: 25, color: "#F59E0B" },
-            { name: "Engineering", percentage: 25, color: "#EF4444" }
+            { departmentName: "HR", workerPercentage: 25, color: "#3CB371" },
+            { departmentName: "Marketing", workerPercentage: 25, color: "#1b5e20" },
+            { departmentName: "Finance", workerPercentage: 25, color: "#a5d6a7" },
+            { departmentName: "Engineering", workerPercentage: 25, color: "#4caf50" }
           ];
     }
 
@@ -127,11 +125,11 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     });
 
     const totalEmployees = emps.length;
-    const colors = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#EC4899"];
+    const colors = ["#4caf50", "#10B981", "#a5d6a7", "", "#6789", "#EC4899"];
     
     return Object.entries(departmentCount).map(([dept, count], index) => ({
-      name: dept,
-      percentage: Math.round((count / totalEmployees) * 100),
+      departmentName: dept,
+      workerPercentage: Math.round((count / totalEmployees) * 100),
       color: colors[index % colors.length]
     }));
   };
@@ -171,25 +169,47 @@ export const useDashboardData = (): UseDashboardDataReturn => {
       .slice(-6); // Last 6 data points
   };
 
+  const countEmployeeStatuses = (employees: Employee[] | null) => {
+  if (!employees) {
+    return { activeEmployees: 0, inactiveEmployees: 0 };
+  }
+  
+  const activeEmployees = employees.filter(emp => emp.status === 'active').length;
+  const inactiveEmployees = employees.filter(emp => emp.status === 'inactive' || emp.status === 'pending').length; // Adjust status logic as needed
+  
+  return { activeEmployees, inactiveEmployees };
+};
+
+const employeeCounts = countEmployeeStatuses(employees);
+
   // Transform Redux state to component props
   const stats: DashboardStats | null = summary ? {
     totalEmployees: (employees && employees.length) || summary.totalEmployees || 0,
+    activeEmployees: employeeCounts.activeEmployees || summary.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || summary.inactiveEmployees || 0,
     wellnessIndex: summary.wellnessIndex || 0,
     atRisk: summary.atRisk || 0,
-    departmentDistribution: calculateDepartmentDistribution(employees || []),
+    departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
+    generalMood: computeGeneralMood(summary.wellnessIndex || 0),
   } : {
+    activeEmployees: employeeCounts.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || 0,
     totalEmployees: (employees && employees.length) || 0,
     wellnessIndex: 0,
     atRisk: 0,
-    departmentDistribution: calculateDepartmentDistribution(employees || []),
+    departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend(),
+    generalMood: computeGeneralMood(0),
   };
 
   const employeeData = {
+    activeEmployees: employeeCounts.activeEmployees || 0,
+    inactiveEmployees: employeeCounts.inactiveEmployees || 0,
+    totalEmployees: (employees && employees.length) || 0,
     employees: employees || [],
     moodTrends: moodTrends || [],
-    departmentDistribution: calculateDepartmentDistribution(employees || []),
+    departmentData: calculateDepartmentDistribution(employees || []),
     wellnessTrend: calculateWellnessTrend()
   };
 

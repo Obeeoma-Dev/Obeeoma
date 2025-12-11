@@ -4,12 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../store/store';
 import OtpInput from '../../components/OtpComponent';
 import { Button } from 'react-bootstrap';
-import { verifyOtpThunk } from '../../store/slices/authSlice'; 
+import { verifyOtpThunk, resendOtpThunk } from '../../store/slices/authSlice'; 
 import logo from './../../assets/Images/obeeomalogoword1.png';
 
 const customStyles = {
-    primaryColor: "#3CB371",
+    primaryColor: "#22C55E", // Already set to #22C55E
 };
+
+const PRIMARY_COLOR = customStyles.primaryColor; // Define a constant for cleaner use
 
 const OTP_LENGTH = 6;
 // Cooldown period in seconds (60 seconds is a common standard)
@@ -72,7 +74,7 @@ export default function OtpVerificationPage() {
         setLocalError(null); 
 
         try {
-            // await dispatch(resendOtpThunk({ code: '0' })).unwrap(); 
+            await dispatch(resendOtpThunk({ code: '0' })).unwrap(); 
             
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');
@@ -165,7 +167,7 @@ export default function OtpVerificationPage() {
                     </div>
                 )}
 
-                {/* Verify Button */}
+                {/* Verify Button - Uses PRIMARY_COLOR */}
                 <Button
                     type="button"
                     className="w-100 mb-3 py-2 fw-semibold"
@@ -173,8 +175,9 @@ export default function OtpVerificationPage() {
                     disabled={otp.length !== OTP_LENGTH || isAnyLoading}
                     onClick={() => handleVerify(otp)}
                     style={{
-                        backgroundColor: customStyles.primaryColor,
-                        borderColor: customStyles.primaryColor,
+                        // Custom color applied here
+                        backgroundColor: PRIMARY_COLOR,
+                        borderColor: PRIMARY_COLOR,
                         color: "white",
                         boxShadow: "none",
                         fontFamily: "body",
@@ -204,7 +207,8 @@ export default function OtpVerificationPage() {
                         <Link
                             onClick={handleResendCode}
                             style={{
-                                color: '#3CB371',
+                                // Custom color applied here
+                                color: PRIMARY_COLOR, 
                                 textDecoration: 'none',
                                 fontWeight: '600',
                                 cursor: isResendDisabled ? 'not-allowed' : 'pointer',
@@ -220,11 +224,11 @@ export default function OtpVerificationPage() {
                     )}
                 </div>
 
-                {/* "Back to Sign In" link */}
+                {/* "Back to Sign In" link - Uses PRIMARY_COLOR */}
                 <div className="mt-4">
                     <Link
                         to="/login"
-                        style={{ color: '#3CB371', textDecoration: 'none', fontSize: '14px' }}
+                        style={{ color: PRIMARY_COLOR, textDecoration: 'none', fontSize: '14px' }}
                     >
                         ← Back to Sign In
                     </Link>

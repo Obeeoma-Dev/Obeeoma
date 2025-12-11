@@ -1,6 +1,4 @@
 
- // TODO: Replace with API call to fetch recent activities and default zero data for newly registered companies
-  // Example: const { data: activities, loading } = useRecentActivities();
 import {
   BarChart,
   Bar,
@@ -13,16 +11,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface EmployeeData {
+interface ChartData {
   testsByType: { name: string; value: number }[];
   testsByDepartment: { name: string; value: number; color: string }[];
 }
 
-interface EmployeesSectionProps {
-  employeeData: EmployeeData | null;
+interface ChartsSectionProps {
+  chartData: ChartData | null;
 }
 
-const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
+const ChartsSection = ({ chartData }: ChartsSectionProps) => {
   const defaultTestsByType = [
     { name: "Previous week ", value: 2 },
     { name: "This week", value: 1 },
@@ -35,11 +33,11 @@ const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
     { name: "Engineering", value: 25, color: "#ef4444" },
   ];
 
-  const testsByType = (employeeData?.testsByType || defaultTestsByType).map(item => ({
+  const testsByType = (chartData?.testsByType || defaultTestsByType).map(item => ({
     ...item,
     value: Math.round(item.value)
   }));
-  const testsByDepartment = employeeData?.testsByDepartment || defaultTestsByDepartment;
+  const testsByDepartment = chartData?.testsByDepartment || defaultTestsByDepartment;
 
   return (
     <div className="row g-4 mb-4">
@@ -60,6 +58,7 @@ const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
                   dataKey="value"
                   fill="#3CB371"
                   radius={[8, 8, 0, 0]}
+                  fontFamily="heading"
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -97,4 +96,4 @@ const EmployeesSection = ({ employeeData }: EmployeesSectionProps) => {
   );
 };
 
-export default EmployeesSection;
+export default ChartsSection;

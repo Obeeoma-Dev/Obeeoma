@@ -11,7 +11,7 @@ import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 const customStyles = {
-    primaryColor: "#3CB371", // The green
+    primaryColor: "#22C55E", // The green
     logoText: "Obeeoma",
 };
 const ResetPassword = () => {

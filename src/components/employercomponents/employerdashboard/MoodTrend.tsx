@@ -1,4 +1,3 @@
-// components/employercomponents/employerdashboard/MoodTrend.tsx
 import React from 'react';
 
 interface MoodTrendProps {

@@ -1,19 +1,27 @@
 import { useState, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
+import Modal from 'react-bootstrap/Modal';
 import {
-  Home as HomeIcon,
-  Users as UsersIcon,
-  User as UserIcon,
-  CreditCard,
-  FileText,
-  Bell,
-  Menu,
-  X,
+Home as HomeIcon,
+Users as UsersIcon,
+User as UserIcon, 
+CreditCard,
+FileText,
+Bell,
+Menu,
+X,
 } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
-import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
+import { useSelector, useDispatch } from "react-redux"; 
+import { RootState, AppDispatch } from "../../../store/store"; 
+import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
+
+import { logoutUserThunk } from "../../../store/slices/authSlice";
+import {EmployerUser} from "../../../../src/types/employer";
+
+// Removed formatEmployerName as it's replaced by inline logic
+
 interface LayoutProps {
   children: ReactNode;
   title: string;
@@ -21,18 +29,39 @@ interface LayoutProps {
   additionalHeaderContent?: ReactNode;
 }
 
-const PRIMARY_COLOR = "#3CB371";
+const PRIMARY_COLOR = "#22C55E";
 
 const Layout = ({ children, title }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch<AppDispatch>(); 
   
-  // Get employer data from Redux store
-  const employer = useSelector((state: RootState) => state.employer.currentEmployer);
-  const companyJoinDate = employer?.company?.createdAt 
-    ? new Date(employer.company.createdAt) 
-    : new Date(); // Fallback to current date
+ 
+  const employer = useSelector((state: RootState) => state.employer.currentEmployer) as EmployerUser;
+
+  // Try to get employer data from localStorage if available
+  let localEmployer = null;
+  try {
+    const stored = localStorage.getItem("employerAccountData");
+    if (stored) {
+      localEmployer = JSON.parse(stored);
+    }
+  } catch {}
+
+  // Prefer localStorage for organizationName, fallback to Redux, then default
+  const organizationNameOrDefault = localEmployer?.organizationName
+    ? localEmployer.organizationName
+    : employer?.organizationName
+      ? employer.organizationName
+      : "User";
+
+  // Prefer backend for companyJoinDate, fallback to localStorage, then now
+  const companyJoinDate = employer?.company?.createdAt
+    ? new Date(employer.company.createdAt)
+    : localEmployer?.dateJoined
+      ? new Date(localEmployer.dateJoined)
+      : new Date();
 
   const menuItems = [
     { icon: HomeIcon, label: "Dashboard", path: "/employer-dashboard", active: false },
@@ -45,9 +74,9 @@ const Layout = ({ children, title }: LayoutProps) => {
   }));
 
   const [logoRef, isLogoVisible] = useScrollAnimation({
-  threshold: 0.5,
-  rootMargin: '0px 0px -100px 0px'
-});
+    threshold: 0.5,
+    rootMargin: '0px 0px -100px 0px'
+  });
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -57,8 +86,35 @@ const Layout = ({ children, title }: LayoutProps) => {
     });
   };
 
+  
+  const handleLogout = async () => {
+    try {
+      
+        const resultAction = await dispatch(logoutUserThunk());
+
+  
+        localStorage.removeItem('userToken');
+        sessionStorage.removeItem('userData');
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh");
+
+        alert("You have been successfully logged out."); 
+
+  
+        if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
+            navigate("/login", { replace: true });
+        }
+        
+    } catch (err) {
+      console.error("Logout process failed:", err);
+      // Fallback navigation in case of error, ensuring the user is logged out visually
+      navigate("/login", { replace: true });
+    }
+  };
+  
+
   return (
-    <div className="min-vh-100 bg-light d-flex flex-column">
+    <div className="min-vh-100 bg-light d-flex flex-column" style={{fontFamily:'body'}}>
       {isSidebarOpen && (
         <div 
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none"
@@ -67,7 +123,7 @@ const Layout = ({ children, title }: LayoutProps) => {
       )}
 
       {/* Header */}
-      <header className="bg-white border-bottom sticky-top z-30" style={{ marginLeft: "240px", width: "calc(100% - 240px)" }}>
+      <header className="bg-white border-bottom sticky-top z-30" style={{ marginLeft: "240px", width: "calc(100% - 240px) " ,fontFamily:'body' }}>
         <div className="container-fluid">
           <div className="row align-items-center py-3">
             <div className="col-auto d-lg-none">
@@ -87,16 +143,15 @@ const Layout = ({ children, title }: LayoutProps) => {
                 >
                   {title}
                 </h1>
-                <small className="text-muted">
-                  Member since {formatDate(companyJoinDate)}
-                </small>
               </div>
+              
             </div>
 
             <div className="col-auto d-flex align-items-center gap-3">
+                
               <button 
                 className="btn btn-link position-relative p-2"
-                style={{ color: PRIMARY_COLOR }}
+                style={{ color: PRIMARY_COLOR, fontFamily:'body'}}
                 onClick={() => navigate("/employer-notifications")} >
                 <Bell size={20} />
                 <span 
@@ -105,60 +160,76 @@ const Layout = ({ children, title }: LayoutProps) => {
                 ></span>
               </button>
               
-              {/* Profile Avatar */}
-              <div className="dropdown">
-                <button 
-                  className="btn btn-link p-0 border-0 dropdown-toggle d-flex align-items-center"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+              {/* Profile Avatar Dropdown - Single Dropdown, No Chevron */}
+              <Dropdown align="end"> 
+                <Dropdown.Toggle 
+                    as="div" 
+                    id="dropdown-profile-avatar" 
+                    className="d-flex align-items-center gap-2"
+                    style={{ cursor: 'pointer' }}
+                    aria-expanded="false" 
                 >
-                  <div 
-                    className="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold"
-                    style={{ width: "40px", height: "40px", fontSize: "16px" }}
-                  >
-                    {employer?.firstName?.charAt(0) || 'U'}
-                    {employer?.lastName?.charAt(0) || ''}
-                  </div>
-                </button>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li>
-                    <button 
-                      className="dropdown-item"
-                      onClick={() => navigate("/employer-settings")} >
-                      <UserIcon size={16} className="me-2" />
-                      My Account
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      className="dropdown-item"
-                      onClick={() => navigate("/create-profile")} >
-                      <UserIcon size={16} className="me-2" />
-                      Create Profile
-                    </button>
-                  </li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li>
-                    <button 
-                      className="dropdown-item text-danger"
-                      onClick={async () => {
-                        try {
-                          const { authAPI } = await import("../../../api/apiConfig");
-                          await authAPI.logout();
-                          localStorage.removeItem("token");
-                          localStorage.removeItem("refresh");
-                          navigate("/login");
-                        } catch (err) {
-                          // Optionally show error toast
-                        }
-                      }}
+            {/* START: Display Name and User Icon */}
+                    <div className="text-end d-none d-md-block" style={{ lineHeight: 1 }}>
+                        
+                        {/* 1. Organization Name/Fallback */}
+                        <span
+                            className="fw-medium text-dark d-block"
+                            style={{ fontFamily: 'body' }}
+                            aria-label={`Organization name: ${organizationNameOrDefault}`}
+                        >
+                            {organizationNameOrDefault}
+                        </span>
+                                                
+                        {/* 2. Member Since Date - Moved up to line 2 */}
+                        <small className="text-muted fw-medium d-block" style={{ fontFamily: 'body', fontSize: '0.7rem' }}>
+                            Member since {formatDate(companyJoinDate)}
+                        </small>
+                    </div>
+
+                    {/* 3. User Icon or Uploaded Logo */}
+                    <div 
+                      className="rounded-circle d-flex align-items-center justify-content-center overflow-hidden"
+                      style={{ 
+                        width: "40px", 
+                        height: "40px", 
+                        backgroundColor: `${PRIMARY_COLOR}15`, 
+                      }} 
                     >
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
+                      {(() => {
+                        const storedLogo = localStorage.getItem('companyProfileImage');
+                        if (storedLogo) {
+                        return <img src={storedLogo} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+                        }
+                        return <UserIcon size={24} color={PRIMARY_COLOR} strokeWidth={2} />;
+                      })()}
+                    </div>
+                        
+               
+                </Dropdown.Toggle>
+            
+                <Dropdown.Menu>
+                  {/* My Profile settings */}
+                  <Dropdown.Item 
+                    as="button"
+                    onClick={() => navigate("/employer-settings")}
+                  >
+                    <UserIcon size={16} className="me-2" />
+                    My Profile Settings
+                  </Dropdown.Item>
+
+                  {/* Divider */}
+                  <Dropdown.Divider />
+
+                  <Dropdown.Item 
+                    as="button"
+                    className="text-secondary"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </div>
@@ -166,8 +237,8 @@ const Layout = ({ children, title }: LayoutProps) => {
 
       {/* Sidebar - Keep existing sidebar code */}
       <aside
-        className={`position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`}
-        style={{ width: "240px" }}
+        className={`position-fixed top-0 start-0 h-100 bg-white border-end z-50 translate-x-n100 d-lg-block ${isSidebarOpen ? "translate-x-0" : ""}`}
+        style={{ width: "240px", fontFamily:'body', transition: 'transform 0.3s ease-in-out' }}
       >
         <div className="p-4 border-bottom d-flex align-items-center justify-content-between">
           <button
@@ -178,10 +249,12 @@ const Layout = ({ children, title }: LayoutProps) => {
               ref={logoRef}
               className="d-flex align-items-center justify-content-center"
               style={{
-                transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
-                transition: 'transform 0.6s ease-in-out',
+                //removed spinning effect
+                //transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
+                 // transition: 'transform 0.6s ease-in-out',
                 margin: '0.5rem 0',
-                padding: '0.75rem 1rem'
+                padding: '0.75rem 1rem',
+                fontFamily:'body'
               }}
             >
               <img 
@@ -190,7 +263,8 @@ const Layout = ({ children, title }: LayoutProps) => {
                 style={{
                   maxWidth: '100%',
                   height: 'auto',
-                  objectFit: 'contain'
+                  objectFit: 'contain',
+                  color:'#22C55E'
                 }}
               />
             </div>
@@ -219,12 +293,12 @@ const Layout = ({ children, title }: LayoutProps) => {
                 padding: "12px",
                 color: item.active ? PRIMARY_COLOR : "#6c757d",
                 backgroundColor: item.active ? `${PRIMARY_COLOR}15` : "transparent",
-                fontWeight: item.active ? "600" : "400",
+                fontWeight: item.active ? "600" : "400", fontFamily:'body'
               }}
             >
               <item.icon 
                 size={20} 
-                style={{ color: item.active ? PRIMARY_COLOR : "#6c757d" }}
+                style={{ color: item.active ? PRIMARY_COLOR : "#6c757d", fontFamily:'body'}}
               />
               <span className="fw-medium">{item.label}</span>
             </button>

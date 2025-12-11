@@ -21,7 +21,7 @@ const LogoutButton: React.FC<LogoutButtonProps> = (props) => {
 
   return (
     <Button variant="danger" onClick={handleLogout} {...props}>
-      **Logout**
+      Logout
     </Button>
   );
 };

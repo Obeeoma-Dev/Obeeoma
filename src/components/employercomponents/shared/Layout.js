@@ -1,17 +1,25 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Home as HomeIcon, Users as UsersIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
-import { useSelector } from "react-redux";
-import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
-const PRIMARY_COLOR = "#3CB371";
+import { useSelector, useDispatch } from "react-redux";
+import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
+import { logoutUserThunk } from "../../../store/slices/authSlice";
+const PRIMARY_COLOR = "#22C55E";
 const Layout = ({ children, title }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    // Get employer data from Redux store
+    const dispatch = useDispatch();
     const employer = useSelector((state) => state.employer.currentEmployer);
+    // 1. Organization Name Logic (UPDATED: Falls back directly to "User")
+    const organizationNameOrDefault = employer?.organizationName
+        ? employer.organizationName
+        : "User"; // Fallback directly to "User"
+    // 2. Company Join Date Logic (existing format)
     const companyJoinDate = employer?.company?.createdAt
         ? new Date(employer.company.createdAt)
         : new Date(); // Fallback to current date
@@ -35,34 +43,48 @@ const Layout = ({ children, title }) => {
             year: 'numeric'
         });
     };
-    return (_jsxs("div", { className: "min-vh-100 bg-light d-flex flex-column", children: [isSidebarOpen && (_jsx("div", { className: "position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none", onClick: () => setIsSidebarOpen(false) })), _jsx("header", { className: "bg-white border-bottom sticky-top z-30", style: { marginLeft: "240px", width: "calc(100% - 240px)" }, children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsxs("div", { className: "d-flex flex-column", children: [_jsx("h1", { className: "h4 fw-bold mb-0", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: title }), _jsxs("small", { className: "text-muted", children: ["Member since ", formatDate(companyJoinDate)] })] }) }), _jsxs("div", { className: "col-auto d-flex align-items-center gap-3", children: [_jsxs("button", { className: "btn btn-link position-relative p-2", style: { color: PRIMARY_COLOR }, onClick: () => navigate("/employer-notifications"), children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle p-1", style: { backgroundColor: PRIMARY_COLOR } })] }), _jsxs("div", { className: "dropdown", children: [_jsx("button", { className: "btn btn-link p-0 border-0 dropdown-toggle d-flex align-items-center", type: "button", "data-bs-toggle": "dropdown", "aria-expanded": "false", children: _jsxs("div", { className: "rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fw-bold", style: { width: "40px", height: "40px", fontSize: "16px" }, children: [employer?.firstName?.charAt(0) || 'U', employer?.lastName?.charAt(0) || ''] }) }), _jsxs("ul", { className: "dropdown-menu dropdown-menu-end", children: [_jsx("li", { children: _jsxs("button", { className: "dropdown-item", onClick: () => navigate("/employer-settings"), children: [_jsx(UserIcon, { size: 16, className: "me-2" }), "My Account"] }) }), _jsx("li", { children: _jsxs("button", { className: "dropdown-item", onClick: () => navigate("/create-profile"), children: [_jsx(UserIcon, { size: 16, className: "me-2" }), "Create Profile"] }) }), _jsx("li", { children: _jsx("hr", { className: "dropdown-divider" }) }), _jsx("li", { children: _jsx("button", { className: "dropdown-item text-danger", onClick: async () => {
-                                                                try {
-                                                                    const { authAPI } = await import("../../../api/apiConfig");
-                                                                    await authAPI.logout();
-                                                                    localStorage.removeItem("token");
-                                                                    localStorage.removeItem("refresh");
-                                                                    navigate("/login");
-                                                                }
-                                                                catch (err) {
-                                                                    // Optionally show error toast
-                                                                }
-                                                            }, children: "Logout" }) })] })] })] })] }) }) }), _jsxs("aside", { className: `position-fixed top-0 start-0 h-100 bg-white border-end z-50 transition-all ${isSidebarOpen ? "translate-x-0" : "translate-x-n100"} d-lg-block`, style: { width: "240px" }, children: [_jsxs("div", { className: "p-4 border-bottom d-flex align-items-center justify-content-between", children: [_jsx("button", { onClick: () => navigate("/employer-dashboard"), className: "btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0", children: _jsx("div", { ref: logoRef, className: "d-flex align-items-center justify-content-center", style: {
-                                        transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
-                                        transition: 'transform 0.6s ease-in-out',
+    const handleLogout = async () => {
+        try {
+            const resultAction = await dispatch(logoutUserThunk());
+            localStorage.removeItem('userToken');
+            sessionStorage.removeItem('userData');
+            localStorage.removeItem("token");
+            localStorage.removeItem("refresh");
+            alert("You have been successfully logged out.");
+            if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
+                navigate("/login", { replace: true });
+            }
+        }
+        catch (err) {
+            console.error("Logout process failed:", err);
+            // Fallback navigation in case of error, ensuring the user is logged out visually
+            navigate("/login", { replace: true });
+        }
+    };
+    return (_jsxs("div", { className: "min-vh-100 bg-light d-flex flex-column", style: { fontFamily: 'body' }, children: [isSidebarOpen && (_jsx("div", { className: "position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none", onClick: () => setIsSidebarOpen(false) })), _jsx("header", { className: "bg-white border-bottom sticky-top z-30", style: { marginLeft: "240px", width: "calc(100% - 240px) ", fontFamily: 'body' }, children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsx("div", { className: "d-flex flex-column", children: _jsx("h1", { className: "h4 fw-bold mb-0", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: title }) }) }), _jsxs("div", { className: "col-auto d-flex align-items-center gap-3", children: [_jsxs("button", { className: "btn btn-link position-relative p-2", style: { color: PRIMARY_COLOR, fontFamily: 'body' }, onClick: () => navigate("/employer-notifications"), children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle p-1", style: { backgroundColor: PRIMARY_COLOR } })] }), _jsxs(Dropdown, { align: "end", children: [_jsxs(Dropdown.Toggle, { as: "div", id: "dropdown-profile-avatar", className: "d-flex align-items-center gap-2", style: { cursor: 'pointer' }, "aria-expanded": "false", children: [_jsxs("div", { className: "text-end d-none d-md-block", style: { lineHeight: 1 }, children: [_jsx("span", { className: "fw-medium text-dark d-block", style: { fontFamily: 'body' }, "aria-label": `Organization name: ${organizationNameOrDefault}`, children: organizationNameOrDefault }), _jsxs("small", { className: "text-muted fw-medium d-block", style: { fontFamily: 'body', fontSize: '0.7rem' }, children: ["Member since ", formatDate(companyJoinDate)] })] }), _jsx("div", { className: "rounded-circle d-flex align-items-center justify-content-center", style: {
+                                                            width: "40px",
+                                                            height: "40px",
+                                                            backgroundColor: `${PRIMARY_COLOR}15`,
+                                                        }, children: _jsx(UserIcon, { size: 24, color: PRIMARY_COLOR, strokeWidth: 2 }) })] }), _jsxs(Dropdown.Menu, { children: [_jsxs(Dropdown.Item, { as: "button", onClick: () => navigate("/employer-settings"), children: [_jsx(UserIcon, { size: 16, className: "me-2" }), "My Profile Settings"] }), _jsx(Dropdown.Divider, {}), _jsx(Dropdown.Item, { as: "button", className: "text-secondary", onClick: handleLogout, children: "Logout" })] })] })] })] }) }) }), _jsxs("aside", { className: `position-fixed top-0 start-0 h-100 bg-white border-end z-50 translate-x-n100 d-lg-block ${isSidebarOpen ? "translate-x-0" : ""}`, style: { width: "240px", fontFamily: 'body', transition: 'transform 0.3s ease-in-out' }, children: [_jsxs("div", { className: "p-4 border-bottom d-flex align-items-center justify-content-between", children: [_jsx("button", { onClick: () => navigate("/employer-dashboard"), className: "btn btn-link text-decoration-none d-flex align-items-center gap-2 p-0", children: _jsx("div", { ref: logoRef, className: "d-flex align-items-center justify-content-center", style: {
+                                        //removed spinning effect
+                                        //transform: isLogoVisible ? 'rotate(360deg)' : 'rotate(0deg)',
+                                        // transition: 'transform 0.6s ease-in-out',
                                         margin: '0.5rem 0',
-                                        padding: '0.75rem 1rem'
+                                        padding: '0.75rem 1rem',
+                                        fontFamily: 'body'
                                     }, children: _jsx("img", { src: logo, alt: "logo", style: {
                                             maxWidth: '100%',
                                             height: 'auto',
-                                            objectFit: 'contain'
+                                            objectFit: 'contain',
+                                            color: '#22C55E'
                                         } }) }) }), _jsx("button", { onClick: () => setIsSidebarOpen(false), className: "btn btn-link d-lg-none p-0", style: { color: PRIMARY_COLOR }, children: _jsx(X, { size: 20 }) })] }), _jsx("nav", { className: "px-3 mt-4", children: menuItems.map((item) => (_jsxs("button", { onClick: () => navigate(item.path), className: `w-100 btn d-flex align-items-center gap-3 mb-2 text-start ${item.active ? "bg-light" : "text-dark"}`, style: {
                                 border: "none",
                                 borderRadius: "8px",
                                 padding: "12px",
                                 color: item.active ? PRIMARY_COLOR : "#6c757d",
                                 backgroundColor: item.active ? `${PRIMARY_COLOR}15` : "transparent",
-                                fontWeight: item.active ? "600" : "400",
-                            }, children: [_jsx(item.icon, { size: 20, style: { color: item.active ? PRIMARY_COLOR : "#6c757d" } }), _jsx("span", { className: "fw-medium", children: item.label })] }, item.label))) }), _jsx("div", { className: "position-absolute bottom-0 start-0 end-0 p-3 border-top", children: _jsxs("button", { onClick: () => navigate("/employer-settings"), className: `w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${location.pathname === "/employer-settings" ? "bg-light" : "text-dark"}`, style: {
+                                fontWeight: item.active ? "600" : "400", fontFamily: 'body'
+                            }, children: [_jsx(item.icon, { size: 20, style: { color: item.active ? PRIMARY_COLOR : "#6c757d", fontFamily: 'body' } }), _jsx("span", { className: "fw-medium", children: item.label })] }, item.label))) }), _jsx("div", { className: "position-absolute bottom-0 start-0 end-0 p-3 border-top", children: _jsxs("button", { onClick: () => navigate("/employer-settings"), className: `w-100 btn d-flex align-items-center gap-3 text-start mb-2 ${location.pathname === "/employer-settings" ? "bg-light" : "text-dark"}`, style: {
                                 border: "none",
                                 borderRadius: "8px",
                                 padding: "12px",

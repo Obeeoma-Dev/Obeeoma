@@ -82,4 +82,4 @@ const billingSlice = createSlice({
     },
 });
 export const {clearBillingError} = billingSlice.actions;
-export default billingSlice.reducer;
+export default billingSlice.reducer

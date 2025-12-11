@@ -57,8 +57,12 @@ function Navigation() {
           <Nav className="ms-auto">
             {/* Navigation links */}
 
-            <Nav.Link as={Link} to="/Index" className="mx-2">
+            <Nav.Link as={Link} to="/" className="mx-2">
               Home
+            </Nav.Link>
+
+            <Nav.Link as={Link} to="/contact-us" className="mx-2">
+              Contact
             </Nav.Link>
 
             <Nav.Link as={Link} to="/about-us" className="mx-2">
@@ -69,9 +73,6 @@ function Navigation() {
               Blog
             </Nav.Link>
 
-            <Nav.Link as={Link} to="/contact-us" className="mx-2">
-              Contact
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

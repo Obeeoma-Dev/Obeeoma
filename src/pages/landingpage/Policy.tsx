@@ -1,7 +1,8 @@
+import { cubicBezier } from "framer-motion";
 import React from 'react'
 import { motion } from 'framer-motion'
 // React-Bootstrap components used to replace Tailwind utility classes
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
 // Site-level components (kept as-is per your request)
 import Navigation from '../../components/shared/Navigation';
 import Footer from '../../components/shared/Footer';
@@ -32,7 +33,7 @@ const cardVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as any
+      ease: cubicBezier(0.22, 1, 0.36, 1)
     },
   },
 }
@@ -47,7 +48,7 @@ const heroVariants = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: [0.22, 1, 0.36, 1] as any
+      ease: cubicBezier(0.22, 1, 0.36, 1)
     },
   },
 }
@@ -279,7 +280,7 @@ export function PrivacyPolicy() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
                 <Card className="text-center">
                   <Card.Body>

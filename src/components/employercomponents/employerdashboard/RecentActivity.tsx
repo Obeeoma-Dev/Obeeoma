@@ -11,7 +11,7 @@ interface RecentActivityProps {
   onViewAll?: () => void;
   maxItems?: number;
 }
-const PRIMARY_COLOR = "#3CB371"; // Defined the custom color
+const PRIMARY_COLOR = "#22C55E"; // Defined the custom color
 
 const RecentActivity = ({ activities, onViewAll, maxItems = 3 }: RecentActivityProps) => {
   const defaultActivities: Activity[] = [
