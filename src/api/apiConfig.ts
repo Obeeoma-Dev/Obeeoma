@@ -1,3 +1,6 @@
+// Company logo API endpoints
+export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
+export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 import { RootState } from '../store/store';
 import {
@@ -42,8 +45,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/verify-otp/",
         "/v1/auth/mfa/setup/",
         "/v1/auth/mfa/confirm/",
-
-
       ];
 
       const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
@@ -344,7 +345,7 @@ export const employerAPI = {
 
   // Wellness Data
   getMoodTrends: async () => {
-    const response = await api.get("/v1/invitations/");
+    const response = await api.get("/v1/dashboard/trends/");
     return response;
   },
 
@@ -372,7 +373,6 @@ export const employerAPI = {
   //   viewUsage: async () => {
   //   return api.get<UsageData>("/subscription/usage/");
   // },
-
 
   // Billing
   viewSubscription: async () => {

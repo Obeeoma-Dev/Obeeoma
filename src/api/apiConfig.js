@@ -1,3 +1,6 @@
+// Company logo API endpoints
+export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
+export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 // declare const authApiClient: any;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -260,7 +263,7 @@ export const employerAPI = {
     },
     // Wellness Data
     getMoodTrends: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/dashboard/trends/");
         return response;
     },
     getDepartmentDistribution: async () => {
