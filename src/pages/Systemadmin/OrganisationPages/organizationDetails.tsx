@@ -244,7 +244,7 @@ const OrganizationDetails: React.FC = () => {
                   <Card.Body>
                     <Row className="gy-3">
                       {/* Name + Icon + ID */}
-                      <Col xs={12}>
+                      {/* <Col xs={12}>
                         <div className="d-flex align-items-center">
                           {org.icon && org.icon.startsWith("http") && (
                             <img
@@ -264,7 +264,7 @@ const OrganizationDetails: React.FC = () => {
                             <div className="text-muted small">ID: {org.id}</div>
                           </div>
                         </div>
-                      </Col>
+                      </Col> */}
 
                       {/* Subscription Plan */}
                       <Col xs={12}>
