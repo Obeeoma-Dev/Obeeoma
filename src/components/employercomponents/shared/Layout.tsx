@@ -33,21 +33,35 @@ const PRIMARY_COLOR = "#22C55E";
 
 const Layout = ({ children, title }: LayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>(); 
   
  
   const employer = useSelector((state: RootState) => state.employer.currentEmployer) as EmployerUser;
-  
-  // 1. Organization Name Logic (UPDATED: Falls back directly to "User")
-  const organizationNameOrDefault = employer?.organizationName 
-    ? employer.organizationName 
-    : "User";
-  const companyJoinDate = employer?.company?.createdAt 
-    ? new Date(employer.company.createdAt) 
-    : new Date(); // Fallback to current date
+
+  // Try to get employer data from localStorage if available
+  let localEmployer = null;
+  try {
+    const stored = localStorage.getItem("employerAccountData");
+    if (stored) {
+      localEmployer = JSON.parse(stored);
+    }
+  } catch {}
+
+  // Prefer localStorage for organizationName, fallback to Redux, then default
+  const organizationNameOrDefault = localEmployer?.organizationName
+    ? localEmployer.organizationName
+    : employer?.organizationName
+      ? employer.organizationName
+      : "User";
+
+  // Prefer backend for companyJoinDate, fallback to localStorage, then now
+  const companyJoinDate = employer?.company?.createdAt
+    ? new Date(employer.company.createdAt)
+    : localEmployer?.dateJoined
+      ? new Date(localEmployer.dateJoined)
+      : new Date();
 
   const menuItems = [
     { icon: HomeIcon, label: "Dashboard", path: "/employer-dashboard", active: false },
@@ -166,25 +180,29 @@ const Layout = ({ children, title }: LayoutProps) => {
                         >
                             {organizationNameOrDefault}
                         </span>
-                        
-                        {/* 2. Logged In User Email - REMOVED */}
-                        
-                        {/* 3. Member Since Date - Moved up to line 2 */}
+                                                
+                        {/* 2. Member Since Date - Moved up to line 2 */}
                         <small className="text-muted fw-medium d-block" style={{ fontFamily: 'body', fontSize: '0.7rem' }}>
                             Member since {formatDate(companyJoinDate)}
                         </small>
                     </div>
 
-                    {/* User Icon (No borders, light green background, green icon) */}
+                    {/* 3. User Icon or Uploaded Logo */}
                     <div 
-                        className="rounded-circle d-flex align-items-center justify-content-center"
-                        style={{ 
-                            width: "40px", 
-                            height: "40px", 
-                            backgroundColor: `${PRIMARY_COLOR}15`, 
-                        }} 
+                      className="rounded-circle d-flex align-items-center justify-content-center overflow-hidden"
+                      style={{ 
+                        width: "40px", 
+                        height: "40px", 
+                        backgroundColor: `${PRIMARY_COLOR}15`, 
+                      }} 
                     >
-                        <UserIcon size={24} color={PRIMARY_COLOR} strokeWidth={2} /> 
+                      {(() => {
+                        const storedLogo = localStorage.getItem('companyProfileImage');
+                        if (storedLogo) {
+                        return <img src={storedLogo} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+                        }
+                        return <UserIcon size={24} color={PRIMARY_COLOR} strokeWidth={2} />;
+                      })()}
                     </div>
                         
                

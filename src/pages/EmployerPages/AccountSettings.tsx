@@ -14,17 +14,30 @@ import LogoutButton from "../../components/authenticationComponents/Logout";
 
 const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");
-  const [accountData, setAccountData] = useState<EmployerUser>({
-    id: "",
-    role: "employer",
-    dateJoined: new Date().toISOString(),
-    organizationName: " ",
-    firstName: "",
-    lastName: "",
-    username: "Admin User",
-    email: "admin@example.com",
-    phone: "",
-  });
+  // Try to get account data from localStorage first
+  const getInitialAccountData = (): EmployerUser => {
+    const stored = localStorage.getItem("employerAccountData");
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        // fallback to default if parse fails
+      }
+    }
+    // TODO: Optionally fetch from backend here if needed
+    return {
+      id: "",
+      role: "employer",
+      dateJoined: new Date().toISOString(),
+      organizationName: " ",
+      firstName: "",
+      lastName: "",
+      username: "Admin User",
+      email: "admin@example.com",
+      phone: "",
+    };
+  };
+  const [accountData, setAccountData] = useState<EmployerUser>(getInitialAccountData());
 
   const [notificationSettings, setNotificationSettings] = useState({
     emailNotifications: true,

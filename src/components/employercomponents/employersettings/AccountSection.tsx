@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { LOGO_UPLOAD_URL, LOGO_FETCH_URL } from '../../../api/apiConfig';
 import { Building, User, Mail, Users, Edit, Calendar, Globe, FileText, Lock } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { EmployerUser } from '../../../types/employer';
@@ -18,38 +19,87 @@ const storedCompanySize = localStorage.getItem('companySize') || '';
 const companySizeIndex = COMPANY_SIZES.indexOf(storedCompanySize);
 
 const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData }) => {
+    // Logo API endpoints are imported from apiConfig.ts
+
+    // Upload logo to backend and save URL
+    const uploadLogoToBackend = async (file: File) => {
+      const formData = new FormData();
+      formData.append('logo', file);
+      try {
+        const response = await fetch(LOGO_UPLOAD_URL, {
+          method: 'POST',
+          body: formData,
+          // Add headers if needed (e.g., auth)
+        });
+        if (!response.ok) throw new Error('Failed to upload logo');
+        const data = await response.json();
+        // Expect backend to return { logoUrl: string }
+        if (data.logoUrl) {
+          setProfileImage(data.logoUrl);
+          localStorage.setItem('companyProfileImage', data.logoUrl);
+        }
+      } catch (err) {
+        console.error('Logo upload error:', err);
+      }
+    };
   const [localData, setLocalData] = useState<EmployerUser>(accountData);
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
+  // Handle logo upload
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Upload to backend and save URL
+      await uploadLogoToBackend(file);
+    }
+  };
+
   // Load data from localStorage on component mount
   useEffect(() => {
+    const fetchLogoFromBackend = async () => {
+      try {
+        const response = await fetch(LOGO_FETCH_URL, {
+          method: 'GET',
+          // Add headers if needed (e.g., auth)
+        });
+        if (!response.ok) throw new Error('Failed to fetch logo');
+        const data = await response.json();
+        if (data.logoUrl) {
+          setProfileImage(data.logoUrl);
+          localStorage.setItem('companyProfileImage', data.logoUrl);
+        }
+      } catch (err) {
+        // fallback to localStorage
+        const storedProfileImage = localStorage.getItem('companyProfileImage') || '';
+        setProfileImage(storedProfileImage);
+      }
+    };
+
     const storedOrgName = localStorage.getItem('organizationName') || '';
     const storedUsername = localStorage.getItem('username') || '';
     const storedEmail = localStorage.getItem('email') || '';
-    const storedProfileImage = localStorage.getItem('companyProfileImage') || '';
     const storedTimeZone = localStorage.getItem('timeZone') || 'UTC-05:00 Eastern Time (US & Canada)';
     const storedLanguage = localStorage.getItem('language') || 'English';
     const storedDateFormat = localStorage.getItem('dateFormat') || 'MM/DD/YYYY';
-    
+
     const updatedData: EmployerUser = {
       ...accountData,
       organizationName: storedOrgName,
-      username: storedUsername,
-      email: storedEmail,
+      username: storedUsername || accountData.username,
+      email: storedEmail || accountData.email,
       company: {
         ...accountData.company,
         id: accountData.company?.id ?? '',
         createdAt: accountData.company?.createdAt ?? '',
         companySize: companySizeIndex > -1 ? companySizeIndex : (accountData.company?.companySize ?? 0),
       },
-      // companySize: storedCompanySize || accountData.companySize || '1-10 employees',
       timeZone: storedTimeZone,
       language: storedLanguage,
       dateFormat: storedDateFormat,
     };
-    
+
     setLocalData(updatedData);
-    setProfileImage(storedProfileImage);
+    fetchLogoFromBackend();
   }, [accountData]);
 
   // Format display value
@@ -68,7 +118,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
           </Link>
         </div>
         
-        {/* Profile Header with Logo */}
+        {/* Profile Header with Logo and Upload */}
         <div className="d-flex align-items-center mb-5 pb-3 border-bottom">
           <div className="position-relative me-4">
             <div className="rounded-circle overflow-hidden border" style={{ width: '100px', height: '100px' }}>
@@ -84,6 +134,17 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
                 </div>
               )}
             </div>
+            {/* Logo Upload Button */}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleLogoUpload}
+              style={{ position: 'absolute', bottom: '-30px', left: 0, width: '100px', opacity: 0, cursor: 'pointer', height: '30px' }}
+              title="Upload company logo"
+            />
+            <label htmlFor="logo-upload" style={{ position: 'absolute', bottom: '-30px', left: 0, width: '100px', textAlign: 'center', fontSize: '0.8rem', color: '#22C55E', cursor: 'pointer' }}>
+              Upload Logo
+            </label>
           </div>
           <div>
             <h4 className="h3 fw-bold text-dark mb-2">{localData.organizationName || 'Your Company'}</h4>
