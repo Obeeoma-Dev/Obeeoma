@@ -3,13 +3,13 @@ import Layout from "../../components/employercomponents/shared/Layout";
 import EmployeeStatusLegend from "../../components/employercomponents/employerdashboard/EmployeeStatusLegend";
 import FeatureUsageBreakdown from "../../components/employercomponents/employerdashboard/FeatureUsageBreakdown";
 import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
-import MoodgaugeChart from "../../components/employercomponents/employerdashboard/MoodgaugeChart";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { useDashboardData } from "../../hooks/useDashboardData";
 import { useState } from "react";
 import { DashboardProps } from "@/types/employer";
 import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
 import {
   fetchEmployerDashboardSummary,
   fetchEmployeeStatus,
@@ -17,10 +17,8 @@ import {
   fetchEmployees,
 } from "../../store/slices/EmployerSlice";
 
-const EmployerDashboard: React.FC<DashboardProps> = ({
-  companyId,
-}) => {
-  const dispatch = useDispatch<any>();
+const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
+  const dispatch = useDispatch<AppDispatch>();
   const { stats, employeeData, activities, loading, error } = useDashboardData();
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
 

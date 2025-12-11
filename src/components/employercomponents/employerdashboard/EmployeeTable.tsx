@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { 
   fetchEmployeeInvites, 
   clearEmployerError,
-  fetchEmployees 
+  fetchEmployees ,
+  
 } from '../../../store/slices/EmployerSlice';
 import { Employee } from "../../../types/employer";
 import { RootState } from "../../../store/store";
@@ -28,6 +29,8 @@ interface EmployerStateSubset {
   isActionLoading: boolean;
   error: string | null;
 }
+
+
 
 interface EmployeeTableProps {
   searchQuery: string;
@@ -53,6 +56,7 @@ console.log(employees);
   );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
 
   // Define columns using TanStack Table
   const columnHelper = createColumnHelper<Employee>();
@@ -72,17 +76,26 @@ console.log(employees);
       header: () => 'Status',
       cell: info => {
         const status = info.getValue();
-        const statusClass = status === "active" 
-          ? "bg-success bg-opacity-10 text-success" 
-          : status === "pending" || status === "accepted"
-          ? "bg-warning bg-opacity-10 text-warning"
-          : "bg-danger bg-opacity-10 text-danger";
-        
+        let statusClass = "badge";
+        let style = {};
+
+        if (status === "active") {
+          statusClass += " text-white";
+          style = { backgroundColor: '#22C55E' };
+        } else if (status === "pending" || status === "accepted") {
+          statusClass += " text-white";
+          style = { backgroundColor: '#0a5f2fcb' };
+        } else {
+          statusClass += " text-white";
+          style = { backgroundColor: '#b4beb9dc' };
+        }
+
         return (
-          <span className={`badge ${statusClass}`}>
-            {status ? status.charAt(0).toUpperCase() + status.slice(1) : 'Unknown'}
+          <span className={statusClass} style={style}>
+            {status ? status.charAt(0).toUpperCase() + status.slice(1) : 'Not Available'}
           </span>
         );
+
       },
       footer: info => info.column.id,
     }),
@@ -95,7 +108,7 @@ console.log(employees);
             className={`btn btn-sm ${
               row.original.status === "inactive"
                 ? "btn-outline-success"
-                : "btn-outline-warning"
+                : "btn-outline-secondary"
             }`}
             disabled={isActionLoading}
           >
@@ -112,13 +125,15 @@ console.log(employees);
     columns,
     state: {
       columnFilters,
+      globalFilter,
     },
     onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-
+ console.log(table.getState().columnFilters)
   // Fetch employees on component mount
   useEffect(() => {
     dispatch(fetchEmployees() as any);
@@ -137,40 +152,35 @@ console.log(employees);
 
   // Apply search filter
   useEffect(() => {
-    if (searchQuery) {
-      table.getColumn('name')?.setFilterValue(searchQuery);
-    } else {
-      // Clear all filters when search query is empty
-      table.setColumnFilters([]);
-    }
+    table.setGlobalFilter(searchQuery);
   }, [searchQuery, table]);
 
   return (
-    <>
+    <div className="p-3">
       {/* Table */}
       <div className="table-responsive">
-        <table className="table table-hover mb-0">
-          <thead className="bg-light">
+        <table className="table table-hover mb-0 my-borderless-table">
+          <thead className="bg-light my-borderless-table">
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id} className="border-0 py-3 text-muted fw-semibold">
+                  <th key={header.id} className={`border-0 py-3 text-muted fw-semibold ${header.id === 'actions' ? 'text-start' : ''}`}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                        
+
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="tbody ">
             {isLoading ? (
               <tr>
-                <td colSpan={columns.length} className="text-center py-5">
+                <td colSpan={columns.length} className="text-center py-5 px-3">
                   <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
@@ -179,7 +189,7 @@ console.log(employees);
               </tr>
             ) : table.getRowModel().rows.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="text-center py-5 text-muted">
+                <td colSpan={columns.length} className="text-center py-5 px-3 text-muted">
                   No employees found.
                 </td>
               </tr>
@@ -187,7 +197,7 @@ console.log(employees);
               table.getRowModel().rows.map(row => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map(cell => (
-                    <td key={cell.id} className="py-3">
+                    <td key={cell.id} className="py-3 px-3">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -199,7 +209,7 @@ console.log(employees);
       </div>
 
       {/* Pagination */}
-      <div className="d-flex justify-content-between align-items-center mt-3">
+      <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
         <div className="text-muted">
           Showing {table.getFilteredRowModel().rows.length} of{' '}
           {employees.length} employees
@@ -221,7 +231,7 @@ console.log(employees);
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

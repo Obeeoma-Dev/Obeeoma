@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Badge, Image, Container, Row, Col, Card } from "react-bootstrap";
+import { Table, Button, Badge, Image, Card } from "react-bootstrap";
 import { PencilIcon, TrashIcon, PlusIcon } from "lucide-react";
 
 // Type definition for a blog post

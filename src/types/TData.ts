@@ -17,7 +17,7 @@ export interface EmployerUser {
   phone?: string;
 }
 //TData
-type Employee = {
+export interface Employee {
   firstName: string
   lastName: string
   age: number

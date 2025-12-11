@@ -4,7 +4,6 @@ import { RootState } from '../store/store';
 import {
   fetchEmployerDashboardSummary,
   fetchDepartmentDistribution,
-  fetchEmployeeStatus,
   fetchWellnessTrend,
   fetchMoodTrends,
   fetchEmployees,
@@ -25,24 +24,22 @@ interface WellnessTrendPoint {
 }
 
 
-interface EmployerSummary {
-  totalEmployees?: number;
-  wellnessIndex?: number;
-  inactiveEmployees?: number;
-  activeEmployees?:number;
-  atRisk?: number;
-  activePercentage: number;
-  inactivePercentage: number;
-}
+// interface EmployerSummary {
+//   totalEmployees?: number;
+//   wellnessIndex?: number;
+//   inactiveEmployees?: number;
+//   activeEmployees?:number;
+//   atRisk?: number;
+//   activePercentage: number;
+//   inactivePercentage: number;
+// }
 
-interface Invite {
-  id?: string;
-  email?: string;
-  invitedAt?: string;
-  // extend as needed
-}
-
-
+// interface Invite {
+//   id?: string;
+//   email?: string;
+//   invitedAt?: string;
+//   // extend as needed
+// }
 
 interface DashboardStats {
   activeEmployees: number;
@@ -90,7 +87,6 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     summary, 
     departmentDistribution, 
     wellnessTrend, 
-    invites,
     employees = [],
     moodTrends,
     isLoading,

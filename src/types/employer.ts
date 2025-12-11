@@ -1,3 +1,4 @@
+import { } from 'react';
 export interface EmployerUser {
   id: string | number;
   username: string;
@@ -93,7 +94,7 @@ export interface InviteData {
 
 export interface Employee {
   id: number;
-  name: string;
+  // name: string;
   emailAddress: string;
   phoneNumber?: string;
   department: string;
@@ -146,7 +147,7 @@ export interface EmployerState {
     date: string;
     score: number;
   }[];
-  employeeStatus: EmployeeStatus;
+  EmployeeStatusData: EmployeeStatusData;
   moodTrends: {
   id: number;
   employeeId: number;
@@ -172,10 +173,10 @@ export interface EmployerState {
   error: string | null;
 }
 
-export interface EmployeeStatus {
-  active: number;
-  inactive: number;
-  total: number;
+export interface EmployeeStatusData {
+  activeEmployees: number;
+  inactiveEmployees: number;
+  totalEmployees: number;
   activePercentage: number;
   inactivePercentage: number;
 }

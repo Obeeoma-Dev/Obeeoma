@@ -1,3 +1,4 @@
+// import { fetchEmployeeStatus } from './EmployerSlice';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 // Assuming 'employerAPI' is correctly configured to handle API calls for this slice
@@ -11,6 +12,7 @@ import {
     DashboardSummary,
     Employee,
     EmployerUser,
+    EmployeeStatusData
 } from '../../types/employer';
 
 const getErrorMessage = (error: unknown): string => {
@@ -105,11 +107,11 @@ export const fetchEmployees = createAsyncThunk<
                 id: employee.id, 
                 // CRITICAL MAPPING ASSUMPTION: The API should return full_name, first_name, and last_name. 
                 // If it's the invitation list, these will be undefined/empty and will show 'undefined undefined'.
-                name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A', 
-                emailAddress: employee.email_address || employee.email || 'N/A', // Adjusted to accept 'email' field from the console data
-                department: employee.dept_code || 'N/A', 
-                status: employee.account_status 
-                    ? employee.account_status.toLowerCase() as Employee['status'] 
+                // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A', 
+                emailAddress: employee.empemail|| employee.email || 'N/A', // Adjusted to accept 'email' field from the console data
+                department: employee.empdepartment || 'N/A', 
+                status: employee.empstatus
+                    ? employee.empstatus.toLowerCase() as Employee['status'] 
                     : 'unknown', 
             }));
             
@@ -252,7 +254,7 @@ export const fetchMoodTrends = createAsyncThunk<
 
 
 export const fetchEmployeeStatus = createAsyncThunk<
-  { active: number; inactive: number; total: number },
+    EmployeeStatusData,
   void,
   { rejectValue: string }
 >(
@@ -283,13 +285,14 @@ const initialState: EmployerState = {
   isLoading: false,
   isActionLoading: false,
   error: null,
-  employeeStatus: {
-    active: 0,
-    inactive: 0,
-    total: 0,
+  EmployeeStatusData:{
+    activeEmployees: 0,
+    inactiveEmployees: 0,
+    totalEmployees: 0,
     activePercentage: 0,
     inactivePercentage: 0,
-  },
+  }
+    
 };
 
 // === Slice ===

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Container, Col, Card, Stack } from 'react-bootstrap';
 import Navigation from '../../components/shared/Navigation';
 import Footer from '../../components/shared/Footer';
-import { FileText, UserCheck, UserPlus, CreditCard, MessageCircle, Lock, Copyright, ShieldAlert, XCircle, RefreshCw, Scale, Mail } from 'lucide-react';
+import { FileText, UserCheck, UserPlus, CreditCard, MessageCircle, Lock, Copyright, ShieldAlert, XCircle, RefreshCw, Scale, Mail, } from 'lucide-react';
 // import './TermsAndConditions.css'; // Custom CSS for colors & spacing
 // Motion variants
 const containerVariants = {

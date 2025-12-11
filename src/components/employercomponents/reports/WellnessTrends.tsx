@@ -33,7 +33,7 @@ const dummyMoodData = [
 ];
 
 const WellnessTrends: React.FC = () => {
-  const [moodData, setMoodData] = useState(dummyMoodData);
+  const [moodData] = useState(dummyMoodData);
 
   // In the future, replace this with actual API call
   useEffect(() => {
@@ -54,17 +54,17 @@ const WellnessTrends: React.FC = () => {
   }, []);
 
   // Helper function to get emoji based on score
-  const getEmojiFromScore = (score: number): string => {
-    const emoji = EMOJI_MAPPING.find(
-      (item, index) => 
-        score <= item.score || 
-        (index === EMOJI_MAPPING.length - 1 && score > item.score)
-    );
-    return emoji?.emoji || '😐';
-  };
+  // const getEmojiFromScore = (score: number): string => {
+  //   const emoji = EMOJI_MAPPING.find(
+  //     (item, index) => 
+  //       score <= item.score || 
+  //       (index === EMOJI_MAPPING.length - 1 && score > item.score)
+  //   );
+  //   return emoji?.emoji || '😐';
+  // };
 
   // Custom YAxis tick with emojis
-  const renderEmojiTick = ({ x, y, payload }: any) => {
+  const renderEmojiTick = ({ x, y, payload }: { x: number; y: number; payload: { value: number } }) => {
     const emoji = EMOJI_MAPPING.find(e => e.score === payload.value)?.emoji;
     return (
       <g transform={`translate(${x},${y})`}>
@@ -83,7 +83,7 @@ const WellnessTrends: React.FC = () => {
   };
 
   // Custom tooltip
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ payload: typeof dummyMoodData[0] }>; label?: string }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       const emojiInfo = EMOJI_MAPPING.find(e => e.emoji === data.emoji);
@@ -98,7 +98,7 @@ const WellnessTrends: React.FC = () => {
       );
     }
     return null;
-  };
+    };
 
   return (
     <div className="p-5 bg-white rounded-lg shadow-md">

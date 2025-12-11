@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch } from '../../../store/store';
 import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import { RootState } from '../../../store/store';
 import { fetchBillingHistory } from '../../../store/slices/billingSlice';
 
 const BillingHistoryTable: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const { invoices, status, error } = useSelector((state: RootState) => state.billing);
 
     useEffect(() => {
         // Fetch history only if it hasn't been fetched or failed
         if (status === 'idle') {
-            dispatch(fetchBillingHistory() as any);
+            dispatch(fetchBillingHistory());
         }
     }, [status, dispatch]);
     
@@ -53,7 +54,7 @@ const BillingHistoryTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {invoices.map((invoice) => (
+                    {invoices.map((invoice: any) => (
                         <tr key={invoice.invoice_number}>
                             <td>{invoice.date}</td>
                             <td>{invoice.description}</td>

@@ -1,4 +1,5 @@
 import axios from "axios";
+// declare const authApiClient: any;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
@@ -232,8 +233,12 @@ export const employerAPI = {
         const response = await api.get("/v1/invitations/");
         return response;
     },
+    // getEmployees: async () => {
+    //   const response = await api.get("/v1/invitations");
+    //   return response;
+    // },
     getEmployees: async () => {
-        const response = await api.get("/v1/invitations");
+        const response = await api.get("/v1/dashboard/employees/");
         return response;
     },
     // Analytics & Dashboard
@@ -242,7 +247,7 @@ export const employerAPI = {
         return response;
     },
     getEmployeeStatus: async () => {
-        const response = await api.get("/v1/employee-status/");
+        const response = await api.get("/v1/engagement-level/");
         return response;
     },
     getEngagement: async () => {

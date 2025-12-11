@@ -1,9 +1,9 @@
 import EmployeeTable from "../../components/employercomponents/employerdashboard/EmployeeTable";
 import Layout from "../../components/employercomponents/shared/Layout";
-import { Search } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { Search } from "lucide-react";
 
 const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
