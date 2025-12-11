@@ -120,8 +120,18 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
                     </div>
                   ) : (
                     // Default layout for "Add Employee" and "Help & Support"
-                    <div>
-                      <h6 className="fw-semibold mb-0" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
+                    // <div>
+                    //   <h6 className="fw-semibold mb-0" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
+                    //     {stat.title}
+                    //   </h6>
+                    //   {stat.description && (
+                    //     <h6 className="small text-muted mb-0" style={{ fontSize: '0.7rem' }}>
+                    //       {stat.description}
+                    //     </h6>
+                    //   )}
+                    // </div>
+                                        <div>
+                      <h6 className="fw-bold mb-1" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
                         {stat.title}
                       </h6>
                       {stat.description && (
