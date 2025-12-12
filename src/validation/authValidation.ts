@@ -175,3 +175,18 @@ export const resetPasswordValidationSchema = yup.object({
       .required("Confirm Password is required"),
 
 });
+
+export const changePasswordValidationSchema = yup.object({
+  old_password: yup
+    .string()
+    .required("Old Password is required"),
+  new_password: yup
+    .string()
+    .required("New Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .matches(passwordRules, { message: "Password must contain 1 uppercase letter, 1 lowercase letter, 1 character and 1 number" }),
+  confirm_password: yup
+    .string()
+    .oneOf([yup.ref('new_password')], "Passwords must match")
+    .required("Confirm Password is required"),
+});

@@ -192,6 +192,7 @@ const authSlice = createSlice({
             state.accessToken = action.payload.access || action.payload.token;
             state.error = null;
             localStorage.setItem("token", action.payload.access || action.payload.token);
+            localStorage.setItem("refresh", action.payload.refresh);
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
             .addCase(loginUser.rejected, (state, action) => {
@@ -210,6 +211,7 @@ const authSlice = createSlice({
             state.accessToken = action.payload?.access ?? action.payload?.token;
             state.error = null;
             localStorage.setItem("token", action.payload?.access || action.payload?.token);
+            localStorage.setItem("refresh", action.payload?.refresh);
             localStorage.setItem("user", JSON.stringify(action.payload?.user));
         })
             .addCase(registerUser.rejected, (state, action) => {

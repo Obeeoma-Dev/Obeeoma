@@ -216,7 +216,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
                 <div className="bg-light rounded p-3 h-100">
                   <div className="d-flex align-items-center mb-2 justify-content-between">
                     <Lock size={16} className="text-success me-2" />
-                    <Link to="/reset-password" className="text-success text-decoration-none small">
+                    <Link to="/change-password" className="text-success text-decoration-none small">
                       Change Password
                     </Link>
                   </div>

@@ -1,3 +1,4 @@
+import { ChangePassword } from './../types/auth';
 // Company logo API endpoints
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
@@ -43,19 +44,20 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/reset-password/complete/",
         "/v1/organization-signup/",
         "/v1/auth/verify-otp/",
+        // "/v1/auth/logout/",
         "/v1/auth/mfa/setup/",
         "/v1/auth/mfa/confirm/",
       ];
 
       const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
-      // checking the redux token
+      //check local storage first (more reliable)
+      const persistedToken = localStorage.getItem('token');
+
+      // checking the redux token as fallback
       const state = store.getState();
       const token = state.auth.token;
 
-      //check local storage
-      const persistedToken = localStorage.getItem('token');
-
-      const activeToken = token || persistedToken;
+      const activeToken = persistedToken || token;
 
       if (activeToken && !isPublicEndpoint) {
         //  "inject the authorization"
@@ -69,7 +71,8 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         method: config.method,
         url: config.url,
         data: config.data,
-        token_injected: !!(token && !isPublicEndpoint),
+        token_injected: !!(activeToken && !isPublicEndpoint),
+        token_source: persistedToken ? 'localStorage' : token ? 'redux' : 'none',
       });
       return config;
     },
@@ -151,16 +154,9 @@ export const authAPI = {
   //for logout
   logout: async () => {
     const refreshToken = localStorage.getItem('refresh');
-    const accessToken = localStorage.getItem('token');
     return api.post(
       '/v1/auth/logout/',
-      { refresh: refreshToken },
-      {
-        headers: {
-
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      }
+      { refresh: refreshToken }
     );
   },
 
@@ -172,6 +168,12 @@ export const authAPI = {
   // reset password
   changePassword: async (data: changePasswordData) => {
     const response = await api.post("/v1/auth/reset-password/complete/", data);
+    return response;
+  },
+
+
+  ChangeorgPassword: async (data: ChangePassword) => {
+    const response = await api.post("/v1/auth/change-password/", data);
     return response;
   },
 

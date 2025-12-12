@@ -41,6 +41,12 @@ export interface changePasswordData {
 
 }
 
+export interface ChangePassword { 
+  old_password: string;
+  new_password: string;
+  confirm_password: string;
+}
+
 export interface MfaSetupData {
     qr_code_base64: string;
     secret: string;
@@ -68,6 +74,7 @@ export interface LoginSuccessPayload {
   user: User;
   access: string;
   token: string;
+  refresh: string;
 }
 
 export interface OtpVerificationPayload {

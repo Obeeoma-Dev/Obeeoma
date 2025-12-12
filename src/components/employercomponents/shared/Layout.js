@@ -58,10 +58,6 @@ const Layout = ({ children, title }) => {
     const handleLogout = async () => {
         try {
             const resultAction = await dispatch(logoutUserThunk());
-            localStorage.removeItem('userToken');
-            sessionStorage.removeItem('userData');
-            localStorage.removeItem("token");
-            localStorage.removeItem("refresh");
             alert("You have been successfully logged out.");
             if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
                 navigate("/login", { replace: true });

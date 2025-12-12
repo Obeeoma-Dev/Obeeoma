@@ -23,16 +23,17 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
             "/v1/auth/verify-otp/",
+            // "/v1/auth/logout/",
             "/v1/auth/mfa/setup/",
             "/v1/auth/mfa/confirm/",
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
-        // checking the redux token
+        //check local storage first (more reliable)
+        const persistedToken = localStorage.getItem('token');
+        // checking the redux token as fallback
         const state = store.getState();
         const token = state.auth.token;
-        //check local storage
-        const persistedToken = localStorage.getItem('token');
-        const activeToken = token || persistedToken;
+        const activeToken = persistedToken || token;
         if (activeToken && !isPublicEndpoint) {
             //  "inject the authorization"
             config.headers.Authorization = `Bearer ${activeToken}`;
@@ -45,7 +46,8 @@ export const setupApiInterceptors = (store) => {
             method: config.method,
             url: config.url,
             data: config.data,
-            token_injected: !!(token && !isPublicEndpoint),
+            token_injected: !!(activeToken && !isPublicEndpoint),
+            token_source: persistedToken ? 'localStorage' : token ? 'redux' : 'none',
         });
         return config;
     }, (error) => {
@@ -110,12 +112,7 @@ export const authAPI = {
     //for logout
     logout: async () => {
         const refreshToken = localStorage.getItem('refresh');
-        const accessToken = localStorage.getItem('token');
-        return api.post('/v1/auth/logout/', { refresh: refreshToken }, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
+        return api.post('/v1/auth/logout/', { refresh: refreshToken });
     },
     forgotPassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/", data);

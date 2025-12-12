@@ -89,22 +89,16 @@ const Layout = ({ children, title }: LayoutProps) => {
   
   const handleLogout = async () => {
     try {
-      
+
         const resultAction = await dispatch(logoutUserThunk());
 
-  
-        localStorage.removeItem('userToken');
-        sessionStorage.removeItem('userData');
-        localStorage.removeItem("token");
-        localStorage.removeItem("refresh");
+        alert("You have been successfully logged out.");
 
-        alert("You have been successfully logged out."); 
 
-  
         if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
             navigate("/login", { replace: true });
         }
-        
+
     } catch (err) {
       console.error("Logout process failed:", err);
       // Fallback navigation in case of error, ensuring the user is logged out visually

@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/ResetPassword";
+import ChangePassword from "./pages/auth/changePassword";
 import OtpVerificationPage from './pages/auth/otpVerification';
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 // import { TermsAndConditions } from "./pages/landingpage/Terms";
@@ -63,6 +64,7 @@ export default function App(): React.ReactElement {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Register />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/change-password" element={<ChangePassword />} />
               <Route path="/reset-password-signin" element={<ResetPasswordSignin />} />
               <Route path="/accept-invite" element={<AcceptInvite />} />
               <Route path="/otp-verify" element={<OtpVerificationPage />} />

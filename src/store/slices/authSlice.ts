@@ -10,6 +10,7 @@ import {
     OtpSuccessResponse,
     MfaSetupData, 
     MfaVerifyPayload,
+    ChangePassword
 } from "./../../types/auth";
 import {authAPI} from "../../api/apiConfig";
 import api from "../../api/apiConfig";
@@ -97,6 +98,26 @@ export const forgotPassword = createAsyncThunk(
 );
 
 // Reset password Thunk
+export const changePassword = createAsyncThunk(
+    "auth/change-org-password",
+    async (
+        data: ChangePassword & { onSuccess?: () => void },
+        { rejectWithValue },
+    ) => {
+        try {
+            // Extract onSuccess so it's not sent to API
+            const { onSuccess, ...apiData } = data;
+            
+            const response = await authAPI.ChangeorgPassword(apiData);
+            
+            onSuccess?.();
+            return response.data;
+        } catch (error: unknown) {
+            return rejectWithValue(getErrorMessage(error));
+        }
+    },
+);
+
 export const resetPassword = createAsyncThunk(
     "auth/reset-password/complete",
     async (
@@ -282,7 +303,8 @@ const authSlice = createSlice({
                     "token",
                     action.payload.access || action.payload.token,
                 );
-                localStorage.setItem("user", JSON.stringify(action.payload.user)); 
+                localStorage.setItem("refresh", action.payload.refresh);
+                localStorage.setItem("user", JSON.stringify(action.payload.user));
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -305,6 +327,7 @@ const authSlice = createSlice({
                     "token",
                     action.payload?.access || action.payload?.token,
                 );
+                localStorage.setItem("refresh", action.payload?.refresh);
                 localStorage.setItem("user", JSON.stringify(action.payload?.user));
             })
             .addCase(registerUser.rejected, (state, action) => {
@@ -541,9 +564,11 @@ export default authSlice.reducer;
 //  },
 // );
 
+// 
+
 // // Reset password Thunk
 // // Reset password Thunk
-// export const resetPassword = createAsyncThunk(
+// export const changePassword = createAsyncThunk(
 //  "auth/change-password",
 // async (
 //  data: changePasswordData & { onSuccess?: () => void },
