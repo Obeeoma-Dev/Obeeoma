@@ -61,6 +61,18 @@ export const forgotPassword = createAsyncThunk("auth/reset-password", async (dat
     }
 });
 // Reset password Thunk
+export const changePassword = createAsyncThunk("auth/change-org-password", async (data, { rejectWithValue }) => {
+    try {
+        // Extract onSuccess so it's not sent to API
+        const { onSuccess, ...apiData } = data;
+        const response = await authAPI.ChangeorgPassword(apiData);
+        onSuccess?.();
+        return response.data;
+    }
+    catch (error) {
+        return rejectWithValue(getErrorMessage(error));
+    }
+});
 export const resetPassword = createAsyncThunk("auth/reset-password/complete", async (data, { rejectWithValue }) => {
     try {
         // Extract onSuccess so it's not sent to API
@@ -424,9 +436,10 @@ export default authSlice.reducer;
 // }
 //  },
 // );
+// 
 // // Reset password Thunk
 // // Reset password Thunk
-// export const resetPassword = createAsyncThunk(
+// export const changePassword = createAsyncThunk(
 //  "auth/change-password",
 // async (
 //  data: changePasswordData & { onSuccess?: () => void },

@@ -123,6 +123,10 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/complete/", data);
         return response;
     },
+    ChangeorgPassword: async (data) => {
+        const response = await api.post("/v1/auth/change-password/", data);
+        return response;
+    },
     verifyOtp: async (payload) => {
         const response = await api.post("v1/auth/verify-otp/", payload);
         return response;

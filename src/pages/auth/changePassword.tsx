@@ -50,9 +50,11 @@ const ChangePassword: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   
   // State for password visibility toggles
+  const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmPassword] = useState(false);
 
+  const toggleOldPasswordVisibility = () => setShowOldPassword((prev) => !prev);
   const toggleNewPasswordVisibility = () => setShowNewPassword((prev) => !prev);
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
 
@@ -154,15 +156,26 @@ const ChangePassword: React.FC = () => {
                   <FormikForm noValidate>
                     {/* old_password Field */}
                     <BootstrapForm.Group className="mb-3" controlId="old_password">
-                      <BootstrapForm.Control
-                        type="password"
-                        name="old_password"
-                        placeholder="Enter your Old Password"
-                        value={values.old_password}
-                        onChange={handleChange}
-                        className="py-2"
-                        isInvalid={touched.old_password && !!errors.old_password}
-                      />
+                      <InputGroup>
+                        <BootstrapForm.Control
+                          type={showOldPassword ? "text" : "password"}
+                          name="old_password"
+                          placeholder="Enter your Old Password"
+                          value={values.old_password}
+                          onChange={handleChange}
+                          className="py-2"
+                          isInvalid={touched.old_password && !!errors.old_password}
+                        />
+                        <InputGroup.Text
+                          onClick={toggleOldPasswordVisibility}
+                          style={{ cursor: "pointer", backgroundColor: "white" }}
+                        >
+                          <FontAwesomeIcon
+                            icon={showOldPassword ? faEyeSlash : faEyeRegular}
+                            style={{ color: customStyles.primaryColor }}
+                          />
+                        </InputGroup.Text>
+                      </InputGroup>
                       <BootstrapForm.Control.Feedback type="invalid">
                         {errors.old_password}
                       </BootstrapForm.Control.Feedback>
