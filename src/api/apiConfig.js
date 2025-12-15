@@ -24,8 +24,6 @@ export const setupApiInterceptors = (store) => {
             "/v1/organization-signup/",
             "/v1/auth/verify-otp/",
             // "/v1/auth/logout/",
-            "/v1/auth/mfa/setup/",
-            "/v1/auth/mfa/confirm/",
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
         //check local storage first (more reliable)

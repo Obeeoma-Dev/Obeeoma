@@ -5,6 +5,7 @@ export interface User {
 
   role: "systemadmin" | "employer" | "employee";
   is_verified: boolean;
+  mfa_enabled?: boolean;
 }
 
 export interface LoginCredentials {
@@ -58,6 +59,17 @@ export interface MfaVerifyPayload {
 }
 
 export type MfaSetupRequestPayload = {};
+
+export interface MfaSetupData {
+    otpauth_uri: string;
+    qr_code_base64: string; // Base64 encoded PNG data
+    secret: string; // The raw secret key
+}
+
+export interface MfaVerifyPayload {
+    code: string; // Used for mfa_confirm and mfa_verify
+    temp_token?: string; // Only used for mfa_verify during login
+}
 
 export interface AuthState {
   user: User | null;

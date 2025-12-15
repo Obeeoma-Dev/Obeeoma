@@ -435,13 +435,17 @@ const authSlice = createSlice({
             .addCase(confirmMfa.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
+
             })
             .addCase(confirmMfa.fulfilled, (state) => {
                 state.isLoading = false;
+                state.mfaSetupData = null;
                 state.isMfaSetupConfirmed = true; // Set status to confirmed
                 state.error = null;
-                // Optionally clear mfaSetupData here if it's no longer needed after confirmation
-                // state.mfaSetupData = null;
+                if (state.user) {
+                    state.user.mfa_enabled = true;
+                    localStorage.setItem("user", JSON.stringify(state.user));
+                }
             })
             .addCase(confirmMfa.rejected, (state, action) => {
                 state.isLoading = false;
