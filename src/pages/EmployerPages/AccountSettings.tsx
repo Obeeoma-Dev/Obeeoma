@@ -7,8 +7,8 @@ import PrivacySection from "../../components/employercomponents/employersettings
 import { Save, LogOut } from "lucide-react";
 import { EmployerUser } from "@/types/employer";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
-import { fetchCurrentEmployer } from "../../../store/slices/EmployerSlice";
+import { AppDispatch, RootState } from "../../store/store";
+import { fetchCurrentEmployer } from "../../store/slices/EmployerSlice";
 import LogoutButton from "../../components/authenticationComponents/Logout"; 
 
 const EmployerAccountProfile = () => {
