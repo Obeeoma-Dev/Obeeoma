@@ -246,7 +246,7 @@ const OrganizationDetails: React.FC = () => {
                       {/* Name + Icon + ID */}
                       {/* <Col xs={12}>
                         <div className="d-flex align-items-center">
-                          {org.icon && org.icon.startsWith("http") && (
+                          {/* {org.icon && org.icon.startsWith("http") && (
                             <img
                               src={org.icon}
                               alt={`${org.name} logo`}
@@ -258,7 +258,7 @@ const OrganizationDetails: React.FC = () => {
                                 marginRight: "10px"
                               }}
                             />
-                          )}
+                          )} */}
                           <div>
                             <div className="fw-semibold fs-6">{org.name}</div>
                             <div className="text-muted small">ID: {org.id}</div>
