@@ -43,8 +43,9 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/change-password/",
         "/v1/auth/reset-password/complete/",
         "/v1/organization-signup/",
-        "/v1/auth/verify-otp/",
+       " v1/auth/verify-invitation-otp/"
         // "/v1/auth/logout/",
+        
       ];
 
       const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
@@ -152,7 +153,7 @@ export const authAPI = {
   //for logout
   logout: async () => {
     const refreshToken = localStorage.getItem('refresh');
-    return api.post(
+    api.post(
       '/v1/auth/logout/',
       { refresh: refreshToken }
     );
@@ -177,12 +178,12 @@ export const authAPI = {
 
 
   verifyOtp: async (payload: OtpVerificationPayload) => {
-    const response = await api.post("v1/auth/verify-otp/", payload);
+    const response = await api.post("v1/auth/verify-password-reset-otp/", payload);
     return response;
   },
 
   resendOtp: (payload: OtpVerificationPayload) => {
-    return api.post('v1/auth/verify-otp/', payload);
+    return api.post("v1/auth/verify-password-reset-otp/", payload);
 
   },
 
@@ -191,9 +192,9 @@ export const authAPI = {
     return response;
   },
 
-  confirmMfaSetup: async (payload: MfaVerifyPayload) => {
-    // The payload is expected to be an object: { code: string }
-    const response = await api.post("/v1/auth/mfa/confirm/", payload);
+  confirmMfaSetup: async (payload: { temp_token: string; code: string }) => {
+    // The payload is expected to be an object: { temp_token: string, code: string }
+    const response = await api.post("/v1/auth/mfa/verify/", payload);
     return response;
   },
 
@@ -303,12 +304,12 @@ export const employerAPI = {
   //change links back to correct ones it i
   // Employee Management
   inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
-    const response = await api.post("/v1/invitations/", employeeData);
+    const response = await api.post("/v1/auth/invitations/", employeeData);
     return response;
   },
 
   viewInviteEmployee: async () => {
-    const response = await api.get("/v1/invitations/");
+    const response = await api.get("/v1/auth/invitations/");
     return response;
   },
 
@@ -317,14 +318,14 @@ export const employerAPI = {
   //   return response;
   // },
     getEmployees: async () => {
-    const response = await api.get("/v1/dashboard/employees/");
+    const response = await api.get("/v1/auth/invitations/");
     return response;
   },
 
 
   // Analytics & Dashboard
   getemployerdashboardSummary: async () => {
-    const response = await api.get("/v1/invitations/");
+    const response = await api.get("/v1/auth/invitations/");
     return response;
   },
 
@@ -355,13 +356,13 @@ export const employerAPI = {
   },
 
     postDepartmentDistribution: async () => {
-    const response = await api.post("/v1/invitations/");
+    const response = await api.post("/v1/auth/invitations/");
     return response;
   },
 
 
   getWellnessTrend: async () => {
-    const response = await api.get("/v1/invitations/");
+    const response = await api.get("/v1/auth/invitations/");
     return response;
   },
 

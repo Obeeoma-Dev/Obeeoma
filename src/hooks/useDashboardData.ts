@@ -120,12 +120,12 @@ export const useDashboardData = (): UseDashboardDataReturn => {
 
     const departmentCount: Record<string, number> = {};
     emps.forEach(employee => {
-      const dept = employee.department || 'Unknown';
+      const dept = employee.employeedepartment || 'Unknown';
       departmentCount[dept] = (departmentCount[dept] || 0) + 1;
     });
 
     const totalEmployees = emps.length;
-    const colors = ["#4caf50", "#10B981", "#a5d6a7", "", "#6789", "#EC4899"];
+    const colors = ["#4caf50", "#10B981", "#a5d6a7", "", "#6789", "#edf5f2ff"];
     
     return Object.entries(departmentCount).map(([dept, count], index) => ({
       departmentName: dept,

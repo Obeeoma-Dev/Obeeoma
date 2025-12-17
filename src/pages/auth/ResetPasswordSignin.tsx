@@ -735,7 +735,8 @@ const ResetPasswordSignIn: React.FC = () => {
       }
       
       setIsEmailSent(true);
-      // Navigate only if the API call is successful and an email is sent
+      // Store email for OTP verification and navigate
+      localStorage.setItem('resetPasswordEmail', email);
       navigate("/otp-verify");
     } catch (err: unknown) {
       console.error("Forgot Password Error:", err);

@@ -25,9 +25,11 @@ const ResetPassword = () => {
     const [showConfirmNewPassword, setShowConfirmPassword] = useState(false);
     const toggleNewPasswordVisibility = () => setShowNewPassword((prev) => !prev);
     const toggleConfirmPasswordVisibility = () => setShowConfirmPassword((prev) => !prev);
+    // Get email from localStorage for password reset flow
+    const storedEmail = localStorage.getItem('resetPasswordEmail');
     // Initial Formik Values
     const initialValues = {
-        email: "",
+        email: storedEmail || "",
         new_password: "",
         confirm_password: "",
     };
@@ -42,6 +44,8 @@ const ResetPassword = () => {
                 onSuccess: () => navigate("/login", { replace: true }),
             };
             await dispatch(resetPassword(payload)).unwrap();
+            // Clear the reset email from localStorage on success
+            localStorage.removeItem('resetPasswordEmail');
         }
         catch (error) {
             console.error("Password reset failed:", error);

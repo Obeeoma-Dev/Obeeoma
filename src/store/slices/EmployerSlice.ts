@@ -109,10 +109,10 @@ export const fetchEmployees = createAsyncThunk<
                 // If it's the invitation list, these will be undefined/empty and will show 'undefined undefined'.
                 // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A', 
                 emailAddress: employee.empemail|| employee.email || 'N/A', // Adjusted to accept 'email' field from the console data
-                department: employee.empdepartment || 'N/A', 
+                employeedepartment: employee.empdepartment || employee.employeedepartment||'N/A', 
                 status: employee.empstatus
                     ? employee.empstatus.toLowerCase() as Employee['status'] 
-                    : 'unknown', 
+                    : 'N/A', 
             }));
             
             return mappedEmployees; 

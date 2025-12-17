@@ -78,8 +78,8 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
 
   // Prepare employee status data for the chart
   const employeeStatus = {
-    activeEmployees: employeeData.activeEmployees || 0,
-    inactiveEmployees: employeeData.inactiveEmployees || 0,
+    activeEmployees: employeeData.activeEmployees || 40,
+    inactiveEmployees: employeeData.inactiveEmployees || 60,
     totalEmployees: employeeData.totalEmployees || 0,
   };
 

@@ -64,6 +64,7 @@ export interface MfaSetupData {
     otpauth_uri: string;
     qr_code_base64: string; // Base64 encoded PNG data
     secret: string; // The raw secret key
+    temp_token: string; // Temporary token for verification
 }
 
 export interface MfaVerifyPayload {
@@ -87,11 +88,12 @@ export interface LoginSuccessPayload {
   access: string;
   token: string;
   refresh: string;
+  mfa_required?: boolean;
+  temp_token?: string;
 }
 
 export interface OtpVerificationPayload {
-  //email: string;
-  code: string | number
+  code: string;
 }
 
 export interface OtpSuccessResponse {

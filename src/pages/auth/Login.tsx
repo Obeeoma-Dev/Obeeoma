@@ -72,6 +72,13 @@ const LoginPage = () => {
         loginUser({ username: values.username, password: values.password })
       ).unwrap();
 
+      // check for admin response
+      if (resultAction.mfa_required && resultAction.temp_token) {
+        // navigate to /mfa-setup
+        navigate("/mfa-setup", {replace: false})
+        return
+      } 
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userRole = (resultAction as any)?.role || user?.role;
       console.log("Final Role Determined:", userRole);
@@ -151,7 +158,7 @@ const LoginPage = () => {
                 <Form.Group className="mb-3" controlId="validationFormikUsername">
                   <Form.Control
                     type="text"
-                    placeholder="Email or Username"
+                    placeholder="Username"
                     name="username"
                     value={values.username}
                     onChange={handleChange}

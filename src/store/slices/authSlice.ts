@@ -8,7 +8,8 @@ import {
     LoginSuccessPayload,
     OtpVerificationPayload,
     OtpSuccessResponse,
-    MfaSetupData, 
+    ResendOtpPayload,
+    MfaSetupData,
     MfaVerifyPayload,
     ChangePassword
 } from "./../../types/auth";
@@ -170,16 +171,15 @@ export const verifyOtpThunk = createAsyncThunk<
 
 // Resend OTP Thunk
 export const resendOtpThunk = createAsyncThunk<
-    { message: string }, 
-    OtpVerificationPayload, 
-    { rejectValue: string } 
+    { message: string },
+    ResendOtpPayload,
+    { rejectValue: string }
 >(
     'auth/resendOtp',
     async (payload, { rejectWithValue }) => {
         try {
-            const response = await authAPI.resendOtp(payload); 
+            const response = await authAPI.forgotPassword({ email: payload.email });
             return response.data;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
             return rejectWithValue(errorMessage);
@@ -215,17 +215,17 @@ export const setupMfa = createAsyncThunk<
 
 export const confirmMfa = createAsyncThunk<
     void, // Typically returns nothing or a success message
-    MfaVerifyPayload, // Argument is the payload { code: string }
-    { 
+    { temp_token: string; code: string }, // Argument is the payload { temp_token: string, code: string }
+    {
         rejectValue: string;
-    } 
+    }
 >('auth/confirmMfa', async (payload, { rejectWithValue }) => {
     try {
-        
-        await authAPI.confirmMfaSetup(payload); 
-        
+
+        await authAPI.confirmMfaSetup(payload);
+
     } catch (err: unknown) {
-        return rejectWithValue(getErrorMessage(err)); 
+        return rejectWithValue(getErrorMessage(err));
     }
 });
 
@@ -261,6 +261,13 @@ const initialState: AuthState = {
 
 // Auth Slice Definition
 
+function saveAuthValue(key: "refresh" | "token" | "user" | "temp_token", value = "") {
+    if (!value) {
+        localStorage.removeItem(key)
+    } else {
+        localStorage.setItem(key, value)
+    }
+}
 
 const authSlice = createSlice({
     name: "auth",
@@ -299,12 +306,14 @@ const authSlice = createSlice({
                 // Since `token` is updated, also update `accessToken` if it's used elsewhere
                 state.accessToken = action.payload.access || action.payload.token;
                 state.error = null;
-                localStorage.setItem(
+                state.mfaSetupData = action.payload as any
+                saveAuthValue(
                     "token",
-                    action.payload.access || action.payload.token,
+                    action.payload?.access || action.payload?.token,
                 );
-                localStorage.setItem("refresh", action.payload.refresh);
-                localStorage.setItem("user", JSON.stringify(action.payload.user));
+                saveAuthValue("refresh", action.payload.refresh);
+                saveAuthValue("user", JSON.stringify(action.payload.user));
+                saveAuthValue("temp_token", action.payload.temp_token);
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
@@ -323,12 +332,12 @@ const authSlice = createSlice({
                 state.accessToken = action.payload?.access ?? action.payload?.token;
                 state.error = null;
 
-                localStorage.setItem(
+                saveAuthValue(
                     "token",
                     action.payload?.access || action.payload?.token,
                 );
-                localStorage.setItem("refresh", action.payload?.refresh);
-                localStorage.setItem("user", JSON.stringify(action.payload?.user));
+                saveAuthValue("refresh", action.payload?.refresh);
+                saveAuthValue("user", JSON.stringify(action.payload?.user));
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false;

@@ -22,7 +22,7 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/change-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
-            "/v1/auth/verify-otp/",
+            " v1/auth/verify-invitation-otp/"
             // "/v1/auth/logout/",
         ];
         const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
@@ -110,7 +110,7 @@ export const authAPI = {
     //for logout
     logout: async () => {
         const refreshToken = localStorage.getItem('refresh');
-        return api.post('/v1/auth/logout/', { refresh: refreshToken });
+        api.post('/v1/auth/logout/', { refresh: refreshToken });
     },
     forgotPassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/", data);
@@ -126,19 +126,19 @@ export const authAPI = {
         return response;
     },
     verifyOtp: async (payload) => {
-        const response = await api.post("v1/auth/verify-otp/", payload);
+        const response = await api.post("v1/auth/verify-password-reset-otp/", payload);
         return response;
     },
     resendOtp: (payload) => {
-        return api.post('v1/auth/verify-otp/', payload);
+        return api.post("v1/auth/verify-password-reset-otp/", payload);
     },
     fetchMfaSetupData: async (payload) => {
         const response = await api.post("/v1/auth/mfa/setup/", payload);
         return response;
     },
     confirmMfaSetup: async (payload) => {
-        // The payload is expected to be an object: { code: string }
-        const response = await api.post("/v1/auth/mfa/confirm/", payload);
+        // The payload is expected to be an object: { temp_token: string, code: string }
+        const response = await api.post("/v1/auth/mfa/verify/", payload);
         return response;
     },
 };
@@ -228,11 +228,11 @@ export const employerAPI = {
     //change links back to correct ones it i
     // Employee Management
     inviteEmployee: async (employeeData) => {
-        const response = await api.post("/v1/invitations/", employeeData);
+        const response = await api.post("/v1/auth/invitations/", employeeData);
         return response;
     },
     viewInviteEmployee: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     // getEmployees: async () => {
@@ -240,12 +240,12 @@ export const employerAPI = {
     //   return response;
     // },
     getEmployees: async () => {
-        const response = await api.get("/v1/dashboard/employees/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     // Analytics & Dashboard
     getemployerdashboardSummary: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     getEmployeeStatus: async () => {
@@ -270,11 +270,11 @@ export const employerAPI = {
         return response;
     },
     postDepartmentDistribution: async () => {
-        const response = await api.post("/v1/invitations/");
+        const response = await api.post("/v1/auth/invitations/");
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     getRecentActivities: async () => {

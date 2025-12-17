@@ -32,8 +32,8 @@ export default function OtpVerificationPage() {
         (state: RootState) => state.auth
     );
 
-    // Get email from user state (Used for display and pre-check)
-    const email = user?.email; 
+    // Get email from user state or localStorage (for password reset flow)
+    const email = user?.email || localStorage.getItem('resetPasswordEmail');
 
     // Effect to clear local error when OTP changes
     useEffect(() => {
@@ -74,7 +74,7 @@ export default function OtpVerificationPage() {
         setLocalError(null); 
 
         try {
-            await dispatch(resendOtpThunk({ code: '0' })).unwrap(); 
+            await dispatch(resendOtpThunk({ email: email })).unwrap();
             
             // On successful resend
             window.alert('New verification code sent to your email! Please check your inbox.');
@@ -94,8 +94,13 @@ export default function OtpVerificationPage() {
      * Handles the OTP verification process.
      */
     const handleVerify = (code: string) => {
-        if (code.length !== OTP_LENGTH || !email) {
-            setLocalError('Please enter a valid 6-digit code and ensure your email is present.');
+        if (code.length !== OTP_LENGTH) {
+            setLocalError('Please enter a valid 6-digit code.');
+            return;
+        }
+
+        if (!email) {
+            setLocalError('Email address is missing. Please return to the previous step.');
             return;
         }
 
@@ -103,7 +108,7 @@ export default function OtpVerificationPage() {
 
         dispatch(
             verifyOtpThunk({
-                code: code,
+                code: code.toString(),
             })
         )
             .unwrap()

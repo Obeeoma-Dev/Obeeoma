@@ -49,11 +49,15 @@ const Layout = ({ children, title }: LayoutProps) => {
     }
   } catch {}
 
+  
+  console.log("employer", employer)
+  console.log("local-employer", localEmployer)
+
   // Prefer localStorage for organizationName, fallback to Redux, then default
-  const organizationNameOrDefault = localEmployer?.organizationName
-    ? localEmployer.organizationName
-    : employer?.organizationName
-      ? employer.organizationName
+  const organizationNameOrDefault = localEmployer?.email
+    ? localEmployer?.email
+    : employer?.email
+      ? employer?.email || employer?.email
       : "User";
 
   // Prefer backend for companyJoinDate, fallback to localStorage, then now

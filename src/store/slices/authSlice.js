@@ -111,9 +111,8 @@ export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload,
 // Resend OTP Thunk
 export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
     try {
-        const response = await authAPI.resendOtp(payload);
+        const response = await authAPI.forgotPassword({ email: payload.email });
         return response.data;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (error) {
         const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
@@ -166,6 +165,14 @@ const initialState = {
     accessToken: null,
 };
 // Auth Slice Definition
+function saveAuthValue(key, value = "") {
+    if (!value) {
+        localStorage.removeItem(key);
+    }
+    else {
+        localStorage.setItem(key, value);
+    }
+}
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -203,9 +210,11 @@ const authSlice = createSlice({
             // Since `token` is updated, also update `accessToken` if it's used elsewhere
             state.accessToken = action.payload.access || action.payload.token;
             state.error = null;
-            localStorage.setItem("token", action.payload.access || action.payload.token);
-            localStorage.setItem("refresh", action.payload.refresh);
-            localStorage.setItem("user", JSON.stringify(action.payload.user));
+            state.mfaSetupData = action.payload;
+            saveAuthValue("token", action.payload?.access || action.payload?.token);
+            saveAuthValue("refresh", action.payload.refresh);
+            saveAuthValue("user", JSON.stringify(action.payload.user));
+            saveAuthValue("temp_token", action.payload.temp_token);
         })
             .addCase(loginUser.rejected, (state, action) => {
             state.isLoading = false;
@@ -222,9 +231,9 @@ const authSlice = createSlice({
             state.token = action.payload?.access ?? action.payload?.token;
             state.accessToken = action.payload?.access ?? action.payload?.token;
             state.error = null;
-            localStorage.setItem("token", action.payload?.access || action.payload?.token);
-            localStorage.setItem("refresh", action.payload?.refresh);
-            localStorage.setItem("user", JSON.stringify(action.payload?.user));
+            saveAuthValue("token", action.payload?.access || action.payload?.token);
+            saveAuthValue("refresh", action.payload?.refresh);
+            saveAuthValue("user", JSON.stringify(action.payload?.user));
         })
             .addCase(registerUser.rejected, (state, action) => {
             state.isLoading = false;

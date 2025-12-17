@@ -97,7 +97,7 @@ export interface Employee {
   // name: string;
   emailAddress: string;
   phoneNumber?: string;
-  department: string;
+  employeedepartment: string;
   status: 'accepted' | 'pending' | 'rejected' | string;
 }
 

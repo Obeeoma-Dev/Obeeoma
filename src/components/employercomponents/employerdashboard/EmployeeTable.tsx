@@ -67,7 +67,7 @@ console.log(employees);
       cell: info => info.getValue() || 'N/A',
       footer: info => info.column.id,
     }),
-    columnHelper.accessor('department', {
+    columnHelper.accessor('employeedepartment', {
       header: () => 'Department',
       cell: info => info.getValue() || 'N/A',
       footer: info => info.column.id,
@@ -103,7 +103,7 @@ console.log(employees);
       id: 'actions',
       header: () => 'Actions',
       cell: ({ row }) => (
-        <div className="d-flex justify-content-end gap-2">
+        <div className="d-flex gap-2">
           <button
             className={`btn btn-sm ${
               row.original.status === "inactive"
@@ -197,7 +197,7 @@ console.log(employees);
               table.getRowModel().rows.map(row => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map(cell => (
-                    <td key={cell.id} className="py-3 px-3">
+                    <td key={cell.id} className="py-3 px-2">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
