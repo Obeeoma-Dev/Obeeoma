@@ -288,6 +288,126 @@ export const adminAPI = {
 
 // employer endpoints
 
+// export const employerAPI = {
+//   // Profile
+//   getCurrentEmployer: async () => {
+//     const response = await api.get("/v1/users/");
+//     return response;
+//   },
+
+//   // Dashboard Settings
+//   getDashboardSettings: async () => {
+//     const response = await api.get("/v1/settings/");
+//     return response;
+//   },
+
+  
+
+//   //change links back to correct ones it i
+//   // Employee Management
+//   inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
+//     const response = await api.post("/v1/auth/invitations/", employeeData);
+//     return response;
+//   },
+
+//   viewInviteEmployee: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+
+//   // getEmployees: async () => {
+//   //   const response = await api.get("/v1/invitations");
+//   //   return response;
+//   // },
+//     getEmployees: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+
+
+//   // Analytics & Dashboard
+//   getemployerdashboardSummary: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+
+//   getEmployeeStatus: async () => {
+//     const response = await api.get("/v1/engagement-level/");
+//     return response;
+//   },
+
+//   getEngagement: async () => {
+//     const response = await api.get("/v1/tests-by-type/");
+//     return response;
+//   },
+
+//   getReports: async () => {
+//     const response = await api.post("/v1/wellness-reports/");
+//     return response;
+//   },
+
+//   // Wellness Data
+//   getMoodTrends: async () => {
+//     const response = await api.get("/v1/dashboard/trends/");
+//     return response;
+//   },
+
+ 
+
+//   getDepartmentDistribution: async () => {
+//     const response = await api.get("/v1/dashboard/departments");
+//     return response;
+//   },
+
+//     postDepartmentDistribution: async () => {
+//     const response = await api.post("/v1/auth/invitations/");
+//     return response;
+//   },
+
+
+//   getWellnessTrend: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+
+//   getRecentActivities: async () => {
+//     const response = await api.get("/v1/dashboard/recent-activities/");
+//     return response;
+//   },
+
+//   //   viewUsage: async () => {
+//   //   return api.get<UsageData>("/subscription/usage/");
+//   // },
+
+//   // Billing
+//   viewSubscription: async () => {
+//     const response = await api.post("/v1/dashboard/billing/add-subscription/");
+//     return response;
+//   },
+
+//   viewBilling: async () => {
+//     const response = await api.get("/v1/dashboard/billing/view");
+//     return response;
+//   },
+
+//     updatePaymentMethod: async (payload: PaymentUpdatePayload) => {
+//     return api.post("/v1/employer/billing/update-payment-method/", payload);
+//   },
+
+
+//   viewBillingHistory: async () => {
+//     return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");
+//   },
+
+//   // Data Export & Deletion
+//   exportAllData: async () => {
+//     return api.get("/v1/employer/data/export/", { responseType: 'blob' });
+//   },
+
+//   deleteAllData: async () => {
+//     return api.delete("/v1/employer/data/delete-all/");
+//   },
+// };
 export const employerAPI = {
   // Profile
   getCurrentEmployer: async () => {
@@ -301,7 +421,6 @@ export const employerAPI = {
     return response;
   },
 
-  //change links back to correct ones it i
   // Employee Management
   inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
     const response = await api.post("/v1/auth/invitations/", employeeData);
@@ -313,15 +432,10 @@ export const employerAPI = {
     return response;
   },
 
-  // getEmployees: async () => {
-  //   const response = await api.get("/v1/invitations");
-  //   return response;
-  // },
-    getEmployees: async () => {
+  getEmployees: async () => {
     const response = await api.get("/v1/auth/invitations/");
     return response;
   },
-
 
   // Analytics & Dashboard
   getemployerdashboardSummary: async () => {
@@ -344,6 +458,17 @@ export const employerAPI = {
     return response;
   },
 
+  /**
+   * PDF/Blob Download Method
+   * This is the critical fix for "Failed to load PDF document"
+   * It ensures the request uses Axios (with Auth headers) and handles binary data.
+   */
+  getReportBlob: async (url: string) => {
+    return api.get(url, {
+      responseType: 'blob', // Critical for binary file handling
+    });
+  },
+
   // Wellness Data
   getMoodTrends: async () => {
     const response = await api.get("/v1/dashboard/trends/");
@@ -355,11 +480,10 @@ export const employerAPI = {
     return response;
   },
 
-    postDepartmentDistribution: async () => {
+  postDepartmentDistribution: async () => {
     const response = await api.post("/v1/auth/invitations/");
     return response;
   },
-
 
   getWellnessTrend: async () => {
     const response = await api.get("/v1/auth/invitations/");
@@ -370,10 +494,6 @@ export const employerAPI = {
     const response = await api.get("/v1/dashboard/recent-activities/");
     return response;
   },
-
-  //   viewUsage: async () => {
-  //   return api.get<UsageData>("/subscription/usage/");
-  // },
 
   // Billing
   viewSubscription: async () => {
@@ -386,25 +506,25 @@ export const employerAPI = {
     return response;
   },
 
-    updatePaymentMethod: async (payload: PaymentUpdatePayload) => {
+  updatePaymentMethod: async (payload: any) => {
     return api.post("/v1/employer/billing/update-payment-method/", payload);
   },
 
-
   viewBillingHistory: async () => {
-    return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");
+    return api.get("/v1/dashboard/subscriptions/billing-history/");
   },
 
   // Data Export & Deletion
   exportAllData: async () => {
-    return api.get("/v1/employer/data/export/", { responseType: 'blob' });
+    return api.get("/v1/employer/data/export/", { 
+        responseType: 'blob' // Correctly configured for binary export
+    });
   },
 
   deleteAllData: async () => {
     return api.delete("/v1/employer/data/delete-all/");
   },
 };
-
 
 
 export default api;

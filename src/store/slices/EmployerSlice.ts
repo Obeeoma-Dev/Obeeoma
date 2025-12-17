@@ -170,6 +170,34 @@ export const fetchEmployerEngagement = createAsyncThunk<
         }
     }
 );
+export const downloadReport = createAsyncThunk<
+  void,
+  { url: string; fileName: string },
+  { rejectValue: string }
+>(
+  'employer/downloadReport',
+  async ({ url, fileName }, { rejectWithValue }) => {
+    try {
+      const response = await employerAPI.getReportBlob(url);
+      
+      // Create a blob and trigger download
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      
+      link.href = downloadUrl;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  }
+);
 
 export const fetchEmployerReports = createAsyncThunk<
     Report[],
