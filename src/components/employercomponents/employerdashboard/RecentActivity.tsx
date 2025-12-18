@@ -38,9 +38,13 @@ const RecentActivity = ({ activities, onViewAll, maxItems = 3 }: RecentActivityP
     <div className="card border-0 shadow-sm">
       <div className="card-body">
     <div className="d-flex align-items-center justify-content-between mb-4">
-      <h3 className="h5 fw-semibold mb-0" style={{ fontFamily: "heading" }}> {/* FONT CHANGE 1: Heading */}
-        Recent Activity 
-      </h3>
+      {/* <h3 className="h5 fw-semibold mb-0" style={{ fontFamily: "heading" }}> {/* FONT CHANGE 1: Heading */}
+        {/* Recent Activity 
+      </h3> */} 
+      <h6 className="fw-bold mb-3 text-center" style={{ color: '#000000', fontSize: '0.9rem' }}>
+      Recent Activity
+      </h6>
+
       <button
         className="btn btn-link text-decoration-none"
         style={{

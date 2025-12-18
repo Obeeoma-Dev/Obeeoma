@@ -61,7 +61,7 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center w-100 h-100">
       {/* Title */}
-      <h6 className="fw-bold mb-3 text-center" style={{ color: '#166534', fontSize: '0.9rem' }}>
+      <h6 className="fw-bold mb-3 text-center" style={{ color: '#000000', fontSize: '0.9rem' }}>
         Mood Tracker
       </h6>
 
@@ -74,8 +74,8 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
         overflow: 'hidden' 
       }}>
         <svg 
-          width="220" 
-          height="115" 
+          width=" 400" 
+          height="300" 
           viewBox="0 0 220 110" 
           style={{ display: 'block' }}
         >

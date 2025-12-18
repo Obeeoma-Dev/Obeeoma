@@ -350,8 +350,8 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
         }}>
           <div className="modal-header border-0 pb-0">
             <div className="d-flex align-items-center">
-              <div className="bg-success bg-opacity-10 p-2 rounded-circle me-3">
-                <UserPlus size={24} className="text-success" />
+              <div className="p-2 rounded-circle me-3" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)' }}>
+                <UserPlus size={24} style={{ color: '#22C55E' }} />
               </div>
               <div>
                 <h4 className="modal-title fw-bold mb-0 text-dark">Invite New Employee</h4>
@@ -503,10 +503,13 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
             </button>
             <button
               type="submit"
-              className="btn btn-success px-4 py-2 d-flex align-items-center"
+              className="btn px-4 py-2 d-flex align-items-center"
               disabled={isLoading}
               onClick={handleSubmit(onSubmit)}
               style={{
+                backgroundColor: '#22C55E',
+                borderColor: '#22C55E',
+                color: 'white',
                 borderRadius: '8px',
                 fontWeight: '600',
                 minWidth: '140px'

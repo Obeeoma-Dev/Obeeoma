@@ -96,7 +96,11 @@ const FeatureUsageBreakdown: React.FC = () => {
 
       <div className="mt-3 pt-3 border-top">
         <div className="d-flex align-items-center justify-content-between">
-          <span className="small text-muted" style={{fontFamily: 'heading',color:'#22C55E'}}>Overall Usage</span>
+          {/* <span className="small text-muted" style={{fontFamily: 'heading',color:'#22C55E'}}>Overall Usage</span> */}
+          <h6 className="fw-bold mb-3 text-center" style={{ color: '#000000', fontSize: '0.9rem' }}>
+       Overall Usage
+      </h6>
+
           <span className="small fw-semibold text-dark">
             {Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length)}%
           </span>

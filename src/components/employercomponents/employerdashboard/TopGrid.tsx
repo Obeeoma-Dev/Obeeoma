@@ -67,7 +67,7 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
         };
 
         return (
-          <div key={stat.title} className="col-12 col-sm-6 col-lg-3">
+          <div key={stat.title} className="col-12 col-sm-6 col-lg-4">
             <div
               className="card h-100 border-0 shadow-sm p-3 bg-white"
               style={{

@@ -3,6 +3,7 @@ import Layout from "../../components/employercomponents/shared/Layout";
 import EmployeeStatusLegend from "../../components/employercomponents/employerdashboard/EmployeeStatusLegend";
 import FeatureUsageBreakdown from "../../components/employercomponents/employerdashboard/FeatureUsageBreakdown";
 import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
+import MoodgaugeChart from "../../components/employercomponents/employerdashboard/MoodgaugeChart";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 import { useDashboardData } from "../../hooks/useDashboardData";
@@ -112,14 +113,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
     //   color: PRIMARY_COLOR,
     // },
 
-       {
-      title: "General Company Mood",
-      moodValue: stats.generalMood || "Neutral",
-      value: getScoreFromMood(stats?.generalMood).toString(),
-      icon: "CheckCircle",
-      color: PRIMARY_COLOR,
-    },
-      // 4. Help & Support Card
+ 
     {
       title: "Help & Support",
       value: "",
@@ -133,15 +127,17 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
     <Layout title="Organization Overview">
       <div className="container-fluid py-4 px-3">
         <div className="row gy-4">
-          <div className="col-lg-12 col-md-10 mx-auto">
+          <div className="col-12">
             <TopGrid stats={statsData} />
           </div>
 
           <div className="col-lg-12 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title 
-                ">Engagement Level</h5>
+                <h6 className="fw-bold mb-3 text-center" style={{ color: '#000000', fontSize: '0.9rem' }}>
+                Egagement Level
+               </h6>
+
                 <EmployeeStatusLegend employeeStatus={employeeStatus}
                 />
               </div>
@@ -157,13 +153,21 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
 
           </div>
 
-          <div className="col-lg-6 col-md-12">
+          {/* <div className="col-lg-6 col-md-12">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
                 <h5 className="card-title fw-semibold mb-4" style={{fontFamily:'body'}}>Mood Trend</h5>
                 <WellnessGraph
                   data={stats?.wellnessTrend || []}
                 />
+              </div>
+            </div>
+          </div> */}
+          <div className="col-lg-6 col-md-12">
+            <div className="card border-0 shadow-sm h-100">
+              <div className="card-body d-flex justify-content-center align-items-center h-100">
+                {/* <h5 className="card-title fw-semibold mb-4">Mood Gauge</h5> */}
+                <MoodgaugeChart moodLabel={stats?.generalMood || "Neutral"} />
               </div>
             </div>
           </div>

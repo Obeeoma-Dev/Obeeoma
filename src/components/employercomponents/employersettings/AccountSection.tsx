@@ -272,7 +272,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
                   <Edit size={16} className="me-2" />
                   Edit Profile Information
                 </Link> */}
-                <Link to="/reset-password" className="btn btn-outline-secondary">
+                <Link to="/change-password" className="btn btn-outline-secondary">
                   Change Password
                 </Link>
               </div>
