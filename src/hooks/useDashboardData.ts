@@ -20,7 +20,7 @@ interface DepartmentData {
 
 interface WellnessTrendPoint {
   date: string;
-  score: number;
+  avg_score: number;
 }
 
 
@@ -140,12 +140,12 @@ export const useDashboardData = (): UseDashboardDataReturn => {
       return wellnessTrend && wellnessTrend.length > 0 
         ? wellnessTrend 
         : [
-            { date: 'Jan', score: 65 },
-            { date: 'Feb', score: 72 },
-            { date: 'Mar', score: 68 },
-            { date: 'Apr', score: 75 },
-            { date: 'May', score: 70 },
-            { date: 'Jun', score: 78 }
+            { date: 'Jan', avg_score: 65 },
+            { date: 'Feb', avg_score: 72 },
+            { date: 'Mar', avg_score: 68 },
+            { date: 'Apr', avg_score: 75 },
+            { date: 'May', avg_score: 70 },
+            { date: 'Jun', avg_score: 78 }
           ];
     }
 
@@ -164,7 +164,7 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     return Object.entries(dailyAverages)
       .map(([date, data]) => ({
         date,
-        score: Math.round(data.total / data.count)
+        avg_score: Math.round(data.total / data.count)
       }))
       .slice(-6); // Last 6 data points
   };
@@ -219,36 +219,64 @@ const employeeCounts = countEmployeeStatuses(employees);
     
     // Add activity for new mood trends
     if (moodTrends && moodTrends.length > 0) {
-      const recentMoods = [...moodTrends]
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, 3);
+      const sortedMoods = [...moodTrends]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       
-      recentMoods.forEach((trend: MoodTrend, index: number) => {
+      sortedMoods.forEach((trend: MoodTrend, index: number) => {
         generatedActivities.push({
           text: `Mood assessment completed by ${trend.employeeName || 'an employee'}`,
           department: trend.employeeDepartment || '',
-          time: index === 0 ? '2 hours ago' : index === 1 ? '1 day ago' : '2 days ago'
+          time: index === 0 ? '2 hours ago' : index === 1 ? '1 day ago' : `${index} days ago`
         });
       });
     }
 
-    // Add default activities if not enough real data
-    if (generatedActivities.length < 3) {
-      generatedActivities.push(
-        {
-          text: "New wellness resources added to the platform",
-          department: "",
-          time: "2 days ago",
-        },
-        {
-          text: "Department completed monthly assessments",
-          department: "Engineering",
-          time: "1 day ago",
-        }
-      );
+    // Fill with default activities until we have at least 6
+    const defaultActivities = [
+      {
+        text: "New wellness resources added to the platform",
+        department: "",
+        time: "1 hour ago",
+      },
+      {
+        text: "Department completed monthly assessments",
+        department: "Engineering",
+        time: "3 hours ago",
+      },
+      {
+        text: "A new invitee has joined the platform",
+        department: "Marketing",
+        time: "1 day ago",
+      },
+      {
+        text: "System maintenance completed successfully",
+        department: "IT",
+        time: "2 days ago",
+      },
+      {
+        text: "New educational resources have been added",
+        department: "",
+        time: "3 days ago",
+      },
+      {
+        text: "Monthly wellness report is now available",
+        department: "HR",
+        time: "4 days ago",
+      },
+      {
+        text: "Employee engagement survey results are now available",
+        department: "HR",
+        time: "3 days ago",
+      }
+    ];
+
+    let defaultIdx = 0;
+    while (generatedActivities.length < 7 && defaultIdx < defaultActivities.length) {
+      generatedActivities.push(defaultActivities[defaultIdx]);
+      defaultIdx++;
     }
 
-    setActivities(generatedActivities.slice(0, 3)); // Show only 3 most recent
+    setActivities(generatedActivities.slice(0, 7)); // Show only 7 most recent
   }, [moodTrends, employees]);
 
   return { 

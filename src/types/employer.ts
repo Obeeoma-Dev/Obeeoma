@@ -1,3 +1,4 @@
+
 import { } from 'react';
 export interface EmployerUser {
   id: string | number;
@@ -144,11 +145,13 @@ export interface EmployerState {
     color: string;
   }[];
   wellnessTrend: {
-    date: string;
-    score: number;
+      date: string;
+      avg_score: number;
+      mood_counts: Record<string, number>;
   }[];
   EmployeeStatusData: EmployeeStatusData;
-  moodTrends: {
+  moodTrends: 
+  {
   id: number;
   employeeId: number;
   employeeName: string;
@@ -191,6 +194,11 @@ export interface MoodTrend {
   count: number;
   date: string;
   timestamp: string;
+}
+export interface WellnessTrend {
+  date: string;
+  avg_score: number;
+  mood_counts: Record<string, number>;
 }
 
   export interface NotificationSettings {

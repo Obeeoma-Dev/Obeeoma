@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 
 // Import layout and button components from React Bootstrap
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Dropdown } from "react-bootstrap";
 import heroImage from "@/assets/Images/headerimage.png";
 
 // Import navigation hook from React Router
@@ -64,32 +64,42 @@ const Hero = () => {
           >
             <div className="d-flex flex-column flex-sm-row gap-3">
 
-              <Button
-                className="rounded-pill px-5 py-3 fw-semibold" // Rounded, padded, bold
-                style={{
-                  backgroundColor: "#0B6E45", // Default dark green background
-                  borderColor: "#0B6E45", // Match border color
-                  color: "#fff", // Default white text
-                  transition: "all 0.3s ease", // Smooth color transitions
-                  fontFamily: "body", // Custom font
-                }}
-                // On hover: switch to light green background with dark green text
-                onMouseEnter={(e) => {
-                  const btn = e.currentTarget as HTMLButtonElement;
-                  btn.style.backgroundColor = "#fff"; // Light green background
-                  btn.style.color = "#0B6E45"; // Dark green text
-                }}
-                // On leave: revert to dark green background with white text
-                onMouseLeave={(e) => {
-                  const btn = e.currentTarget as HTMLButtonElement;
-                  btn.style.backgroundColor = "#0B6E45"; // Dark green background
-                  btn.style.color = "#fff"; // White text
-                }}
-                // On click: navigate to signup page
-                onClick={() => navigate("/signup")}
-              >
-                For Organizations
-              </Button>
+              <Dropdown>
+                <Dropdown.Toggle
+                  className="rounded-pill px-5 py-3 fw-semibold"
+                  id="dropdown-organizations"
+                  style={{
+                    backgroundColor: "#0B6E45",
+                    borderColor: "#0B6E45",
+                    color: "#fff",
+                    transition: "all 0.3s ease",
+                    fontFamily: "body",
+                  }}
+                  onMouseEnter={(e) => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    btn.style.backgroundColor = "#fff";
+                    btn.style.color = "#0B6E45";
+                  }}
+                  onMouseLeave={(e) => {
+                    const btn = e.currentTarget as HTMLButtonElement;
+                    if (!btn.classList.contains('show')) {
+                      btn.style.backgroundColor = "#0B6E45";
+                      btn.style.color = "#fff";
+                    }
+                  }}
+                >
+                  For Organizations
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu style={{ borderRadius: "10px", marginTop: "5px" }}>
+                  <Dropdown.Item onClick={() => navigate("/signup")} style={{ fontFamily: "body" }}>
+                    Sign Up
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => navigate("/login")} style={{ fontFamily: "body" }}>
+                    Login
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
 
 
               <Button
@@ -102,6 +112,7 @@ const Hero = () => {
                   boxShadow: "none",
                   transition: "all 0.3s ease", // Smooth color transition
                   fontFamily: "body",
+                  zIndex: 10
                 }}
 
                 onFocus={(e) => {
@@ -121,8 +132,12 @@ const Hero = () => {
                   btn.style.backgroundColor = "#fff";
                   btn.style.color = "#00A859";
                 }}
-                // Navigate to login page when clicked
-                onClick={() => navigate("/employee-downloadapp")}
+                // Navigate to download  page when clicked
+                onClick={() =>{
+                  
+                  console.log("Button clicked!");
+                  navigate("/employee-downloadapp");
+                }}
               >
                 For Employees
               </Button>

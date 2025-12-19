@@ -13,7 +13,7 @@ interface RecentActivityProps {
 }
 const PRIMARY_COLOR = "#22C55E"; // Defined the custom color
 
-const RecentActivity = ({ activities, onViewAll, maxItems = 3 }: RecentActivityProps) => {
+const RecentActivity = ({ activities, onViewAll, maxItems = 7 }: RecentActivityProps) => {
   const defaultActivities: Activity[] = [
     {
       text: "A new invitee has joined the platform",
@@ -30,9 +30,32 @@ const RecentActivity = ({ activities, onViewAll, maxItems = 3 }: RecentActivityP
       department: "",
       time: "2 days ago",
     },
+
+    {
+      text: "New educational resources have been added to the platform",
+      department: "",
+      time: "1 hour ago",
+    },
+
+    {
+      text: "New features are added to the platform",
+      department: "",
+      time: "1 days ago",
+    },
+
+    {
+      text: "New wellness resources added to the  Marketing department",
+      department: "",
+      time: "2 days ago",
+    },
+    {
+      text: "Employee engagement survey results are now available",
+      department: "HR",
+      time: "3 days ago",
+    },
   ];
 
-  const recentActivity = activities?.length ? activities : defaultActivities;
+  const recentActivity = activities?.length >= 7 ? activities : defaultActivities;
 
   return (
     <div className="card border-0 shadow-sm">
