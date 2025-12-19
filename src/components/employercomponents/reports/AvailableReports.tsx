@@ -74,25 +74,25 @@ const AvailableReports = () => {
       description: "Overall employee wellness metrics",
       frequency: "Monthly",
       // Placeholder API endpoint that should return a PDF file
-      url: "/v1/reports/wellness_summary/download",
+      url: "/v1/dashboard/wellness-reports/",
     },
     {
       name: "Department Analysis",
       description: "Detailed department-wise breakdown",
       frequency: "Quarterly",
-      url: "/v1/reports/department_analysis/download",
+      url: "/v1/download/department-analysis/",
     },
     {
       name: "Risk Assessment",
       description: "Identified risk factors and trends",
       frequency: "Weekly",
-      url: "/v1/reports/risk_assessment/download",
+      url: "/v1/download/risk-assessment/",
     },
     {
       name: "Engagement Report",
       description: "Employee engagement and participation",
       frequency: "Monthly",
-      url: "/v1/reports/engagement_report/download",
+      url: "/v1/download/engagement/"
     },
   ];
 

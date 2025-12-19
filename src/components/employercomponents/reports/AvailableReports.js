@@ -11,25 +11,25 @@ const AvailableReports = () => {
             description: "Overall employee wellness metrics",
             frequency: "Monthly",
             // Placeholder API endpoint that should return a PDF file
-            url: "/v1/reports/wellness_summary/download",
+            url: "/v1/dashboard/wellness-reports/",
         },
         {
             name: "Department Analysis",
             description: "Detailed department-wise breakdown",
             frequency: "Quarterly",
-            url: "/v1/reports/department_analysis/download",
+            url: "/v1/download/department-analysis/",
         },
         {
             name: "Risk Assessment",
             description: "Identified risk factors and trends",
             frequency: "Weekly",
-            url: "/v1/reports/risk_assessment/download",
+            url: "/v1/download/risk-assessment/",
         },
         {
             name: "Engagement Report",
             description: "Employee engagement and participation",
             frequency: "Monthly",
-            url: "/v1/reports/engagement_report/download",
+            url: "/v1/download/engagement/"
         },
     ];
     return (_jsx("div", { className: "row", children: _jsxs("div", { className: "col-12", children: [_jsx("h3", { className: "h4 fw-semibold mb-4", children: "Available Reports" }), _jsx("div", { className: "row g-4", children: reportTypes.map((report, index) => (_jsx("div", { className: "col-12 col-md-6 col-lg-3", children: _jsx("div", { className: "card border-0 shadow-sm h-100", children: _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", children: report.name }), _jsx("p", { className: "text-muted small flex-grow-1", children: report.description }), _jsxs("div", { className: "d-flex justify-content-between align-items-center mt-3", children: [_jsx("span", { className: ".fs-5 text", style: { color: "#000000" }, children: report.frequency }), _jsxs("a", { 

@@ -348,10 +348,20 @@ export const employerAPI = {
         const response = await api.post("/v1/wellness-reports/");
         return response;
     },
+    getriskassessmentReports: async () => {
+        const response = await api.post("/v1/download/risk-assessment/");
+        return response;
+    },
+    getdepartmentanalysisReports: async () => {
+        const response = await api.post("/v1/download/department-analysis/");
+        return response;
+    },
+    getengagementReports: async () => {
+        const response = await api.post("/v1/download/engagement/");
+        return response;
+    },
     /**
      * PDF/Blob Download Method
-     * This is the critical fix for "Failed to load PDF document"
-     * It ensures the request uses Axios (with Auth headers) and handles binary data.
      */
     getReportBlob: async (url) => {
         return api.get(url, {

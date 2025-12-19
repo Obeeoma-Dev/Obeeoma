@@ -216,6 +216,59 @@ export const fetchEmployerReports = createAsyncThunk<
     }
 );
 
+export const fetchRiskAssessmentReports = createAsyncThunk<
+    Report[],
+    void,
+    { rejectValue: string }
+>(
+    'employer/riskassessmentReports/download',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await employerAPI.getReports();
+            return response.data as Report[];
+        } catch (error: unknown) {
+            return rejectWithValue(getErrorMessage(error));
+        }
+    }
+);
+
+
+export const fetchDepartmentAnalysisReports = createAsyncThunk<
+    Report[],
+    void,
+    { rejectValue: string }
+>(
+    'employer/departmentanalysisReports/download',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await employerAPI.getReports();
+            return response.data as Report[];
+        } catch (error: unknown) {
+            return rejectWithValue(getErrorMessage(error));
+        }
+    }
+);
+
+export const fetchEngagementReports = createAsyncThunk<
+    Report[],
+    void,
+    { rejectValue: string }
+>(
+    'employer/engagementReports/download',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await employerAPI.getReports();
+            return response.data as Report[];
+        } catch (error: unknown) {
+            return rejectWithValue(getErrorMessage(error));
+        }
+    }
+);
+
+
+
+
+
 export const fetchEmployerDashboardSummary = createAsyncThunk<
     DashboardSummary,
     void,
