@@ -2,7 +2,7 @@ import React from "react";
 import { Toaster } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route,  } from "react-router-dom";
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./../src/store/store";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -43,6 +43,8 @@ import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import Aboutus from "./pages/landingpage/Aboutpages/about";
 import { ContactPage } from "./pages/landingpage/Contacts/contactUs";
 import { Blog } from "./pages/landingpage/Blogpages/blog";
+import { PrivacyPolicy } from "./pages/landingpage/Policy";
+import { TermsAndConditions } from "./pages/landingpage/Terms";
 
 
 const queryClient = new QueryClient();
@@ -69,6 +71,8 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms & conditions" element={<TermsAndConditions />} />
 
               {/* === PROTECTED ROUTES WRAPPER (Now active) === */}
               <Route element={<ProtectedRoute />}>

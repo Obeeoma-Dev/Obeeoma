@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { Facebook, Twitter, Instagram } from 'lucide-react'
 import { BlogCard } from '../../../components/Blog/blogCard';
 import { BlogHero } from '../../../components/Blog/blogHero';
-import { CategoryFilter } from '../../../components/Blog/categoryFilter';
+// import { CategoryFilter } from '../../../components/Blog/categoryFilter';
 import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
 import Navigation from "../../../components/shared/Navigation";
 
@@ -16,6 +15,9 @@ import Dailyhabbits from '../../../assets/Images/dailyhabbits.png';
 import Mentallyhealthyworkplace from '../../../assets/Images/mentallyhealthyworkplaces.png';
 import Breakingstigma from '../../../assets/Images/breackingstigma.png';
 import Mentalhealthawareness from '../../../assets/Images/mentalhealthimage.png';
+
+// Importing the social handle footer.
+import Footer from "../../../components/shared/socialhandlesfooter";
 interface Blog {
     id: number
     title: string
@@ -108,9 +110,9 @@ const blogData: Blog[] = [
     },
 ];
 
-const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
+// const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
 export function Blog() {
-    const [activeCategory, setActiveCategory] = useState('All')
+    const [activeCategory] = useState('All')
     const [filteredBlogs, setFilteredBlogs] = useState(blogData)
     const [, setIsVisible] = useState(false)
     useEffect(() => {
@@ -146,18 +148,19 @@ export function Blog() {
             <BlogHero onSearch={handleSearch} />
 
             {/* Category Filter */}
-            <Container fluid className="my-5">
+            {/* <Container fluid className="my-5">
                 <CategoryFilter
                     categories={categories}
                     activeCategory={activeCategory}
                     onCategoryChange={setActiveCategory}
                 />
-            </Container>
-
+            </Container> */}
+            {/* Margin to create space between the two components */}
+            <div style={{ marginBottom: "120px" }}></div>
 
             {/* Featured Blog */}
             {activeCategory === 'All' && filteredBlogs.length > 0 && (
-                <Container className="mb-5">
+                <Container className="mb-5 mt-5">
                     <h2 className="blog-section-title" style={{ fontFamily: "heading" }}>Featured Article</h2>
                     <Row>
                         <Col xs={12}>
@@ -188,7 +191,7 @@ export function Blog() {
             </Container>
 
 
-            {/* Newsletter Section */}
+            {/* Newsletter Section
             <div className="blog-newsletter-section">
                 <Container>
                     <Row className="justify-content-center">
@@ -213,10 +216,10 @@ export function Blog() {
                         </Col>
                     </Row>
                 </Container>
-            </div>
+            </div> */}
 
 
-            {/* Footer */}
+            {/* Footer
             <footer className="blog-footer">
                 <Container>
                     <Row className="align-items-center">
@@ -241,7 +244,8 @@ export function Blog() {
                         </Col>
                     </Row>
                 </Container>
-            </footer>
+            </footer> */}
+            <Footer />
 
 
             {/* Floating WhatsApp Button */}

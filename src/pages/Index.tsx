@@ -15,7 +15,7 @@ const Index = () => {
         <section id="features" className="section-bg py-3">
           <Features />
         </section>
-        <section id="benefits" className="section-bg py-5">
+        <section id="benefits" className="section-bg pt-5">
           <Benefits />
         </section>
       </main>

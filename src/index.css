@@ -2,57 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-
-/* Custom class to target the slider */
-.data-retention-slider {
-    /* Ensures the color is applied at a high specificity */
-    accent-color: #22C55E !important; 
-}
-
-/* For older browsers or more granular control: */
-
-/* Styling the Slider Thumb (the circular handle) */
-.data-retention-slider::-webkit-slider-thumb {
-    background-color: #22C55E;
-}
-
-.data-retention-slider::-moz-range-thumb {
-    background-color: #22C55E;
-}
-
-/* Styling the Track Fill (the line to the left of the thumb) */
-.data-retention-slider::-webkit-progress-value {
-    background-color: #22C55E;
-}
-
-
-
-
-.top-card{
-    color: #ffffff;
- }
-
- .top-card:hover{
-    background-color: hsla(140, 90%, 88%, 0.945);
-    color: #0B6E45;
-  }
-
-  .top-card:hover .top-card-icon{
-    color: #22C55E;
-  }
-
-  .top-card.top-card-icon{
-    color: #22C55E;
-  }
-  .top-card:hover .top-card-title{
-    color: #22C55E;
-  }
-
-  .top-card:hover .top-card-text{
-    color: #ffffff;
-  }
-
-
 @font-face {
   font-family: 'body';
   src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');
@@ -515,14 +464,13 @@ footer a:hover {
 
 /* Footer effect of the landing page. */
 footer {
-  /* background-color: #0B6E45 !important; */
   color: #ccc;
-  padding: 3rem 0;
+  padding: 1rem 0;
 }
 
 footer h6 {
   color: #fff;
-  font-weight: 600;
+  font-weight: 900;
   margin-bottom: 1rem;
 }
 
@@ -533,29 +481,36 @@ footer a {
 }
 
 footer a:hover {
-  color: #3CB371;
-  color: var(--obeeoma-green);
+  color: #fff;
+  /* Bright white */
+  font-weight: 700;
+  /* subtle glow */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-footer p {
-  font-size: 0.875rem;
-  color: #aaa;
+.footer-section {
+  margin-right: 10px;
+}
+
+.footer-text {
+  font-size: 1rem;
+  color: white;
 }
 
 
 
 /******************************************/
 /* Styles for the About Us footer section */
-.about-footer-section {
+/* .about-footer-section {
   background-image: url("/images/handsgreeting.jpg");
   /* Replace with your actual image path */
-  background-size: cover;
+/* background-size: cover;
   background-position: center;
-  position: relative;
-}
+  position: relative; */
+/* }
 
 /* Green overlay */
-.about-footer-section::before {
+/* .about-footer-section::before {
   content: "";
   position: absolute;
   top: 0;
@@ -564,14 +519,14 @@ footer p {
   height: 100%;
   background-color: rgba(0, 128, 0, 0.6);
   /* Semi-transparent green */
-  z-index: 1;
-}
+/* z-index: 1;
+} */
 
 /* Ensure content is above overlay */
-.about-footer-section .container {
+/* .about-footer-section .container {
   position: relative;
   z-index: 2;
-}
+} */
 
 
 /*****************************/
@@ -619,7 +574,7 @@ footer p {
 
 /* Make textarea taller inside floating label */
 form .form-floating .form-control.message-textarea {
-  height: 250px;
+  height: 163px;
   /* or whatever height you want */
   resize: none;
   /* optional, prevents user from resizing */
@@ -723,15 +678,19 @@ form .form-floating .form-control.message-textarea {
 }
 
 .blog-hero-title {
+  font-size: 4rem;
+  font-weight: 700;
   color: white;
+  margin-bottom: 1rem;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .blog-hero-subtitle {
   font-size: 1.25rem;
+  font-weight: 800;
   color: rgba(255, 255, 255, 0.95);
   margin-bottom: 3rem;
-  max-width: 600px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -787,6 +746,12 @@ form .form-floating .form-control.message-textarea {
   padding: 0.75rem 1rem 0.75rem 3rem;
   font-size: 1rem;
   background: transparent;
+  height: 2.5rem;
+  /* Set consistent height */
+  line-height: 9.15rem;
+  /* Vertically center text */
+  padding-left: 3rem;
+  /* Keep space for icon */
 }
 
 .blog-search-input::placeholder {
@@ -816,6 +781,33 @@ form .form-floating .form-control.message-textarea {
     font-size: 0.9rem;
   }
 }
+
+.blog-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* legacy */
+  line-clamp: 3;
+  /* modern */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5rem;
+  /* keeps all excerpts same height */
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
 
 /* 
 ==================================
@@ -1320,6 +1312,11 @@ form .form-floating .form-control.message-textarea {
 }
 
 
+
+/********************************/
+/* Styling of the CTAsection. */
+/* Custom animations for React-Bootstrap usage */
+
 /* Slow spin animation for circle elements */
 @keyframes spin-slow {
   from {
@@ -1413,21 +1410,300 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
-/* Custom CSS to overwrite default Bootstrap Blue (#0d6efd) */
+/*==================================*/
+/* === Benefit Card Styling === */
 
-/* 1. Active/Hover State for Dropdown Items */
-.dropdown-item:focus,
-.dropdown-item:hover {
-    color: #FFFFFF !important; /* White text on hover */
-    background-color: #22C55E !important; /* Your Green background */
+/* Base card style */
+.benefit-card {
+  background: #ffffff;
+  /* border: 12px solid #e5e7eb; */
+  /* subtle gray border */
+  border-radius: 20px;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09);
+  /* soft shadow */
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+  cursor: pointer;
+  min-height: 220px;
+  will-change: transform;
 }
 
-/* 2. Active State for Dropdown/Navigation (Blue Border/Shadow) */
-.form-control:focus,
-.btn:focus,
-.btn.focus {
-    border-color: #22C55E !important;
-    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important; /* Green Shadow */
+/* Hover effect: lift, glow, tint */
+.benefit-card:hover {
+  transform: translateY(-3px);
+  /* box-shadow: */
+  /* 0 10px 24px rgba(0, 0, 0, 0.10), */
+  /* deeper shadow */
+  /* 0 0 0 6px rgba(var(--accent-rgb), 0.08); */
+  /* glow ring */
+  /* border-color: var(--accent); */
+  /* accent border */
+  /* background-color: rgba(var(--accent-rgb), 0.06); */
+  /* subtle tint */
+}
+
+/* Icon box styling */
+.icon-box {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--icon-bg);
+  /* dynamic background */
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.18);
+}
+
+/* Icon box hover effect */
+.benefit-card:hover .icon-box {
+  transform: scale(1.12);
+  /* grow icon box */
+  box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.28);
+  /* stronger glow */
+}
+
+/* Icon inside box scales with hover */
+.icon-box svg {
+  transition: transform 220ms ease;
+}
+
+.benefit-card:hover .icon-box svg {
+  transform: scale(1.08);
+  /* grow icon */
+}
+
+
+/* Styling of the terms and conditions interface */
+/* TermsAndConditions.css */
+
+/* ---- COLORS ---- */
+.text-emerald {
+  color: #047857;
+  /* emerald-600 */
+}
+
+.text-blue {
+  color: #2563eb;
+  /* blue-600 */
+}
+
+.text-purple {
+  color: #7c3aed;
+  /* purple-600 */
+}
+
+.text-green {
+  color: #16a34a;
+  /* green-600 */
+}
+
+.text-pink {
+  color: #db2777;
+  /* pink-600 */
+}
+
+.text-indigo {
+  color: #4f46e5;
+  /* indigo-600 */
+}
+
+.text-gray {
+  color: #4b5563;
+  /* gray-700 */
+}
+
+.text-orange {
+  color: #f97316;
+  /* orange-600 */
+}
+
+.text-red {
+  color: #dc2626;
+  /* red-600 */
+}
+
+.text-yellow {
+  color: #ca8a04;
+  /* yellow-600 */
+}
+
+/* ---- BACKGROUNDS ---- */
+.bg-gradient-custom {
+  background: linear-gradient(to bottom, #d1fae5, #ffffff);
+  /* from emerald-50 to white */
+}
+
+.icon-bg-emerald {
+  background-color: #d1fae5;
+  /* emerald-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-blue {
+  background-color: #dbeafe;
+  /* blue-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-purple {
+  background-color: #ede9fe;
+  /* purple-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-green {
+  background-color: #d1fae5;
+  /* green-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-pink {
+  background-color: #fce7f3;
+  /* pink-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-indigo {
+  background-color: #e0e7ff;
+  /* indigo-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-gray {
+  background-color: #f3f4f6;
+  /* gray-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-orange {
+  background-color: #ffedd5;
+  /* orange-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-red {
+  background-color: #fee2e2;
+  /* red-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-yellow {
+  background-color: #fef3c7;
+  /* yellow-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.bg-emerald-light {
+  background-color: #ecfdf5;
+  /* emerald-50 */
+}
+
+/* ---- ICONS ---- */
+.hero-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.hero-icon-svg {
+  width: 2rem;
+  height: 2rem;
+  color: #047857;
+}
+
+.icon-emerald,
+.icon-blue,
+.icon-purple,
+.icon-green,
+.icon-pink,
+.icon-indigo,
+.icon-gray,
+.icon-orange,
+.icon-red,
+.notice-icon-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.notice-icon-bg {
+  width: 3rem;
+  height: 3rem;
+  background-color: #fef3c7;
+  /* yellow-100 */
+  border-radius: 50%;
+}
+
+.notice-icon-svg {
+  color: #f59e0b;
+  /* amber-600 / yellow-600 */
+}
+
+/* ---- TEXT ---- */
+.fw-medium {
+  font-weight: 500;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.hero-text {
+  max-width: 40rem;
+}
+
+.notice-text {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/* ---- CARD ---- */
+.border-custom {
+  border: 1px solid #e5e7eb;
+  /* gray-100 */
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+/* ---- LISTS ---- */
+ul.text-gray li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* ---- LINKS / HOVER ---- */
+.text-emerald:hover {
+  color: #065f46;
+  /* emerald-700 */
+  text-decoration: none;
+}
+
+motion.a {
+  cursor: pointer;
 }
 
 /* ---- RESPONSIVE SPACING ---- */

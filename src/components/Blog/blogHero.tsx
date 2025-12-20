@@ -48,7 +48,7 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                 style={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.59)', // semi-transparent dark overlay
+                    backgroundColor: 'rgba(0, 0, 0, 0.60)', // semi-transparent dark overlay
                     zIndex: 1, // sits behind text but above background
                 }}
             ></div>
@@ -66,7 +66,7 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                 {/* Text content with fade-in animation based on visibility */}
                 <div className={`blog-hero-text ${isVisible ? 'visible' : ''}`}>
                     {/* Main title */}
-                    <h1 className="blog-hero-title fw-bold display-5 mb-3" >
+                    <h1 className="blog-hero-title" style={{ fontFamily: 'heading' }}>
                         Insights & Resources
                     </h1>
 
@@ -89,8 +89,6 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 style={{
-                                    padding: '0.5rem 1rem',
-                                    border: '1px solid #ccc',
                                     borderRadius: '999px',
                                     marginLeft: '0.5rem',
                                     marginRight: '0.5rem',

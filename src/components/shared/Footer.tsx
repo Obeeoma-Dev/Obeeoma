@@ -30,17 +30,17 @@ const Footer: React.FC = () => {
     legal: {
       title: "Legal",
       items: [
-        { text: "Privacy Policy", link: "/privacy" },
-        { text: "Terms of Service", link: "/terms" },
+        { text: "Privacy Policy", link: "/privacy-policy" },
+        { text: "Terms of Service", link: "/terms & conditions" },
       ],
     },
   };
 
   return (
-    <footer className="py-5 bg-success" data-testid="footer">
+    <footer className="py-4 pb-1 bg-success" data-testid="footer">
       <div className="container">
         {/* Logo Row */}
-        <div className="row mb-4">
+        <div className="row mb-4 footer-section">
           <div className="col-12">
             <img
               src={Obeeoma}
@@ -56,15 +56,17 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Content Row */}
-        <div className="row">
+        <div className="row g-4">
           {/* About Section */}
           <div className="col-lg-3 mb-4" data-testid="footer-section-about">
-            <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>About Obeeoma</h6>
-            <p className="text-white small mb-4">
+            <h6 className="text-white mb-3" style={{
+              fontFamily: 'heading', fontSize: '1rem'
+            }}>About Obeeoma</h6>
+            <p className="footer-text">
               AI-first workplace mental health platform built for Africa. Supporting
               healthier, more productive teams across the continent.
             </p>
-            <p className="text-white small mb-0">
+            <p className="footer-text">
               © 2025 Obeeoma. All rights reserved.
             </p>
           </div>
@@ -76,13 +78,17 @@ const Footer: React.FC = () => {
               className="col-lg-3 mb-4"
               data-testid={`footer-section-${key}`}
             >
-              <h6 className="text-white mb-3" style={{ fontFamily: 'heading' }}>{section.title}</h6>
+              <h6 className="text-white mb-3" style={{
+                fontFamily: 'heading', fontSize: '1rem'
+              }}>
+                {section.title}
+              </h6>
               <ul className="list-unstyled">
                 {section.items.map((item, index) => (
                   <li key={index} className="mb-2">
                     <Link
                       to={item.link}
-                      className="text-white text-decoration-none"
+                      className="footer-text"
                     >
                       {item.text}
                     </Link>

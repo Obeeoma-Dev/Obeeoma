@@ -117,7 +117,7 @@ export function AboutUsHero() {
                         data-aos-delay="100" // Delay for staggered entrance
                         className="lead mb-4" // Bootstrap lead text
                         style={{
-                            fontSize: '1.25rem', // Match landing page font size
+                            fontSize: '1.3rem', // Match landing page font size
                             lineHeight: 1.6, // Comfortable reading
                             color: '#f3f4f6', // Light gray text
                             transition: 'all 1s ease', // Smooth fade

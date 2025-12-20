@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useScrollAnimation } from '../../hooks/useScrollAnimtion';
-import Digitalmap from '../../assets/Images/Digital-map-of-africa-network-connection.jpg';
+import Ourstory from '../../assets/Images/ourstory.png';
 
 /**
  * Our Story section with split layout.
@@ -38,7 +38,7 @@ export function OurStorySection() {
                         }}
                     >
                         <img
-                            src={Digitalmap}
+                            src={Ourstory}
                             alt="Professional woman in green dress"
                             style={{
                                 width: '100%',
@@ -53,7 +53,7 @@ export function OurStorySection() {
                         md={6}
                         ref={contentRef}
                         style={{
-                            backgroundColor: '#047857', // Tailwind's emerald-700
+                            backgroundColor: '#0B6E45',
                             color: '#ffffff',
                             padding: '2rem',
                             paddingTop: '3rem',
