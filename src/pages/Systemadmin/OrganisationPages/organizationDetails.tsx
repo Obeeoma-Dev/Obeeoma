@@ -259,12 +259,12 @@ const OrganizationDetails: React.FC = () => {
                               }}
                             />
                           )} */}
-                          <div>
+                          {/* <div>
                             <div className="fw-semibold fs-6">{org.name}</div>
                             <div className="text-muted small">ID: {org.id}</div>
-                          </div>
-                        </div>
-                      </Col> */}
+                          </div> */}
+                        {/* </div> */}
+                      {/* </Col> */} 
 
                       {/* Subscription Plan */}
                       <Col xs={12}>
