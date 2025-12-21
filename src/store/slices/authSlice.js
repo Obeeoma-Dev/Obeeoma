@@ -272,6 +272,9 @@ const authSlice = createSlice({
         })
             .addCase(logoutUserThunk.fulfilled, (state) => {
             state.isLoading = false;
+            saveAuthValue("token", undefined);
+            saveAuthValue("refresh", undefined);
+            saveAuthValue("user", undefined);
         })
             .addCase(logoutUserThunk.rejected, (state) => {
             state.isLoading = false;

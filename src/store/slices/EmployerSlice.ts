@@ -223,7 +223,7 @@ export const fetchRiskAssessmentReports = createAsyncThunk<
     'employer/riskassessmentReports/download',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await employerAPI.getReports();
+            const response = await employerAPI.getriskassessmentReports();
             return response.data as Report[];
         } catch (error: unknown) {
             return rejectWithValue(getErrorMessage(error));
@@ -240,7 +240,7 @@ export const fetchDepartmentAnalysisReports = createAsyncThunk<
     'employer/departmentanalysisReports/download',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await employerAPI.getReports();
+            const response = await employerAPI.getdepartmentanalysisReports();
             return response.data as Report[];
         } catch (error: unknown) {
             return rejectWithValue(getErrorMessage(error));
@@ -256,7 +256,7 @@ export const fetchEngagementReports = createAsyncThunk<
     'employer/engagementReports/download',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await employerAPI.getReports();
+            const response = await employerAPI.getengagementReports();
             return response.data as Report[];
         } catch (error: unknown) {
             return rejectWithValue(getErrorMessage(error));

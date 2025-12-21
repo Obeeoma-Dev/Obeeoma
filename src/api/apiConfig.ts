@@ -454,7 +454,7 @@ export const employerAPI = {
   },
 
   getReports: async () => {
-    const response = await api.post("/v1/wellness-reports/");
+    const response = await api.post("/v1/dashbord/wellness-reports/");
     return response;
   },
 

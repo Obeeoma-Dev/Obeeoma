@@ -2,8 +2,9 @@
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
+import { store } from '../store/store';
 // declare const authApiClient: any;
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
@@ -345,7 +346,7 @@ export const employerAPI = {
         return response;
     },
     getReports: async () => {
-        const response = await api.post("/v1/wellness-reports/");
+        const response = await api.post("/v1/dashbord/wellness-reports/");
         return response;
     },
     getriskassessmentReports: async () => {
@@ -364,9 +365,18 @@ export const employerAPI = {
      * PDF/Blob Download Method
      */
     getReportBlob: async (url) => {
-        return api.get(url, {
-            responseType: 'blob', // Critical for binary file handling
+        const state = store.getState();
+        const token = state.auth.token;
+        const persistedToken = localStorage.getItem('token');
+        const activeToken = token || persistedToken;
+        const res = await fetch(API_BASE_URL + url, {
+            method: "get",
+            headers: {
+                Authorization: `Bearer ${activeToken}`,
+                'Content-Type': 'application/pdf'
+            }
         });
+        return await res.blob();
     },
     // Wellness Data
     getMoodTrends: async () => {
