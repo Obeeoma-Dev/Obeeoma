@@ -101,15 +101,15 @@ const WellnessTrends: React.FC = () => {
     };
 
   return (
-    <div className="p-5 bg-white rounded-lg shadow-md">
+    <div className="p-3 bg-white rounded-lg shadow-md">
       {/* <h2 className="m-0 mb-2 text-gray-800">Mood Trend</h2>
       <p className="m-0 mb-5 text-gray-600 text-sm">Automated from aggregated data</p> */}
 
-      <div className="h-[300px]">
-        <ResponsiveContainer width="100%" height={300}>
+      <div className="h-[350px]">
+        <ResponsiveContainer width="100%" height={350}>
           <LineChart
             data={moodData}
-            margin={{ top: 20, right: 30, left: 40, bottom: 20 }}
+            margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
 

@@ -179,10 +179,9 @@ export const downloadReport = createAsyncThunk<
   'employer/downloadReport',
   async ({ url, fileName }, { rejectWithValue }) => {
     try {
-      const response = await employerAPI.getReportBlob(url);
-      
+      const blob = await employerAPI.getReportBlob(url);
+
       // Create a blob and trigger download
-      const blob = new Blob([response.data], { type: 'application/pdf' });
       const downloadUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       

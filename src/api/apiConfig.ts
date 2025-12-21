@@ -3,7 +3,7 @@ import { ChangePassword } from './../types/auth';
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
-import { RootState } from '../store/store';
+import { RootState, store } from '../store/store';
 import {
   LoginCredentials,
   RegisterCredentials,
@@ -20,7 +20,7 @@ import {
 import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
 
-const API_BASE_URL =
+export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 
@@ -43,9 +43,9 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/change-password/",
         "/v1/auth/reset-password/complete/",
         "/v1/organization-signup/",
-       " v1/auth/verify-invitation-otp/"
+        " v1/auth/verify-invitation-otp/"
         // "/v1/auth/logout/",
-        
+
       ];
 
       const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
@@ -301,7 +301,7 @@ export const adminAPI = {
 //     return response;
 //   },
 
-  
+
 
 //   //change links back to correct ones it i
 //   // Employee Management
@@ -352,7 +352,7 @@ export const adminAPI = {
 //     return response;
 //   },
 
- 
+
 
 //   getDepartmentDistribution: async () => {
 //     const response = await api.get("/v1/dashboard/departments");
@@ -458,16 +458,16 @@ export const employerAPI = {
     return response;
   },
 
-   getriskassessmentReports: async () => {
+  getriskassessmentReports: async () => {
     const response = await api.post("/v1/download/risk-assessment/");
     return response;
   },
-   getdepartmentanalysisReports: async () => {
+  getdepartmentanalysisReports: async () => {
     const response = await api.post("/v1/download/department-analysis/");
     return response;
   },
 
-   getengagementReports: async () => {
+  getengagementReports: async () => {
     const response = await api.post("/v1/download/engagement/");
     return response;
   },
@@ -477,9 +477,20 @@ export const employerAPI = {
    * PDF/Blob Download Method
    */
   getReportBlob: async (url: string) => {
-    return api.get(url, {
-      responseType: 'blob', // Critical for binary file handling
-    });
+    const state = store.getState();
+    const token = state.auth.token;
+    const persistedToken = localStorage.getItem('token');
+    const activeToken = token || persistedToken;
+
+    const res = await fetch(API_BASE_URL + url, {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${activeToken}`,
+        'Content-Type': 'application/pdf'
+      }
+    })
+
+    return await res.blob()
   },
 
   // Wellness Data
@@ -529,8 +540,8 @@ export const employerAPI = {
 
   // Data Export & Deletion
   exportAllData: async () => {
-    return api.get("/v1/employer/data/export/", { 
-        responseType: 'blob' // Correctly configured for binary export
+    return api.get("/v1/employer/data/export/", {
+      responseType: 'blob' // Correctly configured for binary export
     });
   },
 
