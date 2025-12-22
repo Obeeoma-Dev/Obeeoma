@@ -3,7 +3,7 @@ import { useState } from "react";
 const DEFAULT_FETCH_OPTIONS = {};
 
 type UseFetchProps = {
-  url: string ;
+  url: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
 };
 
@@ -13,20 +13,17 @@ type CommonFetch = {
   /** this allows us to override any default fetch options on a 
   case by case basis. we think of it like an escape hatch. */
   fetchOptions?: RequestInit;
-}
+};
 
-// <T> turns this into a generic component. We will take advantage of this 
+// <T> turns this into a generic component. We will take advantage of this
 // by assigning the `data` variable the type T. This way, when we use the hook,
-// we can specify what type we expect the data to be. 
-export function useFetch<T> ({ url, method }: UseFetchProps) {
+// we can specify what type we expect the data to be.
+export function useFetch<T>({ url, method }: UseFetchProps) {
   const [isLoading, setIsLoading] = useState(false);
   // assigning the generic type T to our data value here
   const [data, setData] = useState<T | null>(null);
 
-  const commonFetch = async ({
-    input,
-    fetchOptions = {},
-  }: CommonFetch) => {
+  const commonFetch = async ({ input, fetchOptions = {} }: CommonFetch) => {
     setIsLoading(true);
 
     const response = await fetch(url, {
@@ -42,4 +39,5 @@ export function useFetch<T> ({ url, method }: UseFetchProps) {
     setData(data);
   };
 
-  return { isLoading, commonFetch, data };};
+  return { isLoading, commonFetch, data };
+}

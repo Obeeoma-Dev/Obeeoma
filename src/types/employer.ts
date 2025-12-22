@@ -1,5 +1,4 @@
-
-import { } from 'react';
+import {} from "react";
 export interface EmployerUser {
   id: string | number;
   username: string;
@@ -7,14 +6,14 @@ export interface EmployerUser {
   lastName: string;
   organizationName: string;
   email: string;
-  role: 'admin' | 'employer' | 'employee' | string;
+  role: "admin" | "employer" | "employee" | string;
   dateJoined: string; // ISO date string
 
-  company? : {
+  company?: {
     id: string | number;
     companySize: number;
     createdAt: string;
-  }
+  };
   address?: string;
   phone?: string;
   timeZone?: string;
@@ -27,7 +26,8 @@ export interface AccountData {
   organizationName: string;
   username: string;
   email: string;
-  phone: string;}
+  phone: string;
+}
 
 export interface AccountSectionProps {
   accountData: EmployerUser;
@@ -46,18 +46,13 @@ export interface DashboardSummary {
   wellnessIndex?: number;
   atRisk?: number;
   // Add other summary fields
-
 }
-
-
-
-
 
 export interface CrisisInsight {
   id: string | number;
   title: string;
   content: string;
-  status: 'draft' | 'published' | 'archived';
+  status: "draft" | "published" | "archived";
   // Add other crisis insight fields
 }
 
@@ -84,13 +79,13 @@ export interface TrendData {
 export interface EmployeeInvite {
   id: string | number;
   email: string;
-  status: 'pending' | 'accepted' | 'expired' | 'active';
+  status: "pending" | "accepted" | "expired" | "active";
   sentDate: string; // ISO date string
 }
 
 export interface InviteData {
   email: string;
-  role: 'employee'; // Assuming the role is fixed
+  role: "employee"; // Assuming the role is fixed
 }
 
 export interface Employee {
@@ -99,7 +94,7 @@ export interface Employee {
   emailAddress: string;
   phoneNumber?: string;
   employeedepartment: string;
-  status: 'accepted' | 'pending' | 'rejected' | string;
+  status: "accepted" | "pending" | "rejected" | string;
 }
 
 export interface GetEmployeeInput {
@@ -114,7 +109,7 @@ export interface CreateEmployeeInput {
 
 export interface SubscriptionData {
   plan_id: string;
-  billing_cycle: 'monthly' | 'annually';
+  billing_cycle: "monthly" | "annually";
   methodOfPayment: string;
 }
 
@@ -125,7 +120,6 @@ export interface BillingDetails {
   nextPaymentDate: string;
   amount: number;
   currency: string;
-  
 }
 
 export interface EmployerEngagementData {
@@ -135,7 +129,6 @@ export interface EmployerEngagementData {
     area: string;
     score: number;
   }[];
-  
 }
 
 export interface EmployerState {
@@ -145,23 +138,21 @@ export interface EmployerState {
     color: string;
   }[];
   wellnessTrend: {
-      date: string;
-      avg_score: number;
-      mood_counts: Record<string, number>;
+    date: string;
+    avg_score: number;
+    mood_counts: Record<string, number>;
   }[];
   EmployeeStatusData: EmployeeStatusData;
-  moodTrends: 
-  {
-  id: number;
-  employeeId: number;
-  employeeName: string;
-  employeeDepartment: string;
-  moodLevel: number;
-  mood: string;
-  count: number;
-  date: string;
-  timestamp: string;
-
+  moodTrends: {
+    id: number;
+    employeeId: number;
+    employeeName: string;
+    employeeDepartment: string;
+    moodLevel: number;
+    mood: string;
+    count: number;
+    date: string;
+    timestamp: string;
   }[];
   currentEmployer: EmployerUser | null;
   subscription: SubscriptionData | null;
@@ -201,7 +192,7 @@ export interface WellnessTrend {
   mood_counts: Record<string, number>;
 }
 
-  export interface NotificationSettings {
+export interface NotificationSettings {
   emailNotifications: boolean;
   weeklyReports: boolean;
   browserNotifications: boolean;
@@ -216,12 +207,8 @@ export interface PrivacySettings {
 
 //to add more fields
 export interface DashboardProps {
-
   companyId: string;
-
 }
-
-
 
 export interface UsageData {
   api_calls_used: number;
@@ -234,16 +221,16 @@ export interface UsageData {
 }
 
 export interface PaymentUpdatePayload {
-    token_id: string; 
-    email: string; // Required for Flutterwave customer 
+  token_id: string;
+  email: string; // Required for Flutterwave customer
 }
 
 export interface InvoiceItem {
-    invoice_number: string;
-    date: string; // YYYY-MM-DD format
-    amount: number;
-    currency: string;
-    description: string;
-    status: string;
-    invoice_url: string | null;
+  invoice_number: string;
+  date: string; // YYYY-MM-DD format
+  amount: number;
+  currency: string;
+  description: string;
+  status: string;
+  invoice_url: string | null;
 }

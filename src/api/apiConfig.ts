@@ -1,9 +1,9 @@
-import { ChangePassword } from './../types/auth';
+import { ChangePassword } from "./../types/auth";
 // Company logo API endpoints
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
-import { RootState, store } from '../store/store';
+import { RootState, store } from "../store/store";
 import {
   LoginCredentials,
   RegisterCredentials,
@@ -13,8 +13,6 @@ import {
   // MfaSetupData,
   // MfaVerifyPayload,
   MfaSetupRequestPayload,
-
-
 } from "@/types/auth";
 
 // import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
@@ -28,14 +26,14 @@ export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 export const setupApiInterceptors = (store: { getState: () => RootState }) => {
   api.interceptors.request.use(
     (config) => {
-      const requestPath = config.url || '';
+      const requestPath = config.url || "";
       const publicEndpoints = [
         "/v1/auth/login/",
         "/v1/auth/signup/",
@@ -43,14 +41,15 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/change-password/",
         "/v1/auth/reset-password/complete/",
         "/v1/organization-signup/",
-        " v1/auth/verify-invitation-otp/"
+        " v1/auth/verify-invitation-otp/",
         // "/v1/auth/logout/",
-
       ];
 
-      const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
+      const isPublicEndpoint = publicEndpoints.some((path) =>
+        requestPath.endsWith(path),
+      );
       //check local storage first (more reliable)
-      const persistedToken = localStorage.getItem('token');
+      const persistedToken = localStorage.getItem("token");
 
       // checking the redux token as fallback
       const state = store.getState();
@@ -61,7 +60,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
       if (activeToken && !isPublicEndpoint) {
         //  "inject the authorization"
         config.headers.Authorization = `Bearer ${activeToken}`;
-
       } else if (isPublicEndpoint) {
         // to remove the token header
         delete config.headers.Authorization;
@@ -71,13 +69,17 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         url: config.url,
         data: config.data,
         token_injected: !!(activeToken && !isPublicEndpoint),
-        token_source: persistedToken ? 'localStorage' : token ? 'redux' : 'none',
+        token_source: persistedToken
+          ? "localStorage"
+          : token
+            ? "redux"
+            : "none",
       });
       return config;
     },
     (error) => {
       return Promise.reject(error);
-    }
+    },
   );
 
   // api.interceptors.request.use(
@@ -110,10 +112,9 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         url: error.config?.url,
       });
       return Promise.reject(error);
-    }
+    },
   );
-
-}
+};
 export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
@@ -124,24 +125,20 @@ export const authAPI = {
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
     const response = await api.post("/v1/organization-signup/", {
-
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,
       companyEmail: credentials.companyEmail,
       Location: credentials.Location,
-      contactPerson:
-      {
+      contactPerson: {
         firstName: credentials.contactPerson.firstName,
         lastName: credentials.contactPerson.lastName,
         role: credentials.contactPerson.role,
         email: credentials.contactPerson.email,
       },
 
-
       password: credentials.password,
       confirmPassword: credentials.confirmPassword,
-
     });
 
     if (response.data.access) {
@@ -152,11 +149,8 @@ export const authAPI = {
   },
   //for logout
   logout: async () => {
-    const refreshToken = localStorage.getItem('refresh');
-    api.post(
-      '/v1/auth/logout/',
-      { refresh: refreshToken }
-    );
+    const refreshToken = localStorage.getItem("refresh");
+    api.post("/v1/auth/logout/", { refresh: refreshToken });
   },
 
   forgotPassword: async (data: ForgotPasswordData) => {
@@ -170,21 +164,21 @@ export const authAPI = {
     return response;
   },
 
-
   ChangeorgPassword: async (data: ChangePassword) => {
     const response = await api.post("/v1/auth/change-password/", data);
     return response;
   },
 
-
   verifyOtp: async (payload: OtpVerificationPayload) => {
-    const response = await api.post("v1/auth/verify-password-reset-otp/", payload);
+    const response = await api.post(
+      "v1/auth/verify-password-reset-otp/",
+      payload,
+    );
     return response;
   },
 
   resendOtp: (payload: OtpVerificationPayload) => {
     return api.post("v1/auth/verify-password-reset-otp/", payload);
-
   },
 
   fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
@@ -197,7 +191,6 @@ export const authAPI = {
     const response = await api.post("/v1/auth/mfa/verify/", payload);
     return response;
   },
-
 };
 
 //  System Admin Dashboard
@@ -301,8 +294,6 @@ export const adminAPI = {
 //     return response;
 //   },
 
-
-
 //   //change links back to correct ones it i
 //   // Employee Management
 //   inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
@@ -323,7 +314,6 @@ export const adminAPI = {
 //     const response = await api.get("/v1/auth/invitations/");
 //     return response;
 //   },
-
 
 //   // Analytics & Dashboard
 //   getemployerdashboardSummary: async () => {
@@ -352,8 +342,6 @@ export const adminAPI = {
 //     return response;
 //   },
 
-
-
 //   getDepartmentDistribution: async () => {
 //     const response = await api.get("/v1/dashboard/departments");
 //     return response;
@@ -363,7 +351,6 @@ export const adminAPI = {
 //     const response = await api.post("/v1/auth/invitations/");
 //     return response;
 //   },
-
 
 //   getWellnessTrend: async () => {
 //     const response = await api.get("/v1/auth/invitations/");
@@ -394,7 +381,6 @@ export const adminAPI = {
 //     return api.post("/v1/employer/billing/update-payment-method/", payload);
 //   },
 
-
 //   viewBillingHistory: async () => {
 //     return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");
 //   },
@@ -422,7 +408,11 @@ export const employerAPI = {
   },
 
   // Employee Management
-  inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
+  inviteEmployee: async (employeeData: {
+    email: string;
+    phone?: string;
+    department: string;
+  }) => {
     const response = await api.post("/v1/auth/invitations/", employeeData);
     return response;
   },
@@ -472,25 +462,24 @@ export const employerAPI = {
     return response;
   },
 
-
   /**
    * PDF/Blob Download Method
    */
   getReportBlob: async (url: string) => {
     const state = store.getState();
     const token = state.auth.token;
-    const persistedToken = localStorage.getItem('token');
+    const persistedToken = localStorage.getItem("token");
     const activeToken = token || persistedToken;
 
     const res = await fetch(API_BASE_URL + url, {
       method: "get",
       headers: {
         Authorization: `Bearer ${activeToken}`,
-        'Content-Type': 'application/pdf'
-      }
-    })
+        "Content-Type": "application/pdf",
+      },
+    });
 
-    return await res.blob()
+    return await res.blob();
   },
 
   // Wellness Data
@@ -541,7 +530,7 @@ export const employerAPI = {
   // Data Export & Deletion
   exportAllData: async () => {
     return api.get("/v1/employer/data/export/", {
-      responseType: 'blob' // Correctly configured for binary export
+      responseType: "blob", // Correctly configured for binary export
     });
   },
 
@@ -549,7 +538,6 @@ export const employerAPI = {
     return api.delete("/v1/employer/data/delete-all/");
   },
 };
-
 
 export default api;
 
@@ -564,7 +552,6 @@ export default api;
 //   MfaSetupData,
 //   MfaVerifyPayload,
 //   MfaSetupRequestPayload,
-
 
 // } from "@/types/auth";
 
@@ -597,7 +584,6 @@ export default api;
 //         "/v1/auth/verify-otp/",
 //         "/v1/auth/mfa/setup/",
 //         "/v1/auth/mfa/confirm/",
-
 
 //       ];
 
@@ -690,7 +676,6 @@ export default api;
 //         email: credentials.contactPerson.email,
 //       },
 
-
 //       password: credentials.password,
 //       confirmPassword: credentials.confirmPassword,
 
@@ -729,7 +714,6 @@ export default api;
 //     return response;
 //   },
 
-
 //   verifyOtp: async (payload: OtpVerificationPayload) => {
 //     const response = await api.post("v1/auth/verify-otp/", payload);
 //     return response;
@@ -739,7 +723,6 @@ export default api;
 //     return api.post('v1/auth/verify-otp/', payload);
 
 //   },
-
 
 //   fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
 //     const response = await api.post("/v1/auth/mfa/setup/", payload);
@@ -902,7 +885,6 @@ export default api;
 //     return response;
 //   },
 
-
 //   getWellnessTrend: async () => {
 //     const response = await api.get("/v1/invitations/");
 //     return response;
@@ -916,7 +898,6 @@ export default api;
 //   //   viewUsage: async () => {
 //   //   return api.get<UsageData>("/subscription/usage/");
 //   // },
-
 
 //   // Billing
 //   viewSubscription: async () => {
@@ -932,7 +913,6 @@ export default api;
 //     updatePaymentMethod: async (payload: PaymentUpdatePayload) => {
 //     return api.post("/v1/employer/billing/update-payment-method/", payload);
 //   },
-
 
 //   viewBillingHistory: async () => {
 //     return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");

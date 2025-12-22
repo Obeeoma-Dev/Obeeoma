@@ -18,7 +18,7 @@ const AcceptInvite: React.FC = () => {
   };
 
   return (
-    <div 
+    <div
       style={{
         backgroundColor: "#f5f5f5",
         height: "100vh",
@@ -34,39 +34,45 @@ const AcceptInvite: React.FC = () => {
         <Row className="g-0">
           {/* Left Side - Success Message */}
           <Col md={12} className="p-5 bg-white text-center">
-            <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+            <div
+              className="d-flex flex-column align-items-center justify-content-center mb-4"
+              style={{ fontFamily: "heading" }}
+            >
               <img
                 src={logo}
                 alt="Obeeoma Logo"
                 style={{
                   height: "50px",
-                  width: "auto"
+                  width: "auto",
                 }}
                 className="mb-1"
               />
             </div>
             <div className="mb-4">
-              <CheckCircle 
-                size={64} 
+              <CheckCircle
+                size={64}
                 className="text-success mb-3"
                 style={{ strokeWidth: 1.5 }}
               />
             </div>
-            
-            <h2 className="fw-semibold mb-3 text-success">Email Sent Successfully!</h2>
-            
+
+            <h2 className="fw-semibold mb-3 text-success">
+              Email Sent Successfully!
+            </h2>
+
             <Alert variant="success" className="border-0 bg-light text-start">
               <div className="d-flex align-items-start">
                 <Mail size={20} className="text-success me-3 mt-1" />
                 <div>
                   <h6 className="fw-semibold mb-2">Check Your Email</h6>
                   <p className="mb-2">
-                    We've sent a password reset link to your email address. 
-                    If you have an account with us, you should receive the email shortly.
+                    We've sent a password reset link to your email address. If
+                    you have an account with us, you should receive the email
+                    shortly.
                   </p>
                   <p className="mb-0 text-muted small">
-                    <strong>Note:</strong> If you don't see the email in your inbox, 
-                    please check your spam or junk folder.
+                    <strong>Note:</strong> If you don't see the email in your
+                    inbox, please check your spam or junk folder.
                   </p>
                 </div>
               </div>
@@ -80,7 +86,7 @@ const AcceptInvite: React.FC = () => {
               >
                 Resend Email
               </Button>
-              
+
               <Button
                 variant="outline-secondary"
                 className="px-4 py-2 fw-semibold"
@@ -93,8 +99,8 @@ const AcceptInvite: React.FC = () => {
 
             <div className="mt-4 pt-3 border-top">
               <p className="text-muted small mb-0">
-                Didn't receive the email? Make sure you entered the correct email address 
-                or contact support if you continue to have issues.
+                Didn't receive the email? Make sure you entered the correct
+                email address or contact support if you continue to have issues.
               </p>
             </div>
           </Col>

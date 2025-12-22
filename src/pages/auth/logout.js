@@ -8,7 +8,8 @@ const LogoutButton = (props) => {
     const navigate = useNavigate();
     const handleLogout = async () => {
         const resultAction = await dispatch(logoutUserThunk());
-        if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
+        if (logoutUserThunk.fulfilled.match(resultAction) ||
+            logoutUserThunk.rejected.match(resultAction)) {
             navigate("/login", { replace: true });
         }
     };

@@ -1,114 +1,138 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
-
+import React from "react";
+import { Row, Col } from "react-bootstrap";
 
 interface CustomStepperProps {
-    steps: string[];
-    activeStep: number;
-    primaryColor: string; 
-    onStepClick: (stepIndex: number) => void;
+  steps: string[];
+  activeStep: number;
+  primaryColor: string;
+  onStepClick: (stepIndex: number) => void;
 }
 
 // Define the steps (can use the one passed via props, but redefining for clarity)
 const defaultSteps = [
-    { label: "Organization Details" },
-    { label: "Contact & Access" },
-    { label: "Complete" },
+  { label: "Organization Details" },
+  { label: "Contact & Access" },
+  { label: "Complete" },
 ];
 
-const CustomStepper: React.FC<CustomStepperProps> = ({ activeStep, primaryColor, steps: propSteps }) => {
-    // Use steps prop if available, otherwise use defaultSteps
-    const steps = propSteps.map((label, index) => defaultSteps[index] ? { ...defaultSteps[index], label } : { label });
+const CustomStepper: React.FC<CustomStepperProps> = ({
+  activeStep,
+  primaryColor,
+  steps: propSteps,
+}) => {
+  // Use steps prop if available, otherwise use defaultSteps
+  const steps = propSteps.map((label, index) =>
+    defaultSteps[index] ? { ...defaultSteps[index], label } : { label },
+  );
 
-    // New style for the main progress line (separator)
-    const progressLineStyle = (index: number): React.CSSProperties => {
-        const isCompleted = index < activeStep;
-        return {
-            position: 'absolute',
-            top: '0px', // Positioned above the text labels
-            left: '50%',
-            right: '-50%',
-            height: '4px', // Increased thickness of the line
-            backgroundColor: isCompleted ? primaryColor : '#e9ecef', 
-            zIndex: 0,
-            transition: 'background-color 0.3s ease',
-            borderRadius: '2px',
-        };
+  // New style for the main progress line (separator)
+  const progressLineStyle = (index: number): React.CSSProperties => {
+    const isCompleted = index < activeStep;
+    return {
+      position: "absolute",
+      top: "0px", // Positioned above the text labels
+      left: "50%",
+      right: "-50%",
+      height: "4px", // Increased thickness of the line
+      backgroundColor: isCompleted ? primaryColor : "#e9ecef",
+      zIndex: 0,
+      transition: "background-color 0.3s ease",
+      borderRadius: "2px",
+    };
+  };
+
+  const labelStyle = (index: number): React.CSSProperties => {
+    const isCompleted = index < activeStep;
+    const isActive = index === activeStep;
+
+    return {
+      textAlign: "center",
+      position: "relative",
+      paddingTop: "20px", // Space for the line above the label
+      color: isCompleted || isActive ? primaryColor : "#6c757d", // Active/Completed color is primary
+      transition: "color 0.3s ease",
+    };
+  };
+
+  // The logic for the "dot" marker on the line
+  const dotStyle = (index: number): React.CSSProperties => {
+    const isCompleted = index < activeStep;
+    const isActive = index === activeStep;
+
+    const baseDotStyle: React.CSSProperties = {
+      width: "12px",
+      height: "12px",
+      borderRadius: "50%",
+      position: "absolute",
+      top: "-4px", // Centered vertically on the 4px line
+      left: "calc(50% - 6px)", // Centered horizontally
+      zIndex: 2, // Ensure dot is above the line
+      transition: "background-color 0.3s ease, border-color 0.3s ease",
     };
 
-    const labelStyle = (index: number): React.CSSProperties => {
-        const isCompleted = index < activeStep;
-        const isActive = index === activeStep;
-        
-        return {
-            textAlign: 'center',
-            position: 'relative',
-            paddingTop: '20px', // Space for the line above the label
-            color: (isCompleted || isActive) ? primaryColor : '#6c757d', // Active/Completed color is primary
-            transition: 'color 0.3s ease',
-        };
-    };
-
-    // The logic for the "dot" marker on the line
-    const dotStyle = (index: number): React.CSSProperties => {
-        const isCompleted = index < activeStep;
-        const isActive = index === activeStep;
-        
-        const baseDotStyle: React.CSSProperties = {
-            width: '12px',
-            height: '12px',
-            borderRadius: '50%',
-            position: 'absolute',
-            top: '-4px', // Centered vertically on the 4px line
-            left: 'calc(50% - 6px)', // Centered horizontally
-            zIndex: 2, // Ensure dot is above the line
-            transition: 'background-color 0.3s ease, border-color 0.3s ease',
-        };
-
-        if (isCompleted) {
-            return { ...baseDotStyle, backgroundColor: primaryColor, border: `2px solid ${primaryColor}` };
-        } else if (isActive) {
-            return { ...baseDotStyle, backgroundColor: 'white', border: `2px solid ${primaryColor}` };
-        } else {
-            return { ...baseDotStyle, backgroundColor: '#e9ecef', border: `2px solid #ced4da` };
-        }
+    if (isCompleted) {
+      return {
+        ...baseDotStyle,
+        backgroundColor: primaryColor,
+        border: `2px solid ${primaryColor}`,
+      };
+    } else if (isActive) {
+      return {
+        ...baseDotStyle,
+        backgroundColor: "white",
+        border: `2px solid ${primaryColor}`,
+      };
+    } else {
+      return {
+        ...baseDotStyle,
+        backgroundColor: "#e9ecef",
+        border: `2px solid #ced4da`,
+      };
     }
+  };
 
+  return (
+    <Row
+      className="mb-5 d-flex justify-content-between px-3"
+      style={{ position: "relative" }}
+    >
+      {steps.map((step, index) => {
+        const isFirst = index === 0;
+        const isLast = index === steps.length - 1;
 
-    return (
-        <Row className="mb-5 d-flex justify-content-between px-3" style={{ position: 'relative' }}>
-            {steps.map((step, index) => {
-                const isFirst = index === 0;
-                const isLast = index === steps.length - 1;
-                
-                // Get the calculated styles for the label (text)
-                const textStyle = labelStyle(index);
+        // Get the calculated styles for the label (text)
+        const textStyle = labelStyle(index);
 
-                return (
-                    <Col key={index} xs={12 / steps.length} style={textStyle}>
-                        
-                        {/* 1. Progress Line Separator (Left Side) */}
-                        {!isFirst && <div style={{ ...progressLineStyle(index - 1), right: '50%' }}></div>}
-                        
-                        {/* 2. Progress Line Separator (Right Side) */}
-                        {!isLast && <div style={{ ...progressLineStyle(index) }}></div>}
-                        
-                        {/* 3. The Dot Marker */}
-                        <div style={dotStyle(index)}></div>
+        return (
+          <Col key={index} xs={12 / steps.length} style={textStyle}>
+            {/* 1. Progress Line Separator (Left Side) */}
+            {!isFirst && (
+              <div
+                style={{ ...progressLineStyle(index - 1), right: "50%" }}
+              ></div>
+            )}
 
-                        {/* 4. Step Label */}
-                        <small className="d-block fw-semibold" style={{ fontSize: '0.9rem' }}>
-                            {step.label}
-                        </small>
-                    </Col>
-                );
-            })}
-        </Row>
-    );
-}
+            {/* 2. Progress Line Separator (Right Side) */}
+            {!isLast && <div style={{ ...progressLineStyle(index) }}></div>}
+
+            {/* 3. The Dot Marker */}
+            <div style={dotStyle(index)}></div>
+
+            {/* 4. Step Label */}
+            <small
+              className="d-block fw-semibold"
+              style={{ fontSize: "0.9rem" }}
+            >
+              {step.label}
+            </small>
+          </Col>
+        );
+      })}
+    </Row>
+  );
+};
 
 export default CustomStepper;
-
 
 // import React from 'react';
 // import { Row, Col } from 'react-bootstrap';
@@ -120,7 +144,7 @@ export default CustomStepper;
 //     activeStep: number;
 //     primaryColor: string; // The primary color from Register.tsx, e.g., "#3CB371"
 //     //mainColor: string;
-    
+
 // }
 
 // // Define the steps for the registration process
@@ -200,7 +224,7 @@ export default CustomStepper;
 //                     <Col key={index} xs={12 / steps.length} style={baseStyle}>
 //                         {/* Step Line Separator (before icon) */}
 //                         {!isFirst && <div style={{ ...separatorStyle(index - 1), right: '50%' }}></div>}
-                        
+
 //                         {/* Step Icon */}
 //                         <div style={iconContainerStyle}>
 //                             <FontAwesomeIcon icon={step.icon} />

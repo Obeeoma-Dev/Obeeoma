@@ -8,7 +8,8 @@ const getErrorMessage = (error) => {
         // Attempt to get a detailed error message from the response data
         return (error.response?.data?.detail ||
             // Handle errors that are arrays of messages (common in DRF)
-            error.response?.data?.non_field_errors?.[0] ||
+            error.response?.data
+                ?.non_field_errors?.[0] ||
             // Fallback to the general error message
             error.message ||
             "An unknown error occurred");
@@ -20,17 +21,18 @@ const getErrorMessage = (error) => {
 };
 // Existing Thunks
 // Login Thunk
-export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, { rejectWithValue }) => {
+export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, { rejectWithValue }) => {
     try {
         const response = await authAPI.login(credentials);
         return response.data;
     }
     catch (err) {
         const error = err;
-        let errorMessage = 'Login failed. Please try again.';
+        let errorMessage = "Login failed. Please try again.";
         if (error.response && error.response.data) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            errorMessage = error.response.data.detail || 'Invalid credentials.';
+            errorMessage =
+                error.response.data.detail || "Invalid credentials.";
         }
         return rejectWithValue(errorMessage);
     }
@@ -39,7 +41,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (credentials, 
 export const registerUser = createAsyncThunk("auth/organization-signup/", async (credentials, { rejectWithValue }) => {
     const dataWithDefaultRole = {
         ...credentials,
-        role: credentials.role || 'employer'
+        role: credentials.role || "employer",
     };
     try {
         const response = await authAPI.register(dataWithDefaultRole);
@@ -98,8 +100,8 @@ export const logoutUserThunk = createAsyncThunk("auth/logout", async (_, { dispa
         delete api.defaults.headers.common["Authorization"];
     }
 });
-// Verify OTP Thunk 
-export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload, { rejectWithValue }) => {
+// Verify OTP Thunk
+export const verifyOtpThunk = createAsyncThunk("auth/verifyOtp", async (payload, { rejectWithValue }) => {
     try {
         const response = await authAPI.verifyOtp(payload);
         return response.data;
@@ -109,19 +111,20 @@ export const verifyOtpThunk = createAsyncThunk('auth/verifyOtp', async (payload,
     }
 });
 // Resend OTP Thunk
-export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload, { rejectWithValue }) => {
+export const resendOtpThunk = createAsyncThunk("auth/resendOtp", async (payload, { rejectWithValue }) => {
     try {
         const response = await authAPI.forgotPassword({ email: payload.email });
         return response.data;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (error) {
-        const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
+        const errorMessage = error.response?.data?.detail ||
+            "Failed to resend code. Please try again.";
         return rejectWithValue(errorMessage);
     }
 });
 // MFA Setup: Initiates the process, typically returning the secret key and QR code data.
-export const setupMfa = createAsyncThunk('auth/setupMfa', async (_, { rejectWithValue }) => {
+export const setupMfa = createAsyncThunk("auth/setupMfa", async (_, { rejectWithValue }) => {
     try {
         // required by authAPI.fetchMfaSetupData
         const response = await authAPI.fetchMfaSetupData({});
@@ -132,7 +135,7 @@ export const setupMfa = createAsyncThunk('auth/setupMfa', async (_, { rejectWith
         return rejectWithValue(getErrorMessage(err));
     }
 });
-export const confirmMfa = createAsyncThunk('auth/confirmMfa', async (payload, { rejectWithValue }) => {
+export const confirmMfa = createAsyncThunk("auth/confirmMfa", async (payload, { rejectWithValue }) => {
     try {
         await authAPI.confirmMfaSetup(payload);
     }
@@ -161,7 +164,7 @@ const initialState = {
     // Initial State for NEW MFA properties
     mfaSetupData: null,
     isMfaSetupConfirmed: false,
-    // The accessToken is already stored in `token` above, 
+    // The accessToken is already stored in `token` above,
     // but keeping this for potential future separation:
     accessToken: null,
 };
@@ -376,7 +379,7 @@ export default authSlice.reducer;
 //   LoginSuccessPayload,
 //   OtpVerificationPayload,
 //   OtpSuccessResponse,
-//    ResendOtpPayload, 
+//    ResendOtpPayload,
 //   User
 // } from "./../../types/auth";
 // import {  authAPI } from "../../api/apiConfig";
@@ -400,12 +403,12 @@ export default authSlice.reducer;
 // // Login Thunk
 // export const loginUser = createAsyncThunk<
 // LoginSuccessPayload,
-// LoginCredentials, 
-// { rejectValue: string } 
+// LoginCredentials,
+// { rejectValue: string }
 // >('auth/loginUser', async (credentials, { rejectWithValue }) => {
 // try {
 // const response = await authAPI.login(credentials)
-// return response.data as LoginSuccessPayload; 
+// return response.data as LoginSuccessPayload;
 //  } catch (err) {
 // const error: AxiosError = err as AxiosError;
 // let errorMessage = 'Login failed. Please try again.';
@@ -419,11 +422,11 @@ export default authSlice.reducer;
 // // Register Thunk
 // export const registerUser = createAsyncThunk<
 // LoginSuccessPayload,
-// RegisterCredentials, 
+// RegisterCredentials,
 // { rejectValue: string }
 // >(
 // "auth/organization-signup/",
-// async (credentials, {rejectWithValue},  
+// async (credentials, {rejectWithValue},
 // ) => {
 //   const dataWithDefaultRole = {
 //         ...credentials,
@@ -453,7 +456,7 @@ export default authSlice.reducer;
 // }
 //  },
 // );
-// 
+//
 // // Reset password Thunk
 // // Reset password Thunk
 // export const changePassword = createAsyncThunk(
@@ -489,7 +492,7 @@ export default authSlice.reducer;
 //   }
 // );
 // export const verifyOtpThunk = createAsyncThunk<
-// OtpSuccessResponse, 
+// OtpSuccessResponse,
 // OtpVerificationPayload,
 // {rejectValue: string}>
 // ('auth/verifyOtp', async(payload, {rejectWithValue}) =>{
@@ -511,14 +514,14 @@ export default authSlice.reducer;
 // };
 // // resend otp
 // export const resendOtpThunk = createAsyncThunk<
-//   { message: string }, 
-//   ResendOtpPayload, 
-//   { rejectValue: string } 
+//   { message: string },
+//   ResendOtpPayload,
+//   { rejectValue: string }
 // >(
 //   'auth/resendOtp',
 //   async ({ email }, { rejectWithValue }) => {
 //     try {
-//       const response = await authAPI.resendOtp({ email }); 
+//       const response = await authAPI.resendOtp({ email });
 //       return response.data;
 //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //     } catch (error: any) {
@@ -538,7 +541,7 @@ export default authSlice.reducer;
 //   name: "auth",
 //   initialState,
 //   reducers: {
-//     clearAuthStatus: (state) => { 
+//     clearAuthStatus: (state) => {
 //       state.isLoading = false;
 //       state.error = null;
 //     },
@@ -576,7 +579,7 @@ export default authSlice.reducer;
 //  "token",
 //  action.payload.access || action.payload.token,
 // );
-//  localStorage.setItem("user", JSON.stringify(action.payload.user)); 
+//  localStorage.setItem("user", JSON.stringify(action.payload.user));
 // })
 // .addCase(loginUser.rejected, (state, action) => {
 // state.isLoading = false;
@@ -588,7 +591,7 @@ export default authSlice.reducer;
 //  state.error = null;
 // })
 // .addCase(registerUser.fulfilled, (state, action) => {
-// const userData = action.payload?.user ?? action.payload; 
+// const userData = action.payload?.user ?? action.payload;
 // // Setting user and token
 // state.user = userData;
 // state.isLoading = false;

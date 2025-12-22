@@ -8,4 +8,4 @@ export interface Notification {
   timestamp: Date;
 }
 
-export type NotificationFilter = 'all' | 'unread' | 'starred';
+export type NotificationFilter = "all" | "unread" | "starred";

@@ -21,19 +21,22 @@ import {
   fetchEmployeeStatus,
   fetchEmployeeInvites,
   fetchEmployees,
-  fetchMoodTrends
+  fetchMoodTrends,
 } from "../../store/slices/EmployerSlice";
 
 const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
   const dispatch = useDispatch<AppDispatch>();
-  
+
   // 1. HOOKS MUST BE AT THE TOP LEVEL (Before any early returns)
-  const { stats, employeeData, activities, loading, error } = useDashboardData();
+  const { stats, employeeData, activities, loading, error } =
+    useDashboardData();
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
   // const [searchQuery, setSearchQuery] = useState("");
 
   // Redux Mood Data
-  const { moodTrends, isLoading: isMoodLoading } = useSelector((state: RootState) => state.employer);
+  const { moodTrends, isLoading: isMoodLoading } = useSelector(
+    (state: RootState) => state.employer,
+  );
 
   // Fetch mood trends on mount
   useEffect(() => {
@@ -50,7 +53,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
     return moodTrends.map((item: any) => ({
       date: item.date || item.timestamp || "",
       avg_score: item.avg_score ?? 3,
-      mood_counts: item.mood_counts || {}
+      mood_counts: item.mood_counts || {},
     }));
   }, [moodTrends]);
 
@@ -76,7 +79,10 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
             <h4 className="alert-heading">Error Loading Dashboard</h4>
             <p>{error}</p>
             <hr />
-            <button className="btn btn-outline-danger" onClick={() => window.location.reload()}>
+            <button
+              className="btn btn-outline-danger"
+              onClick={() => window.location.reload()}
+            >
               Retry Loading
             </button>
           </div>
@@ -86,7 +92,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
   }
 
   // 3. LOGIC & HELPERS
-  const PRIMARY_COLOR = "#22C55E"; 
+  const PRIMARY_COLOR = "#22C55E";
   const SECONDARY_COLOR = "#6c757d";
 
   const refreshDashboardData = () => {
@@ -117,7 +123,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
       value: employeeStatus.totalEmployees.toString(),
       icon: "Users",
       color: PRIMARY_COLOR,
-      description: "Current workforce size"
+      description: "Current workforce size",
     },
     {
       title: "Help & Support",
@@ -141,7 +147,9 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           <div className="col-lg-6">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h6 className="fw-bold mb-3 text-center text-dark small">Engagement Level</h6>
+                <h6 className="fw-bold mb-3 text-center text-dark small">
+                  Engagement Level
+                </h6>
                 <EmployeeStatusLegend employeeStatus={employeeStatus} />
               </div>
             </div>
@@ -169,11 +177,19 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           <div className="col-lg-6">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title fw-bold mb-4" style={{ fontSize: '1.1rem' }}>Mood Trend</h5>
+                <h5
+                  className="card-title fw-bold mb-4"
+                  style={{ fontSize: "1.1rem" }}
+                >
+                  Mood Trend
+                </h5>
                 <div className="dashboard-container">
                   {isMoodLoading ? (
                     <div className="text-center py-5">
-                      <div className="spinner-border spinner-border-sm text-primary" role="status"></div>
+                      <div
+                        className="spinner-border spinner-border-sm text-primary"
+                        role="status"
+                      ></div>
                       <p className="small text-muted mt-2">Loading trends...</p>
                     </div>
                   ) : (
@@ -182,7 +198,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
 
           {/* Recent Activity */}
           <div className="col-lg-6">
@@ -193,11 +209,16 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           <div className="col-lg-6">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
-                <h5 className="card-title fw-bold mb-4" style={{ fontSize: '1.1rem' }}>Wellness History</h5>
+                <h5
+                  className="card-title fw-bold mb-4"
+                  style={{ fontSize: "1.1rem" }}
+                >
+                  Wellness History
+                </h5>
                 <WellnessTrends />
               </div>
             </div>
-          </div> 
+          </div>
         </div>
 
         {/* Modal for adding employees */}
@@ -218,7 +239,7 @@ export default EmployerDashboard;
 // import EmployeeStatusLegend from "../../components/employercomponents/employerdashboard/EmployeeStatusLegend";
 // import FeatureUsageBreakdown from "../../components/employercomponents/employerdashboard/FeatureUsageBreakdown";
 // import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
-// import MoodGaugeChart from "../../components/employercomponents/employerdashboard/MoodgaugeChart"; 
+// import MoodGaugeChart from "../../components/employercomponents/employerdashboard/MoodgaugeChart";
 // import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
 // import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 // import { useDashboardData } from "../../hooks/useDashboardData";
@@ -362,7 +383,7 @@ export default EmployerDashboard;
 //                 <FeatureUsageBreakdown />
 //               </div>
 //             </div>
-            
+
 //           </div>
 
 //           <div className="col-lg-6 col-md-12">
@@ -537,7 +558,7 @@ export default EmployerDashboard;
 //                 <FeatureUsageBreakdown />
 //               </div>
 //             </div>
-            
+
 //           </div>
 
 //           <div className="col-lg-6 col-md-12">
@@ -570,14 +591,12 @@ export default EmployerDashboard;
 
 // export default EmployerDashboard;
 
-
-
 // import TopGrid from "../../components/employercomponents/employerdashboard/TopGrid";
 // import Layout from "../../components/employercomponents/shared/Layout";
 // import EmployeeStatusLegend from "../../components/employercomponents/employerdashboard/EmployeeStatusLegend";
 // import FeatureUsageBreakdown from "../../components/employercomponents/employerdashboard/FeatureUsageBreakdown";
 // import WellnessGraph from "../../components/employercomponents/employerdashboard/WellnessGraph";
-// import MoodGaugeChart from "../../components/employercomponents/employerdashboard/MoodgaugeChart"; 
+// import MoodGaugeChart from "../../components/employercomponents/employerdashboard/MoodgaugeChart";
 // import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
 // import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 // import { useDashboardData } from "../../hooks/useDashboardData";
@@ -611,7 +630,7 @@ export default EmployerDashboard;
 //    * Maps a string mood (from the API) to a numeric score (0-999) for the gauge.
 //    */
 //   const getScoreFromMood = (mood: string | undefined): number => {
-//     if (!mood) return 0; 
+//     if (!mood) return 0;
 
 //     const moodMap: { [key: string]: number } = {
 //         'Great': 850,
@@ -712,7 +731,7 @@ export default EmployerDashboard;
 //                 <FeatureUsageBreakdown />
 //               </div>
 //             </div>
-            
+
 //           </div>
 
 //           <div className="col-lg-6 col-md-12">

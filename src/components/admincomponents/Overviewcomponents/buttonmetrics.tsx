@@ -10,7 +10,9 @@ import { BottomMetricCard } from "./admindashboard";
  * Props interface for BottomMetrics component
  * Accepts an array of BottomMetricCard objects
  */
-const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({ metrics }) => {
+const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
+  metrics,
+}) => {
   // Define color palette for icons
   const colorMap: Record<string, string> = {
     emerald: "#3CB371",
@@ -25,11 +27,11 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({ metrics }) =
       <Row className="gy-4">
         {metrics.map((metric) => {
           // Dynamically select icon from lucide-react
-          const IconComponent =
-            (Icons[metric.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
-              size?: number;
-              color?: string;
-            }>;
+          const IconComponent = (Icons[metric.icon as keyof typeof Icons] ??
+            Icons.Activity) as React.FC<{
+            size?: number;
+            color?: string;
+          }>;
 
           // Resolve icon color from palette
           const iconColor = colorMap[metric.color] || colorMap.emerald;
@@ -46,7 +48,9 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({ metrics }) =
                     >
                       <IconComponent size={20} color={iconColor} />
                     </div>
-                    <h6 className="text-muted fw-semibold mb-0">{metric.title}</h6>
+                    <h6 className="text-muted fw-semibold mb-0">
+                      {metric.title}
+                    </h6>
                   </div>
 
                   {/* Main value */}

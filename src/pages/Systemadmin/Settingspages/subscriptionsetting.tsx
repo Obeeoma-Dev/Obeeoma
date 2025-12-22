@@ -45,7 +45,13 @@ const subscriptionPlans = [
 
 const SubscriptionSettingsPage: React.FC = () => {
   return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        backgroundColor: "#f8f9fa",
+      }}
+    >
       {/* Sidebar stays fixed on the left */}
       <div style={{ width: "250px", flexShrink: 0 }}>
         <AdminSidebar />
@@ -59,12 +65,11 @@ const SubscriptionSettingsPage: React.FC = () => {
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            overflowY: "auto",
+            padding: "1rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
-
           {/* Page title */}
           <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
             <h2 style={{ margin: 0 }}>Subscription Settings</h2>

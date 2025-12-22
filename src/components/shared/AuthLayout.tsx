@@ -1,7 +1,7 @@
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { NavLink, Link } from 'react-router-dom';
-import logo from '../../assets/Images/obeeomalogoicon2.png';
+import React from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { NavLink, Link } from "react-router-dom";
+import logo from "../../assets/Images/obeeomalogoicon2.png";
 interface AuthLayoutProps {
   children: React.ReactNode;
 }
@@ -12,7 +12,11 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       {/* Header */}
       <Navbar bg="ob" variant="success" expand="lg" className="border-bottom">
         <Container>
-          <Navbar.Brand as={NavLink} to="/" className="d-flex align-items-center">
+          <Navbar.Brand
+            as={NavLink}
+            to="/"
+            className="d-flex align-items-center"
+          >
             <div className="d-flex align-items-center">
               <img src={logo} alt="Obeeoma Logo" width="35" className="me-2" />
               <div>
@@ -20,7 +24,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
               </div>
             </div>
           </Navbar.Brand>
-          
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
@@ -44,11 +48,13 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
       <footer className="bg-success text-light py-4 mt-auto">
         <Container>
           <div className="text-center">
-            <p className="mb-2">
-              © 2025 Obeeoma. All rights reserved.
-            </p>
+            <p className="mb-2">© 2025 Obeeoma. All rights reserved.</p>
             <div className="d-flex justify-content-center align-items-center flex-wrap gap-3">
-              <Nav.Link as={Link} to="/privacy-policy" className="text-light p-0 small">
+              <Nav.Link
+                as={Link}
+                to="/privacy-policy"
+                className="text-light p-0 small"
+              >
                 Privacy Policy
               </Nav.Link>
               <span className="text-muted">|</span>
@@ -56,7 +62,11 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
                 Terms of Service
               </Nav.Link>
               <span className="text-muted">|</span>
-              <Nav.Link as={Link} to="/contact" className="text-light p-0 small">
+              <Nav.Link
+                as={Link}
+                to="/contact"
+                className="text-light p-0 small"
+              >
                 Contact Us
               </Nav.Link>
             </div>

@@ -1,17 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // Import React and useState for managing form state
-import { useState } from 'react';
+import { useState } from "react";
 // Import Bootstrap components for layout and styling
-import { Form, Button, Card, Row, Col } from 'react-bootstrap';
+import { Form, Button, Card, Row, Col } from "react-bootstrap";
 // Main component
 const AccountForm = () => {
     // Initialize local state with placeholder account data
     const [account, setAccount] = useState({
-        name: 'Dr. Sarah Johnson',
-        title: 'System Administrator',
-        email: 'sarah.johnson@mindcare.com',
-        phone: '(555) 123-4567',
-        bio: 'Dr. Sarah Johnson is a system administrator with over 10 years of experience in mental health platforms. She oversees the technical operations and...',
+        name: "Dr. Sarah Johnson",
+        title: "System Administrator",
+        email: "sarah.johnson@mindcare.com",
+        phone: "(555) 123-4567",
+        bio: "Dr. Sarah Johnson is a system administrator with over 10 years of experience in mental health platforms. She oversees the technical operations and...",
     });
     // Handle input changes for all fields
     const handleChange = (e) => {
@@ -23,7 +23,7 @@ const AccountForm = () => {
     };
     // Placeholder for save logic (connect to backend later)
     const handleSave = () => {
-        console.log('Saving account details:', account);
+        console.log("Saving account details:", account);
         // TODO: Send account data to backend via API
     };
     return (

@@ -8,7 +8,8 @@ import logo from "../../assets/Images/obeeomalogoword1.png"; // Obeeoma logo
 const SideNavButton = ({ id, label, icon, onClick, }) => {
     const location = useLocation();
     const currentPath = location.pathname.split("/")[2];
-    const isActive = (id === "overview" && (currentPath === undefined || currentPath === "")) || currentPath === id;
+    const isActive = (id === "overview" && (currentPath === undefined || currentPath === "")) ||
+        currentPath === id;
     const IconComponent = Icons[icon];
     return (_jsxs(Button, { variant: "light", onClick: onClick, className: `w-100 d-flex align-items-center gap-3 px-3 py-2 text-start ${isActive ? "fw-semibold border-start" : ""}`, style: {
             position: "relative",
@@ -25,7 +26,9 @@ const SideNavButton = ({ id, label, icon, onClick, }) => {
         }, onMouseEnter: (e) => {
             e.currentTarget.style.backgroundColor = "#f1f3f5";
         }, onMouseLeave: (e) => {
-            e.currentTarget.style.backgroundColor = isActive ? "#e9f5ee" : "transparent";
+            e.currentTarget.style.backgroundColor = isActive
+                ? "#e9f5ee"
+                : "transparent";
         }, children: [_jsx(IconComponent, { size: 20, color: "#3CB371" }), _jsx("span", { className: "small", children: label }), isActive && (_jsx("div", { style: {
                     position: "absolute",
                     right: 0,

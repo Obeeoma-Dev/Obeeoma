@@ -1,12 +1,12 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/components/admincomponents/reportcomponents/CustomReportForm.tsx
-import { useState } from 'react';
-import { Card, Form, Button } from 'react-bootstrap';
+import { useState } from "react";
+import { Card, Form, Button } from "react-bootstrap";
 const CustomReportForm = () => {
     // Local state for form fields
-    const [reportType, setReportType] = useState('Platform Usage');
-    const [dateRange, setDateRange] = useState('Last 30 Days');
-    const [format, setFormat] = useState('PDF');
+    const [reportType, setReportType] = useState("Platform Usage");
+    const [dateRange, setDateRange] = useState("Last 30 Days");
+    const [format, setFormat] = useState("PDF");
     const handleSubmit = (e) => {
         e.preventDefault();
         // Placeholder logic for report generation

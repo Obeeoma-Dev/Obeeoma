@@ -1,6 +1,6 @@
 // src/components/admincomponents/settingsappearancecomp/SaveButton.tsx
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import React from "react";
+import { Button } from "react-bootstrap";
 
 interface SaveButtonProps {
   onClick: () => void;

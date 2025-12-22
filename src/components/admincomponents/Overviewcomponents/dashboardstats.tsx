@@ -45,14 +45,15 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                     <IconComponent size={25} className="icon-color" />
                   </div>
 
-
                   {/* Change indicator styled like a badge */}
                   <span
                     className="fw-medium"
                     style={{
                       fontSize: "0.75rem",
                       padding: "0.4em 0.6em",
-                      color: stat.change.startsWith("+") ? "#3CB371" : "#dc3545",
+                      color: stat.change.startsWith("+")
+                        ? "#3CB371"
+                        : "#dc3545",
                       fontWeight: 600,
                       display: "inline-block",
                     }}
@@ -64,10 +65,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                       // Default for all other cards
                       <>{stat.change}</>
                     )}
-
                   </span>
-
-
                 </div>
 
                 {/* Bottom section: title and value */}

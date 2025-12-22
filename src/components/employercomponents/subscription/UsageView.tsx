@@ -41,10 +41,10 @@
 //         <strong>{label}</strong>
 //         <span>{used} / {limit} Used</span>
 //       </div>
-//       <ProgressBar 
-//         now={percent} 
-//         label={`${percent}%`} 
-//         variant={percent > 90 ? 'danger' : percent > 75 ? 'warning' : 'success'} 
+//       <ProgressBar
+//         now={percent}
+//         label={`${percent}%`}
+//         variant={percent > 90 ? 'danger' : percent > 75 ? 'warning' : 'success'}
 //       />
 //     </div>
 //   );
@@ -52,13 +52,13 @@
 //   return (
 //     <div className="usage-view p-4 border rounded">
 //       <h3 className="mb-4">Current Usage</h3>
-//       <UsageBar 
+//       <UsageBar
 //         label="API Calls"
 //         used={usage.api_calls_used}
 //         limit={usage.api_calls_limit}
 //         percent={usage.api_calls_percent}
 //       />
-//       <UsageBar 
+//       <UsageBar
 //         label="Team Seats"
 //         used={usage.seats_used}
 //         limit={usage.seats_limit}

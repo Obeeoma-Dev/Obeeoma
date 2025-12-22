@@ -9,7 +9,7 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
-import { BlogTable } from "../../components/admincomponents/Blogmanagement/BlogTable";
+import { BlogTable, } from "../../components/admincomponents/Blogmanagement/BlogTable";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -179,15 +179,15 @@ const Dashboard = () => {
         setShowEditModal(true);
     };
     const handleDelete = (id) => {
-        setBlogs(prev => prev.filter(blog => blog.id !== id));
+        setBlogs((prev) => prev.filter((blog) => blog.id !== id));
     };
     return (
     // Full-height layout with sidebar and main content
     _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
                             flex: 1,
-                            overflowY: 'auto',
-                            padding: '1rem',
-                            backgroundColor: '#f8f9fa',
+                            overflowY: "auto",
+                            padding: "1rem",
+                            backgroundColor: "#f8f9fa",
                         }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-4", children: _jsx(Col, { children: _jsx(BlogTable, { blogs: blogs, onAdd: handleAdd, onEdit: handleEdit, onDelete: handleDelete }) }) }), _jsx(Row, { className: "gy-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
 };
 export default Dashboard;

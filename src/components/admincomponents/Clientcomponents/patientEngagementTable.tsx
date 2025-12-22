@@ -41,8 +41,15 @@ const patients: Patient[] = [
 
 // Helper function to determine engagement level icon
 const getEngagementIcon = (rate: number): React.ReactNode => {
-  if (rate >= 80) return <FaFire className="text-danger me-1" title="High Engagement" />;
-  if (rate >= 50) return <FaExclamationTriangle className="text-warning me-1" title="Medium Engagement" />;
+  if (rate >= 80)
+    return <FaFire className="text-danger me-1" title="High Engagement" />;
+  if (rate >= 50)
+    return (
+      <FaExclamationTriangle
+        className="text-warning me-1"
+        title="Medium Engagement"
+      />
+    );
   return <FaSnowflake className="text-info me-1" title="Low Engagement" />;
 };
 

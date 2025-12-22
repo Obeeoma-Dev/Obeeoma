@@ -6,18 +6,24 @@ import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 
-
 import { Formik } from "formik";
 
-import {  Card, Form, Button, Alert, Spinner, InputGroup } from "react-bootstrap";
+import {
+  Card,
+  Form,
+  Button,
+  Alert,
+  Spinner,
+  InputGroup,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor:"#22C55E",
+  primaryColor: "#22C55E",
   logoText: "Obeeoma",
 };
 
@@ -27,13 +33,13 @@ type DashboardPath =
   | "/employee-dashboard";
 
 // Define the padding constant for clarity
-const FOOTER_HEIGHT_PADDING = "80px"; 
+const FOOTER_HEIGHT_PADDING = "80px";
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { isLoading, error, user } = useSelector(
-    (state: RootState) => state.auth
+    (state: RootState) => state.auth,
   );
   const [showPassword, setShowPassword] = useState(false);
 
@@ -57,7 +63,7 @@ const LoginPage = () => {
         return "/employee-dashboard";
       default:
         console.warn(
-          `Unrecognized role: ${role}. Falling back to /employer-dashboard.`
+          `Unrecognized role: ${role}. Falling back to /employer-dashboard.`,
         );
         return "/employer-dashboard";
     }
@@ -69,15 +75,15 @@ const LoginPage = () => {
   }) => {
     try {
       const resultAction = await dispatch(
-        loginUser({ username: values.username, password: values.password })
+        loginUser({ username: values.username, password: values.password }),
       ).unwrap();
 
       // check for admin response
       if (resultAction.mfa_required && resultAction.temp_token) {
         // navigate to /mfa-setup
-        navigate("/mfa-setup", {replace: false})
-        return
-      } 
+        navigate("/mfa-setup", { replace: false });
+        return;
+      }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userRole = (resultAction as any)?.role || user?.role;
@@ -104,7 +110,7 @@ const LoginPage = () => {
         alignItems: "center",
         padding: "20px",
         // Padding for footer clearance, ensuring card can't go below this line
-        paddingBottom: FOOTER_HEIGHT_PADDING, 
+        paddingBottom: FOOTER_HEIGHT_PADDING,
       }}
     >
       <Card
@@ -115,24 +121,29 @@ const LoginPage = () => {
           // Calculate max height based on viewport, vertical padding, and footer clearance
           maxHeight: `calc(100vh - 40px - ${FOOTER_HEIGHT_PADDING})`,
           // Allow the card content to scroll *internally* if it exceeds its max height
-          overflow: "auto", 
+          overflow: "auto",
           borderRadius: "8px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Card.Body>
-          <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+          <div
+            className="d-flex flex-column align-items-center justify-content-center mb-4"
+            style={{ fontFamily: "heading" }}
+          >
             <img
               src={logo}
               alt="Obeeoma Logo"
               style={{
                 height: "50px",
-                width: "auto"
+                width: "auto",
               }}
               className="mb-1"
             />
           </div>
-          <h3 className="text-center mb-2 fw-semibold text-dark" style={{ fontFamily: "heading" }}
+          <h3
+            className="text-center mb-2 fw-semibold text-dark"
+            style={{ fontFamily: "heading" }}
           >
             Welcome to Obeeoma
           </h3>
@@ -155,7 +166,10 @@ const LoginPage = () => {
             {({ handleChange, handleSubmit, values, errors, touched }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 {/* Email/Username Field */}
-                <Form.Group className="mb-3" controlId="validationFormikUsername">
+                <Form.Group
+                  className="mb-3"
+                  controlId="validationFormikUsername"
+                >
                   <Form.Control
                     type="text"
                     placeholder="Username"
@@ -171,7 +185,10 @@ const LoginPage = () => {
                 </Form.Group>
 
                 {/* Password Field */}
-                <Form.Group className="mb-4" controlId="validationFormikPassword">
+                <Form.Group
+                  className="mb-4"
+                  controlId="validationFormikPassword"
+                >
                   <InputGroup>
                     <Form.Control
                       type={showPassword ? "text" : "password"}
@@ -182,12 +199,12 @@ const LoginPage = () => {
                       isInvalid={touched.password && !!errors.password}
                       className="py-2"
                     />
-                    <InputGroup.Text 
+                    <InputGroup.Text
                       onClick={togglePasswordVisibility}
                       style={{ cursor: "pointer", backgroundColor: "white" }}
                     >
-                      <FontAwesomeIcon 
-                        icon={showPassword ? faEyeSlash : faEyeRegular} 
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEyeRegular}
                         style={{ color: customStyles.primaryColor }}
                       />
                     </InputGroup.Text>
@@ -211,7 +228,14 @@ const LoginPage = () => {
                 >
                   {isLoading ? (
                     <>
-                      <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-2"
+                      />
                       Signing in...
                     </>
                   ) : (
@@ -231,7 +255,7 @@ const LoginPage = () => {
               Forgot Password?
             </Link>
           </div>
-          
+
           <div className="text-center mt-3">
             <span className="small text-muted" style={{ fontFamily: "body" }}>
               Don't have an account?{" "}
@@ -239,35 +263,58 @@ const LoginPage = () => {
             <Link
               to="/signup"
               className="small text-decoration-none"
-              style={{ color: customStyles.primaryColor, fontFamily: "body", fontWeight: "600" }}
+              style={{
+                color: customStyles.primaryColor,
+                fontFamily: "body",
+                fontWeight: "600",
+              }}
             >
               Create Account
             </Link>
           </div>
         </Card.Body>
       </Card>
-      
+
       {/* --- Fixed Footer Component --- */}
       <footer
         className="text-center text-muted py-3 small border-top"
         style={{
           position: "fixed",
-          bottom: "0", 
+          bottom: "0",
           width: "100%",
-          backgroundColor: "#f5f5f5", 
+          backgroundColor: "#f5f5f5",
           fontSize: "0.8rem",
-          zIndex: 1000, 
-          fontFamily: "body"
+          zIndex: 1000,
+          fontFamily: "body",
         }}
-      > 
+      >
         <div className="d-flex justify-content-between align-items-center container">
-          <div className="footer-copyright" >
+          <div className="footer-copyright">
             &copy; 2025 {customStyles.logoText}. All rights reserved.
           </div>
           <div className="d-flex align-items-center">
-            <Link className="text-muted text-decoration-none me-3" style={{ fontFamily: "body" }} role="button" to="/system-admin">Privacy Policy</Link>
-            <a href="#" className="text-muted text-decoration-none me-3" style={{ fontFamily: "body"}}>Terms of Service</a>
-            <a href="#" className="text-muted text-decoration-none" style={{ fontFamily: "body"}} >Contact Us</a>
+            <Link
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+              role="button"
+              to="/system-admin"
+            >
+              Privacy Policy
+            </Link>
+            <a
+              href="#"
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+            >
+              Terms of Service
+            </a>
+            <a
+              href="#"
+              className="text-muted text-decoration-none"
+              style={{ fontFamily: "body" }}
+            >
+              Contact Us
+            </a>
           </div>
         </div>
       </footer>

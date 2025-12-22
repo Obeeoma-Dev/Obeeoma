@@ -1,6 +1,6 @@
 // src/components/admincomponents/Hotline-activity/OperatorPerformance.tsx
-import React from 'react';
-import { Card, ProgressBar } from 'react-bootstrap';
+import React from "react";
+import { Card, ProgressBar } from "react-bootstrap";
 
 interface Operator {
   name: string;
@@ -8,10 +8,10 @@ interface Operator {
 }
 
 const operators: Operator[] = [
-  { name: 'John Smith', performance: 92 },
-  { name: 'Emily Brown', performance: 85 },
-  { name: 'Michael Jones', performance: 78 },
-  { name: 'Sarah Doe', performance: 65 },
+  { name: "John Smith", performance: 92 },
+  { name: "Emily Brown", performance: 85 },
+  { name: "Michael Jones", performance: 78 },
+  { name: "Sarah Doe", performance: 65 },
 ];
 
 const OperatorPerformance: React.FC = () => {

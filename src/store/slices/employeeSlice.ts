@@ -24,16 +24,27 @@ const employeeSlice = createSlice({
     clearEmployee: (state: EmployeeState) => {
       state.currentEmployee = null;
     },
-    setEmployeeLoading: (state: EmployeeState, action: PayloadAction<boolean>) => {
+    setEmployeeLoading: (
+      state: EmployeeState,
+      action: PayloadAction<boolean>,
+    ) => {
       state.isLoading = action.payload;
     },
-    setEmployeeError: (state: EmployeeState, action: PayloadAction<string | null>) => {
+    setEmployeeError: (
+      state: EmployeeState,
+      action: PayloadAction<string | null>,
+    ) => {
       state.error = action.payload;
     },
   },
 });
 
-export const { setEmployee, clearEmployee, setEmployeeLoading, setEmployeeError } = employeeSlice.actions;
+export const {
+  setEmployee,
+  clearEmployee,
+  setEmployeeLoading,
+  setEmployeeError,
+} = employeeSlice.actions;
 export default employeeSlice.reducer;
 
 // import { createSlice } from "@reduxjs/toolkit";

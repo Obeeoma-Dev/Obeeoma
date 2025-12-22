@@ -6,9 +6,7 @@ export const loginValidationSchema = yup.object({
 });
 // Step 1: Organization Details Validation
 export const organizationStepSchema = yup.object().shape({
-    organizationName: yup
-        .string()
-        .required("Organization Name is required"),
+    organizationName: yup.string().required("Organization Name is required"),
     companyEmail: yup
         .string()
         .email("Must be a valid email format")
@@ -17,25 +15,17 @@ export const organizationStepSchema = yup.object().shape({
         .number()
         .oneOf([10, 50, 200, 500, 600], "Please select a valid organization size")
         .required("Organization Size is required"),
-    Location: yup
-        .string()
-        .required("Location is required"),
-    otherLocation: yup
-        .string()
-        .when('Location', {
-        is: 'OTHER',
-        then: (schema) => schema.required('Please specify your location'),
-        otherwise: (schema) => schema.notRequired()
-    })
+    Location: yup.string().required("Location is required"),
+    otherLocation: yup.string().when("Location", {
+        is: "OTHER",
+        then: (schema) => schema.required("Please specify your location"),
+        otherwise: (schema) => schema.notRequired(),
+    }),
 });
 // Step 2: Contact Details Validation
 export const contactStepSchema = yup.object().shape({
-    contactPersonFirstName: yup
-        .string()
-        .required("First Name is required"),
-    contactPersonLastName: yup
-        .string()
-        .required("Last Name is required"),
+    contactPersonFirstName: yup.string().required("First Name is required"),
+    contactPersonLastName: yup.string().required("Last Name is required"),
     email: yup
         .string()
         .email("Must be a valid email format")
@@ -44,12 +34,10 @@ export const contactStepSchema = yup.object().shape({
         .string()
         .oneOf(["CEO", "HR_MANAGER", "RECRUITER", "OFFICE_MANAGER", "OTHER"], "Please select a valid role")
         .required("Contact Person Role is required"),
-    otherContactPersonRole: yup
-        .string()
-        .when('contactPersonRole', {
-        is: 'OTHER',
-        then: (schema) => schema.required('Please specify your role'),
-        otherwise: (schema) => schema.notRequired()
+    otherContactPersonRole: yup.string().when("contactPersonRole", {
+        is: "OTHER",
+        then: (schema) => schema.required("Please specify your role"),
+        otherwise: (schema) => schema.notRequired(),
     }),
     phoneNumber: yup
         .string()
@@ -61,13 +49,13 @@ export const contactStepSchema = yup.object().shape({
         .string()
         .min(8, "Password must be at least 8 characters")
         .matches(passwordRules, {
-        message: "Password must contain 1 uppercase letter, 1 lowercase letter, 1 character and 1 number"
+        message: "Password must contain 1 uppercase letter, 1 lowercase letter, 1 character and 1 number",
     })
         .required("Password is required"),
     confirmPassword: yup
         .string()
-        .oneOf([yup.ref('password')], "Passwords must match")
-        .required("Confirm Password is required")
+        .oneOf([yup.ref("password")], "Passwords must match")
+        .required("Confirm Password is required"),
 });
 export const getStepValidationSchema = (step) => {
     switch (step) {
@@ -99,10 +87,10 @@ export const getStepValidationSchema = (step) => {
 // //     // Check if the Location object is present and valid
 // //     .required('A location is required.') // <--- This assigns a simple string error
 // //     .nullable(),
-//   contactPersonFirstName: yup 
+//   contactPersonFirstName: yup
 //     .string()
 //     .required("First Name is required"), // Specific error message
-//   contactPersonLastName: yup 
+//   contactPersonLastName: yup
 //     .string()
 //     .required("Last Name is required"), // Specific error message
 //   email: yup
@@ -141,20 +129,20 @@ export const resetPasswordValidationSchema = yup.object({
         .min(8, "Password must be at least 8  characters"),
     confirm_password: yup
         .string()
-        .oneOf([yup.ref('new_password'),], "Passwords must match")
+        .oneOf([yup.ref("new_password")], "Passwords must match")
         .required("Confirm Password is required"),
 });
 export const changePasswordValidationSchema = yup.object({
-    old_password: yup
-        .string()
-        .required("Old Password is required"),
+    old_password: yup.string().required("Old Password is required"),
     new_password: yup
         .string()
         .required("New Password is required")
         .min(8, "Password must be at least 8 characters")
-        .matches(passwordRules, { message: "Password must contain 1 uppercase letter, 1 lowercase letter, 1 character and 1 number" }),
+        .matches(passwordRules, {
+        message: "Password must contain 1 uppercase letter, 1 lowercase letter, 1 character and 1 number",
+    }),
     confirm_password: yup
         .string()
-        .oneOf([yup.ref('new_password')], "Passwords must match")
+        .oneOf([yup.ref("new_password")], "Passwords must match")
         .required("Confirm Password is required"),
 });

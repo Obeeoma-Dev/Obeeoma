@@ -24,9 +24,13 @@ const SideNavButton = ({
   const location = useLocation();
   const currentPath = location.pathname.split("/")[2];
   const isActive =
-    (id === "overview" && (currentPath === undefined || currentPath === "")) || currentPath === id;
+    (id === "overview" && (currentPath === undefined || currentPath === "")) ||
+    currentPath === id;
 
-  const IconComponent = Icons[icon] as React.FC<{ size?: number; color?: string }>;
+  const IconComponent = Icons[icon] as React.FC<{
+    size?: number;
+    color?: string;
+  }>;
 
   return (
     <Button
@@ -50,7 +54,9 @@ const SideNavButton = ({
         e.currentTarget.style.backgroundColor = "#f1f3f5";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = isActive ? "#e9f5ee" : "transparent";
+        e.currentTarget.style.backgroundColor = isActive
+          ? "#e9f5ee"
+          : "transparent";
       }}
     >
       <IconComponent size={20} color="#3CB371" />
@@ -77,7 +83,6 @@ const SideNavButton = ({
 const AdminSidebar: React.FC = () => {
   // Enables programmatic navigation
   const navigate = useNavigate();
-
 
   // Redux dispatch for logout action
   const dispatch = useDispatch<AppDispatch>();

@@ -1,5 +1,5 @@
-import React from 'react';
-import { WellnessTrend } from '../../../types/employer';
+import React from "react";
+import { WellnessTrend } from "../../../types/employer";
 
 interface WellnessGraphProps {
   data: WellnessTrend[];
@@ -9,33 +9,37 @@ interface WellnessGraphProps {
 
 const getMoodEmoji = (score: number): string => {
   const s = Math.round(score);
-  if (s <= 1) return '😫'; 
-  if (s === 2) return '☹️'; 
-  if (s === 3) return '😐'; 
-  if (s === 4) return '🙂'; 
-  return '🤩';             
+  if (s <= 1) return "😫";
+  if (s === 2) return "☹️";
+  if (s === 3) return "😐";
+  if (s === 4) return "🙂";
+  return "🤩";
 };
 
 export default function WellnessGraph({
   data,
   // width = "100%",
-  height = 320
+  height = 320,
 }: WellnessGraphProps): React.JSX.Element {
-
-  const validData = data.filter(pt => pt && typeof pt.avg_score === "number");
+  const validData = data.filter((pt) => pt && typeof pt.avg_score === "number");
 
   if (validData.length === 0) {
     return (
       <div className="card border-0 shadow-sm">
-        <div className="card-body d-flex align-items-center justify-content-center" style={{ height }}>
-          <span className="text-muted">No mood data available for this period</span>
+        <div
+          className="card-body d-flex align-items-center justify-content-center"
+          style={{ height }}
+        >
+          <span className="text-muted">
+            No mood data available for this period
+          </span>
         </div>
       </div>
     );
   }
 
   // SVG Calculation Constants
-  const paddingLeft = 60; 
+  const paddingLeft = 60;
   const paddingRight = 40;
   const paddingTop = 40;
   const paddingBottom = 60;
@@ -45,35 +49,43 @@ export default function WellnessGraph({
   const chartHeight = viewHeight - paddingTop - paddingBottom;
 
   const getCoordinates = (index: number, score: number) => {
-    const x = paddingLeft + (index / Math.max(1, validData.length - 1)) * chartWidth;
+    const x =
+      paddingLeft + (index / Math.max(1, validData.length - 1)) * chartWidth;
     const y = viewHeight - paddingBottom - (score / 5) * chartHeight;
     return { x, y };
   };
 
-  const linePath = validData.map((pt, i) => {
-    const { x, y } = getCoordinates(i, pt.avg_score);
-    return `${i === 0 ? 'M' : 'L'} ${x},${y}`;
-  }).join(" ");
+  const linePath = validData
+    .map((pt, i) => {
+      const { x, y } = getCoordinates(i, pt.avg_score);
+      return `${i === 0 ? "M" : "L"} ${x},${y}`;
+    })
+    .join(" ");
 
   return (
     <div className="card border-0 shadow-sm overflow-hidden">
       <div className="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
         <div>
           <h6 className="mb-0 fw-bold text-dark">Employee Wellness Trend</h6>
-          <small className="text-muted">Daily mood average based on surveys</small>
+          <small className="text-muted">
+            Daily mood average based on surveys
+          </small>
         </div>
         <div className="dropdown">
-          <button className="btn btn-light btn-sm rounded-pill px-3 border" type="button">
+          <button
+            className="btn btn-light btn-sm rounded-pill px-3 border"
+            type="button"
+          >
             Last 7 Days
           </button>
         </div>
       </div>
 
       <div className="card-body px-2">
-        <svg 
-          viewBox={`0 0 ${viewWidth} ${viewHeight}`} 
+        <svg
+          viewBox={`0 0 ${viewWidth} ${viewHeight}`}
           preserveAspectRatio="xMidYMid meet"
-          width="100%" 
+          width="100%"
           height={height}
         >
           {/* Y-Axis Emojis & Gridlines */}
@@ -81,10 +93,22 @@ export default function WellnessGraph({
             const y = viewHeight - paddingBottom - (val / 5) * chartHeight;
             return (
               <g key={val}>
-                <text x={paddingLeft - 15} y={y + 5} fontSize="18" textAnchor="end">
+                <text
+                  x={paddingLeft - 15}
+                  y={y + 5}
+                  fontSize="18"
+                  textAnchor="end"
+                >
                   {getMoodEmoji(val)}
                 </text>
-                <line x1={paddingLeft} y1={y} x2={viewWidth - paddingRight} y2={y} stroke="#f8f9fa" strokeWidth="2" />
+                <line
+                  x1={paddingLeft}
+                  y1={y}
+                  x2={viewWidth - paddingRight}
+                  y2={y}
+                  stroke="#f8f9fa"
+                  strokeWidth="2"
+                />
               </g>
             );
           })}
@@ -97,7 +121,9 @@ export default function WellnessGraph({
             strokeWidth="4"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ filter: "drop-shadow(0px 4px 4px rgba(111, 66, 193, 0.2))" }}
+            style={{
+              filter: "drop-shadow(0px 4px 4px rgba(111, 66, 193, 0.2))",
+            }}
           />
 
           {/* Interaction Points */}
@@ -105,9 +131,31 @@ export default function WellnessGraph({
             const { x, y } = getCoordinates(index, point.avg_score);
             return (
               <g key={index} className="chart-point">
-                <circle cx={x} cy={y} r="6" fill="#6f42c1" stroke="#fff" strokeWidth="3" />
-                <rect x={x - 15} y={y - 30} width="30" height="20" rx="4" fill="#212529" className="d-none" />
-                <text x={x} y={y - 15} fontSize="11" fill="#6f42c1" textAnchor="middle" fontWeight="bold">
+                <circle
+                  cx={x}
+                  cy={y}
+                  r="6"
+                  fill="#6f42c1"
+                  stroke="#fff"
+                  strokeWidth="3"
+                />
+                <rect
+                  x={x - 15}
+                  y={y - 30}
+                  width="30"
+                  height="20"
+                  rx="4"
+                  fill="#212529"
+                  className="d-none"
+                />
+                <text
+                  x={x}
+                  y={y - 15}
+                  fontSize="11"
+                  fill="#6f42c1"
+                  textAnchor="middle"
+                  fontWeight="bold"
+                >
                   {point.avg_score.toFixed(1)}
                 </text>
               </g>
@@ -120,22 +168,44 @@ export default function WellnessGraph({
             const d = new Date(pt.date);
             return (
               <g key={i}>
-                <text x={x} y={viewHeight - 35} fontSize="11" fontWeight="600" fill="#212529" textAnchor="middle">
+                <text
+                  x={x}
+                  y={viewHeight - 35}
+                  fontSize="11"
+                  fontWeight="600"
+                  fill="#212529"
+                  textAnchor="middle"
+                >
                   {d.toLocaleDateString("en-US", { weekday: "short" })}
                 </text>
-                <text x={x} y={viewHeight - 20} fontSize="10" fill="#adb5bd" textAnchor="middle">
-                  {d.getDate()} {d.toLocaleDateString("en-US", { month: "short" })}
+                <text
+                  x={x}
+                  y={viewHeight - 20}
+                  fontSize="10"
+                  fill="#adb5bd"
+                  textAnchor="middle"
+                >
+                  {d.getDate()}{" "}
+                  {d.toLocaleDateString("en-US", { month: "short" })}
                 </text>
               </g>
             );
           })}
         </svg>
       </div>
-      
+
       <div className="card-footer bg-light border-0 py-3 px-4">
         <div className="d-flex gap-4">
           <div className="d-flex align-items-center">
-            <span className="dot bg-primary me-2" style={{width:8, height:8, borderRadius:'50%', display:'inline-block'}}></span>
+            <span
+              className="dot bg-primary me-2"
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                display: "inline-block",
+              }}
+            ></span>
             <small className="text-muted">Avg Mood</small>
           </div>
         </div>
@@ -143,7 +213,6 @@ export default function WellnessGraph({
     </div>
   );
 }
-
 
 // // import React from 'react';
 
@@ -160,11 +229,11 @@ export default function WellnessGraph({
 // // }: WellnessGraphProps): React.JSX.Element {
 // //   // Add debugging
 // //   console.log('WellnessGraph received data:', data);
-  
+
 // //   // Handle empty or invalid data
 // //   if (!data || data.length === 0) {
 // //     return (
-// //       <div 
+// //       <div
 // //         className="d-flex align-items-center justify-content-center border rounded bg-light"
 // //         style={{ width, height }}
 // //       >
@@ -174,9 +243,9 @@ export default function WellnessGraph({
 // //   }
 
 // //   // Filter out invalid data points
-// //   const validData = data.filter(point => 
-// //     point && 
-// //     typeof point.score === 'number' && 
+// //   const validData = data.filter(point =>
+// //     point &&
+// //     typeof point.score === 'number' &&
 // //     !isNaN(point.score) &&
 // //     point.score >= 0 &&
 // //     point.score <= 100
@@ -184,7 +253,7 @@ export default function WellnessGraph({
 
 // //   if (validData.length === 0) {
 // //     return (
-// //       <div 
+// //       <div
 // //         className="d-flex align-items-center justify-content-center border rounded bg-light"
 // //         style={{ width, height }}
 // //       >
@@ -223,28 +292,28 @@ export default function WellnessGraph({
 
 // //       {/* Main Graph Container */}
 // //       <div className="position-relative">
-// //         <svg 
-// //           width={width} 
-// //           height={height - 40} 
+// //         <svg
+// //           width={width}
+// //           height={height - 40}
 // //           style={{ background: 'transparent' }}
 // //         >
 // //           {/* Y-axis line */}
-// //           <line 
-// //             x1="40" 
-// //             y1="20" 
-// //             x2="40" 
-// //             y2={height - 60} 
-// //             stroke="#e0e0e0" 
+// //           <line
+// //             x1="40"
+// //             y1="20"
+// //             x2="40"
+// //             y2={height - 60}
+// //             stroke="#e0e0e0"
 // //             strokeWidth="1"
 // //           />
-          
+
 // //           {/* X-axis line */}
-// //           <line 
-// //             x1="40" 
-// //             y1={height - 60} 
-// //             x2={width - 40} 
-// //             y2={height - 60} 
-// //             stroke="#e0e0e0" 
+// //           <line
+// //             x1="40"
+// //             y1={height - 60}
+// //             x2={width - 40}
+// //             y2={height - 60}
+// //             stroke="#e0e0e0"
 // //             strokeWidth="1"
 // //           />
 
@@ -253,22 +322,22 @@ export default function WellnessGraph({
 // //             const y = 20 + (index / 4) * (height - 100);
 // //             return (
 // //               <g key={value}>
-// //                 <text 
-// //                   x="30" 
-// //                   y={y + 4} 
-// //                   fontSize="10" 
-// //                   fill="#666" 
+// //                 <text
+// //                   x="30"
+// //                   y={y + 4}
+// //                   fontSize="10"
+// //                   fill="#666"
 // //                   textAnchor="end"
 // //                   alignmentBaseline="middle"
 // //                 >
 // //                   {value}
 // //                 </text>
-// //                 <line 
-// //                   x1="35" 
-// //                   y1={y} 
-// //                   x2={width - 40} 
-// //                   y2={y} 
-// //                   stroke="#f0f0f0" 
+// //                 <line
+// //                   x1="35"
+// //                   y1={y}
+// //                   x2={width - 40}
+// //                   y2={y}
+// //                   stroke="#f0f0f0"
 // //                   strokeWidth="1"
 // //                 />
 // //               </g>
@@ -319,8 +388,8 @@ export default function WellnessGraph({
 // //       {/* Day labels */}
 // //       {/* <div className="d-flex justify-content-between px-4 mt-2">
 // //         {days.map((day, index) => (
-// //           <span 
-// //             key={index} 
+// //           <span
+// //             key={index}
 // //             className="small text-muted text-center"
 // //             style={{ width: `${(width - 80) / (days.length - 1)}px`, marginLeft: index === 0 ? '0' : `-${(width - 80) / (days.length - 1) / 2}px` }}
 // //           >
@@ -337,8 +406,8 @@ export default function WellnessGraph({
 // //       {/* Second row of day labels (as shown in image) */}
 // //       <div className="d-flex justify-content-between px-4 mt-1">
 // //         {/* {days.map((day, index) => (
-// //           <span 
-// //             key={index} 
+// //           <span
+// //             key={index}
 // //             className="small text-muted text-center"
 // //             style={{ width: `${(width - 80) / (days.length - 1)}px`, marginLeft: index === 0 ? '0' : `-${(width - 80) / (days.length - 1) / 2}px` }}
 // //           >
@@ -447,7 +516,7 @@ export default function WellnessGraph({
 //       {/* Main Graph */}
 //       <div className="position-relative">
 //         <svg width={width} height={height - 40} style={{ background: "transparent" }}>
-          
+
 //           {/* Y-axis */}
 //           <line
 //             x1="40"

@@ -1,13 +1,12 @@
-import React, { FC } from 'react';
-import Form from 'react-bootstrap/Form';
-import AsyncSelect from 'react-select/async';
+import React, { FC } from "react";
+import Form from "react-bootstrap/Form";
+import AsyncSelect from "react-select/async";
 
 // --- 1. INTERFACES AND TYPES ---
 export interface LocationOption {
-  label: string; 
-  value: string; 
+  label: string;
+  value: string;
 }
-
 
 export interface SearchableLocationProps {
   onSelectLocation: (location: LocationOption | null) => void;
@@ -42,62 +41,58 @@ const mockFetchLocations = (inputValue: string): Promise<LocationOption[]> => {
   }
 
   const lowerCaseInput = inputValue.toLowerCase();
-  
+
   // Simulate network delay
   return new Promise((resolve) => {
     setTimeout(() => {
-      const filteredOptions = MOCK_DATA.filter(location =>
-        location.label.toLowerCase().includes(lowerCaseInput)
+      const filteredOptions = MOCK_DATA.filter((location) =>
+        location.label.toLowerCase().includes(lowerCaseInput),
       );
       resolve(filteredOptions);
     }, 500); // 500ms debounce/API delay
   });
 };
 
-
-
 const customStyles = {
- // eslint-disable-next-line @typescript-eslint/no-explicit-any  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: (provided: any, state: any) => ({
     ...provided,
     // Mimic Bootstrap's Form.Control height/padding/border
-    minHeight: 'calc(1.5em + 0.75rem + 2px)',
-    padding: '0',
-    borderRadius: '.25rem',
-    borderColor: state.isFocused ? '#80bdff' : provided.borderColor,
-    boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0, 123, 255, 0.25)' : provided.boxShadow,
-    '&:hover': {
-        borderColor: state.isFocused ? '#80bdff' : provided.borderColor,
-    }
+    minHeight: "calc(1.5em + 0.75rem + 2px)",
+    padding: "0",
+    borderRadius: ".25rem",
+    borderColor: state.isFocused ? "#80bdff" : provided.borderColor,
+    boxShadow: state.isFocused
+      ? "0 0 0 0.2rem rgba(0, 123, 255, 0.25)"
+      : provided.boxShadow,
+    "&:hover": {
+      borderColor: state.isFocused ? "#80bdff" : provided.borderColor,
+    },
   }),
   // Remove default padding inside the control to make it align with Form.Control
-// eslint-disable-next-line @typescript-eslint/no-explicit-any  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   valueContainer: (provided: any) => ({
     ...provided,
-    padding: '0.375rem 0.75rem',
+    padding: "0.375rem 0.75rem",
   }),
-  indicatorSeparator: () => ({ display: 'none' }),
+  indicatorSeparator: () => ({ display: "none" }),
 };
-
-
 
 export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
   onSelectLocation,
   value,
 }) => {
   //AsyncSelect handles debouncing internally.
-   
+
   const loadOptions = (
     inputValue: string,
-    callback: (options: LocationOption[]) => void
+    callback: (options: LocationOption[]) => void,
   ) => {
     mockFetchLocations(inputValue).then(callback);
   };
-  
+
   // The onChange handler for AsyncSelect
-  const handleSelectChange = (
-    selectedOption: LocationOption | null,
-  ) => {
+  const handleSelectChange = (selectedOption: LocationOption | null) => {
     // selectedOption is null if the user clears the selection
     onSelectLocation(selectedOption);
   };
@@ -169,7 +164,7 @@ export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
 //   }
 
 //   const lowerCaseInput = inputValue.toLowerCase();
-  
+
 //   // Simulate network delay
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
@@ -180,7 +175,6 @@ export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
 //     }, 500); // 500ms debounce/API delay
 //   });
 // };
-
 
 // const customStyles = {
 //   control: (provided: any, state: any) => ({
@@ -203,7 +197,6 @@ export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
 //   indicatorSeparator: () => ({ display: 'none' }),
 // };
 
-
 // // --- 3. THE REACT COMPONENT ---
 // export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
 //   onSelectLocation,
@@ -214,7 +207,7 @@ export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
 //   const loadOptions = (inputValue: string, callback: (options: LocationOption[]) => void) => {
 //     mockFetchLocations(inputValue).then(callback);
 //   };
-  
+
 //   // The onChange handler for AsyncSelect
 //   const handleSelectChange = (
 //     selectedOption: LocationOption | null,
@@ -266,7 +259,7 @@ export const SearchableLocationDropdown: FC<SearchableLocationProps> = ({
 // //         value={selectedLocation}
 // //         onSelectLocation={handleLocationChange}
 // //       />
-      
+
 // //       {/* Display the selected value for demonstration */}
 // //       <div className="mt-3 p-3 bg-light border">
 // //         Selected Value: **{selectedLocation?.value || 'None'}**

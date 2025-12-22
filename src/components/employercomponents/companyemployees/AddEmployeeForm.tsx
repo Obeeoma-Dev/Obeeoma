@@ -276,7 +276,11 @@ import RHFPhoneInput from "../../RHPhoneInput";
 
 const employeeSchema = z.object({
   email: z.email("Please enter a valid email address").trim(),
-  phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long").optional(),
+  phone: z
+    .string()
+    .min(10, "Phone number must be at least 10 digits")
+    .max(15, "Phone number too long")
+    .optional(),
   department: z.string().min(1, "Please select a department"),
 });
 
@@ -288,18 +292,26 @@ interface AddEmployeeFormProps {
   onEmployeeAdded: () => void;
 }
 
-const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFormProps) => {
+const AddEmployeeForm = ({
+  showModal,
+  onClose,
+  onEmployeeAdded,
+}: AddEmployeeFormProps) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
-    register, handleSubmit, formState: { errors }, reset, control,
-    } = useForm<EmployeeFormData>({
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    control,
+  } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeSchema),
   });
 
   const onSubmit = async (data: EmployeeFormData) => {
-    console.log('Form data:', data);
+    console.log("Form data:", data);
     try {
       setIsLoading(true);
       // Transforming form data to match API expectations
@@ -339,23 +351,41 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
   if (!showModal) return null;
 
   return (
-    <div className="modal fade show d-block" tabIndex={-1} role="dialog" style={{
-      backgroundColor: 'rgba(0,0,0,0.6)',
-      backdropFilter: 'blur(4px)'
-    }}>
-      <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div className="modal-content border-0 shadow-lg" style={{
-          borderRadius: '16px',
-          background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)'
-        }}>
+    <div
+      className="modal fade show d-block"
+      tabIndex={-1}
+      role="dialog"
+      style={{
+        backgroundColor: "rgba(0,0,0,0.6)",
+        backdropFilter: "blur(4px)",
+      }}
+    >
+      <div
+        className="modal-dialog modal-dialog-centered modal-lg"
+        role="document"
+      >
+        <div
+          className="modal-content border-0 shadow-lg"
+          style={{
+            borderRadius: "16px",
+            background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+          }}
+        >
           <div className="modal-header border-0 pb-0">
             <div className="d-flex align-items-center">
-              <div className="p-2 rounded-circle me-3" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)' }}>
-                <UserPlus size={24} style={{ color: '#22C55E' }} />
+              <div
+                className="p-2 rounded-circle me-3"
+                style={{ backgroundColor: "rgba(34, 197, 94, 0.1)" }}
+              >
+                <UserPlus size={24} style={{ color: "#22C55E" }} />
               </div>
               <div>
-                <h4 className="modal-title fw-bold mb-0 text-dark">Invite New Employee</h4>
-                <p className="text-muted small mb-0">Send an invitation to join your organization</p>
+                <h4 className="modal-title fw-bold mb-0 text-dark">
+                  Invite New Employee
+                </h4>
+                <p className="text-muted small mb-0">
+                  Send an invitation to join your organization
+                </p>
               </div>
             </div>
             <button
@@ -363,7 +393,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
               className="btn-close"
               onClick={handleClose}
               aria-label="Close"
-              style={{ filter: 'none' }}
+              style={{ filter: "none" }}
             />
           </div>
 
@@ -371,19 +401,22 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="row g-3">
                 <div className="col-12">
-                  <label htmlFor="employee-email" className="form-label fw-semibold text-dark mb-2">
+                  <label
+                    htmlFor="employee-email"
+                    className="form-label fw-semibold text-dark mb-2"
+                  >
                     <Mail size={16} className="me-2 text-primary" />
                     Email Address <span className="text-danger">*</span>
                   </label>
                   <input
                     type="email"
-                    className={`form-control form-control-lg ${errors.email ? 'is-invalid' : ''}`}
+                    className={`form-control form-control-lg ${errors.email ? "is-invalid" : ""}`}
                     id="employee-email"
                     placeholder="employee@company.com"
                     style={{
-                      borderRadius: '8px',
-                      border: '2px solid #e9ecef',
-                      transition: 'all 0.2s ease'
+                      borderRadius: "8px",
+                      border: "2px solid #e9ecef",
+                      transition: "all 0.2s ease",
                     }}
                     {...register("email")}
                   />
@@ -395,7 +428,10 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                 </div>
 
                 <div className="col-12">
-                  <label htmlFor="phone" className="form-label fw-semibold text-dark mb-2">
+                  <label
+                    htmlFor="phone"
+                    className="form-label fw-semibold text-dark mb-2"
+                  >
                     <Phone size={16} className="me-2 text-primary" />
                     Phone Number <span className="text-muted">(Optional)</span>
                   </label>
@@ -403,11 +439,11 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                     name="phone"
                     control={control as unknown as Control<EmployeeFormData>}
                     inputStyle={{
-                      height: '2.5rem',
-                      fontSize: '1rem',
-                      borderRadius: '8px',
-                      border: '2px solid #e9ecef',
-                      transition: 'all 0.2s ease'
+                      height: "2.5rem",
+                      fontSize: "1rem",
+                      borderRadius: "8px",
+                      border: "2px solid #e9ecef",
+                      transition: "all 0.2s ease",
                     }}
                     placeholder="+1 (555) 123-4567"
                   />
@@ -419,17 +455,20 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                 </div>
 
                 <div className="col-12">
-                  <label htmlFor="department" className="form-label fw-semibold text-dark mb-2">
+                  <label
+                    htmlFor="department"
+                    className="form-label fw-semibold text-dark mb-2"
+                  >
                     <Building size={16} className="me-2 text-primary" />
                     Department <span className="text-danger">*</span>
                   </label>
                   <select
-                    className={`form-select form-select-lg ${errors.department ? 'is-invalid' : ''}`}
+                    className={`form-select form-select-lg ${errors.department ? "is-invalid" : ""}`}
                     id="department"
                     style={{
-                      borderRadius: '8px',
-                      border: '2px solid #e9ecef',
-                      transition: 'all 0.2s ease'
+                      borderRadius: "8px",
+                      border: "2px solid #e9ecef",
+                      transition: "all 0.2s ease",
                     }}
                     {...register("department")}
                   >
@@ -440,7 +479,9 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                     <option value="Engineering">⚙️ Engineering</option>
                     <option value="Operations">🏭 Operations</option>
                     <option value="Sales">🎯 Sales</option>
-                    <option value="Customer Service">🎧 Customer Service</option>
+                    <option value="Customer Service">
+                      🎧 Customer Service
+                    </option>
                     <option value="Other">📋 Other</option>
                   </select>
                   {errors.department && (
@@ -463,20 +504,22 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                     title="Upload an excel document"
                     onClick={(e) => {
                       e.preventDefault();
-                      const input = document.getElementById('upload-excel') as HTMLInputElement | null;
+                      const input = document.getElementById(
+                        "upload-excel",
+                      ) as HTMLInputElement | null;
                       if (!input) return;
                       const onChange = () => {
                         const file = input.files?.[0];
                         if (!file) return;
                         toast({
-                          title: 'File selected',
+                          title: "File selected",
                           description: file.name,
                           message: file.name,
                         });
-                        input.removeEventListener('change', onChange);
+                        input.removeEventListener("change", onChange);
                         // TODO: process or upload the file here (e.g. send to API or parse client-side)
                       };
-                      input.addEventListener('change', onChange);
+                      input.addEventListener("change", onChange);
                       input.click();
                     }}
                   >
@@ -484,9 +527,15 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
                   </button>
                 </div>
                 <p className="text-muted small mt-2 mb-0">
-                  Upload a CSV or Excel file to invite multiple employees at once
+                  Upload a CSV or Excel file to invite multiple employees at
+                  once
                 </p>
-                <input type="file" className="d-none" id="upload-excel" accept=".xlsx,.xls,.csv" />
+                <input
+                  type="file"
+                  className="d-none"
+                  id="upload-excel"
+                  accept=".xlsx,.xls,.csv"
+                />
               </div>
             </form>
           </div>
@@ -497,7 +546,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
               className="btn btn-outline-secondary px-4 py-2"
               onClick={handleClose}
               disabled={isLoading}
-              style={{ borderRadius: '8px' }}
+              style={{ borderRadius: "8px" }}
             >
               Cancel
             </button>
@@ -507,17 +556,20 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
               disabled={isLoading}
               onClick={handleSubmit(onSubmit)}
               style={{
-                backgroundColor: '#22C55E',
-                borderColor: '#22C55E',
-                color: 'white',
-                borderRadius: '8px',
-                fontWeight: '600',
-                minWidth: '140px'
+                backgroundColor: "#22C55E",
+                borderColor: "#22C55E",
+                color: "white",
+                borderRadius: "8px",
+                fontWeight: "600",
+                minWidth: "140px",
               }}
             >
               {isLoading ? (
                 <>
-                  <div className="spinner-border spinner-border-sm me-2" role="status"></div>
+                  <div
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                  ></div>
                   Sending...
                 </>
               ) : (
@@ -535,5 +587,3 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded }: AddEmployeeFor
 };
 
 export default AddEmployeeForm;
-
-

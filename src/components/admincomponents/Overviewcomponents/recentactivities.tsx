@@ -33,11 +33,11 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
         <div className="d-flex flex-column gap-3">
           {/* Map through the activities to render each item row */}
           {activities.map((activity, index) => {
-            const IconComponent =
-              (Icons[activity.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
-                size?: number;
-                color?: string;
-              }>;
+            const IconComponent = (Icons[activity.icon as keyof typeof Icons] ??
+              Icons.Activity) as React.FC<{
+              size?: number;
+              color?: string;
+            }>;
 
             const iconFgColor = iconColorMap[activity.iconColor] || "#3CB371";
 
@@ -59,12 +59,16 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
                       {/* Middle: Type + Details */}
                       <div>
                         <div className="fw-semibold">{activity.type}</div>
-                        <div className="text-muted small">{activity.details}</div>
+                        <div className="text-muted small">
+                          {activity.details}
+                        </div>
                       </div>
                     </div>
 
                     {/* Right: Time */}
-                    <div className="text-muted small text-nowrap">{activity.time}</div>
+                    <div className="text-muted small text-nowrap">
+                      {activity.time}
+                    </div>
                   </div>
 
                   <div className="text-end">

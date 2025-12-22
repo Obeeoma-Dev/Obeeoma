@@ -39,20 +39,18 @@ export interface changePasswordData {
   email: string;
   new_password: string;
   confirm_password: string;
-
 }
 
-export interface ChangePassword { 
+export interface ChangePassword {
   old_password: string;
   new_password: string;
   confirm_password: string;
 }
 
 export interface MfaSetupData {
-    qr_code_base64: string;
-    secret: string;
+  qr_code_base64: string;
+  secret: string;
 }
-
 
 export interface MfaVerifyPayload {
   code: string;
@@ -61,15 +59,15 @@ export interface MfaVerifyPayload {
 export type MfaSetupRequestPayload = {};
 
 export interface MfaSetupData {
-    otpauth_uri: string;
-    qr_code_base64: string; // Base64 encoded PNG data
-    secret: string; // The raw secret key
-    temp_token: string; // Temporary token for verification
+  otpauth_uri: string;
+  qr_code_base64: string; // Base64 encoded PNG data
+  secret: string; // The raw secret key
+  temp_token: string; // Temporary token for verification
 }
 
 export interface MfaVerifyPayload {
-    code: string; // Used for mfa_confirm and mfa_verify
-    temp_token?: string; // Only used for mfa_verify during login
+  code: string; // Used for mfa_confirm and mfa_verify
+  temp_token?: string; // Only used for mfa_verify during login
 }
 
 export interface AuthState {
@@ -78,8 +76,8 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
   is_verified: boolean;
-  mfaSetupData: MfaSetupData | null; 
-  isMfaSetupConfirmed: boolean;       
+  mfaSetupData: MfaSetupData | null;
+  isMfaSetupConfirmed: boolean;
   accessToken: string | null;
 }
 
@@ -99,17 +97,12 @@ export interface OtpVerificationPayload {
 export interface OtpSuccessResponse {
   message: string;
   token?: string;
-  user?: User
+  user?: User;
 }
 
 export interface ResendOtpPayload {
   email: string;
 }
-
-
-
-
-
 
 export interface RegisterPayload {
   email: string;
@@ -119,6 +112,6 @@ export interface RegisterPayload {
   companyEmail: string;
   Location: string;
   password: string;
-  role: 'systemadmin' | 'employee' | 'employer';
+  role: "systemadmin" | "employee" | "employer";
   contactPerson: ContactPerson[];
 }

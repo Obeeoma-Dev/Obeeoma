@@ -8,7 +8,8 @@ import { Card } from "react-bootstrap";
  */
 const ActivityItem = ({ data }) => {
     // Dynamically select icon from lucide-react based on string name
-    const IconComponent = (Icons[data.icon] ?? Icons.Activity);
+    const IconComponent = (Icons[data.icon] ??
+        Icons.Activity);
     // Map iconColor to pastel background colors
     const bgColorMap = {
         "bg-light": "#f0f4f8",

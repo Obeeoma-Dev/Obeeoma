@@ -14,9 +14,9 @@
 //  * @param children - The component to render if access is granted
 //  * @param requiredRole - Optional specific role required to access this route
 //  */
-// const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-//   children, 
-//   requiredRole 
+// const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+//   children,
+//   requiredRole
 // }) => {
 //   const { user, isLoading } = useSelector((state: RootState) => state.auth);
 //   const location = useLocation();
@@ -58,16 +58,16 @@
 // };
 
 // export default ProtectedRoute;
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
-import { RootState } from '../store/store'; 
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import { RootState } from "../store/store";
 
 // Selector to check authentication status
 
 const selectIsAuthenticated = (state: RootState) => {
-    // Check if a user object and a token exist in the Redux store
-    return !!state.auth.user && !!state.auth.token;
+  // Check if a user object and a token exist in the Redux store
+  return !!state.auth.user && !!state.auth.token;
 };
 
 // This component checks if the user is logged in.
@@ -78,8 +78,8 @@ const ProtectedRoute: React.FC = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
   // If the user is NOT authenticated, redirect them to the login page.
-  // The 'replace: true' option prevents the protected URL from being added 
-  // to the history stack when the redirect happens, which helps with the 
+  // The 'replace: true' option prevents the protected URL from being added
+  // to the history stack when the redirect happens, which helps with the
   // back button issue after a logout.
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -90,4 +90,3 @@ const ProtectedRoute: React.FC = () => {
 };
 
 export default ProtectedRoute;
-

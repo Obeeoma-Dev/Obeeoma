@@ -1,11 +1,6 @@
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import React from "react";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -19,23 +14,25 @@ interface EmployeeStatusLegendProps {
   employeeStatus: EmployeeStatusData;
 }
 
-const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeStatus }) => {
+const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({
+  employeeStatus,
+}) => {
   const { activeEmployees, inactiveEmployees, totalEmployees } = employeeStatus;
- 
+
   // const activePercentage = totalEmployees > 0 ? Math.round((activeEmployees / totalEmployees) * 100) : 0;
   // const inactivePercentage = totalEmployees > 0 ? Math.round((inactiveEmployees / totalEmployees) * 100) : 0;
 
   // Prepare data for the doughnut chart
   const data = {
-    labels: ['Active Employees', 'Inactive Employees'],
+    labels: ["Active Employees", "Inactive Employees"],
     datasets: [
       {
         data: [activeEmployees, inactiveEmployees],
-        backgroundColor: ['#10b981', '#9ca3af'], // Green for active, Gray for inactive
-        borderColor: ['#10b981', '#9ca3af'],
+        backgroundColor: ["#10b981", "#9ca3af"], // Green for active, Gray for inactive
+        borderColor: ["#10b981", "#9ca3af"],
         borderWidth: 2,
         hoverBorderWidth: 3,
-        hoverBorderColor: '#ffffff',
+        hoverBorderColor: "#ffffff",
         hoverOffset: 8,
       },
     ],
@@ -46,23 +43,26 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeSta
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'bottom' as const,
+        position: "bottom" as const,
         labels: {
           padding: 20,
           usePointStyle: true,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           font: {
             size: 12,
-            weight: 'normal' as const,
+            weight: "normal" as const,
           },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          generateLabels: function(chart: any) {
+          generateLabels: function (chart: any) {
             const data = chart.data;
             if (data.labels.length && data.datasets.length) {
               return data.labels.map((label: string, i: number) => {
                 const value = data.datasets[0].data[i];
-                const percentage = totalEmployees > 0 ? Math.round((value / totalEmployees) * 100) : 0;
-               
+                const percentage =
+                  totalEmployees > 0
+                    ? Math.round((value / totalEmployees) * 100)
+                    : 0;
+
                 return {
                   text: `${label}: ${value} (${percentage}%)`,
                   fillStyle: data.datasets[0].backgroundColor[i],
@@ -70,34 +70,37 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeSta
                   lineWidth: data.datasets[0].borderWidth,
                   pointStyle: data.datasets[0].pointStyle,
                   hidden: false,
-                  index: i
+                  index: i,
                 };
               });
             }
             return [];
-          }
+          },
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        titleColor: '#ffffff',
-        bodyColor: '#ffffff',
-        borderColor: '#ffffff',
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        titleColor: "#ffffff",
+        bodyColor: "#ffffff",
+        borderColor: "#ffffff",
         borderWidth: 1,
         cornerRadius: 8,
         displayColors: true,
         callbacks: {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          label: function(context: any) {
-            const label = context.label || '';
+          label: function (context: any) {
+            const label = context.label || "";
             const value = context.parsed || 0;
-            const percentage = totalEmployees > 0 ? Math.round((value / totalEmployees) * 100) : 0;
+            const percentage =
+              totalEmployees > 0
+                ? Math.round((value / totalEmployees) * 100)
+                : 0;
             return `${label}: ${value} employees (${percentage}%)`;
-          }
-        }
+          },
+        },
       },
     },
-    cutout: '60%',
+    cutout: "60%",
     animation: {
       animateScale: true,
       animateRotate: true,
@@ -106,7 +109,7 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeSta
 
   return (
     <div className="department-legend-container">
-      <div style={{ height: '300px', width: '100%' }}>
+      <div style={{ height: "300px", width: "100%" }}>
         <Doughnut data={data} options={options} />
       </div>
 

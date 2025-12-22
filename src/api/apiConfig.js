@@ -2,7 +2,7 @@
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
-import { store } from '../store/store';
+import { store } from "../store/store";
 // import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -11,12 +11,12 @@ export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
 });
 export const setupApiInterceptors = (store) => {
     api.interceptors.request.use((config) => {
-        const requestPath = config.url || '';
+        const requestPath = config.url || "";
         const publicEndpoints = [
             "/v1/auth/login/",
             "/v1/auth/signup/",
@@ -24,12 +24,12 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/change-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
-            " v1/auth/verify-invitation-otp/"
+            " v1/auth/verify-invitation-otp/",
             // "/v1/auth/logout/",
         ];
-        const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
+        const isPublicEndpoint = publicEndpoints.some((path) => requestPath.endsWith(path));
         //check local storage first (more reliable)
-        const persistedToken = localStorage.getItem('token');
+        const persistedToken = localStorage.getItem("token");
         // checking the redux token as fallback
         const state = store.getState();
         const token = state.auth.token;
@@ -47,7 +47,11 @@ export const setupApiInterceptors = (store) => {
             url: config.url,
             data: config.data,
             token_injected: !!(activeToken && !isPublicEndpoint),
-            token_source: persistedToken ? 'localStorage' : token ? 'redux' : 'none',
+            token_source: persistedToken
+                ? "localStorage"
+                : token
+                    ? "redux"
+                    : "none",
         });
         return config;
     }, (error) => {
@@ -111,8 +115,8 @@ export const authAPI = {
     },
     //for logout
     logout: async () => {
-        const refreshToken = localStorage.getItem('refresh');
-        api.post('/v1/auth/logout/', { refresh: refreshToken });
+        const refreshToken = localStorage.getItem("refresh");
+        api.post("/v1/auth/logout/", { refresh: refreshToken });
     },
     forgotPassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/", data);
@@ -368,14 +372,14 @@ export const employerAPI = {
     getReportBlob: async (url) => {
         const state = store.getState();
         const token = state.auth.token;
-        const persistedToken = localStorage.getItem('token');
+        const persistedToken = localStorage.getItem("token");
         const activeToken = token || persistedToken;
         const res = await fetch(API_BASE_URL + url, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${activeToken}`,
-                'Content-Type': 'application/pdf'
-            }
+                "Content-Type": "application/pdf",
+            },
         });
         return await res.blob();
     },
@@ -419,7 +423,7 @@ export const employerAPI = {
     // Data Export & Deletion
     exportAllData: async () => {
         return api.get("/v1/employer/data/export/", {
-            responseType: 'blob' // Correctly configured for binary export
+            responseType: "blob", // Correctly configured for binary export
         });
     },
     deleteAllData: async () => {

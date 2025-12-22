@@ -1,6 +1,6 @@
 // src/components/admincomponents/Hotline-activity/CriticalCases.tsx
-import React from 'react';
-import { Card, ListGroup } from 'react-bootstrap';
+import React from "react";
+import { Card, ListGroup } from "react-bootstrap";
 
 interface Case {
   id: string;
@@ -10,7 +10,7 @@ interface Case {
 }
 
 const cases: Case[] = [
-  { id: '04567', reason: 'Abuse', status: 'Pending', assignedTo: 'John Smith' },
+  { id: "04567", reason: "Abuse", status: "Pending", assignedTo: "John Smith" },
 ];
 
 const CriticalCases: React.FC = () => {
@@ -21,7 +21,9 @@ const CriticalCases: React.FC = () => {
         <ListGroup>
           {cases.map((c) => (
             <ListGroup.Item key={c.id}>
-              <strong>Case ID:</strong> {c.id} | <strong>Reason:</strong> {c.reason} | <strong>Status:</strong> {c.status} | <strong>Assigned to:</strong> {c.assignedTo}
+              <strong>Case ID:</strong> {c.id} | <strong>Reason:</strong>{" "}
+              {c.reason} | <strong>Status:</strong> {c.status} |{" "}
+              <strong>Assigned to:</strong> {c.assignedTo}
             </ListGroup.Item>
           ))}
         </ListGroup>

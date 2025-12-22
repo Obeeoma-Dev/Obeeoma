@@ -28,9 +28,13 @@ const PlatformUsageChart = () => {
     ];
     return (
     // Bootstrap Card container for chart section
-    _jsx(Card, { className: "mb-4 shadow-sm border-0", children: _jsxs(Card.Body, { children: [_jsx(ButtonGroup, { className: "mb-4 w-100 justify-content-between", children: tabs.map((tab) => (_jsx(Button, { variant: "light", onClick: () => setActiveTab(tab.id), "aria-pressed": activeTab === tab.id, className: `px-3 py-2 border-0 position-relative ${activeTab === tab.id ? "fw-semibold text-success" : "text-secondary"}`, style: {
+    _jsx(Card, { className: "mb-4 shadow-sm border-0", children: _jsxs(Card.Body, { children: [_jsx(ButtonGroup, { className: "mb-4 w-100 justify-content-between", children: tabs.map((tab) => (_jsx(Button, { variant: "light", onClick: () => setActiveTab(tab.id), "aria-pressed": activeTab === tab.id, className: `px-3 py-2 border-0 position-relative ${activeTab === tab.id
+                            ? "fw-semibold text-success"
+                            : "text-secondary"}`, style: {
                             backgroundColor: "transparent",
-                            borderBottom: activeTab === tab.id ? "3px solid #3CB371" : "3px solid transparent",
+                            borderBottom: activeTab === tab.id
+                                ? "3px solid #3CB371"
+                                : "3px solid transparent",
                             borderRadius: 0,
                             transition: "border-bottom 0.2s ease",
                             boxShadow: activeTab === tab.id ? "0 2px 0 #19875466" : "none",
@@ -39,7 +43,12 @@ const PlatformUsageChart = () => {
                                     border: "1px solid #dee2e6",
                                     fontSize: "0.875rem",
                                     color: "#212529",
-                                } }), _jsx(Area, { type: "natural", dataKey: "value", stroke: "#198754", strokeWidth: 3, fill: "#198754", fillOpacity: 0.1, dot: { r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }, activeDot: { r: 5 } })] }) })), activeTab === "organization" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(LineChart, { data: [
+                                } }), _jsx(Area, { type: "natural", dataKey: "value", stroke: "#198754", strokeWidth: 3, fill: "#198754", fillOpacity: 0.1, dot: {
+                                    r: 3,
+                                    stroke: "#198754",
+                                    strokeWidth: 1,
+                                    fill: "#ffffff",
+                                }, activeDot: { r: 5 } })] }) })), activeTab === "organization" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(LineChart, { data: [
                             { week: "Week 1", value: 1200 },
                             { week: "Week 2", value: 1500 },
                             { week: "Week 3", value: 1800 },
@@ -52,7 +61,12 @@ const PlatformUsageChart = () => {
                                     fontSize: "0.875rem",
                                     color: "#212529",
                                 } }), _jsx(Line, { type: "natural", dataKey: "value", stroke: "#198754" // Bootstrap blue
-                                , strokeWidth: 3, dot: { r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }, activeDot: { r: 5 } })] }) })), activeTab === "subscription" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(AreaChart, { data: [
+                                , strokeWidth: 3, dot: {
+                                    r: 3,
+                                    stroke: "#198754",
+                                    strokeWidth: 1,
+                                    fill: "#ffffff",
+                                }, activeDot: { r: 5 } })] }) })), activeTab === "subscription" && (_jsx(ResponsiveContainer, { width: "100%", height: 300, children: _jsxs(AreaChart, { data: [
                             { week: "Week 1", value: 3200 },
                             { week: "Week 2", value: 3500 },
                             { week: "Week 3", value: 3900 },
@@ -65,7 +79,12 @@ const PlatformUsageChart = () => {
                                     fontSize: "0.875rem",
                                     color: "#212529",
                                 } }), _jsx(Area, { type: "natural", dataKey: "value", stroke: "#198754" // Bootstrap green
-                                , strokeWidth: 3, fill: "#198754", fillOpacity: 0.1, dot: { r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }, activeDot: { r: 5 } })] }) }))] }) }));
+                                , strokeWidth: 3, fill: "#198754", fillOpacity: 0.1, dot: {
+                                    r: 3,
+                                    stroke: "#198754",
+                                    strokeWidth: 1,
+                                    fill: "#ffffff",
+                                }, activeDot: { r: 5 } })] }) }))] }) }));
 };
 // Export the component for use in the dashboard layout
 export default PlatformUsageChart;

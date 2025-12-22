@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Row, Col } from 'react-bootstrap';
-import { BarChartFill, GraphUpArrow, ClockFill, } from 'react-bootstrap-icons'; // Bootstrap icons for visual polish
+import { Card, Row, Col } from "react-bootstrap";
+import { BarChartFill, GraphUpArrow, ClockFill } from "react-bootstrap-icons"; // Bootstrap icons for visual polish
 // Functional component with Bootstrap layout and icons
 const TopMetrics = ({ totalRecommendations, engagementRate, averageTime, }) => {
     return (

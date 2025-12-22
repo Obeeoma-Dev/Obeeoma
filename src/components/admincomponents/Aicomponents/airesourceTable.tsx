@@ -1,16 +1,16 @@
 // src/components/admincomponents/aimanagementcomponents/AIResourcesTable.tsx
 
-import React from 'react';
-import { Table, Badge, Card } from 'react-bootstrap';
+import React from "react";
+import { Table, Badge, Card } from "react-bootstrap";
 import {
   CheckCircleFill,
   ExclamationTriangleFill,
-} from 'react-bootstrap-icons';
+} from "react-bootstrap-icons";
 
 // Type for each resource row
 export interface ResourceRow {
   name: string;
-  status: 'High Effectiveness' | 'Needs Improvement';
+  status: "High Effectiveness" | "Needs Improvement";
 }
 
 // Props interface for the table component
@@ -42,13 +42,20 @@ const AIResourcesTable: React.FC<AIResourcesTableProps> = ({ resources }) => {
 
                 {/* Status with icon and badge */}
                 <td className="align-middle">
-                  {res.status === 'High Effectiveness' ? (
-                    <Badge bg="success" className="d-flex align-items-center gap-2">
+                  {res.status === "High Effectiveness" ? (
+                    <Badge
+                      bg="success"
+                      className="d-flex align-items-center gap-2"
+                    >
                       <CheckCircleFill size={16} />
                       {res.status}
                     </Badge>
                   ) : (
-                    <Badge bg="warning" text="dark" className="d-flex align-items-center gap-2">
+                    <Badge
+                      bg="warning"
+                      text="dark"
+                      className="d-flex align-items-center gap-2"
+                    >
                       <ExclamationTriangleFill size={16} />
                       {res.status}
                     </Badge>

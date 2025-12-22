@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"; // Enables navigation without page relo
 import logo from "../../assets/Images/obeeomalogoword1.png"; // Path to the company logo image
 import { useEffect, useState } from "react";
 
-// Define your nav component. 
+// Define your nav component.
 function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -16,7 +16,6 @@ function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   return (
     <Navbar
       expand="lg" // This enables responsive collapse on large screens.
@@ -25,12 +24,11 @@ function Navigation() {
       style={{
         transition: "background-color 0.3s ease",
         height: "80px", // Set fixed navbar height.
-        minHeight: "80px", // Ensure minimum height.        
+        minHeight: "80px", // Ensure minimum height.
       }}
     >
       {/* The container is mean to center the nav bar well */}
       <Container>
-
         {/* Brand Log */}
         <Navbar.Brand
           as={Link}
@@ -43,8 +41,8 @@ function Navigation() {
             style={{
               height: "50px", // logo's size.
               width: "auto", // Maintaining aspect ratio
-              marginTop: "-10px", // Adjust vertical position if needed. 
-              marginBottom: "-10px"
+              marginTop: "-10px", // Adjust vertical position if needed.
+              marginBottom: "-10px",
             }}
           />
         </Navbar.Brand>
@@ -72,14 +70,11 @@ function Navigation() {
             <Nav.Link as={Link} to="/blog" className="mx-2">
               Blog
             </Nav.Link>
-
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
-
-
 
 export default Navigation;

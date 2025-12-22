@@ -10,7 +10,10 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
-import { BlogTable, BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
+import {
+  BlogTable,
+  BlogPost,
+} from "../../components/admincomponents/Blogmanagement/BlogTable";
 
 // Import shared type definitions
 import {
@@ -148,13 +151,11 @@ const dashboardStatsData: StatCardData[] = [
   },
 ];
 
-
 /**
  * Main Dashboard component
  * Combines sidebar, header, and dashboard content
  */
 const Dashboard: React.FC = () => {
-
   /* The blog state + handlers */
   const [blogs, setBlogs] = React.useState<BlogPost[]>([
     {
@@ -183,7 +184,6 @@ const Dashboard: React.FC = () => {
     },
   ]);
 
-
   const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
@@ -198,9 +198,8 @@ const Dashboard: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    setBlogs(prev => prev.filter(blog => blog.id !== id));
+    setBlogs((prev) => prev.filter((blog) => blog.id !== id));
   };
-
 
   return (
     // Full-height layout with sidebar and main content
@@ -212,17 +211,15 @@ const Dashboard: React.FC = () => {
         {/* Top header bar */}
         <Header />
 
-
         {/* Scrollable content area below the header */}
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            overflowY: "auto",
+            padding: "1rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
-
           {/* Scrollable content below header */}
           <div className="flex-grow-1 overflow-auto">
             <Container fluid className="py-4">
@@ -257,7 +254,6 @@ const Dashboard: React.FC = () => {
                 </Col>
               </Row>
 
-
               {/* Bottom metric summary cards */}
               <Row className="gy-4">
                 <BottomMetrics metrics={bottomMetricData} />
@@ -266,7 +262,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

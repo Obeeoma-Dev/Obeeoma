@@ -23,7 +23,7 @@ export interface AdminState {
   reports: Report[];
   trends: TrendData[] | null;
   summary: DashboardSummary | null; //needs fixing
-  EmployeeInvite : EmployeeInvite[];
+  EmployeeInvite: EmployeeInvite[];
 }
 
 export interface EmployeeInvite {
@@ -103,7 +103,6 @@ export interface Report {
   downloadUrl: string;
 }
 
-
 export interface OrganisationData {
   name: string;
   industry: string;
@@ -128,7 +127,7 @@ export interface CrisisInsight {
   // ... other fields
 }
 
-export type CrisisInsightData = Omit<CrisisInsight, 'id'>;
+export type CrisisInsightData = Omit<CrisisInsight, "id">;
 export type CrisisInsightUpdateData = Partial<CrisisInsightData>;
 
 export interface FeatureFlag {
@@ -137,5 +136,5 @@ export interface FeatureFlag {
   enabled: boolean;
 }
 
-export type FeatureFlagData = Omit<FeatureFlag, 'id'>;
+export type FeatureFlagData = Omit<FeatureFlag, "id">;
 export type FeatureFlagUpdateData = Partial<FeatureFlagData>;

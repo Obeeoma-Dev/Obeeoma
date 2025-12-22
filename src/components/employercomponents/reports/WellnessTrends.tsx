@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -7,29 +7,29 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 // Emoji mapping based on mood scores
 const EMOJI_MAPPING = [
-  { score: 0, emoji: '😭', label: 'Very Low' },
-  { score: 25, emoji: '😔', label: 'Low' },
-  { score: 50, emoji: '😐', label: 'Neutral' },
-  { score: 75, emoji: '🙂', label: 'Good' },
-  { score: 100, emoji: '😄', label: 'Excellent' },
+  { score: 0, emoji: "😭", label: "Very Low" },
+  { score: 25, emoji: "😔", label: "Low" },
+  { score: 50, emoji: "😐", label: "Neutral" },
+  { score: 75, emoji: "🙂", label: "Good" },
+  { score: 100, emoji: "😄", label: "Excellent" },
 ];
 
 // Dummy data - replace with actual API call later
 const dummyMoodData = [
-  { date: 'Mon', score: 85, emoji: '😄' },
-  { date: 'Tue', score: 65, emoji: '🙂' },
-  { date: 'Wed', score: 45, emoji: '😐' },
-  { date: 'Thur', score: 70, emoji: '🙂' },
-  { date: 'Fri', score: 90, emoji: '😄' },
-  { date: 'Mon', score: 80, emoji: '🙂' },
-  { date: 'Tue', score: 55, emoji: '😐' },
-  { date: 'Wed', score: 75, emoji: '🙂' },
-  { date: 'Thur', score: 85, emoji: '😄' },
-  { date: 'Fri', score: 60, emoji: '🙂' },
+  { date: "Mon", score: 85, emoji: "😄" },
+  { date: "Tue", score: 65, emoji: "🙂" },
+  { date: "Wed", score: 45, emoji: "😐" },
+  { date: "Thur", score: 70, emoji: "🙂" },
+  { date: "Fri", score: 90, emoji: "😄" },
+  { date: "Mon", score: 80, emoji: "🙂" },
+  { date: "Tue", score: 55, emoji: "😐" },
+  { date: "Wed", score: 75, emoji: "🙂" },
+  { date: "Thur", score: 85, emoji: "😄" },
+  { date: "Fri", score: 60, emoji: "🙂" },
 ];
 
 const WellnessTrends: React.FC = () => {
@@ -56,26 +56,27 @@ const WellnessTrends: React.FC = () => {
   // Helper function to get emoji based on score
   // const getEmojiFromScore = (score: number): string => {
   //   const emoji = EMOJI_MAPPING.find(
-  //     (item, index) => 
-  //       score <= item.score || 
+  //     (item, index) =>
+  //       score <= item.score ||
   //       (index === EMOJI_MAPPING.length - 1 && score > item.score)
   //   );
   //   return emoji?.emoji || '😐';
   // };
 
   // Custom YAxis tick with emojis
-  const renderEmojiTick = ({ x, y, payload }: { x: number; y: number; payload: { value: number } }) => {
-    const emoji = EMOJI_MAPPING.find(e => e.score === payload.value)?.emoji;
+  const renderEmojiTick = ({
+    x,
+    y,
+    payload,
+  }: {
+    x: number;
+    y: number;
+    payload: { value: number };
+  }) => {
+    const emoji = EMOJI_MAPPING.find((e) => e.score === payload.value)?.emoji;
     return (
       <g transform={`translate(${x},${y})`}>
-        <text
-          x={0}
-          y={0}
-          dy={4}
-          textAnchor="end"
-          fill="#666"
-          fontSize={20}
-        >
+        <text x={0} y={0} dy={4} textAnchor="end" fill="#666" fontSize={20}>
           {emoji}
         </text>
       </g>
@@ -83,22 +84,32 @@ const WellnessTrends: React.FC = () => {
   };
 
   // Custom tooltip
-  const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ payload: typeof dummyMoodData[0] }>; label?: string }) => {
+  const CustomTooltip = ({
+    active,
+    payload,
+    label,
+  }: {
+    active?: boolean;
+    payload?: Array<{ payload: (typeof dummyMoodData)[0] }>;
+    label?: string;
+  }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
-      const emojiInfo = EMOJI_MAPPING.find(e => e.emoji === data.emoji);
-      
+      const emojiInfo = EMOJI_MAPPING.find((e) => e.emoji === data.emoji);
+
       return (
         <div className="custom-tooltip">
           <p className="label">{`Date: ${label}`}</p>
           <p className="intro">{`Score: ${data.score}`}</p>
-          <p className="emoji" style={{ fontSize: '24px' }}>{data.emoji}</p>
-          <p className="desc">{`Mood: ${emojiInfo?.label || 'Unknown'}`}</p>
+          <p className="emoji" style={{ fontSize: "24px" }}>
+            {data.emoji}
+          </p>
+          <p className="desc">{`Mood: ${emojiInfo?.label || "Unknown"}`}</p>
         </div>
       );
     }
     return null;
-    };
+  };
 
   return (
     <div className="p-3 bg-white rounded-lg shadow-md">
@@ -116,8 +127,8 @@ const WellnessTrends: React.FC = () => {
             {/* XAxis with dates */}
             <XAxis
               dataKey="date"
-              tick={{ fill: '#666' }}
-              axisLine={{ stroke: '#ccc' }}
+              tick={{ fill: "#666" }}
+              axisLine={{ stroke: "#ccc" }}
             />
 
             {/* YAxis with emojis */}
@@ -125,14 +136,14 @@ const WellnessTrends: React.FC = () => {
               tick={renderEmojiTick}
               ticks={[0, 25, 50, 75, 100]}
               domain={[0, 100]}
-              axisLine={{ stroke: '#ccc' }}
+              axisLine={{ stroke: "#ccc" }}
               tickLine={false}
               label={{
-                value: 'Mood',
+                value: "Mood",
                 angle: -90,
-                position: 'insideLeft',
+                position: "insideLeft",
                 offset: -10,
-                style: { fill: '#666' }
+                style: { fill: "#666" },
               }}
             />
 

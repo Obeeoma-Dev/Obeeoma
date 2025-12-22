@@ -43,7 +43,9 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
 
         // --- Card Type Logic ---
         const isAddEmployee = stat.title.toLowerCase().includes("add employee");
-        const isTotalEmployees = stat.title.toLowerCase().includes("total employees");
+        const isTotalEmployees = stat.title
+          .toLowerCase()
+          .includes("total employees");
         const isMoodCard = stat.title.toLowerCase().includes("mood");
         const isHelpCard = stat.title.toLowerCase().includes("help");
 
@@ -71,21 +73,25 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
             <div
               className="card h-100 border-0 shadow-sm p-3 bg-white"
               style={{
-                borderRadius: '12px',
-                cursor: stat.onClick ? 'pointer' : 'default',
-                transition: stat.onClick ? 'transform 0.2s, box-shadow 0.2s' : 'none',
+                borderRadius: "12px",
+                cursor: stat.onClick ? "pointer" : "default",
+                transition: stat.onClick
+                  ? "transform 0.2s, box-shadow 0.2s"
+                  : "none",
               }}
               onClick={stat.onClick}
               onMouseEnter={(e) => {
                 if (stat.onClick) {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.transform = "translateY(-4px)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 16px rgba(0,0,0,0.1)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (stat.onClick) {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow =
+                    "0 2px 4px rgba(0,0,0,0.05)";
                 }
               }}
             >
@@ -103,20 +109,29 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
                   {isTotalEmployees ? (
                     // Layout for "Total Employees"
                     <>
-                      <h6 className=" fw-bold mb-2" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
+                      <h6
+                        className=" fw-bold mb-2"
+                        style={{ color: "#000008ff", fontSize: "0.8rem" }}
+                      >
                         {stat.title}
                       </h6>
-                      <h4 className="fw-semibold mb-0" style={{ color: "#166534" }}>
+                      <h4
+                        className="fw-semibold mb-0"
+                        style={{ color: "#166534" }}
+                      >
                         {stat.value}
                       </h4>
                     </>
                   ) : isMoodCard ? (
                     // Layout for "General Company Mood"
                     <div>
-                      <h6 className="fw-semibold mb-0" style={{ color: "#000008ff", fontSize: '0.7rem' }}>
+                      <h6
+                        className="fw-semibold mb-0"
+                        style={{ color: "#000008ff", fontSize: "0.7rem" }}
+                      >
                         {stat.title}
                       </h6>
-                      <span style={{ fontSize: '1.6rem' }}>🙂</span>
+                      <span style={{ fontSize: "1.6rem" }}>🙂</span>
                     </div>
                   ) : (
                     // Default layout for "Add Employee" and "Help & Support"
@@ -130,12 +145,18 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
                     //     </h6>
                     //   )}
                     // </div>
-                                        <div>
-                      <h6 className="fw-bold mb-1" style={{ color: "#000008ff", fontSize: '0.8rem' }}>
+                    <div>
+                      <h6
+                        className="fw-bold mb-1"
+                        style={{ color: "#000008ff", fontSize: "0.8rem" }}
+                      >
                         {stat.title}
                       </h6>
                       {stat.description && (
-                        <h6 className="small text-muted mb-0" style={{ fontSize: '0.7rem' }}>
+                        <h6
+                          className="small text-muted mb-0"
+                          style={{ fontSize: "0.7rem" }}
+                        >
                           {stat.description}
                         </h6>
                       )}
@@ -153,17 +174,14 @@ const TopGrid: React.FC<TopGridProps> = ({ stats }) => {
 
 export default TopGrid;
 
-
-
-
 // import React from "react";
 // import {
 //   Users,
 //   LucideIcon,
 //   UserRoundPlus,
 //   HelpCircle,
-//   ClipboardCheck, 
-//   CheckCircle, 
+//   ClipboardCheck,
+//   CheckCircle,
 // } from "lucide-react";
 // // Import the new Gauge Chart component
 // import MoodGaugeChart from '../employerdashboard/MoodgaugeChart'; // Adjust path as necessary
@@ -208,7 +226,7 @@ export default TopGrid;
 //         const isAddEmployee = stat.title.toLowerCase().includes("add employee");
 //         const isTotalEmployees = stat.title.toLowerCase().includes("total employees");
 //         // This is the card we are targeting
-//         const isMoodCard = stat.title.toLowerCase().includes("mood"); 
+//         const isMoodCard = stat.title.toLowerCase().includes("mood");
 //         const isHelpCard = stat.title.toLowerCase().includes("help");
 
 //         // --- Color and Style Logic ---
@@ -234,7 +252,7 @@ export default TopGrid;
 //                 cursor: stat.onClick ? 'pointer' : 'default',
 //                 transition: stat.onClick ? 'transform 0.2s, box-shadow 0.2s' : 'none',
 //                 // Increase min-height to accommodate the chart
-//                 minHeight: isMoodCard ? '180px' : undefined, 
+//                 minHeight: isMoodCard ? '180px' : undefined,
 //               }}
 //               onClick={stat.onClick}
 //               onMouseEnter={(e) => {
@@ -253,9 +271,9 @@ export default TopGrid;
 //               {/* Conditional Rendering for the Mood Card */}
 //               {isMoodCard ? (
 //                 // Renders the Chart.js component as the main card content
-//                 <MoodGaugeChart 
-//                     score={moodScore as number} 
-//                     moodLabel={stat.moodValue || "Neutral"} 
+//                 <MoodGaugeChart
+//                     score={moodScore as number}
+//                     moodLabel={stat.moodValue || "Neutral"}
 //                 />
 //               ) : (
 //                 // Renders the standard icon and text content
@@ -312,8 +330,8 @@ export default TopGrid;
 //   LucideIcon,
 //   UserRoundPlus,
 //   HelpCircle,
-//   ClipboardCheck, 
-//   CheckCircle, 
+//   ClipboardCheck,
+//   CheckCircle,
 // } from "lucide-react";
 // // Import the new Gauge Chart component
 // import MoodGaugeChart from '../employerdashboard/MoodgaugeChart'; // Ensure path is correct
@@ -358,7 +376,7 @@ export default TopGrid;
 //         const isAddEmployee = stat.title.toLowerCase().includes("add employee");
 //         const isTotalEmployees = stat.title.toLowerCase().includes("total employees");
 //         // This is the card we are targeting
-//         const isMoodCard = stat.title.toLowerCase().includes("mood"); 
+//         const isMoodCard = stat.title.toLowerCase().includes("mood");
 //         const isHelpCard = stat.title.toLowerCase().includes("help");
 
 //         // --- Color and Style Logic ---
@@ -384,7 +402,7 @@ export default TopGrid;
 //                 cursor: stat.onClick ? 'pointer' : 'default',
 //                 transition: stat.onClick ? 'transform 0.2s, box-shadow 0.2s' : 'none',
 //                 // Increased min-height to ensure the gauge fits well
-//                 minHeight: isMoodCard ? '180px' : undefined, 
+//                 minHeight: isMoodCard ? '180px' : undefined,
 //               }}
 //               onClick={stat.onClick}
 //               onMouseEnter={(e) => {
@@ -403,9 +421,9 @@ export default TopGrid;
 //               {/* Conditional Rendering for the Mood Card */}
 //               {isMoodCard ? (
 //                 // Renders the Chart.js component as the main card content
-//                 <MoodGaugeChart 
-//                     score={moodScore as number} 
-//                     moodLabel={stat.moodValue || "Neutral"} 
+//                 <MoodGaugeChart
+//                     score={moodScore as number}
+//                     moodLabel={stat.moodValue || "Neutral"}
 //                 />
 //               ) : (
 //                 // Renders the standard icon and text content
@@ -462,8 +480,8 @@ export default TopGrid;
 //   LucideIcon,
 //   UserRoundPlus,
 //   HelpCircle,
-//   ClipboardCheck, 
-//   CheckCircle, 
+//   ClipboardCheck,
+//   CheckCircle,
 // } from "lucide-react";
 // // FIX: Corrected import casing to MoodGaugeChart
 // import MoodGaugeChart from '../employerdashboard/MoodgaugeChart';
@@ -508,10 +526,10 @@ export default TopGrid;
 //         // --- Card Type Logic ---
 //         const isAddEmployee = stat.title.toLowerCase().includes("add employee");
 //         const isTotalEmployees = stat.title.toLowerCase().includes("total employees");
-//         const isMoodCard = stat.title.toLowerCase().includes("mood"); 
-        
+//         const isMoodCard = stat.title.toLowerCase().includes("mood");
+
 //         // This check is no longer needed but kept for safety in case other cards are added
-//         const isHelpCard = stat.title.toLowerCase().includes("help"); 
+//         const isHelpCard = stat.title.toLowerCase().includes("help");
 
 //         // --- Color and Style Logic ---
 //         let iconBgColor = "#D4F8E5"; // Light green
@@ -530,7 +548,7 @@ export default TopGrid;
 //         return (
 //           // Adjusted class for 3 cards per row on large screens (12 / 3 = 4)
 //           // Use col-lg-4 to put exactly 3 items per row, or col-lg-3 for 4 items
-//           <div key={stat.title} className="col-12 col-sm-6 col-lg-4"> 
+//           <div key={stat.title} className="col-12 col-sm-6 col-lg-4">
 //             <div
 //               className="card h-100 border-0 shadow-sm p-3 bg-white"
 //               style={{
@@ -556,9 +574,9 @@ export default TopGrid;
 //               {/* Conditional Rendering for the Mood Card */}
 //               {isMoodCard ? (
 //                 // Renders the Chart.js component as the main card content
-//                 <MoodGaugeChart 
-//                     score={moodScore as number} 
-//                     moodLabel={stat.moodValue || "Neutral"} 
+//                 <MoodGaugeChart
+//                     score={moodScore as number}
+//                     moodLabel={stat.moodValue || "Neutral"}
 //                 />
 //               ) : (
 //                 // Renders the standard icon and text content
@@ -615,8 +633,8 @@ export default TopGrid;
 //   LucideIcon,
 //   UserRoundPlus,
 //   HelpCircle,
-//   ClipboardCheck, 
-//   CheckCircle, 
+//   ClipboardCheck,
+//   CheckCircle,
 // } from "lucide-react";
 
 // import MoodGaugeChart from '../employerdashboard/MoodgaugeChart';
@@ -754,10 +772,7 @@ export default TopGrid;
 //   );
 // };
 
-
 // export default TopGrid;
-
-
 
 // src/components/employercomponents/employerdashboard/TopGrid.tsx
 // import React from "react";
@@ -1008,7 +1023,6 @@ export default TopGrid;
 // };
 
 // export default TopGrid;
-
 
 // src/components/employercomponents/employerdashboard/TopGrid.tsx
 // import React from "react";

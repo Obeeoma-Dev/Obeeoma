@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface MoodGaugeChartProps {
   moodLabel: string; // The corresponding mood string (e.g., "Good", "Neutral")
@@ -6,21 +6,22 @@ interface MoodGaugeChartProps {
 
 const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
   // Define the 5 colors: teal, green, yellow, orange, red (flipped for positive to negative)
-  const colors = ['#14b8a6', '#22c55e', '#facc15', '#f97316', '#ef4444'];
+  const colors = ["#14b8a6", "#22c55e", "#facc15", "#f97316", "#ef4444"];
   // Emojis for each segment
-  const emojis = ['😊', '🙂', '😐', '🙁', '😞'];
+  const emojis = ["😊", "🙂", "😐", "🙁", "😞"];
 
   // Remove "Needs Attention" from moodLabel if present
-  const cleanedMoodLabel = moodLabel.replace("Needs Attention", "").trim() || "Neutral";
+  const cleanedMoodLabel =
+    moodLabel.replace("Needs Attention", "").trim() || "Neutral";
 
   // Maps a string mood to a numeric score (0-999) for the gauge.
   const getScoreFromMood = (mood: string): number => {
     const moodMap: { [key: string]: number } = {
-      'Great': 900,
-      'Good': 700,
-      'Neutral': 500,
-      'Bad': 300,
-      'Terrible': 100,
+      Great: 900,
+      Good: 700,
+      Neutral: 500,
+      Bad: 300,
+      Terrible: 100,
     };
     return moodMap[mood] || 500;
   };
@@ -61,23 +62,28 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center w-100 h-100">
       {/* Title */}
-      <h6 className="fw-bold mb-3 text-center" style={{ color: '#000000', fontSize: '0.9rem' }}>
+      <h6
+        className="fw-bold mb-3 text-center"
+        style={{ color: "#000000", fontSize: "0.9rem" }}
+      >
         Mood Tracker
       </h6>
 
       {/* SVG Gauge - Cropped to show only the top half */}
-      <div style={{ 
-        width: '100%', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        overflow: 'hidden' 
-      }}>
-        <svg 
-          width=" 400" 
-          height="300" 
-          viewBox="0 0 220 110" 
-          style={{ display: 'block' }}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+        }}
+      >
+        <svg
+          width=" 400"
+          height="300"
+          viewBox="0 0 220 110"
+          style={{ display: "block" }}
         >
           {/* Group rotates the entire gauge system 180 degrees around the center point */}
           <g transform={`rotate(180 ${centerX} ${centerY})`}>
@@ -85,7 +91,13 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
             {colors.map((color, index) => {
               const startAngle = index * segmentAngle;
               const endAngle = startAngle + segmentAngle;
-              return <path key={index} d={getSegmentPath(startAngle, endAngle)} fill={color} />;
+              return (
+                <path
+                  key={index}
+                  d={getSegmentPath(startAngle, endAngle)}
+                  fill={color}
+                />
+              );
             })}
 
             {/* Draw emojis */}
@@ -102,7 +114,10 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
                   fontSize="20"
                   // Re-rotate text so emojis aren't upside down
                   transform={`rotate(-180 ${x} ${y})`}
-                  style={{ filter: 'drop-shadow(1px 1px 1px rgba(0,0,0,0.3))', pointerEvents: 'none' }}
+                  style={{
+                    filter: "drop-shadow(1px 1px 1px rgba(0,0,0,0.3))",
+                    pointerEvents: "none",
+                  }}
                 >
                   {emoji}
                 </text>
@@ -126,7 +141,10 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
       </div>
 
       {/* Optional: Mood Label Text underneath */}
-      <div className="mt-2 fw-bold" style={{ color: '#374151', fontSize: '0.85rem' }}>
+      <div
+        className="mt-2 fw-bold"
+        style={{ color: "#374151", fontSize: "0.85rem" }}
+      >
         {cleanedMoodLabel}
       </div>
     </div>
@@ -224,7 +242,6 @@ export default MoodGaugeChart;
 //     return `M ${start.x} ${start.y}
 //             A ${radius} ${radius} 0 0 1 ${end.x} ${end.y}`;
 //   };
-
 
 //   return (
 //     <div className="d-flex flex-column justify-content-center align-items-center h-100 w-100 p-0">
@@ -326,7 +343,6 @@ export default MoodGaugeChart;
 // };
 
 // export default MoodGaugeChart;
-
 
 // import React from 'react';
 
@@ -454,7 +470,6 @@ export default MoodGaugeChart;
 
 // export default MoodGaugeChart;
 
-
 // import React from 'react';
 
 // interface MoodGaugeChartProps {
@@ -501,12 +516,10 @@ export default MoodGaugeChart;
 // //   const radius = 100;
 // //   const segmentAngle = 36; // 180 / 5 = 36 degrees per segment
 
-
 // //    const centerX = 80;
 // //   const centerY = 110;
 // //  const radius = 90;
 // //   const segmentAngle = 36
-
 
 //  const centerX = 200;
 //  const centerY = 100;
@@ -655,12 +668,12 @@ export default MoodGaugeChart;
 //     const outerStart = getCoords(outerRadius, startAngle);
 //     const outerEnd = getCoords(outerRadius, endAngle);
 //     const largeArcFlag = segmentAngle > 180 ? 1 : 0;
-    
+
 //     // Path for the thick arc segment (Colored area)
-//     return `M ${outerStart.x} ${outerStart.y} 
-//             A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${outerEnd.x} ${outerEnd.y} 
-//             L ${end.x} ${end.y} 
-//             A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${start.x} ${start.y} 
+//     return `M ${outerStart.x} ${outerStart.y}
+//             A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${outerEnd.x} ${outerEnd.y}
+//             L ${end.x} ${end.y}
+//             A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${start.x} ${start.y}
 //             Z`;
 //   };
 
@@ -668,24 +681,23 @@ export default MoodGaugeChart;
 //   const getEmojiPosition = (angle: number) => {
 //     const angleRad = (angle * Math.PI) / 180;
 //     // Position the emoji between the inner and outer radius
-//     const emojiRadius = (innerRadius + outerRadius) / 2; 
+//     const emojiRadius = (innerRadius + outerRadius) / 2;
 //     const x = centerX + emojiRadius * Math.cos(angleRad);
 //     const y = centerY + emojiRadius * Math.sin(angleRad);
 //     return { x, y };
 //   };
-  
+
 //   // Outer boundary path (for the grey rim)
 //   const getOuterBoundaryPath = (radius: number) => {
 //     const start = getCoords(radius, 180);
 //     const end = getCoords(radius, 0);
-//     return `M ${start.x} ${start.y} 
+//     return `M ${start.x} ${start.y}
 //             A ${radius} ${radius} 0 0 1 ${end.x} ${end.y}`;
 //   };
 
-
 //   return (
 //     <div className="d-flex flex-column justify-content-center align-items-center h-100 w-100 p-0">
-      
+
 //       {/* Title */}
 //       <h6 className="fw-bold mb-1 text-center" style={{ color: '#166534', fontSize: '0.9rem' }}>
 //         General Company Mood
@@ -695,24 +707,24 @@ export default MoodGaugeChart;
 //       <div style={{ width: '100%', height: '180px', position: 'relative' }}>
 //         {/* Adjusted viewBox to show the entire arc including the border */}
 //         <svg width="100%" height="180" viewBox="0 10 200 160">
-        
+
 //           {/* 1. Outer Grey Scale (Boundary) */}
-//           <path 
+//           <path
 //             d={getOuterBoundaryPath(outerRadius + 5)} // Use a slightly larger radius for the outer gray boundary
-//             fill="none" 
-//             stroke="#e5e7eb" 
+//             fill="none"
+//             stroke="#e5e7eb"
 //             strokeWidth="10" // Adjust thickness of the border
-//             strokeLinecap="round" 
+//             strokeLinecap="round"
 //             style={{ filter: 'drop-shadow(0px 0px 1px rgba(0,0,0,0.2))' }}
 //           />
 
 //           {/* 2. White Inner Rim (to make the gauge colors contained) */}
-//           <path 
-//             d={getOuterBoundaryPath(outerRadius)} 
-//             fill="none" 
-//             stroke="#ffffff" 
+//           <path
+//             d={getOuterBoundaryPath(outerRadius)}
+//             fill="none"
+//             stroke="#ffffff"
 //             strokeWidth="5" // Thickness of the inner white rim
-//             strokeLinecap="round" 
+//             strokeLinecap="round"
 //           />
 
 //           {/* 3. Draw colored segments (using the thick arc segment function) */}
@@ -721,28 +733,28 @@ export default MoodGaugeChart;
 //             const startAngle = 180 - index * segmentAngle;
 //             const endAngle = startAngle - segmentAngle;
 //             const path = getSegmentPath(startAngle, endAngle);
-            
+
 //             return (
-//               <path 
-//                 key={index} 
-//                 d={path} 
-//                 fill={color} 
+//               <path
+//                 key={index}
+//                 d={path}
+//                 fill={color}
 //                 // Add white stroke between segments for separation line effect
 //                 stroke="white"
-//                 strokeWidth={index < colors.length - 1 ? 2 : 0} 
+//                 strokeWidth={index < colors.length - 1 ? 2 : 0}
 //               />
 //             );
 //           })}
-          
+
 //           {/* 4. Draw emojis */}
 //           {emojis.map((emoji, index) => {
 //             const angle = 180 - (index + 0.5) * segmentAngle;
 //             const { x, y } = getEmojiPosition(angle);
-            
+
 //             // Adjust emoji position vertically based on index to move them higher/lower
 //             let yAdjust = 0;
 //             if (index === 0 || index === 4) yAdjust = -5; // Move edges slightly up
-            
+
 //             return (
 //               <text
 //                 key={index}

@@ -18,11 +18,11 @@ interface ActivityItemProps {
  */
 const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
   // Dynamically select icon from lucide-react based on string name
-  const IconComponent =
-    (Icons[data.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
-      size?: number;
-      color?: string;
-    }>;
+  const IconComponent = (Icons[data.icon as keyof typeof Icons] ??
+    Icons.Activity) as React.FC<{
+    size?: number;
+    color?: string;
+  }>;
 
   // Map iconColor to pastel background colors
   const bgColorMap: Record<string, string> = {
