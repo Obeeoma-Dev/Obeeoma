@@ -393,10 +393,9 @@ const Register: React.FC = () => {
     setActiveStep((prev) => prev - 1);
   };
 
-   
   const handleSubmit = async (
     values: RegisterFormValues,
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     { setSubmitting, setTouched, setErrors, validateForm }: any,
   ) => {
     setSubmitting(true);
@@ -406,14 +405,13 @@ const Register: React.FC = () => {
     setSubmitting(false);
   };
 
-   
   const renderStepContent = (
     values: RegisterFormValues,
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handleChange: (event: React.ChangeEvent<any>) => void,
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     touched: any,
-     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errors: any,
   ) => {
     switch (activeStep) {
