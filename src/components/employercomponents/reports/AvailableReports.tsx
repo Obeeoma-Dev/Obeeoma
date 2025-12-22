@@ -13,7 +13,8 @@ const AvailableReports = () => {
       name: "Wellness Summary",
       description: "Overall employee wellness metrics",
       frequency: "Monthly",
-      url: "/v1/download/department-analysis/",
+      // Placeholder API endpoint that should return a PDF file
+      url: "/v1/dashboard/wellness-reports/",
     },
     {
       name: "Department Analysis",
