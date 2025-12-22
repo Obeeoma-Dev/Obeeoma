@@ -84,7 +84,7 @@ jobs:
             set -e
 
             echo "Moving to project directory..."
-            cd /obeeoma/obeeoma_project/Obeeoma
+            cd /home/obeeoma/obeeoma_project/Obeeoma
 
             if [ ! -d ".git" ]; then
               echo " Error: Not a git repository"
@@ -94,16 +94,17 @@ jobs:
             echo "Pulling latest code from GitHub..."
             git pull origin main
 
-            echo "Building Docker image locally..."
+            echo " Building Docker image locally..."
             docker compose build frontend
 
-            echo "Restarting containers..."
+            echo " Restarting containers..."
             docker compose up -d frontend --remove-orphans
 
-            echo "Cleaning up dangling Docker images..."
+            echo " Cleaning up dangling Docker images..."
             docker image prune -f
 
-            echo " Deployment completed successfully"
+            echo "Deployment completed successfully"
+
 
 
 # name: Obeeoma CI/CD
