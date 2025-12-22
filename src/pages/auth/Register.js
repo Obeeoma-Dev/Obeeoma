@@ -283,16 +283,22 @@ const Register = () => {
     const handleBack = () => {
         setActiveStep((prev) => prev - 1);
     };
+    const handleSubmit = async (values, 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleSubmit = async (values, { setSubmitting, setTouched, setErrors, validateForm }) => {
+    { setSubmitting, setTouched, setErrors, validateForm }) => {
         setSubmitting(true);
         //  Run validation and set touched using handleNext's logic
         await handleNext(values, setTouched, setErrors, validateForm);
         // handleNext handles the API call if activeStep === 1
         setSubmitting(false);
     };
+    const renderStepContent = (values, 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const renderStepContent = (values, handleChange, touched, errors) => {
+    handleChange, 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    touched, 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    errors) => {
         switch (activeStep) {
             case 0: // Step 1: Organization Details
                 return (_jsxs(Row, { children: [_jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faBuilding }) }), _jsx(BootstrapForm.Control, { type: "text", name: "organizationName", placeholder: "Organization Name", value: values.organizationName, onChange: handleChange, style: inputStyle, 

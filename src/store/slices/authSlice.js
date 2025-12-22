@@ -30,8 +30,8 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (credentials, 
         const error = err;
         let errorMessage = "Login failed. Please try again.";
         if (error.response && error.response.data) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             errorMessage =
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 error.response.data.detail || "Invalid credentials.";
         }
         return rejectWithValue(errorMessage);
