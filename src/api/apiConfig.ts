@@ -11,13 +11,13 @@ import {
   changePasswordData,
   OtpVerificationPayload,
   // MfaSetupData,
-  MfaVerifyPayload,
+  // MfaVerifyPayload,
   MfaSetupRequestPayload,
 
 
 } from "@/types/auth";
 
-import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
+// import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
 
 export const API_BASE_URL =
@@ -529,7 +529,7 @@ export const employerAPI = {
     const response = await api.get("/v1/dashboard/billing/view");
     return response;
   },
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updatePaymentMethod: async (payload: any) => {
     return api.post("/v1/employer/billing/update-payment-method/", payload);
   },

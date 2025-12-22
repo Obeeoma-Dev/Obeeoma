@@ -14,7 +14,7 @@ import AddEmployeeForm from "../../components/employercomponents/companyemployee
 
 // Hooks & Types
 import { useDashboardData } from "../../hooks/useDashboardData";
-import { DashboardProps, MoodTrend } from "@/types/employer";
+import { DashboardProps } from "@/types/employer";
 import type { AppDispatch, RootState } from "../../store/store";
 import {
   fetchEmployerDashboardSummary,
@@ -30,7 +30,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
   // 1. HOOKS MUST BE AT THE TOP LEVEL (Before any early returns)
   const { stats, employeeData, activities, loading, error } = useDashboardData();
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
 
   // Redux Mood Data
   const { moodTrends, isLoading: isMoodLoading } = useSelector((state: RootState) => state.employer);
@@ -46,6 +46,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
 
     // If your backend returns the summary format [ {date, avg_score, mood_counts} ]
     // we map it directly. If it returns individual logs, we group them.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return moodTrends.map((item: any) => ({
       date: item.date || item.timestamp || "",
       avg_score: item.avg_score ?? 3,

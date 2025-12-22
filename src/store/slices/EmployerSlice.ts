@@ -102,8 +102,10 @@ export const fetchEmployees = createAsyncThunk<
             // MAPPING LOGIC REMAINS AS INFERRED:
             const response = await employerAPI.getEmployees(); 
             // Handle both response.data.employees and response.data being the array
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const backendData = (response.data.employees || response.data) as any[]; 
 
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
                 id: employee.id, 
                 // CRITICAL MAPPING ASSUMPTION: The API should return full_name, first_name, and last_name. 
@@ -193,6 +195,7 @@ export const downloadReport = createAsyncThunk<
       // Cleanup
       link.remove();
       window.URL.revokeObjectURL(downloadUrl);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       return rejectWithValue(getErrorMessage(error));
     }
@@ -309,6 +312,7 @@ export const fetchWellnessTrend = createAsyncThunk<
     async (_, { rejectWithValue }) => {
         try {
             const response = await employerAPI.getWellnessTrend();
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const mapped = (response.data || []).map((item: any) => ({
                 date: item.date || "",
                 avg_score: item.score ?? item.avg_score ?? 0,
@@ -332,6 +336,7 @@ export const fetchMoodTrends = createAsyncThunk<
       return rejectWithValue(response.statusText || "Failed to fetch mood trends");
     }
     const raw = response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mapped = (raw || []).map((pt: any) => ({
       id: pt.id ?? 0,
       employeeId: pt.employeeId ?? 0,
@@ -345,6 +350,7 @@ export const fetchMoodTrends = createAsyncThunk<
     }));
 
     return mapped;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return rejectWithValue(err?.message ?? "Network error");
   }

@@ -10,7 +10,7 @@ import {
     OtpSuccessResponse,
     ResendOtpPayload,
     MfaSetupData,
-    MfaVerifyPayload,
+    // MfaVerifyPayload,
     ChangePassword
 } from "./../../types/auth";
 import {authAPI} from "../../api/apiConfig";
@@ -180,6 +180,7 @@ export const resendOtpThunk = createAsyncThunk<
         try {
             const response = await authAPI.forgotPassword({ email: payload.email });
             return response.data;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
             return rejectWithValue(errorMessage);
@@ -306,6 +307,7 @@ const authSlice = createSlice({
                 // Since `token` is updated, also update `accessToken` if it's used elsewhere
                 state.accessToken = action.payload.access || action.payload.token;
                 state.error = null;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 state.mfaSetupData = action.payload as any
                 saveAuthValue(
                     "token",

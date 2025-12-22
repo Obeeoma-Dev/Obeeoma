@@ -68,7 +68,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(({ accountData 
           setProfileImage(data.logoUrl);
           localStorage.setItem('companyProfileImage', data.logoUrl);
         }
-      } catch (err) {
+      } catch  {
         // fallback to localStorage
         const storedProfileImage = localStorage.getItem('companyProfileImage') || '';
         setProfileImage(storedProfileImage);

@@ -4,6 +4,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/bootstrap.css';
 
 interface CustomPhoneInputProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: Control<any>;
     name: string;
     inputStyle?: React.CSSProperties;

@@ -2,8 +2,10 @@
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
+import { store } from '../store/store';
+// import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
@@ -364,9 +366,18 @@ export const employerAPI = {
      * PDF/Blob Download Method
      */
     getReportBlob: async (url) => {
-        return api.get(url, {
-            responseType: 'blob', // Critical for binary file handling
+        const state = store.getState();
+        const token = state.auth.token;
+        const persistedToken = localStorage.getItem('token');
+        const activeToken = token || persistedToken;
+        const res = await fetch(API_BASE_URL + url, {
+            method: "get",
+            headers: {
+                Authorization: `Bearer ${activeToken}`,
+                'Content-Type': 'application/pdf'
+            }
         });
+        return await res.blob();
     },
     // Wellness Data
     getMoodTrends: async () => {
@@ -398,6 +409,7 @@ export const employerAPI = {
         const response = await api.get("/v1/dashboard/billing/view");
         return response;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     updatePaymentMethod: async (payload) => {
         return api.post("/v1/employer/billing/update-payment-method/", payload);
     },

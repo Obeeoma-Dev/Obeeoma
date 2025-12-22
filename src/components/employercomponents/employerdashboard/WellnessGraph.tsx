@@ -18,7 +18,7 @@ const getMoodEmoji = (score: number): string => {
 
 export default function WellnessGraph({
   data,
-  width = "100%",
+  // width = "100%",
   height = 320
 }: WellnessGraphProps): React.JSX.Element {
 

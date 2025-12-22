@@ -82,6 +82,7 @@ interface UseDashboardDataReturn {
 }
 
 export const useDashboardData = (): UseDashboardDataReturn => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
   const { 
     summary, 

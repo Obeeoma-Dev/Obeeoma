@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface EmployeeState {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentEmployee: any | null;
   isLoading: boolean;
   error: string | null;
@@ -16,6 +17,7 @@ const employeeSlice = createSlice({
   name: "employee",
   initialState,
   reducers: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setEmployee: (state: EmployeeState, action: PayloadAction<any>) => {
       state.currentEmployee = action.payload;
     },

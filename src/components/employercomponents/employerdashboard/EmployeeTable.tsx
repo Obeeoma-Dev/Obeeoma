@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Search } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { 
-  fetchEmployeeInvites, 
+  // fetchEmployeeInvites, 
   clearEmployerError,
   fetchEmployees ,
   
@@ -20,7 +19,7 @@ import {
   useReactTable,
   ColumnFiltersState,
 } from '@tanstack/react-table';
-import { json } from "zod";
+
 
 // Define the required structure of the data received from the Redux state
 interface EmployerStateSubset {
@@ -39,7 +38,7 @@ interface EmployeeTableProps {
   companyId?: string;
 }
 
-const EmployeeTable = ({ searchQuery, onSearchChange, employees }: EmployeeTableProps) => {
+const EmployeeTable = ({ searchQuery, employees }: EmployeeTableProps) => {
 console.log(employees);
     const dispatch = useDispatch();
 
@@ -136,6 +135,7 @@ console.log(employees);
  console.log(table.getState().columnFilters)
   // Fetch employees on component mount
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch(fetchEmployees() as any);
   }, [dispatch]);
 

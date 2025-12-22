@@ -12,6 +12,7 @@ export const updatePaymentMethod = createAsyncThunk(
             return response.data; // Return the success message/data
         } catch (error) {
             // Handle errors from your DRF endpoint
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const axiosError = error as any;
             return rejectWithValue(axiosError.response?.data || 'Failed to update payment method.');
         }
@@ -24,8 +25,10 @@ export const fetchBillingHistory = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await employerAPI.viewBillingHistory();
+             
             return response.data; // Array of InvoiceItem
         } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const axiosError = error as any;
             return rejectWithValue(axiosError.response?.data?.detail || 'Failed to fetch billing history.');
         }

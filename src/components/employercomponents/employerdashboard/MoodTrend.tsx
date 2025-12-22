@@ -1,10 +1,13 @@
 import React from 'react';
 
 interface MoodTrendProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any[];
 }
 
-const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
+// const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
+
+const MoodTrend: React.FC<MoodTrendProps> = () => {
   // Sample data matching the design
   const moodData = [
     { week: 1, mood: 75 },

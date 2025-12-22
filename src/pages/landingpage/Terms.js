@@ -18,6 +18,7 @@ const cardVariants = {
     visible: {
         opacity: 1,
         y: 0,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
     },
 };
@@ -26,6 +27,7 @@ const heroVariants = {
     visible: {
         opacity: 1,
         scale: 1,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
     },
 };

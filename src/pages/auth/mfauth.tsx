@@ -11,7 +11,7 @@ const MfaSetupPage: React.FC = () => {
     isLoading,
     error,
     isMfaSetupConfirmed,
-    user // Assuming user is available in authSlice
+    // user // Assuming user is available in authSlice
   } = useAppSelector((state) => state.auth);
 
   const [confirmationCode, setConfirmationCode] = useState('');

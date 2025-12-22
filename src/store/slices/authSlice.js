@@ -113,6 +113,7 @@ export const resendOtpThunk = createAsyncThunk('auth/resendOtp', async (payload,
     try {
         const response = await authAPI.forgotPassword({ email: payload.email });
         return response.data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }
     catch (error) {
         const errorMessage = error.response?.data?.detail || 'Failed to resend code. Please try again.';
@@ -210,6 +211,7 @@ const authSlice = createSlice({
             // Since `token` is updated, also update `accessToken` if it's used elsewhere
             state.accessToken = action.payload.access || action.payload.token;
             state.error = null;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             state.mfaSetupData = action.payload;
             saveAuthValue("token", action.payload?.access || action.payload?.token);
             saveAuthValue("refresh", action.payload.refresh);
@@ -272,6 +274,9 @@ const authSlice = createSlice({
         })
             .addCase(logoutUserThunk.fulfilled, (state) => {
             state.isLoading = false;
+            saveAuthValue("token", undefined);
+            saveAuthValue("refresh", undefined);
+            saveAuthValue("user", undefined);
         })
             .addCase(logoutUserThunk.rejected, (state) => {
             state.isLoading = false;

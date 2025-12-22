@@ -22,8 +22,8 @@ interface EmployeeStatusLegendProps {
 const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeStatus }) => {
   const { activeEmployees, inactiveEmployees, totalEmployees } = employeeStatus;
  
-  const activePercentage = totalEmployees > 0 ? Math.round((activeEmployees / totalEmployees) * 100) : 0;
-  const inactivePercentage = totalEmployees > 0 ? Math.round((inactiveEmployees / totalEmployees) * 100) : 0;
+  // const activePercentage = totalEmployees > 0 ? Math.round((activeEmployees / totalEmployees) * 100) : 0;
+  // const inactivePercentage = totalEmployees > 0 ? Math.round((inactiveEmployees / totalEmployees) * 100) : 0;
 
   // Prepare data for the doughnut chart
   const data = {
@@ -55,6 +55,7 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeSta
             size: 12,
             weight: 'normal' as const,
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           generateLabels: function(chart: any) {
             const data = chart.data;
             if (data.labels.length && data.datasets.length) {
@@ -86,6 +87,7 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({ employeeSta
         cornerRadius: 8,
         displayColors: true,
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: function(context: any) {
             const label = context.label || '';
             const value = context.parsed || 0;

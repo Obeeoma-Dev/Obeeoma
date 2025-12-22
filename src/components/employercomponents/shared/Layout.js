@@ -2,6 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
+// import Modal from 'react-bootstrap/Modal';
 import { Home as HomeIcon, Users as UsersIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,13 +17,21 @@ const Layout = ({ children, title }) => {
     const employer = useSelector((state) => state.employer.currentEmployer);
     // Try to get employer data from localStorage if available
     let localEmployer = null;
+    // try {
+    //   const stored = localStorage.getItem("employerAccountData");
+    //   if (stored) {
+    //     localEmployer = JSON.parse(stored);
+    //   }
+    // } catch {
+    // }
     try {
         const stored = localStorage.getItem("employerAccountData");
-        if (stored) {
-            localEmployer = JSON.parse(stored);
-        }
+        localEmployer = stored ? JSON.parse(stored) : null;
     }
-    catch { }
+    catch (err) {
+        console.warn("Storage recovery failed", err);
+        localEmployer = null;
+    }
     console.log("employer", employer);
     console.log("local-employer", localEmployer);
     // Prefer localStorage for organizationName, fallback to Redux, then default
@@ -46,7 +55,7 @@ const Layout = ({ children, title }) => {
         ...item,
         active: location.pathname === item.path
     }));
-    const [logoRef, isLogoVisible] = useScrollAnimation({
+    const [logoRef] = useScrollAnimation({
         threshold: 0.5,
         rootMargin: '0px 0px -100px 0px'
     });

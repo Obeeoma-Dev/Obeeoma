@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
-import Modal from 'react-bootstrap/Modal';
+// import Modal from 'react-bootstrap/Modal';
 import {
 Home as HomeIcon,
 Users as UsersIcon,
@@ -42,13 +42,22 @@ const Layout = ({ children, title }: LayoutProps) => {
 
   // Try to get employer data from localStorage if available
   let localEmployer = null;
-  try {
-    const stored = localStorage.getItem("employerAccountData");
-    if (stored) {
-      localEmployer = JSON.parse(stored);
-    }
-  } catch {}
+  // try {
+  //   const stored = localStorage.getItem("employerAccountData");
+  //   if (stored) {
+  //     localEmployer = JSON.parse(stored);
+  //   }
+  // } catch {
+    
+  // }
 
+  try {
+  const stored = localStorage.getItem("employerAccountData");
+  localEmployer = stored ? JSON.parse(stored) : null;
+} catch (err) {
+  console.warn("Storage recovery failed", err);
+  localEmployer = null;
+}
   
   console.log("employer", employer)
   console.log("local-employer", localEmployer)
@@ -77,7 +86,7 @@ const Layout = ({ children, title }: LayoutProps) => {
     active: location.pathname === item.path
   }));
 
-  const [logoRef, isLogoVisible] = useScrollAnimation({
+  const [logoRef] = useScrollAnimation({
     threshold: 0.5,
     rootMargin: '0px 0px -100px 0px'
   });

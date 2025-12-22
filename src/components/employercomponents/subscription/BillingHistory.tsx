@@ -4,6 +4,7 @@ import type { AppDispatch } from '../../../store/store';
 import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import { RootState } from '../../../store/store';
 import { fetchBillingHistory } from '../../../store/slices/billingSlice';
+import { InvoiceItem } from '../../../types/employer';
 
 const BillingHistoryTable: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -54,7 +55,7 @@ const BillingHistoryTable: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {invoices.map((invoice: any) => (
+                    {invoices.map((invoice: InvoiceItem) => (
                         <tr key={invoice.invoice_number}>
                             <td>{invoice.date}</td>
                             <td>{invoice.description}</td>
