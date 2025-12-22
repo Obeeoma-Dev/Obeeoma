@@ -84,10 +84,10 @@ jobs:
             set -e
 
             echo "Moving to project directory..."
-            cd /home/obeeoma/obeeoma_project/Obeeoma
+            cd /obeeoma/obeeoma_project/Obeeoma
 
             if [ ! -d ".git" ]; then
-              echo "❌ Error: Not a git repository"
+              echo " Error: Not a git repository"
               exit 1
             fi
 
@@ -103,7 +103,7 @@ jobs:
             echo "Cleaning up dangling Docker images..."
             docker image prune -f
 
-            echo "✅ Deployment completed successfully"
+            echo " Deployment completed successfully"
 
 
 # name: Obeeoma CI/CD
