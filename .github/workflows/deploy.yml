@@ -80,10 +80,15 @@ jobs:
           username: obeeoma
           key: ${{ secrets.DROPLET_SSH_KEY }}
           port: ${{ secrets.DROPLET_SSH_PORT }}
+
+          # ⬇️ IMPORTANT: prevents "command timeout"
+          timeout: 30m
+          command_timeout: 30m
+
           script: |
             set -e
 
-            echo "Moving to project directory..."
+            echo " Moving to project directory..."
             cd /home/obeeoma/obeeoma_project/Obeeoma
 
             if [ ! -d ".git" ]; then
@@ -91,7 +96,7 @@ jobs:
               exit 1
             fi
 
-            echo "Pulling latest code from GitHub..."
+            echo " Pulling latest code from GitHub..."
             git pull origin main
 
             echo " Building Docker image locally..."
@@ -103,7 +108,7 @@ jobs:
             echo " Cleaning up dangling Docker images..."
             docker image prune -f
 
-            echo "Deployment completed successfully"
+            echo " Deployment completed successfully"
 
 
 
