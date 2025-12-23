@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - name: Deploy via SSH
-        uses: appleboy/ssh-action@v0.1.6
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: obeeoma
@@ -87,7 +87,7 @@ jobs:
           script: |
             set -e
 
-            echo "Moving to project directory..."
+            echo "📁 Moving to project directory..."
             cd /home/obeeoma/obeeoma_project/Obeeoma
 
             if [ ! -d ".git" ]; then
@@ -99,7 +99,7 @@ jobs:
             GIT_SSH_COMMAND="ssh -i ~/.ssh/github_deploy_ed25519 -o IdentitiesOnly=yes" \
               git pull origin main
 
-            echo "Building Docker image locally..."
+            echo "Building Docker image..."
             docker compose build frontend
 
             echo "Restarting containers..."
@@ -109,8 +109,6 @@ jobs:
             docker image prune -f
 
             echo "Deployment completed successfully"
-
-
 
 
 # name: Obeeoma CI/CD
