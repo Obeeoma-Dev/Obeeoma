@@ -87,7 +87,7 @@ jobs:
           script: |
             set -e
 
-            echo "📁 Moving to project directory..."
+            echo " Moving to project directory..."
             cd /home/obeeoma/obeeoma_project/Obeeoma
 
             if [ ! -d ".git" ]; then
