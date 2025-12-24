@@ -324,6 +324,14 @@ export const employerAPI = {
         const response = await api.get("/v1/settings/");
         return response;
     },
+    deleteEmployee: async (id) => {
+        const response = await api.delete(`/v1/employees/${id}`);
+        return response;
+    },
+    updateEmployeeStatus: async (url, status) => {
+        const response = await api.put(url, { status });
+        return response;
+    },
     // Employee Management
     inviteEmployee: async (employeeData) => {
         const response = await api.post("/v1/auth/invitations/", employeeData);

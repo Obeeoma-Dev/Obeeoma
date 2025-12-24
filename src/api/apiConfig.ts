@@ -407,6 +407,15 @@ export const employerAPI = {
     return response;
   },
 
+  deleteEmployee: async (id: string) => {
+    const response = await api.delete(`/v1/employees/${id}`);
+    return response;
+  },
+
+  updateEmployeeStatus: async (url: string, status: string) => {
+    const response = await api.put(url, { status });
+    return response;
+  },
   // Employee Management
   inviteEmployee: async (employeeData: {
     email: string;

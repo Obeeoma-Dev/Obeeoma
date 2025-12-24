@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Dropdown from "react-bootstrap/Dropdown";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import {
-  // fetchEmployeeInvites,
-  clearEmployerError,
   fetchEmployees,
+  deleteEmployee,
+  toggleEmployeeStatus,
 } from "../../../store/slices/EmployerSlice";
 import { Employee } from "../../../types/employer";
-import { RootState } from "../../../store/store";
-import { useToast } from "../../../hooks/use-toast";
+import { RootState, AppDispatch } from "../../../store/store";
 
 import {
   createColumnHelper,
@@ -19,224 +20,204 @@ import {
   ColumnFiltersState,
 } from "@tanstack/react-table";
 
-// Define the required structure of the data received from the Redux state
-interface EmployerStateSubset {
-  employees: Employee[];
-  isLoading: boolean;
-  isActionLoading: boolean;
-  error: string | null;
-}
-
-interface EmployeeTableProps {
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
-  employees: Employee[];
-  companyId?: string;
-}
-
-const EmployeeTable = ({ searchQuery, employees }: EmployeeTableProps) => {
-  console.log(employees);
-  const dispatch = useDispatch();
-
-  const { toast } = useToast();
-
-  // Redux state
-  const { isLoading, isActionLoading, error } = useSelector(
-    (state: RootState): EmployerStateSubset => ({
-      employees: state.employer.employees,
-      isLoading: state.employer.isLoading,
-      isActionLoading: state.employer.isActionLoading,
-      error: state.employer.error,
-    }),
-  );
+const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { isActionLoading } = useSelector((state: RootState) => state.employer);
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState<"success" | "error">("success");
 
-  // Define columns using TanStack Table
+  // Handlers for API Calls
+  const handleToggleStatus = async (id: number, currentStatus: string) => {
+    try {
+      await dispatch(
+        toggleEmployeeStatus({ id: id.toString(), currentStatus }),
+      ).unwrap();
+      setModalMessage("Status updated successfully");
+      setModalType("success");
+    } catch (error) {
+      setModalMessage("Failed to update status");
+      setModalType("error");
+    }
+    setShowModal(true);
+  };
+
+  const handleDelete = useCallback(
+    async (id: number) => {
+      if (
+        window.confirm(
+          "Are you sure you want to delete this employee? This action cannot be undone.",
+        )
+      ) {
+        try {
+          await dispatch(deleteEmployee(id.toString())).unwrap();
+          setModalMessage("Employee deleted successfully");
+          setModalType("success");
+        } catch (error: unknown) {
+          setModalMessage("Failed to delete employee");
+          setModalType("error");
+        }
+        setShowModal(true);
+      }
+    },
+    [dispatch],
+  );
+
   const columnHelper = createColumnHelper<Employee>();
 
   const columns = [
     columnHelper.accessor("emailAddress", {
-      header: () => "Email",
+      header: "Email",
       cell: (info) => info.getValue() || "N/A",
-      footer: (info) => info.column.id,
+      meta: { filterVariant: "text" },
     }),
     columnHelper.accessor("employeedepartment", {
-      header: () => "Department",
+      header: "Department",
       cell: (info) => info.getValue() || "N/A",
-      footer: (info) => info.column.id,
+      meta: { filterVariant: "text" },
     }),
+
     columnHelper.accessor("status", {
-      header: () => "Status",
+      header: "Status",
       cell: (info) => {
         const status = info.getValue();
-        let statusClass = "badge";
-        let style = {};
 
-        if (status === "active") {
-          statusClass += " text-white";
-          style = { backgroundColor: "#22C55E" };
-        } else if (status === "pending" || status === "accepted") {
-          statusClass += " text-white";
-          style = { backgroundColor: "#0a5f2fcb" };
-        } else {
-          statusClass += " text-white";
-          style = { backgroundColor: "#b4beb9dc" };
-        }
+        // Changed 'let' to 'const' here
+        const backgroundColor = status === "active" ? "#22C55E" : "#b4beb9dc";
 
         return (
-          <span className={statusClass} style={style}>
-            {status
-              ? status.charAt(0).toUpperCase() + status.slice(1)
-              : "Not Available"}
+          <span className="badge text-white" style={{ backgroundColor }}>
+            {status ? status.toUpperCase() : "N/A"}
           </span>
         );
       },
-      footer: (info) => info.column.id,
     }),
     columnHelper.display({
       id: "actions",
-      header: () => "Actions",
+      header: "Actions",
       cell: ({ row }) => (
-        <div className="d-flex gap-2">
+        <div className="d-flex justify-content-end align-items-center gap-2">
           <button
-            className={`btn btn-sm ${
-              row.original.status === "inactive"
-                ? "btn-outline-success"
-                : "btn-outline-secondary"
-            }`}
+            className={`btn btn-sm ${row.original.status === "inactive" ? "btn-outline-success" : "btn-outline-secondary"}`}
+            onClick={() =>
+              handleToggleStatus(row.original.id, row.original.status)
+            }
             disabled={isActionLoading}
           >
-            {row.original.status === "inactive" ? "Reactivate" : "Deactivate"}
+            {isActionLoading ? (
+              <Spinner size="sm" />
+            ) : row.original.status === "inactive" ? (
+              "Reactivate"
+            ) : (
+              "Deactivate"
+            )}
           </button>
+
+          <Dropdown align="end">
+            <Dropdown.Toggle
+              as="button"
+              className="btn btn-sm p-1 border-0 shadow-none no-caret bg-transparent"
+            >
+              <i className="bi bi-three-dots-vertical fs-5 text-dark"></i>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className="shadow border-0 dropdown-menu-custom">
+              <Dropdown.Item className="py-2">
+                <i className="bi bi-eye me-2 text-secondary"></i> View
+              </Dropdown.Item>
+              <Dropdown.Item className="py-2">
+                <i className="bi bi-pencil me-2 text-secondary"></i> Update
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item
+                className="py-2 text-secondary"
+                onClick={() => handleDelete(row.original.id)}
+              >
+                <i className="bi bi-trash me-2"></i> Delete
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       ),
     }),
   ];
 
-  // Initialize table
   const table = useReactTable({
     data: employees,
     columns,
-    state: {
-      columnFilters,
-      globalFilter,
-    },
+    state: { columnFilters },
     onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-  console.log(table.getState().columnFilters);
-  // Fetch employees on component mount
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    dispatch(fetchEmployees() as any);
-  }, [dispatch]);
-
-  // Handle errors
-  useEffect(() => {
-    if (error) {
-      toast({
-        message: `Error: ${error}`,
-        duration: 5000,
-      });
-      dispatch(clearEmployerError());
-    }
-  }, [error, toast, dispatch]);
-
-  // Apply search filter
-  useEffect(() => {
-    table.setGlobalFilter(searchQuery);
-  }, [searchQuery, table]);
 
   return (
-    <div className="p-3">
-      {/* Table */}
-      <div className="table-responsive">
-        <table className="table table-hover mb-0 my-borderless-table">
-          <thead className="bg-light my-borderless-table">
+    <>
+      <style>
+        {`
+          .table-responsive { overflow: visible !important; padding-bottom: 100px; }
+          .no-caret::after { display: none !important; }
+          .dropdown-menu-custom { min-width: 150px; z-index: 1060; }
+          tr, td { position: static !important; }
+        `}
+      </style>
+
+      <div className="table-responsive p-3">
+        <table className="table table-hover">
+          <thead className="bg-light">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className={`border-0 py-3 text-muted fw-semibold ${header.id === "actions" ? "text-start" : ""}`}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                  <th key={header.id} className="py-3">
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+                    {header.column.getCanFilter() && (
+                      <input
+                        className="form-control form-control-sm mt-2"
+                        placeholder="Search..."
+                        onChange={(e) =>
+                          header.column.setFilterValue(e.target.value)
+                        }
+                      />
+                    )}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
-          <tbody className="tbody ">
-            {isLoading ? (
-              <tr>
-                <td colSpan={columns.length} className="text-center py-5 px-3">
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <p className="mt-2 text-muted">Fetching employees...</p>
-                </td>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className="py-3 align-middle">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
               </tr>
-            ) : table.getRowModel().rows.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={columns.length}
-                  className="text-center py-5 px-3 text-muted"
-                >
-                  No employees found.
-                </td>
-              </tr>
-            ) : (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="py-3 px-2">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            )}
+            ))}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
-        <div className="text-muted">
-          Showing {table.getFilteredRowModel().rows.length} of{" "}
-          {employees.length} employees
-        </div>
-        <div className="d-flex gap-2">
-          <button
-            className="btn btn-sm btn-outline-secondary"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </button>
-          <button
-            className="btn btn-sm btn-outline-secondary"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    </div>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {modalType === "success" ? "Success" : "Error"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 

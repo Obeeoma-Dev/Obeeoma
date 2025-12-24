@@ -38,7 +38,7 @@ const MfaSetupPage: React.FC = () => {
     const result = await dispatch(confirmMfa(payload));
 
     if (confirmMfa.fulfilled.match(result)) {
-      alert("MFA successfully enabled! Redirecting...");
+      alert("MFA successfully! Redirecting...");
       // Navigation should happen here, e.g., navigate('/settings');
     }
   };
@@ -54,6 +54,12 @@ const MfaSetupPage: React.FC = () => {
       <Alert variant="success" className="text-center p-5">
         <h4>Multi-Factor Authentication is Active!</h4>
         <p>Your account is now protected. You can close this window.</p>
+        <Button
+          variant="success"
+          onClick={() => (window.location.href = "/system-admin")}
+        >
+          CLOSE
+        </Button>
       </Alert>
     );
   }
@@ -86,13 +92,14 @@ const MfaSetupPage: React.FC = () => {
         </div>
         <Card.Body>
           <h3 className="text-center mb-4 fw-semibold">
-            Enable Two-Factor Authentication
+            Two-Factor Authentication
           </h3>
 
           {error && <Alert variant="danger">{error}</Alert>}
 
           <p className="text-center text-muted mb-4">
-            Scan the QR code below using an authenticator app...
+            Scan the QR code below using an authenticator app.if you haven't set
+            it up yet,
           </p>
 
           {mfaSetupData ? (
@@ -143,7 +150,7 @@ const MfaSetupPage: React.FC = () => {
                   {isLoading ? (
                     <Spinner as="span" animation="border" size="sm" />
                   ) : (
-                    "Confirm and Enable MFA"
+                    "Confirm  MFA"
                   )}
                 </Button>
               </Form>

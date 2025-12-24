@@ -81,9 +81,8 @@ jobs:
           key: ${{ secrets.DROPLET_SSH_KEY }}
           port: ${{ secrets.DROPLET_SSH_PORT }}
 
-          # Increased to prevent build timeout
-          timeout: 60m
-          command_timeout: 60m
+          timeout: 30m
+          command_timeout: 30m
 
           script: |
             set -e
@@ -92,7 +91,7 @@ jobs:
             cd /home/obeeoma/obeeoma_project/Obeeoma
 
             if [ ! -d ".git" ]; then
-              echo " Error: Not a git repository"
+              echo "Error: Not a git repository"
               exit 1
             fi
 
@@ -106,7 +105,7 @@ jobs:
             echo "Restarting containers..."
             docker compose up -d frontend --remove-orphans
 
-            echo " Cleaning up dangling Docker images..."
+            echo "Cleaning up dangling Docker images..."
             docker image prune -f
 
             echo "Deployment completed successfully"

@@ -68,6 +68,53 @@ export const inviteEmployee = createAsyncThunk<
   }
 });
 
+export const toggleEmployeeStatus = createAsyncThunk<
+  { id: string; status: string },
+  { id: string; currentStatus: string },
+  { rejectValue: string }
+>(
+  "employer/toggleEmployeeStatus",
+  async ({ id, currentStatus }, { rejectWithValue }) => {
+    try {
+      const newStatus = currentStatus === "active" ? "inactive" : "active";
+      await employerAPI.updateEmployeeStatus(
+        `/v1/employees/${id}/status`,
+        newStatus,
+      );
+      return { id, status: newStatus };
+    } catch (error: unknown) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
+
+export const deleteEmployee = createAsyncThunk<
+  Employee[],
+  string,
+  { rejectValue: string }
+>("employer/deleteEmployee", async (employeeId, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.deleteEmployee(employeeId);
+    return response.data as Employee[];
+  } catch (error: unknown) {
+    return rejectWithValue(getErrorMessage(error));
+  }
+});
+
+// export const toggleEmployeeStatus = createAsyncThunk(
+//   "employer/toggleStatus",
+//   async ({ id, currentStatus }, { rejectWithValue }) => {
+//     try {
+//       const newStatus = currentStatus === "active" ? "inactive" : "active";
+//       // Usually a PATCH or POST for updating status
+//       const response = await api.patch(`/v1/employees/${id}/status`, { status: newStatus });
+//       return { id, status: newStatus };
+//     } catch (err) {
+//       return rejectWithValue(err.response.data);
+//     }
+//   }
+// );
+
 export const fetchEmployeeInvites = createAsyncThunk<
   EmployeeInvite[],
   void,
@@ -88,10 +135,6 @@ export const fetchEmployees = createAsyncThunk<
   { rejectValue: string }
 >("employer/fetchEmployees", async (_, { rejectWithValue }) => {
   try {
-    // NOTE: This call should typically be to an /employees endpoint,
-    // but for now, we'll assume employerAPI.getEmployees() works.
-    // The console data suggests the response might be from /v1/invitations,
-    // which has different fields (email, no name/department).
     // MAPPING LOGIC REMAINS AS INFERRED:
     const response = await employerAPI.getEmployees();
     // Handle both response.data.employees and response.data being the array
@@ -101,8 +144,7 @@ export const fetchEmployees = createAsyncThunk<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
       id: employee.id,
-      // CRITICAL MAPPING ASSUMPTION: The API should return full_name, first_name, and last_name.
-      // If it's the invitation list, these will be undefined/empty and will show 'undefined undefined'.
+
       // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A',
       emailAddress: employee.empemail || employee.email || "N/A", // Adjusted to accept 'email' field from the console data
       employeedepartment:
@@ -561,6 +603,37 @@ const employerSlice = createSlice({
         },
       )
       .addCase(addSubscription.rejected, (state, action) => {
+        state.isActionLoading = false;
+        state.error = action.payload || null;
+      })
+
+      .addCase(deleteEmployee.pending, (state) => {
+        state.isActionLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteEmployee.fulfilled, (state, action) => {
+        state.isActionLoading = false;
+        state.employees = state.employees.filter(
+          (emp) => emp.id !== Number(action.payload),
+        );
+      })
+      .addCase(deleteEmployee.rejected, (state, action) => {
+        state.isActionLoading = false;
+        state.error = action.payload || null;
+      })
+      .addCase(toggleEmployeeStatus.pending, (state) => {
+        state.isActionLoading = true;
+        state.error = null;
+      })
+      .addCase(toggleEmployeeStatus.fulfilled, (state, action) => {
+        state.isActionLoading = false;
+        const { id, status } = action.payload;
+        const employee = state.employees.find((emp) => emp.id === Number(id));
+        if (employee) {
+          employee.status = status as Employee["status"];
+        }
+      })
+      .addCase(toggleEmployeeStatus.rejected, (state, action) => {
         state.isActionLoading = false;
         state.error = action.payload || null;
       });
