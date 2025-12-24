@@ -88,9 +88,9 @@ const ClientEngagement = () => {
     // Render dashboard layout
     return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(AdminSidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
                             flex: 1,
-                            overflowY: 'auto',
-                            padding: '1rem',
-                            backgroundColor: '#f8f9fa',
+                            overflowY: "auto",
+                            padding: "1rem",
+                            backgroundColor: "#f8f9fa",
                         }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, { engagementRate: data?.engagementRate ?? 0, activePrograms: data?.activePrograms ?? 0, totalPoints: data?.totalPoints ?? 0 }), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, { topRewards: [
                                             { name: "Madison Carano", points: 1200 },
                                             { name: "William Johnson", points: 980 },

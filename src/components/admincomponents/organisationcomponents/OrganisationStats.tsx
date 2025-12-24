@@ -20,7 +20,6 @@ export interface StatCardData {
   iconColor: string;
 }
 
-
 /**
  * Props interface for OrganizationStats component
  * Accepts an array of StatCardData objects
@@ -48,11 +47,11 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
       <Row className="gy-4">
         {stats.map((stat) => {
           // Dynamically select icon from lucide-react
-          const IconComponent =
-            (Icons[stat.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
-              size?: number;
-              color?: string;
-            }>;
+          const IconComponent = (Icons[stat.icon as keyof typeof Icons] ??
+            Icons.Activity) as React.FC<{
+            size?: number;
+            color?: string;
+          }>;
 
           return (
             <Col key={stat.id} xs={12} md={6} lg={3}>

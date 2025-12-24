@@ -1,6 +1,6 @@
 // src/components/admincomponents/settingsappearancecomp/ThemeSelector.tsx
-import React from 'react';
-import { Form } from 'react-bootstrap';
+import React from "react";
+import { Form } from "react-bootstrap";
 
 interface ThemeSelectorProps {
   selectedTheme: string;
@@ -8,8 +8,11 @@ interface ThemeSelectorProps {
 }
 
 // This component renders radio buttons for selecting the theme.
-const ThemeSelector: React.FC<ThemeSelectorProps> = ({ selectedTheme, onChange }) => {
-  const themes = ['Light', 'Dark', 'System'];
+const ThemeSelector: React.FC<ThemeSelectorProps> = ({
+  selectedTheme,
+  onChange,
+}) => {
+  const themes = ["Light", "Dark", "System"];
 
   return (
     <Form.Group>

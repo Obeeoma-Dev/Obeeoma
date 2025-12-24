@@ -56,11 +56,17 @@ const PlatformUsageChart: React.FC = () => {
               variant="light"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`px-3 py-2 border-0 position-relative ${activeTab === tab.id ? "fw-semibold text-success" : "text-secondary"
-                }`}
+              className={`px-3 py-2 border-0 position-relative ${
+                activeTab === tab.id
+                  ? "fw-semibold text-success"
+                  : "text-secondary"
+              }`}
               style={{
                 backgroundColor: "transparent",
-                borderBottom: activeTab === tab.id ? "3px solid #3CB371" : "3px solid transparent",
+                borderBottom:
+                  activeTab === tab.id
+                    ? "3px solid #3CB371"
+                    : "3px solid transparent",
                 borderRadius: 0,
                 transition: "border-bottom 0.2s ease",
                 boxShadow: activeTab === tab.id ? "0 2px 0 #19875466" : "none",
@@ -72,9 +78,7 @@ const PlatformUsageChart: React.FC = () => {
         </ButtonGroup>
 
         {/* Dynamic section header with green underline */}
-        <h5
-          className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
-        >
+        <h5 className="fw-semibold text-dark mb-4 md-4 position-relative ms-5">
           {activeTab === "platform" && "Weekly Platform Usage"}
           {activeTab === "organization" && "Monthly Organization Growth"}
           {activeTab === "subscription" && "Monthly Subscription Revenue"}
@@ -88,7 +92,11 @@ const PlatformUsageChart: React.FC = () => {
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               {/* Clean horizontal grid */}
-              <CartesianGrid stroke="#dee2e6" strokeDasharray="0" vertical={false} />
+              <CartesianGrid
+                stroke="#dee2e6"
+                strokeDasharray="0"
+                vertical={false}
+              />
 
               {/* X-axis with subtle styling */}
               <XAxis
@@ -123,7 +131,12 @@ const PlatformUsageChart: React.FC = () => {
                 strokeWidth={3}
                 fill="#198754"
                 fillOpacity={0.1}
-                dot={{ r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }}
+                dot={{
+                  r: 3,
+                  stroke: "#198754",
+                  strokeWidth: 1,
+                  fill: "#ffffff",
+                }}
                 activeDot={{ r: 5 }}
               />
             </AreaChart>
@@ -144,7 +157,11 @@ const PlatformUsageChart: React.FC = () => {
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               {/* Horizontal grid only */}
-              <CartesianGrid stroke="#dee2e6" strokeDasharray="0" vertical={false} />
+              <CartesianGrid
+                stroke="#dee2e6"
+                strokeDasharray="0"
+                vertical={false}
+              />
 
               {/* X-axis: week labels */}
               <XAxis
@@ -177,7 +194,12 @@ const PlatformUsageChart: React.FC = () => {
                 dataKey="value"
                 stroke="#198754" // Bootstrap blue
                 strokeWidth={3}
-                dot={{ r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }}
+                dot={{
+                  r: 3,
+                  stroke: "#198754",
+                  strokeWidth: 1,
+                  fill: "#ffffff",
+                }}
                 activeDot={{ r: 5 }}
               />
             </LineChart>
@@ -197,7 +219,11 @@ const PlatformUsageChart: React.FC = () => {
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               {/* Horizontal grid only */}
-              <CartesianGrid stroke="#dee2e6" strokeDasharray="0" vertical={false} />
+              <CartesianGrid
+                stroke="#dee2e6"
+                strokeDasharray="0"
+                vertical={false}
+              />
 
               {/* X-axis: week labels */}
               <XAxis
@@ -232,7 +258,12 @@ const PlatformUsageChart: React.FC = () => {
                 strokeWidth={3}
                 fill="#198754"
                 fillOpacity={0.1}
-                dot={{ r: 3, stroke: "#198754", strokeWidth: 1, fill: "#ffffff" }}
+                dot={{
+                  r: 3,
+                  stroke: "#198754",
+                  strokeWidth: 1,
+                  fill: "#ffffff",
+                }}
                 activeDot={{ r: 5 }}
               />
             </AreaChart>

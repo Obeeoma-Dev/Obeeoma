@@ -2,27 +2,27 @@ import React, { useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { Calendar, Clock, User } from 'lucide-react'
 interface BlogCardProps {
-    id: number
-    title: string
-    excerpt: string
-    image: string
-    category: string
-    date: string
-    readTime: string
-    author: string
-    featured?: boolean
-    animationDelay?: number
+  id: number;
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  date: string;
+  readTime: string;
+  author: string;
+  featured?: boolean;
+  animationDelay?: number;
 }
 export function BlogCard({
-    title,
-    excerpt,
-    image,
-    category,
-    date,
-    readTime,
-    author,
-    featured = false,
-    animationDelay = 0,
+  title,
+  excerpt,
+  image,
+  category,
+  date,
+  readTime,
+  author,
+  featured = false,
+  animationDelay = 0,
 }: BlogCardProps) {
     const [, setIsHovered] = useState(false)
     return (

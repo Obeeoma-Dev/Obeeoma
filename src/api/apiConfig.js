@@ -1,6 +1,9 @@
 // Company logo API endpoints
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
+// Company logo API endpoints
+export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
+export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 // declare const authApiClient: any;
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -9,12 +12,12 @@ export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
 });
 export const setupApiInterceptors = (store) => {
     api.interceptors.request.use((config) => {
-        const requestPath = config.url || '';
+        const requestPath = config.url || "";
         const publicEndpoints = [
             "/v1/auth/login/",
             "/v1/auth/signup/",
@@ -22,17 +25,16 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/change-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
-            "/v1/auth/verify-otp/",
-            "/v1/auth/mfa/setup/",
-            "/v1/auth/mfa/confirm/",
+            " v1/auth/verify-invitation-otp/",
+            // "/v1/auth/logout/",
         ];
-        const isPublicEndpoint = publicEndpoints.some(path => requestPath.endsWith(path));
-        // checking the redux token
+        const isPublicEndpoint = publicEndpoints.some((path) => requestPath.endsWith(path));
+        //check local storage first (more reliable)
+        const persistedToken = localStorage.getItem("token");
+        // checking the redux token as fallback
         const state = store.getState();
         const token = state.auth.token;
-        //check local storage
-        const persistedToken = localStorage.getItem('token');
-        const activeToken = token || persistedToken;
+        const activeToken = persistedToken || token;
         if (activeToken && !isPublicEndpoint) {
             //  "inject the authorization"
             config.headers.Authorization = `Bearer ${activeToken}`;
@@ -45,7 +47,12 @@ export const setupApiInterceptors = (store) => {
             method: config.method,
             url: config.url,
             data: config.data,
-            token_injected: !!(token && !isPublicEndpoint),
+            token_injected: !!(activeToken && !isPublicEndpoint),
+            token_source: persistedToken
+                ? "localStorage"
+                : token
+                    ? "redux"
+                    : "none",
         });
         return config;
     }, (error) => {
@@ -109,13 +116,8 @@ export const authAPI = {
     },
     //for logout
     logout: async () => {
-        const refreshToken = localStorage.getItem('refresh');
-        const accessToken = localStorage.getItem('token');
-        return api.post('/v1/auth/logout/', { refresh: refreshToken }, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            },
-        });
+        const refreshToken = localStorage.getItem("refresh");
+        api.post("/v1/auth/logout/", { refresh: refreshToken });
     },
     forgotPassword: async (data) => {
         const response = await api.post("/v1/auth/reset-password/", data);
@@ -126,20 +128,24 @@ export const authAPI = {
         const response = await api.post("/v1/auth/reset-password/complete/", data);
         return response;
     },
+    ChangeorgPassword: async (data) => {
+        const response = await api.post("/v1/auth/change-password/", data);
+        return response;
+    },
     verifyOtp: async (payload) => {
-        const response = await api.post("v1/auth/verify-otp/", payload);
+        const response = await api.post("v1/auth/verify-password-reset-otp/", payload);
         return response;
     },
     resendOtp: (payload) => {
-        return api.post('v1/auth/verify-otp/', payload);
+        return api.post("v1/auth/verify-password-reset-otp/", payload);
     },
     fetchMfaSetupData: async (payload) => {
         const response = await api.post("/v1/auth/mfa/setup/", payload);
         return response;
     },
     confirmMfaSetup: async (payload) => {
-        // The payload is expected to be an object: { code: string }
-        const response = await api.post("/v1/auth/mfa/confirm/", payload);
+        // The payload is expected to be an object: { temp_token: string, code: string }
+        const response = await api.post("/v1/auth/mfa/verify/", payload);
         return response;
     },
 };
@@ -215,6 +221,99 @@ export const adminAPI = {
     },
 };
 // employer endpoints
+// export const employerAPI = {
+//   // Profile
+//   getCurrentEmployer: async () => {
+//     const response = await api.get("/v1/users/");
+//     return response;
+//   },
+//   // Dashboard Settings
+//   getDashboardSettings: async () => {
+//     const response = await api.get("/v1/settings/");
+//     return response;
+//   },
+//   //change links back to correct ones it i
+//   // Employee Management
+//   inviteEmployee: async (employeeData: { email: string; phone?: string; department: string }) => {
+//     const response = await api.post("/v1/auth/invitations/", employeeData);
+//     return response;
+//   },
+//   viewInviteEmployee: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+//   // getEmployees: async () => {
+//   //   const response = await api.get("/v1/invitations");
+//   //   return response;
+//   // },
+//     getEmployees: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+//   // Analytics & Dashboard
+//   getemployerdashboardSummary: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+//   getEmployeeStatus: async () => {
+//     const response = await api.get("/v1/engagement-level/");
+//     return response;
+//   },
+//   getEngagement: async () => {
+//     const response = await api.get("/v1/tests-by-type/");
+//     return response;
+//   },
+//   getReports: async () => {
+//     const response = await api.post("/v1/wellness-reports/");
+//     return response;
+//   },
+//   // Wellness Data
+//   getMoodTrends: async () => {
+//     const response = await api.get("/v1/dashboard/trends/");
+//     return response;
+//   },
+//   getDepartmentDistribution: async () => {
+//     const response = await api.get("/v1/dashboard/departments");
+//     return response;
+//   },
+//     postDepartmentDistribution: async () => {
+//     const response = await api.post("/v1/auth/invitations/");
+//     return response;
+//   },
+//   getWellnessTrend: async () => {
+//     const response = await api.get("/v1/auth/invitations/");
+//     return response;
+//   },
+//   getRecentActivities: async () => {
+//     const response = await api.get("/v1/dashboard/recent-activities/");
+//     return response;
+//   },
+//   //   viewUsage: async () => {
+//   //   return api.get<UsageData>("/subscription/usage/");
+//   // },
+//   // Billing
+//   viewSubscription: async () => {
+//     const response = await api.post("/v1/dashboard/billing/add-subscription/");
+//     return response;
+//   },
+//   viewBilling: async () => {
+//     const response = await api.get("/v1/dashboard/billing/view");
+//     return response;
+//   },
+//     updatePaymentMethod: async (payload: PaymentUpdatePayload) => {
+//     return api.post("/v1/employer/billing/update-payment-method/", payload);
+//   },
+//   viewBillingHistory: async () => {
+//     return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");
+//   },
+//   // Data Export & Deletion
+//   exportAllData: async () => {
+//     return api.get("/v1/employer/data/export/", { responseType: 'blob' });
+//   },
+//   deleteAllData: async () => {
+//     return api.delete("/v1/employer/data/delete-all/");
+//   },
+// };
 export const employerAPI = {
     // Profile
     getCurrentEmployer: async () => {
@@ -226,27 +325,26 @@ export const employerAPI = {
         const response = await api.get("/v1/settings/");
         return response;
     },
-    //change links back to correct ones it i
     // Employee Management
     inviteEmployee: async (employeeData) => {
-        const response = await api.post("/v1/invitations/", employeeData);
+        const response = await api.post("/v1/auth/invitations/", employeeData);
         return response;
     },
     viewInviteEmployee: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     getEmployees: async () => {
-        const response = await api.get("/v1/invitations");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     // Analytics & Dashboard
     getemployerdashboardSummary: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     getEmployeeStatus: async () => {
-        const response = await api.get("/v1/employee-status/");
+        const response = await api.get("/v1/engagement-level/");
         return response;
     },
     getEngagement: async () => {
@@ -256,6 +354,35 @@ export const employerAPI = {
     getReports: async () => {
         const response = await api.post("/v1/wellness-reports/");
         return response;
+    },
+    getriskassessmentReports: async () => {
+        const response = await api.post("/v1/download/risk-assessment/");
+        return response;
+    },
+    getdepartmentanalysisReports: async () => {
+        const response = await api.post("/v1/download/department-analysis/");
+        return response;
+    },
+    getengagementReports: async () => {
+        const response = await api.post("/v1/download/engagement/");
+        return response;
+    },
+    /**
+     * PDF/Blob Download Method
+     */
+    getReportBlob: async (url) => {
+        const state = store.getState();
+        const token = state.auth.token;
+        const persistedToken = localStorage.getItem("token");
+        const activeToken = token || persistedToken;
+        const res = await fetch(API_BASE_URL + url, {
+            method: "get",
+            headers: {
+                Authorization: `Bearer ${activeToken}`,
+                "Content-Type": "application/pdf",
+            },
+        });
+        return await res.blob();
     },
     // Wellness Data
     getMoodTrends: async () => {
@@ -267,20 +394,17 @@ export const employerAPI = {
         return response;
     },
     postDepartmentDistribution: async () => {
-        const response = await api.post("/v1/invitations/");
+        const response = await api.post("/v1/auth/invitations/");
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/v1/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
         return response;
     },
     getRecentActivities: async () => {
         const response = await api.get("/v1/dashboard/recent-activities/");
         return response;
     },
-    //   viewUsage: async () => {
-    //   return api.get<UsageData>("/subscription/usage/");
-    // },
     // Billing
     viewSubscription: async () => {
         const response = await api.post("/v1/dashboard/billing/add-subscription/");
@@ -290,15 +414,18 @@ export const employerAPI = {
         const response = await api.get("/v1/dashboard/billing/view");
         return response;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     updatePaymentMethod: async (payload) => {
         return api.post("/v1/employer/billing/update-payment-method/", payload);
     },
     viewBillingHistory: async () => {
-        return api.get("v1/dashboard/subscriptions/billing-history/");
+        return api.get("/v1/dashboard/subscriptions/billing-history/");
     },
     // Data Export & Deletion
     exportAllData: async () => {
-        return api.get("/v1/employer/data/export/", { responseType: 'blob' });
+        return api.get("/v1/employer/data/export/", {
+            responseType: "blob", // Correctly configured for binary export
+        });
     },
     deleteAllData: async () => {
         return api.delete("/v1/employer/data/delete-all/");

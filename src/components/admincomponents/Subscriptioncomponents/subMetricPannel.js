@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col } from "react-bootstrap";
 /**
  * MetricsPanel Component
  *

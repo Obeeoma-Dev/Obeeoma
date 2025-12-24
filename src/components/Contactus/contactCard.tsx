@@ -7,18 +7,18 @@ import { LucideIcon } from "lucide-react";
 
 // Define TypeScript interface for the props this component will receive
 interface ContactCardProps {
-    icon: LucideIcon; // The icon component to display (e.g., Phone, Mail, etc.)
-    title: string; // The title text (e.g., "Email Us")
-    content: string; // The main content (e.g., the email address)
-    link?: string; // Optional link (e.g., mailto: or https://)
+  icon: LucideIcon; // The icon component to display (e.g., Phone, Mail, etc.)
+  title: string; // The title text (e.g., "Email Us")
+  content: string; // The main content (e.g., the email address)
+  link?: string; // Optional link (e.g., mailto: or https://)
 }
 
 // Define and export the ContactCard component
 export function ContactCard({
-    icon: Icon, // Rename `icon` to `Icon` so we can use it as a React component later
-    title,
-    content,
-    link,
+  icon: Icon, // Rename `icon` to `Icon` so we can use it as a React component later
+  title,
+  content,
+  link,
 }: ContactCardProps) {
     // Build the card’s main content (used in both link and non-link versions)
     const CardContent = (
@@ -41,13 +41,13 @@ export function ContactCard({
                 <Icon size={45} color="white" />
             </div>
 
-            {/* Title text */}
-            <h3 className="fs-5 fw-semibold text-success mb-2">{title}</h3>
+      {/* Title text */}
+      <h3 className="fs-5 fw-semibold text-success mb-2">{title}</h3>
 
-            {/* Description or contact text */}
-            <p className="text-secondary mb-0">{content}</p>
-        </>
-    );
+      {/* Description or contact text */}
+      <p className="text-secondary mb-0">{content}</p>
+    </>
+  );
 
     // If there is a link prop, render the entire card as a clickable link
     if (link) {
@@ -87,28 +87,27 @@ export function ContactCard({
         );
     }
 
-    // Otherwise, render a normal static card without a link
-    return (
-        <Card
-            className="text-center border-0 hover-shadow-lg transition-all"
-            style={{
-                borderRadius: "20px", // Rounded edges
-                padding: "20px", // Inner spacing
-                transition: "all 0.3s ease", // Smooth hover animation
-                fontFamily: "body"
-            }}
-
-            // Adding a lift effect on card hover:
-            onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-8px)";
-                e.currentTarget.style.boxShadow = "0 5rem 6rem rgba(0,0,0,0.3)";
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 3rem 3.5rem rgba(0,0,0,0.075)";
-            }}
-        >
-            <Card.Body>{CardContent}</Card.Body>
-        </Card>
-    );
+  // Otherwise, render a normal static card without a link
+  return (
+    <Card
+      className="text-center border-0 hover-shadow-lg transition-all"
+      style={{
+        borderRadius: "20px", // Rounded edges
+        padding: "20px", // Inner spacing
+        transition: "all 0.3s ease", // Smooth hover animation
+        fontFamily: "body",
+      }}
+      // Adding a lift effect on card hover:
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-8px)";
+        e.currentTarget.style.boxShadow = "0 5rem 6rem rgba(0,0,0,0.3)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "0 3rem 3.5rem rgba(0,0,0,0.075)";
+      }}
+    >
+      <Card.Body>{CardContent}</Card.Body>
+    </Card>
+  );
 }

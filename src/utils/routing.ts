@@ -13,9 +13,9 @@ export const getDashboardRoute = (user: User | null): string => {
   switch (user.role) {
     case "systemadmin":
       return "/system-admin";
-    case 'employer':
+    case "employer":
       return "/employer-dashboard";
-    case 'employee':
+    case "employee":
       return "/employee-dashboard";
     default:
       console.warn(`Unrecognized role: ${user.role}. Redirecting to default.`);
@@ -29,20 +29,25 @@ export const getDashboardRoute = (user: User | null): string => {
  * @param route - The route to check access for
  * @returns boolean indicating if the user can access the route
  */
-export const hasRoutePermission = (user: User | null, route: string): boolean => {
+export const hasRoutePermission = (
+  user: User | null,
+  route: string,
+): boolean => {
   if (!user) {
     return false;
   }
 
   const userDashboard = getDashboardRoute(user);
-  
+
   // Check if the route starts with the user's dashboard path
-  return route.startsWith(userDashboard) || 
-         route === "/dashboard" || 
-         route === "/login" || 
-         route === "/signup" ||
-         route === "/reset-password" ||
-         route === "/reset-password-signin";
+  return (
+    route.startsWith(userDashboard) ||
+    route === "/dashboard" ||
+    route === "/login" ||
+    route === "/signup" ||
+    route === "/reset-password" ||
+    route === "/reset-password-signin"
+  );
 };
 
 /**
@@ -50,8 +55,8 @@ export const hasRoutePermission = (user: User | null, route: string): boolean =>
  */
 export const ROLE_ROUTES = {
   admin: "/system-admin",
-  employer: "/employer-dashboard", 
-  employee: "/employee-dashboard"
+  employer: "/employer-dashboard",
+  employee: "/employee-dashboard",
 } as const;
 
 export type UserRole = keyof typeof ROLE_ROUTES;

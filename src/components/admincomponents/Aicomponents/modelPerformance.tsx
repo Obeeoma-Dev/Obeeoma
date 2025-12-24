@@ -1,8 +1,8 @@
 // src/components/admincomponents/aimanagementcomponents/ModelPerformance.tsx
 
-import React from 'react';
-import { Card, ListGroup, Badge } from 'react-bootstrap';
-import { Speedometer } from 'react-bootstrap-icons';
+import React from "react";
+import { Card, ListGroup, Badge } from "react-bootstrap";
+import { Speedometer } from "react-bootstrap-icons";
 
 // Props interface for model performance data
 interface ModelPerformanceProps {
@@ -34,10 +34,10 @@ const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
               <Badge
                 bg={
                   model.score >= 85
-                    ? 'success'
+                    ? "success"
                     : model.score >= 70
-                      ? 'warning'
-                      : 'danger'
+                      ? "warning"
+                      : "danger"
                 }
               >
                 {model.score}%

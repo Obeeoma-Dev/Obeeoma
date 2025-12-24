@@ -1,7 +1,7 @@
 // src/components/admincomponents/subscriptioncomponents/RecentSubscriptionsTable.tsx
 
-import React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import React from "react";
+import { Table, Button } from "react-bootstrap";
 
 // Define the shape of each subscription entry
 interface Subscription {
@@ -10,7 +10,7 @@ interface Subscription {
   employees: number;
   startDate: string;
   endDate: string;
-  status: 'Active' | 'Inactive';
+  status: "Active" | "Inactive";
 }
 
 // Props interface for backend-ready data injection

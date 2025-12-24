@@ -83,8 +83,7 @@ const mockStats: StatCardData[] = [
     title: "Active Programs",
     value: "0",
     change: "+5 this month",
-    icon: "CircleCheckBig"
-    ,
+    icon: "CircleCheckBig",
     iconColor: "bg-warning-subtle text-primary",
     // subtitle: "Active organizations",
     // linkText: "View all organizations",
@@ -102,8 +101,6 @@ const mockStats: StatCardData[] = [
     // color: "emerald",
   },
 ];
-
-
 
 /**
  * Main admin page for managing organizations.

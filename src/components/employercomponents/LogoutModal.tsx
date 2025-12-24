@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 
 interface LogoutModalProps {
   isOpen: boolean;
@@ -14,37 +13,40 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
   onClose,
   onConfirm,
   userName = "Billy",
-  userLocation = "Location"
+  userLocation = "Location",
 }) => {
   if (!isOpen) return null;
 
   const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  const formattedDate = currentDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
-  const formattedTime = currentDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
+  const formattedTime = currentDate.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
   });
 
   return (
-    <div 
-      className="modal fade show d-block" 
-      style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-      tabIndex={-1} >
+    <div
+      className="modal fade show d-block"
+      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+      tabIndex={-1}
+    >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header border-0 pb-0">
             <h5 className="modal-title fw-bold">Log out</h5>
           </div>
-          
+
           <div className="modal-body pt-0">
-            <p className="mb-4">Are you sure you want to complete this action?</p>
-            
+            <p className="mb-4">
+              Are you sure you want to complete this action?
+            </p>
+
             {/* User Info */}
             <div className="card border-0 bg-light mb-3">
               <div className="card-body">

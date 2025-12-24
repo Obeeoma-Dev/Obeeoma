@@ -27,12 +27,17 @@ const CompanyReports = () => {
   );
 
   return (
-    <Layout 
-      title="Company Reports" 
+    <Layout
+      title="Company Reports"
       showSearch={true}
-      additionalHeaderContent={additionalHeader}>
+      additionalHeaderContent={additionalHeader}
+    >
       <div className="container-fluid py-4">
-        <WellnessTrends />
+        <div>
+          <h3 className="mb-4">Wellness Trends</h3>
+          <div className="mb-4"></div>
+          <WellnessTrends />
+        </div>
         <DepartmentMetrics />
         <AvailableReports />
         <KeyMetrics />

@@ -8,10 +8,10 @@
 // and only refines layout and data to match the dashboard in your image.
 
 // 1) Import React features we need from the React library.
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 // 2) Import helpers from react-router-dom to read the URL and navigate to other pages.
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 
 // 3) Import UI components from react-bootstrap for layout and styling.
 import {
@@ -24,17 +24,17 @@ import {
   ProgressBar, // A progress bar (we will use it to mimic a bar chart)
   Spinner, // A loading spinner shown while fetching data
   Badge, // A small status pill for the "Active" state
-} from 'react-bootstrap';
+} from "react-bootstrap";
 
 // 4) Import your existing Sidebar component (left navigation).
-import Sidebar from '../../../components/admincomponents/adminsidebar';
+import Sidebar from "../../../components/admincomponents/adminsidebar";
 
 // 5) Import your existing Header component (top navigation).
-import Header from '../../../components/admincomponents/adminheader';
+import Header from "../../../components/admincomponents/adminheader";
 
 // 6) Import your existing charts component for the "Platform Usage" line graph.
 //    We will keep using it to avoid breaking working parts.
-import OrganizationCharts from '../../../components/admincomponents/organisationcomponents/organisation.chats';
+import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 
 // 7) Define the TypeScript interface that describes the organization's data.
 //    This helps TypeScript and your editor know what fields exist.
@@ -105,25 +105,25 @@ const OrganizationDetails: React.FC = () => {
       // 16) This is the placeholder data shaped to match the dashboard image.
       const placeholder: OrganizationInfo = {
         // 17) Organization name shown at the top and in cards.
-        name: 'Wellness Center Inc.',
+        name: "Wellness Center Inc.",
         // 18) The admin responsible for the organization.
-        admin: 'Sarah Paul',
+        admin: "Sarah Paul",
         // 19) Total clients count shown in the summary area.
         clients: 245,
         // 20) The number of active programs (image shows 8).
         programs: 8,
         // 21) Last active time shown in the header details.
-        lastActive: '2 hours ago',
+        lastActive: "2 hours ago",
         // 22) The unique ID (image shows "ORG-001").
-        id: 'ORG-001',
+        id: "ORG-001",
         // 23) The subscription plan (image shows "Premium").
-        subscription: 'Premium',
+        subscription: "Premium",
         // 24) Current status (image shows "Active").
-        status: 'Active',
+        status: "Active",
         // 25) Created time (your original had "2 years ago"; we keep it).
-        created: '2 years ago',
+        created: "2 years ago",
         // 26) The region for this organization (image shows "West").
-        region: 'West',
+        region: "West",
         // 27) Program engagement values matching the image (percent values).
         engagementBreakdown: {
           crisisSupport: 45,
@@ -133,18 +133,18 @@ const OrganizationDetails: React.FC = () => {
         },
         // 28) Recent activity items expanded to match the image.
         activity: [
-          'Subscription Renewed: 2 days ago - Premium Plan',
-          'Monthly Report Generated: 1 week ago - August 2023',
-          'Activity Threshold Alert: 3 weeks ago - Low engagement detected',
-          'Client Milestone Achieved: 1 month ago - 50 new active clients',
+          "Subscription Renewed: 2 days ago - Premium Plan",
+          "Monthly Report Generated: 1 week ago - August 2023",
+          "Activity Threshold Alert: 3 weeks ago - Low engagement detected",
+          "Client Milestone Achieved: 1 month ago - 50 new active clients",
         ],
         // 29) Optional navigation links we can show in the page (to mirror the image).
         navigationLinks: [
-          'Organization Settings',
-          'User Management',
-          'Program Settings',
-          'Billing History',
-          'Deactivate Organization',
+          "Organization Settings",
+          "User Management",
+          "Program Settings",
+          "Billing History",
+          "Deactivate Organization",
         ],
       };
 
@@ -203,7 +203,20 @@ const OrganizationDetails: React.FC = () => {
         {/* 45) Top admin header */}
         <Header />
         {/* 46) Main page container with padding and scroll when content is long */}
+<<<<<<< HEAD
         <Container fluid className="p-4 overflow-auto page-background">
+=======
+        <Container fluid className="p-4 overflow-auto">
+          {/* 47) A back button to return to the organizations overview page */}
+          <Button
+            variant="outline-secondary"
+            onClick={() => navigate("/system-admin/organizations")}
+            className="mb-4"
+          >
+            {/* 48) The arrow and text label to make the action clear */}←
+            Wellness Center Inc.
+          </Button>
+>>>>>>> main
 
           {/* Button Row with Flexbox */}
           <div className="d-flex justify-content-between align-items-center mb-4">
@@ -226,7 +239,48 @@ const OrganizationDetails: React.FC = () => {
             </div>
           </div>
 
+<<<<<<< HEAD
           <Card className="p-4 shadow-sm">
+=======
+          {/* Dashboard Grid Row */}
+          <Row className="gy-4 mb-4">
+            {/* Organization Summary Card - positioned top-left */}
+            <Col md={4}>
+              <Card className="shadow-sm h-100">
+                <Card.Header className="fw-semibold">
+                  Organization Summary
+                </Card.Header>
+                <Card.Body>
+                  <Row className="gy-3">
+                    <Col xs={12}>
+                      <strong>Name:</strong> <div>{org.name}</div>
+                    </Col>
+                    <Col xs={12}>
+                      <strong>ID:</strong> <div>{org.id}</div>
+                    </Col>
+                    <Col xs={12}>
+                      <strong>Subscription Plan:</strong>{" "}
+                      <div>{org.subscription}</div>
+                    </Col>
+                    <Col xs={12}>
+                      <strong>Status:</strong>{" "}
+                      <Badge
+                        bg={org.status === "Active" ? "success" : "secondary"}
+                      >
+                        {org.status}
+                      </Badge>
+                    </Col>
+                    <Col xs={12}>
+                      <strong>Region:</strong> <div>{org.region}</div>
+                    </Col>
+                    <Col xs={12}>
+                      <strong>Last Active:</strong> <div>{org.lastActive}</div>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+>>>>>>> main
 
             {/* 49) Page title using the organization name, styled to stand out */}
             <h3 className="text-success fw-bold mb-4">
@@ -266,6 +320,7 @@ const OrganizationDetails: React.FC = () => {
                         {/* </div> */}
                       {/* </Col> */} 
 
+<<<<<<< HEAD
                       {/* Subscription Plan */}
                       <Col xs={12}>
                         <strong>Subscription Plan:</strong>{" "}
@@ -415,6 +470,92 @@ const OrganizationDetails: React.FC = () => {
                 <OrganizationCharts />
               </Card.Body>
             </Card>
+=======
+          {/* 65) Navigation links card to mirror the image's "Navigation Links" section */}
+          <Card className="shadow-sm mb-4">
+            {/* 66) A header label for clarity */}
+            <Card.Header className="fw-semibold">Navigation Links</Card.Header>
+            {/* 67) Card body with a simple list of actions or sections */}
+            <Card.Body>
+              <ListGroup variant="flush">
+                {/* 68) Map through the navigation links if they exist, otherwise show a simple fallback */}
+                {(org.navigationLinks && org.navigationLinks.length > 0
+                  ? org.navigationLinks
+                  : [
+                      "Organization Settings",
+                      "User Management",
+                      "Program Settings",
+                      "Billing History",
+                      "Deactivate Organization",
+                    ]
+                ).map((linkText, index) => (
+                  // 69) Each item is clickable in the future; for now, we just display them.
+                  <ListGroup.Item key={index}>{linkText}</ListGroup.Item>
+                ))}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+
+          {/* 76) Program Engagement card that uses progress bars to mimic the bar chart in the image */}
+          <Card className="shadow-sm mb-4">
+            {/* 77) Header shows what the card contains */}
+            <Card.Header className="fw-semibold">
+              Program Engagement (%)
+            </Card.Header>
+            {/* 78) Body where progress bars are displayed */}
+            <Card.Body>
+              {/* 79) Crisis Support engagement bar */}
+              <div className="mb-3">
+                <strong>Crisis Support</strong>
+                {/* 80) ProgressBar shows the percentage visually */}
+                <ProgressBar
+                  now={org.engagementBreakdown.crisisSupport}
+                  label={`${org.engagementBreakdown.crisisSupport}%`}
+                  variant="danger"
+                />
+              </div>
+              {/* 81) Wellbeing engagement bar */}
+              <div className="mb-3">
+                <strong>Wellbeing</strong>
+                <ProgressBar
+                  now={org.engagementBreakdown.wellbeing}
+                  label={`${org.engagementBreakdown.wellbeing}%`}
+                  variant="success"
+                />
+              </div>
+              {/* 82) Other program 1 engagement bar */}
+              <div className="mb-3">
+                <strong>Program A</strong>
+                <ProgressBar
+                  now={org.engagementBreakdown.other1}
+                  label={`${org.engagementBreakdown.other1}%`}
+                  variant="info"
+                />
+              </div>
+              {/* 83) Other program 2 engagement bar */}
+              <div>
+                <strong>Program B</strong>
+                <ProgressBar
+                  now={org.engagementBreakdown.other2}
+                  label={`${org.engagementBreakdown.other2}%`}
+                  variant="warning"
+                />
+              </div>
+            </Card.Body>
+          </Card>
+
+          {/* 84) Platform Usage card showing the last 6 weeks line graph using your existing component */}
+          <Card className="shadow-sm mb-4">
+            {/* 85) Header title for the chart */}
+            <Card.Header className="fw-semibold">
+              Platform Usage (Last 6 Weeks)
+            </Card.Header>
+            {/* 86) Body contains the charts component. We keep it as-is to avoid breaking changes. */}
+            <Card.Body>
+              <OrganizationCharts />
+            </Card.Body>
+          </Card>
+>>>>>>> main
 
             {/* 87) Recent Activity card showing the activity list items exactly like the image */}
             <Card className="shadow-sm">

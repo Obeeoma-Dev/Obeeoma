@@ -1,5 +1,5 @@
-import React from 'react';
-import { NotificationFilter } from '../../../types/employernotification.types';
+import React from "react";
+import { NotificationFilter } from "../../../types/employernotification.types";
 
 interface FilterTabsProps {
   activeFilter: NotificationFilter;
@@ -12,13 +12,14 @@ const FilterTabs: React.FC<FilterTabsProps> = ({
   activeFilter,
   onFilterChange,
   unreadCount,
-  starredCount
+  starredCount,
 }) => {
-  const filters: { key: NotificationFilter; label: string; badge?: number }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'unread', label: 'Unread Notifications', badge: unreadCount },
-    { key: 'starred', label: 'Starred Notifications', badge: starredCount }
-  ];
+  const filters: { key: NotificationFilter; label: string; badge?: number }[] =
+    [
+      { key: "all", label: "All" },
+      { key: "unread", label: "Unread Notifications", badge: unreadCount },
+      { key: "starred", label: "Starred Notifications", badge: starredCount },
+    ];
 
   return (
     <div className="mb-4">
@@ -28,9 +29,10 @@ const FilterTabs: React.FC<FilterTabsProps> = ({
             key={filter.key}
             className={`btn position-relative`}
             style={{
-              backgroundColor: activeFilter === filter.key ? '#22C55E' : undefined,
-              borderColor: activeFilter === filter.key ? '#22C55E' : undefined,
-              color: activeFilter === filter.key ? 'white' : undefined
+              backgroundColor:
+                activeFilter === filter.key ? "#22C55E" : undefined,
+              borderColor: activeFilter === filter.key ? "#22C55E" : undefined,
+              color: activeFilter === filter.key ? "white" : undefined,
             }}
             onClick={() => onFilterChange(filter.key)}
           >

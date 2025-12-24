@@ -3,16 +3,39 @@ import { Offcanvas, Button, Form, Row, Col } from "react-bootstrap";
 import { BlogPost } from "./BlogTable"; // reuse the BlogPost type
 
 type BlogFormProps = {
-    show: boolean;
-    mode: "add" | "edit";
-    initialData?: BlogPost | null;
-    onClose: () => void;
-    onSubmit: (data: BlogPost) => void;
+  show: boolean;
+  mode: "add" | "edit";
+  initialData?: BlogPost | null;
+  onClose: () => void;
+  onSubmit: (data: BlogPost) => void;
 };
 
-export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFormProps) {
-    const [formData, setFormData] = useState<BlogPost>({
-        id: "",
+export function BlogForm({
+  show,
+  mode,
+  initialData,
+  onClose,
+  onSubmit,
+}: BlogFormProps) {
+  const [formData, setFormData] = useState<BlogPost>({
+    id: "",
+    title: "",
+    category: "",
+    date: "",
+    status: "draft",
+    excerpt: "",
+    imageUrl: "",
+    author: "",
+    content: "",
+    featured: false,
+  });
+
+  useEffect(() => {
+    if (initialData && mode === "edit") {
+      setFormData(initialData);
+    } else {
+      setFormData({
+        id: crypto.randomUUID(),
         title: "",
         category: "",
         date: "",
@@ -22,38 +45,23 @@ export function BlogForm({ show, mode, initialData, onClose, onSubmit }: BlogFor
         author: "",
         content: "",
         featured: false,
-    });
-
-    useEffect(() => {
-        if (initialData && mode === "edit") {
-            setFormData(initialData);
-        } else {
-            setFormData({
-                id: crypto.randomUUID(),
-                title: "",
-                category: "",
-                date: "",
-                status: "draft",
-                excerpt: "",
-                imageUrl: "",
-                author: "",
-                content: "",
-                featured: false,
-            });
-        }
-    }, [initialData, mode]);
-
-    function handleChange(
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-    ) {
-        const { name, value } = event.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+      });
     }
+  }, [initialData, mode]);
 
-    function handleSubmit() {
-        onSubmit(formData);
-        onClose();
-    }
+  function handleChange(
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleSubmit() {
+    onSubmit(formData);
+    onClose();
+  }
 
     return (
         <Offcanvas

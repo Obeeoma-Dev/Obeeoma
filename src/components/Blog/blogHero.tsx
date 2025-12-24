@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
-import { Search } from 'lucide-react'
+import React, { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import { Search } from "lucide-react";
 // Import the handshake background image
-import Handshake from '../../assets/Images/bussinesshandshake.jpg';
+import Handshake from "../../assets/Images/bussinesshandshake.jpg";
 
 // Define props.
 interface BlogHeroProps {
-    // Function to handle search queries passed from parent
-    onSearch: (query: string) => void
+  // Function to handle search queries passed from parent
+  onSearch: (query: string) => void;
 }
 
 // Main BlogHero functional component
 export function BlogHero({ onSearch }: BlogHeroProps) {
-    // Track visibility for fade-in animation or CSS transitions
-    const [isVisible, setIsVisible] = useState(false)
+  // Track visibility for fade-in animation or CSS transitions
+  const [isVisible, setIsVisible] = useState(false);
 
-    // Store current search query entered by the user
-    const [searchQuery, setSearchQuery] = useState('')
+  // Store current search query entered by the user
+  const [searchQuery, setSearchQuery] = useState("");
 
-    // Trigger the visibility effect once when the component mounts
-    useEffect(() => {
-        setIsVisible(true)
-    }, [])
+  // Trigger the visibility effect once when the component mounts
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
-    // Handle form submission for search
-    const handleSearch = (e: React.FormEvent) => {
-        e.preventDefault() // Prevent default browser refresh
-        onSearch(searchQuery) // Pass query up to parent
-    }
+  // Handle form submission for search
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default browser refresh
+    onSearch(searchQuery); // Pass query up to parent
+  };
 
     return (
         // Main hero section with a handshake background image
@@ -70,16 +70,20 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                         Insights & Resources
                     </h1>
 
-                    {/* Subtitle text */}
-                    <p className="blog-hero-subtitle" style={{ fontFamily: 'body' }}>
-                        Explore our collection of articles on mental health, wellness, and personal growth
-                    </p>
+          {/* Subtitle text */}
+          <p className="blog-hero-subtitle" style={{ fontFamily: "body" }}>
+            Explore our collection of articles on mental health, wellness, and
+            personal growth
+          </p>
 
-                    {/* Search form */}
-                    <form onSubmit={handleSearch} className="blog-search-form">
-                        <div className="blog-search-wrapper" style={{ display: 'inline-flex', alignItems: 'center' }}>
-                            {/* Search icon from Lucide */}
-                            <Search className="blog-search-icon" />
+          {/* Search form */}
+          <form onSubmit={handleSearch} className="blog-search-form">
+            <div
+              className="blog-search-wrapper"
+              style={{ display: "inline-flex", alignItems: "center" }}
+            >
+              {/* Search icon from Lucide */}
+              <Search className="blog-search-icon" />
 
                             {/* Search input field */}
                             <input
@@ -97,26 +101,26 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
                                 aria-label="Search articles"
                             />
 
-                            {/* Search button */}
-                            <button
-                                type="submit"
-                                className="blog-search-button"
-                                style={{
-                                    fontFamily: 'body',
-                                    padding: '0.5rem 1rem',
-                                    border: 'none',
-                                    borderRadius: '999px',
-                                    backgroundColor: '#007bff',
-                                    color: 'white',
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                Search
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </Container>
+              {/* Search button */}
+              <button
+                type="submit"
+                className="blog-search-button"
+                style={{
+                  fontFamily: "body",
+                  padding: "0.5rem 1rem",
+                  border: "none",
+                  borderRadius: "999px",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              >
+                Search
+              </button>
+            </div>
+          </form>
         </div>
-    )
+      </Container>
+    </div>
+  );
 }

@@ -1,18 +1,18 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card } from 'react-bootstrap';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, } from 'chart.js';
+import { Card } from "react-bootstrap";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, } from "chart.js";
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const MonthlyUsageChart = () => {
     // Placeholder data for chart
     const data = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
         datasets: [
             {
-                label: 'Platform Usage',
+                label: "Platform Usage",
                 data: [10, 20, 30, 40, 50, 60, 70, 80, 90],
-                backgroundColor: '#007bff',
+                backgroundColor: "#007bff",
             },
         ],
     };

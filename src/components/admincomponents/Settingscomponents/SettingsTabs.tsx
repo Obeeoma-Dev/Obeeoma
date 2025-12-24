@@ -1,7 +1,6 @@
 // Import React and the useState hook for managing component state
 import React, { useState } from "react";
 
-
 // Import Tabs and Tab components from React-Bootstrap
 import { Tabs, Tab } from "react-bootstrap";
 

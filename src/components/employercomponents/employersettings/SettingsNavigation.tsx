@@ -11,7 +11,10 @@ interface SettingsNavigationProps {
   onSectionChange: (section: string) => void;
 }
 
-const SettingsNavigation = ({ activeSection, onSectionChange }: SettingsNavigationProps) => {
+const SettingsNavigation = ({
+  activeSection,
+  onSectionChange,
+}: SettingsNavigationProps) => {
   const settingsSections: SettingsSection[] = [
     { id: "account", label: "Account", icon: User },
     { id: "notifications", label: "Notifications", icon: Bell },
@@ -31,14 +34,14 @@ const SettingsNavigation = ({ activeSection, onSectionChange }: SettingsNavigati
                     key={section.id}
                     onClick={() => onSectionChange(section.id)}
                     className={`nav-link d-flex align-items-center gap-2 py-2 px-3 ${
-                      activeSection === section.id 
-                        ? 'active bg-success text-white' 
-                        : 'text-dark'
+                      activeSection === section.id
+                        ? "active bg-success text-white"
+                        : "text-dark"
                     }`}
-                    style={{ 
+                    style={{
                       borderRadius: "8px",
                       border: "none",
-                      margin: "0 4px"
+                      margin: "0 4px",
                     }}
                   >
                     <IconComponent size={16} />

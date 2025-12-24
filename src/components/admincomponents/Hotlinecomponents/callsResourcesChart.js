@@ -1,19 +1,19 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Bar } from 'react-chartjs-2';
-import { Card } from 'react-bootstrap';
+import { Bar } from "react-chartjs-2";
+import { Card } from "react-bootstrap";
 const data = {
-    labels: ['Anxiety', 'Depression', 'Other', 'Abuse', 'Grief'],
+    labels: ["Anxiety", "Depression", "Other", "Abuse", "Grief"],
     datasets: [
         {
-            label: 'Call Reasons (%)',
+            label: "Call Reasons (%)",
             data: [30, 25, 15, 20, 10],
-            backgroundColor: '#198754',
+            backgroundColor: "#198754",
         },
     ],
 };
 const options = {
     responsive: true,
-    indexAxis: 'y',
+    indexAxis: "y",
     scales: {
         x: {
             beginAtZero: true,

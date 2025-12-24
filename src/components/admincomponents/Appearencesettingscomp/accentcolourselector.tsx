@@ -1,6 +1,6 @@
 // src/components/admincomponents/settingsappearancecomp/AccentColorSelector.tsx
-import React from 'react';
-import { Form } from 'react-bootstrap';
+import React from "react";
+import { Form } from "react-bootstrap";
 
 interface AccentColorSelectorProps {
   selectedColor: string;
@@ -8,8 +8,11 @@ interface AccentColorSelectorProps {
 }
 
 // This component renders radio buttons for selecting an accent color.
-const AccentColorSelector: React.FC<AccentColorSelectorProps> = ({ selectedColor, onChange }) => {
-  const colors = ['Green', 'Red', 'Blue', 'Purple'];
+const AccentColorSelector: React.FC<AccentColorSelectorProps> = ({
+  selectedColor,
+  onChange,
+}) => {
+  const colors = ["Green", "Red", "Blue", "Purple"];
 
   return (
     <Form.Group>

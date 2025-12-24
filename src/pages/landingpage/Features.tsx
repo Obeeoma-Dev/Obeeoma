@@ -42,11 +42,15 @@ const Features: React.FC = () => {
         {/* Heading */}
         <div className="row justify-content-center">
           <div className="col-12 text-center">
-            <h2 className="fw-bold mb-3 text-dark" style={{ fontFamily: "heading" }}>
+            <h2
+              className="fw-bold mb-3 text-dark"
+              style={{ fontFamily: "heading" }}
+            >
               Comprehensive Mental Health Care
             </h2>
             <p className="text-muted mb-5">
-              Our platform offers a range of services designed to support your mental health journey.
+              Our platform offers a range of services designed to support your
+              mental health journey.
             </p>
           </div>
         </div>
@@ -60,7 +64,9 @@ const Features: React.FC = () => {
               transition: "transform 0.4s ease",
               cursor: "pointer",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = "scale(1.05)")
+            }
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >
             <img
@@ -73,7 +79,6 @@ const Features: React.FC = () => {
               }}
               data-testid="features-illustration"
             />
-
           </div>
 
           <div className="col-lg-6">
@@ -109,7 +114,14 @@ const Features: React.FC = () => {
 
                       {/* title + description */}
                       <div>
-                        <h6 className="mb-1" style={{ fontSize: 15, fontWeight: 600, fontFamily: "heading" }}>
+                        <h6
+                          className="mb-1"
+                          style={{
+                            fontSize: 15,
+                            fontWeight: 600,
+                            fontFamily: "heading",
+                          }}
+                        >
                           {f.title}
                         </h6>
                         <p className="mb-0 text-muted" style={{ fontSize: 14 }}>

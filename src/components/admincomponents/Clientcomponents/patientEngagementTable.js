@@ -30,7 +30,7 @@ const getEngagementIcon = (rate) => {
     if (rate >= 80)
         return _jsx(FaFire, { className: "text-danger me-1", title: "High Engagement" });
     if (rate >= 50)
-        return _jsx(FaExclamationTriangle, { className: "text-warning me-1", title: "Medium Engagement" });
+        return (_jsx(FaExclamationTriangle, { className: "text-warning me-1", title: "Medium Engagement" }));
     return _jsx(FaSnowflake, { className: "text-info me-1", title: "Low Engagement" });
 };
 // Helper function to determine status badge

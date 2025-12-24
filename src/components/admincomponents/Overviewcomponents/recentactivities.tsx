@@ -35,11 +35,11 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
         <div className="d-flex flex-column gap-0">
           {/* Map through the activities to render each item row */}
           {activities.map((activity, index) => {
-            const IconComponent =
-              (Icons[activity.icon as keyof typeof Icons] ?? Icons.Activity) as React.FC<{
-                size?: number;
-                color?: string;
-              }>;
+            const IconComponent = (Icons[activity.icon as keyof typeof Icons] ??
+              Icons.Activity) as React.FC<{
+              size?: number;
+              color?: string;
+            }>;
 
             const iconFgColor = iconColorMap[activity.iconColor] || "#3CB371";
 

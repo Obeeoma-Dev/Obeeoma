@@ -1,8 +1,8 @@
 // src/components/admincomponents/aimanagementcomponents/TopTriggers.tsx
 
-import React from 'react';
-import { Card, Badge } from 'react-bootstrap';
-import { ExclamationCircleFill } from 'react-bootstrap-icons';
+import React from "react";
+import { Card, Badge } from "react-bootstrap";
+import { ExclamationCircleFill } from "react-bootstrap-icons";
 
 // Props interface for trigger list
 interface TopTriggersProps {
@@ -26,7 +26,7 @@ const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
             key={trigger}
             bg="danger"
             className="me-2 mb-2"
-            style={{ fontSize: '0.9rem' }}
+            style={{ fontSize: "0.9rem" }}
           >
             {trigger}
           </Badge>

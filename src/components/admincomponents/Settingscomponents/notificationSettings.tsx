@@ -1,79 +1,90 @@
 // src/components/admincomponents/notificationSettings.tsx
 
-import React, { useState } from 'react';
-import { Form, Button, Card, Alert, Spinner } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Form, Button, Card, Alert, Spinner } from "react-bootstrap";
 
 // Define the shape of notification settings using TypeScript
 export interface NotificationPreferences {
-    systemAlerts: boolean;
-    organizationActivity: boolean;
-    criticalHotlineAlerts: boolean;
-    reportGeneration: boolean;
+  systemAlerts: boolean;
+  organizationActivity: boolean;
+  criticalHotlineAlerts: boolean;
+  reportGeneration: boolean;
 }
 
 // Main component
 const NotificationSettings: React.FC = () => {
-    // Local state for toggle values
-    const [preferences, setPreferences] = useState<NotificationPreferences>({
-        systemAlerts: true,
-        organizationActivity: true,
-        criticalHotlineAlerts: false,
-        reportGeneration: true,
-    });
+  // Local state for toggle values
+  const [preferences, setPreferences] = useState<NotificationPreferences>({
+    systemAlerts: true,
+    organizationActivity: true,
+    criticalHotlineAlerts: false,
+    reportGeneration: true,
+  });
 
-    // State for loading and feedback
-    const [isSaving, setIsSaving] = useState(false);
-    const [saveSuccess, setSaveSuccess] = useState(false);
-    const [saveError, setSaveError] = useState('');
+  // State for loading and feedback
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
-    // Toggle handler for switches
-    const handleToggle = (key: keyof NotificationPreferences) => {
-        setPreferences((prev) => ({
-            ...prev,
-            [key]: !prev[key],
-        }));
-    };
+  // Toggle handler for switches
+  const handleToggle = (key: keyof NotificationPreferences) => {
+    setPreferences((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
-    // Simulated save function (replace with real API call later)
-    const handleSave = async () => {
-        setIsSaving(true);
-        setSaveSuccess(false);
-        setSaveError('');
+  // Simulated save function (replace with real API call later)
+  const handleSave = async () => {
+    setIsSaving(true);
+    setSaveSuccess(false);
+    setSaveError("");
 
-        try {
-            // Simulate API call delay
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            // Log the payload (replace with fetch/axios later)
-            console.log('Saving notification preferences:', preferences);
+      // Log the payload (replace with fetch/axios later)
+      console.log("Saving notification preferences:", preferences);
 
-            // Simulate success
-            setSaveSuccess(true);
-        } catch  {
-            setSaveError('Failed to save preferences. Please try again.');
-        } finally {
-            setIsSaving(false);
-        }
-    };
+      // Simulate success
+      setSaveSuccess(true);
+    } catch {
+      setSaveError("Failed to save preferences. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
+<<<<<<< HEAD
     return (
         <Card className="settings-card-compact shadow-sm border-0">
             <Card.Header className="fw-semibold mb-2 ps-0">Notification Settings</Card.Header>
+=======
+  return (
+    <Card className="p-4 shadow-sm">
+      <h4 className="mb-4">Notification Settings</h4>
+>>>>>>> main
 
-            {/* Success message */}
-            {saveSuccess && (
-                <Alert variant="success" onClose={() => setSaveSuccess(false)} dismissible>
-                    Preferences saved successfully.
-                </Alert>
-            )}
+      {/* Success message */}
+      {saveSuccess && (
+        <Alert
+          variant="success"
+          onClose={() => setSaveSuccess(false)}
+          dismissible
+        >
+          Preferences saved successfully.
+        </Alert>
+      )}
 
-            {/* Error message */}
-            {saveError && (
-                <Alert variant="danger" onClose={() => setSaveError('')} dismissible>
-                    {saveError}
-                </Alert>
-            )}
+      {/* Error message */}
+      {saveError && (
+        <Alert variant="danger" onClose={() => setSaveError("")} dismissible>
+          {saveError}
+        </Alert>
+      )}
 
+<<<<<<< HEAD
             {/* Toggle switches */}
             <div className="mb-3 settings-section-compact">
             <Form.Check
@@ -84,25 +95,37 @@ const NotificationSettings: React.FC = () => {
                 onChange={() => handleToggle('systemAlerts')}
                 className="mb-3"
             />
+=======
+      {/* Toggle switches */}
+      <Form.Check
+        type="switch"
+        id="system-alerts"
+        label="Receive notifications about system updates and maintenance"
+        checked={preferences.systemAlerts}
+        onChange={() => handleToggle("systemAlerts")}
+        className="mb-3"
+      />
+>>>>>>> main
 
-            <Form.Check
-                type="switch"
-                id="organization-activity"
-                label="Receive notifications about organization plans or updates that matter"
-                checked={preferences.organizationActivity}
-                onChange={() => handleToggle('organizationActivity')}
-                className="mb-3"
-            />
+      <Form.Check
+        type="switch"
+        id="organization-activity"
+        label="Receive notifications about organization plans or updates that matter"
+        checked={preferences.organizationActivity}
+        onChange={() => handleToggle("organizationActivity")}
+        className="mb-3"
+      />
 
-            <Form.Check
-                type="switch"
-                id="critical-hotline-alerts"
-                label="Receive alerts about critical situations in the hotline"
-                checked={preferences.criticalHotlineAlerts}
-                onChange={() => handleToggle('criticalHotlineAlerts')}
-                className="mb-3"
-            />
+      <Form.Check
+        type="switch"
+        id="critical-hotline-alerts"
+        label="Receive alerts about critical situations in the hotline"
+        checked={preferences.criticalHotlineAlerts}
+        onChange={() => handleToggle("criticalHotlineAlerts")}
+        className="mb-3"
+      />
 
+<<<<<<< HEAD
             <Form.Check
                 type="switch"
                 id="report-generation"
@@ -128,6 +151,32 @@ const NotificationSettings: React.FC = () => {
             </div>
         </Card>
     );
+=======
+      <Form.Check
+        type="switch"
+        id="report-generation"
+        label="Receive notifications when reports are generated"
+        checked={preferences.reportGeneration}
+        onChange={() => handleToggle("reportGeneration")}
+        className="mb-4"
+      />
+
+      {/* Save button with loading spinner */}
+      <div className="d-flex justify-content-end">
+        <Button variant="success" onClick={handleSave} disabled={isSaving}>
+          {isSaving ? (
+            <>
+              <Spinner animation="border" size="sm" className="me-2" />
+              Saving...
+            </>
+          ) : (
+            "Save Notification Settings"
+          )}
+        </Button>
+      </div>
+    </Card>
+  );
+>>>>>>> main
 };
 
 export default NotificationSettings;

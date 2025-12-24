@@ -137,17 +137,15 @@ const ClientEngagement: React.FC = () => {
         {/* Top header bar */}
         <Header />
 
-
         {/* Scrollable content area below the header */}
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            overflowY: "auto",
+            padding: "1rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
-
           {/* Main dashboard content on the right */}
           <div className="flex-grow-1 overflow-auto">
             <Container className="py-4">

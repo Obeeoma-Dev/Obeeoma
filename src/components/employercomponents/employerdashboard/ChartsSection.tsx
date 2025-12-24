@@ -1,4 +1,3 @@
-
 import {
   BarChart,
   Bar,
@@ -33,11 +32,14 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
     { name: "Engineering", value: 25, color: "#ef4444" },
   ];
 
-  const testsByType = (chartData?.testsByType || defaultTestsByType).map(item => ({
-    ...item,
-    value: Math.round(item.value)
-  }));
-  const testsByDepartment = chartData?.testsByDepartment || defaultTestsByDepartment;
+  const testsByType = (chartData?.testsByType || defaultTestsByType).map(
+    (item) => ({
+      ...item,
+      value: Math.round(item.value),
+    }),
+  );
+  const testsByDepartment =
+    chartData?.testsByDepartment || defaultTestsByDepartment;
 
   return (
     <div className="row g-4 mb-4">
@@ -45,15 +47,27 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
       <div className="col-12 col-lg-6">
         <div className="card border-0 shadow-sm">
           <div className="card-body">
-            <h3 className="h5 fw-semibold mb-4" style={{fontFamily:"heading"}}>Weekly Mood Trends</h3>
+            <h3
+              className="h5 fw-semibold mb-4"
+              style={{ fontFamily: "heading" }}
+            >
+              Weekly Mood Trends
+            </h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={testsByType}>
-                <CartesianGrid strokeDasharray="3 3" className="opacity-50" style={{fontFamily:"heading"}} />
-                <XAxis dataKey="name" style={{fontFamily:"heading"}} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  className="opacity-50"
+                  style={{ fontFamily: "heading" }}
+                />
+                <XAxis dataKey="name" style={{ fontFamily: "heading" }} />
                 <YAxis
                   allowDecimals={false}
-                  tickFormatter={(value: number) => Math.round(value).toString()}
-                  style={{fontFamily:"heading"}} />
+                  tickFormatter={(value: number) =>
+                    Math.round(value).toString()
+                  }
+                  style={{ fontFamily: "heading" }}
+                />
                 <Bar
                   dataKey="value"
                   fill="#3CB371"
@@ -70,7 +84,12 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
       <div className="col-12 col-lg-6">
         <div className="card border-0 shadow-sm">
           <div className="card-body">
-            <h3 className="h5 fw-semibold mb-4" style={{fontFamily: "heading"}}>Subscribers by Department</h3>
+            <h3
+              className="h5 fw-semibold mb-4"
+              style={{ fontFamily: "heading" }}
+            >
+              Subscribers by Department
+            </h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -81,7 +100,7 @@ const ChartsSection = ({ chartData }: ChartsSectionProps) => {
                   label={({ name, value }) => `${name}: ${value}%`}
                   outerRadius={80}
                   dataKey="value"
-                  style={{fontFamily:"heading"}}
+                  style={{ fontFamily: "heading" }}
                 >
                   {testsByDepartment.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />

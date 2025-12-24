@@ -1,12 +1,8 @@
 // src/components/admincomponents/aimanagementcomponents/TopMetrics.tsx
 
-import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
-import {
-  BarChartFill,
-  GraphUpArrow,
-  ClockFill,
-} from 'react-bootstrap-icons'; // Bootstrap icons for visual polish
+import React from "react";
+import { Card, Row, Col } from "react-bootstrap";
+import { BarChartFill, GraphUpArrow, ClockFill } from "react-bootstrap-icons"; // Bootstrap icons for visual polish
 
 // Props interface for top-level metrics
 interface TopMetricsProps {

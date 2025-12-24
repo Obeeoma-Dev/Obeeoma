@@ -1,7 +1,7 @@
 // src/components/admincomponents/subscriptioncomponents/RecentActivityFeed.tsx
 
-import React from 'react';
-import { ListGroup } from 'react-bootstrap';
+import React from "react";
+import { ListGroup } from "react-bootstrap";
 
 interface Props {
   activities: string[];

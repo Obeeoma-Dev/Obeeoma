@@ -3,6 +3,7 @@ import Layout from "../../components/employercomponents/shared/Layout";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+// import { Search } from "lucide-react";
 
 const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,9 +28,14 @@ const EmployeeManagement = () => {
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center mb-4">
-                  <h5 className="card-title fw-semibold mb-0">Corporate Employee List</h5>
+                  <h5 className="card-title fw-semibold mb-0">
+                    Corporate Employee List
+                  </h5>
                   <div className="d-flex align-items-center">
-                    <div className="input-group me-3" style={{ width: "300px" }}>
+                    <div
+                      className="input-group me-3"
+                      style={{ width: "300px" }}
+                    >
                       {/* <span className="input-group-text bg-white border-end-0">
                         <Search size={18} />
                       </span> */}
@@ -41,20 +47,20 @@ const EmployeeManagement = () => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                       />
-                        </div>
                     </div>
                   </div>
                 </div>
-                <EmployeeTable
-                  searchQuery={searchQuery}
-                  onSearchChange={setSearchQuery}
-                  employees={employeeData.employees}
-                  companyId={companyId}
-                />
               </div>
+              <EmployeeTable
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                employees={employeeData.employees}
+                companyId={companyId}
+              />
             </div>
           </div>
         </div>
+      </div>
     </Layout>
   );
 };

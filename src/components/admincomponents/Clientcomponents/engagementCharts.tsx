@@ -25,7 +25,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 // ✅ Line chart data for weekly engagement
@@ -74,7 +74,9 @@ const EngagementCharts: React.FC = () => {
         <Col md={6}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
-              <h5 className="mb-3 text-success">Reward Redemptions (Last 6 Weeks)</h5>
+              <h5 className="mb-3 text-success">
+                Reward Redemptions (Last 6 Weeks)
+              </h5>
               <Bar data={rewardRedemptionData} />
             </Card.Body>
           </Card>

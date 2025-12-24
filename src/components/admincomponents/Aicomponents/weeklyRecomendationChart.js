@@ -1,18 +1,23 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card } from 'react-bootstrap';
-import { Line } from 'react-chartjs-2'; // Chart.js integration
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, } from 'chart.js';
+import { Card } from "react-bootstrap";
+import { Line } from "react-chartjs-2"; // Chart.js integration
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, } from "chart.js";
 // Register chart components
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 // Sample chart data (replace with backend data later)
+<<<<<<< HEAD
 const employeeData = {
     labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+=======
+const chartData = {
+    labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
+>>>>>>> main
     datasets: [
         {
-            label: 'Recommendations Sent',
+            label: "Recommendations Sent",
             data: [245, 312, 289, 340, 298, 360],
-            borderColor: '#198754',
-            backgroundColor: 'rgba(25,135,84,0.2)',
+            borderColor: "#198754",
+            backgroundColor: "rgba(25,135,84,0.2)",
             tension: 0.3,
             pointRadius: 4,
         },

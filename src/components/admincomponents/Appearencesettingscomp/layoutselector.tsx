@@ -1,6 +1,6 @@
 // src/components/admincomponents/settingsappearancecomp/LayoutSelector.tsx
-import React from 'react';
-import { Form } from 'react-bootstrap';
+import React from "react";
+import { Form } from "react-bootstrap";
 
 interface LayoutSelectorProps {
   selectedLayout: string;
@@ -8,8 +8,11 @@ interface LayoutSelectorProps {
 }
 
 // This component renders radio buttons for selecting dashboard layout.
-const LayoutSelector: React.FC<LayoutSelectorProps> = ({ selectedLayout, onChange }) => {
-  const layouts = ['Default', 'Compact'];
+const LayoutSelector: React.FC<LayoutSelectorProps> = ({
+  selectedLayout,
+  onChange,
+}) => {
+  const layouts = ["Default", "Compact"];
 
   return (
     <Form.Group>

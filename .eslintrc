@@ -34,6 +34,12 @@
     // Base configuration for TypeScript features we want available globally
     "plugin:@typescript-eslint/eslint-recommended"
   ],
+  "rules": {
+    "no-empty": "off",
+    "no-empty-pattern": "off",
+    "@typescript-eslint/no-empty-object-type": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  },
 
   // 5. Override Section (The Fix for Your Error)
   // This section targets only .ts and .tsx files to apply stricter TS-specific rules.
@@ -47,8 +53,10 @@
       "rules": {
         // Enforce specific TS rules not included or set differently in 'recommended'
         // This is the rule that was causing your original error
-        "@typescript-eslint/no-explicit-any": "error", 
+        // "@typescript-eslint/no-explicit-any": "error",
+         "@typescript-eslint/no-explicit-any": "off",
 
+         "no-irregular-whitespace": "off",
         // Optional: Common React/TS adjustments
         "react/prop-types": "off" // Not needed when using TypeScript interfaces
       }

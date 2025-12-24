@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
 
 interface MoodTrendProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any[];
 }
 
-const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
+// const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
+
+const MoodTrend: React.FC<MoodTrendProps> = () => {
   // Sample data matching the design
   const moodData = [
     { week: 1, mood: 75 },
@@ -18,11 +21,11 @@ const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
     { week: 9, mood: 65 },
     { week: 10, mood: 80 },
     { week: 11, mood: 92 },
-    { week: 12, mood: 76 }
+    { week: 12, mood: 76 },
   ];
 
-  const maxMood = Math.max(...moodData.map(d => d.mood));
-  const minMood = Math.min(...moodData.map(d => d.mood));
+  const maxMood = Math.max(...moodData.map((d) => d.mood));
+  const minMood = Math.min(...moodData.map((d) => d.mood));
 
   const getBarHeight = (mood: number) => {
     const range = maxMood - minMood;
@@ -30,9 +33,9 @@ const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
   };
 
   const getBarColor = (mood: number) => {
-    if (mood >= 80) return '#10B981'; // Green
-    if (mood >= 60) return '#F59E0B'; // Yellow
-    return '#EF4444'; // Red
+    if (mood >= 80) return "#10B981"; // Green
+    if (mood >= 60) return "#F59E0B"; // Yellow
+    return "#EF4444"; // Red
   };
 
   return (
@@ -40,10 +43,16 @@ const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
       <div className="card-body">
         <h5 className="card-title fw-semibold mb-4">Mood Trend</h5>
         <p className="text-muted small mb-3">Automated from aggregated data</p>
-        
-        <div className="d-flex align-items-end" style={{ height: '200px', gap: '8px' }}>
+
+        <div
+          className="d-flex align-items-end"
+          style={{ height: "200px", gap: "8px" }}
+        >
           {/* Y-axis labels */}
-          <div className="d-flex flex-column justify-content-between me-2 text-muted small" style={{ height: '100%' }}>
+          <div
+            className="d-flex flex-column justify-content-between me-2 text-muted small"
+            style={{ height: "100%" }}
+          >
             <span>100%</span>
             <span>80%</span>
             <span>60%</span>
@@ -53,16 +62,23 @@ const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
           </div>
 
           {/* Chart bars */}
-          <div className="d-flex justify-content-between align-end flex-grow-1" style={{ height: '100%' }}>
+          <div
+            className="d-flex justify-content-between align-end flex-grow-1"
+            style={{ height: "100%" }}
+          >
             {moodData.map((item, index) => (
-              <div key={index} className="d-flex flex-column align-items-center" style={{ width: '24px' }}>
+              <div
+                key={index}
+                className="d-flex flex-column align-items-center"
+                style={{ width: "24px" }}
+              >
                 <div
                   className="rounded-top"
                   style={{
                     height: `${getBarHeight(item.mood)}%`,
                     backgroundColor: getBarColor(item.mood),
-                    width: '16px',
-                    minHeight: '4px'
+                    width: "16px",
+                    minHeight: "4px",
                   }}
                 ></div>
                 <span className="text-muted small mt-1">{item.week}</span>
@@ -78,15 +94,36 @@ const MoodTrend: React.FC<MoodTrendProps> = ({ data = [] }) => {
         {/* Legend */}
         <div className="d-flex justify-content-center gap-3 mt-3">
           <div className="d-flex align-items-center gap-1">
-            <div style={{ width: '12px', height: '12px', backgroundColor: '#10B981', borderRadius: '2px' }}></div>
+            <div
+              style={{
+                width: "12px",
+                height: "12px",
+                backgroundColor: "#10B981",
+                borderRadius: "2px",
+              }}
+            ></div>
             <span className="text-muted small">High</span>
           </div>
           <div className="d-flex align-items-center gap-1">
-            <div style={{ width: '12px', height: '12px', backgroundColor: '#F59E0B', borderRadius: '2px' }}></div>
+            <div
+              style={{
+                width: "12px",
+                height: "12px",
+                backgroundColor: "#F59E0B",
+                borderRadius: "2px",
+              }}
+            ></div>
             <span className="text-muted small">Medium</span>
           </div>
           <div className="d-flex align-items-center gap-1">
-            <div style={{ width: '12px', height: '12px', backgroundColor: '#EF4444', borderRadius: '2px' }}></div>
+            <div
+              style={{
+                width: "12px",
+                height: "12px",
+                backgroundColor: "#EF4444",
+                borderRadius: "2px",
+              }}
+            ></div>
             <span className="text-muted small">Low</span>
           </div>
         </div>

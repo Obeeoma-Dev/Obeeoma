@@ -1,6 +1,6 @@
-import React from 'react';
-import { Notification } from '../../../types/employernotification.types';
-import NotificationItem from './NotificationItem';
+import React from "react";
+import { Notification } from "../../../types/employernotification.types";
+import NotificationItem from "./NotificationItem";
 
 interface NotificationsListProps {
   notifications: Notification[];
@@ -11,7 +11,7 @@ interface NotificationsListProps {
 const NotificationsList = ({
   notifications,
   onStarToggle,
-  onMarkAsRead
+  onMarkAsRead,
 }: NotificationsListProps) => {
   if (notifications.length === 0) {
     return (

@@ -1,7 +1,7 @@
 // src/components/admincomponents/subscriptioncomponents/subMetricPannel.tsx
 
-import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Card, Row, Col } from "react-bootstrap";
 
 // Define the props interface for flexibility and backend readiness
 // Keeping the same interface to maintain compatibility with existing code
@@ -14,13 +14,13 @@ interface MetricsPanelProps {
 
 /**
  * MetricsPanel Component
- * 
+ *
  * Displays key subscription metrics in a card layout matching the design specification.
  * Each metric card shows the main value with a percentage change indicator.
  * Maintains backward compatibility with existing props interface.
- * 
+ *
  * @param totalOrganizations - Number of total organizations
- * @param totalSubscriptions - Number of total subscriptions  
+ * @param totalSubscriptions - Number of total subscriptions
  * @param coveredEmployees - String representation of covered employees (e.g., "4.2k")
  * @param utilizationRate - Percentage value for utilization rate
  * @returns React functional component with styled metric cards
@@ -43,9 +43,7 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
               Total Organizations
             </Card.Title>
             {/* Main metric value with large bold styling */}
-            <div className="fw-bold fs-4 mb-1">
-              {totalOrganizations}
-            </div>
+            <div className="fw-bold fs-4 mb-1">{totalOrganizations}</div>
             {/* Percentage change indicator with positive styling */}
             <div className="text-success small fw-medium">
               +12% from last month
@@ -63,9 +61,7 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
               Total Subscriptions
             </Card.Title>
             {/* Main metric value */}
-            <div className="fw-bold fs-4 mb-1">
-              {totalSubscriptions}
-            </div>
+            <div className="fw-bold fs-4 mb-1">{totalSubscriptions}</div>
             {/* Percentage change indicator */}
             <div className="text-success small fw-medium">
               +4% from last month
@@ -83,9 +79,7 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
               Covered Employees
             </Card.Title>
             {/* Main metric value - using the coveredEmployees prop directly */}
-            <div className="fw-bold fs-4 mb-1">
-              {coveredEmployees}
-            </div>
+            <div className="fw-bold fs-4 mb-1">{coveredEmployees}</div>
             {/* Percentage change indicator */}
             <div className="text-success small fw-medium">
               +5% from last month
@@ -103,9 +97,7 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
               Utilization Rate
             </Card.Title>
             {/* Main metric value with percentage symbol */}
-            <div className="fw-bold fs-4 mb-1">
-              {utilizationRate}%
-            </div>
+            <div className="fw-bold fs-4 mb-1">{utilizationRate}%</div>
             {/* Percentage change indicator */}
             <div className="text-success small fw-medium">
               +5% from last month

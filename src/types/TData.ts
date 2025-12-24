@@ -5,23 +5,23 @@ export interface EmployerUser {
   lastName: string;
   organizationName: string;
   email: string;
-  role: 'admin' | 'employer' | 'employee' | string;
+  role: "admin" | "employer" | "employee" | string;
   dateJoined: string; // ISO date string
 
-  company? : {
+  company?: {
     id: string | number;
     name: string;
     createdAt: string;
-  }
+  };
   address?: string;
   phone?: string;
 }
 //TData
 export interface Employee {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  progress: number
-  status: string
+  firstName: string;
+  lastName: string;
+  age: number;
+  visits: number;
+  progress: number;
+  status: string;
 }

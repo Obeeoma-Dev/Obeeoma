@@ -18,7 +18,6 @@ import {
   FaSearch,
 } from "react-icons/fa";
 
-
 // Define the shape of organization data
 export interface Organization {
   id: string;
@@ -29,14 +28,13 @@ export interface Organization {
   lastActive: string;
   address: string;
   programs: number;
-  icon: string; // It is optional because some organisations might not have an icon. 
+  icon: string; // It is optional because some organisations might not have an icon.
 }
 
 // Props for the dashboard component
 interface OrganizationDashboardProps {
   organizations: Organization[];
 }
-
 
 // Render status icon based on status
 const renderStatusIcon = (status: Organization["status"]) => {
@@ -80,12 +78,17 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     orgs.filter((org) =>
       `${org.name} ${org.id} ${org.plan}`
         .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+        .includes(searchTerm.toLowerCase()),
     );
 
   // Render table rows
   const renderTable = (orgs: Organization[]) => (
-    <Table bordered hover responsive className="shadow-sm table-sm align-middle">
+    <Table
+      bordered
+      hover
+      responsive
+      className="shadow-sm table-sm align-middle"
+    >
       <thead className="table-success align-middle">
         <tr>
           <th>Organization</th>
@@ -104,8 +107,6 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
             </td>
           </tr>
         ) : (
-
-
           orgs.map((org) => (
             <tr key={org.id}>
               {/* Composite cell: name + ID */}
@@ -116,7 +117,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                       src={org.icon}
                       alt={`${org.name} logo`}
                       className="me-2"
-                      style={{ width: "32px", height: "32px", objectFit: "cover", borderRadius: "4px" }}
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        objectFit: "cover",
+                        borderRadius: "4px",
+                      }}
                     />
                   )}
                   <div>
@@ -132,12 +138,13 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
               {/* Plan */}
               <td>
                 <span
-                  className={`badge ${org.plan === "Premium"
-                    ? "bg-success"
-                    : org.plan === "Enterprise"
-                      ? "bg-primary"
-                      : "bg-secondary"
-                    }`}
+                  className={`badge ${
+                    org.plan === "Premium"
+                      ? "bg-success"
+                      : org.plan === "Enterprise"
+                        ? "bg-primary"
+                        : "bg-secondary"
+                  }`}
                 >
                   {org.plan}
                 </span>
@@ -165,7 +172,6 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
               </td>
             </tr>
           ))
-
         )}
       </tbody>
     </Table>
@@ -181,9 +187,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
           <h5 className="fw-semibold text-success">Organization Dashboard</h5>
         </Col>
         <Col className="text-end">
-          <Button variant="success">
-            + Add Organization
-          </Button>
+          <Button variant="success">+ Add Organization</Button>
         </Col>
       </Row>
 
@@ -225,7 +229,13 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       </style>
 
       {/* Tabs for filtering */}
-      <Tabs defaultActiveKey="All" className="mb-3" justify variant="pills" aria-label="Organization filters">
+      <Tabs
+        defaultActiveKey="All"
+        className="mb-3"
+        justify
+        variant="pills"
+        aria-label="Organization filters"
+      >
         {["All", "Active", "Inactive", "Premium", "Freemium"].map((tab) => (
           <Tab eventKey={tab} title={tab} key={tab}>
             {renderTable(filterBySearch(filterByTab(tab)))}

@@ -651,7 +651,7 @@ const ResetPasswordSignIn = () => {
         }
         setIsLoading(true);
         try {
-            const API_URL = "http://64.225.122.101:8000/api/v1/auth/reset-password/";
+            const API_URL = "http://64.225.122.101/api/v1/auth/reset-password/";
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
@@ -661,10 +661,12 @@ const ResetPasswordSignIn = () => {
             });
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
+                throw new Error(errorData.message ||
+                    `Failed to send email with status: ${response.status}`);
             }
             setIsEmailSent(true);
-            // Navigate only if the API call is successful and an email is sent
+            // Store email for OTP verification and navigate
+            localStorage.setItem("resetPasswordEmail", email);
             navigate("/otp-verify");
         }
         catch (err) {
@@ -705,8 +707,16 @@ const ResetPasswordSignIn = () => {
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                         }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                                             height: "50px",
-                                            width: "auto"
-                                        }, className: "mb-1" }) }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: { fontFamily: "heading", textAlign: "center", fontSize: "24px" }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: { fontFamily: "heading", textAlign: "center", fontSize: "14px" }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
+                                            width: "auto",
+                                        }, className: "mb-1" }) }), _jsx("h3", { className: "display-6 fw-bold mb-1", style: {
+                                        fontFamily: "heading",
+                                        textAlign: "center",
+                                        fontSize: "24px",
+                                    }, children: "Reset Password to Sign in" }), _jsx("p", { className: "text-muted mb-4 ", style: {
+                                        fontFamily: "heading",
+                                        textAlign: "center",
+                                        fontSize: "14px",
+                                    }, children: "Send code to email" }), error && (_jsx(Alert, { variant: "danger", className: "py-2", children: error })), _jsxs(BootstrapForm, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(BootstrapForm.Group, { className: "mb-4", children: [_jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Email address", value: email, onChange: (e) => setEmail(e.target.value), className: "py-2", isInvalid: !!error, style: error
                                                         ? {
                                                             borderColor: "red",
                                                             borderWidth: "1.5px",
@@ -717,13 +727,13 @@ const ResetPasswordSignIn = () => {
                                                 borderColor: customStyles.primaryColor,
                                                 color: "white",
                                                 boxShadow: "none",
-                                                fontFamily: "body"
+                                                fontFamily: "body",
                                             }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2", style: { fontFamily: "body" } }), "Sending..."] })) : ("Send Code") })] }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "text-center text-muted small", style: { fontFamily: "body" }, children: ["Didn't receive any code?", " "] }), _jsx(Link, { onClick: handleResendCode, style: {
                                                 color: customStyles.primaryColor,
                                                 textDecoration: "none",
                                                 fontWeight: "500",
                                                 cursor: "pointer",
-                                                fontFamily: "body"
+                                                fontFamily: "body",
                                             }, to: "#" // Prevent full page reload on click
                                             , className: "small", children: "Send Code again" })] })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
                     position: "fixed", // at the bottom of the viewport
@@ -732,7 +742,7 @@ const ResetPasswordSignIn = () => {
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
-                    fontFamily: "body"
+                    fontFamily: "body",
                 }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsx("div", { className: "footer-copyright", children: "\u00A9 2025 Obeeoma. All rights reserved." }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default ResetPasswordSignIn;

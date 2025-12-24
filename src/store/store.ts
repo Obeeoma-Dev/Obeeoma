@@ -3,7 +3,7 @@ import authReducer from "./slices/authSlice";
 import adminReducer from "./slices/adminSlice";
 import employerReducer from "./slices/EmployerSlice";
 import employeeReducer from "./slices/employeeSlice";
-import { setupApiInterceptors } from '../api/apiConfig';
+import { setupApiInterceptors } from "../api/apiConfig";
 import billingReducer from "./slices/billingSlice";
 export const store = configureStore({
   reducer: {

@@ -88,7 +88,7 @@ function BenefitCarousel() {
         scrollContainer.scrollLeft = scrollPosition;
 
         const idx = Math.floor(
-          (scrollPosition / approxCardWidth) % singleCount
+          (scrollPosition / approxCardWidth) % singleCount,
         );
         if (idx !== activeIndex) setActiveIndex(idx);
       }
@@ -146,7 +146,7 @@ function BenefitCarousel() {
             overflowX: "visible",
             overflowY: "visible",
             whiteSpace: "nowrap",
-            paddingTop: "1rem"
+            paddingTop: "1rem",
           }}
         >
           {extendedBenefits.map((benefit, index) => {

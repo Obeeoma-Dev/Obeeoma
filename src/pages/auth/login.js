@@ -5,11 +5,11 @@ import { loginUser, clearError } from "../../store/slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
-import { Card, Form, Button, Alert, Spinner, InputGroup } from "react-bootstrap";
+import { Card, Form, Button, Alert, Spinner, InputGroup, } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faEye as faEyeRegular } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 const customStyles = {
     primaryColor: "#22C55E",
@@ -45,6 +45,12 @@ const LoginPage = () => {
     const handleSubmit = async (values) => {
         try {
             const resultAction = await dispatch(loginUser({ username: values.username, password: values.password })).unwrap();
+            // check for admin response
+            if (resultAction.mfa_required && resultAction.temp_token) {
+                // navigate to /mfa-setup
+                navigate("/mfa-setup", { replace: false });
+                return;
+            }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const userRole = resultAction?.role || user?.role;
             console.log("Final Role Determined:", userRole);
@@ -78,20 +84,24 @@ const LoginPage = () => {
                     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                 }, children: _jsxs(Card.Body, { children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                                     height: "50px",
-                                    width: "auto"
-                                }, className: "mb-1" }) }), _jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: "Welcome to Obeeoma" }), _jsx("p", {}), error && (_jsx(Alert, { variant: "danger", onClose: () => dispatch(clearError()), dismissible: true, children: error })), _jsx(Formik, { initialValues: { username: "", password: "" }, validationSchema: loginValidationSchema, onSubmit: handleSubmit, children: ({ handleChange, handleSubmit, values, errors, touched }) => (_jsxs(Form, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(Form.Group, { className: "mb-3", controlId: "validationFormikUsername", children: [_jsx(Form.Control, { type: "text", placeholder: "Email or Username", name: "username", value: values.username, onChange: handleChange, isInvalid: touched.username && !!errors.username, className: "py-2" }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.username })] }), _jsx(Form.Group, { className: "mb-4", controlId: "validationFormikPassword", children: _jsxs(InputGroup, { children: [_jsx(Form.Control, { type: showPassword ? "text" : "password", placeholder: "Password", name: "password", value: values.password, onChange: handleChange, isInvalid: touched.password && !!errors.password, className: "py-2" }), _jsx(InputGroup.Text, { onClick: togglePasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.password })] }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
+                                    width: "auto",
+                                }, className: "mb-1" }) }), _jsx("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: "Welcome to Obeeoma" }), _jsx("p", {}), error && (_jsx(Alert, { variant: "danger", onClose: () => dispatch(clearError()), dismissible: true, children: error })), _jsx(Formik, { initialValues: { username: "", password: "" }, validationSchema: loginValidationSchema, onSubmit: handleSubmit, children: ({ handleChange, handleSubmit, values, errors, touched }) => (_jsxs(Form, { noValidate: true, onSubmit: handleSubmit, children: [_jsxs(Form.Group, { className: "mb-3", controlId: "validationFormikUsername", children: [_jsx(Form.Control, { type: "text", placeholder: "Username", name: "username", value: values.username, onChange: handleChange, isInvalid: touched.username && !!errors.username, className: "py-2" }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.username })] }), _jsx(Form.Group, { className: "mb-4", controlId: "validationFormikPassword", children: _jsxs(InputGroup, { children: [_jsx(Form.Control, { type: showPassword ? "text" : "password", placeholder: "Password", name: "password", value: values.password, onChange: handleChange, isInvalid: touched.password && !!errors.password, className: "py-2" }), _jsx(InputGroup.Text, { onClick: togglePasswordVisibility, style: { cursor: "pointer", backgroundColor: "white" }, children: _jsx(FontAwesomeIcon, { icon: showPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) }), _jsx(Form.Control.Feedback, { type: "invalid", children: errors.password })] }) }), _jsx(Button, { type: "submit", className: "w-100 mb-3 py-2 fw-semibold", disabled: isLoading, style: {
                                             backgroundColor: customStyles.primaryColor,
                                             borderColor: customStyles.primaryColor,
                                             color: "white",
                                             boxShadow: "none",
-                                        }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing in..."] })) : ("Sign In") })] })) }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/reset-password-signin", className: "small text-decoration-none", style: { color: customStyles.primaryColor, fontFamily: "body" }, children: "Forgot Password?" }) }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "small text-muted", style: { fontFamily: "body" }, children: ["Don't have an account?", " "] }), _jsx(Link, { to: "/signup", className: "small text-decoration-none", style: { color: customStyles.primaryColor, fontFamily: "body", fontWeight: "600" }, children: "Create Account" })] })] }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
+                                        }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing in..."] })) : ("Sign In") })] })) }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/reset-password-signin", className: "small text-decoration-none", style: { color: customStyles.primaryColor, fontFamily: "body" }, children: "Forgot Password?" }) }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "small text-muted", style: { fontFamily: "body" }, children: ["Don't have an account?", " "] }), _jsx(Link, { to: "/signup", className: "small text-decoration-none", style: {
+                                        color: customStyles.primaryColor,
+                                        fontFamily: "body",
+                                        fontWeight: "600",
+                                    }, children: "Create Account" })] })] }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
                     position: "fixed",
                     bottom: "0",
                     width: "100%",
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     zIndex: 1000,
-                    fontFamily: "body"
+                    fontFamily: "body",
                 }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default LoginPage;

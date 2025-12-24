@@ -694,7 +694,7 @@ import {
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor:"#22C55E", // Used for links and accents
+  primaryColor: "#22C55E", // Used for links and accents
 };
 
 // --- Component Definition ---
@@ -719,7 +719,7 @@ const ResetPasswordSignIn: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const API_URL = "http://64.225.122.101:8000/api/v1/auth/reset-password/";
+      const API_URL = "http://64.225.122.101/api/v1/auth/reset-password/";
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -730,12 +730,16 @@ const ResetPasswordSignIn: React.FC = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || `Failed to send email with status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message ||
+            `Failed to send email with status: ${response.status}`,
+        );
       }
-      
+
       setIsEmailSent(true);
-      // Navigate only if the API call is successful and an email is sent
+      // Store email for OTP verification and navigate
+      localStorage.setItem("resetPasswordEmail", email);
       navigate("/otp-verify");
     } catch (err: unknown) {
       console.error("Forgot Password Error:", err);
@@ -747,8 +751,7 @@ const ResetPasswordSignIn: React.FC = () => {
         errorMessage = err.message;
       }
 
-      setError(errorMessage)
-
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -758,7 +761,7 @@ const ResetPasswordSignIn: React.FC = () => {
     setError(null); // Clear previous error
     setIsEmailSent(false);
     setIsLoading(true);
-    
+
     // Simulate API call for resend
     setTimeout(() => {
       setIsLoading(false);
@@ -791,21 +794,40 @@ const ResetPasswordSignIn: React.FC = () => {
           >
             <Card.Body>
               {/* Header and Logo */}
-              <div className="d-flex flex-column align-items-center justify-content-center mb-4" style={{ fontFamily: "heading" }}>
+              <div
+                className="d-flex flex-column align-items-center justify-content-center mb-4"
+                style={{ fontFamily: "heading" }}
+              >
                 <img
                   src={logo}
                   alt="Obeeoma Logo"
                   style={{
                     height: "50px",
-                    width: "auto"
+                    width: "auto",
                   }}
                   className="mb-1"
                 />
               </div>
-              <h3 className="display-6 fw-bold mb-1" style={{ fontFamily: "heading", textAlign: "center", fontSize: "24px" }}>
+              <h3
+                className="display-6 fw-bold mb-1"
+                style={{
+                  fontFamily: "heading",
+                  textAlign: "center",
+                  fontSize: "24px",
+                }}
+              >
                 Reset Password to Sign in
               </h3>
-              <p className="text-muted mb-4 " style={{ fontFamily: "heading", textAlign: "center", fontSize: "14px" }}>Send code to email</p>
+              <p
+                className="text-muted mb-4 "
+                style={{
+                  fontFamily: "heading",
+                  textAlign: "center",
+                  fontSize: "14px",
+                }}
+              >
+                Send code to email
+              </p>
 
               {/* Error Alert (Only one is needed) */}
               {error && (
@@ -819,7 +841,6 @@ const ResetPasswordSignIn: React.FC = () => {
                 {/* Email Field */}
                 <BootstrapForm.Group className="mb-4">
                   <BootstrapForm.Control
-
                     type="email"
                     name="email"
                     placeholder="Email address"
@@ -830,11 +851,10 @@ const ResetPasswordSignIn: React.FC = () => {
                     style={
                       error
                         ? {
-                          borderColor: "red",
-                          borderWidth: "1.5px",
-                          fontFamily: "body",
-
-                        }
+                            borderColor: "red",
+                            borderWidth: "1.5px",
+                            fontFamily: "body",
+                          }
                         : {}
                     }
                   />
@@ -855,7 +875,7 @@ const ResetPasswordSignIn: React.FC = () => {
                     borderColor: customStyles.primaryColor,
                     color: "white",
                     boxShadow: "none",
-                    fontFamily: "body"
+                    fontFamily: "body",
                   }}
                 >
                   {isLoading ? (
@@ -879,7 +899,10 @@ const ResetPasswordSignIn: React.FC = () => {
 
               {/* Resend Code */}
               <div className="text-center mt-3">
-                <span className="text-center text-muted small" style={{ fontFamily: "body" }}>
+                <span
+                  className="text-center text-muted small"
+                  style={{ fontFamily: "body" }}
+                >
                   Didn't receive any code?{" "}
                 </span>
                 <Link
@@ -889,7 +912,7 @@ const ResetPasswordSignIn: React.FC = () => {
                     textDecoration: "none",
                     fontWeight: "500",
                     cursor: "pointer",
-                    fontFamily: "body"
+                    fontFamily: "body",
                   }}
                   to="#" // Prevent full page reload on click
                   className="small"
@@ -912,11 +935,11 @@ const ResetPasswordSignIn: React.FC = () => {
           backgroundColor: "#f5f5f5",
           fontSize: "0.8rem",
           zIndex: 1000,
-          fontFamily: "body"
+          fontFamily: "body",
         }}
       >
         <div className="d-flex justify-content-between align-items-center container">
-          <div className="footer-copyright" >
+          <div className="footer-copyright">
             &copy; 2025 Obeeoma. All rights reserved.
           </div>
 

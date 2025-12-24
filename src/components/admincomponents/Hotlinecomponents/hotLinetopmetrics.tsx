@@ -1,6 +1,6 @@
 // src/components/admincomponents/Hotline-activity/TopMetrics.tsx
-import React from 'react';
-import { Card, Button, Row, Col } from 'react-bootstrap';
+import React from "react";
+import { Card, Button, Row, Col } from "react-bootstrap";
 
 // Define the props interface for flexibility and future backend integration
 interface TopMetricsProps {
@@ -9,7 +9,11 @@ interface TopMetricsProps {
   missedCalls: number;
 }
 
-const TopMetrics: React.FC<TopMetricsProps> = ({ totalCalls, avgCallTime, missedCalls }) => {
+const TopMetrics: React.FC<TopMetricsProps> = ({
+  totalCalls,
+  avgCallTime,
+  missedCalls,
+}) => {
   return (
     <Card className="mb-4">
       <Card.Body>

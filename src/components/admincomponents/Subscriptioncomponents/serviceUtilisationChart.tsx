@@ -1,7 +1,7 @@
 // src/components/admincomponents/subscriptioncomponents/ServiceUtilizationChart.tsx
 
-import React from 'react';
-import { ProgressBar } from 'react-bootstrap';
+import React from "react";
+import { ProgressBar } from "react-bootstrap";
 
 // Define props for each service usage
 interface ServiceUsage {
@@ -20,7 +20,10 @@ const ServiceUtilizationChart: React.FC<Props> = ({ services }) => {
       {services.map((service, index) => (
         <div key={index} className="mb-2">
           <strong>{service.name}</strong>
-          <ProgressBar now={service.percentage} label={`${service.percentage}%`} />
+          <ProgressBar
+            now={service.percentage}
+            label={`${service.percentage}%`}
+          />
         </div>
       ))}
     </div>

@@ -11,11 +11,13 @@ const LogoutButton: React.FC<LogoutButtonProps> = (props) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const handleLogout = async() => {
-   
+  const handleLogout = async () => {
     const resultAction = await dispatch(logoutUserThunk());
-    if (logoutUserThunk.fulfilled.match(resultAction) || logoutUserThunk.rejected.match(resultAction)) {
-    navigate("/login", { replace: true });
+    if (
+      logoutUserThunk.fulfilled.match(resultAction) ||
+      logoutUserThunk.rejected.match(resultAction)
+    ) {
+      navigate("/login", { replace: true });
     }
   };
 

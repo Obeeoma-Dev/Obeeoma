@@ -1,25 +1,35 @@
 // src/pages/Systemadmin/Settingspages/appearancesettings.tsx
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import ThemeSelector from './themeselector';
 import AccentColorSelector from './accentcolourselector';
 import LayoutSelector from './layoutselector';
 import SaveButton from './savebutton';
+=======
+import React, { useState } from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import ThemeSelector from "./themeselector";
+import AccentColorSelector from "./accentcolourselector";
+import LayoutSelector from "./layoutselector";
+import SaveButton from "./savebutton";
+>>>>>>> main
 
 // This page renders the full Appearance Settings interface.
 const AppearanceSettings: React.FC = () => {
   // Local state for each setting
-  const [theme, setTheme] = useState('Light');
-  const [accentColor, setAccentColor] = useState('Green');
-  const [layout, setLayout] = useState('Default');
+  const [theme, setTheme] = useState("Light");
+  const [accentColor, setAccentColor] = useState("Green");
+  const [layout, setLayout] = useState("Default");
 
   // Placeholder save function (ready to connect to backend)
   const handleSave = () => {
-    console.log('Saving settings:', { theme, accentColor, layout });
+    console.log("Saving settings:", { theme, accentColor, layout });
     // Future: send to backend via API call
   };
 
   return (
+<<<<<<< HEAD
     <Card className="settings-card-compact shadow-sm border-0">
       <Card.Header className="fw-semibold mb-2 ps-0">Appearance Settings</Card.Header>
       
@@ -44,6 +54,18 @@ const AppearanceSettings: React.FC = () => {
         <div className="col-12">
           <div className="p-2 border rounded-2 settings-section-compact">
             <h6 className="fw-semibold mb-2">Layout</h6>
+=======
+    <Container fluid>
+      <Row>
+        <Col md={10}>
+          <Card className="mt-4 p-4">
+            <h4>Appearance Settings</h4>
+            <ThemeSelector selectedTheme={theme} onChange={setTheme} />
+            <AccentColorSelector
+              selectedColor={accentColor}
+              onChange={setAccentColor}
+            />
+>>>>>>> main
             <LayoutSelector selectedLayout={layout} onChange={setLayout} />
           </div>
         </div>

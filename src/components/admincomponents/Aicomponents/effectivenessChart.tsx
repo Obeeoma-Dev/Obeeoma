@@ -1,8 +1,8 @@
 // src/components/admincomponents/aimanagementcomponents/EffectivenessChart.tsx
 
-import React from 'react';
-import { Card, ProgressBar } from 'react-bootstrap';
-import { BarChartFill } from 'react-bootstrap-icons';
+import React from "react";
+import { Card, ProgressBar } from "react-bootstrap";
+import { BarChartFill } from "react-bootstrap-icons";
 
 // ✅ Type for each resource effectiveness entry
 interface ResourceEffectiveness {
@@ -35,10 +35,10 @@ const EffectivenessChart: React.FC<EffectivenessChartProps> = ({ data }) => {
               label={`${item.percentage}%`}
               variant={
                 item.percentage >= 80
-                  ? 'success'
+                  ? "success"
                   : item.percentage >= 60
-                    ? 'warning'
-                    : 'danger'
+                    ? "warning"
+                    : "danger"
               }
               className="mt-1"
             />

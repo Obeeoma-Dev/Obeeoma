@@ -103,7 +103,8 @@ const SubscriptionPage: React.FC = () => {
                   <Card.Header className="bg-white border-bottom">
                     <h5 className="mb-0 fw-bold">Recent Subscriptions</h5>
                     <p className="text-muted mb-0 small mt-1">
-                      Overview of organization subscriptions to mental health services
+                      Overview of organization subscriptions to mental health
+                      services
                     </p>
                   </Card.Header>
                   <Card.Body className="p-0">

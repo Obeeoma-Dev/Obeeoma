@@ -29,12 +29,11 @@ const ReportPage: React.FC = () => {
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            overflowY: "auto",
+            padding: "1rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
-
           {/* 🧭 Scrollable content area below header */}
           <div className="flex-grow-1 overflow-auto">
             <Container fluid className="py-4">
