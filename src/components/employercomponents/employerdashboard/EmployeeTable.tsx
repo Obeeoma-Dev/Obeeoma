@@ -204,6 +204,30 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
         </table>
       </div>
 
+      {/* Pagination */}
+      <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
+        <div className="text-muted">
+          Showing {table.getFilteredRowModel().rows.length} of{" "}
+          {employees.length} employees
+        </div>
+        <div className="d-flex gap-2">
+          <button
+            className="btn btn-sm btn-outline-secondary"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </button>
+          <button
+            className="btn btn-sm btn-outline-secondary"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>
