@@ -59,21 +59,12 @@ const Footer: React.FC = () => {
         <div className="row g-4">
           {/* About Section */}
           <div className="col-lg-3 mb-4" data-testid="footer-section-about">
-<<<<<<< HEAD
             <h6 className="text-white mb-3" style={{
               fontFamily: 'heading', fontSize: '1rem'
             }}>About Obeeoma</h6>
             <p className="footer-text">
               AI-first workplace mental health platform built for Africa. Supporting
               healthier, more productive teams across the continent.
-=======
-            <h6 className="text-white mb-3" style={{ fontFamily: "heading" }}>
-              About Obeeoma
-            </h6>
-            <p className="text-white small mb-4">
-              AI-first workplace mental health platform built for Africa.
-              Supporting healthier, more productive teams across the continent.
->>>>>>> main
             </p>
             <p className="footer-text">
               © 2025 Obeeoma. All rights reserved.
@@ -87,13 +78,9 @@ const Footer: React.FC = () => {
               className="col-lg-3 mb-4"
               data-testid={`footer-section-${key}`}
             >
-<<<<<<< HEAD
               <h6 className="text-white mb-3" style={{
                 fontFamily: 'heading', fontSize: '1rem'
               }}>
-=======
-              <h6 className="text-white mb-3" style={{ fontFamily: "heading" }}>
->>>>>>> main
                 {section.title}
               </h6>
               <ul className="list-unstyled">

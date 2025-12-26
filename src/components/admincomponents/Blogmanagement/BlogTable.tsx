@@ -10,7 +10,7 @@ export type BlogPost = {
   date: string;
   status: "published" | "draft";
   excerpt: string;
-  imageUrl: string;
+  imageUrl: string | File;
   author: string;
   content: string;
   featured: boolean;
@@ -35,12 +35,12 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
           <p className="blogtable-subtitle">Manage your landing page content</p>
         </div>
 
-                {/* Add Article Button */}
-                <Button className="blogtable-add-button d-flex align-items-center gap-2" style={{ fontFamily: 'body' }} onClick={onAdd}>
-                    <PlusIcon size={16} />
-                    Add Article
-                </Button>
-            </Card.Header>
+        {/* Add Article Button */}
+        <Button className="blogtable-add-button d-flex align-items-center gap-2" style={{ fontFamily: 'body' }} onClick={onAdd}>
+          <PlusIcon size={16} />
+          Add Article
+        </Button>
+      </Card.Header>
 
       {/* Table wrapper */}
       <div className="table-responsive">
@@ -62,7 +62,12 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 <td>
                   <div className="d-flex align-items-center gap-3">
                     <Image
-                      src={blog.imageUrl}
+                      src={
+                        typeof blog.imageUrl === "string"
+                          ? blog.imageUrl
+                          : URL.createObjectURL(blog.imageUrl)
+                      }
+
                       rounded
                       className="blogtable-thumb"
                     />

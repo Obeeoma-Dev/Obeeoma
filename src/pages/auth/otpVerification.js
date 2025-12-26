@@ -1,13 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-<<<<<<< HEAD
-import { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import OtpInput from '../../components/OtpComponent';
-import { Button } from 'react-bootstrap';
-import { verifyOtpThunk, resendOtpThunk } from '../../store/slices/authSlice';
-import logo from './../../assets/Images/obeeomalogoword1.png';
-=======
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,7 +6,6 @@ import OtpInput from "../../components/OtpComponent";
 import { Button } from "react-bootstrap";
 import { verifyOtpThunk, resendOtpThunk } from "../../store/slices/authSlice";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
->>>>>>> main
 const customStyles = {
     primaryColor: "#22C55E", // Already set to #22C55E
 };

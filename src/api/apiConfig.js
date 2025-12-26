@@ -1,12 +1,11 @@
 // Company logo API endpoints
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
-// Company logo API endpoints
-export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
-export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
+import { store } from "../store/store";
+// import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
@@ -386,7 +385,7 @@ export const employerAPI = {
     },
     // Wellness Data
     getMoodTrends: async () => {
-        const response = await api.get("/v1/trends/");
+        const response = await api.get("/v1/dashboard/trends/");
         return response;
     },
     getDepartmentDistribution: async () => {

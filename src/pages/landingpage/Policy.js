@@ -1,8 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { cubicBezier } from "framer-motion";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 // React-Bootstrap components used to replace Tailwind utility classes
-import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 // Site-level components (kept as-is per your request)
 import Navigation from "../../components/shared/Navigation";
 import Footer from "../../components/shared/Footer";
@@ -31,7 +30,7 @@ const cardVariants = {
         y: 0,
         transition: {
             duration: 0.5,
-            ease: cubicBezier(0.22, 1, 0.36, 1),
+            ease: [0.22, 1, 0.36, 1]
         },
     },
 };
@@ -45,7 +44,7 @@ const heroVariants = {
         scale: 1,
         transition: {
             duration: 0.6,
-            ease: cubicBezier(0.22, 1, 0.36, 1),
+            ease: [0.22, 1, 0.36, 1]
         },
     },
 };
@@ -128,7 +127,7 @@ export function PrivacyPolicy() {
                                                                     textDecoration: "none",
                                                                     color: "#065f46",
                                                                     fontWeight: 600,
-                                                                }, children: [_jsx(ExternalLink, { style: { width: 16, height: 16 } }), "www.obeeoma.com"] })] })] }) }) }) }) }), _jsx(Row, { className: "mb-4", children: _jsx(Col, { children: _jsx(motion.div, { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-50px" }, transition: { duration: 0.6, ease: "easeInOut" }, children: _jsx(Card, { className: "text-center", children: _jsxs(Card.Body, { children: [_jsx("div", { style: {
+                                                                }, children: [_jsx(ExternalLink, { style: { width: 16, height: 16 } }), "www.obeeoma.com"] })] })] }) }) }) }) }), _jsx(Row, { className: "mb-4", children: _jsx(Col, { children: _jsx(motion.div, { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-50px' }, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }, children: _jsx(Card, { className: "text-center", children: _jsxs(Card.Body, { children: [_jsx("div", { style: {
                                                             display: "inline-flex",
                                                             alignItems: "center",
                                                             justifyContent: "center",

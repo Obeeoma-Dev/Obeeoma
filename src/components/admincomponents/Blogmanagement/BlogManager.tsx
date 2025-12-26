@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BlogTable } from "./BlogTable";
 import { BlogForm } from "./BlogForm"; // the Offcanvas form
 import { BlogPost } from "./BlogTable"; // import the type
@@ -32,6 +32,15 @@ export function BlogManager() {
             featured: false,
         },
     ]);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/blogs/")
+            .then(res => res.json())
+            .then(data => setBlogs(data))
+            .catch(err => console.error("Failed to load blogs", err));
+    }, []);
+
+
     const [showForm, setShowForm] = useState(false);
     const [formMode, setFormMode] = useState<"add" | "edit">("add");
     const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
@@ -59,29 +68,61 @@ export function BlogManager() {
     }
 
     // Confirmation handler delete.
-    function confirmDelete() {
+    async function confirmDelete() {
         if (!deleteConfirm) return;
-        setBlogs((prev) => prev.filter((b) => b.id !== deleteConfirm));
-        setDeleteConfirm(null); // close modal
+
+        await fetch(`http://127.0.0.1:8000/api/blogs/${deleteConfirm}/`, {
+            method: "DELETE",
+        });
+
+        setBlogs(prev => prev.filter(b => b.id !== deleteConfirm));
+        setDeleteConfirm(null);
     }
 
 
 
 
 
+    // Handle add & edit submit (CONNECTED TO BACKEND)
+    async function handleSubmit(newBlog: BlogPost) {
+        try {
+            // ADD MODE → CREATE BLOG
+            if (formMode === "add") {
+                const res = await fetch("http://127.0.0.1:8000/api/blogs/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newBlog),
+                });
 
-    function handleSubmit(newBlog: BlogPost) {
-        if (formMode === "add") {
-            setBlogs((prev) => [newBlog, ...prev]);
-        } else {
-            setBlogs((prev) =>
-                prev.map((b) => (b.id === newBlog.id ? newBlog : b))
-            );
+                const savedBlog: BlogPost = await res.json();
+
+                // Update UI immediately
+                setBlogs((prev) => [savedBlog, ...prev]);
+            }
+            // EDIT MODE → UPDATE BLOG
+            else {
+                const res = await fetch(`http://127.0.0.1:8000/api/blogs/${newBlog.id}/`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(newBlog),
+                });
+
+                const updatedBlog: BlogPost = await res.json();
+
+                setBlogs((prev) =>
+                    prev.map((b) =>
+                        b.id === updatedBlog.id ? updatedBlog : b
+                    )
+                );
+            }
+
+            // Close form after success
+            setShowForm(false);
+        } catch (error) {
+            console.error("Failed to save blog:", error);
         }
-
-
-        setShowForm(false); // close after submit
     }
+
 
     return (
         <>

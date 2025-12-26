@@ -1,20 +1,11 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/Systemadmin/Settingspages/appearancesettings.tsx
-<<<<<<< HEAD
 import { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import ThemeSelector from './themeselector';
 import AccentColorSelector from './accentcolourselector';
 import LayoutSelector from './layoutselector';
 import SaveButton from './savebutton';
-=======
-import { useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import ThemeSelector from "./themeselector";
-import AccentColorSelector from "./accentcolourselector";
-import LayoutSelector from "./layoutselector";
-import SaveButton from "./savebutton";
->>>>>>> main
 // This page renders the full Appearance Settings interface.
 const AppearanceSettings = () => {
     // Local state for each setting

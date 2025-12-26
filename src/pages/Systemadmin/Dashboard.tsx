@@ -10,16 +10,8 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
-<<<<<<< HEAD
 import { BlogTable, BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
-=======
-import {
-  BlogTable,
-  BlogPost,
-} from "../../components/admincomponents/Blogmanagement/BlogTable";
-
->>>>>>> main
 // Import shared type definitions
 import {
   ActivityItem,
@@ -195,15 +187,9 @@ const Dashboard: React.FC = () => {
         <div
           style={{
             flex: 1,
-<<<<<<< HEAD
             overflowY: 'auto',
             padding: '2rem 1.5rem',
             backgroundColor: '#f5f7fa',
-=======
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "#f8f9fa",
->>>>>>> main
           }}
         >
           {/* Scrollable content below header */}

@@ -66,13 +66,10 @@ function Navigation() {
             <Nav.Link as={Link} to="/blog" className="mx-2">
               Blog
             </Nav.Link>
-<<<<<<< HEAD
 
             <Nav.Link as={Link} to="/contact-us" className="mx-2">
               Contact
             </Nav.Link>
-=======
->>>>>>> main
           </Nav>
         </Navbar.Collapse>
       </Container>

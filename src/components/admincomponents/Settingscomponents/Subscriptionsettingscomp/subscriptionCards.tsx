@@ -13,7 +13,6 @@ export interface SubscriptionPlan {
 
 // This component renders a single subscription card
 const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
-<<<<<<< HEAD
     return (
         <Card
             className="h-100 shadow-sm border-0 overflow-hidden transition"
@@ -64,38 +63,6 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
             </Card.Body>
         </Card>
     );
-=======
-  return (
-    <Card style={{ boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
-      <Card.Body>
-        {/* Title with optional "Most Popular" badge */}
-        <Card.Title
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <span>{plan.name}</span>
-          {plan.isPopular && <Badge bg="success">Most Popular</Badge>}
-        </Card.Title>
-        {/* Price and billing note */}
-        <Card.Subtitle className="mb-2 text-muted">{plan.price}</Card.Subtitle>
-        <Card.Text style={{ fontStyle: "italic", marginBottom: "1rem" }}>
-          {plan.billingNote}
-        </Card.Text>
-        {/* List of features */}
-        <ul style={{ paddingLeft: "1rem" }}>
-          {plan.features.map((feature, i) => (
-            <li key={i}>{feature}</li>
-          ))}
-        </ul>
-        {/* Edit button wrapped in a link */}\
-        <Link to="/settings-overview/subscription-editor">
-          <Button variant="primary" style={{ marginTop: "1rem" }}>
-            Edit Plan
-          </Button>
-        </Link>
-      </Card.Body>
-    </Card>
-  );
->>>>>>> main
 };
 
 export default SubscriptionCard;
