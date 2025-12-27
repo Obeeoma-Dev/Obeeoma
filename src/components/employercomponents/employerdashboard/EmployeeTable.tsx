@@ -329,11 +329,10 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
                 name="status"
                 className={`form-select py-2 ${validationErrors.status ? "is-invalid" : ""}`}
                 value={formData.status || ""}
-                 
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     status: e.target.value as any,
                   }))
                 }
