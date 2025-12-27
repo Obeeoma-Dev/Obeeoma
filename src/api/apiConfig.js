@@ -93,7 +93,7 @@ export const authAPI = {
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/v1/organization-signup/", {
+        const response = await api.post("/v1/auth/organization-signup/", {
             organizationName: credentials.organizationName,
             phoneNumber: credentials.phoneNumber,
             organisationSize: credentials.organisationSize,
@@ -328,6 +328,10 @@ export const employerAPI = {
         const response = await api.delete(`/v1/employees/${id}`);
         return response;
     },
+    updateEmployee: async (id, data) => {
+        const response = await api.patch(`/employees/${id}/`, data);
+        return response.data;
+    },
     updateEmployeeStatus: async (url, status) => {
         const response = await api.put(url, { status });
         return response;
@@ -431,7 +435,7 @@ export const employerAPI = {
     // Data Export & Deletion
     exportAllData: async () => {
         return api.get("/v1/employer/data/export/", {
-            responseType: "blob", // Correctly configured for binary export
+            responseType: "blob",
         });
     },
     deleteAllData: async () => {

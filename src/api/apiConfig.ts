@@ -13,7 +13,8 @@ import {
   // MfaSetupData,
   // MfaVerifyPayload,
   MfaSetupRequestPayload,
-} from "@/types/auth";
+} from "../types/auth";
+import { Employee } from "../types/TData";
 
 // import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
@@ -124,7 +125,7 @@ export const authAPI = {
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/v1/organization-signup/", {
+    const response = await api.post("/v1/auth/organization-signup/", {
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,
@@ -412,6 +413,11 @@ export const employerAPI = {
     return response;
   },
 
+  updateEmployee: async (id: number | string, data: Partial<Employee>) => {
+    const response = await api.patch(`/employees/${id}/`, data);
+    return response.data;
+  },
+
   updateEmployeeStatus: async (url: string, status: string) => {
     const response = await api.put(url, { status });
     return response;
@@ -539,7 +545,7 @@ export const employerAPI = {
   // Data Export & Deletion
   exportAllData: async () => {
     return api.get("/v1/employer/data/export/", {
-      responseType: "blob", // Correctly configured for binary export
+      responseType: "blob",
     });
   },
 

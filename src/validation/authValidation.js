@@ -146,3 +146,17 @@ export const changePasswordValidationSchema = yup.object({
         .oneOf([yup.ref("new_password")], "Passwords must match")
         .required("Confirm Password is required"),
 });
+export const updateEmployeeValidationSchema = yup.object().shape({
+    emailAddress: yup
+        .string()
+        .email("Must be a valid email format")
+        .required("Email address is required"),
+    employeedepartment: yup
+        .string()
+        .required("Department is required")
+        .min(2, "Department name is too short"),
+    status: yup
+        .string()
+        .oneOf(["active", "inactive"], "Invalid status selected")
+        .required("Status is required"),
+});
