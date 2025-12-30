@@ -1,11 +1,12 @@
 // EngagementStatsPanel.tsx
-// Displays bottom panel with top rewards, engagement trends, and streak statistics
+// Reusable bottom panel component for client engagement dashboard
+// Shows top rewards, engagement trends, and streak statistics
 
 import React from "react";
-import { Card, Row, Col, ListGroup } from "react-bootstrap";
-import { FaArrowUp, FaFire, FaRedo } from "react-icons/fa";
+import { Card, Row, Col } from "react-bootstrap";
+import { Award, TrendingUp, Flame, ArrowUp } from "lucide-react";
 
-// ✅ Define TypeScript interface for backend-ready props
+// Props interface
 interface EngagementStatsPanelProps {
   topRewards: Array<{ name: string; points: number }>;
   trends: {
@@ -20,7 +21,7 @@ interface EngagementStatsPanelProps {
   };
 }
 
-// ✅ Functional component with props
+// Functional component
 const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
   topRewards,
   trends,
@@ -28,60 +29,76 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
 }) => {
   return (
     <Row className="g-4 mt-4">
-      {/* 🏆 Top Rewards Card */}
+      {/* Top Rewards Card */}
       <Col md={4}>
-        <Card className="shadow-sm border-0 h-100">
+        <Card className="shadow-sm mb-3 h-100">
           <Card.Body>
-            <h5 className="mb-3 text-primary">Top Rewards</h5>
-            <ListGroup variant="flush">
-              {topRewards.map((reward) => (
-                <ListGroup.Item key={reward.name}>
-                  {reward.name} – {reward.points.toLocaleString()} pts
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+            <Award size={20} className="mb-2" />
+            <h5 className="mb-3">Top Rewards</h5>
+            {topRewards.map((reward, index) => (
+              <div
+                key={reward.name}
+                className="d-flex justify-content-between align-items-center mb-2"
+              >
+                <span>
+                  #{index + 1} {reward.name}
+                </span>
+                <strong>{reward.points.toLocaleString()} pts</strong>
+              </div>
+            ))}
           </Card.Body>
         </Card>
       </Col>
 
-      {/* 📈 Engagement Trends Card */}
-      <Col md={4}>
-        <Card className="shadow-sm border-0 h-100">
+      {/* Engagement Trends Card */}
+      <Col xs={12} sm={6} md={4}>
+        <Card className="shadow-lg mb-3 h-100" style={{ fontFamily: 'body', backgroundColor: '#f8f9fa', borderRadius: '8px', padding: '1.5rem' }}>
           <Card.Body>
-            <h5 className="mb-3 text-success">Engagement Trends</h5>
-            <p>
-              <FaArrowUp className="text-success me-2" />
-              Course Completion: +{trends.courseCompletion}%
-            </p>
-            <p>
-              <FaArrowUp className="text-success me-2" />
-              Reward Redemption: +{trends.rewardRedemption}%
-            </p>
-            <p>
-              <FaArrowUp className="text-success me-2" />
-              Member Activity: +{trends.memberActivity}%
-            </p>
+            <TrendingUp size={24} className="mb-2 text-primary" />
+            <h5 className="mb-3 fw-bold" style={{ fontSize: '1.25rem' }}>Engagement Trends</h5>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <span className="fw-medium">Course Completion</span>
+              <span className="text-success d-flex align-items-center fw-bold">
+                <ArrowUp size={14} className="me-1" />
+                +{trends.courseCompletion}%
+              </span>
+            </div>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <span className="fw-medium">Reward Redemption</span>
+              <span className="text-success d-flex align-items-center fw-bold">
+                <ArrowUp size={14} className="me-1" />
+                +{trends.rewardRedemption}%
+              </span>
+            </div>
+            <div className="d-flex justify-content-between align-items-center">
+              <span className="fw-medium">Member Activity</span>
+              <span className="text-success d-flex align-items-center fw-bold">
+                <ArrowUp size={14} className="me-1" />
+                +{trends.memberActivity}%
+              </span>
+            </div>
           </Card.Body>
         </Card>
       </Col>
 
-      {/* 🔁 Streak Statistics Card */}
+      {/* Streak Statistics Card */}
       <Col md={4}>
-        <Card className="shadow-sm border-0 h-100">
+        <Card className="shadow-sm mb-3 h-100" style={{ fontFamily: 'body' }}>
           <Card.Body>
-            <h5 className="mb-3 text-warning">Streak Statistics</h5>
-            <p>
-              <FaFire className="text-danger me-2" />
-              7-Day Streak: {streaks.sevenDay}%
-            </p>
-            <p>
-              <FaFire className="text-warning me-2" />
-              30-Day Streak: {streaks.thirtyDay}%
-            </p>
-            <p>
-              <FaRedo className="text-info me-2" />
-              60-Day Streak: {streaks.sixtyDay}%
-            </p>
+            <Flame size={20} className="mb-2" />
+            <h5 className="mb-3">Streak Statistics</h5>
+            <div className="d-flex justify-content-between mb-3">
+              <span>🔥 7-Day Streak</span>
+              <strong>{streaks.sevenDay}%</strong>
+            </div>
+            <div className="d-flex justify-content-between mb-3">
+              <span>🔥 30-Day Streak</span>
+              <strong>{streaks.thirtyDay}%</strong>
+            </div>
+            <div className="d-flex justify-content-between">
+              <span>💧 60-Day Streak</span>
+              <strong>{streaks.sixtyDay}%</strong>
+            </div>
           </Card.Body>
         </Card>
       </Col>

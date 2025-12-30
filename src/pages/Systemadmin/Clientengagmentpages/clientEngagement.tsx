@@ -167,15 +167,15 @@ const ClientEngagement: React.FC = () => {
 
               {/* Bottom panel with trends and streaks */}
               <EngagementStatsPanel
-                topRewards={[
-                  { name: "Madison Carano", points: 1200 },
-                  { name: "William Johnson", points: 980 },
-                  { name: "Preston Corbett", points: 870 },
-                ]}
+                topRewards={data?.patients
+                  .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
+                  .slice(0, 3)
+                  .map((patient) => ({ name: patient.name, points: patient.pointsRedeemed })) ?? []
+                }
                 trends={{
-                  courseCompletion: 12,
-                  rewardRedemption: 8,
-                  memberActivity: 5,
+                  courseCompletion: data?.trends.weekly ?? 0,
+                  rewardRedemption: data?.trends.rewardActivity ?? 0,
+                  memberActivity: data?.trends.monthly ?? 0,
                 }}
                 streaks={{
                   sevenDay: data?.streaks.sevenDay ?? 0,

@@ -277,30 +277,29 @@ footer a:hover {
 } */
 /* These style blocks handle the styling in the Navigation.tsx transparency and scrolled*/
 .navbar.transparent {
-  /* Transparency */
-  background-color: rgba(255, 255, 255, 0.01);
+  background-color: transparent !important;
+  /* totally transparent */
+  backdrop-filter: blur(6px);
+  /* gentle glass effect */
+  -webkit-backdrop-filter: blur(6px);
+  /* Safari support */
   box-shadow: none !important;
   border: none !important;
-  backdrop-filter: none !important;
-
-  /* avoiding blendng effects */
-  mix-blend-mode: normal;
+  transition: background-color 0.3s ease;
 }
 
 .navbar.scrolled {
-  background-color: white;
-
-  /* Depth */
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  /* soft white, not bold */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-/* Make nav link text white when navbar is transparent */
 .navbar.transparent .nav-link {
   color: white !important;
   transition: color 0.3s ease;
 }
 
-/* Optional: green on hover */
 .navbar.transparent .nav-link:hover {
   color: #3CB371 !important;
 }
@@ -309,7 +308,7 @@ footer a:hover {
   font-size: 20px;
   font-weight: 900;
   font-family: 'body';
-  /* Make sure 'body' is defined in your fonts */
+  /* Make sure 'body' is defined */
 }
 
 /* Settings tabs: show green underline on hover only; avoid button-like active styles */

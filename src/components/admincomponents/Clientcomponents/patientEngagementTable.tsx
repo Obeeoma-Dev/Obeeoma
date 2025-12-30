@@ -2,7 +2,7 @@
 // Displays a styled table of patient engagement data with icons and status badges
 
 import React from "react";
-import { Table, Badge } from "react-bootstrap";
+import { Table, Badge, Card } from "react-bootstrap";
 import { FaFire, FaExclamationTriangle, FaSnowflake } from "react-icons/fa";
 
 // Define a type for patient data
@@ -37,6 +37,13 @@ const patients: Patient[] = [
     pointsRedeemed: 1100,
     lastActivity: "1h ago",
   },
+  {
+    name: "Preston Corbett",
+    organization: "WellnessCo",
+    engagementRate: 67,
+    pointsRedeemed: 870,
+    lastActivity: "5h ago"
+  },
 ];
 
 // Helper function to determine engagement level icon
@@ -56,65 +63,114 @@ const getEngagementIcon = (rate: number): React.ReactNode => {
 // Helper function to determine status badge
 const getStatusBadge = (rate: number): React.ReactNode => {
   return rate >= 50 ? (
-    <Badge bg="success">Active</Badge>
+    <Badge pill bg="success">Active</Badge>
   ) : (
-    <Badge bg="secondary">Low Engagement</Badge>
+    <Badge pill bg="secondary">Low Engagement</Badge>
   );
 };
+
+// helper for getting initials.
+const getInitials = (fullName: string) => {
+  const names = fullName.split(" ");
+  return names.map(n => n[0]).join("").toUpperCase();
+};
+
 
 // Main component
 const PatientEngagementTable: React.FC = () => {
   return (
-    <div className="mb-4">
-      <h5 className="mb-3">Client Engagement Table</h5>
+    // Card provides visual containment and matches the dashboard layout
+    <Card className="mb-4 shadow-sm">
+      {/* Card header for table title and hierarchy */}
+      <Card.Header className="d-flex justify-content-between align-items-center" style={{ fontFamily: 'heading' }}>
+        <strong>Client Engagement Table</strong>
+      </Card.Header>
 
-      {/* Responsive Bootstrap table */}
-      <Table striped bordered hover responsive className="align-middle">
-        <thead className="table-light">
-          <tr>
-            <th>Name</th>
-            <th>Organization</th>
-            <th>Engagement</th>
-            <th>Engagement Rate (%)</th>
-            <th>Points Redeemed</th>
-            <th>Last Activity</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {patients.map((patient) => (
-            <tr key={patient.name}>
-              <td>{patient.name}</td>
-              <td>{patient.organization}</td>
-
-              {/* Engagement icon + label */}
-              <td>
-                {getEngagementIcon(patient.engagementRate)}
-                {patient.engagementRate >= 80
-                  ? "High"
-                  : patient.engagementRate >= 50
-                    ? "Medium"
-                    : "Low"}
-              </td>
-
-              {/* Numeric rate */}
-              <td>{patient.engagementRate}%</td>
-
-              {/* Points redeemed */}
-              <td>{patient.pointsRedeemed.toLocaleString()}</td>
-
-              {/* Last activity */}
-              <td>{patient.lastActivity}</td>
-
-              {/* Status badge */}
-              <td>{getStatusBadge(patient.engagementRate)}</td>
+      {/* Remove padding so the table touches card edges cleanly */}
+      <Card.Body className="p-2">
+        {/* 
+        Responsive Bootstrap table
+        - hover: subtle row interaction
+        - responsive: horizontal scroll on small screens
+        - align-middle: vertical centering of content
+        - mb-0: avoid extra spacing inside Card
+      */}
+        <Table
+          hover
+          responsive
+          className="align-middle mb-0 table-hover"
+        >
+          {/* Light header with muted text for modern dashboard feel */}
+          <thead className="table-light text-muted small" style={{ fontFamily: 'heading' }}>
+            <tr>
+              <th>Name</th>
+              <th>Organization</th>
+              <th>Engagement</th>
+              <th>Engagement Rate (%)</th>
+              <th>Points Redeemed</th>
+              <th>Last Activity</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+
+          <tbody>
+            {patients.map((patient) => (
+              // Use stable key (name assumed unique for demo data)
+              <tr key={patient.name}>
+                {/* Patient name */}
+                <td className="d-flex align-items-center">
+                  {/* Circular initials avatar */}
+                  <span
+                    className="rounded-circle bg-secondary text-white d-inline-flex justify-content-center align-items-center me-2"
+                    style={{ width: 32, height: 32 }}
+                  >
+                    {getInitials(patient.name)}
+                  </span>
+                  {/* Actual patient name */}
+                  {patient.name}
+                </td>
+
+
+                {/* Organization name */}
+                <td>{patient.organization}</td>
+
+                {/* Engagement icon + label aligned horizontally */}
+                <td className="fw-medium">
+                  <span className="d-inline-flex align-items-center">
+                    {getEngagementIcon(patient.engagementRate)}
+                    {patient.engagementRate >= 80
+                      ? "High"
+                      : patient.engagementRate >= 50
+                        ? "Medium"
+                        : "Low"}
+                  </span>
+                </td>
+
+                {/* Engagement percentage emphasized for readability */}
+                <td className="fw-semibold">
+                  {patient.engagementRate}%
+                </td>
+
+                {/* Points formatted and emphasized */}
+                <td style={{ fontFamily: 'body' }}>
+                  {patient.pointsRedeemed.toLocaleString()}
+                </td>
+
+                {/* Last activity timestamp */}
+                <td>{patient.lastActivity}</td>
+
+                {/* Status badge with pill styling for modern UI */}
+                <td>
+                  {getStatusBadge(patient.engagementRate)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Card.Body>
+    </Card>
   );
+
 };
 
 export default PatientEngagementTable;
