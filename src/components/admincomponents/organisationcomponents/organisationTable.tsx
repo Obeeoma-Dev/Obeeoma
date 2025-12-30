@@ -17,13 +17,13 @@ import {
   FaTimesCircle,
   FaSearch,
 } from "react-icons/fa";
-
+import "./organisation.css";
 // Define the shape of organization data
 export interface Organization {
   id: string;
   name: string;
   clients: number;
-  plan: "Premium" | "Enterprise" | "Freemium";
+  plan: "Premium" | "Freemium";
   status: "Active" | "Pending" | "Inactive";
   lastActive: string;
   address: string;
@@ -138,16 +138,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
               {/* Plan */}
               <td>
                 <span
-                  className={`badge ${
-                    org.plan === "Premium"
-                      ? "bg-success"
-                      : org.plan === "Enterprise"
-                        ? "bg-primary"
-                        : "bg-secondary"
-                  }`}
+                  className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                    }`}
                 >
                   {org.plan}
                 </span>
+
               </td>
 
               {/* Status with icon */}
@@ -212,7 +208,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       <style>
         {`
     .nav-pills .nav-link.active {
-      background-color: #3CB371 !important;
+      background-color: #0B6E45 !important;
       color: white !important;
     }
 
@@ -222,7 +218,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     }
 
     .nav-pills .nav-link:hover {
-      background-color: #0B6E45 !important;
+      background-color: #3CB371 !important;
       color: white !important;
     }
   `}

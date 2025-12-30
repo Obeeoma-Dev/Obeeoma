@@ -33,8 +33,9 @@ export const ContactPage: React.FC = () => {
       {/* Navigation Bar */}
       <Navigation />
 
-      {/* Hero Section */}
-      <div
+      <main style={{ paddingTop: '80px' }}>
+        {/* Hero Section */}
+        <div
         className="position-relative"
         style={{
           height: "500px",
@@ -219,8 +220,9 @@ export const ContactPage: React.FC = () => {
             <Footer />
 
 
-      {/* Floating WhatsApp Button */}
-      <FloatingWhatsApp />
+        {/* Floating WhatsApp Button */}
+        <FloatingWhatsApp />
+      </main>
     </div>
   );
 };

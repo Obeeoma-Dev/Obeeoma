@@ -55,6 +55,7 @@ const AdminSidebar = () => {
         { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
         { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
         { id: "reports", label: "Reports", icon: "BarChart3" },
+        { id: "content-management", label: "Content Management", icon: "FolderOutput" },
     ];
     // Extract current path segment to determine active menu item
     // const currentPath = location.pathname.split("/")[2];

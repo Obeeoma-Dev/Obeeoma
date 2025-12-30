@@ -16,6 +16,26 @@ export type BlogPost = {
   featured: boolean;
 };
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+
+const resolveImageSrc = (imageUrl: string | File): string => {
+  if (typeof imageUrl === "string") {
+    if (imageUrl.startsWith("/")) {
+      return `${BASE_URL}${imageUrl}`;
+    }
+    return imageUrl;
+  }
+
+  // TypeScript-safe check
+  if (imageUrl && typeof imageUrl === "object" && "name" in imageUrl && "type" in imageUrl) {
+    return URL.createObjectURL(imageUrl);
+  }
+
+
+
+  return "";
+};
+
 // Component props
 type BlogTableProps = {
   blogs: BlogPost[];
@@ -62,12 +82,7 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 <td>
                   <div className="d-flex align-items-center gap-3">
                     <Image
-                      src={
-                        typeof blog.imageUrl === "string"
-                          ? blog.imageUrl
-                          : URL.createObjectURL(blog.imageUrl)
-                      }
-
+                      src={resolveImageSrc(blog.imageUrl) || "/default-thumbnail.png"}
                       rounded
                       className="blogtable-thumb"
                     />

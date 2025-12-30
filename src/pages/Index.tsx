@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <main>
+      <main style={{ paddingTop: '80px' }}>
         <section id="Hero">
           <Hero />
         </section>

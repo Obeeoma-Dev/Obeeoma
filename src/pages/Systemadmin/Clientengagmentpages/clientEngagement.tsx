@@ -109,7 +109,7 @@ const ClientEngagement: React.FC = () => {
     simulateFetch();
   }, []);
 
-  // ✅ Temporary usage to satisfy ESLint (remove once real props are passed)
+  // Temporary usage to satisfy ESLint (remove once real props are passed)
   console.log("Simulated data:", data);
   console.log("Loading state:", loading);
 

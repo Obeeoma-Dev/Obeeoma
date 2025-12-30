@@ -18,7 +18,7 @@ const OrganizationCharts = () => {
             {
                 label: "Organization Growth",
                 data: [5, 10, 15, 25, 35, 42],
-                borderColor: "#28a745", // Bootstrap green
+                borderColor: "#0B6E45", // Bootstrap green
                 backgroundColor: "rgba(40,167,69,0.2)", // Transparent green fill
                 tension: 0.4, // Smooth curve
             },
@@ -31,7 +31,7 @@ const OrganizationCharts = () => {
             {
                 label: "Clients",
                 data: [284, 194, 134],
-                backgroundColor: ["#28a745", "#218838", "#1e7e34"], // Varying greens
+                backgroundColor: ["#0B6E45", "#0B6E45", "#0B6E45"], // Varying greens
                 borderRadius: 4, // Rounded bars
             },
         ],

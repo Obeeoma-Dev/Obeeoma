@@ -214,8 +214,9 @@ export function Blog() {
       {/* Navigation Bar */}
       <Navigation />
 
-      {/* Hero Section */}
-      <BlogHero onSearch={handleSearch} />
+      <main style={{ paddingTop: '80px' }}>
+        {/* Hero Section */}
+        <BlogHero onSearch={handleSearch} />
 
       {/* Margin to create space between the two components */}
       <div style={{ marginBottom: "120px" }} />
@@ -270,8 +271,9 @@ export function Blog() {
       {/* Socials Footer */}
       <Footer />
 
-      {/* Floating WhatsApp Button */}
-      <FloatingWhatsApp />
+        {/* Floating WhatsApp Button */}
+        <FloatingWhatsApp />
+      </main>
     </div>
   );
 }

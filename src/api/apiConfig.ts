@@ -539,7 +539,7 @@ export const employerAPI = {
   },
 };
 
-export default api;
+// export default api;
 
 // import axios from "axios";
 // import { RootState } from '../store/store';
@@ -919,4 +919,19 @@ export default api;
 //   },
 // };
 
-// export default api;
+// Blog submission API
+export const submitArticle = async (formData: FormData) => {
+  try {
+    const response = await api.post('/v1/articles/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting article:', error);
+    throw error;
+  }
+};
+
+export default api;

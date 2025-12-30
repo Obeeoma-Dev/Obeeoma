@@ -34,7 +34,7 @@ export function BlogManager() {
     ]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/blogs/")
+        fetch("http://127.0.0.1:8000/api/v1/articles/")
             .then(res => res.json())
             .then(data => setBlogs(data))
             .catch(err => console.error("Failed to load blogs", err));
@@ -86,12 +86,31 @@ export function BlogManager() {
     // Handle add & edit submit (CONNECTED TO BACKEND)
     async function handleSubmit(newBlog: BlogPost) {
         try {
+            const formData = new FormData();
+
+            // Append all fields to FormData
+            formData.append('title', newBlog.title);
+            formData.append('category', newBlog.category);
+            formData.append('date', newBlog.date);
+            formData.append('status', newBlog.status);
+            formData.append('excerpt', newBlog.excerpt);
+            formData.append('author', newBlog.author);
+            formData.append('content', newBlog.content);
+            formData.append('featured', newBlog.featured.toString());
+
+            // Handle image
+            if (newBlog.imageUrl instanceof File) {
+                formData.append('image', newBlog.imageUrl);
+            } else if (typeof newBlog.imageUrl === 'string') {
+                // If it's a URL, you might need to handle differently, but for now assume file
+                formData.append('image_url', newBlog.imageUrl);
+            }
+
             // ADD MODE → CREATE BLOG
             if (formMode === "add") {
-                const res = await fetch("http://127.0.0.1:8000/api/blogs/", {
+                const res = await fetch("http://127.0.0.1:8000/api/v1/articles/", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newBlog),
+                    body: formData,
                 });
 
                 const savedBlog: BlogPost = await res.json();
@@ -101,10 +120,10 @@ export function BlogManager() {
             }
             // EDIT MODE → UPDATE BLOG
             else {
-                const res = await fetch(`http://127.0.0.1:8000/api/blogs/${newBlog.id}/`, {
+                formData.append('id', newBlog.id);
+                const res = await fetch(`http://127.0.0.1:8000/api/v1/articles/${newBlog.id}/`, {
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(newBlog),
+                    body: formData,
                 });
 
                 const updatedBlog: BlogPost = await res.json();
