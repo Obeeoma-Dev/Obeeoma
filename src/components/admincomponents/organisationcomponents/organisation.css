@@ -8,3 +8,26 @@
     background-color: #095c39;
     border-color: #095c39;
 }
+
+/* Styling of the organisationTable.tsx */
+/* Force tab text to be black by default */
+.nav-pills .nav-link {
+    color: black;
+    font-family: 'body';
+}
+
+.btn-organization {
+    background-color: #00A859 !important;
+    /* default green */
+    border-color: #00A859 !important;
+    color: white;
+    /* keep text readable */
+}
+
+.btn-organization:hover {
+    background-color: #095c39 !important;
+    /* darker green on hover */
+    border-color: #095c39 !important;
+    color: white;
+    /* text stays white */
+}

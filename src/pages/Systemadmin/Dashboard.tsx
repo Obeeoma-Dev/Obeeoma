@@ -10,7 +10,7 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
-import { BlogTable, BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
+import { BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 // Import shared type definitions
 import {

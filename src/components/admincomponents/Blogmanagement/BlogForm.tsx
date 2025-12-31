@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Offcanvas, Button, Form, Row, Col } from "react-bootstrap";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { BlogPost } from "./BlogTable"; // reuse the BlogPost type
 
 type BlogFormProps = {
@@ -71,19 +71,23 @@ export function BlogForm({
     }
 
     return (
-        <Offcanvas
+        <Modal
             show={show}
             onHide={onClose}
-            placement="end"
-            className="blog-modal"   // reusing your existing CSS root class
+            size="lg"           // IMPORTANT: gives space like your image
+            centered
+            scrollable          // allows long article forms
+            backdrop="static"   // prevents accidental close
+            keyboard={false}
         >
-            <Offcanvas.Header closeButton>
-                <Offcanvas.Title className="modal-title-custom" style={{ fontFamily: 'heading' }}>
-                    {mode === "add" ? "Add New Article" : "Edit Article"}
-                </Offcanvas.Title>
-            </Offcanvas.Header>
 
-            <Offcanvas.Body className="modal-body-custom">
+            <Modal.Header closeButton>
+                <Modal.Title className="modal-title-custom" style={{ fontFamily: 'heading' }}>
+                    {mode === "add" ? "Add New Article" : "Edit Article"}
+                </Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body className="modal-body-custom">
                 <Form>
                     <Row className="mb-3">
                         <Col md={8}>
@@ -192,7 +196,7 @@ export function BlogForm({
 
 
                 </Form>
-            </Offcanvas.Body>
+            </Modal.Body>
 
             <div className="modal-footer-custom d-flex justify-content-end p-3"
                 style={{ fontFamily: 'body' }}
@@ -204,6 +208,6 @@ export function BlogForm({
                     {mode === "add" ? "Add Article" : "Save Changes"}
                 </Button>
             </div>
-        </Offcanvas>
+        </Modal>
     );
 }

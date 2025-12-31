@@ -1,12 +1,13 @@
 // src/components/admincomponents/Hotline-activity/TopMetrics.tsx
-import React from "react";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import React from "react"
+import { Row, Col } from "react-bootstrap"
+import { Phone, Clock, XCircle } from "lucide-react"
+import { StatCard } from "./startCards";
 
-// Define the props interface for flexibility and future backend integration
 interface TopMetricsProps {
-  totalCalls: number;
-  avgCallTime: string;
-  missedCalls: number;
+  totalCalls: number
+  avgCallTime: string
+  missedCalls: number
 }
 
 const TopMetrics: React.FC<TopMetricsProps> = ({
@@ -15,35 +16,52 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
   missedCalls,
 }) => {
   return (
-    <Card className="mb-4">
-      <Card.Body>
-        <Row>
-          {/* Display total calls */}
-          <Col md={4}>
-            <h5>Total Calls</h5>
-            <p>{totalCalls}</p>
-          </Col>
+    <>
+      {/* Page Title Section */}
+      <Row className="mb-4">
+        <Col>
+          <h1 className="fw-bold text-dark" style={{ fontFamily: 'heading' }}>Hotline Activity</h1>
+          <p className="text-muted small" style={{ fontFamily: 'body' }}>
+            Real-time monitoring of crisis line operations and performance.
+          </p>
+        </Col>
+      </Row>
 
-          {/* Display average call time */}
-          <Col md={4}>
-            <h5>Average Call Time</h5>
-            <p>{avgCallTime}</p>
-          </Col>
+      {/* Top Stats Row */}
+      <Row className="mb-4" style={{ fontFamily: 'body', fontWeight: '600px' }}>
+        <Col xs={12} md={4} className="mb-3 mb-md-0">
+          <StatCard
+            title="Today's Calls"
+            value={String(totalCalls)}
+            subtitle="Total incoming calls"
+            trend="+8% vs yesterday"
+            icon={Phone}
+            color="emerald"
+          />
+        </Col>
+        <Col xs={12} md={4} className="mb-3 mb-md-0">
+          <StatCard
+            title="Avg. Call Time"
+            value={avgCallTime}
+            subtitle="Average duration"
+            trend="-0:05 vs last week"
+            icon={Clock}
+            color="blue"
+          />
+        </Col>
+        <Col xs={12} md={4}>
+          <StatCard
+            title="Missed Calls"
+            value={String(missedCalls)}
+            subtitle="Calls not answered"
+            trend="+1 vs yesterday"
+            icon={XCircle}
+            color="rose"
+          />
+        </Col>
+      </Row>
+    </>
+  )
+}
 
-          {/* Display missed calls */}
-          <Col md={4}>
-            <h5>Missed Calls</h5>
-            <p>{missedCalls}</p>
-          </Col>
-        </Row>
-
-        {/* Button to trigger scheduling logic */}
-        <Button variant="success" className="mt-3">
-          New Schedule
-        </Button>
-      </Card.Body>
-    </Card>
-  );
-};
-
-export default TopMetrics;
+export default TopMetrics

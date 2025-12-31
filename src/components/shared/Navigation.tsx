@@ -18,13 +18,17 @@ function Navigation() {
 
   return (
     <Navbar
-      expand="lg" // This enables responsive collapse on large screens.
-      fixed="top" // This keeps the navbar fixed at the top
-      className={`shadow-sm ${scrolled ? "scrolled" : "transparent"}`}
+      expand="lg"
+      fixed="top"
+      className="shadow-sm"
       style={{
+        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.6)" : "rgba(255, 255, 255, 0.05)", // slight white when scrolled, nearly invisible before
+        backdropFilter: "blur(10px)", // always blurred for glass effect
+        WebkitBackdropFilter: "blur(10px)",
         transition: "background-color 0.3s ease",
-        height: "80px", // Set fixed navbar height.
-        minHeight: "80px", // Ensure minimum height.
+        height: "80px",
+        minHeight: "80px",
+        borderBottom: scrolled ? "1px solid rgba(0,0,0,0.1)" : "none",
       }}
     >
       {/* The container is mean to center the nav bar well */}

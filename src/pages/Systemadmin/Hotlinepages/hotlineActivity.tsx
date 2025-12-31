@@ -39,6 +39,17 @@ const HotlineActivity: React.FC = () => {
         >
           {/* Container ensures Bootstrap spacing and responsiveness */}
           <Container fluid>
+
+            {/* Page Title Section
+            <Row className="mb-4">
+              <Col>
+                <h1 className="fw-bold text-dark">Hotline Activity</h1>
+                <p className="text-muted small">
+                  Real-time monitoring of crisis line operations and performance.
+                </p>
+              </Col>
+            </Row> */}
+
             {/* Top summary metrics */}
             <TopMetrics totalCalls={42} avgCallTime="9:22" missedCalls={3} />
 
@@ -52,14 +63,21 @@ const HotlineActivity: React.FC = () => {
               </Col>
             </Row>
 
-            {/* Critical cases section */}
-            <CriticalCases />
-
-            {/* Operator performance section */}
-            <OperatorPerformance />
-
             {/* Call log table */}
             <CallLogTable />
+
+            {/* Two-column section */}
+            <Row className="g-4">
+              {/* Left column */}
+              <Col xs={12} lg={6}>
+                <CriticalCases />
+              </Col>
+
+              {/* Right column */}
+              <Col xs={12} lg={6}>
+                <OperatorPerformance />
+              </Col>
+            </Row>
           </Container>
         </div>
       </div>
