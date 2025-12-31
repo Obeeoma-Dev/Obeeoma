@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // Import React and necessary hooks
 import { useState, useEffect } from "react";
 // Import Bootstrap components
-import { Form, Row, Col, Container } from "react-bootstrap";
+import { Form, Row, Col, Container, Card } from "react-bootstrap";
 // Initial feature flags list
 const defaultFlags = [
     { id: "featureFlags", label: "Feature Flags", enabled: true },
@@ -39,7 +39,7 @@ const FeatureFlags = () => {
     const handleToggle = (id) => {
         setFlags((prevFlags) => prevFlags.map((flag) => flag.id === id ? { ...flag, enabled: !flag.enabled } : flag));
     };
-    return (_jsxs("div", { children: [_jsx("h4", { className: "mb-4 fw-semibold md-4", children: "Feature Flags" }), _jsx(Form, { children: _jsx(Container, { children: _jsx(Row, { className: "justify-content-center", children: flags.map((flag) => (_jsx(Col, { md: 6, lg: 5, className: "mb-4", children: _jsx(Form.Check, { type: "switch" // Render as a toggle switch
-                                , id: `switch-${flag.id}`, label: flag.label, checked: flag.enabled, onChange: () => handleToggle(flag.id), className: flag.enabled ? "text-success" : "text-muted" }) }, flag.id))) }) }) })] }));
+    return (_jsxs(Card, { className: "settings-card-compact shadow-sm border-0", children: [_jsx(Card.Header, { className: "fw-semibold mb-2 ps-0", children: "Feature Flags" }), _jsx(Form, { children: _jsx(Container, { fluid: true, children: _jsx(Row, { className: "g-2", children: flags.map((flag) => (_jsx(Col, { md: 6, lg: 5, children: _jsx("div", { className: "p-2 border rounded-2 bg-light-hover transition settings-section-compact", children: _jsx(Form.Check, { type: "switch" // Render as a toggle switch
+                                    , id: `switch-${flag.id}`, label: flag.label, checked: flag.enabled, onChange: () => handleToggle(flag.id), className: flag.enabled ? "text-success fw-500" : "text-muted" }) }) }, flag.id))) }) }) })] }));
 };
 export default FeatureFlags;

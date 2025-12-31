@@ -9,7 +9,7 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
-import { BlogTable, } from "../../components/admincomponents/Blogmanagement/BlogTable";
+import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -142,32 +142,7 @@ const dashboardStatsData = [
  */
 const Dashboard = () => {
     /* The blog state + handlers */
-    const [blogs, setBlogs] = React.useState([
-        {
-            id: "1",
-            title: "The Future of AI in Healthcare",
-            category: "Health",
-            date: "2025-12-01",
-            status: "published",
-            excerpt: "Exploring how AI is transforming patient care and diagnostics.",
-            imageUrl: "https://via.placeholder.com/150",
-            author: "Dr. Jane Doe",
-            content: "Full article content goes here...",
-            featured: true,
-        },
-        {
-            id: "2",
-            title: "Top 10 Web Development Trends",
-            category: "Tech",
-            date: "2025-11-28",
-            status: "draft",
-            excerpt: "A look at the latest frameworks and tools shaping web dev.",
-            imageUrl: "https://via.placeholder.com/150",
-            author: "ORENA",
-            content: "Full article content goes here...",
-            featured: false,
-        },
-    ]);
+    const [blogs, setBlogs] = React.useState([]);
     const [selectedBlog, setSelectedBlog] = React.useState(null);
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
@@ -185,9 +160,9 @@ const Dashboard = () => {
     // Full-height layout with sidebar and main content
     _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
                             flex: 1,
-                            overflowY: "auto",
-                            padding: "1rem",
-                            backgroundColor: "#f8f9fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "gy-4", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-4", children: _jsx(Col, { children: _jsx(BlogTable, { blogs: blogs, onAdd: handleAdd, onEdit: handleEdit, onDelete: handleDelete }) }) }), _jsx(Row, { className: "gy-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
+                            overflowY: 'auto',
+                            padding: '2rem 1.5rem',
+                            backgroundColor: '#f5f7fa',
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-2", children: [_jsxs("div", { className: "mb-5", children: [_jsx("h2", { className: "fw-bold mb-1", style: { fontSize: '1.75rem', fontFamily: 'heading', color: '#1a1a1a' }, children: "Dashboard" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: 'body' }, children: "Welcome back! Here's your platform overview." })] }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) }), _jsx(Row, { className: "g-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
 };
 export default Dashboard;

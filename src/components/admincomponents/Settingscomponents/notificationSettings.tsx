@@ -56,9 +56,9 @@ const NotificationSettings: React.FC = () => {
     }
   };
 
-  return (
-    <Card className="p-4 shadow-sm">
-      <h4 className="mb-4">Notification Settings</h4>
+    return (
+        <Card className="settings-card-compact shadow-sm border-0">
+            <Card.Header className="fw-semibold mb-2 ps-0">Notification Settings</Card.Header>
 
       {/* Success message */}
       {saveSuccess && (
@@ -78,15 +78,16 @@ const NotificationSettings: React.FC = () => {
         </Alert>
       )}
 
-      {/* Toggle switches */}
-      <Form.Check
-        type="switch"
-        id="system-alerts"
-        label="Receive notifications about system updates and maintenance"
-        checked={preferences.systemAlerts}
-        onChange={() => handleToggle("systemAlerts")}
-        className="mb-3"
-      />
+            {/* Toggle switches */}
+            <div className="mb-3 settings-section-compact">
+            <Form.Check
+                type="switch"
+                id="system-alerts"
+                label="Receive notifications about system updates and maintenance"
+                checked={preferences.systemAlerts}
+                onChange={() => handleToggle('systemAlerts')}
+                className="mb-3"
+            />
 
       <Form.Check
         type="switch"
@@ -106,30 +107,31 @@ const NotificationSettings: React.FC = () => {
         className="mb-3"
       />
 
-      <Form.Check
-        type="switch"
-        id="report-generation"
-        label="Receive notifications when reports are generated"
-        checked={preferences.reportGeneration}
-        onChange={() => handleToggle("reportGeneration")}
-        className="mb-4"
-      />
+            <Form.Check
+                type="switch"
+                id="report-generation"
+                label="Receive notifications when reports are generated"
+                checked={preferences.reportGeneration}
+                onChange={() => handleToggle('reportGeneration')}
+                className="mb-3"
+            />
+            </div>
 
-      {/* Save button with loading spinner */}
-      <div className="d-flex justify-content-end">
-        <Button variant="success" onClick={handleSave} disabled={isSaving}>
-          {isSaving ? (
-            <>
-              <Spinner animation="border" size="sm" className="me-2" />
-              Saving...
-            </>
-          ) : (
-            "Save Notification Settings"
-          )}
-        </Button>
-      </div>
-    </Card>
-  );
+            {/* Save button with loading spinner */}
+            <div className="d-flex justify-content-end gap-2 pt-2 border-top">
+                <Button className="settings-save-btn" size="sm" onClick={handleSave} disabled={isSaving}>
+                    {isSaving ? (
+                        <>
+                            <Spinner animation="border" size="sm" className="me-2" />
+                            Saving...
+                        </>
+                    ) : (
+                        'Save Notification Settings'
+                    )}
+                </Button>
+            </div>
+        </Card>
+    );
 };
 
 export default NotificationSettings;

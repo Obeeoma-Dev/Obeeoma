@@ -1,0 +1,1661 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@font-face {
+  font-family: 'body';
+  src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'heading';
+  src: url('./assets/Fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* -----------------------------------------------
+   CSS Variables*/
+:root {
+  /* Brand palette */
+  --obeeoma-green: #3cb371;
+  --obeeoma-green-dark: #2e8b57;
+  --obeeoma-red: #ff4d4d;
+  --obeeoma-red-dark: #cc0000;
+  --obeeoma-bg: #ffffff;
+  --obeeoma-text: #222222;
+  --obeeoma-muted: #6c757d;
+
+  /* Border radius and shadow */
+  --bs-border-radius: 0.75rem;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --card-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* -----------------------------------------------
+   Global Page Styling
+----------------------------------------------- */
+body {
+  /*montserrat to be added here*/
+  font-family: "heading";
+  background-color: var(--obeeoma-bg);
+  color: var(--obeeoma-text);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--obeeoma-green);
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+}
+
+
+a:hover {
+  color: var(--obeeoma-green-dark);
+}
+
+/* -----------------------------------------------
+   Hero Section Styling
+----------------------------------------------- */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-section .hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.hero-section .hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 1.5rem;
+}
+
+.hero-section h1 {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+
+.hero-section p {
+  color: #ff4d4d;
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* -----------------------------------------------
+   Responsive Tweaks
+----------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.25rem;
+  }
+
+  .hero-section p {
+    font-size: 1.125rem;
+  }
+}
+
+
+/* -----------------------------------------------
+   Responsive Tweaks
+----------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.25rem;
+  }
+
+  .hero-section p {
+    font-size: 1.125rem;
+  }
+}
+
+/* -----------------------------------------------
+   Gradient Buttons
+----------------------------------------------- */
+.btn-green-gradient {
+  background: linear-gradient(135deg,
+      var(--obeeoma-green),
+      var(--obeeoma-green-dark));
+  background: linear-gradient(135deg,
+      var(--obeeoma-green),
+      var(--obeeoma-green-dark));
+  color: #fff !important;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+.btn-green-gradient:hover {
+  opacity: 0.9;
+}
+
+.btn-red-gradient {
+  background: linear-gradient(135deg,
+      var(--obeeoma-red),
+      var(--obeeoma-red-dark));
+  background: linear-gradient(135deg,
+      var(--obeeoma-red),
+      var(--obeeoma-red-dark));
+  color: #fff !important;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+.btn-red-gradient:hover {
+  opacity: 0.9;
+}
+
+/* -----------------------------------------------
+   Navbar and Footer Styling
+----------------------------------------------- */
+.navbar {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.navbar-brand {
+  color: var(--obeeoma-green) !important;
+  font-weight: 600;
+}
+
+
+.nav-link {
+  color: var(--obeeoma-text) !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+
+.nav-link:hover {
+  color: var(--obeeoma-green) !important;
+}
+
+/* sidebar.css */
+.sidebar-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+
+.sidebar-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+
+.sidebar-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+.sidebar-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 3rem 0;
+  color: var(--obeeoma-muted);
+}
+
+
+footer h5 {
+  color: var(--obeeoma-green);
+  margin-bottom: 1rem;
+}
+
+
+footer a {
+  color: var(--obeeoma-muted);
+  text-decoration: none;
+}
+
+
+footer a:hover {
+  color: var(--obeeoma-green);
+}
+
+/* -----------------------------------------------
+   Cards and Features
+----------------------------------------------- */
+.feature-card {
+  background-color: #fff;
+  border: none;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--card-shadow);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-lg);
+}
+
+/* This is reflected in the systems admin organisationTable.tsx file */
+.bg-purple {
+  background-color: #6f42c1;
+}
+
+/* This line reflects to the system admin nav bar keeping all icons consitent with the green colour. */
+/* .sidebar-icon-green {
+  color: #3CB371;
+} */
+/* These style blocks handle the styling in the Navigation.tsx transparency and scrolled*/
+.navbar.transparent {
+  /* Transparency */
+  background-color: rgba(255, 255, 255, 0.01);
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+
+  /* avoiding blendng effects */
+  mix-blend-mode: normal;
+}
+
+.navbar.scrolled {
+  background-color: white;
+
+  /* Depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Make nav link text white when navbar is transparent */
+.navbar.transparent .nav-link {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+
+/* Optional: green on hover */
+.navbar.transparent .nav-link:hover {
+  color: #3CB371 !important;
+}
+
+.navbar .nav-link {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: 'body';
+  /* Make sure 'body' is defined in your fonts */
+}
+
+/* Settings tabs: show green underline on hover only; avoid button-like active styles */
+.settings-nav .nav-link {
+  background: transparent !important;
+  border: none !important;
+  color: var(--obeeoma-muted) !important;
+  padding-bottom: 0.5rem;
+  margin-right: 1rem;
+  border-bottom: 3px solid transparent;
+  border-radius: 0 !important;
+  transition: color 0.15s ease, border-bottom-color 0.15s ease, background-color 0.15s ease;
+}
+
+.settings-nav .nav-link:hover {
+  color: var(--obeeoma-green) !important;
+  border-bottom-color: var(--obeeoma-green) !important;
+  background: transparent !important;
+}
+
+/* Remove the default active pill/tab button look; we don't want a pressed/button style on click */
+.settings-nav .nav-link.active {
+  background: transparent !important;
+  color: var(--obeeoma-text) !important;
+  box-shadow: none !important;
+  border: none !important;
+  /* keep no underline for active state so hover controls the underline */
+  border-bottom-color: transparent !important;
+}
+
+/* Make sure nav items don't get extra padding from bootstrap */
+.settings-nav .nav-item {
+  margin-bottom: 0 !important;
+}
+
+/* Compact settings card used across System Admin settings pages */
+.settings-card-compact {
+  padding: 0.6rem !important;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+
+.settings-card-compact .card-header {
+  padding: 0.4rem 0 0.6rem 0 !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: transparent;
+  border: 0;
+}
+
+.settings-card-compact .card-body,
+.settings-card-compact > .card-body {
+  padding: 0.5rem !important;
+}
+
+.settings-section-compact {
+  padding: 0.5rem !important;
+}
+
+.settings-compact-list {
+  max-height: 5.25rem; /* keep lists short */
+  overflow: hidden;
+}
+
+
+
+
+
+/* The glow effect on the feature cards */
+.feature-card {
+  position: relative;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: #3CB371;
+  filter: blur(1px);
+  opacity: 0;
+  transition: opacity 3.00s ease;
+  z-index: -1;
+}
+
+.feature-card:hover::before {
+  opacity: 5;
+}
+
+.feature-card h6 {
+  font-size: 1.25rem;
+  /* ≈ 20px */
+  font-weight: 600;
+  font-family: 'heading';
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 16px;
+  /* ≈ 16px */
+  font-family: 'body';
+  color: var(--obeeoma-muted);
+}
+
+
+/* Footer effect of the landing page. */
+footer {
+  color: #ccc;
+  padding: 3rem 0;
+}
+
+footer h6 {
+  color: #fff;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+footer a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #fff;
+  /* Bright white */
+  font-weight: 700;
+  /* subtle glow */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* footer p {
+  font-size: 1.125rem;
+  color: #aaa;
+} */
+
+.footer-text {
+  font-size: 1.15rem;
+  color: white;
+}
+
+
+
+/******************************************/
+/* Styles for the About Us footer section */
+/* .about-footer-section {
+  background-image: url("/images/handsgreeting.jpg");
+  /* Replace with your actual image path */
+/* background-size: cover;
+  background-position: center;
+  position: relative; */
+/* }
+
+/* Green overlay */
+/* .about-footer-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 128, 0, 0.6);
+  /* Semi-transparent green */
+/* z-index: 1;
+} */
+
+/* Ensure content is above overlay */
+/* .about-footer-section .container {
+  position: relative;
+  z-index: 2;
+} */
+
+
+/*****************************/
+/* Contactus css styles */
+/* Change input focus border color */
+.form-control:focus {
+  border-color: #00a859;
+  /* green like Tailwind version */
+  box-shadow: none;
+  /* remove default Bootstrap shadow */
+}
+
+/* Button styling */
+.submit-btn {
+  background: linear-gradient(to right, #00a859, #3cb371);
+  /* green gradient */
+  border: none;
+  /* remove default button border */
+  border-radius: 12px;
+  /* rounded corners */
+  padding: 12px 0;
+  /* vertical padding */
+  font-weight: 600;
+  /* bold text */
+  font-size: 1.1rem;
+  /* larger text */
+  transition: all 0.3s ease;
+  /* smooth hover animation */
+}
+
+/* Button hover effects */
+.submit-btn:hover {
+  transform: scale(1.02);
+  /* slightly enlarge on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* shadow effect */
+}
+
+/* Send icon animation on button hover */
+.submit-btn:hover .send-icon {
+  transform: translateX(4px);
+  /* move right 4px */
+  transition: transform 0.3s ease;
+}
+
+/* Make textarea taller inside floating label */
+form .form-floating .form-control.message-textarea {
+  height: 163px;
+  /* or whatever height you want */
+  resize: none;
+  /* optional, prevents user from resizing */
+}
+
+.form-floating>.form-control,
+.form-floating>label {
+  transition: all 0.3s ease;
+}
+
+
+
+
+/* ============================================ */
+/* BLOG PAGE STYLES */
+/* ============================================ */
+.blog-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #f9fafb, #ffffff);
+}
+
+/* Blog Header */
+.blog-header {
+  z-index: 1040;
+}
+
+.blog-logo {
+  height: 48px;
+}
+
+.blog-nav-link {
+  color: #6b7280 !important;
+  transition: color 0.3s;
+  margin: 0 1rem;
+}
+
+.blog-nav-link:hover {
+  color: #3CB371 !important;
+}
+
+.blog-nav-link-active {
+  color: #3CB371 !important;
+  font-weight: 600;
+  margin: 0 1rem;
+}
+
+.blog-nav-link-right {
+  color: #3CB371 !important;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.blog-nav-link-right:hover {
+  color: #00A859 !important;
+}
+
+/* Blog Hero */
+.blog-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0B6E45 0%, #3CB371 100%);
+  padding: 8rem 0 6rem;
+  overflow: hidden;
+}
+
+.blog-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(157, 211, 175, 0.2), transparent 50%);
+  z-index: 1;
+}
+
+.blog-hero-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+    linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+  z-index: 1;
+}
+
+.blog-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.blog-hero-text {
+  text-align: center;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all 0.8s ease-out;
+}
+
+.blog-hero-text.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.blog-hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.blog-hero-subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .blog-hero {
+    padding: 5rem 0 4rem;
+  }
+
+  .blog-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .blog-hero-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Blog Search */
+.blog-search-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.blog-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 50px;
+  padding: 0.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s;
+}
+
+.blog-search-wrapper:focus-within {
+  box-shadow: 0 15px 50px rgba(60, 195, 113, 0.3);
+  transform: translateY(-2px);
+}
+
+.blog-search-icon {
+  position: absolute;
+  left: 1.5rem;
+  color: #6b7280;
+  width: 20px;
+  height: 20px;
+}
+
+.blog-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  font-size: 1rem;
+  background: transparent;
+  height: 2.5rem;
+  /* Set consistent height */
+  line-height: 9.15rem;
+  /* Vertically center text */
+  padding-left: 3rem;
+  /* Keep space for icon */
+}
+
+.blog-search-input::placeholder {
+  color: #9ca3af;
+}
+
+.blog-search-button {
+  background: linear-gradient(135deg, #3CB371, #00A859);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.blog-search-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(60, 195, 113, 0.4);
+}
+
+@media (max-width: 576px) {
+  .blog-search-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.blog-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* legacy */
+  line-clamp: 3;
+  /* modern */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5rem;
+  /* keeps all excerpts same height */
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+
+/* 
+==================================
+  CATEGORY FILTER CONTAINER
+==================================
+*/
+
+.category-filter {
+  display: flex;
+  /* Lay out buttons horizontally */
+  gap: 1rem;
+  /* Space between buttons */
+  flex-wrap: wrap;
+  /* Allow wrapping on small screens */
+  justify-content: center;
+  /* Center all buttons */
+  padding: 3rem 1rem;
+  /* Outer spacing */
+  font-family: 'heading';
+  /* Custom font */
+  max-width: 100%;
+  overflow-x: visible;
+  /* Prevent clipping */
+}
+
+/* 
+==================================
+  CATEGORY BUTTON BASE STYLES
+==================================
+*/
+
+.category-btn {
+  all: unset;
+  /* Remove all default button styling */
+  padding: 1.5rem 3rem;
+  /* Vertical + horizontal padding */
+  min-width: 200px;
+  /* Consistent width for all buttons */
+  text-align: center;
+  /* Center the text */
+  border-radius: 999px;
+  /* Fully rounded pill shape */
+  background: #00A859;
+  /* Green background */
+  color: #fff;
+  /* White text */
+  border: 2px solid #e5e7eb;
+  /* Light border */
+  cursor: pointer;
+  /* Pointer cursor */
+  transition: all 0.3s;
+  /* Smooth hover/active transitions */
+  font-family: 'heading';
+  /* Bring your custom font */
+  font-weight: 700;
+  /* Bold text */
+  font-size: 2.3rem;
+  /* Big readable text */
+  text-transform: uppercase;
+  /* CAPITAL letters */
+  display: inline-block;
+  /* Needed for padding to work */
+}
+
+/* 
+==================================
+  HOVER EFFECTS
+==================================
+*/
+
+.category-btn:hover {
+  border-color: #3CB371;
+  /* Change border to lighter green */
+  color: #3CB371;
+  /* Text becomes lighter green */
+  transform: translateY(-2px);
+  /* Lift button upward */
+  box-shadow: 0 5px 15px rgba(60, 195, 113, 0.2);
+}
+
+/* 
+==================================
+  ACTIVE BUTTON (CURRENT CATEGORY)
+==================================
+*/
+
+.category-btn.active {
+  background: linear-gradient(135deg, #3CB371, #00A859);
+  /* Gradient */
+  color: white;
+  border-color: transparent;
+  /* Remove border */
+  box-shadow: 0 5px 20px rgba(60, 195, 113, 0.3);
+}
+
+
+/* Blog Section Title */
+.blog-section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0B6E45;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.blog-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #3CB371, #00A859);
+  border-radius: 2px;
+}
+
+/* Blog Card */
+.blog-card {
+  border: none;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  background: white;
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(60, 195, 113, 0.2);
+}
+
+.blog-card-featured {
+  grid-column: 1 / -1;
+}
+
+.blog-card-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 250px;
+}
+
+.blog-card-featured .blog-card-image-wrapper {
+  height: 400px;
+}
+
+@media (max-width: 768px) {
+  .blog-card-featured .blog-card-image-wrapper {
+    height: 250px;
+  }
+}
+
+.blog-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blog-card:hover .blog-card-image {
+  transform: scale(1.1);
+}
+
+.blog-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11, 110, 69, 0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.blog-card:hover .blog-card-overlay {
+  opacity: 1;
+}
+
+.blog-card-category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: linear-gradient(135deg, #3CB371, #00A859);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card-featured-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card-body {
+  padding: 1.75rem;
+}
+
+.blog-card-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.blog-card-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.blog-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0B6E45;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  transition: color 0.3s;
+}
+
+.blog-card:hover .blog-card-title {
+  color: #3CB371;
+}
+
+.blog-card-excerpt {
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.blog-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.blog-card-author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.blog-card-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3CB371;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.blog-card-link:hover {
+  color: #00A859;
+  gap: 0.75rem;
+}
+
+.blog-card-arrow {
+  transition: transform 0.3s;
+}
+
+.blog-card-arrow.hovered {
+  transform: translateX(4px);
+}
+
+/* Blog Grid Section */
+.blog-grid-section {
+  padding: 3rem 1rem 5rem;
+}
+
+.blog-no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+/* Newsletter Section */
+.blog-newsletter-section {
+  background: linear-gradient(135deg, #0B6E45, #3CB371);
+  padding: 5rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-newsletter-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: 50%;
+}
+
+.blog-newsletter-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.blog-newsletter-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.blog-newsletter-text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+}
+
+.blog-newsletter-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.blog-newsletter-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.blog-newsletter-button {
+  background: white;
+  color: #3CB371;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  background: linear-gradient(135deg, #ffffff, #f7f7f7);
+}
+
+.blog-newsletter-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 576px) {
+  .blog-newsletter-form {
+    flex-direction: column;
+  }
+
+  .blog-newsletter-title {
+    font-size: 2rem;
+  }
+}
+
+/* Blog Footer */
+.blog-footer {
+  background: #0B6E45;
+  color: white;
+  padding: 3rem 0;
+}
+
+.blog-footer-social {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .blog-footer-social {
+    justify-content: flex-start;
+  }
+}
+
+.blog-footer-social-link {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.blog-footer-social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1) rotate(5deg);
+  color: white;
+}
+
+.blog-footer-social-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+.blog-footer-text {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.blog-footer-highlight {
+  color: #9DD3AF;
+}
+
+/* Scroll animation css */
+/* Fade-in with upward motion */
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  /* Start hidden */
+}
+
+/* Keyframes for fade and upward slide */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Styling of the about apge */
+.transition-header {
+  transition: all 0.3s ease;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: transparent;
+}
+
+.transition-header.scrolled {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Styling of the overlay section */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+
+/********************************/
+/* Styling of the CTAsection. */
+/* Custom animations for React-Bootstrap usage */
+
+/* Slow spin animation for circle elements */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply spin animation to elements with this class */
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Float animation for decorative elements */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Apply float animation to elements with this class */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Slow pulse animation for WhatsApp button or similar */
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Apply pulse animation to elements with this class */
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Base styles for the entire page */
+body {
+  margin: 0;
+  /* Use Bootstrap default font stack */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus visible styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #10b981;
+  /* Green outline similar to Tailwind's emerald-500 */
+  outline-offset: 2px;
+}
+
+
+/* Styles of Why choose obeeoma component */
+/* CSS */
+.shadow-lg.rounded {
+  overflow: visible;
+  /* allow scaled child to overlap neighbors */
+}
+
+.card-scale {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-origin: center center;
+  cursor: pointer;
+  display: block;
+  will-change: transform;
+  position: relative;
+}
+
+.card-scale:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/*==================================*/
+/* === Benefit Card Styling === */
+
+/* Base card style */
+.benefit-card {
+  background: #ffffff;
+  /* border: 12px solid #e5e7eb; */
+  /* subtle gray border */
+  border-radius: 20px;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09);
+  /* soft shadow */
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+  cursor: pointer;
+  min-height: 220px;
+  will-change: transform;
+}
+
+/* Hover effect: lift, glow, tint */
+.benefit-card:hover {
+  transform: translateY(-3px);
+  /* box-shadow: */
+  /* 0 10px 24px rgba(0, 0, 0, 0.10), */
+  /* deeper shadow */
+  /* 0 0 0 6px rgba(var(--accent-rgb), 0.08); */
+  /* glow ring */
+  /* border-color: var(--accent); */
+  /* accent border */
+  /* background-color: rgba(var(--accent-rgb), 0.06); */
+  /* subtle tint */
+}
+
+/* Icon box styling */
+.icon-box {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--icon-bg);
+  /* dynamic background */
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.18);
+}
+
+/* Icon box hover effect */
+.benefit-card:hover .icon-box {
+  transform: scale(1.12);
+  /* grow icon box */
+  box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.28);
+  /* stronger glow */
+}
+
+/* Icon inside box scales with hover */
+.icon-box svg {
+  transition: transform 220ms ease;
+}
+
+.benefit-card:hover .icon-box svg {
+  transform: scale(1.08);
+  /* grow icon */
+}
+
+
+/* Styling of the terms and conditions interface */
+/* TermsAndConditions.css */
+
+/* ---- COLORS ---- */
+.text-emerald {
+  color: #047857; /* emerald-600 */
+}
+
+.text-blue {
+  color: #2563eb; /* blue-600 */
+}
+
+.text-purple {
+  color: #7c3aed; /* purple-600 */
+}
+
+.text-green {
+  color: #16a34a; /* green-600 */
+}
+
+.text-pink {
+  color: #db2777; /* pink-600 */
+}
+
+.text-indigo {
+  color: #4f46e5; /* indigo-600 */
+}
+
+.text-gray {
+  color: #4b5563; /* gray-700 */
+}
+
+.text-orange {
+  color: #f97316; /* orange-600 */
+}
+
+.text-red {
+  color: #dc2626; /* red-600 */
+}
+
+.text-yellow {
+  color: #ca8a04; /* yellow-600 */
+}
+
+/* ---- BACKGROUNDS ---- */
+.bg-gradient-custom {
+  background: linear-gradient(to bottom, #d1fae5, #ffffff); /* from emerald-50 to white */
+}
+
+.icon-bg-emerald {
+  background-color: #d1fae5; /* emerald-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-blue {
+  background-color: #dbeafe; /* blue-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-purple {
+  background-color: #ede9fe; /* purple-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-green {
+  background-color: #d1fae5; /* green-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-pink {
+  background-color: #fce7f3; /* pink-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-indigo {
+  background-color: #e0e7ff; /* indigo-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-gray {
+  background-color: #f3f4f6; /* gray-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-orange {
+  background-color: #ffedd5; /* orange-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-red {
+  background-color: #fee2e2; /* red-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-yellow {
+  background-color: #fef3c7; /* yellow-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.bg-emerald-light {
+  background-color: #ecfdf5; /* emerald-50 */
+}
+
+/* ---- ICONS ---- */
+.hero-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.hero-icon-svg {
+  width: 2rem;
+  height: 2rem;
+  color: #047857;
+}
+
+.icon-emerald, .icon-blue, .icon-purple, .icon-green, .icon-pink, .icon-indigo, .icon-gray, .icon-orange, .icon-red, .notice-icon-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.notice-icon-bg {
+  width: 3rem;
+  height: 3rem;
+  background-color: #fef3c7; /* yellow-100 */
+  border-radius: 50%;
+}
+
+.notice-icon-svg {
+  color: #f59e0b; /* amber-600 / yellow-600 */
+}
+
+/* ---- TEXT ---- */
+.fw-medium {
+  font-weight: 500;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.hero-text {
+  max-width: 40rem;
+}
+
+.notice-text {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/* ---- CARD ---- */
+.border-custom {
+  border: 1px solid #e5e7eb; /* gray-100 */
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+/* ---- LISTS ---- */
+ul.text-gray li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* ---- LINKS / HOVER ---- */
+.text-emerald:hover {
+  color: #065f46; /* emerald-700 */
+  text-decoration: none;
+}
+
+motion.a {
+  cursor: pointer;
+}
+
+/* ---- RESPONSIVE SPACING ---- */
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+.mb-0 {
+  margin-bottom: 0;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- STACK ---- */
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+/* ---- HOVER MOTION TRANSLATE ---- */
+.motion-hover-translate:hover {
+  transform: translateX(0.25rem); /* 4px */
+}

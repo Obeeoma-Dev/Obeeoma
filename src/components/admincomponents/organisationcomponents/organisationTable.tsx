@@ -17,13 +17,13 @@ import {
   FaTimesCircle,
   FaSearch,
 } from "react-icons/fa";
-
+import "./organisation.css";
 // Define the shape of organization data
 export interface Organization {
   id: string;
   name: string;
   clients: number;
-  plan: "Premium" | "Enterprise" | "Freemium";
+  plan: "Premium" | "Freemium";
   status: "Active" | "Pending" | "Inactive";
   lastActive: string;
   address: string;
@@ -138,16 +138,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
               {/* Plan */}
               <td>
                 <span
-                  className={`badge ${
-                    org.plan === "Premium"
-                      ? "bg-success"
-                      : org.plan === "Enterprise"
-                        ? "bg-primary"
-                        : "bg-secondary"
-                  }`}
+                  className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                    }`}
                 >
                   {org.plan}
                 </span>
+
               </td>
 
               {/* Status with icon */}
@@ -184,10 +180,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
 
       <Row className="mb-3 align-items-center">
         <Col>
-          <h5 className="fw-semibold text-success">Organization Dashboard</h5>
+          <h5 className="fw-semibold text-success" style={{ fontFamily: 'heading' }}>Organization Dashboard</h5>
         </Col>
         <Col className="text-end">
-          <Button variant="success">+ Add Organization</Button>
+          <Button className="btn-organization">
+            + Add Organization
+          </Button>
         </Col>
       </Row>
 
@@ -222,7 +220,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     }
 
     .nav-pills .nav-link:hover {
-      background-color: #2E8B57 !important;
+      background-color: #0B6E45 !important;
       color: white !important;
     }
   `}

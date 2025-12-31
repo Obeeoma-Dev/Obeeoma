@@ -18,7 +18,7 @@ const OrganizationCharts = () => {
             {
                 label: "Organization Growth",
                 data: [5, 10, 15, 25, 35, 42],
-                borderColor: "#28a745", // Bootstrap green
+                borderColor: "#00A859", // Bootstrap green
                 backgroundColor: "rgba(40,167,69,0.2)", // Transparent green fill
                 tension: 0.4, // Smooth curve
             },
@@ -31,7 +31,7 @@ const OrganizationCharts = () => {
             {
                 label: "Clients",
                 data: [284, 194, 134],
-                backgroundColor: ["#28a745", "#218838", "#1e7e34"], // Varying greens
+                backgroundColor: ["#00A859", "#00A859", "#00A859"], // Varying greens
                 borderRadius: 4, // Rounded bars
             },
         ],
@@ -72,6 +72,6 @@ const OrganizationCharts = () => {
             },
         },
     };
-    return (_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "text-success fw-semibold fs-6 mb-3", children: "Organization Growth" }), _jsx(Line, { data: growthData, options: chartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "text-success fw-semibold fs-6 mb-3", children: "Client Distribution by Organization" }), _jsx(Bar, { data: distributionData, options: chartOptions })] }) }) })] }));
+    return (_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: 'body', color: '#00A859' }, children: "Organization Growth" }), _jsx(Line, { data: growthData, options: chartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: 'body', color: '#00A859' }, children: "Client Distribution by Organization" }), _jsx(Bar, { data: distributionData, options: chartOptions })] }) }) })] }));
 };
 export default OrganizationCharts;

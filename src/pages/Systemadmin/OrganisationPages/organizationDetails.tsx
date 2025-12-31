@@ -203,200 +203,233 @@ const OrganizationDetails: React.FC = () => {
         {/* 45) Top admin header */}
         <Header />
         {/* 46) Main page container with padding and scroll when content is long */}
-        <Container fluid className="p-4 overflow-auto">
-          {/* 47) A back button to return to the organizations overview page */}
-          <Button
-            variant="outline-secondary"
-            onClick={() => navigate("/system-admin/organizations")}
-            className="mb-4"
-          >
-            {/* 48) The arrow and text label to make the action clear */}←
-            Wellness Center Inc.
-          </Button>
+        <Container fluid className="p-4 overflow-auto page-background">
 
-          {/* 70) Action buttons to manage subscription and save changes, placed clearly */}
-          <Card className="shadow-sm mb-4">
-            {/* 71) Label the actions section */}
-            <Card.Header className="fw-semibold">Actions</Card.Header>
-            {/* 72) Put the buttons inside the body */}
-            <Card.Body>
-              {/* 73) A small gap between buttons for good spacing */}
-              <div className="d-flex gap-2">
-                {/* 74) Manage Subscription button */}
-                <Button variant="outline-success" size="sm">
-                  Manage Subscription
-                </Button>
-                {/* 75) Save Changes button */}
-                <Button variant="outline-primary" size="sm">
-                  Save Changes
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
+          {/* Button Row with Flexbox */}
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            {/* Left-aligned back button */}
+            <Button
+              variant="outline-secondary"
+              onClick={() => navigate('/system-admin/organizations')}
+            >
+              ← Wellness Center Inc.
+            </Button>
 
-          {/* 49) Page title using the organization name, styled to stand out */}
-          <h3 className="text-success fw-bold mb-4">
-            Organization Overview: {org.name}
-          </h3>
+            {/* Right-aligned buttons with spacing */}
+            <div className="d-flex gap-2">
+              <Button variant="outline-success" size="sm">
+                Manage Subscription
+              </Button>
+              <Button variant="outline-primary" size="sm">
+                Save Changes
+              </Button>
+            </div>
+          </div>
 
-          {/* Dashboard Grid Row */}
-          <Row className="gy-4 mb-4">
-            {/* Organization Summary Card - positioned top-left */}
-            <Col md={4}>
-              <Card className="shadow-sm h-100">
-                <Card.Header className="fw-semibold">
-                  Organization Summary
-                </Card.Header>
-                <Card.Body>
-                  <Row className="gy-3">
-                    <Col xs={12}>
-                      <strong>Name:</strong> <div>{org.name}</div>
-                    </Col>
-                    <Col xs={12}>
-                      <strong>ID:</strong> <div>{org.id}</div>
-                    </Col>
-                    <Col xs={12}>
-                      <strong>Subscription Plan:</strong>{" "}
-                      <div>{org.subscription}</div>
-                    </Col>
-                    <Col xs={12}>
-                      <strong>Status:</strong>{" "}
-                      <Badge
-                        bg={org.status === "Active" ? "success" : "secondary"}
-                      >
-                        {org.status}
-                      </Badge>
-                    </Col>
-                    <Col xs={12}>
-                      <strong>Region:</strong> <div>{org.region}</div>
-                    </Col>
-                    <Col xs={12}>
-                      <strong>Last Active:</strong> <div>{org.lastActive}</div>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
-            </Col>
+          <Card className="p-4 shadow-sm">
 
-            {/* Total Clients Card - top center */}
-            <Col md={4}>
-              <Card className="shadow-sm h-100">
-                <Card.Body>
-                  <strong>Total Clients:</strong>
-                  <h4 className="mt-2 text-primary">{org.clients}</h4>
-                </Card.Body>
-              </Card>
-            </Col>
+            {/* 49) Page title using the organization name, styled to stand out */}
+            <h3 className="text-success fw-bold mb-4">
+              Organization Overview: {org.name}
+            </h3>
 
-            {/* Active Programs Card - top right */}
-            <Col md={4}>
-              <Card className="shadow-sm h-100">
-                <Card.Body>
-                  <strong>Active Programs:</strong>
-                  <h4 className="mt-2 text-primary">{org.programs}</h4>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+            {/* Dashboard Grid Row */}
+            <Row className="gy-4 mb-4">
+              {/* Organization Summary Card - positioned top-left */}
+              <Col md={4}>
+                <Card className="shadow-sm h-100 border-0">
+                  <Card.Header className="fw-semibold text-white" style={{ backgroundColor: "#00A859" }}>
+                    Organization Summary
+                  </Card.Header>
+                  <Card.Body>
+                    <Row className="gy-3">
+                      {/* Name + Icon + ID */}
+                      {/* <Col xs={12}>
+                        <div className="d-flex align-items-center">
+                          {/* {org.icon && org.icon.startsWith("http") && (
+                            <img
+                              src={org.icon}
+                              alt={`${org.name} logo`}
+                              style={{
+                                width: "40px",
+                                height: "40px",
+                                objectFit: "cover",
+                                borderRadius: "6px",
+                                marginRight: "10px"
+                              }}
+                            />
+                          )} */}
+                          {/* <div>
+                            <div className="fw-semibold fs-6">{org.name}</div>
+                            <div className="text-muted small">ID: {org.id}</div>
+                          </div> */}
+                        {/* </div> */}
+                      {/* </Col> */} 
 
-          {/* 65) Navigation links card to mirror the image's "Navigation Links" section */}
-          <Card className="shadow-sm mb-4">
-            {/* 66) A header label for clarity */}
-            <Card.Header className="fw-semibold">Navigation Links</Card.Header>
-            {/* 67) Card body with a simple list of actions or sections */}
-            <Card.Body>
-              <ListGroup variant="flush">
-                {/* 68) Map through the navigation links if they exist, otherwise show a simple fallback */}
-                {(org.navigationLinks && org.navigationLinks.length > 0
-                  ? org.navigationLinks
-                  : [
-                      "Organization Settings",
-                      "User Management",
-                      "Program Settings",
-                      "Billing History",
-                      "Deactivate Organization",
+                      {/* Subscription Plan */}
+                      <Col xs={12}>
+                        <strong>Subscription Plan:</strong>{" "}
+                        <Badge style={{ backgroundColor: "#00A859", color: "#fff" }}>
+                          {org.subscription}
+                        </Badge>
+                      </Col>
+
+                      {/* Status */}
+                      <Col xs={12}>
+                        <strong>Status:</strong>
+                        <div className="mt-1">
+                          <Badge
+                            style={{
+                              backgroundColor: org.status === "Active" ? "#00A859" : "#6c757d",
+                              color: "#fff"
+                            }}
+                          >
+                            {org.status}
+                          </Badge>
+                        </div>
+                      </Col>
+
+                      {/* Region */}
+                      <Col xs={12}>
+                        <div className="d-flex flex-column">
+                          <strong className="mb-1">Region:</strong>
+                          <Badge bg="secondary" style={{ color: "#fff" }}>
+                            {org.region}
+                          </Badge>
+                        </div>
+                      </Col>
+
+                      {/* Last Active */}
+                      <Col xs={12}>
+                        <div className="d-flex flex-column">
+                          <strong className="mb-1">Last Active:</strong>
+                          <span style={{ color: "#fff" }}>{org.lastActive}</span>
+                        </div>
+                      </Col>
+
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </Col>
+
+              {/* Total Clients Card - top center */}
+              <Col md={4}>
+                <Card className="shadow-sm h-100">
+                  <Card.Body>
+                    <strong>Total Clients:</strong>
+                    <h4 className="mt-2 text-primary">{org.clients}</h4>
+                  </Card.Body>
+                </Card>
+              </Col>
+
+              {/* Active Programs Card - top right */}
+              <Col md={4}>
+                <Card className="shadow-sm h-100">
+                  <Card.Body>
+                    <strong>Active Programs:</strong>
+                    <h4 className="mt-2 text-primary">{org.programs}</h4>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+
+            {/* 65) Navigation links card to mirror the image's "Navigation Links" section */}
+            <Card className="shadow-sm mb-4">
+              {/* 66) A header label for clarity */}
+              <Card.Header className="fw-semibold">Navigation Links</Card.Header>
+              {/* 67) Card body with a simple list of actions or sections */}
+              <Card.Body>
+                <ListGroup variant="flush">
+                  {/* 68) Map through the navigation links if they exist, otherwise show a simple fallback */}
+                  {(org.navigationLinks && org.navigationLinks.length > 0
+                    ? org.navigationLinks
+                    : [
+                      'Organization Settings',
+                      'User Management',
+                      'Program Settings',
+                      'Billing History',
+                      'Deactivate Organization',
                     ]
-                ).map((linkText, index) => (
-                  // 69) Each item is clickable in the future; for now, we just display them.
-                  <ListGroup.Item key={index}>{linkText}</ListGroup.Item>
-                ))}
-              </ListGroup>
-            </Card.Body>
-          </Card>
+                  ).map((linkText, index) => (
+                    // 69) Each item is clickable in the future; for now, we just display them.
+                    <ListGroup.Item key={index}>{linkText}</ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Card.Body>
+            </Card>
 
-          {/* 76) Program Engagement card that uses progress bars to mimic the bar chart in the image */}
-          <Card className="shadow-sm mb-4">
-            {/* 77) Header shows what the card contains */}
-            <Card.Header className="fw-semibold">
-              Program Engagement (%)
-            </Card.Header>
-            {/* 78) Body where progress bars are displayed */}
-            <Card.Body>
-              {/* 79) Crisis Support engagement bar */}
-              <div className="mb-3">
-                <strong>Crisis Support</strong>
-                {/* 80) ProgressBar shows the percentage visually */}
-                <ProgressBar
-                  now={org.engagementBreakdown.crisisSupport}
-                  label={`${org.engagementBreakdown.crisisSupport}%`}
-                  variant="danger"
-                />
-              </div>
-              {/* 81) Wellbeing engagement bar */}
-              <div className="mb-3">
-                <strong>Wellbeing</strong>
-                <ProgressBar
-                  now={org.engagementBreakdown.wellbeing}
-                  label={`${org.engagementBreakdown.wellbeing}%`}
-                  variant="success"
-                />
-              </div>
-              {/* 82) Other program 1 engagement bar */}
-              <div className="mb-3">
-                <strong>Program A</strong>
-                <ProgressBar
-                  now={org.engagementBreakdown.other1}
-                  label={`${org.engagementBreakdown.other1}%`}
-                  variant="info"
-                />
-              </div>
-              {/* 83) Other program 2 engagement bar */}
-              <div>
-                <strong>Program B</strong>
-                <ProgressBar
-                  now={org.engagementBreakdown.other2}
-                  label={`${org.engagementBreakdown.other2}%`}
-                  variant="warning"
-                />
-              </div>
-            </Card.Body>
-          </Card>
 
-          {/* 84) Platform Usage card showing the last 6 weeks line graph using your existing component */}
-          <Card className="shadow-sm mb-4">
-            {/* 85) Header title for the chart */}
-            <Card.Header className="fw-semibold">
-              Platform Usage (Last 6 Weeks)
-            </Card.Header>
-            {/* 86) Body contains the charts component. We keep it as-is to avoid breaking changes. */}
-            <Card.Body>
-              <OrganizationCharts />
-            </Card.Body>
-          </Card>
 
-          {/* 87) Recent Activity card showing the activity list items exactly like the image */}
-          <Card className="shadow-sm">
-            {/* 88) Header for the activity section */}
-            <Card.Header className="fw-semibold">Recent Activity</Card.Header>
-            {/* 89) Body renders each activity item in a clean list */}
-            <Card.Body>
-              <ListGroup variant="flush">
-                {org.activity.map((event, index) => (
-                  // 90) Each event gets its own list item with a unique key
-                  <ListGroup.Item key={index}>{event}</ListGroup.Item>
-                ))}
-              </ListGroup>
-            </Card.Body>
+            {/* 76) Program Engagement card that uses progress bars to mimic the bar chart in the image */}
+            <Card className="shadow-sm mb-4">
+              {/* 77) Header shows what the card contains */}
+              <Card.Header className="fw-semibold">Program Engagement (%)</Card.Header>
+              {/* 78) Body where progress bars are displayed */}
+              <Card.Body>
+                {/* 79) Crisis Support engagement bar */}
+                <div className="mb-3">
+                  <strong>Crisis Support</strong>
+                  {/* 80) ProgressBar shows the percentage visually */}
+                  <ProgressBar
+                    now={org.engagementBreakdown.crisisSupport}
+                    label={`${org.engagementBreakdown.crisisSupport}%`}
+                    variant="danger"
+                  />
+                </div>
+                {/* 81) Wellbeing engagement bar */}
+                <div className="mb-3">
+                  <strong>Wellbeing</strong>
+                  <ProgressBar
+                    now={org.engagementBreakdown.wellbeing}
+                    label={`${org.engagementBreakdown.wellbeing}%`}
+                    variant="success"
+                  />
+                </div>
+                {/* 82) Other program 1 engagement bar */}
+                <div className="mb-3">
+                  <strong>Program A</strong>
+                  <ProgressBar
+                    now={org.engagementBreakdown.other1}
+                    label={`${org.engagementBreakdown.other1}%`}
+                    variant="info"
+                  />
+                </div>
+                {/* 83) Other program 2 engagement bar */}
+                <div>
+                  <strong>Program B</strong>
+                  <ProgressBar
+                    now={org.engagementBreakdown.other2}
+                    label={`${org.engagementBreakdown.other2}%`}
+                    variant="warning"
+                  />
+                </div>
+              </Card.Body>
+            </Card>
+
+            {/* 84) Platform Usage card showing the last 6 weeks line graph using your existing component */}
+            <Card className="shadow-sm mb-4">
+              {/* 85) Header title for the chart */}
+              <Card.Header className="fw-semibold">Platform Usage (Last 6 Weeks)</Card.Header>
+              {/* 86) Body contains the charts component. We keep it as-is to avoid breaking changes. */}
+              <Card.Body>
+                <OrganizationCharts />
+              </Card.Body>
+            </Card>
+
+            {/* 87) Recent Activity card showing the activity list items exactly like the image */}
+            <Card className="shadow-sm">
+              {/* 88) Header for the activity section */}
+              <Card.Header className="fw-semibold">Recent Activity</Card.Header>
+              {/* 89) Body renders each activity item in a clean list */}
+              <Card.Body>
+                <ListGroup variant="flush">
+                  {org.activity.map((event, index) => (
+                    // 90) Each event gets its own list item with a unique key
+                    <ListGroup.Item key={index}>{event}</ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Card.Body>
+            </Card>
           </Card>
         </Container>
       </div>

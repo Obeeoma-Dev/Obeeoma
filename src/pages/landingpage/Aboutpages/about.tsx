@@ -10,12 +10,14 @@ const About: React.FC = () => {
   return (
     <>
       <Navigation />
-      <AboutUsHero />
-      <OurStorySection />
-      <MissionValuesSection />
-      <WhyChooseSection />
-      <CTASection />
-      <FloatingWhatsApp />
+      <main style={{ paddingTop: '80px' }}>
+        <AboutUsHero />
+        <OurStorySection />
+        <MissionValuesSection />
+        <WhyChooseSection />
+        <CTASection />
+        <FloatingWhatsApp />
+      </main>
     </>
   );
 };

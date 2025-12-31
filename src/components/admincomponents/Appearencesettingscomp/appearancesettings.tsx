@@ -1,10 +1,10 @@
 // src/pages/Systemadmin/Settingspages/appearancesettings.tsx
-import React, { useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import ThemeSelector from "./themeselector";
-import AccentColorSelector from "./accentcolourselector";
-import LayoutSelector from "./layoutselector";
-import SaveButton from "./savebutton";
+import React, { useState } from 'react';
+import { Card } from 'react-bootstrap';
+import ThemeSelector from './themeselector';
+import AccentColorSelector from './accentcolourselector';
+import LayoutSelector from './layoutselector';
+import SaveButton from './savebutton';
 
 // This page renders the full Appearance Settings interface.
 const AppearanceSettings: React.FC = () => {
@@ -20,24 +20,40 @@ const AppearanceSettings: React.FC = () => {
   };
 
   return (
-    <Container fluid>
-      <Row>
-        <Col md={10}>
-          <Card className="mt-4 p-4">
-            <h4>Appearance Settings</h4>
+    <Card className="settings-card-compact shadow-sm border-0">
+      <Card.Header className="fw-semibold mb-2 ps-0">Appearance Settings</Card.Header>
+      
+      <div className="row g-3">
+        {/* Theme Selector */}
+        <div className="col-md-6">
+          <div className="p-2 border rounded-2 settings-section-compact">
+            <h6 className="fw-semibold mb-2">Theme</h6>
             <ThemeSelector selectedTheme={theme} onChange={setTheme} />
-            <AccentColorSelector
-              selectedColor={accentColor}
-              onChange={setAccentColor}
-            />
+          </div>
+        </div>
+
+        {/* Accent Color Selector */}
+        <div className="col-md-6">
+          <div className="p-2 border rounded-2 settings-section-compact">
+            <h6 className="fw-semibold mb-2">Accent Color</h6>
+            <AccentColorSelector selectedColor={accentColor} onChange={setAccentColor} />
+          </div>
+        </div>
+
+        {/* Layout Selector */}
+        <div className="col-12">
+          <div className="p-2 border rounded-2 settings-section-compact">
+            <h6 className="fw-semibold mb-2">Layout</h6>
             <LayoutSelector selectedLayout={layout} onChange={setLayout} />
-            <div className="mt-3">
-              <SaveButton onClick={handleSave} />
-            </div>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+          </div>
+        </div>
+      </div>
+
+      {/* Save Button */}
+      <div className="d-flex justify-content-end gap-2 mt-2">
+        <SaveButton onClick={handleSave} />
+      </div>
+    </Card>
   );
 };
 

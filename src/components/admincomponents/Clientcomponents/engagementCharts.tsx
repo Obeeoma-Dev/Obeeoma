@@ -16,7 +16,7 @@ import {
   Legend,
 } from "chart.js";
 
-// ✅ Register chart.js components for both line and bar charts
+// Register chart.js components for both line and bar charts
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,33 +28,33 @@ ChartJS.register(
   Legend,
 );
 
-// ✅ Line chart data for weekly engagement
+// Line chart data for weekly engagement
 const weeklyEngagementData = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
     {
       label: "Engagement Rate (%)",
       data: [75, 78, 80, 77, 79, 81, 78],
-      borderColor: "#007bff",
-      backgroundColor: "rgba(0, 123, 255, 0.2)",
+      borderColor: "#0B6E45",
+      backgroundColor: "rgba(11, 110, 69, 0.2)",
       fill: true,
     },
   ],
 };
 
-// ✅ Bar chart data for reward redemptions
+// Bar chart data for reward redemptions
 const rewardRedemptionData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
   datasets: [
     {
       label: "Points Redeemed",
       data: [42000, 38000, 45000, 47000, 43000, 50000],
-      backgroundColor: "#28a745",
+      backgroundColor: "#0B6E45",
     },
   ],
 };
 
-// ✅ Main component rendering both charts
+// Main component rendering both charts
 const EngagementCharts: React.FC = () => {
   return (
     <div className="mb-4">
@@ -64,7 +64,7 @@ const EngagementCharts: React.FC = () => {
         <Col md={6}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
-              <h5 className="mb-3 text-primary">Weekly Engagement Rate (%)</h5>
+              <h5 className="mb-3" style={{ color: "#00A859", fontFamily: "body" }}>Weekly Engagement Rate (%)</h5>
               <Line data={weeklyEngagementData} />
             </Card.Body>
           </Card>
@@ -74,7 +74,7 @@ const EngagementCharts: React.FC = () => {
         <Col md={6}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
-              <h5 className="mb-3 text-success">
+              <h5 className="mb-3" style={{ color: "#00A859", fontFamily: "body" }}>
                 Reward Redemptions (Last 6 Weeks)
               </h5>
               <Bar data={rewardRedemptionData} />

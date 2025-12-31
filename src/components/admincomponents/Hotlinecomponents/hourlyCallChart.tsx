@@ -31,7 +31,8 @@ const data = {
     {
       label: "Calls",
       data: [2, 4, 6, 3, 5, 7, 4, 6, 5, 3, 2],
-      backgroundColor: "#0d6efd",
+      backgroundColor: "#00A859",
+      borderRadius: 6,
     },
   ],
 };
@@ -39,11 +40,20 @@ const data = {
 const options = {
   responsive: true,
   scales: {
+    x: {
+      grid: {
+        display: false, // remove vertical grid lines
+      },
+    },
     y: {
       beginAtZero: true,
+      grid: {
+        display: false,
+      },
     },
   },
 };
+
 
 const HourlyCallChart: React.FC = () => {
   return (

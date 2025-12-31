@@ -96,6 +96,7 @@ const AdminSidebar: React.FC = () => {
     { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
     { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
     { id: "reports", label: "Reports", icon: "BarChart3" },
+    { id: "content-management", label: "Content Management", icon: "FolderOutput" },
   ];
 
   // Extract current path segment to determine active menu item
@@ -127,17 +128,17 @@ const AdminSidebar: React.FC = () => {
         width: "250px",
         height: "100vh",
         backgroundColor: "#ffffff",
-        borderRight: "1px solid #dee2e6",
+        borderRight: "1px solid #e9ecef",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
       }}
     >
       {/* Top logo only (no text) */}
       <div
         style={{
-          padding: "2rem",
-          borderBottom: "1px solid #dee2e6",
+          padding: "1.5rem",
+          borderBottom: "1px solid #e9ecef",
           display: "flex",
           justifyContent: "center",
         }}
@@ -145,25 +146,13 @@ const AdminSidebar: React.FC = () => {
         <img
           src={logo}
           alt="Obeeoma Logo"
-          style={{ width: "160px", height: "40px" }}
+          style={{ width: "160px", height: "45px", objectFit: 'contain' }}
         />
       </div>
 
       {/* Navigation menu */}
-      <div style={{ padding: "1rem 0", flexGrow: 1 }}>
+      <div style={{ padding: "1rem 0.5rem", fontFamily: 'body', flexGrow: 1, overflowY: 'auto' }}>
         {menuItems.map((item) => {
-          // Cast icon to valid React component
-          // const IconComponent = Icons[
-          //   item.icon as keyof typeof Icons
-          // ] as React.FC<{
-          //   size?: number;
-          //   color?: string;
-          // }>;
-
-          // const isActive =
-          //   currentPath === item.id ||
-          //   (item.id === "overview" && currentPath === undefined);
-
           return (
             <SideNavButton
               key={item.id}
@@ -177,7 +166,7 @@ const AdminSidebar: React.FC = () => {
       </div>
 
       {/* Bottom section: Settings and Logout */}
-      <div style={{ padding: "1rem", borderTop: "1px solid #dee2e6" }}>
+      <div style={{ padding: "0.5rem", fontFamily: 'body', borderTop: "1px solid #e9ecef" }}>
         <SideNavButton
           id="settings-overview"
           label="Settings"

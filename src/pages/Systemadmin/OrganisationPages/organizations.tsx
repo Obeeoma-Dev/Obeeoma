@@ -35,7 +35,7 @@ const mockOrganizations: Organization[] = [
     programs: 8,
     status: "Active",
     lastActive: "3 hours ago",
-    plan: "Enterprise",
+    plan: "Premium",
     address: "456 Elm Ave",
   },
   {

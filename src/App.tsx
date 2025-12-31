@@ -25,6 +25,9 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
 import NotFound from "./pages/NotFound";
+
+
+// Systemadmin routes.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
@@ -35,6 +38,9 @@ import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription
 import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
+import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
+
+
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EditEmployerProfilePage from "./pages/EmployerPages/EditEmployerProfilePage";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
@@ -46,6 +52,8 @@ import EmployeeManagement from "./pages/EmployerPages/EmployeeManagement";
 import Aboutus from "./pages/landingpage/Aboutpages/about";
 import { ContactPage } from "./pages/landingpage/Contacts/contactUs";
 import { Blog } from "./pages/landingpage/Blogpages/blog";
+import { PrivacyPolicy } from "./pages/landingpage/Policy";
+import { TermsAndConditions } from "./pages/landingpage/Terms";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +82,9 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms & conditions" element={<TermsAndConditions />} />
+
               {/* === PROTECTED ROUTES WRAPPER (Now active) === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
@@ -153,6 +164,12 @@ export default function App(): React.ReactElement {
                   element={<SubscriptionPage />}
                 />
                 <Route path="/system-admin/reports" element={<ReportPage />} />
+
+                <Route
+                  path="/system-admin/content-management"
+                  element={<ContentManagement />}
+                />
+
                 {/* SYSTEMS ADMIN SETTINGS ROUTES */}
                 <Route
                   path="/system-admin/settings-overview"

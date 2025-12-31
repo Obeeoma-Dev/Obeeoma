@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { Facebook, Twitter, Instagram } from "lucide-react";
-import { BlogCard } from "../../../components/Blog/blogCard";
-import { BlogHero } from "../../../components/Blog/blogHero";
-import { CategoryFilter } from "../../../components/Blog/categoryFilter";
-import { FloatingWhatsApp } from "../../../components/Contactus/floatingWhatsup";
+import React, { useState, useEffect } from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
+import { BlogCard } from '../../../components/Blog/blogCard';
+import { BlogHero } from '../../../components/Blog/blogHero';
+// import { CategoryFilter } from '../../../components/Blog/categoryFilter';
+import { FloatingWhatsApp } from '../../../components/Contactus/floatingWhatsup';
 import Navigation from "../../../components/shared/Navigation";
 
 // Importing images.
-import Africaworkforce from "../../../assets/Images/workforce.png";
-import Freeworkspace from "../../../assets/Images/freeworkspace.png";
-import Aiworkplaces from "../../../assets/Images/aioffice.png";
-import Dailyhabbits from "../../../assets/Images/dailyhabbits.png";
-import Mentallyhealthyworkplace from "../../../assets/Images/mentallyhealthyworkplaces.png";
-import Breakingstigma from "../../../assets/Images/breackingstigma.png";
-import Mentalhealthawareness from "../../../assets/Images/mentalhealthimage.png";
+import Africaworkforce from '../../../assets/Images/workforce.png';
+import Freeworkspace from '../../../assets/Images/freeworkspace.png';
+import Aiworkplaces from '../../../assets/Images/aioffice.png';
+import Dailyhabbits from '../../../assets/Images/dailyhabbits.png';
+import Mentallyhealthyworkplace from '../../../assets/Images/mentallyhealthyworkplaces.png';
+import Breakingstigma from '../../../assets/Images/breackingstigma.png';
+import Mentalhealthawareness from '../../../assets/Images/mentalhealthimage.png';
+
+
+// Importing the social handle footer.
+import Footer from "../../../components/shared/socialhandlesfooter";
 interface Blog {
   id: number;
   title: string;
@@ -26,8 +29,20 @@ interface Blog {
   author: string;
   featured?: boolean;
 }
-const blogData: Blog[] = [
-  {
+
+
+
+// const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
+export function Blog() {
+  // -----------------------------
+  // STATE DEFINITIONS
+  // -----------------------------
+
+  // Holds the currently selected category (e.g. "All", "Technology")
+  // You already had this – we keep it unchanged
+  const [activeCategory] = useState<string>("All");
+
+  const [blogs, setBlogs] = useState<Blog[]>([{
     id: 1,
     title:
       "Why Employee Mental Health Should Be Every Company’s Priority in 2025",
@@ -107,71 +122,118 @@ const blogData: Blog[] = [
     date: "Jan 26, 2025",
     readTime: "7 min read",
     author: "Obeeoma Founding Team",
-  },
-];
+  },]);
 
-const categories = [
-  "Self-Care",
-  "Anxiety",
-  "Wellness",
-  "Relationships",
-  "Community",
-];
-export function Blog() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [filteredBlogs, setFilteredBlogs] = useState(blogData);
+  // Holds blogs AFTER filtering/searching
+  // This is what the UI renders
+  const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
+
+  // Visibility flag you already had (kept to avoid breaking anything)
   const [, setIsVisible] = useState(false);
+
+  // -----------------------------
+  // FETCH BLOGS FROM BACKEND
+  // -----------------------------
+
   useEffect(() => {
+    // Define async function to fetch blogs
+    const fetchBlogs = async () => {
+      try {
+        // Call backend API (change URL if needed)
+        const response = await fetch("/api/blogs/");
+
+        // Convert response to JSON
+        const data: Blog[] = await response.json();
+
+        // Save backend data into blogs state
+        setBlogs(data);
+
+        // Initially show all blogs
+        setFilteredBlogs(data);
+      } catch (error) {
+        // Log error if backend fails (prevents app crash)
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    // Call the fetch function
+    fetchBlogs();
+
+    // Set visibility flag (your existing behavior)
     setIsVisible(true);
   }, []);
+
+  // -----------------------------
+  // FILTER BY CATEGORY
+  // -----------------------------
+
   useEffect(() => {
+    // If category is "All", show everything
     if (activeCategory === "All") {
-      setFilteredBlogs(blogData);
+      setFilteredBlogs(blogs);
     } else {
+      // Otherwise filter blogs by category
       setFilteredBlogs(
-        blogData.filter((blog) => blog.category === activeCategory),
+        blogs.filter((blog) => blog.category === activeCategory),
       );
     }
-  }, [activeCategory]);
+  }, [activeCategory, blogs]);
+
+  // -----------------------------
+  // SEARCH HANDLER (USED BY BlogHero)
+  // -----------------------------
+
   const handleSearch = (query: string) => {
-    if (query.trim() === "") {
-      setFilteredBlogs(blogData);
-    } else {
-      const filtered = blogData.filter(
-        (blog) =>
-          blog.title.toLowerCase().includes(query.toLowerCase()) ||
-          blog.excerpt.toLowerCase().includes(query.toLowerCase()) ||
-          blog.category.toLowerCase().includes(query.toLowerCase()),
-      );
-      setFilteredBlogs(filtered);
+    // Trim and normalize search text
+    const searchValue = query.trim().toLowerCase();
+
+    // If search is empty, reset to all blogs
+    if (!searchValue) {
+      setFilteredBlogs(blogs);
+      return;
     }
+
+    // Filter blogs by title, excerpt, or category
+    const filtered = blogs.filter(
+      (blog) =>
+        blog.title.toLowerCase().includes(searchValue) ||
+        blog.excerpt.toLowerCase().includes(searchValue) ||
+        blog.category.toLowerCase().includes(searchValue),
+    );
+
+    // Update filtered blogs state
+    setFilteredBlogs(filtered);
   };
+
+  // -----------------------------
+  // UI (UNCHANGED)
+  // -----------------------------
+
   return (
     <div className="blog-page">
       {/* Navigation Bar */}
       <Navigation />
 
-      {/* Hero Section */}
-      <BlogHero onSearch={handleSearch} />
+      <main style={{ paddingTop: '80px' }}>
+        {/* Hero Section */}
+        <BlogHero onSearch={handleSearch} />
 
-      {/* Category Filter */}
-      <Container fluid className="my-5">
-        <CategoryFilter
-          categories={categories}
-          activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
-        />
-      </Container>
+      {/* Margin to create space between the two components */}
+      <div style={{ marginBottom: "120px" }} />
 
       {/* Featured Blog */}
       {activeCategory === "All" && filteredBlogs.length > 0 && (
-        <Container className="mb-5">
-          <h2 className="blog-section-title" style={{ fontFamily: "heading" }}>
+        <Container className="mb-5 mt-5">
+          <h2
+            className="blog-section-title"
+            style={{ fontFamily: "heading" }}
+          >
             Featured Article
           </h2>
           <Row>
             <Col xs={12}>
-              <BlogCard {...filteredBlogs[0]} featured={true} />
+              {/* First blog is treated as featured */}
+              <BlogCard {...filteredBlogs[0]} featured />
             </Col>
           </Row>
         </Container>
@@ -186,6 +248,7 @@ export function Blog() {
         </h2>
         <Row className="g-4">
           {filteredBlogs
+            // Skip first blog if "All" (already shown as featured)
             .slice(activeCategory === "All" ? 1 : 0)
             .map((blog, index) => (
               <Col key={blog.id} xs={12} md={6} lg={4}>
@@ -193,98 +256,29 @@ export function Blog() {
               </Col>
             ))}
         </Row>
+
+        {/* Empty state */}
         {filteredBlogs.length === 0 && (
-          <div className="blog-no-results" style={{ fontFamily: "body" }}>
+          <div
+            className="blog-no-results"
+            style={{ fontFamily: "body" }}
+          >
             <p>No articles found. Try adjusting your search or filter.</p>
           </div>
         )}
       </Container>
 
-      {/* Newsletter Section */}
-      <div className="blog-newsletter-section">
-        <Container>
-          <Row className="justify-content-center">
-            <Col xs={12} md={8} lg={6}>
-              <div className="blog-newsletter-content">
-                <h2
-                  className="blog-newsletter-title"
-                  style={{ fontFamily: "heading" }}
-                >
-                  Stay Updated
-                </h2>
-                <p
-                  className="blog-newsletter-text"
-                  style={{ fontFamily: "body" }}
-                >
-                  Subscribe to our newsletter for the latest insights on mental
-                  health and wellness
-                </p>
-                <form className="blog-newsletter-form">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="blog-newsletter-input"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="blog-newsletter-button"
-                    style={{ fontFamily: "heading" }}
-                  >
-                    Subscribe
-                  </button>
-                </form>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      {/* Socials Footer */}
+      <Footer />
 
-      {/* Footer */}
-      <footer className="blog-footer">
-        <Container>
-          <Row className="align-items-center">
-            <Col
-              xs={12}
-              md={6}
-              className="text-center text-md-start mb-3 mb-md-0"
-            >
-              <div className="blog-footer-social">
-                <a
-                  href="#"
-                  className="blog-footer-social-link"
-                  aria-label="Facebook"
-                >
-                  <Facebook color="white" />
-                </a>
-                <a
-                  href="#"
-                  className="blog-footer-social-link"
-                  aria-label="Twitter"
-                >
-                  <Twitter color="white" />
-                </a>
-                <a
-                  href="#"
-                  className="blog-footer-social-link"
-                  aria-label="Instagram"
-                >
-                  <Instagram color="white" />
-                </a>
-              </div>
-            </Col>
-            <Col xs={12} md={6} className="text-center text-md-end">
-              <p className="blog-footer-text" style={{ fontFamily: "body" }}>
-                Copyright © 2025 Obeeoma | Powered by{" "}
-                <span className="blog-footer-highlight">RHIPFactory</span>
-              </p>
-            </Col>
-          </Row>
-        </Container>
-      </footer>
-
-      {/* Floating WhatsApp Button */}
-      <FloatingWhatsApp />
+        {/* Floating WhatsApp Button */}
+        <FloatingWhatsApp />
+      </main>
     </div>
   );
 }
+
+
+
+
+

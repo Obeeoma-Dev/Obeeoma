@@ -1,0 +1,33 @@
+/* Wrapper for the icon background */
+.icon-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Soft background colors (like your screenshot) */
+.icon-green {
+    background-color: #e8f8f0;
+    color: #12b76a;
+}
+
+.icon-blue {
+    background-color: #e7f0ff;
+    color: #3b82f6;
+}
+
+.icon-purple {
+    background-color: #f3e8ff;
+    color: #8b5cf6;
+}
+
+/* Bigger main numbers */
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: 'body';
+}
