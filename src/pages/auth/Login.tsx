@@ -86,7 +86,7 @@ const LoginPage = () => {
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const userRole = (resultAction as any)?.role || user?.role;
+      const userRole = resultAction.user?.role || user?.role;
       console.log("Final Role Determined:", userRole);
 
       const destinationPath: DashboardPath = getDashboardRoute(userRole);

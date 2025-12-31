@@ -1,11 +1,11 @@
 // Import React (required for JSX)
-import React from 'react'
+import React from 'react';
 
 // Import Card and Badge components from React-Bootstrap
-import { Card, Badge } from 'react-bootstrap'
+import { Card, Badge } from 'react-bootstrap';
 
 // Import the Lucide icon type for type safety
-import { LucideIcon } from 'lucide-react'
+import { LucideIcon } from 'lucide-react';
 import "./hotline.css";
 
 /**

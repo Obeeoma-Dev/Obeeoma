@@ -1,77 +1,86 @@
-// src/components/admincomponents/aimanagementcomponents/TopMetrics.tsx
+// Import React for JSX support
+import React from 'react';
 
-import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
-import { BarChartFill, GraphUpArrow, ClockFill } from "react-bootstrap-icons"; // Bootstrap icons for visual polish
+// Import Bootstrap layout components
+import { Row, Col } from 'react-bootstrap';
 
-// Props interface for top-level metrics
+// Import Lucide icons used in the stat cards
+import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
+
+// Import the reusable StatCard component
+import { StatCard } from '../Hotlinecomponents/startCards';
+
+// Props interface for TopMetrics
 interface TopMetricsProps {
-  totalRecommendations: number;
-  engagementRate: number;
-  averageTime: string;
+  totalRecommendations: number
+  engagementRate: number
+  averageTime: string
 }
 
-// Functional component with Bootstrap layout and icons
+// TopMetrics component
+// Renders the top summary cards using the shared StatCard component
 const TopMetrics: React.FC<TopMetricsProps> = ({
   totalRecommendations,
   engagementRate,
   averageTime,
 }) => {
   return (
-    // Row container for 3 equal-width cards
-    <Row className="mb-4 g-4">
-      {/* Card 1: Total Recommendations */}
-      <Col md={4}>
-        <Card className="shadow-sm border-0">
-          <Card.Body>
-            <div className="d-flex align-items-center mb-2">
-              <BarChartFill className="text-primary me-2" size={24} />
-              <Card.Title className="mb-0 fw-semibold">
-                Total Recommendations
-              </Card.Title>
-            </div>
-            <Card.Text className="fs-4 fw-bold text-dark">
-              {totalRecommendations.toLocaleString()}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
+    <>
+      {/* Page Title Section */}
+      <Row className="mb-4">
+        <Col>
+          <h1 className="fw-bold text-dark" style={{ fontFamily: 'heading' }}>
+            AI Management
+          </h1>
+          <p className="text-muted small" style={{ fontFamily: 'body' }}>
+            Monitor and optimize your AI recommendation engine.
+          </p>
+        </Col>
+      </Row>
 
-      {/* Card 2: Engagement Rate */}
-      <Col md={4}>
-        <Card className="shadow-sm border-0">
-          <Card.Body>
-            <div className="d-flex align-items-center mb-2">
-              <GraphUpArrow className="text-success me-2" size={24} />
-              <Card.Title className="mb-0 fw-semibold">
-                Engagement Rate
-              </Card.Title>
-            </div>
-            <Card.Text className="fs-4 fw-bold text-dark">
-              {engagementRate}%
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
+      {/* Stat Cards Section */}
 
-      {/* Card 3: Average Engagement Time */}
-      <Col md={4}>
-        <Card className="shadow-sm border-0">
-          <Card.Body>
-            <div className="d-flex align-items-center mb-2">
-              <ClockFill className="text-warning me-2" size={24} />
-              <Card.Title className="mb-0 fw-semibold">
-                Avg Engagement Time
-              </Card.Title>
-            </div>
-            <Card.Text className="fs-4 fw-bold text-dark">
-              {averageTime}
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
-  );
-};
 
-export default TopMetrics;
+      <Row className="g-4 mb-4">
+        {/* Total Recommendations */}
+        <Col xs={12} md={4}>
+          <StatCard
+            title="Total Recommendations"
+            value={totalRecommendations.toLocaleString()}
+            subtitle="Generated this month"
+            trend="+16.5% this month"
+            icon={BrainCircuit}
+            color="emerald"
+          />
+        </Col>
+
+        {/* Average Engagement Rate */}
+        <Col xs={12} md={4}>
+          <StatCard
+            title="Avg. Engagement Rate"
+            value={`${engagementRate}%`}
+            subtitle="User interaction with content"
+            trend="+5% this month"
+            icon={Activity}
+            color="blue"
+          />
+        </Col>
+
+        {/* AI Accuracy / Time (mapped visually like the image) */}
+        <Col xs={12} md={4}>
+          <StatCard
+            title="AI Accuracy Score"
+            value="89%"
+            subtitle="Based on user feedback"
+            trend="+2% this month"
+            icon={ThumbsUp}
+            color="amber"
+          />
+        </Col>
+      </Row>
+    </>
+  )
+}
+
+// Export component
+export default TopMetrics

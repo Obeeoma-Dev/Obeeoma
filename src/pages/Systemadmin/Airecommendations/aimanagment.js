@@ -8,6 +8,7 @@ import ModelPerformance from "../../../components/admincomponents/Aicomponents/m
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import AdminHeader from "../../../components/admincomponents/adminheader";
+import { FileText, Video, Headphones, MousePointerClick, } from 'lucide-react';
 /**
  * AIRecommendationsPage renders the AI management dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
@@ -19,21 +20,63 @@ const AIRecommendationsPage = () => {
         engagementRate: 72,
         averageTime: "5m 32s",
     };
-    // Effectiveness chart data
-    const effectivenessData = [
-        { label: "Activity Assignment Templates", percentage: 80 },
-        { label: "Social Connection Prompts", percentage: 75 },
-        { label: "Personalized Coping Strategies", percentage: 70 },
-        { label: "Family Involvement", percentage: 65 },
-        { label: "Peer Support", percentage: 60 },
-    ];
     // AI resource effectiveness table
     const resources = [
-        { name: "Activity Assignment Templates", status: "High Effectiveness" },
-        { name: "Social Connection Prompts", status: "High Effectiveness" },
-        { name: "Personalized Coping Strategies", status: "High Effectiveness" },
-        { name: "Peer Support", status: "Needs Improvement" },
-        { name: "Family Involvement", status: "Needs Improvement" },
+        {
+            id: 1,
+            name: 'Anxiety Management Techniques',
+            type: 'Article',
+            icon: FileText,
+            recommended: '156 times',
+            engagement: 78,
+            effectiveness: 'High',
+            lastUpdated: '2023-09-12',
+            status: 'High Effectiveness',
+        },
+        {
+            id: 2,
+            name: 'Breathing Exercises for Anxiety',
+            type: 'Video',
+            icon: Video,
+            recommended: '243 times',
+            engagement: 82,
+            effectiveness: 'High',
+            lastUpdated: '2023-08-10',
+            status: 'High Effectiveness',
+        },
+        {
+            id: 3,
+            name: 'Understanding Panic Attacks',
+            type: 'Article',
+            icon: FileText,
+            recommended: '124 times',
+            engagement: 65,
+            effectiveness: 'Medium',
+            lastUpdated: '2023-09-05',
+            status: 'High Effectiveness',
+        },
+        {
+            id: 4,
+            name: 'Guided Meditation for Relief',
+            type: 'Audio',
+            icon: Headphones,
+            recommended: '198 times',
+            engagement: 72,
+            effectiveness: 'Medium',
+            lastUpdated: '2023-09-08',
+            status: 'High Effectiveness',
+        },
+        {
+            id: 5,
+            name: 'Social Anxiety Coping Strategies',
+            type: 'Interactive',
+            icon: MousePointerClick,
+            recommended: '87 times',
+            engagement: 58,
+            effectiveness: 'Low',
+            lastUpdated: '2023-08-28',
+            status: 'High Effectiveness',
+        },
     ];
     // Model performance scores
     const modelScores = [
@@ -55,6 +98,6 @@ const AIRecommendationsPage = () => {
                             overflowY: "auto",
                             padding: "1rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, { data: effectivenessData }) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }) })] })] }));
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }) })] })] }));
 };
 export default AIRecommendationsPage;

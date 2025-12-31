@@ -52,7 +52,7 @@ const LoginPage = () => {
                 return;
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const userRole = resultAction?.role || user?.role;
+            const userRole = resultAction.user?.role || user?.role;
             console.log("Final Role Determined:", userRole);
             const destinationPath = getDashboardRoute(userRole);
             navigate(destinationPath, { replace: true });

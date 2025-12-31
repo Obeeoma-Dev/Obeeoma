@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest --watchAll=false",
-  "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-  "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -85,6 +85,7 @@
     "react-router": "^6.30.1",
     "react-router-dom": "^7.9.4",
     "react-select": "^5.10.2",
+    "react-toastify": "^11.0.5",
     "recharts": "^3.2.1",
     "sonner": "^2.0.7",
     "styled-jsx": "^5.1.7",
