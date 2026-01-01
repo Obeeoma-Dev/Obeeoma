@@ -13,19 +13,19 @@ import "./hotline.css";
  * This defines what data the component expects
  */
 interface StatCardProps {
-    title: string
-    value: string
-    subtitle: string
-    trend?: string
-    icon: LucideIcon
-    color: 'emerald' | 'blue' | 'amber' | 'rose'
+    title: string;
+    value: string | number;
+    subtitle: string;
+    trend?: string;
+    icon: LucideIcon;
+    color: 'emerald' | 'blue' | 'amber' | 'rose';
 }
 
 /**
  * StatCard component
  * Displays a statistic with an icon, value, title, subtitle, and optional trend
  */
-export function StatCard({
+export function HoverStatCard({
     title,
     value,
     subtitle,

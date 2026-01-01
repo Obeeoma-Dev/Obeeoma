@@ -1,58 +1,104 @@
 // src/components/admincomponents/subscriptioncomponents/RecentSubscriptionsTable.tsx
 
-import React from "react";
-import { Table, Button } from "react-bootstrap";
+import React from 'react';
+import { Card, Table, Badge, Button } from 'react-bootstrap';
+import { CheckCircle2 } from 'lucide-react';
 
-// Define the shape of each subscription entry
-interface Subscription {
+/**
+ * Subscription row interface
+ * Matches the data structure used in the parent page
+ */
+export interface Subscription {
   organization: string;
-  type: string;
-  employees: number;
-  startDate: string;
-  endDate: string;
-  status: "Active" | "Inactive";
+  plan: string;
+  mrr: string;
+  subscribers: number;
+  status: string;
+  renewalDate: string;
+  badge?: string;
+  badgeVariant?: string;
 }
 
-// Props interface for backend-ready data injection
+/**
+ * Component props
+ */
 interface Props {
   subscriptions: Subscription[];
 }
 
+/**
+ * RecentSubscriptionsTable
+ *
+ * Renders a subscriptions table visually identical to the reference design.
+ * Designed to be placed inside <Card.Body className="p-0" />.
+ */
 const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions }) => {
   return (
-    <div className="mb-4">
-      <h5>Recent Subscriptions</h5>
-      <Table striped bordered hover responsive>
-        <thead>
+    <Card className="border-0 rounded-0">
+      {/* Header */}
+      <Card.Header className="bg-white">
+        <h5 className="mb-1" style={{ fontFamily: 'heading' }}>Recent Subscriptions</h5>
+        <p className="text-muted mb-0" style={{ fontFamily: 'body' }}>
+          View and manage organization subscriptions in a table below
+        </p>
+      </Card.Header>
+
+      {/* Table */}
+      <Table responsive hover className="mb-0 align-middle">
+        <thead className="table-light" style={{ fontFamily: 'heading' }}>
           <tr>
-            <th>Organization</th>
-            <th>Type</th>
-            <th>Employees</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>AUTO ORGANIZATION</th>
+            <th>ENTERPRISE</th>
+            <th>MRR</th>
+            <th>SUBSCRIBERS</th>
+            <th>STATUS</th>
+            <th>RENEWAL DATE</th>
+            <th>STATUS</th>
           </tr>
         </thead>
+
         <tbody>
-          {subscriptions.map((sub, index) => (
-            <tr key={index}>
-              <td>{sub.organization}</td>
-              <td>{sub.type}</td>
-              <td>{sub.employees}</td>
-              <td>{sub.startDate}</td>
-              <td>{sub.endDate}</td>
-              <td>{sub.status}</td>
+          {subscriptions.map((sub) => (
+            <tr key={`${sub.organization}-${sub.renewalDate}`}>
+              <td className="fw-medium">{sub.organization}</td>
+              <td>{sub.plan}</td>
+              <td className="fw-semibold">{sub.mrr}</td>
+              <td>{sub.subscribers}</td>
+
+              {/* Active status badge */}
               <td>
-                <Button variant="outline-primary" size="sm">
-                  View
-                </Button>
+                <Badge
+                  bg="success"
+                  className="d-inline-flex align-items-center gap-1 px-3 py-1 rounded-pill"
+                >
+                  <CheckCircle2 size={12} />
+                  Active
+                </Badge>
+              </td>
+
+              <td>{sub.renewalDate}</td>
+
+              {/* New / Old / Expiration badge */}
+              <td>
+                <Badge
+                  bg={sub.badgeVariant}
+                  className="px-3 py-1 rounded-pill fw-medium"
+                >
+                  {sub.badge}
+                </Badge>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-    </div>
+
+      {/* Footer */}
+      <Card.Footer className="bg-white text-center">
+        <Button variant="link" className="fw-medium text-success">
+          View all →
+        </Button>
+      </Card.Footer>
+    </Card>
   );
 };
 

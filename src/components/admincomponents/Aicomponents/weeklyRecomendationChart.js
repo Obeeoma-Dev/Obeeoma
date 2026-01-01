@@ -6,7 +6,7 @@ import { Line } from 'react-chartjs-2';
 // Core Chart.js modules that must be registered manually
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, } from 'chart.js';
 // Import component-specific CSS (no Tailwind)
-import './weeklychat.css';
+import './aicomponent.css';
 // Register Chart.js components once
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 // Chart data (visuals only — backend can replace this later)

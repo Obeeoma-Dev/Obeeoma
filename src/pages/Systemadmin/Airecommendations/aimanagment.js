@@ -88,10 +88,10 @@ const AIRecommendationsPage = () => {
     ];
     // Top anxiety triggers
     const triggers = [
-        "Social situations",
-        "Academic pressure",
-        "Peer pressure",
-        "Family relationships",
+        { name: "Social situations", score: 76 },
+        { name: "Academic pressure", score: 68 },
+        { name: "Peer pressure", score: 65 },
+        { name: "Family relationships", score: 61 },
     ];
     return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx(AdminSidebar, {}) }), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx(AdminHeader, {}) }), _jsx("div", { style: {
                             flex: 1,

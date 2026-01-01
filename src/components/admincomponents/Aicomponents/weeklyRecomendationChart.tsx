@@ -21,7 +21,7 @@ import {
 } from 'chart.js'
 
 // Import component-specific CSS (no Tailwind)
-import './weeklychat.css'
+import './aicomponent.css'
 
 // Register Chart.js components once
 ChartJS.register(

@@ -2,7 +2,7 @@
 import React from "react"
 import { Row, Col } from "react-bootstrap"
 import { Phone, Clock, XCircle } from "lucide-react"
-import { StatCard } from "./startCards";
+import { HoverStatCard } from "./hoverCard";
 
 interface TopMetricsProps {
   totalCalls: number
@@ -30,7 +30,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
       {/* Top Stats Row */}
       <Row className="mb-4" style={{ fontFamily: 'body', fontWeight: '600px' }}>
         <Col xs={12} md={4} className="mb-3 mb-md-0">
-          <StatCard
+          <HoverStatCard
             title="Today's Calls"
             value={String(totalCalls)}
             subtitle="Total incoming calls"
@@ -40,7 +40,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
           />
         </Col>
         <Col xs={12} md={4} className="mb-3 mb-md-0">
-          <StatCard
+          <HoverStatCard
             title="Avg. Call Time"
             value={avgCallTime}
             subtitle="Average duration"
@@ -50,7 +50,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
           />
         </Col>
         <Col xs={12} md={4}>
-          <StatCard
+          <HoverStatCard
             title="Missed Calls"
             value={String(missedCalls)}
             subtitle="Calls not answered"

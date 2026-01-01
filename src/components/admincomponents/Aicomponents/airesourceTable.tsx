@@ -52,7 +52,16 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                         className="d-flex align-items-center justify-content-center rounded"
                         style={{ width: 36, height: 36, backgroundColor: '#f1f3f5' }}
                       >
-                        <IconComponent size={18} />
+                        <IconComponent
+                          size={18}
+                          color={
+                            resource.type === 'Article' ? '#0d6efd' :
+                              resource.type === 'Video' ? '#dc3545' :
+                                resource.type === 'Audio' ? '#198754' :
+                                  resource.type === 'Interactive' ? '#fd7e14' :
+                                    '#6c757d'
+                          }
+                        />
                       </div>
                       <div>
                         <div className="fw-medium">{resource.name}</div>
@@ -112,13 +121,13 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                   <td className="align-middle text-end">
                     <div className="d-flex justify-content-end gap-2">
                       <Button variant="link" className="p-1 text-muted">
-                        <ThumbsUp size={16} />
+                        <ThumbsUp size={16} color="#198754" />
                       </Button>
                       <Button variant="link" className="p-1 text-danger">
-                        <ThumbsDown size={16} />
+                        <ThumbsDown size={16} color="#dc3545" />
                       </Button>
                       <Button variant="link" className="p-1 text-muted">
-                        <MoreVertical size={16} />
+                        <MoreVertical size={16} color="#6c757d" />
                       </Button>
                     </div>
                   </td>

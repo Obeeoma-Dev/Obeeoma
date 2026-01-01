@@ -5,7 +5,7 @@ import ServiceUtilizationChart from "../../../components/admincomponents/Subscri
 import RecentActivityFeed from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Col, Card } from "react-bootstrap";
 /**
  * SubscriptionPage component displays subscription metrics,
  * recent subscriptions, service utilization, and activity feed.
@@ -25,20 +25,54 @@ const SubscriptionPage = () => {
     // Sample subscription records - maintaining existing structure
     const subscriptions = [
         {
-            organization: "Acme Corporation",
-            type: "Enterprise",
-            employees: 250,
-            startDate: "Mar 15, 2023",
-            endDate: "Mar 15, 2024",
-            status: "Active",
+            organization: 'Acme Corporation',
+            plan: 'Enterprise',
+            mrr: '$2,499',
+            subscribers: 450,
+            status: 'Active',
+            renewalDate: 'Dec 15, 2025',
+            badge: 'New',
+            badgeVariant: 'success',
         },
         {
-            organization: "Green Energy Co",
-            type: "Startup",
-            employees: 75,
-            startDate: "Mar 15, 2023",
-            endDate: "Mar 15, 2024",
-            status: "Inactive",
+            organization: 'TechMedia Inc',
+            plan: 'Business',
+            mrr: '$1,299',
+            subscribers: 180,
+            status: 'Active',
+            renewalDate: 'Dec 20, 2025',
+            badge: 'Old',
+            badgeVariant: 'secondary',
+        },
+        {
+            organization: 'Wellness Innovations',
+            plan: 'Premium',
+            mrr: '$899',
+            subscribers: 95,
+            status: 'Active',
+            renewalDate: 'Jan 05, 2026',
+            badge: 'Expiration',
+            badgeVariant: 'danger',
+        },
+        {
+            organization: 'Global Mindfulness',
+            plan: 'Enterprise',
+            mrr: '$3,200',
+            subscribers: 675,
+            status: 'Active',
+            renewalDate: 'Dec 28, 2025',
+            badge: 'New',
+            badgeVariant: 'success',
+        },
+        {
+            organization: 'Peace of Mind Co',
+            plan: 'Business',
+            mrr: '$1,599',
+            subscribers: 220,
+            status: 'Active',
+            renewalDate: 'Jan 10, 2026',
+            badge: 'Expiration',
+            badgeVariant: 'danger',
         },
     ];
     // Service utilization percentages - maintaining existing structure
@@ -61,6 +95,6 @@ const SubscriptionPage = () => {
                             overflowY: "auto",
                             padding: "1.5rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsxs(Container, { fluid: true, children: [_jsxs("div", { className: "mb-4", children: [_jsx("h1", { className: "fw-bold mb-2", children: "Subscriptions" }), _jsx("p", { className: "text-muted mb-0", children: "Search..." })] }), _jsx(MetricsPanel, { ...metrics }), _jsxs(Row, { className: "g-4", children: [_jsxs(Col, { lg: 8, children: [_jsxs(Card, { className: "shadow-sm border-0 mb-4", children: [_jsxs(Card.Header, { className: "bg-white border-bottom", children: [_jsx("h5", { className: "mb-0 fw-bold", children: "Recent Subscriptions" }), _jsx("p", { className: "text-muted mb-0 small mt-1", children: "Overview of organization subscriptions to mental health services" })] }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: subscriptions }) })] }), _jsxs(Card, { className: "shadow-sm border-0", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", children: "Service Utilization" }) }), _jsx(Card.Body, { children: _jsx(ServiceUtilizationChart, { services: services }) })] })] }), _jsx(Col, { lg: 4, children: _jsxs(Card, { className: "shadow-sm border-0 h-100", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", children: "Recent Activity" }) }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentActivityFeed, { activities: activities }) })] }) })] })] }) })] })] }));
+                        }, children: _jsxs(Container, { fluid: true, children: [_jsxs("div", { className: "mb-4", children: [_jsx("h1", { className: "fw-bold mb-2", style: { fontFamily: 'heading' }, children: "Subscriptions" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: 'body' }, children: "Manage and monitor all subscription plans." })] }), _jsx(MetricsPanel, { ...metrics }), _jsxs(Col, { lg: 12, children: [_jsx(Card, { className: "shadow-sm border-0 mb-4", children: _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: subscriptions }) }) }), _jsxs(Card, { className: "shadow-sm border-0", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", children: "Service Utilization" }) }), _jsx(Card.Body, { children: _jsx(ServiceUtilizationChart, { services: services }) })] })] }), _jsx(Col, { lg: 4, children: _jsxs(Card, { className: "shadow-sm border-0 h-100", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", children: "Recent Activity" }) }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentActivityFeed, { activities: activities }) })] }) })] }) })] })] }));
 };
 export default SubscriptionPage;

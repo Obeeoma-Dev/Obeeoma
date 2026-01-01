@@ -8,7 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
 
 // Import the reusable StatCard component
-import { StatCard } from '../Hotlinecomponents/startCards';
+import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
 
 // Props interface for TopMetrics
 interface TopMetricsProps {
@@ -44,7 +44,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
       <Row className="g-4 mb-4">
         {/* Total Recommendations */}
         <Col xs={12} md={4}>
-          <StatCard
+          <HoverStatCard
             title="Total Recommendations"
             value={totalRecommendations.toLocaleString()}
             subtitle="Generated this month"
@@ -56,7 +56,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
 
         {/* Average Engagement Rate */}
         <Col xs={12} md={4}>
-          <StatCard
+          <HoverStatCard
             title="Avg. Engagement Rate"
             value={`${engagementRate}%`}
             subtitle="User interaction with content"
@@ -68,7 +68,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
 
         {/* AI Accuracy / Time (mapped visually like the image) */}
         <Col xs={12} md={4}>
-          <StatCard
+          <HoverStatCard
             title="AI Accuracy Score"
             value="89%"
             subtitle="Based on user feedback"

@@ -27,22 +27,57 @@ const SubscriptionPage: React.FC = () => {
   // Sample subscription records - maintaining existing structure
   const subscriptions = [
     {
-      organization: "Acme Corporation",
-      type: "Enterprise",
-      employees: 250,
-      startDate: "Mar 15, 2023",
-      endDate: "Mar 15, 2024",
-      status: "Active" as const,
+      organization: 'Acme Corporation',
+      plan: 'Enterprise',
+      mrr: '$2,499',
+      subscribers: 450,
+      status: 'Active',
+      renewalDate: 'Dec 15, 2025',
+      badge: 'New',
+      badgeVariant: 'success',
     },
     {
-      organization: "Green Energy Co",
-      type: "Startup",
-      employees: 75,
-      startDate: "Mar 15, 2023",
-      endDate: "Mar 15, 2024",
-      status: "Inactive" as const,
+      organization: 'TechMedia Inc',
+      plan: 'Business',
+      mrr: '$1,299',
+      subscribers: 180,
+      status: 'Active',
+      renewalDate: 'Dec 20, 2025',
+      badge: 'Old',
+      badgeVariant: 'secondary',
+    },
+    {
+      organization: 'Wellness Innovations',
+      plan: 'Premium',
+      mrr: '$899',
+      subscribers: 95,
+      status: 'Active',
+      renewalDate: 'Jan 05, 2026',
+      badge: 'Expiration',
+      badgeVariant: 'danger',
+    },
+    {
+      organization: 'Global Mindfulness',
+      plan: 'Enterprise',
+      mrr: '$3,200',
+      subscribers: 675,
+      status: 'Active',
+      renewalDate: 'Dec 28, 2025',
+      badge: 'New',
+      badgeVariant: 'success',
+    },
+    {
+      organization: 'Peace of Mind Co',
+      plan: 'Business',
+      mrr: '$1,599',
+      subscribers: 220,
+      status: 'Active',
+      renewalDate: 'Jan 10, 2026',
+      badge: 'Expiration',
+      badgeVariant: 'danger',
     },
   ];
+
 
   // Service utilization percentages - maintaining existing structure
   const services = [
@@ -87,58 +122,50 @@ const SubscriptionPage: React.FC = () => {
           <Container fluid>
             {/* Page header section with title and search placeholder */}
             <div className="mb-4">
-              <h1 className="fw-bold mb-2">Subscriptions</h1>
-              <p className="text-muted mb-0">Search...</p>
+              <h1 className="fw-bold mb-2" style={{ fontFamily: 'heading' }}>Subscriptions</h1>
+              <p className="text-muted mb-0" style={{ fontFamily: 'body' }}>Manage and monitor all subscription plans.</p>
             </div>
 
             {/* Metrics panel - passing existing metrics data unchanged */}
             <MetricsPanel {...metrics} />
 
-            {/* Main content grid layout */}
-            <Row className="g-4">
-              {/* Left column - main content area (2/3 width on medium screens) */}
-              <Col lg={8}>
-                {/* Recent Subscriptions card with improved styling */}
-                <Card className="shadow-sm border-0 mb-4">
-                  <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold">Recent Subscriptions</h5>
-                    <p className="text-muted mb-0 small mt-1">
-                      Overview of organization subscriptions to mental health
-                      services
-                    </p>
-                  </Card.Header>
-                  <Card.Body className="p-0">
-                    {/* Table component with existing subscriptions data */}
-                    <RecentSubscriptionsTable subscriptions={subscriptions} />
-                  </Card.Body>
-                </Card>
 
-                {/* Service Utilization card with improved styling */}
-                <Card className="shadow-sm border-0">
-                  <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold">Service Utilization</h5>
-                  </Card.Header>
-                  <Card.Body>
-                    {/* Chart component with existing services data */}
-                    <ServiceUtilizationChart services={services} />
-                  </Card.Body>
-                </Card>
-              </Col>
+            {/* Left column - main content area (2/3 width on medium screens) */}
+            <Col lg={12}>
+              {/* Recent Subscriptions card with improved styling */}
+              <Card className="shadow-sm border-0 mb-4">
+                <Card.Body className="p-0">
+                  {/* Table component with existing subscriptions data */}
+                  <RecentSubscriptionsTable subscriptions={subscriptions} />
+                </Card.Body>
+              </Card>
 
-              {/* Right column - sidebar content (1/3 width on medium screens) */}
-              <Col lg={4}>
-                {/* Recent Activity card with improved styling */}
-                <Card className="shadow-sm border-0 h-100">
-                  <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold">Recent Activity</h5>
-                  </Card.Header>
-                  <Card.Body className="p-0">
-                    {/* Activity feed component with existing activities data */}
-                    <RecentActivityFeed activities={activities} />
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
+              {/* Service Utilization card with improved styling */}
+              <Card className="shadow-sm border-0">
+                <Card.Header className="bg-white border-bottom">
+                  <h5 className="mb-0 fw-bold">Service Utilization</h5>
+                </Card.Header>
+                <Card.Body>
+                  {/* Chart component with existing services data */}
+                  <ServiceUtilizationChart services={services} />
+                </Card.Body>
+              </Card>
+            </Col>
+
+            {/* Right column - sidebar content (1/3 width on medium screens) */}
+            <Col lg={4}>
+              {/* Recent Activity card with improved styling */}
+              <Card className="shadow-sm border-0 h-100">
+                <Card.Header className="bg-white border-bottom">
+                  <h5 className="mb-0 fw-bold">Recent Activity</h5>
+                </Card.Header>
+                <Card.Body className="p-0">
+                  {/* Activity feed component with existing activities data */}
+                  <RecentActivityFeed activities={activities} />
+                </Card.Body>
+              </Card>
+            </Col>
+
           </Container>
         </div>
       </div>

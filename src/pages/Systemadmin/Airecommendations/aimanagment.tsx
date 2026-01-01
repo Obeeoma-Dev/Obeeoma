@@ -102,11 +102,11 @@ const AIRecommendationsPage: React.FC = () => {
 
   // Top anxiety triggers
   const triggers = [
-    "Social situations",
-    "Academic pressure",
-    "Peer pressure",
-    "Family relationships",
-  ];
+    { name: "Social situations", score: 76 },
+    { name: "Academic pressure", score: 68 },
+    { name: "Peer pressure", score: 65 },
+    { name: "Family relationships", score: 61 },
+  ]
 
   return (
     <div className="d-flex vh-100">

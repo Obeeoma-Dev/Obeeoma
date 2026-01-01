@@ -1,53 +1,54 @@
-// src/components/admincomponents/aimanagementcomponents/ModelPerformance.tsx
+import React from 'react';
+import { Card, Row, Col, ProgressBar } from 'react-bootstrap';
+import './aicomponent.css';
 
-import React from "react";
-import { Card, ListGroup, Badge } from "react-bootstrap";
-import { Speedometer } from "react-bootstrap-icons";
-
-// Props interface for model performance data
-interface ModelPerformanceProps {
-  performance: { name: string; score: number }[];
+interface ScoreItem {
+  name: string
+  score: number
 }
 
-// Functional component rendering model scores with visual polish
+interface ModelPerformanceProps {
+  performance: ScoreItem[]
+}
+
 const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
   return (
-    <Card className="shadow-sm mb-4">
-      {/* Section header with icon */}
-      <Card.Header className="fw-semibold d-flex align-items-center">
-        <Speedometer className="me-2 text-primary" size={20} />
-        AI Model Performance
-      </Card.Header>
+    <Card className="mb-4 shadow-sm">
+      <Card.Body>
+        <div className="mb-4" style={{ fontFamily: 'heading' }}>
+          <Card.Title>AI Model Performance</Card.Title>
+          <Card.Subtitle className="text-muted" style={{ fontFamily: 'body' }}>
+            Key metrics for evaluating model effectiveness
+          </Card.Subtitle>
+        </div>
 
-      {/* List of model scores */}
-      <Card.Body className="p-0">
-        <ListGroup variant="flush">
-          {performance.map((model) => (
-            <ListGroup.Item
-              key={model.name}
-              className="d-flex justify-content-between align-items-center"
-            >
-              {/* Model name */}
-              <span>{model.name}</span>
-
-              {/* Score badge with dynamic color */}
-              <Badge
-                bg={
-                  model.score >= 85
-                    ? "success"
-                    : model.score >= 70
-                      ? "warning"
-                      : "danger"
-                }
-              >
-                {model.score}%
-              </Badge>
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
+        {performance.map((item) => (
+          <div key={item.name} className="mb-4">
+            <Row className="align-items-center mb-2">
+              <Col>
+                <div className="fw-semibold" style={{ fontFamily: 'body' }}>
+                  {item.name}
+                </div>
+              </Col>
+              <Col xs="auto">
+                <div className="fw-bold text-dark">{item.score}%</div>
+              </Col>
+            </Row>
+            <ProgressBar
+              now={item.score}
+              variant={
+                item.score >= 85 ? 'success' :
+                  item.score >= 70 ? 'primary' :
+                    item.score >= 60 ? 'warning' :
+                      'danger'
+              }
+              className="thin-progress"
+            />
+          </div>
+        ))}
       </Card.Body>
     </Card>
-  );
-};
+  )
+}
 
-export default ModelPerformance;
+export default ModelPerformance

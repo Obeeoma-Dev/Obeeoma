@@ -1,10 +1,19 @@
 // src/components/admincomponents/subscriptioncomponents/subMetricPannel.tsx
 
-import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import React from 'react';
+import { Card, Row, Col } from 'react-bootstrap';
+import {
+  Building2,
+  Layers,
+  Users,
+  BarChart3,
+} from 'lucide-react';
 
-// Define the props interface for flexibility and backend readiness
-// Keeping the same interface to maintain compatibility with existing code
+import './subscription.css';
+
+/**
+ * Props interface (unchanged for backend compatibility)
+ */
 interface MetricsPanelProps {
   totalOrganizations: number;
   totalSubscriptions: number;
@@ -13,17 +22,10 @@ interface MetricsPanelProps {
 }
 
 /**
- * MetricsPanel Component
+ * SubMetricPanel Component
  *
- * Displays key subscription metrics in a card layout matching the design specification.
- * Each metric card shows the main value with a percentage change indicator.
- * Maintains backward compatibility with existing props interface.
- *
- * @param totalOrganizations - Number of total organizations
- * @param totalSubscriptions - Number of total subscriptions
- * @param coveredEmployees - String representation of covered employees (e.g., "4.2k")
- * @param utilizationRate - Percentage value for utilization rate
- * @returns React functional component with styled metric cards
+ * Visually aligned with the top stat cards used in the Subscriptions page.
+ * Uses icon + change indicator layout for consistency across admin dashboards.
  */
 const MetricsPanel: React.FC<MetricsPanelProps> = ({
   totalOrganizations,
@@ -32,76 +34,71 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
   utilizationRate,
 }) => {
   return (
-    // Main container row with bottom margin for spacing
-    <Row className="mb-4 g-3">
-      {/* Total Organizations Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            {/* Metric title with muted text color */}
-            <Card.Title className="text-muted small fw-normal mb-1">
-              Total Organizations
-            </Card.Title>
-            {/* Main metric value with large bold styling */}
-            <div className="fw-bold fs-4 mb-1">{totalOrganizations}</div>
-            {/* Percentage change indicator with positive styling */}
-            <div className="text-success small fw-medium">
-              +12% from last month
+    <Row className="g-4 mb-4">
+      {/* Total Organizations */}
+      <Col xs={12} md={6} lg={3}>
+        <Card className="stat-card h-100">
+          <Card.Body>
+            <div className="stat-card-header">
+              <div className="icon-circle primary">
+                <Building2 size={20} />
+              </div>
+              <span className="stat-change">+12% from last month</span>
             </div>
+
+            <div className="stat-value">{totalOrganizations}</div>
+            <div className="stat-label">Total Organizations</div>
           </Card.Body>
         </Card>
       </Col>
 
-      {/* Total Subscriptions Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            {/* Metric title with consistent styling */}
-            <Card.Title className="text-muted small fw-normal mb-1">
-              Total Subscriptions
-            </Card.Title>
-            {/* Main metric value */}
-            <div className="fw-bold fs-4 mb-1">{totalSubscriptions}</div>
-            {/* Percentage change indicator */}
-            <div className="text-success small fw-medium">
-              +4% from last month
+      {/* Total Subscriptions */}
+      <Col xs={12} md={6} lg={3}>
+        <Card className="stat-card h-100">
+          <Card.Body>
+            <div className="stat-card-header">
+              <div className="icon-circle success">
+                <Layers size={20} />
+              </div>
+              <span className="stat-change">+4% from last month</span>
             </div>
+
+            <div className="stat-value">{totalSubscriptions}</div>
+            <div className="stat-label">Total Subscriptions</div>
           </Card.Body>
         </Card>
       </Col>
 
-      {/* Covered Employees Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            {/* Metric title */}
-            <Card.Title className="text-muted small fw-normal mb-1">
-              Covered Employees
-            </Card.Title>
-            {/* Main metric value - using the coveredEmployees prop directly */}
-            <div className="fw-bold fs-4 mb-1">{coveredEmployees}</div>
-            {/* Percentage change indicator */}
-            <div className="text-success small fw-medium">
-              +5% from last month
+      {/* Covered Employees */}
+      <Col xs={12} md={6} lg={3}>
+        <Card className="stat-card h-100">
+          <Card.Body>
+            <div className="stat-card-header">
+              <div className="icon-circle purple">
+                <Users size={20} />
+              </div>
+              <span className="stat-change">+5% from last month</span>
             </div>
+
+            <div className="stat-value">{coveredEmployees}</div>
+            <div className="stat-label">Covered Employees</div>
           </Card.Body>
         </Card>
       </Col>
 
-      {/* Utilization Rate Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            {/* Metric title */}
-            <Card.Title className="text-muted small fw-normal mb-1">
-              Utilization Rate
-            </Card.Title>
-            {/* Main metric value with percentage symbol */}
-            <div className="fw-bold fs-4 mb-1">{utilizationRate}%</div>
-            {/* Percentage change indicator */}
-            <div className="text-success small fw-medium">
-              +5% from last month
+      {/* Utilization Rate */}
+      <Col xs={12} md={6} lg={3}>
+        <Card className="stat-card h-100">
+          <Card.Body>
+            <div className="stat-card-header">
+              <div className="icon-circle success">
+                <BarChart3 size={20} />
+              </div>
+              <span className="stat-change">+5% from last month</span>
             </div>
+
+            <div className="stat-value">{utilizationRate}%</div>
+            <div className="stat-label">Utilization Rate</div>
           </Card.Body>
         </Card>
       </Col>
