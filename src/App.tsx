@@ -74,6 +74,49 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
+              
+              {/* === SYSTEM ADMIN ROUTES (AUTH DISABLED FOR UI EDITING) === */}
+              {/* TODO: Uncomment ProtectedRoute wrapper when done editing UI */}
+              <Route
+                path="/system-admin"
+                element={<SysAdminDashboard />}
+              />
+              {/* Main Admin Dashboard */}
+              <Route
+                path="/system-admin/organizations"
+                element={<Organisation />}
+              />
+              <Route
+                path="/systemadmin/organizations/:id"
+                element={<OrganisationDetails />}
+              />
+              <Route
+                path="/system-admin/client-engagement"
+                element={<ClientEngagement />}
+              />
+              <Route
+                path="/system-admin/ai-management"
+                element={<AIRecommendationsPage />}
+              />
+              <Route
+                path="/system-admin/hotline-activity"
+                element={<HotlineActivity />}
+              />
+              <Route
+                path="/system-admin/Subscriptions"
+                element={<SubscriptionPage />}
+              />
+              <Route path="/system-admin/reports" element={<ReportPage />} />
+              {/* SYSTEMS ADMIN SETTINGS ROUTES */}
+              <Route
+                path="/system-admin/settings-overview"
+                element={<AdminSettings />}
+              />
+              <Route
+                path="/settings-overview/subscription-editor"
+                element={<SubscriptionEditor />}
+              />
+              
               {/* === PROTECTED ROUTES WRAPPER (Now active) === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
@@ -121,46 +164,6 @@ export default function App(): React.ReactElement {
                 <Route
                   path="/employer-settings"
                   element={<EmployerAccountSettingsPage />}
-                />
-                {/* SYSTEMS ADMIN ROUTES */}
-                <Route
-                  path="/system-admin"
-                  element={<SysAdminDashboard />}
-                />{" "}
-                {/* Main Admin Dashboard */}
-                <Route
-                  path="/system-admin/organizations"
-                  element={<Organisation />}
-                />
-                <Route
-                  path="/systemadmin/organizations/:id"
-                  element={<OrganisationDetails />}
-                />
-                <Route
-                  path="/system-admin/client-engagement"
-                  element={<ClientEngagement />}
-                />
-                <Route
-                  path="/system-admin/ai-management"
-                  element={<AIRecommendationsPage />}
-                />
-                <Route
-                  path="/system-admin/hotline-activity"
-                  element={<HotlineActivity />}
-                />
-                <Route
-                  path="/system-admin/Subscriptions"
-                  element={<SubscriptionPage />}
-                />
-                <Route path="/system-admin/reports" element={<ReportPage />} />
-                {/* SYSTEMS ADMIN SETTINGS ROUTES */}
-                <Route
-                  path="/system-admin/settings-overview"
-                  element={<AdminSettings />}
-                />
-                <Route
-                  path="/settings-overview/subscription-editor"
-                  element={<SubscriptionEditor />}
                 />
               </Route>{" "}
               {/* End ProtectedRoute */}
