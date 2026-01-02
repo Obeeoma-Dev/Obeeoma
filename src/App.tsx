@@ -82,10 +82,8 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms & conditions" element={<TermsAndConditions />} />
-
-              {/* === PROTECTED ROUTES WRAPPER (Now active) === */}
+              
+              {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
                 <Route
@@ -137,7 +135,7 @@ export default function App(): React.ReactElement {
                 <Route
                   path="/system-admin"
                   element={<SysAdminDashboard />}
-                />{" "}
+                />
                 {/* Main Admin Dashboard */}
                 <Route
                   path="/system-admin/organizations"
