@@ -3,6 +3,7 @@ export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 import { store } from "../store/store";
+import { logout } from "../store/slices/authSlice";
 // import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
 // declare const authApiClient: any;
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
@@ -14,6 +15,30 @@ const api = axios.create({
         "Content-Type": "application/json",
     },
 });
+// Helper function to refresh access token
+const refreshAccessToken = async () => {
+    const refreshToken = localStorage.getItem("refresh");
+    if (!refreshToken)
+        return null;
+    try {
+        const response = await axios.post(`${API_BASE_URL}/v1/auth/token/refresh/`, { refresh: refreshToken });
+        const newAccessToken = response.data.access;
+        if (newAccessToken) {
+            localStorage.setItem("token", newAccessToken);
+            return newAccessToken;
+        }
+        return null;
+    }
+    catch (error) {
+        console.error("Token refresh failed:", error);
+        // Clear tokens on refresh failure
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh");
+        localStorage.removeItem("user");
+        localStorage.removeItem("temp_token");
+        return null;
+    }
+};
 export const setupApiInterceptors = (store) => {
     api.interceptors.request.use((config) => {
         const requestPath = config.url || "";
@@ -74,7 +99,20 @@ export const setupApiInterceptors = (store) => {
             url: response.config.url,
         });
         return response;
-    }, (error) => {
+    }, async (error) => {
+        const originalRequest = error.config;
+        const requestPath = originalRequest?.url || "";
+        const publicEndpoints = [
+            "/v1/auth/login/",
+            "/v1/auth/signup/",
+            "/v1/auth/reset-password/",
+            "/v1/auth/change-password/",
+            "/v1/auth/reset-password/complete/",
+            "/v1/organization-signup/",
+            " v1/auth/verify-invitation-otp/",
+            "/v1/auth/token/refresh/",
+        ];
+        const isPublicEndpoint = publicEndpoints.some((path) => requestPath.endsWith(path));
         // Log error details on failure
         console.error(" API Response Error:", {
             status: error.response?.status,
@@ -82,6 +120,18 @@ export const setupApiInterceptors = (store) => {
             message: error.message,
             url: error.config?.url,
         });
+        if (error.response?.status === 401 && !isPublicEndpoint && !originalRequest._retry) {
+            originalRequest._retry = true;
+            const newToken = await refreshAccessToken();
+            if (newToken) {
+                originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                return api(originalRequest);
+            }
+            else {
+                // Refresh failed, logout
+                store.dispatch(logout());
+            }
+        }
         return Promise.reject(error);
     });
 };

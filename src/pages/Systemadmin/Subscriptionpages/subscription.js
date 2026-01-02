@@ -5,7 +5,7 @@ import ServiceUtilizationChart from "../../../components/admincomponents/Subscri
 import RecentActivityFeed from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
-import { Container, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 /**
  * SubscriptionPage component displays subscription metrics,
  * recent subscriptions, service utilization, and activity feed.
@@ -17,76 +17,104 @@ const SubscriptionPage = () => {
     // Placeholder metrics — replace with backend data later
     // Keeping existing data structure to avoid breaking changes
     const metrics = {
-        totalOrganizations: 12,
-        totalSubscriptions: 34,
-        coveredEmployees: "4.2k",
+        totalOrganizations: 42,
+        totalSubscriptions: 38,
+        coveredEmployees: "4,328",
         utilizationRate: 68,
     };
     // Sample subscription records - maintaining existing structure
     const subscriptions = [
         {
-            organization: 'Acme Corporation',
-            plan: 'Enterprise',
-            mrr: '$2,499',
-            subscribers: 450,
-            status: 'Active',
-            renewalDate: 'Dec 15, 2025',
-            badge: 'New',
-            badgeVariant: 'success',
+            organization: "Acme Corporation",
+            plan: "Enterprise",
+            employees: 500,
+            activeUsers: 423,
+            activeUsersPercentage: 85,
+            status: "Active",
+            expiryDate: "Dec 31, 2023",
         },
         {
-            organization: 'TechMedia Inc',
-            plan: 'Business',
-            mrr: '$1,299',
-            subscribers: 180,
-            status: 'Active',
-            renewalDate: 'Dec 20, 2025',
-            badge: 'Old',
-            badgeVariant: 'secondary',
+            organization: "TechGlobal Inc",
+            plan: "Business",
+            employees: 250,
+            activeUsers: 198,
+            activeUsersPercentage: 79,
+            status: "Active",
+            expiryDate: "Mar 15, 2024",
         },
         {
-            organization: 'Wellness Innovations',
-            plan: 'Premium',
-            mrr: '$899',
-            subscribers: 95,
-            status: 'Active',
-            renewalDate: 'Jan 05, 2026',
-            badge: 'Expiration',
-            badgeVariant: 'danger',
+            organization: "Innovate Solutions",
+            plan: "Standard",
+            employees: 75,
+            activeUsers: 45,
+            activeUsersPercentage: 60,
+            status: "Active",
+            expiryDate: "Feb 28, 2024",
         },
         {
-            organization: 'Global Mindfulness',
-            plan: 'Enterprise',
-            mrr: '$3,200',
-            subscribers: 675,
-            status: 'Active',
-            renewalDate: 'Dec 28, 2025',
-            badge: 'New',
-            badgeVariant: 'success',
+            organization: "Global Enterprises",
+            plan: "Enterprise",
+            employees: 1200,
+            activeUsers: 875,
+            activeUsersPercentage: 73,
+            status: "Active",
+            expiryDate: "Jan 15, 2024",
         },
         {
-            organization: 'Peace of Mind Co',
-            plan: 'Business',
-            mrr: '$1,599',
-            subscribers: 220,
-            status: 'Active',
-            renewalDate: 'Jan 10, 2026',
-            badge: 'Expiration',
-            badgeVariant: 'danger',
+            organization: "StartUp Co",
+            plan: "Starter",
+            employees: 25,
+            activeUsers: 10,
+            activeUsersPercentage: 40,
+            status: "Pending",
+            expiryDate: "Oct 30, 2023",
         },
     ];
     // Service utilization percentages - maintaining existing structure
     const services = [
-        { name: "Therapy Sessions", percentage: 64 },
-        { name: "Mindfulness", percentage: 52 },
-        { name: "Stress Management", percentage: 48 },
-        { name: "Sleep Resources", percentage: 36 },
-        { name: "Nutrition", percentage: 28 },
+        { name: "Therapy Sessions", percentage: 65 },
+        { name: "Mindfulness", percentage: 4 },
+        { name: "Stress Management", percentage: 8 },
+        { name: "Sleep Resources", percentage: 3 },
+        { name: "Nutrition", percentage: 25 },
     ];
     // Recent activity log - maintaining existing structure
     const activities = [
-        "Acme Corp added subscription for 250 employees",
-        "Green Energy Co subscription marked inactive",
+        {
+            organization: "Acme Corp",
+            message: "New subscription activated for 150 employees",
+            icon: "person",
+            iconColor: "green",
+            timeAgo: "2 hours ago",
+        },
+        {
+            organization: "TechGlobal Inc",
+            message: "Subscription renewed for another year",
+            icon: "refresh",
+            iconColor: "blue",
+            timeAgo: "5 hours ago",
+        },
+        {
+            organization: "Innovate Solutions",
+            message: "Reported login issues for 5 employees",
+            icon: "warning",
+            iconColor: "red",
+            timeAgo: "1 day ago",
+        },
+        {
+            organization: "HealthFirst",
+            message: "Achieved 80% employee engagement",
+            icon: "check",
+            iconColor: "purple",
+            timeAgo: "2 days ago",
+        },
+        {
+            organization: "Green Energy Co",
+            message: "Trial subscription started for 50 employees",
+            icon: "person",
+            iconColor: "green",
+            timeAgo: "3 days ago",
+        },
     ];
     return (
     // Main layout container with full viewport height and light background
@@ -95,6 +123,6 @@ const SubscriptionPage = () => {
                             overflowY: "auto",
                             padding: "1.5rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsxs(Container, { fluid: true, children: [_jsxs("div", { className: "mb-4", children: [_jsx("h1", { className: "fw-bold mb-2", style: { fontFamily: 'heading' }, children: "Subscriptions" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: 'body' }, children: "Manage and monitor all subscription plans." })] }), _jsx(MetricsPanel, { ...metrics }), _jsxs(Col, { lg: 12, children: [_jsx(Card, { className: "shadow-sm border-0 mb-4", children: _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: subscriptions }) }) }), _jsxs(Card, { className: "shadow-sm border-0", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", children: "Service Utilization" }) }), _jsx(Card.Body, { children: _jsx(ServiceUtilizationChart, { services: services }) })] })] }), _jsx(Col, { lg: 4, children: _jsxs(Card, { className: "shadow-sm border-0 h-100", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", children: "Recent Activity" }) }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentActivityFeed, { activities: activities }) })] }) })] }) })] })] }));
+                        }, children: _jsxs(Container, { fluid: true, children: [_jsxs("div", { className: "mb-5", children: [_jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: 'heading' }, children: "Subscriptions" }), _jsx("p", { className: "text-muted mb-0 small mt-1", style: { fontFamily: 'body' }, children: "Manage and monitor all subscription plans." })] }), _jsx(MetricsPanel, { ...metrics }), _jsxs(Card, { className: "shadow-sm border-0 mb-4", children: [_jsxs(Card.Header, { className: "bg-white border-bottom d-flex justify-content-between align-items-center", children: [_jsxs("div", { children: [_jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: 'heading' }, children: "Recent Subscriptions" }), _jsx("p", { className: "text-muted mb-0 small mt-1", style: { fontFamily: 'body' }, children: "Overview of organization subscriptions to mental health services" })] }), _jsx(Button, { variant: "success", className: "ms-auto", style: { fontFamily: 'body' }, children: "Add Subscription" })] }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: subscriptions }) })] }), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { lg: 6, children: _jsxs(Card, { className: "shadow-sm border-0", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: 'heading' }, children: "Service Utilization" }) }), _jsx(Card.Body, { children: _jsx(ServiceUtilizationChart, { services: services }) })] }) }), _jsx(Col, { lg: 6, children: _jsxs(Card, { className: "shadow-sm border-0 h-100", children: [_jsx(Card.Header, { className: "bg-white border-bottom", children: _jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: 'heading' }, children: "Recent Activity" }) }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentActivityFeed, { activities: activities }) })] }) })] })] }) })] })] }));
 };
 export default SubscriptionPage;
