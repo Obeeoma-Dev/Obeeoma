@@ -1,28 +1,110 @@
-// src/components/admincomponents/reportcomponents/AvailableReports.tsx
+// Import React core
+import React, { useState } from 'react'
 
-import React from "react";
-import { ListGroup, Card } from "react-bootstrap";
+// Import React-Bootstrap components
+import { Card, Button, Stack } from 'react-bootstrap'
 
-const AvailableReports: React.FC = () => {
-  // Placeholder list of reports
-  const reports = [
-    "Monthly Platform Usage Statistics",
-    "All General Health Trends",
-    "All Associated Interventions",
-    "All Recommendation Effectiveness",
-    "Hotline Activity Analysis",
-  ];
+// Import icons
+import { FileText, Download } from 'lucide-react'
 
+// Import popup component
+import { DownloadPopup } from './dowloadpopup'
+
+// Define the Report interface (unchanged, just fixed syntax)
+interface Report {
+  id: string
+  title: string
+  type: string
+  date: string
+  size: string
+}
+
+// Example reports data (you already had this somewhere)
+const reports: Report[] = [
+  {
+    id: '1',
+    title: 'Monthly Usage Report',
+    type: 'PDF',
+    date: 'Jan 2026',
+    size: '2.3 MB',
+  },
+]
+
+// Main component export
+export function AvailableReports() {
+  // Controls popup visibility
+  const [downloadPopupOpen, setDownloadPopupOpen] = useState(false)
+
+  // Stores the selected report
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null)
+
+  // Handles clicking the download button
+  const handleDownloadClick = (report: Report) => {
+    // Set selected report
+    setSelectedReport(report)
+
+    // Open popup
+    setDownloadPopupOpen(true)
+  }
+
+  // JSX return
   return (
-    <Card className="mb-4">
-      <Card.Header>Available Reports</Card.Header>
-      <ListGroup variant="flush">
-        {reports.map((report, index) => (
-          <ListGroup.Item key={index}>📄 {report}</ListGroup.Item>
-        ))}
-      </ListGroup>
-    </Card>
-  );
-};
+    // Bootstrap Card wrapper
+    <Card className="p-3">
+      {/* Card body */}
+      <Card.Body>
+        {/* Section title */}
+        <Card.Title className="mb-4">Available Reports</Card.Title>
 
-export default AvailableReports;
+        {/* Reports list */}
+        <Stack gap={3}>
+          {reports.map((report) => (
+            // Individual report card
+            <Card key={report.id}>
+              <Card.Body>
+                {/* Layout row */}
+                <div className="d-flex justify-content-between align-items-center">
+                  {/* Left side: icon + text */}
+                  <div className="d-flex align-items-center gap-3">
+                    {/* Icon wrapper */}
+                    <div>
+                      <FileText size={20} />
+                    </div>
+
+                    {/* Text content */}
+                    <div>
+                      <div className="fw-medium">{report.title}</div>
+                      <small className="text-muted">
+                        {report.type} • {report.date} • {report.size}
+                      </small>
+                    </div>
+                  </div>
+
+                  {/* Download button */}
+                  <Button
+                    variant="outline-success"
+                    onClick={() => handleDownloadClick(report)}
+                  >
+                    <Download size={18} />
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          ))}
+        </Stack>
+
+        {/* Download popup */}
+        {selectedReport && (
+          <DownloadPopup
+            isOpen={downloadPopupOpen}
+            onClose={() => setDownloadPopupOpen(false)}
+            reportTitle={selectedReport.title}
+            reportType={selectedReport.type}
+            reportDate={selectedReport.date}
+            reportSize={selectedReport.size}
+          />
+        )}
+      </Card.Body>
+    </Card>
+  )
+}
