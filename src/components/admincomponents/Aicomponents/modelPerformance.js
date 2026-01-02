@@ -1,12 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, ListGroup, Badge } from "react-bootstrap";
-import { Speedometer } from "react-bootstrap-icons";
-// Functional component rendering model scores with visual polish
+import { Card, Row, Col, ProgressBar } from 'react-bootstrap';
+import './aicomponent.css';
 const ModelPerformance = ({ performance }) => {
-    return (_jsxs(Card, { className: "shadow-sm mb-4", children: [_jsxs(Card.Header, { className: "fw-semibold d-flex align-items-center", children: [_jsx(Speedometer, { className: "me-2 text-primary", size: 20 }), "AI Model Performance"] }), _jsx(Card.Body, { className: "p-0", children: _jsx(ListGroup, { variant: "flush", children: performance.map((model) => (_jsxs(ListGroup.Item, { className: "d-flex justify-content-between align-items-center", children: [_jsx("span", { children: model.name }), _jsxs(Badge, { bg: model.score >= 85
-                                    ? "success"
-                                    : model.score >= 70
-                                        ? "warning"
-                                        : "danger", children: [model.score, "%"] })] }, model.name))) }) })] }));
+    return (_jsx(Card, { className: "mb-4 shadow-sm", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "mb-4", style: { fontFamily: 'heading' }, children: [_jsx(Card.Title, { children: "AI Model Performance" }), _jsx(Card.Subtitle, { className: "text-muted", style: { fontFamily: 'body' }, children: "Key metrics for evaluating model effectiveness" })] }), performance.map((item) => (_jsxs("div", { className: "mb-4", children: [_jsxs(Row, { className: "align-items-center mb-2", children: [_jsx(Col, { children: _jsx("div", { className: "fw-semibold", style: { fontFamily: 'body' }, children: item.name }) }), _jsx(Col, { xs: "auto", children: _jsxs("div", { className: "fw-bold text-dark", children: [item.score, "%"] }) })] }), _jsx(ProgressBar, { now: item.score, variant: item.score >= 85 ? 'success' :
+                                item.score >= 70 ? 'primary' :
+                                    item.score >= 60 ? 'warning' :
+                                        'danger', className: "thin-progress" })] }, item.name)))] }) }));
 };
 export default ModelPerformance;
