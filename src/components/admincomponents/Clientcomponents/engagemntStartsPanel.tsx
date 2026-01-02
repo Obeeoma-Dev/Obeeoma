@@ -30,19 +30,22 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
   return (
     <Row className="g-4 mt-4">
       {/* Top Rewards Card */}
-      <Col md={4}>
-        <Card className="shadow-sm mb-3 h-100">
+      <Col xs={12} sm={6} md={4}>
+        <Card className="shadow-lg mb-3 h-100" style={{ fontFamily: 'body', backgroundColor: '#f8f9fa', borderRadius: '8px', padding: '1.5rem' }}>
           <Card.Body>
-            <Award size={20} className="mb-2" />
-            <h5 className="mb-3">Top Rewards</h5>
+            <Award size={20} className="mb-2 text-primary" />
+            <h5 className="mb-3 fw-semibold" style={{ fontSize: "1.125rem", color: "#212529", fontFamily: 'heading' }}>
+              Top Rewards
+            </h5>
             {topRewards.map((reward, index) => (
               <div
                 key={reward.name}
                 className="d-flex justify-content-between align-items-center mb-2"
               >
-                <span>
-                  #{index + 1} {reward.name}
+                <span className="me-2" style={{ fontWeight: "bold", color: "#6c757d" }}>
+                  #{index + 1}
                 </span>
+                <span>{reward.name}</span>
                 <strong>{reward.points.toLocaleString()} pts</strong>
               </div>
             ))}
@@ -82,10 +85,10 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
       </Col>
 
       {/* Streak Statistics Card */}
-      <Col md={4}>
-        <Card className="shadow-sm mb-3 h-100" style={{ fontFamily: 'body' }}>
+      <Col xs={12} sm={6} md={4}>
+        <Card className="shadow-lg mb-3 h-100" style={{ fontFamily: 'body', backgroundColor: '#f8f9fa', borderRadius: '8px', padding: '1.5rem' }}>
           <Card.Body>
-            <Flame size={20} className="mb-2" />
+            <Flame size={20} className="mb-2 text-warning" />
             <h5 className="mb-3">Streak Statistics</h5>
             <div className="d-flex justify-content-between mb-3">
               <span>🔥 7-Day Streak</span>

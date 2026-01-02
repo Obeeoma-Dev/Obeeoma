@@ -30,7 +30,7 @@ import NotFound from "./pages/NotFound";
 // Systemadmin routes.
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
-import OrganisationDetails from "./pages/Systemadmin/OrganisationPages/organizationDetails";
+import { OrganizationDetails } from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
 import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";
@@ -82,7 +82,7 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
-              
+
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
@@ -143,7 +143,7 @@ export default function App(): React.ReactElement {
                 />
                 <Route
                   path="/systemadmin/organizations/:id"
-                  element={<OrganisationDetails />}
+                  element={<OrganizationDetails />}
                 />
                 <Route
                   path="/system-admin/client-engagement"
