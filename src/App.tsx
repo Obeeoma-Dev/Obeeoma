@@ -74,6 +74,7 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
+               
               
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
@@ -123,6 +124,7 @@ export default function App(): React.ReactElement {
                   path="/employer-settings"
                   element={<EmployerAccountSettingsPage />}
                 />
+                </Route>{" "}
                 {/* SYSTEMS ADMIN ROUTES */}
                 <Route
                   path="/system-admin"
@@ -163,7 +165,7 @@ export default function App(): React.ReactElement {
                   path="/settings-overview/subscription-editor"
                   element={<SubscriptionEditor />}
                 />
-              </Route>{" "}
+              
               {/* End ProtectedRoute */}
               {/* === CATCH-ALL ROUTE === */}
               <Route path="*" element={<NotFound />} />

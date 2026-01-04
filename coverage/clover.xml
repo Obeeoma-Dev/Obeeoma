@@ -1,18 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1767437637369" clover="3.2.0">
-  <project timestamp="1767437637370" name="All files">
-    <metrics statements="695" coveredstatements="253" conditionals="258" coveredconditionals="58" methods="196" coveredmethods="48" elements="1149" coveredelements="359" complexity="0" loc="695" ncloc="695" packages="8" files="15" classes="15"/>
-    <package name="assets.Images">
+<coverage generated="1767558881913" clover="3.2.0">
+  <project timestamp="1767558881913" name="All files">
+    <metrics statements="1320" coveredstatements="830" conditionals="669" coveredconditionals="383" methods="330" coveredmethods="161" elements="2319" coveredelements="1374" complexity="0" loc="1320" ncloc="1320" packages="12" files="35" classes="35"/>
+    <package name="src">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.tsx" path="C:\Users\USER\Obeeoma\src\constants.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.assets.Images">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="headerimage.png" path="C:\Users\USER\Obeeoma\src\assets\Images\headerimage.png">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="components.employercomponents.employerdashboard">
-      <metrics statements="96" coveredstatements="51" conditionals="50" coveredconditionals="19" methods="28" coveredmethods="13"/>
+    <package name="src.components">
+      <metrics statements="96" coveredstatements="84" conditionals="57" coveredconditionals="41" methods="19" coveredmethods="18"/>
+      <file name="OtpComponent.tsx" path="C:\Users\USER\Obeeoma\src\components\OtpComponent.tsx">
+        <metrics statements="55" coveredstatements="43" conditionals="37" coveredconditionals="23" methods="9" coveredmethods="8"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="15" type="stmt"/>
+        <line num="14" count="14" type="stmt"/>
+        <line num="15" count="14" type="stmt"/>
+        <line num="17" count="14" type="stmt"/>
+        <line num="18" count="84" type="stmt"/>
+        <line num="19" count="84" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="14" type="stmt"/>
+        <line num="25" count="15" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="29" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="34" count="15" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="43" count="15" type="stmt"/>
+        <line num="47" count="6" type="stmt"/>
+        <line num="48" count="6" type="stmt"/>
+        <line num="49" count="6" type="stmt"/>
+        <line num="54" count="6" type="cond" truecount="2" falsecount="2"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="60" count="6" type="cond" truecount="2" falsecount="3"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="65" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="68" count="6" type="stmt"/>
+        <line num="70" count="6" type="stmt"/>
+        <line num="72" count="6" type="cond" truecount="3" falsecount="1"/>
+        <line num="73" count="6" type="stmt"/>
+        <line num="77" count="15" type="stmt"/>
+        <line num="78" count="6" type="stmt"/>
+        <line num="79" count="6" type="stmt"/>
+        <line num="80" count="6" type="stmt"/>
+        <line num="83" count="6" type="cond" truecount="3" falsecount="1"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="88" count="6" type="cond" truecount="3" falsecount="1"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="95" count="6" type="cond" truecount="2" falsecount="2"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="101" count="15" type="stmt"/>
+        <line num="102" count="6" type="stmt"/>
+        <line num="106" count="6" type="stmt"/>
+        <line num="108" count="6" type="cond" truecount="3" falsecount="1"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="113" count="6" type="stmt"/>
+        <line num="116" count="15" type="stmt"/>
+        <line num="119" count="90" type="stmt"/>
+        <line num="128" count="6" type="stmt"/>
+      </file>
+      <file name="PhoneInput.tsx" path="C:\Users\USER\Obeeoma\src\components\PhoneInput.tsx">
+        <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="23" count="78" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="78" type="stmt"/>
+        <line num="37" count="11" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+      </file>
+      <file name="SuccessModal.tsx" path="C:\Users\USER\Obeeoma\src\components\SuccessModal.tsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="20" count="8" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+      </file>
+      <file name="stepper.tsx" path="C:\Users\USER\Obeeoma\src\components\stepper.tsx">
+        <metrics statements="27" coveredstatements="27" conditionals="16" coveredconditionals="15" methods="6" coveredmethods="6"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="24" count="8" type="stmt"/>
+        <line num="25" count="24" type="cond" truecount="1" falsecount="1"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="30" count="32" type="stmt"/>
+        <line num="31" count="32" type="stmt"/>
+        <line num="44" count="8" type="stmt"/>
+        <line num="45" count="24" type="stmt"/>
+        <line num="46" count="24" type="stmt"/>
+        <line num="48" count="24" type="stmt"/>
+        <line num="58" count="8" type="stmt"/>
+        <line num="59" count="24" type="stmt"/>
+        <line num="60" count="24" type="stmt"/>
+        <line num="62" count="24" type="stmt"/>
+        <line num="73" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="7" type="stmt"/>
+        <line num="79" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="80" count="8" type="stmt"/>
+        <line num="86" count="9" type="stmt"/>
+        <line num="94" count="8" type="stmt"/>
+        <line num="100" count="24" type="stmt"/>
+        <line num="101" count="24" type="stmt"/>
+        <line num="104" count="24" type="stmt"/>
+        <line num="106" count="24" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.employercomponents.employerdashboard">
+      <metrics statements="237" coveredstatements="199" conditionals="109" coveredconditionals="76" methods="61" coveredmethods="48"/>
+      <file name="EmployeeStatusLegend.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\EmployeeStatusLegend.tsx">
+        <metrics statements="20" coveredstatements="9" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="62" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="92" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="93" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="110" count="3" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+      </file>
       <file name="EmployeeTable.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\EmployeeTable.tsx">
-        <metrics statements="92" coveredstatements="47" conditionals="50" coveredconditionals="19" methods="27" coveredmethods="12"/>
+        <metrics statements="92" coveredstatements="72" conditionals="50" coveredconditionals="39" methods="27" coveredmethods="19"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -22,46 +165,46 @@
         <line num="7" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
-        <line num="26" count="10" type="stmt"/>
-        <line num="27" count="10" type="stmt"/>
-        <line num="29" count="10" type="stmt"/>
-        <line num="30" count="10" type="stmt"/>
-        <line num="31" count="10" type="stmt"/>
-        <line num="32" count="10" type="stmt"/>
-        <line num="34" count="10" type="stmt"/>
-        <line num="37" count="10" type="stmt"/>
-        <line num="42" count="10" type="stmt"/>
-        <line num="43" count="10" type="stmt"/>
-        <line num="46" count="10" type="stmt"/>
-        <line num="49" count="10" type="stmt"/>
-        <line num="50" count="8" type="cond" truecount="2" falsecount="2"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="59" count="10" type="stmt"/>
+        <line num="26" count="20" type="stmt"/>
+        <line num="27" count="20" type="stmt"/>
+        <line num="29" count="20" type="stmt"/>
+        <line num="30" count="20" type="stmt"/>
+        <line num="31" count="20" type="stmt"/>
+        <line num="32" count="20" type="stmt"/>
+        <line num="34" count="20" type="stmt"/>
+        <line num="37" count="20" type="stmt"/>
+        <line num="42" count="20" type="stmt"/>
+        <line num="43" count="20" type="stmt"/>
+        <line num="46" count="20" type="stmt"/>
+        <line num="49" count="20" type="stmt"/>
+        <line num="50" count="12" type="cond" truecount="4" falsecount="0"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="59" count="20" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="65" count="10" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="70" count="10" type="stmt"/>
-        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
+        <line num="65" count="20" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="70" count="20" type="stmt"/>
+        <line num="71" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
         <line num="91" count="0" type="stmt"/>
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="94" count="0" type="stmt"/>
-        <line num="97" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="97" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="99" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="101" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="103" count="0" type="stmt"/>
-        <line num="106" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="135" count="10" type="stmt"/>
+        <line num="106" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="107" count="2" type="stmt"/>
+        <line num="108" count="2" type="stmt"/>
+        <line num="135" count="20" type="stmt"/>
         <line num="136" count="1" type="stmt"/>
         <line num="137" count="1" type="stmt"/>
         <line num="140" count="0" type="stmt"/>
@@ -69,37 +212,37 @@
         <line num="143" count="1" type="stmt"/>
         <line num="144" count="1" type="stmt"/>
         <line num="146" count="1" type="stmt"/>
-        <line num="150" count="10" type="stmt"/>
-        <line num="152" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="154" count="0" type="stmt"/>
+        <line num="150" count="20" type="stmt"/>
+        <line num="152" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="153" count="1" type="stmt"/>
+        <line num="154" count="1" type="stmt"/>
         <line num="155" count="0" type="stmt"/>
         <line num="156" count="0" type="stmt"/>
-        <line num="158" count="0" type="stmt"/>
-        <line num="159" count="0" type="stmt"/>
-        <line num="161" count="0" type="stmt"/>
-        <line num="167" count="10" type="stmt"/>
-        <line num="168" count="10" type="stmt"/>
-        <line num="174" count="19" type="stmt"/>
-        <line num="189" count="19" type="stmt"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="159" count="1" type="stmt"/>
+        <line num="161" count="1" type="stmt"/>
+        <line num="167" count="20" type="stmt"/>
+        <line num="168" count="20" type="stmt"/>
+        <line num="174" count="21" type="stmt"/>
+        <line num="189" count="21" type="stmt"/>
         <line num="199" count="1" type="stmt"/>
-        <line num="214" count="0" type="stmt"/>
-        <line num="215" count="0" type="stmt"/>
-        <line num="222" count="0" type="stmt"/>
-        <line num="223" count="0" type="stmt"/>
-        <line num="230" count="0" type="stmt"/>
-        <line num="241" count="10" type="stmt"/>
-        <line num="252" count="10" type="cond" truecount="2" falsecount="2"/>
-        <line num="253" count="0" type="stmt"/>
-        <line num="278" count="10" type="cond" truecount="2" falsecount="2"/>
-        <line num="279" count="0" type="stmt"/>
+        <line num="214" count="1" type="stmt"/>
+        <line num="215" count="1" type="stmt"/>
+        <line num="222" count="3" type="stmt"/>
+        <line num="223" count="3" type="stmt"/>
+        <line num="230" count="1" type="stmt"/>
+        <line num="241" count="20" type="stmt"/>
+        <line num="252" count="20" type="cond" truecount="4" falsecount="0"/>
+        <line num="253" count="1" type="stmt"/>
+        <line num="278" count="19" type="cond" truecount="4" falsecount="0"/>
+        <line num="279" count="8" type="stmt"/>
         <line num="333" count="0" type="stmt"/>
-        <line num="400" count="10" type="stmt"/>
-        <line num="407" count="10" type="stmt"/>
-        <line num="409" count="40" type="stmt"/>
+        <line num="400" count="11" type="stmt"/>
+        <line num="407" count="11" type="stmt"/>
+        <line num="409" count="44" type="stmt"/>
         <line num="416" count="1" type="stmt"/>
-        <line num="427" count="19" type="stmt"/>
-        <line num="429" count="76" type="stmt"/>
+        <line num="427" count="21" type="stmt"/>
+        <line num="429" count="84" type="stmt"/>
         <line num="448" count="0" type="stmt"/>
         <line num="455" count="0" type="stmt"/>
         <line num="463" count="0" type="stmt"/>
@@ -108,13 +251,149 @@
       </file>
       <file name="EngagementTrend.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\EngagementTrend.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+      </file>
+      <file name="FeatureUsageBreakdown.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\FeatureUsageBreakdown.tsx">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="51" count="5" type="stmt"/>
+        <line num="65" count="20" type="stmt"/>
+        <line num="126" count="20" type="stmt"/>
+        <line num="136" count="20" type="stmt"/>
+        <line num="148" count="1" type="stmt"/>
+      </file>
+      <file name="MoodTrend.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\MoodTrend.tsx">
+        <metrics statements="14" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="27" count="60" type="stmt"/>
+        <line num="28" count="60" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="31" count="60" type="stmt"/>
+        <line num="32" count="60" type="stmt"/>
+        <line num="35" count="5" type="stmt"/>
+        <line num="36" count="60" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="30" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="70" count="60" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+      </file>
+      <file name="MoodgaugeChart.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\MoodgaugeChart.tsx">
+        <metrics statements="37" coveredstatements="37" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="15" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="26" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="29" count="5" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="25" type="stmt"/>
+        <line num="44" count="25" type="stmt"/>
+        <line num="45" count="25" type="stmt"/>
+        <line num="46" count="25" type="stmt"/>
+        <line num="47" count="25" type="stmt"/>
+        <line num="48" count="25" type="stmt"/>
+        <line num="49" count="25" type="stmt"/>
+        <line num="50" count="25" type="stmt"/>
+        <line num="54" count="5" type="stmt"/>
+        <line num="55" count="25" type="stmt"/>
+        <line num="56" count="25" type="stmt"/>
+        <line num="57" count="25" type="stmt"/>
+        <line num="58" count="25" type="stmt"/>
+        <line num="59" count="25" type="stmt"/>
+        <line num="62" count="5" type="stmt"/>
+        <line num="92" count="25" type="stmt"/>
+        <line num="93" count="25" type="stmt"/>
+        <line num="94" count="25" type="stmt"/>
+        <line num="105" count="25" type="stmt"/>
+        <line num="106" count="25" type="stmt"/>
+        <line num="107" count="25" type="stmt"/>
+        <line num="154" count="1" type="stmt"/>
+      </file>
+      <file name="TopGrid.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\TopGrid.tsx">
+        <metrics statements="28" coveredstatements="22" conditionals="24" coveredconditionals="17" methods="5" coveredmethods="3"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="4" type="stmt"/>
+        <line num="42" count="12" type="stmt"/>
+        <line num="45" count="12" type="stmt"/>
+        <line num="46" count="12" type="stmt"/>
+        <line num="49" count="12" type="stmt"/>
+        <line num="50" count="12" type="stmt"/>
+        <line num="53" count="12" type="stmt"/>
+        <line num="54" count="12" type="stmt"/>
+        <line num="56" count="12" type="cond" truecount="4" falsecount="0"/>
+        <line num="57" count="4" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="8" type="cond" truecount="3" falsecount="1"/>
+        <line num="60" count="8" type="stmt"/>
+        <line num="61" count="8" type="stmt"/>
+        <line num="64" count="12" type="stmt"/>
+        <line num="71" count="12" type="stmt"/>
+        <line num="84" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="175" count="1" type="stmt"/>
+      </file>
+      <file name="WellnessGraph.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\employerdashboard\WellnessGraph.tsx">
+        <metrics statements="34" coveredstatements="34" conditionals="15" coveredconditionals="15" methods="8" coveredmethods="8"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="18" type="stmt"/>
+        <line num="12" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="43" count="3" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="53" count="27" type="stmt"/>
+        <line num="54" count="27" type="stmt"/>
+        <line num="55" count="27" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="60" count="9" type="stmt"/>
+        <line num="61" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="93" count="18" type="stmt"/>
+        <line num="94" count="18" type="stmt"/>
+        <line num="131" count="9" type="stmt"/>
+        <line num="132" count="9" type="stmt"/>
+        <line num="167" count="9" type="stmt"/>
+        <line num="168" count="9" type="stmt"/>
+        <line num="169" count="9" type="stmt"/>
       </file>
     </package>
-    <package name="components.employercomponents.reports">
+    <package name="src.components.employercomponents.reports">
       <metrics statements="37" coveredstatements="36" conditionals="7" coveredconditionals="5" methods="11" coveredmethods="11"/>
       <file name="AvailableReports.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\reports\AvailableReports.tsx">
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
@@ -163,7 +442,7 @@
         <line num="168" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="components.employercomponents.subscription">
+    <package name="src.components.employercomponents.subscription">
       <metrics statements="56" coveredstatements="53" conditionals="28" coveredconditionals="26" methods="12" coveredmethods="11"/>
       <file name="BillingHistory.tsx" path="C:\Users\USER\Obeeoma\src\components\employercomponents\subscription\BillingHistory.tsx">
         <metrics statements="22" coveredstatements="21" conditionals="14" coveredconditionals="13" methods="6" coveredmethods="5"/>
@@ -231,8 +510,304 @@
         <line num="196" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="pages.auth">
-      <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="2"/>
+    <package name="src.hooks">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="redux-hooks.ts" path="C:\Users\USER\Obeeoma\src\hooks\redux-hooks.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.pages.auth">
+      <metrics statements="378" coveredstatements="302" conditionals="296" coveredconditionals="211" methods="79" coveredmethods="50"/>
+      <file name="Login.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\Login.tsx">
+        <metrics statements="47" coveredstatements="40" conditionals="22" coveredconditionals="16" methods="9" coveredmethods="8"/>
+        <line num="330" count="1" type="stmt"/>
+        <line num="331" count="1" type="stmt"/>
+        <line num="333" count="1" type="stmt"/>
+        <line num="335" count="1" type="stmt"/>
+        <line num="336" count="1" type="stmt"/>
+        <line num="338" count="1" type="stmt"/>
+        <line num="340" count="1" type="stmt"/>
+        <line num="348" count="1" type="stmt"/>
+        <line num="349" count="1" type="stmt"/>
+        <line num="350" count="1" type="stmt"/>
+        <line num="351" count="1" type="stmt"/>
+        <line num="352" count="1" type="stmt"/>
+        <line num="354" count="1" type="stmt"/>
+        <line num="364" count="1" type="stmt"/>
+        <line num="366" count="1" type="stmt"/>
+        <line num="367" count="9" type="stmt"/>
+        <line num="368" count="9" type="stmt"/>
+        <line num="369" count="9" type="stmt"/>
+        <line num="370" count="15" type="stmt"/>
+        <line num="372" count="9" type="stmt"/>
+        <line num="374" count="9" type="stmt"/>
+        <line num="375" count="2" type="stmt"/>
+        <line num="378" count="9" type="stmt"/>
+        <line num="379" count="4" type="stmt"/>
+        <line num="382" count="9" type="stmt"/>
+        <line num="383" count="1" type="stmt"/>
+        <line num="385" count="1" type="cond" truecount="1" falsecount="3"/>
+        <line num="387" count="0" type="stmt"/>
+        <line num="389" count="0" type="stmt"/>
+        <line num="391" count="0" type="stmt"/>
+        <line num="393" count="1" type="stmt"/>
+        <line num="396" count="1" type="stmt"/>
+        <line num="400" count="9" type="stmt"/>
+        <line num="404" count="1" type="stmt"/>
+        <line num="405" count="1" type="stmt"/>
+        <line num="409" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="410" count="0" type="stmt"/>
+        <line num="411" count="0" type="stmt"/>
+        <line num="414" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="415" count="1" type="stmt"/>
+        <line num="417" count="1" type="stmt"/>
+        <line num="418" count="1" type="stmt"/>
+        <line num="420" count="0" type="stmt"/>
+        <line num="424" count="9" type="stmt"/>
+        <line num="473" count="0" type="stmt"/>
+        <line num="486" count="70" type="stmt"/>
+        <line num="642" count="1" type="stmt"/>
+      </file>
+      <file name="Register.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\Register.tsx">
+        <metrics statements="106" coveredstatements="86" conditionals="123" coveredconditionals="89" methods="28" coveredmethods="17"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="130" count="1" type="stmt"/>
+        <line num="139" count="1" type="stmt"/>
+        <line num="173" count="1" type="stmt"/>
+        <line num="175" count="1" type="stmt"/>
+        <line num="176" count="10" type="stmt"/>
+        <line num="177" count="10" type="stmt"/>
+        <line num="178" count="10" type="stmt"/>
+        <line num="180" count="14" type="stmt"/>
+        <line num="182" count="10" type="stmt"/>
+        <line num="184" count="10" type="stmt"/>
+        <line num="185" count="10" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
+        <line num="189" count="10" type="stmt"/>
+        <line num="190" count="10" type="stmt"/>
+        <line num="191" count="0" type="stmt"/>
+        <line num="195" count="10" type="stmt"/>
+        <line num="196" count="10" type="stmt"/>
+        <line num="198" count="10" type="stmt"/>
+        <line num="199" count="0" type="stmt"/>
+        <line num="200" count="0" type="stmt"/>
+        <line num="204" count="10" type="stmt"/>
+        <line num="205" count="0" type="stmt"/>
+        <line num="209" count="10" type="stmt"/>
+        <line num="225" count="10" type="stmt"/>
+        <line num="226" count="2" type="stmt"/>
+        <line num="229" count="10" type="stmt"/>
+        <line num="233" count="10" type="stmt"/>
+        <line num="238" count="10" type="stmt"/>
+        <line num="249" count="10" type="stmt"/>
+        <line num="259" count="10" type="stmt"/>
+        <line num="261" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="266" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="268" count="1" type="stmt"/>
+        <line num="272" count="10" type="stmt"/>
+        <line num="273" count="0" type="stmt"/>
+        <line num="278" count="10" type="stmt"/>
+        <line num="300" count="10" type="stmt"/>
+        <line num="308" count="3" type="stmt"/>
+        <line num="309" count="3" type="stmt"/>
+        <line num="312" count="3" type="stmt"/>
+        <line num="313" count="3" type="stmt"/>
+        <line num="315" count="18" type="cond" truecount="4" falsecount="0"/>
+        <line num="316" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="320" count="1" type="stmt"/>
+        <line num="323" count="15" type="stmt"/>
+        <line num="325" count="3" type="stmt"/>
+        <line num="327" count="3" type="stmt"/>
+        <line num="328" count="3" type="stmt"/>
+        <line num="329" count="3" type="stmt"/>
+        <line num="331" count="3" type="stmt"/>
+        <line num="332" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="333" count="0" type="stmt"/>
+        <line num="334" count="0" type="stmt"/>
+        <line num="338" count="3" type="stmt"/>
+        <line num="340" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="341" count="0" type="stmt"/>
+        <line num="342" count="0" type="stmt"/>
+        <line num="344" count="0" type="stmt"/>
+        <line num="347" count="0" type="stmt"/>
+        <line num="351" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="352" count="1" type="stmt"/>
+        <line num="355" count="1" type="stmt"/>
+        <line num="372" count="1" type="stmt"/>
+        <line num="374" count="1" type="stmt"/>
+        <line num="377" count="1" type="stmt"/>
+        <line num="378" count="1" type="stmt"/>
+        <line num="382" count="0" type="stmt"/>
+        <line num="383" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="388" count="2" type="stmt"/>
+        <line num="392" count="10" type="stmt"/>
+        <line num="393" count="0" type="stmt"/>
+        <line num="396" count="10" type="stmt"/>
+        <line num="401" count="0" type="stmt"/>
+        <line num="403" count="0" type="stmt"/>
+        <line num="405" count="0" type="stmt"/>
+        <line num="408" count="10" type="stmt"/>
+        <line num="417" count="137" type="cond" truecount="3" falsecount="1"/>
+        <line num="419" count="58" type="stmt"/>
+        <line num="486" count="348" type="stmt"/>
+        <line num="518" count="2784" type="stmt"/>
+        <line num="565" count="78" type="stmt"/>
+        <line num="674" count="468" type="stmt"/>
+        <line num="803" count="1" type="stmt"/>
+        <line num="848" count="0" type="stmt"/>
+        <line num="852" count="10" type="stmt"/>
+        <line num="922" count="0" type="stmt"/>
+        <line num="931" count="0" type="stmt"/>
+        <line num="957" count="137" type="stmt"/>
+        <line num="981" count="3" type="stmt"/>
+        <line num="1069" count="1" type="stmt"/>
+      </file>
+      <file name="ResetPassword.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\ResetPassword.tsx">
+        <metrics statements="38" coveredstatements="27" conditionals="26" coveredconditionals="15" methods="8" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="7" type="stmt"/>
+        <line num="44" count="7" type="stmt"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="48" count="7" type="stmt"/>
+        <line num="51" count="7" type="stmt"/>
+        <line num="52" count="7" type="stmt"/>
+        <line num="54" count="7" type="stmt"/>
+        <line num="55" count="7" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="59" count="7" type="stmt"/>
+        <line num="62" count="7" type="stmt"/>
+        <line num="68" count="7" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="7" type="stmt"/>
+        <line num="166" count="7" type="stmt"/>
+        <line num="360" count="1" type="stmt"/>
+      </file>
+      <file name="ResetPasswordSignin.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\ResetPasswordSignin.tsx">
+        <metrics statements="43" coveredstatements="37" conditionals="18" coveredconditionals="16" methods="5" coveredmethods="3"/>
+        <line num="684" count="1" type="stmt"/>
+        <line num="685" count="1" type="stmt"/>
+        <line num="686" count="1" type="stmt"/>
+        <line num="694" count="1" type="stmt"/>
+        <line num="696" count="1" type="stmt"/>
+        <line num="702" count="1" type="stmt"/>
+        <line num="703" count="85" type="stmt"/>
+        <line num="704" count="85" type="stmt"/>
+        <line num="705" count="85" type="stmt"/>
+        <line num="706" count="85" type="stmt"/>
+        <line num="708" count="85" type="stmt"/>
+        <line num="711" count="85" type="stmt"/>
+        <line num="712" count="5" type="stmt"/>
+        <line num="713" count="5" type="stmt"/>
+        <line num="715" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="716" count="1" type="stmt"/>
+        <line num="717" count="1" type="stmt"/>
+        <line num="720" count="4" type="stmt"/>
+        <line num="721" count="4" type="stmt"/>
+        <line num="722" count="4" type="stmt"/>
+        <line num="724" count="4" type="stmt"/>
+        <line num="732" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="733" count="1" type="stmt"/>
+        <line num="734" count="1" type="stmt"/>
+        <line num="740" count="2" type="stmt"/>
+        <line num="742" count="2" type="stmt"/>
+        <line num="743" count="2" type="stmt"/>
+        <line num="745" count="1" type="stmt"/>
+        <line num="747" count="1" type="stmt"/>
+        <line num="750" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="751" count="1" type="stmt"/>
+        <line num="754" count="1" type="stmt"/>
+        <line num="756" count="3" type="stmt"/>
+        <line num="760" count="85" type="stmt"/>
+        <line num="761" count="0" type="stmt"/>
+        <line num="762" count="0" type="stmt"/>
+        <line num="763" count="0" type="stmt"/>
+        <line num="766" count="0" type="stmt"/>
+        <line num="767" count="0" type="stmt"/>
+        <line num="768" count="0" type="stmt"/>
+        <line num="773" count="85" type="stmt"/>
+        <line num="848" count="64" type="stmt"/>
+        <line num="978" count="1" type="stmt"/>
+      </file>
+      <file name="changePassword.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\changePassword.tsx">
+        <metrics statements="38" coveredstatements="36" conditionals="28" coveredconditionals="21" methods="10" coveredmethods="3"/>
+        <line num="378" count="1" type="stmt"/>
+        <line num="379" count="1" type="stmt"/>
+        <line num="380" count="1" type="stmt"/>
+        <line num="381" count="1" type="stmt"/>
+        <line num="382" count="1" type="stmt"/>
+        <line num="384" count="1" type="stmt"/>
+        <line num="386" count="1" type="stmt"/>
+        <line num="395" count="1" type="stmt"/>
+        <line num="396" count="1" type="stmt"/>
+        <line num="397" count="1" type="stmt"/>
+        <line num="398" count="1" type="stmt"/>
+        <line num="400" count="1" type="stmt"/>
+        <line num="418" count="1" type="stmt"/>
+        <line num="419" count="6" type="stmt"/>
+        <line num="421" count="6" type="stmt"/>
+        <line num="424" count="6" type="stmt"/>
+        <line num="425" count="6" type="stmt"/>
+        <line num="428" count="6" type="stmt"/>
+        <line num="429" count="6" type="stmt"/>
+        <line num="430" count="6" type="stmt"/>
+        <line num="432" count="6" type="stmt"/>
+        <line num="433" count="6" type="stmt"/>
+        <line num="434" count="6" type="stmt"/>
+        <line num="435" count="0" type="stmt"/>
+        <line num="438" count="6" type="stmt"/>
+        <line num="444" count="6" type="stmt"/>
+        <line num="445" count="3" type="stmt"/>
+        <line num="447" count="3" type="stmt"/>
+        <line num="449" count="3" type="stmt"/>
+        <line num="450" count="3" type="stmt"/>
+        <line num="454" count="0" type="stmt"/>
+        <line num="457" count="3" type="stmt"/>
+        <line num="459" count="1" type="stmt"/>
+        <line num="460" count="1" type="stmt"/>
+        <line num="464" count="2" type="stmt"/>
+        <line num="468" count="6" type="stmt"/>
+        <line num="540" count="184" type="stmt"/>
+        <line num="753" count="1" type="stmt"/>
+      </file>
       <file name="logout.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\logout.tsx">
         <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
@@ -249,8 +824,107 @@
         <line num="24" count="4" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
       </file>
+      <file name="mfauth.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\mfauth.tsx">
+        <metrics statements="28" coveredstatements="26" conditionals="27" coveredconditionals="22" methods="6" coveredmethods="5"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="11" type="stmt"/>
+        <line num="15" count="19" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="20" count="11" type="stmt"/>
+        <line num="22" count="8" type="cond" truecount="4" falsecount="0"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="28" count="11" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="cond" truecount="4" falsecount="1"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="40" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="46" count="11" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="52" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="67" count="10" type="cond" truecount="4" falsecount="0"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="76" count="9" type="stmt"/>
+        <line num="170" count="1" type="stmt"/>
+      </file>
+      <file name="otpVerification.tsx" path="C:\Users\USER\Obeeoma\src\pages\auth\otpVerification.tsx">
+        <metrics statements="65" coveredstatements="37" conditionals="48" coveredconditionals="29" methods="11" coveredmethods="8"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="16" type="stmt"/>
+        <line num="22" count="16" type="stmt"/>
+        <line num="23" count="16" type="stmt"/>
+        <line num="25" count="16" type="stmt"/>
+        <line num="26" count="16" type="stmt"/>
+        <line num="27" count="16" type="stmt"/>
+        <line num="29" count="16" type="stmt"/>
+        <line num="41" count="24" type="stmt"/>
+        <line num="44" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="47" count="16" type="stmt"/>
+        <line num="48" count="14" type="cond" truecount="3" falsecount="1"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="54" count="16" type="stmt"/>
+        <line num="56" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="61" count="8" type="stmt"/>
+        <line num="67" count="16" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="77" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="100" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="112" count="16" type="stmt"/>
+        <line num="113" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="118" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="140" count="0" type="stmt"/>
+        <line num="142" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="144" count="0" type="stmt"/>
+        <line num="148" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="149" count="16" type="cond" truecount="3" falsecount="0"/>
+        <line num="151" count="16" type="stmt"/>
+        <line num="207" count="1" type="stmt"/>
+      </file>
     </package>
-    <package name="pages.landingpage">
+    <package name="src.pages.landingpage">
       <metrics statements="31" coveredstatements="12" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="2"/>
       <file name="Hero.tsx" path="C:\Users\USER\Obeeoma\src\pages\landingpage\Hero.tsx">
         <metrics statements="31" coveredstatements="12" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="2"/>
@@ -287,8 +961,8 @@
         <line num="162" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="store.slices">
-      <metrics statements="446" coveredstatements="84" conditionals="151" coveredconditionals="4" methods="131" coveredmethods="9"/>
+    <package name="src.store.slices">
+      <metrics statements="446" coveredstatements="119" conditionals="151" coveredconditionals="20" methods="131" coveredmethods="18"/>
       <file name="EmployerSlice.ts" path="C:\Users\USER\Obeeoma\src\store\slices\EmployerSlice.ts">
         <metrics statements="231" coveredstatements="29" conditionals="92" coveredconditionals="0" methods="75" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -524,92 +1198,92 @@
         <line num="682" count="1" type="stmt"/>
       </file>
       <file name="authSlice.ts" path="C:\Users\USER\Obeeoma\src\store\slices\authSlice.ts">
-        <metrics statements="185" coveredstatements="46" conditionals="51" coveredconditionals="4" methods="46" coveredmethods="7"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <metrics statements="185" coveredstatements="81" conditionals="51" coveredconditionals="20" methods="46" coveredmethods="16"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="17" count="7" type="stmt"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="19" count="7" type="stmt"/>
+        <line num="22" count="7" type="stmt"/>
         <line num="23" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="25" count="0" type="stmt"/>
         <line num="35" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="36" count="1" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
+        <line num="44" count="7" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
         <line num="54" count="0" type="stmt"/>
         <line num="56" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="57" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
+        <line num="66" count="7" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
         <line num="79" count="0" type="stmt"/>
-        <line num="84" count="1" type="stmt"/>
+        <line num="84" count="7" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
         <line num="91" count="0" type="stmt"/>
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="95" count="0" type="stmt"/>
-        <line num="101" count="1" type="stmt"/>
+        <line num="101" count="7" type="stmt"/>
         <line num="107" count="0" type="stmt"/>
         <line num="109" count="0" type="stmt"/>
         <line num="111" count="0" type="stmt"/>
         <line num="113" count="0" type="stmt"/>
         <line num="114" count="0" type="stmt"/>
         <line num="116" count="0" type="stmt"/>
-        <line num="121" count="1" type="stmt"/>
+        <line num="121" count="7" type="stmt"/>
         <line num="127" count="0" type="stmt"/>
         <line num="129" count="0" type="stmt"/>
         <line num="131" count="0" type="stmt"/>
         <line num="133" count="0" type="stmt"/>
         <line num="134" count="0" type="stmt"/>
         <line num="136" count="0" type="stmt"/>
-        <line num="142" count="1" type="stmt"/>
+        <line num="142" count="7" type="stmt"/>
         <line num="145" count="2" type="stmt"/>
         <line num="146" count="2" type="stmt"/>
         <line num="148" count="1" type="stmt"/>
         <line num="153" count="2" type="stmt"/>
         <line num="154" count="2" type="stmt"/>
-        <line num="160" count="1" type="stmt"/>
+        <line num="160" count="7" type="stmt"/>
         <line num="165" count="0" type="stmt"/>
         <line num="166" count="0" type="stmt"/>
         <line num="167" count="0" type="stmt"/>
         <line num="169" count="0" type="stmt"/>
-        <line num="174" count="1" type="stmt"/>
+        <line num="174" count="7" type="stmt"/>
         <line num="179" count="0" type="stmt"/>
         <line num="180" count="0" type="stmt"/>
         <line num="181" count="0" type="stmt"/>
         <line num="185" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="187" count="0" type="stmt"/>
-        <line num="192" count="1" type="stmt"/>
+        <line num="192" count="7" type="stmt"/>
         <line num="200" count="0" type="stmt"/>
         <line num="202" count="0" type="stmt"/>
         <line num="205" count="0" type="stmt"/>
         <line num="207" count="0" type="stmt"/>
-        <line num="211" count="1" type="stmt"/>
+        <line num="211" count="7" type="stmt"/>
         <line num="218" count="0" type="stmt"/>
         <line num="219" count="0" type="stmt"/>
         <line num="221" count="0" type="stmt"/>
-        <line num="227" count="1" type="stmt"/>
-        <line num="228" count="1" type="stmt"/>
-        <line num="229" count="1" type="cond" truecount="2" falsecount="2"/>
+        <line num="227" count="7" type="stmt"/>
+        <line num="228" count="7" type="stmt"/>
+        <line num="229" count="7" type="cond" truecount="2" falsecount="2"/>
         <line num="230" count="0" type="stmt"/>
         <line num="231" count="0" type="stmt"/>
         <line num="233" count="0" type="stmt"/>
-        <line num="237" count="1" type="stmt"/>
-        <line num="258" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="259" count="0" type="stmt"/>
-        <line num="261" count="0" type="stmt"/>
-        <line num="265" count="1" type="stmt"/>
-        <line num="270" count="0" type="stmt"/>
-        <line num="271" count="0" type="stmt"/>
+        <line num="237" count="7" type="stmt"/>
+        <line num="258" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="259" count="5" type="stmt"/>
+        <line num="261" count="2" type="stmt"/>
+        <line num="265" count="7" type="stmt"/>
+        <line num="270" count="2" type="stmt"/>
+        <line num="271" count="2" type="stmt"/>
         <line num="274" count="2" type="stmt"/>
         <line num="275" count="2" type="stmt"/>
         <line num="276" count="2" type="stmt"/>
@@ -619,32 +1293,32 @@
         <line num="280" count="2" type="stmt"/>
         <line num="281" count="2" type="stmt"/>
         <line num="282" count="2" type="stmt"/>
-        <line num="285" count="0" type="stmt"/>
-        <line num="289" count="1" type="stmt"/>
-        <line num="292" count="0" type="stmt"/>
-        <line num="293" count="0" type="stmt"/>
-        <line num="296" count="0" type="stmt"/>
-        <line num="297" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="298" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="300" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="301" count="0" type="stmt"/>
-        <line num="303" count="0" type="stmt"/>
-        <line num="304" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="305" count="0" type="stmt"/>
-        <line num="306" count="0" type="stmt"/>
-        <line num="307" count="0" type="stmt"/>
+        <line num="285" count="4" type="stmt"/>
+        <line num="289" count="7" type="stmt"/>
+        <line num="292" count="1" type="stmt"/>
+        <line num="293" count="1" type="stmt"/>
+        <line num="296" count="1" type="stmt"/>
+        <line num="297" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="298" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="300" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="301" count="1" type="stmt"/>
+        <line num="303" count="1" type="stmt"/>
+        <line num="304" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="305" count="1" type="stmt"/>
+        <line num="306" count="1" type="stmt"/>
+        <line num="307" count="1" type="stmt"/>
         <line num="310" count="0" type="stmt"/>
         <line num="311" count="0" type="stmt"/>
-        <line num="316" count="0" type="stmt"/>
-        <line num="317" count="0" type="stmt"/>
-        <line num="320" count="0" type="stmt"/>
-        <line num="321" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="322" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="323" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="324" count="0" type="stmt"/>
-        <line num="326" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="327" count="0" type="stmt"/>
-        <line num="328" count="0" type="stmt"/>
+        <line num="316" count="1" type="stmt"/>
+        <line num="317" count="1" type="stmt"/>
+        <line num="320" count="1" type="stmt"/>
+        <line num="321" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="322" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="323" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="324" count="1" type="stmt"/>
+        <line num="326" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="327" count="1" type="stmt"/>
+        <line num="328" count="1" type="stmt"/>
         <line num="331" count="0" type="stmt"/>
         <line num="332" count="0" type="stmt"/>
         <line num="337" count="0" type="stmt"/>
@@ -704,12 +1378,12 @@
         <line num="450" count="0" type="stmt"/>
         <line num="451" count="0" type="stmt"/>
         <line num="452" count="0" type="stmt"/>
-        <line num="459" count="1" type="stmt"/>
-        <line num="462" count="1" type="stmt"/>
+        <line num="459" count="7" type="stmt"/>
+        <line num="462" count="7" type="stmt"/>
         <line num="463" count="0" type="stmt"/>
-        <line num="466" count="1" type="stmt"/>
+        <line num="466" count="7" type="stmt"/>
         <line num="467" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="470" count="1" type="stmt"/>
+        <line num="470" count="7" type="stmt"/>
       </file>
       <file name="billingSlice.ts" path="C:\Users\USER\Obeeoma\src\store\slices\billingSlice.ts">
         <metrics statements="30" coveredstatements="9" conditionals="8" coveredconditionals="0" methods="10" coveredmethods="1"/>
@@ -745,11 +1419,11 @@
         <line num="95" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="utils">
+    <package name="src.utils">
       <metrics statements="15" coveredstatements="3" conditionals="14" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="routing.ts" path="C:\Users\USER\Obeeoma\src\utils\routing.ts">
         <metrics statements="15" coveredstatements="3" conditionals="14" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
         <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="10" count="0" type="stmt"/>
         <line num="13" count="0" type="cond" truecount="0" falsecount="4"/>
@@ -758,12 +1432,35 @@
         <line num="19" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
+        <line num="32" count="7" type="stmt"/>
         <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="37" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
+        <line num="56" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.validation">
+      <metrics statements="17" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="5" coveredmethods="3"/>
+      <file name="authValidation.ts" path="C:\Users\USER\Obeeoma\src\validation\authValidation.ts">
+        <metrics statements="17" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="5" coveredmethods="3"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="100" type="stmt"/>
+        <line num="36" count="4" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="112" type="stmt"/>
+        <line num="82" count="4" type="stmt"/>
+        <line num="83" count="10" type="cond" truecount="3" falsecount="0"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="87" count="7" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="156" count="4" type="stmt"/>
+        <line num="171" count="4" type="stmt"/>
+        <line num="187" count="4" type="stmt"/>
       </file>
     </package>
   </project>

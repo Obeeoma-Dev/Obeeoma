@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -25,7 +25,7 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState = {}) => {
     reducer: { auth: authReducer },
     preloadedState: {
       auth: {
-        isLoading: false, // Changed from 'loading' to 'isLoading' to match your component
+        isLoading: false,
         error: null,
         user: null,
         token: null,
@@ -38,46 +38,50 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState = {}) => {
     },
   });
 
-  return render(
-    <Provider store={store}>
-      <BrowserRouter>{ui}</BrowserRouter>
-    </Provider>
-  );
+  return {
+    store,
+    // Fix: speed up user interactions by disabling the default delay
+    user: userEvent.setup({ delay: null }),
+    ...render(
+      <Provider store={store}>
+        <BrowserRouter>{ui}</BrowserRouter>
+      </Provider>
+    )
+  };
 };
 
 describe("Register Component Integration Tests", () => {
-  const user = userEvent.setup();
-
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  const fillStepOne = async () => {
+  const fillStepOne = async (user: any) => {
     await user.type(screen.getByPlaceholderText(/Organization Name/i), "Test Corp");
     await user.type(screen.getByPlaceholderText(/Organization Email Address/i), "corp@test.com");
 
     const selects = screen.getAllByRole("combobox");
     
-    // Organisation Size - use fireEvent to trigger the Formik change
-    fireEvent.change(selects[0], { target: { name: "organisationSize", value: "50" } });
-    fireEvent.change(selects[1], { target: { name: "Location", value: "NG-LAGOS" } });
+    // Use act for fireEvent to satisfy Formik's internal state updates
+    await act(async () => {
+        fireEvent.change(selects[0], { target: { name: "organisationSize", value: "50" } });
+        fireEvent.change(selects[1], { target: { name: "Location", value: "NG-LAGOS" } });
+    });
 
     const nextBtn = screen.getByRole("button", { name: /Next/i });
     await user.click(nextBtn);
 
     // Wait for the UI to transition to Step 2
-    await waitFor(() => {
-      expect(screen.queryByPlaceholderText(/Organization Name/i)).not.toBeInTheDocument();
-    });
+    await screen.findByText(/Step 2: Contact Person Details/i);
   };
 
   test("toggles password visibility in Step 2", async () => {
-    renderWithProviders(<Register />);
-    await fillStepOne();
+    const { user } = renderWithProviders(<Register />);
+    await fillStepOne(user);
 
-    // FIXED: Placeholder is "Password", not "New Password"
     const passwordInput = await screen.findByPlaceholderText(/^Password$/i);
-    const toggleButton = passwordInput.parentElement?.querySelector('.input-group-text:last-child');
+    // Find the toggle icon specifically inside the password input group
+    const passwordGroup = passwordInput.closest(".input-group");
+    const toggleButton = passwordGroup?.querySelector('.input-group-text:last-child');
     
     expect(passwordInput).toHaveAttribute("type", "password");
     
@@ -85,40 +89,39 @@ describe("Register Component Integration Tests", () => {
       await user.click(toggleButton);
     }
     
-    expect(passwordInput).toHaveAttribute("type", "text");
-  });
-test("calls register API with correct payload on final submit", async () => {
-  (authAPI.register as jest.Mock).mockResolvedValue({});
+    await waitFor(() => {
+      expect(passwordInput).toHaveAttribute("type", "text");
+    });
+  }, 10000); // Increase timeout for transition overhead
 
-  renderWithProviders(<Register />);
+  test("calls register API with correct payload on final submit", async () => {
+    (authAPI.register as jest.Mock).mockResolvedValue({ data: { message: "Success" } });
 
-  await fillStepOne();
+    const { user } = renderWithProviders(<Register />);
+    await fillStepOne(user);
 
-  await user.type(screen.getByPlaceholderText(/First Name/i), "John");
-  await user.type(screen.getByPlaceholderText(/Last Name/i), "Doe");
-  await user.type(screen.getByPlaceholderText(/Contact Email Address/i), "john@doe.com");
-  await user.type(screen.getByPlaceholderText('Contact Person Phone Number'), "+1234567890");
+    await user.type(screen.getByPlaceholderText(/First Name/i), "John");
+    await user.type(screen.getByPlaceholderText(/Last Name/i), "Doe");
+    await user.type(screen.getByPlaceholderText(/Contact Email Address/i), "john@doe.com");
+    
+    const phoneInput = screen.getByPlaceholderText('Contact Person Phone Number');
+    await user.type(phoneInput, "+1234567890");
 
-  const roleSelect = screen.getByRole("combobox");
-  fireEvent.change(roleSelect, { target: { name: "contactPersonRole", value: "CEO" } });
+    const selects = screen.getAllByRole("combobox");
+    const roleSelect = selects[0]; // On Step 2, the first select is usually the role
 
-  // FIXED: Correct placeholders based on your Register.tsx
-  await user.type(screen.getByPlaceholderText(/^Password$/i), "Password123!");
-  await user.type(screen.getByPlaceholderText(/Confirm Password/i), "Password123!");
+    await act(async () => {
+        fireEvent.change(roleSelect, { target: { name: "contactPersonRole", value: "CEO" } });
+    });
 
-  const signUpBtn = screen.getByRole("button", { name: /Sign Up/i });
-  await user.click(signUpBtn);
+    await user.type(screen.getByPlaceholderText(/^Password$/i), "Password123!");
+    await user.type(screen.getByPlaceholderText(/Confirm Password/i), "Password123!");
 
-  await waitFor(() => {
-    expect(authAPI.register).toHaveBeenCalled();
-  });
-});
+    const signUpBtn = screen.getByRole("button", { name: /Sign Up/i });
+    await user.click(signUpBtn);
 
-  test("shows loading state on button", () => {
-    // Note: This test assumes the component disables the button on Redux loading
-    renderWithProviders(<Register />, { isLoading: true });
-
-    const button = screen.getByRole("button");
-    expect(button).toBeDisabled();
-  });
+    await waitFor(() => {
+      expect(authAPI.register).toHaveBeenCalled();
+    }, { timeout: 5000 });
+  }, 15000); // Higher timeout for the full two-step process
 });

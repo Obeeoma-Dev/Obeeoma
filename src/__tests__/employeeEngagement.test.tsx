@@ -18,7 +18,7 @@ describe('EngagementTrend', () => {
   it('displays the correct progress bar', () => {
     render(<EngagementTrend />);
 
-    const progressBar = screen.getByRole('progressbar');
+    const progressBar = document.querySelector('.progress-bar.bg-success');
     expect(progressBar).toBeInTheDocument();
     // The progress bar should have the correct width based on active/total ratio
     // 289 / 345 ≈ 0.838, so width should be around 83.8%
@@ -36,8 +36,8 @@ describe('EngagementTrend', () => {
   it('displays active and pending sections with correct styling', () => {
     render(<EngagementTrend />);
 
-    const activeSection = screen.getByText('Active').closest('.col-6');
-    const pendingSection = screen.getByText('Pending').closest('.col-6');
+    const activeSection = screen.getByText('Active').parentElement;
+    const pendingSection = screen.getByText('Pending').parentElement;
 
     expect(activeSection).toHaveClass('bg-success', 'bg-opacity-10', 'rounded');
     expect(pendingSection).toHaveClass('bg-warning', 'bg-opacity-10', 'rounded');

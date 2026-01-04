@@ -1,4 +1,4 @@
-import { ChangePassword } from "./../types/auth";
+
 // Company logo API endpoints
 export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
@@ -10,9 +10,11 @@ import {
   ForgotPasswordData,
   changePasswordData,
   OtpVerificationPayload,
+  ChangePassword,
   // MfaSetupData,
   // MfaVerifyPayload,
   MfaSetupRequestPayload,
+
 } from "../types/auth";
 import { Employee } from "../types/TData";
 
@@ -39,11 +41,12 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/login/",
         "/v1/auth/signup/",
         "/v1/auth/reset-password/",
-        "/v1/auth/change-password/",
         "/v1/auth/reset-password/complete/",
         "/v1/organization-signup/",
         " v1/auth/verify-invitation-otp/",
         // "/v1/auth/logout/",
+        "/v1/auth/mfa/setup/",
+        "/v1/auth/mfa/verify/", 
       ];
 
       const isPublicEndpoint = publicEndpoints.some((path) =>
@@ -125,7 +128,7 @@ export const authAPI = {
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/v1/auth/organization-signup/", {
+    const response = await api.post("/v1/organization-signup/", {
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,

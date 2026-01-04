@@ -21,11 +21,12 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/login/",
             "/v1/auth/signup/",
             "/v1/auth/reset-password/",
-            "/v1/auth/change-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
             " v1/auth/verify-invitation-otp/",
             // "/v1/auth/logout/",
+            "/v1/auth/mfa/setup/",
+            "/v1/auth/mfa/verify/",
         ];
         const isPublicEndpoint = publicEndpoints.some((path) => requestPath.endsWith(path));
         //check local storage first (more reliable)
@@ -93,7 +94,7 @@ export const authAPI = {
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/v1/auth/organization-signup/", {
+        const response = await api.post("/v1/organization-signup/", {
             organizationName: credentials.organizationName,
             phoneNumber: credentials.phoneNumber,
             organisationSize: credentials.organisationSize,
