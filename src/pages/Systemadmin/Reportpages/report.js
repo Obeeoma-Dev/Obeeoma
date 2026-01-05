@@ -6,7 +6,7 @@ import MentalHealthChart from "../../../components/admincomponents/Reportcompone
 import PlatformUsageChart from "../../../components/admincomponents/Reportcomponents/platformUsageChart";
 import TreatmentOutcomesChart from "../../../components/admincomponents/Reportcomponents/treatmentOutcomesChart";
 import OrganizationPerformanceChart from "../../../components/admincomponents/Reportcomponents/organizationPerformanceChart";
-import AvailableReports from "../../../components/admincomponents/Reportcomponents/availableReport";
+import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
 import { Container } from "react-bootstrap";
 /**
