@@ -1,14 +1,24 @@
-import { render, screen, waitFor, cleanup, fireEvent, within } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  cleanup,
+  fireEvent,
+  within,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PricingPlans from "../components/employercomponents/subscription/PricingPlans";
 
 describe("PricingPlans Component", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let assignMock: jest.MockedFunction<any>;
 
   beforeEach(() => {
     cleanup();
     assignMock = jest.fn();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (window as any).location;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).location = { assign: assignMock };
   });
 
@@ -43,21 +53,27 @@ describe("PricingPlans Component", () => {
     render(<PricingPlans />);
 
     // Find the Basic plan card and then the button
-    const basicCard = screen.getByText("Basic").closest('.card') as HTMLElement;
-    const selectButton = within(basicCard).getByRole("button", { name: /Select Plan/i });
+    const basicCard = screen.getByText("Basic").closest(".card") as HTMLElement;
+    const selectButton = within(basicCard).getByRole("button", {
+      name: /Select Plan/i,
+    });
     fireEvent.click(selectButton);
 
-  //   await waitFor(() => {
-  //     expect(assignMock).toHaveBeenCalledWith("/success-message");
-  //   }, { timeout: 2000 });
-   });
+    //   await waitFor(() => {
+    //     expect(assignMock).toHaveBeenCalledWith("/success-message");
+    //   }, { timeout: 2000 });
+  });
 
   test("selects Premium plan and redirects to payment gateway", async () => {
     render(<PricingPlans />);
 
     // Find the Premium plan card and then the button
-    const premiumCard = screen.getByText("Premium").closest('.card') as HTMLElement;
-    const selectButton = within(premiumCard).getByRole("button", { name: /Select Plan/i });
+    const premiumCard = screen
+      .getByText("Premium")
+      .closest(".card") as HTMLElement;
+    const selectButton = within(premiumCard).getByRole("button", {
+      name: /Select Plan/i,
+    });
 
     fireEvent.click(selectButton);
 
@@ -69,17 +85,21 @@ describe("PricingPlans Component", () => {
   test("changes button text to Current Plan when selected", async () => {
     render(<PricingPlans />);
     // Target the Basic plan button
-    const basicCard = screen.getByText("Basic").closest('.card') as HTMLElement;
-    const selectButton = within(basicCard).queryByRole("button", { name: /Select Plan/i });
+    const basicCard = screen.getByText("Basic").closest(".card") as HTMLElement;
+    const selectButton = within(basicCard).queryByRole("button", {
+      name: /Select Plan/i,
+    });
 
     if (selectButton) {
-        fireEvent.click(selectButton);
-        await waitFor(() => {
-          expect(within(basicCard).getByText(/Current Plan/i)).toBeInTheDocument();
-        });
+      fireEvent.click(selectButton);
+      await waitFor(() => {
+        expect(
+          within(basicCard).getByText(/Current Plan/i),
+        ).toBeInTheDocument();
+      });
     } else {
-        // If button is already "Current Plan"
-        expect(screen.getByText(/Current Plan/i)).toBeInTheDocument();
+      // If button is already "Current Plan"
+      expect(screen.getByText(/Current Plan/i)).toBeInTheDocument();
     }
   });
 });

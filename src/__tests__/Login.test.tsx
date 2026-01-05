@@ -12,7 +12,6 @@ import LoginPage from "../pages/auth/Login";
 import { AuthState } from "../types/auth";
 import { authAPI } from "../api/apiConfig";
 
-
 // 1. Mock ONLY the API layer
 jest.mock("../api/apiConfig", () => ({
   __esModule: true,
@@ -27,7 +26,10 @@ jest.mock("../api/apiConfig", () => ({
   },
 }));
 
-const renderWithProviders = (ui: React.ReactElement, initialAuthState?: Partial<AuthState>) => {
+const renderWithProviders = (
+  ui: React.ReactElement,
+  initialAuthState?: Partial<AuthState>,
+) => {
   const store = configureStore({
     reducer: { auth: authReducer },
     preloadedState: {
@@ -51,7 +53,7 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState?: Partial<
     ...render(
       <Provider store={store}>
         <BrowserRouter>{ui}</BrowserRouter>
-      </Provider>
+      </Provider>,
     ),
   };
 };
@@ -64,7 +66,9 @@ describe("LoginPage Integration Tests", () => {
   test("should render logo and form elements", () => {
     renderWithProviders(<LoginPage />);
     expect(screen.getByAltText(/Obeeoma Logo/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Sign In/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Sign In/i }),
+    ).toBeInTheDocument();
   });
 
   test("should toggle password visibility", async () => {
@@ -85,16 +89,19 @@ describe("LoginPage Integration Tests", () => {
 
   test("should call login API on submit", async () => {
     const { user } = renderWithProviders(<LoginPage />);
-    
+
     // Setup the API mock return value
     (authAPI.login as jest.Mock).mockResolvedValue({
       data: {
         user: { id: 1, email: "testuser@example.com" },
-        access: "token123"
-      }
+        access: "token123",
+      },
     });
 
-    await user.type(screen.getByPlaceholderText(/email/i), "testuser@example.com");
+    await user.type(
+      screen.getByPlaceholderText(/email/i),
+      "testuser@example.com",
+    );
     await user.type(screen.getByPlaceholderText(/Password/i), "password123");
     await user.click(screen.getByRole("button", { name: /Sign In/i }));
 
@@ -103,7 +110,7 @@ describe("LoginPage Integration Tests", () => {
       // This is more "integration" style and avoids Redux "undefined type" errors
       expect(authAPI.login).toHaveBeenCalledWith({
         email: "testuser@example.com",
-        password: "password123"
+        password: "password123",
       });
     });
   });

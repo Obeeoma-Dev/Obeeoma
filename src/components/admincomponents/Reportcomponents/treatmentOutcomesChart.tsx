@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/TreatmentOutcomesChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -44,6 +42,7 @@ const TreatmentOutcomesChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: function (context: any) {
             return `${context.parsed.y} patients`;
           },
@@ -56,6 +55,7 @@ const TreatmentOutcomesChart: React.FC = () => {
         max: 60,
         ticks: {
           stepSize: 15,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           callback: function (value: any) {
             return value;
           },
@@ -105,4 +105,3 @@ const TreatmentOutcomesChart: React.FC = () => {
 };
 
 export default TreatmentOutcomesChart;
-

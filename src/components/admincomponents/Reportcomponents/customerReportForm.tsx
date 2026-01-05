@@ -174,4 +174,3 @@ const CustomReportForm: React.FC = () => {
 };
 
 export default CustomReportForm;
-

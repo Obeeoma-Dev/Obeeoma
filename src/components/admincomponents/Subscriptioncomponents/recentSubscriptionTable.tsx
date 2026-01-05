@@ -25,25 +25,39 @@ const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions }) => {
       <Table hover style={{ marginBottom: 0 }}>
         <thead style={{ backgroundColor: "#f8f9fa" }}>
           <tr>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Organization
             </th>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Plan
             </th>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Employees
             </th>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Active Users
             </th>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Status
             </th>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Expiry Date
             </th>
-            <th style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}>
+            <th
+              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
+            >
               Actions
             </th>
           </tr>

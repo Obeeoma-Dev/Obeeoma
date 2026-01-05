@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/MentalHealthChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -18,7 +16,15 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const MentalHealthChart: React.FC = () => {
   // Data matching the design: Mental Health Condition Distribution
   const data = {
-    labels: ["Anxiety", "Depression", "PTSD", "Bipolar", "ADHD", "OCD", "Other"],
+    labels: [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Bipolar",
+      "ADHD",
+      "OCD",
+      "Other",
+    ],
     datasets: [
       {
         label: "Distribution (%)",
@@ -38,6 +44,7 @@ const MentalHealthChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: function (context: any) {
             return `${context.parsed.y}%`;
           },
@@ -50,6 +57,7 @@ const MentalHealthChart: React.FC = () => {
         max: 36,
         ticks: {
           stepSize: 9,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           callback: function (value: any) {
             return value;
           },
@@ -99,4 +107,3 @@ const MentalHealthChart: React.FC = () => {
 };
 
 export default MentalHealthChart;
-

@@ -324,10 +324,9 @@
 
 // export default LoginPage;
 
-
 // export default LoginPage;
 
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { loginUser, clearError } from "../../store/slices/authSlice";
@@ -397,10 +396,7 @@ const LoginPage = () => {
     }
   };
 
-  const handleSubmit = async (values: {
-    email: string;
-    password: string;
-  }) => {
+  const handleSubmit = async (values: { email: string; password: string }) => {
     try {
       const resultAction = await dispatch(
         loginUser({ email: values.email, password: values.password }),
@@ -410,7 +406,7 @@ const LoginPage = () => {
         navigate("/mfa-setup", { replace: false });
         return;
       }
-
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userRole = (resultAction as any)?.role || user?.role;
       console.log("Final Role Determined:", userRole);
 
@@ -484,10 +480,7 @@ const LoginPage = () => {
           >
             {({ handleChange, handleSubmit, values, errors, touched }) => (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="validationFormikEmail"
-                >
+                <Form.Group className="mb-3" controlId="validationFormikEmail">
                   <Form.Control
                     type="text"
                     placeholder="Email"

@@ -160,7 +160,10 @@ import LogoutButton from "../pages/auth/logout";
 import { AuthState } from "../types/auth";
 import { authAPI } from "../api/apiConfig";
 
-const renderWithProviders = (ui: React.ReactElement, initialAuthState?: Partial<AuthState>) => {
+const renderWithProviders = (
+  ui: React.ReactElement,
+  initialAuthState?: Partial<AuthState>,
+) => {
   const store = configureStore({
     reducer: { auth: authReducer },
     preloadedState: {
@@ -184,7 +187,7 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState?: Partial<
     ...render(
       <Provider store={store}>
         <BrowserRouter>{ui}</BrowserRouter>
-      </Provider>
+      </Provider>,
     ),
   };
 };
@@ -222,8 +225,10 @@ describe("LogoutButton", () => {
 
   test("should handle logout API rejection and still navigate", async () => {
     // Silence the console.error for this test to keep logs clean
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
     (authAPI.logout as jest.Mock).mockRejectedValue(new Error("Network Error"));
 
     const { user } = renderWithProviders(<LogoutButton />);

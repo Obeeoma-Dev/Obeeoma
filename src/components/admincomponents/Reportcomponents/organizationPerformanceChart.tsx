@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/OrganizationPerformanceChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -44,6 +42,7 @@ const OrganizationPerformanceChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: function (context: any) {
             return `Score: ${context.parsed.y}/100`;
           },
@@ -56,6 +55,7 @@ const OrganizationPerformanceChart: React.FC = () => {
         max: 100,
         ticks: {
           stepSize: 20,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           callback: function (value: any) {
             return value;
           },
@@ -105,4 +105,3 @@ const OrganizationPerformanceChart: React.FC = () => {
 };
 
 export default OrganizationPerformanceChart;
-

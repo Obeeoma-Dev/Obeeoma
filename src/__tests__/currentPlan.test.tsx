@@ -11,17 +11,25 @@ describe("CurrentPlan Component", () => {
   test("displays the plan name and pricing", () => {
     render(<CurrentPlan />);
     expect(screen.getByText("Premium Plan")).toBeInTheDocument();
-    expect(screen.getByText("$99 per month • Billed monthly")).toBeInTheDocument();
+    expect(
+      screen.getByText("$99 per month • Billed monthly"),
+    ).toBeInTheDocument();
   });
 
   test("shows the next billing date", () => {
     render(<CurrentPlan />);
-    expect(screen.getByText("Next billing date: Dec 15, 2023")).toBeInTheDocument();
+    expect(
+      screen.getByText("Next billing date: Dec 15, 2023"),
+    ).toBeInTheDocument();
   });
 
   test("renders the Change Plan and Update Payment Method buttons", () => {
     render(<CurrentPlan />);
-    expect(screen.getByRole("button", { name: /Change Plan/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Update Payment Method/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Change Plan/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Update Payment Method/i }),
+    ).toBeInTheDocument();
   });
 });

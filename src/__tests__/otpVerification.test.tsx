@@ -65,7 +65,7 @@
 // describe("OtpVerificationPage", () => {
 //   beforeEach(() => {
 //     jest.clearAllMocks();
-    
+
 //     // Mock localStorage
 //     const localStorageMock = (function() {
 //       let store: Record<string, string> = { 'user_email': 'test@example.com' };
@@ -123,10 +123,10 @@
 //     });
 
 //     const { user } = renderWithProviders(<OtpVerificationPage />);
-    
+
 //     // Find the 6 input boxes for OTP
 //     const inputs = screen.getAllByRole('textbox');
-    
+
 //     // Simulate typing 6 digits
 //     for(let i = 0; i < 6; i++) {
 //         await user.type(inputs[i], (i + 1).toString());
@@ -153,7 +153,6 @@
 //   });
 // });
 
-
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -175,7 +174,7 @@ jest.mock("../api/apiConfig", () => ({
   },
 }));
 
-import authReducer, { verifyOtpThunk} from "../store/slices/authSlice";
+import authReducer, { verifyOtpThunk } from "../store/slices/authSlice";
 import OtpVerificationPage from "../pages/auth/otpVerification";
 
 // 2. Properly mock the Slice Thunks to avoid serializability warnings
@@ -186,13 +185,17 @@ jest.mock("../store/slices/authSlice", () => {
     __esModule: true,
     // We return a function that mimics the Thunk behavior (returning a promise with unwrap)
     verifyOtpThunk: jest.fn(() => () => {
-      const actionPromise = Promise.resolve({ type: "auth/verifyOtp/fulfilled" });
+      const actionPromise = Promise.resolve({
+        type: "auth/verifyOtp/fulfilled",
+      });
       return Object.assign(actionPromise, {
         unwrap: () => Promise.resolve({ message: "Success" }),
       });
     }),
     resendOtpThunk: jest.fn(() => () => {
-      const actionPromise = Promise.resolve({ type: "auth/resendOtp/fulfilled" });
+      const actionPromise = Promise.resolve({
+        type: "auth/resendOtp/fulfilled",
+      });
       return Object.assign(actionPromise, {
         unwrap: () => Promise.resolve({ message: "Success" }),
       });
@@ -218,6 +221,7 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState = {}) => {
         isMfaSetupConfirmed: false,
         accessToken: null,
         ...initialAuthState,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } as any,
     },
   });
@@ -228,7 +232,7 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState = {}) => {
     ...render(
       <Provider store={store}>
         <BrowserRouter>{ui}</BrowserRouter>
-      </Provider>
+      </Provider>,
     ),
   };
 };
@@ -269,7 +273,9 @@ describe("OtpVerificationPage", () => {
   test("should render OTP input and verify button", () => {
     renderWithProviders(<OtpVerificationPage />);
     expect(screen.getByText(/Enter Verification Code/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Verify Code/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Verify Code/i }),
+    ).toBeInTheDocument();
   });
 
   test("should disable verify button when OTP is incomplete", () => {
@@ -280,10 +286,10 @@ describe("OtpVerificationPage", () => {
 
   test("should show loading state and disable button when isLoading is true", () => {
     renderWithProviders(<OtpVerificationPage />, { isLoading: true });
-    
+
     // Fix: specifically target the "Verifying..." button to avoid clash with "Resend" link
     const button = screen.getByRole("button", { name: /Verifying/i });
-    
+
     expect(button).toBeDisabled();
     expect(button).toHaveTextContent(/Verifying/i);
   });
@@ -291,18 +297,20 @@ describe("OtpVerificationPage", () => {
   test("should show resend link", () => {
     renderWithProviders(<OtpVerificationPage />);
     // Robust matcher for text potentially split by spans
-    expect(screen.getByText((content) => content.includes("receive the code"))).toBeInTheDocument();
+    expect(
+      screen.getByText((content) => content.includes("receive the code")),
+    ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Resend/i })).toBeInTheDocument();
   });
 
   test("should call verifyOtpThunk on verify", async () => {
     const mockedVerifyThunk = verifyOtpThunk as unknown as jest.Mock;
-    
+
     const { user } = renderWithProviders(<OtpVerificationPage />);
-    
+
     // Find all 6 OTP inputs
     const inputs = screen.getAllByRole("textbox");
-    
+
     // Type 6 digits
     for (let i = 0; i < 6; i++) {
       await user.type(inputs[i], "1");

@@ -12,7 +12,7 @@ jest.mock("../api/apiConfig", () => ({
     viewBillingHistory: jest.fn(),
   },
 }));
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderWithProviders = (initialState?: any) => {
   const store = configureStore({
     reducer: { billing: billingReducer },
@@ -29,7 +29,7 @@ const renderWithProviders = (initialState?: any) => {
   return render(
     <Provider store={store}>
       <BillingHistoryTable />
-    </Provider>
+    </Provider>,
   );
 };
 
@@ -40,7 +40,7 @@ describe("BillingHistoryTable Component", () => {
 
   test("renders loading spinner when status is loading", () => {
     const { container } = renderWithProviders({ status: "loading" });
-    
+
     // Since role="status" is missing in your HTML, we find by class
     const spinner = container.querySelector(".spinner-border");
     expect(spinner).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("BillingHistoryTable Component", () => {
     renderWithProviders({ status: "succeeded", invoices: mockInvoices });
 
     expect(screen.getByText("Billing History")).toBeInTheDocument();
-    
+
     // Check multiple descriptions using getAll
     const descriptions = screen.getAllByText("Monthly Subscription");
     expect(descriptions).toHaveLength(2);
@@ -106,7 +106,7 @@ describe("BillingHistoryTable Component", () => {
     ];
 
     renderWithProviders({ status: "succeeded", invoices: mockInvoices });
-    
+
     const button = screen.getByRole("button", { name: /VIEW ALL INVOICES/i });
     expect(button).toBeInTheDocument();
   });

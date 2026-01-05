@@ -1,12 +1,12 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
-import '@testing-library/jest-dom';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { MemoryRouter } from "react-router-dom";
+import { configureStore } from "@reduxjs/toolkit";
+import "@testing-library/jest-dom";
 
-import ResetPassword from '../pages/auth/ResetPassword';
-import authReducer from '../store/slices/authSlice';
+import ResetPassword from "../pages/auth/ResetPassword";
+import authReducer from "../store/slices/authSlice";
 
 // Mock API Config
 jest.mock("../api/apiConfig", () => ({
@@ -16,7 +16,7 @@ jest.mock("../api/apiConfig", () => ({
     get: jest.fn(),
     interceptors: {
       request: { use: jest.fn() },
-      response: { use: jest.fn() }
+      response: { use: jest.fn() },
     },
   },
   authAPI: {
@@ -31,78 +31,89 @@ const renderWithProviders = (
     preloadedState = {},
     store = configureStore({
       reducer: { auth: authReducer },
-      preloadedState
+      preloadedState,
     }),
     ...renderOptions
-  } = {}
+  } = {},
 ) => {
   return {
     store,
     ...render(
       <Provider store={store}>
-        <MemoryRouter>
-          {ui}
-        </MemoryRouter>
+        <MemoryRouter>{ui}</MemoryRouter>
       </Provider>,
-      renderOptions
+      renderOptions,
     ),
   };
 };
 
-describe('ResetPassword Component', () => {
+describe("ResetPassword Component", () => {
   beforeEach(() => {
     window.localStorage.clear();
     jest.clearAllMocks();
   });
 
-  test('renders all input fields and the submit button', () => {
+  test("renders all input fields and the submit button", () => {
     renderWithProviders(<ResetPassword />);
 
-    expect(screen.getByPlaceholderText(/Enter your email/i)).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(/Enter your email/i),
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/^New Password$/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/Confirm New Password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /change password/i })).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(/Confirm New Password/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /change password/i }),
+    ).toBeInTheDocument();
   });
 
-  test('pre-fills email field if stored in localStorage', () => {
-    const testEmail = 'user@example.com';
-    window.localStorage.setItem('resetPasswordEmail', testEmail);
+  test("pre-fills email field if stored in localStorage", () => {
+    const testEmail = "user@example.com";
+    window.localStorage.setItem("resetPasswordEmail", testEmail);
 
     renderWithProviders(<ResetPassword />);
 
-    const emailInput = screen.getByPlaceholderText(/Enter your email/i) as HTMLInputElement;
+    const emailInput = screen.getByPlaceholderText(
+      /Enter your email/i,
+    ) as HTMLInputElement;
     expect(emailInput.value).toBe(testEmail);
   });
 
-  test('toggles password visibility when clicking eye icons', () => {
+  test("toggles password visibility when clicking eye icons", () => {
     renderWithProviders(<ResetPassword />);
 
-    const passwordInput = screen.getByPlaceholderText(/^New Password$/i) as HTMLInputElement;
+    const passwordInput = screen.getByPlaceholderText(
+      /^New Password$/i,
+    ) as HTMLInputElement;
 
-    expect(passwordInput.type).toBe('password');
+    expect(passwordInput.type).toBe("password");
 
-    const toggleButtons = document.querySelectorAll('.input-group-text');
+    const toggleButtons = document.querySelectorAll(".input-group-text");
     fireEvent.click(toggleButtons[0]);
-    expect(passwordInput.type).toBe('text');
+    expect(passwordInput.type).toBe("text");
 
     fireEvent.click(toggleButtons[0]);
-    expect(passwordInput.type).toBe('password');
+    expect(passwordInput.type).toBe("password");
   });
 
-  test('shows loading state and disables button during API call', () => {
+  test("shows loading state and disables button during API call", () => {
     renderWithProviders(<ResetPassword />);
 
-    const submitButton = screen.getByRole('button', { name: /change password/i });
+    const submitButton = screen.getByRole("button", {
+      name: /change password/i,
+    });
     expect(submitButton).not.toBeDisabled();
   });
 
-  test('displays error message from API failure', () => {
+  test("displays error message from API failure", () => {
     renderWithProviders(<ResetPassword />);
 
-    expect(screen.queryByText(/Failed to reset password/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Failed to reset password/i),
+    ).not.toBeInTheDocument();
   });
 });
-
 
 // import React from 'react';
 
@@ -112,9 +123,9 @@ describe('ResetPassword Component', () => {
 //   default: {
 //     post: jest.fn(),
 //     get: jest.fn(),
-//     interceptors: { 
-//       request: { use: jest.fn() }, 
-//       response: { use: jest.fn() } 
+//     interceptors: {
+//       request: { use: jest.fn() },
+//       response: { use: jest.fn() }
 //     },
 //   },
 //   authAPI: {
@@ -129,16 +140,16 @@ describe('ResetPassword Component', () => {
 // import { configureStore } from '@reduxjs/toolkit';
 // import '@testing-library/jest-dom';
 
-// import ResetPassword from '../pages/auth/ResetPassword'; 
-// import authReducer from '../store/slices/authSlice'; 
+// import ResetPassword from '../pages/auth/ResetPassword';
+// import authReducer from '../store/slices/authSlice';
 
 // const renderWithProviders = (
 //   ui: React.ReactElement,
 //   {
 //     preloadedState = {},
-//     store = configureStore({ 
-//       reducer: { auth: authReducer }, 
-//       preloadedState 
+//     store = configureStore({
+//       reducer: { auth: authReducer },
+//       preloadedState
 //     }),
 //     ...renderOptions
 //   } = {}
@@ -157,7 +168,7 @@ describe('ResetPassword Component', () => {
 // };
 
 // describe('ResetPassword Component', () => {
-  
+
 //   beforeEach(() => {
 //     window.localStorage.clear();
 //     jest.clearAllMocks();
@@ -165,7 +176,7 @@ describe('ResetPassword Component', () => {
 
 //   test('renders all input fields and the submit button', () => {
 //     renderWithProviders(<ResetPassword />);
-    
+
 //     // Updated to match your specific placeholders
 //     expect(screen.getByPlaceholderText(/Enter your email/i)).toBeInTheDocument();
 //     expect(screen.getByPlaceholderText(/^New Password$/i)).toBeInTheDocument();
@@ -187,18 +198,18 @@ describe('ResetPassword Component', () => {
 
 //   test('toggles password visibility when clicking eye icons', () => {
 //     renderWithProviders(<ResetPassword />);
-    
+
 //     const passwordInput = screen.getByPlaceholderText(/^New Password$/i) as HTMLInputElement;
-    
+
 //     // In your HTML, the eye is inside a span. We click the span or the SVG.
 //     // Finding by the FontAwesome icon class
-//     const toggleButtons = document.querySelectorAll('.input-group-text'); 
-    
+//     const toggleButtons = document.querySelectorAll('.input-group-text');
+
 //     expect(passwordInput.type).toBe('password');
-    
+
 //     fireEvent.click(toggleButtons[0]);
 //     expect(passwordInput.type).toBe('text');
-    
+
 //     fireEvent.click(toggleButtons[0]);
 //     expect(passwordInput.type).toBe('password');
 //   });

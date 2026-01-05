@@ -22,7 +22,10 @@ import authReducer from "../store/slices/authSlice";
 import ResetPasswordSignIn from "../pages/auth/ResetPasswordSignin";
 import { AuthState } from "../types/auth";
 
-const renderWithProviders = (ui: React.ReactElement, initialAuthState?: Partial<AuthState>) => {
+const renderWithProviders = (
+  ui: React.ReactElement,
+  initialAuthState?: Partial<AuthState>,
+) => {
   const store = configureStore({
     reducer: { auth: authReducer },
     preloadedState: {
@@ -46,7 +49,7 @@ const renderWithProviders = (ui: React.ReactElement, initialAuthState?: Partial<
     ...render(
       <Provider store={store}>
         <BrowserRouter>{ui}</BrowserRouter>
-      </Provider>
+      </Provider>,
     ),
   };
 };
@@ -57,7 +60,7 @@ describe("ResetPasswordSignIn", () => {
     // Mock fetch
     global.fetch = jest.fn();
     // Mock localStorage
-    Object.defineProperty(window, 'localStorage', {
+    Object.defineProperty(window, "localStorage", {
       value: {
         getItem: jest.fn(),
         setItem: jest.fn(),
@@ -80,19 +83,25 @@ describe("ResetPasswordSignIn", () => {
   test("should render form elements", () => {
     renderWithProviders(<ResetPasswordSignIn />);
     expect(screen.getByPlaceholderText(/Email address/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Send Code/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Send Code/i }),
+    ).toBeInTheDocument();
   });
 
   test("should render resend link", () => {
     renderWithProviders(<ResetPasswordSignIn />);
     expect(screen.getByText(/Didn't receive any code/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Send Code again/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Send Code again/i }),
+    ).toBeInTheDocument();
   });
 
   test("should show loading state", () => {
     renderWithProviders(<ResetPasswordSignIn />);
     // Initially not loading
-    expect(screen.getByRole("button", { name: /Send Code/i })).not.toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: /Send Code/i }),
+    ).not.toBeDisabled();
   });
 
   test("should call API on form submit", async () => {
@@ -103,7 +112,10 @@ describe("ResetPasswordSignIn", () => {
 
     const { user } = renderWithProviders(<ResetPasswordSignIn />);
 
-    await user.type(screen.getByPlaceholderText(/Email address/i), "test@example.com");
+    await user.type(
+      screen.getByPlaceholderText(/Email address/i),
+      "test@example.com",
+    );
     await user.click(screen.getByRole("button", { name: /Send Code/i }));
 
     await waitFor(() => {
@@ -115,7 +127,7 @@ describe("ResetPasswordSignIn", () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email: "test@example.com" }),
-        }
+        },
       );
     });
   });
@@ -128,11 +140,17 @@ describe("ResetPasswordSignIn", () => {
 
     const { user } = renderWithProviders(<ResetPasswordSignIn />);
 
-    await user.type(screen.getByPlaceholderText(/Email address/i), "test@example.com");
+    await user.type(
+      screen.getByPlaceholderText(/Email address/i),
+      "test@example.com",
+    );
     await user.click(screen.getByRole("button", { name: /Send Code/i }));
 
     await waitFor(() => {
-      expect(localStorage.setItem).toHaveBeenCalledWith("resetPasswordEmail", "test@example.com");
+      expect(localStorage.setItem).toHaveBeenCalledWith(
+        "resetPasswordEmail",
+        "test@example.com",
+      );
     });
   });
 
@@ -145,11 +163,14 @@ describe("ResetPasswordSignIn", () => {
 
     const { user } = renderWithProviders(<ResetPasswordSignIn />);
 
-    await user.type(screen.getByPlaceholderText(/Email address/i), "test@example.com");
+    await user.type(
+      screen.getByPlaceholderText(/Email address/i),
+      "test@example.com",
+    );
     await user.click(screen.getByRole("button", { name: /Send Code/i }));
 
     await waitFor(() => {
-      expect(screen.getByRole('alert')).toHaveTextContent(/User not found/i);
+      expect(screen.getByRole("alert")).toHaveTextContent(/User not found/i);
     });
   });
 
@@ -158,7 +179,10 @@ describe("ResetPasswordSignIn", () => {
 
     const { user } = renderWithProviders(<ResetPasswordSignIn />);
 
-    await user.type(screen.getByPlaceholderText(/Email address/i), "test@example.com");
+    await user.type(
+      screen.getByPlaceholderText(/Email address/i),
+      "test@example.com",
+    );
     await user.click(screen.getByRole("button", { name: /Send Code/i }));
 
     await waitFor(() => {
@@ -171,7 +195,7 @@ describe("ResetPasswordSignIn", () => {
 
     await user.click(screen.getByRole("button", { name: /Send Code/i }));
 
-    expect(screen.getByRole('alert')).toHaveTextContent(/Email is required/i);
+    expect(screen.getByRole("alert")).toHaveTextContent(/Email is required/i);
   });
 
   test("should render footer", () => {

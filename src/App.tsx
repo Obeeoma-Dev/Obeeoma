@@ -74,8 +74,6 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
-               
-              
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
@@ -124,48 +122,44 @@ export default function App(): React.ReactElement {
                   path="/employer-settings"
                   element={<EmployerAccountSettingsPage />}
                 />
-                </Route>{" "}
-                {/* SYSTEMS ADMIN ROUTES */}
-                <Route
-                  path="/system-admin"
-                  element={<SysAdminDashboard />}
-                />
-                {/* Main Admin Dashboard */}
-                <Route
-                  path="/system-admin/organizations"
-                  element={<Organisation />}
-                />
-                <Route
-                  path="/systemadmin/organizations/:id"
-                  element={<OrganisationDetails />}
-                />
-                <Route
-                  path="/system-admin/client-engagement"
-                  element={<ClientEngagement />}
-                />
-                <Route
-                  path="/system-admin/ai-management"
-                  element={<AIRecommendationsPage />}
-                />
-                <Route
-                  path="/system-admin/hotline-activity"
-                  element={<HotlineActivity />}
-                />
-                <Route
-                  path="/system-admin/Subscriptions"
-                  element={<SubscriptionPage />}
-                />
-                <Route path="/system-admin/reports" element={<ReportPage />} />
-                {/* SYSTEMS ADMIN SETTINGS ROUTES */}
-                <Route
-                  path="/system-admin/settings-overview"
-                  element={<AdminSettings />}
-                />
-                <Route
-                  path="/settings-overview/subscription-editor"
-                  element={<SubscriptionEditor />}
-                />
-              
+              </Route>{" "}
+              {/* SYSTEMS ADMIN ROUTES */}
+              <Route path="/system-admin" element={<SysAdminDashboard />} />
+              {/* Main Admin Dashboard */}
+              <Route
+                path="/system-admin/organizations"
+                element={<Organisation />}
+              />
+              <Route
+                path="/systemadmin/organizations/:id"
+                element={<OrganisationDetails />}
+              />
+              <Route
+                path="/system-admin/client-engagement"
+                element={<ClientEngagement />}
+              />
+              <Route
+                path="/system-admin/ai-management"
+                element={<AIRecommendationsPage />}
+              />
+              <Route
+                path="/system-admin/hotline-activity"
+                element={<HotlineActivity />}
+              />
+              <Route
+                path="/system-admin/Subscriptions"
+                element={<SubscriptionPage />}
+              />
+              <Route path="/system-admin/reports" element={<ReportPage />} />
+              {/* SYSTEMS ADMIN SETTINGS ROUTES */}
+              <Route
+                path="/system-admin/settings-overview"
+                element={<AdminSettings />}
+              />
+              <Route
+                path="/settings-overview/subscription-editor"
+                element={<SubscriptionEditor />}
+              />
               {/* End ProtectedRoute */}
               {/* === CATCH-ALL ROUTE === */}
               <Route path="*" element={<NotFound />} />

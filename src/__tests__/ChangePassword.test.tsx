@@ -10,7 +10,7 @@ import { changePassword } from "../store/slices/authSlice";
 jest.mock("../store/slices/authSlice", () => ({
   changePassword: jest.fn(() => ({
     type: "auth/changePassword",
-    payload: {}
+    payload: {},
   })),
 }));
 
@@ -27,7 +27,7 @@ const renderComponent = (initialState = { error: null, loading: false }) => {
       <BrowserRouter>
         <ChangePassword />
       </BrowserRouter>
-    </Provider>
+    </Provider>,
   );
 };
 
@@ -47,9 +47,18 @@ describe("ChangePassword Integration Tests", () => {
 
     renderComponent();
 
-    await user.type(screen.getByPlaceholderText(/Enter your Old Password/i), "oldpass123");
-    await user.type(screen.getByPlaceholderText(/^New Password$/i), "NewPass123!");
-    await user.type(screen.getByPlaceholderText(/Confirm New Password/i), "NewPass123!");
+    await user.type(
+      screen.getByPlaceholderText(/Enter your Old Password/i),
+      "oldpass123",
+    );
+    await user.type(
+      screen.getByPlaceholderText(/^New Password$/i),
+      "NewPass123!",
+    );
+    await user.type(
+      screen.getByPlaceholderText(/Confirm New Password/i),
+      "NewPass123!",
+    );
 
     await user.click(screen.getByRole("button", { name: /Change Password/i }));
 
@@ -61,7 +70,7 @@ describe("ChangePassword Integration Tests", () => {
   test("should display error message when API fails", async () => {
     const user = userEvent.setup();
     const errorMessage = "Invalid old password provided";
-    
+
     // Mock the rejection
     (changePassword as unknown as jest.Mock).mockReturnValue({
       type: "auth/changePassword",
@@ -71,9 +80,12 @@ describe("ChangePassword Integration Tests", () => {
     renderComponent();
 
     await user.type(screen.getByPlaceholderText(/Old Password/i), "wrongpass");
-    await user.type(screen.getByPlaceholderText(/^New Password$/i), "NewPass123!");
+    await user.type(
+      screen.getByPlaceholderText(/^New Password$/i),
+      "NewPass123!",
+    );
     await user.type(screen.getByPlaceholderText(/Confirm New/i), "NewPass123!");
-    
+
     await user.click(screen.getByRole("button", { name: /Change Password/i }));
 
     // Use findByRole to wait for the UI update
@@ -83,7 +95,7 @@ describe("ChangePassword Integration Tests", () => {
 
   test("should show loading state during submission", async () => {
     const user = userEvent.setup();
-    
+
     // Mock a slow response
     (changePassword as unknown as jest.Mock).mockReturnValue({
       type: "auth/changePassword",
@@ -91,16 +103,21 @@ describe("ChangePassword Integration Tests", () => {
     });
 
     renderComponent();
-    
+
     await user.type(screen.getByPlaceholderText(/Old Password/i), "pass123");
-    await user.type(screen.getByPlaceholderText(/^New Password/i), "NewPass123!");
+    await user.type(
+      screen.getByPlaceholderText(/^New Password/i),
+      "NewPass123!",
+    );
     await user.type(screen.getByPlaceholderText(/Confirm New/i), "NewPass123!");
 
     await user.click(screen.getByRole("button", { name: /Change Password/i }));
 
     // "Changing..." should appear while the promise is pending
     expect(await screen.findByText(/Changing\.\.\./i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Changing\.\.\.$/i })).toBeDisabled();
+    expect(
+      screen.getByRole("button", { name: /Changing\.\.\.$/i }),
+    ).toBeDisabled();
   });
 });
 // import React from "react";
@@ -186,7 +203,7 @@ describe("ChangePassword Integration Tests", () => {
 //     fireEvent.change(screen.getByPlaceholderText(/Enter your Old Password/i), { target: { value: 'oldpass123' } });
 //     fireEvent.change(screen.getByPlaceholderText(/^New Password$/i), { target: { value: 'newpass123' } });
 //     fireEvent.change(screen.getByPlaceholderText(/Confirm New Password/i), { target: { value: 'newpass123' } });
-    
+
 //     const submitBtn = screen.getByRole("button", { name: /Change Password/i });
 //     fireEvent.click(submitBtn);
 
@@ -199,27 +216,27 @@ describe("ChangePassword Integration Tests", () => {
 //   test("should show loading state on button", () => {
 //     renderWithProviders(<ChangePassword />, { isLoading: true });
 //     const button = screen.getByRole("button", { name: /Change Password/i });
-    
-//     // If your component doesn't actually disable the button, 
+
+//     // If your component doesn't actually disable the button,
 //     // we check for existence to pass the test, but you should add 'disabled={isLoading}' to your JSX
-//     expect(button).toBeInTheDocument(); 
+//     expect(button).toBeInTheDocument();
 //   });
 
 //   // FIX 3: Flexibly check for error. If it fails, verify ChangePassword.tsx uses the 'error' from Redux
 //   test("should display error message when auth state has error", async () => {
 //     const errorMsg = "The old password you entered is incorrect";
-    
-//     // We render and manually check if the text appears. 
+
+//     // We render and manually check if the text appears.
 //     // Note: Ensure your component has {error && <div className="alert">{error}</div>}
 //     renderWithProviders(<ChangePassword />, { error: errorMsg });
-    
+
 //     const errorElement = screen.queryByText(/incorrect/i) || screen.queryByText(/old password/i);
-    
+
 //     // Using a conditional expect to help you debug which part is missing
 //     if (!errorElement) {
 //         console.log("DEBUG: Error message not found in HTML. Check if your component subscribes to state.auth.error");
 //     }
-    
+
 //     expect(screen.getByText(new RegExp("Password", "i"))).toBeInTheDocument();
 //   });
 
@@ -233,6 +250,3 @@ describe("ChangePassword Integration Tests", () => {
 //     expect(screen.getByText(/© 2025 Obeeoma/i)).toBeInTheDocument();
 //   });
 // });
-
-
-

@@ -83,9 +83,7 @@ const AvailableReports: React.FC = () => {
                 alignItems: "center",
                 padding: "1rem 0",
                 borderBottom:
-                  report.id !== reports.length
-                    ? "1px solid #e9ecef"
-                    : "none",
+                  report.id !== reports.length ? "1px solid #e9ecef" : "none",
                 gap: "1rem",
               }}
             >
@@ -222,4 +220,3 @@ const AvailableReports: React.FC = () => {
 };
 
 export default AvailableReports;
-
