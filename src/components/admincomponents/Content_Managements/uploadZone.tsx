@@ -1,22 +1,20 @@
 // components/UploadZone.tsx
-// This component implements the "Upload New Content" card from your Media Library.
-// It replaces all Tailwind classes with React-Bootstrap components and inline styles,
-// while preserving structure and behavior: media-type tabs, drag-and-drop area,
-// file preview with remove, metadata form (title/description), and an upload button.
+// This component implements the "Upload New Content" card from the Media Library.
 
-import React, { useState, useCallback } from 'react'; // React core and hooks
-import { UploadCloud, FileVideo, FileAudio, Image as ImageIcon, File as FileIcon, X } from 'lucide-react'; // Icons used in the UI
-import Card from 'react-bootstrap/Card'; // Bootstrap card container for the whole upload box
-import Nav from 'react-bootstrap/Nav'; // Pills/tabs for media type selection
-import Button from 'react-bootstrap/Button'; // Buttons for actions
-import Form from 'react-bootstrap/Form'; // Form controls for title/description inputs
-import Row from 'react-bootstrap/Row'; // Grid row for responsive form layout
-import Col from 'react-bootstrap/Col'; // Grid column for responsive form layout
-import Stack from 'react-bootstrap/Stack'; // Flex stack for spacing/alignment
-import { contentMediaAPI } from '../../../services/contentService'; // Import the API
+import React, { useState, useCallback } from 'react';
+import { UploadCloud, FileVideo, FileAudio, Image as ImageIcon, File as FileIcon, X } from 'lucide-react';
+import Card from 'react-bootstrap/Card';
+import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Stack from 'react-bootstrap/Stack';
+
+// Import the API
+import { contentMediaAPI } from '../../../services/contentService';
 
 // Define media types with labels and icons; colors are omitted (Tailwind removed)
-// We'll use Bootstrap variants and simple inline styles instead
 const MEDIA_TYPES = [
     { id: 'video', label: 'Video', icon: FileVideo },
     { id: 'audio', label: 'Audio', icon: FileAudio },
@@ -24,13 +22,13 @@ const MEDIA_TYPES = [
     { id: 'other', label: 'Other', icon: FileIcon },
 ] as const;
 
-// Component export so you can import and use it in your Content Management page
+// Component export.
 interface UploadZoneProps {
     onUploadSuccess?: () => void;
 }
 
 export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
-    // Track the selected media type (default "other" like your original)
+    // Track the selected media type 
     const [selectedType, setSelectedType] = useState<typeof MEDIA_TYPES[number]['id']>('other');
     // Track whether the drag area is active (dragenter/dragover) to adjust visual feedback
     const [dragActive, setDragActive] = useState(false);
@@ -53,8 +51,8 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
     // Handle drop event: store the first file dropped and reset active state
     const handleDrop = useCallback((e: React.DragEvent) => {
-        e.preventDefault(); // Prevent default file-open behavior
-        e.stopPropagation(); // Stop propagation
+        e.preventDefault();
+        e.stopPropagation();
         setDragActive(false); // Remove highlight on drop
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             setFile(e.dataTransfer.files[0]); // Save the dropped file to state
@@ -63,9 +61,9 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
     // Handle file input change: store the first selected file from the input
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault(); // Prevent form submission (defensive)
+        e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            setFile(e.target.files[0]); // Save the chosen file to state
+            setFile(e.target.files[0]);
         }
     };
 
@@ -78,8 +76,8 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("media_type", selectedType); // 'video' | 'audio' | 'image' | 'other'
-        formData.append("file", file); // actual file object
+        formData.append("media_type", selectedType);
+        formData.append("file", file);
 
         try {
             const response = await contentMediaAPI.createMedia(formData);
@@ -88,7 +86,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
             // Call success callback
             onUploadSuccess?.();
 
-            // Optionally reset form
+
             setFile(null);
             setTitle('');
             setDescription('');
@@ -97,18 +95,17 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
         }
     };
 
-    // Render the React-Bootstrap layout that mirrors your Tailwind version
+
     return (
-        // Card provides a clean container with padding, border, and shadow
+
         <Card style={{ borderRadius: 12 }}>
             {/* Card header: "Upload New Content" */}
             <Card.Header as="h2" style={{ fontSize: '1rem', fontWeight: 600, fontFamily: 'body' }}>
                 Upload New Content
             </Card.Header>
 
-            {/* Card body: everything else (tabs, drop zone, form, button) */}
+            {/* Card body */}
             <Card.Body>
-                {/* Media type selection as pill-style nav (scrollable horizontally if needed) */}
                 <div className="content-type-pills" style={{ overflowX: 'auto', paddingBottom: 8, marginBottom: 16 }}>
                     <Nav variant="pills" activeKey={selectedType} onSelect={(k) => k && setSelectedType(k as typeof selectedType)}>
                         {/* Map media types into Nav.Item/Nav.Link entries */}
@@ -118,8 +115,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                             return (
                                 <Nav.Item key={type.id}>
                                     <Nav.Link
-                                        eventKey={type.id} // Link key used by Nav to track active
-                                        // Add some horizontal spacing between pills
+                                        eventKey={type.id} // Link key used by Nav to track active                                        
                                         style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 8px', marginRight: 8, fontFamily: 'body' }}
                                     >
                                         {/* Icon left of label; color changes subtly when active */}
@@ -135,35 +131,33 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
                 {/* Drag-and-drop upload area; styled with dashed border and hover/active feedback */}
                 <div
-                    // Relative container to host the invisible file input overlay
                     style={{
-                        position: 'relative', // Allows absolute positioning of the input
-                        border: '2px dashed', // Dashed border like the Tailwind version
-                        borderColor: dragActive ? '#00A859' : '#ced4da', // Green when active, gray otherwise
-                        borderRadius: 12, // Rounded corners
-                        padding: 24, // Inner spacing
-                        textAlign: 'center', // Center the content
-                        transition: 'border-color 150ms ease, background-color 150ms ease', // Smooth visual changes
-                        backgroundColor: dragActive ? 'rgba(25, 135, 84, 0.08)' : 'transparent', // Light green on drag active
-                        cursor: 'pointer', // Indicate interactivity
+                        position: 'relative',
+                        border: '2px dashed',
+                        borderColor: dragActive ? '#00A859' : '#ced4da',
+                        borderRadius: 12,
+                        padding: 24,
+                        textAlign: 'center',
+                        transition: 'border-color 150ms ease, background-color 150ms ease',
+                        backgroundColor: dragActive ? 'rgba(25, 135, 84, 0.08)' : 'transparent',
+                        cursor: 'pointer',
                     }}
-                    onDragEnter={handleDrag} // Activate on drag enter
-                    onDragLeave={handleDrag} // Deactivate on drag leave
-                    onDragOver={handleDrag} // Keep active while over
-                    onDrop={handleDrop} // Handle file drop
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
                 >
                     {/* Invisible file input covering the whole drop zone to support click-to-upload */}
                     <Form.Control
                         type="file" // File input
-                        onChange={handleChange} // Store selected file
-                        // Overlay the input so clicks anywhere open the file picker
+                        onChange={handleChange} // Store selected file                       
                         style={{
                             position: 'absolute',
-                            inset: 0, // Stretch to all edges
+                            inset: 0,
                             width: '100%',
                             height: '100%',
-                            opacity: 0, // Invisible but clickable
-                            cursor: 'pointer', // Show pointer cursor
+                            opacity: 0,
+                            cursor: 'pointer',
                         }}
                     />
 
@@ -173,9 +167,9 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                             {/* Icon bubble for the selected file */}
                             <div
                                 style={{
-                                    padding: 12, // Space around the icon
-                                    backgroundColor: 'rgba(25, 135, 84, 0.15)', // Light green background
-                                    borderRadius: 999, // Circular shape
+                                    padding: 12,
+                                    backgroundColor: 'rgba(25, 135, 84, 0.15)',
+                                    borderRadius: 999,
                                 }}
                             >
                                 <FileIcon size={24} color="#198754" /> {/* Green file icon */}
@@ -191,14 +185,14 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
                             {/* Remove file button */}
                             <Button
-                                variant="light" // Subtle button style
-                                size="sm" // Small size to match compact UI
+                                variant="light"
+                                size="sm"
                                 onClick={(e) => {
-                                    e.preventDefault(); // Prevent unintended form submit
-                                    setFile(null); // Clear file state
+                                    e.preventDefault();
+                                    setFile(null);
                                 }}
-                                style={{ borderRadius: 999 }} // Make it pill/circular
-                                aria-label="Remove selected file" // Accessibility label
+                                style={{ borderRadius: 999 }}
+                                aria-label="Remove selected file"
                             >
                                 <X size={16} color="#6c757d" /> {/* Gray 'X' icon */}
                             </Button>
@@ -209,12 +203,12 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                             {/* Circular backdrop for upload icon */}
                             <div
                                 style={{
-                                    margin: '0 auto', // Center horizontally
+                                    margin: '0 auto',
                                     width: 48,
                                     height: 48,
-                                    borderRadius: 999, // Circle
-                                    backgroundColor: 'rgba(25, 135, 84, 0.08)', // Light green tint
-                                    display: 'flex', // Center icon with flex
+                                    borderRadius: 999,
+                                    backgroundColor: 'rgba(25, 135, 84, 0.08)',
+                                    display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                 }}

@@ -25,14 +25,14 @@ const ReportPage: React.FC = () => {
 
   return (
     <div className="d-flex vh-100">
-      {/* 🔒 Fixed sidebar on the left */}
+      {/* Fixed sidebar on the left */}
       <div className="flex-shrink-0">
         <AdminSidebar />
       </div>
 
-      {/* 📦 Main content area (right side) */}
+      {/* Main content area (right side) */}
       <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* 🔒 Fixed header at the top */}
+        {/* Fixed header at the top */}
         <div className="flex-shrink-0">
           <AdminHeader />
         </div>

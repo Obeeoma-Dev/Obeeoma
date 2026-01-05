@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { TooltipItem } from "chart.js";
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -38,8 +39,9 @@ const PlatformUsageChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
-            return `${context.parsed.y.toLocaleString()} users`;
+          label: function (context: TooltipItem<"bar">) {
+            const value = context.parsed.y;
+            return value != null ? `${value.toLocaleString()} users` : "N/A";
           },
         },
       },
@@ -48,7 +50,7 @@ const PlatformUsageChart: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value.toLocaleString();
           },
         },

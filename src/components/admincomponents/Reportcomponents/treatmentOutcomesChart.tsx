@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { TooltipItem } from "chart.js";
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -44,7 +45,7 @@ const TreatmentOutcomesChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
+          label: function (context: TooltipItem<"bar">) {
             return `${context.parsed.y} patients`;
           },
         },
@@ -56,7 +57,7 @@ const TreatmentOutcomesChart: React.FC = () => {
         max: 60,
         ticks: {
           stepSize: 15,
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value;
           },
         },

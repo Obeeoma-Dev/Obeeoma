@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { TooltipItem } from "chart.js";
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -38,7 +39,7 @@ const MentalHealthChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
+          label: function (context: TooltipItem<"bar">) {
             return `${context.parsed.y}%`;
           },
         },
@@ -50,7 +51,7 @@ const MentalHealthChart: React.FC = () => {
         max: 36,
         ticks: {
           stepSize: 9,
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value;
           },
         },
