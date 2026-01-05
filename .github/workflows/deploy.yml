@@ -33,6 +33,8 @@ jobs:
       - name: ESLint
         run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
 
+      - name: Auto-fix Prettier formatting  
+        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}" 
       - name: Prettier Check
         run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
 
