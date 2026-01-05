@@ -62,43 +62,57 @@ const SettingsTabs: React.FC = () => {
   const [key, setKey] = useState<string>("account");
 
   return (
-    // Tabs components with controlled activeKey to manage selected tab
-    <Tabs
-      id="settings-tabs" // Unique ID for accessibility
-      activeKey={key}
-      onSelect={(k) => k && setKey(k)} // Updates active tab when a new one is selected
-      className="mb-3" // Bottom margin for spacing
-    >
-      {/* Tab for Account settings */}
-      <Tab eventKey="account" title="Account">
-        <AccountForm />
-      </Tab>
+    <div className="p-3 settings-main-container">
+      {/* Tabs components with controlled activeKey to manage selected tab */}
+      <Tabs
+        id="settings-tabs" // Unique ID for accessibility
+        activeKey={key}
+        onSelect={(k) => k && setKey(k)} // Updates active tab when a new one is selected
+        className="settings-nav mb-3 border-bottom" // Bottom margin for spacing and custom styles
+      >
+        {/* Tab for Account settings */}
+        <Tab eventKey="account" title="Account">
+          <div style={{ paddingTop: 10 }}>
+            <AccountForm />
+          </div>
+        </Tab>
 
-      {/* Tab for Security settings */}
-      <Tab eventKey="security" title="Security">
-        <SecuritySettings />
-      </Tab>
+        {/* Tab for Security settings */}
+        <Tab eventKey="security" title="Security">
+          <div style={{ paddingTop: 10 }}>
+            <SecuritySettings />
+          </div>
+        </Tab>
 
-      {/* Tab for Notification preferences */}
-      <Tab eventKey="notifications" title="Notifications">
-        <NotificationSettings />
-      </Tab>
+        {/* Tab for Notification preferences */}
+        <Tab eventKey="notifications" title="Notifications">
+          <div style={{ paddingTop: 10 }}>
+            <NotificationSettings />
+          </div>
+        </Tab>
 
-      {/* Tab for Appearance customization */}
-      <Tab eventKey="appearance" title="Appearance">
-        <AppearenceSettings />
-      </Tab>
+        {/* Tab for Appearance customization */}
+        <Tab eventKey="appearance" title="Appearance">
+          <div style={{ paddingTop: 10 }}>
+            <AppearenceSettings />
+          </div>
+        </Tab>
 
-      {/* Tab for Subscription details */}
-      <Tab eventKey="subscription" title="Subscription">
-        <SubscriptionSettingsComp plans={subscriptionPlans} />
-      </Tab>
+        {/* Tab for Subscription details */}
+        <Tab eventKey="subscription" title="Subscription">
+          <div style={{ paddingTop: 10 }}>
+            <SubscriptionSettingsComp plans={subscriptionPlans} />
+          </div>
+        </Tab>
 
-      {/* Tab for Feature flags */}
-      <Tab eventKey="feature-flags" title="Feature Flags">
-        <FeatureFlags />
-      </Tab>
-    </Tabs>
+        {/* Tab for Feature flags */}
+        <Tab eventKey="feature-flags" title="Feature Flags">
+          <div style={{ paddingTop: 10 }}>
+            <FeatureFlags />
+          </div>
+        </Tab>
+      </Tabs>
+    </div>
   );
 };
 

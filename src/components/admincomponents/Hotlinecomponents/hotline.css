@@ -1,0 +1,13 @@
+.stat-card:hover {
+    transform: translateY(-2px);
+    transition: 0.2s ease-in-out;
+}
+
+/* Styling of the operator performance. */
+.operator-performance-card {
+    padding: 0.2rem;
+}
+
+.operator-progress {
+    height: 0.5rem !important;
+}

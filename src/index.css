@@ -2,92 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-.my-borderless-table {
-  border: none;
-}
-
-.my-borderless-table th {
-  border: none;
-}
-
-.my-borderless-table td {
-  border: none;
-}
-
-table {
-  border: 1px solid lightgray;
-}
-
-tbody {
-  border-bottom: 1px solid lightgray;
-  padding: 15px;
-}
-
-th {
-  border-bottom: 1px solid lightgray;
-  border-right: 1px solid lightgray;
-  padding: 2px 4px;
-}
-
-tfoot {
-  color: gray;
-}
-
-tfoot th {
-  font-weight: normal;
-}
-
-
-/* Custom class to target the slider */
-.data-retention-slider {
-    /* Ensures the color is applied at a high specificity */
-    accent-color: #22C55E !important; 
-}
-
-/* For older browsers or more granular control: */
-
-/* Styling the Slider Thumb (the circular handle) */
-.data-retention-slider::-webkit-slider-thumb {
-    background-color: #22C55E;
-}
-
-.data-retention-slider::-moz-range-thumb {
-    background-color: #22C55E;
-}
-
-/* Styling the Track Fill (the line to the left of the thumb) */
-.data-retention-slider::-webkit-progress-value {
-    background-color: #22C55E;
-}
-
-
-
-
-.top-card{
-    color: #ffffff;
- }
-
- .top-card:hover{
-    background-color: hsla(140, 90%, 88%, 0.945);
-    color: #0B6E45;
-  }
-
-  .top-card:hover .top-card-icon{
-    color: #22C55E;
-  }
-
-  .top-card.top-card-icon{
-    color: #22C55E;
-  }
-  .top-card:hover .top-card-title{
-    color: #22C55E;
-  }
-
-  .top-card:hover .top-card-text{
-    color: #ffffff;
-  }
-
-
 @font-face {
   font-family: 'body';
   src: url('./assets/Fonts/Montserrat-Regular.ttf') format('truetype');
@@ -115,17 +29,18 @@ tfoot th {
   --obeeoma-muted: #6c757d;
 
   /* Border radius and shadow */
-  --bs-border-radius: 0.75rem;
-  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  --card-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+  --bs-border-radius: 0.6rem;
+  --card-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
+  --card-shadow-lg: 0 8px 20px rgba(16, 24, 40, 0.08);
+  --ui-muted: #6b7280;
+  --ui-bg-soft: #f7faf9;
 }
 
 /* -----------------------------------------------
    Global Page Styling
 ----------------------------------------------- */
 body {
-  /*montserrat to be added here*/
-  font-family: "heading";
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);
   margin: 0;
@@ -259,7 +174,7 @@ a:hover {
 /* -----------------------------------------------
    Navbar and Footer Styling
 ----------------------------------------------- */
-.navbar {
+/* .navbar {
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.85);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -276,12 +191,12 @@ a:hover {
   color: var(--obeeoma-text) !important;
   font-weight: 500;
   transition: color 0.3s ease;
-}
+} */
 
 
-.nav-link:hover {
+/* .nav-link:hover {
   color: var(--obeeoma-green) !important;
-}
+} */
 
 /* sidebar.css */
 .sidebar-enter {
@@ -361,31 +276,28 @@ footer a:hover {
   color: #3CB371;
 } */
 /* These style blocks handle the styling in the Navigation.tsx transparency and scrolled*/
-.navbar.transparent {
-  /* Transparency */
-  background-color: rgba(255, 255, 255, 0.01);
+/* .navbar.transparent {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  /* soft glass tint */
+/* backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: none !important;
   border: none !important;
-  backdrop-filter: none !important;
+  transition: background-color 0.3s ease;
+} */
 
-  /* avoiding blendng effects */
-  mix-blend-mode: normal;
-}
+/* .navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.5) !important; */
+/* soft white, not bold */
+/* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+} */
 
-.navbar.scrolled {
-  background-color: white;
-
-  /* Depth */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Make nav link text white when navbar is transparent */
 .navbar.transparent .nav-link {
   color: white !important;
   transition: color 0.3s ease;
 }
 
-/* Optional: green on hover */
 .navbar.transparent .nav-link:hover {
   color: #3CB371 !important;
 }
@@ -394,7 +306,107 @@ footer a:hover {
   font-size: 20px;
   font-weight: 900;
   font-family: 'body';
-  /* Make sure 'body' is defined in your fonts */
+  /* Make sure 'body' is defined */
+}
+
+/* Settings tabs: show green underline on hover only; avoid button-like active styles */
+.settings-nav .nav-link {
+  background: transparent !important;
+  border: none !important;
+  color: var(--obeeoma-muted) !important;
+  padding-bottom: 0.4rem;
+  margin-right: 0.75rem;
+  border-bottom: 3px solid transparent;
+  border-radius: 0 !important;
+  transition: color 0.15s ease, border-bottom-color 0.15s ease, background-color 0.15s ease;
+}
+
+.settings-nav .nav-link:hover {
+  color: var(--obeeoma-green) !important;
+  border-bottom-color: var(--obeeoma-green) !important;
+  background: transparent !important;
+}
+
+/* Remove the default active pill/tab button look; we don't want a pressed/button style on click */
+.settings-nav .nav-link.active {
+  background: transparent !important;
+  color: var(--obeeoma-text) !important;
+  box-shadow: none !important;
+  border: none !important;
+  /* keep no underline for active state so hover controls the underline */
+  border-bottom-color: transparent !important;
+}
+
+/* Make sure nav items don't get extra padding from bootstrap */
+.settings-nav .nav-item {
+  margin-bottom: 0 !important;
+}
+
+/* Compact settings card used across System Admin settings pages */
+.settings-card-compact {
+  padding: 0.8rem !important;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--card-shadow);
+  background: white;
+}
+
+.settings-card-compact .card-header {
+  padding: 0.4rem 0 0.6rem 0 !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--obeeoma-text);
+  background: transparent;
+  border: 0;
+}
+
+.settings-card-compact .card-body,
+.settings-card-compact>.card-body {
+  padding: 0.5rem !important;
+}
+
+.settings-section-compact {
+  padding: 0.5rem !important;
+  background: #fff;
+}
+
+.settings-compact-list {
+  max-height: 5.25rem;
+  /* keep lists short */
+  overflow: hidden;
+}
+
+/* Section header used inside cards for consistent spacing */
+.settings-section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--obeeoma-text);
+  margin-bottom: 6px;
+}
+
+.settings-subtitle {
+  font-size: 0.8rem;
+  color: var(--ui-muted);
+  margin-bottom: 8px;
+}
+
+/* Primary save button styling for settings pages */
+.settings-save-btn {
+  background: linear-gradient(90deg, var(--obeeoma-green), var(--obeeoma-green-dark));
+  border: none;
+  box-shadow: none;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+}
+
+.settings-save-btn:disabled {
+  opacity: 0.6;
+}
+
+/* Container to keep settings centered and constrained */
+.settings-main-container {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 
@@ -449,14 +461,13 @@ footer a:hover {
 
 /* Footer effect of the landing page. */
 footer {
-  /* background-color: #0B6E45 !important; */
   color: #ccc;
-  padding: 3rem 0;
+  padding: 1rem 0;
 }
 
 footer h6 {
   color: #fff;
-  font-weight: 600;
+  font-weight: 900;
   margin-bottom: 1rem;
 }
 
@@ -467,29 +478,36 @@ footer a {
 }
 
 footer a:hover {
-  color: #3CB371;
-  color: var(--obeeoma-green);
+  color: #fff;
+  /* Bright white */
+  font-weight: 700;
+  /* subtle glow */
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-footer p {
-  font-size: 0.875rem;
-  color: #aaa;
+.footer-section {
+  margin-right: 10px;
+}
+
+.footer-text {
+  font-size: 1rem;
+  color: white;
 }
 
 
 
 /******************************************/
 /* Styles for the About Us footer section */
-.about-footer-section {
+/* .about-footer-section {
   background-image: url("/images/handsgreeting.jpg");
   /* Replace with your actual image path */
-  background-size: cover;
+/* background-size: cover;
   background-position: center;
-  position: relative;
-}
+  position: relative; */
+/* }
 
 /* Green overlay */
-.about-footer-section::before {
+/* .about-footer-section::before {
   content: "";
   position: absolute;
   top: 0;
@@ -498,14 +516,14 @@ footer p {
   height: 100%;
   background-color: rgba(0, 128, 0, 0.6);
   /* Semi-transparent green */
-  z-index: 1;
-}
+/* z-index: 1;
+} */
 
 /* Ensure content is above overlay */
-.about-footer-section .container {
+/* .about-footer-section .container {
   position: relative;
   z-index: 2;
-}
+} */
 
 
 /*****************************/
@@ -553,7 +571,7 @@ footer p {
 
 /* Make textarea taller inside floating label */
 form .form-floating .form-control.message-textarea {
-  height: 250px;
+  height: 163px;
   /* or whatever height you want */
   resize: none;
   /* optional, prevents user from resizing */
@@ -657,15 +675,19 @@ form .form-floating .form-control.message-textarea {
 }
 
 .blog-hero-title {
+  font-size: 4rem;
+  font-weight: 700;
   color: white;
+  margin-bottom: 1rem;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .blog-hero-subtitle {
   font-size: 1.25rem;
+  font-weight: 800;
   color: rgba(255, 255, 255, 0.95);
   margin-bottom: 3rem;
-  max-width: 600px;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -721,6 +743,12 @@ form .form-floating .form-control.message-textarea {
   padding: 0.75rem 1rem 0.75rem 3rem;
   font-size: 1rem;
   background: transparent;
+  height: 2.5rem;
+  /* Set consistent height */
+  line-height: 9.15rem;
+  /* Vertically center text */
+  padding-left: 3rem;
+  /* Keep space for icon */
 }
 
 .blog-search-input::placeholder {
@@ -750,6 +778,33 @@ form .form-floating .form-control.message-textarea {
     font-size: 0.9rem;
   }
 }
+
+.blog-card-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* legacy */
+  line-clamp: 3;
+  /* modern */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 4.5rem;
+  /* keeps all excerpts same height */
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
 
 /* 
 ==================================
@@ -1254,6 +1309,11 @@ form .form-floating .form-control.message-textarea {
 }
 
 
+
+/********************************/
+/* Styling of the CTAsection. */
+/* Custom animations for React-Bootstrap usage */
+
 /* Slow spin animation for circle elements */
 @keyframes spin-slow {
   from {
@@ -1347,49 +1407,567 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
-/* Custom CSS to overwrite default Bootstrap Blue (#0d6efd) */
+/*==================================*/
+/* === Benefit Card Styling === */
 
-/* 1. Active/Hover State for Dropdown Items */
-.dropdown-item:focus,
-.dropdown-item:hover {
-    color: #FFFFFF !important; /* White text on hover */
-    background-color: #22C55E !important; /* Your Green background */
+/* Base card style */
+.benefit-card {
+  background: #ffffff;
+  /* border: 12px solid #e5e7eb; */
+  /* subtle gray border */
+  border-radius: 20px;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09);
+  /* soft shadow */
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+  cursor: pointer;
+  min-height: 220px;
+  will-change: transform;
 }
 
-/* 2. Active State for Dropdown/Navigation (Blue Border/Shadow) */
-.form-control:focus,
-.btn:focus,
-.btn.focus {
-    border-color: #22C55E !important;
-    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important; /* Green Shadow */
+/* Hover effect: lift, glow, tint */
+.benefit-card:hover {
+  transform: translateY(-3px);
+  /* box-shadow: */
+  /* 0 10px 24px rgba(0, 0, 0, 0.10), */
+  /* deeper shadow */
+  /* 0 0 0 6px rgba(var(--accent-rgb), 0.08); */
+  /* glow ring */
+  /* border-color: var(--accent); */
+  /* accent border */
+  /* background-color: rgba(var(--accent-rgb), 0.06); */
+  /* subtle tint */
 }
 
-/* 3. Text/Outline Colors for Primary elements (if any blue remains) */
-.text-primary,
-.btn-outline-primary {
-    color: #22C55E !important;
-    border-color: #22C55E !important;
+/* Icon box styling */
+.icon-box {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--icon-bg);
+  /* dynamic background */
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.18);
+}
+
+/* Icon box hover effect */
+.benefit-card:hover .icon-box {
+  transform: scale(1.12);
+  /* grow icon box */
+  box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.28);
+  /* stronger glow */
+}
+
+/* Icon inside box scales with hover */
+.icon-box svg {
+  transition: transform 220ms ease;
+}
+
+.benefit-card:hover .icon-box svg {
+  transform: scale(1.08);
+  /* grow icon */
 }
 
 
-.nav-pills .nav-link.active,
-.nav-pills .nav-link:hover {
-    color: #FFFFFF !important;
-    background-color: #22C55E !important;
+/* Styling of the terms and conditions interface */
+/* TermsAndConditions.css */
+
+/* ---- COLORS ---- */
+.text-emerald {
+  color: #047857;
+  /* emerald-600 */
 }
 
-/* Custom styles for toggle switches (form switches) to use green instead of blue */
-.form-check-input:checked {
-    background-color: #22C55E !important;
-    border-color: #22C55E !important;
+.text-blue {
+  color: #2563eb;
+  /* blue-600 */
 }
 
-.form-check-input:focus {
-    border-color: #22C55E !important;
-    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25) !important;
+.text-purple {
+  color: #7c3aed;
+  /* purple-600 */
 }
 
-.form-check-input[type="checkbox"]:checked + label,
-.form-check-input[type="checkbox"]:indeterminate + label {
-    background-color: #22C55E !important;
+.text-green {
+  color: #16a34a;
+  /* green-600 */
+}
+
+.text-pink {
+  color: #db2777;
+  /* pink-600 */
+}
+
+.text-indigo {
+  color: #4f46e5;
+  /* indigo-600 */
+}
+
+.text-gray {
+  color: #4b5563;
+  /* gray-700 */
+}
+
+.text-orange {
+  color: #f97316;
+  /* orange-600 */
+}
+
+.text-red {
+  color: #dc2626;
+  /* red-600 */
+}
+
+.text-yellow {
+  color: #ca8a04;
+  /* yellow-600 */
+}
+
+/* ---- BACKGROUNDS ---- */
+.bg-gradient-custom {
+  background: linear-gradient(to bottom, #d1fae5, #ffffff);
+  /* from emerald-50 to white */
+}
+
+.icon-bg-emerald {
+  background-color: #d1fae5;
+  /* emerald-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-blue {
+  background-color: #dbeafe;
+  /* blue-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-purple {
+  background-color: #ede9fe;
+  /* purple-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-green {
+  background-color: #d1fae5;
+  /* green-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-pink {
+  background-color: #fce7f3;
+  /* pink-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-indigo {
+  background-color: #e0e7ff;
+  /* indigo-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-gray {
+  background-color: #f3f4f6;
+  /* gray-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-orange {
+  background-color: #ffedd5;
+  /* orange-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-red {
+  background-color: #fee2e2;
+  /* red-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon-bg-yellow {
+  background-color: #fef3c7;
+  /* yellow-100 */
+  width: 3rem;
+  height: 3rem;
+}
+
+.bg-emerald-light {
+  background-color: #ecfdf5;
+  /* emerald-50 */
+}
+
+/* ---- ICONS ---- */
+.hero-icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.hero-icon-svg {
+  width: 2rem;
+  height: 2rem;
+  color: #047857;
+}
+
+.icon-emerald,
+.icon-blue,
+.icon-purple,
+.icon-green,
+.icon-pink,
+.icon-indigo,
+.icon-gray,
+.icon-orange,
+.icon-red,
+.notice-icon-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.notice-icon-bg {
+  width: 3rem;
+  height: 3rem;
+  background-color: #fef3c7;
+  /* yellow-100 */
+  border-radius: 50%;
+}
+
+.notice-icon-svg {
+  color: #f59e0b;
+  /* amber-600 / yellow-600 */
+}
+
+/* ---- TEXT ---- */
+.fw-medium {
+  font-weight: 500;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.hero-text {
+  max-width: 40rem;
+}
+
+.notice-text {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/* ---- CARD ---- */
+.border-custom {
+  border: 1px solid #e5e7eb;
+  /* gray-100 */
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+/* ---- LISTS ---- */
+ul.text-gray li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* ---- LINKS / HOVER ---- */
+.text-emerald:hover {
+  color: #065f46;
+  /* emerald-700 */
+  text-decoration: none;
+}
+
+motion.a {
+  cursor: pointer;
+}
+
+/* ---- RESPONSIVE SPACING ---- */
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- STACK ---- */
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+/* ---- HOVER MOTION TRANSLATE ---- */
+.motion-hover-translate:hover {
+  transform: translateX(0.25rem);
+  /* 4px */
+}
+
+
+
+
+
+/* styles of the blog managment interface */
+/* styles of the blog management interface */
+/* MAIN WRAPPER CARD */
+.blogtable-table-card {
+  border-radius: 12px;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+}
+
+/* HEADER */
+.blogtable-header {
+  background: white !important;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f1f1 !important;
+}
+
+.blogtable-title {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 600;
+  font-family: heading;
+  color: #111827;
+}
+
+.blogtable-subtitle {
+  margin: 0;
+  font-size: 15x;
+  font-family: body;
+  color: #6b7280 !important;
+}
+
+/* ADD BUTTON */
+.blogtable-add-button {
+  background-color: #3CB371 !important;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.blogtable-add-button:focus,
+.blogtable-add-button:focus-visible,
+.blogtable-add-button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.blogtable-add-button:hover {
+  background-color: #0B6E45 !important;
+}
+
+/* TABLE HEADER */
+.blogtable-thead {
+  background: #f9fafb !important;
+}
+
+.blogtable-thead th {
+  font-size: 13px;
+  font-family: heading;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #f9fafb !important;
+  background-color: #3CB371 !important;
+}
+
+/* IMAGE THUMB */
+.blogtable-thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* TITLE TEXT */
+.blogtable-title-text {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: body;
+  color: #111827 !important;
+  max-width: 200px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* STATUS BADGES */
+.badge.blogtable-status-published {
+  background: #9DD3AF !important;
+  color: #0B6E45 !important;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: body;
+}
+
+.badge.blogtable-status-draft {
+  background: #fef3c7 !important;
+  color: #b45309 !important;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: body;
+}
+
+/* ACTION BUTTONS */
+.blogtable-action-btn {
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.blogtable-edit-btn:hover {
+  background: #9DD3AF !important;
+  color: #0B6E45 !important;
+}
+
+.blogtable-delete-btn:hover {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+}
+
+/* EMPTY STATE */
+.blogtable-empty-state p {
+  color: #6b7280 !important;
+}
+
+
+
+
+/* Styles of the blog form using Offcanvas */
+/* .blog-modal.offcanvas {
+  border-radius: 12px;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  width: 50% !important;
+  /* half-width drawer */
+/* max-width: 600px; */
+/* optional cap */
+/* background-color: #ffffff; */
+/* } */
+
+/* Offcanvas header */
+/* .blog-modal .offcanvas-header {
+  border-bottom: 1px solid #f3f4f6;
+  /* gray-100 */
+/* } */
+
+.modal-title-custom {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  /* gray-900 */
+}
+
+/* Offcanvas body */
+/* .blog-modal .offcanvas-body {
+  padding: 1.5rem;
+} */
+
+.modal-body-custom label {
+  font-weight: 500;
+  color: #374151;
+  /* gray-700 */
+}
+
+.modal-body-custom .form-control,
+.modal-body-custom .form-select {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  /* gray-200 */
+}
+
+.modal-body-custom .form-control:focus {
+  border-color: #059669;
+  /* emerald */
+  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+}
+
+/* Footer (custom div inside Offcanvas) */
+.modal-footer-custom {
+  border-top: 1px solid #f3f4f6;
+  /* gray-100 */
+  padding: 16px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* Save button */
+.save-btn {
+  background-color: #059669 !important;
+  /* emerald-600 */
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+.save-btn:hover {
+  background-color: #047857 !important;
+  /* emerald-700 */
+}
+
+/* Input fields */
+.modal-body-custom .form-control,
+.modal-body-custom .form-select {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  /* gray-200 */
+}
+
+.modal-body-custom .form-control:focus {
+  border-color: #059669;
+  /* emerald */
+  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+}
+
+
+/* Styling the background of the organisation interface on the system admin dashboard */
+.page-background {
+  background-color: #f5f6f8;
+  /* soft grey */
+  min-height: 100%;
 }

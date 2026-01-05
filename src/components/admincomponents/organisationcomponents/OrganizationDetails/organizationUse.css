@@ -1,0 +1,139 @@
+/* OrganizationProfile styling */
+/* Root wrapper spacing */
+.organization-profile {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Icon container styling */
+.org-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background-color: #e6f4f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  color: #198754;
+}
+
+/* Navigation button styling */
+.action-link {
+  text-decoration: none;
+  padding: 0;
+  font-weight: 500;
+}
+
+
+/* OrganizationPlatformUser styling */
+/* Card spacing */
+.platform-usage-card {
+    height: 100%;
+}
+
+/* Title styling */
+.platform-usage-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 1.5rem;
+}
+
+/* Chart container height */
+.platform-usage-chart-wrapper {
+    height: 280px;
+    width: 100%;
+}
+
+
+/* ProgramEngagement styling */
+/* Card spacing and layout */
+.program-card {
+    padding: 1.5rem;
+}
+
+/* Title styling */
+.program-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #212529;
+}
+
+/* Chart container height */
+.program-chart-container {
+    width: 100%;
+    height: 280px;
+}
+
+
+/* Recent Activity Stylings */
+/* Main card spacing */
+.recent-activity-card {
+    padding: 0;
+}
+
+/* Card title styling */
+.recent-activity-title {
+    font-size: 1.125rem;
+    /* Equivalent to text-lg */
+    font-weight: 600;
+    color: #212529;
+    /* Bootstrap text-dark */
+    margin-bottom: 1.5rem;
+}
+
+/* Single activity row */
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.activity-item:hover {
+    background-color: #f8f9fa;
+    /* Bootstrap light */
+}
+
+/* Icon container */
+.activity-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Green icon background */
+.icon-bg-success {
+    background-color: #d1e7dd;
+    /* Bootstrap success-subtle */
+    color: #0f5132;
+}
+
+/* Text container */
+.activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Activity title */
+.activity-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #212529;
+}
+
+/* Timestamp text */
+.activity-timestamp {
+    font-size: 0.75rem;
+    color: #6c757d;
+    /* Bootstrap text-muted */
+    margin-top: 0.25rem;
+}

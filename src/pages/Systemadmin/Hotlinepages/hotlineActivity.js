@@ -19,6 +19,6 @@ const HotlineActivity = () => {
                             overflowY: "auto",
                             padding: "1rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsxs(Container, { fluid: true, children: [_jsx(TopMetrics, { totalCalls: 42, avgCallTime: "9:22", missedCalls: 3 }), _jsxs(Row, { children: [_jsx(Col, { md: 6, children: _jsx(HourlyCallChart, {}) }), _jsx(Col, { md: 6, children: _jsx(CallReasonsChart, {}) })] }), _jsx(CriticalCases, {}), _jsx(OperatorPerformance, {}), _jsx(CallLogTable, {})] }) })] })] }));
+                        }, children: _jsxs(Container, { fluid: true, children: [_jsx(TopMetrics, { totalCalls: 42, avgCallTime: "9:22", missedCalls: 3 }), _jsxs(Row, { children: [_jsx(Col, { md: 6, children: _jsx(HourlyCallChart, {}) }), _jsx(Col, { md: 6, children: _jsx(CallReasonsChart, {}) })] }), _jsx(CallLogTable, {}), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { xs: 12, lg: 6, children: _jsx(CriticalCases, {}) }), _jsx(Col, { xs: 12, lg: 6, children: _jsx(OperatorPerformance, {}) })] })] }) })] })] }));
 };
 export default HotlineActivity;

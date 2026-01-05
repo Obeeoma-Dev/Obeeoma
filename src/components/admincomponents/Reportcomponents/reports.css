@@ -1,0 +1,33 @@
+/* Styles of the reports */
+/* Container for the report preview card */
+.report-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #ecfdf5;
+    /* Bootstrap-friendly emerald tint */
+}
+
+/* Icon container */
+.report-icon {
+    padding: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    color: #198754;
+    /* Bootstrap success color */
+}
+
+/* Report title text */
+.report-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+/* Report metadata text */
+.report-meta {
+    font-size: 0.75rem;
+    color: #6c757d;
+}

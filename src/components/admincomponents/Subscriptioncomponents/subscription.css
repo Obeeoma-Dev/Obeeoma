@@ -1,0 +1,54 @@
+.stat-card {
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.icon-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Color variants */
+.icon-circle.primary {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.icon-circle.success {
+    background-color: #d1fae5;
+    color: #059669;
+}
+
+.icon-circle.purple {
+    background-color: #ede9fe;
+    color: #7c3aed;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.stat-change {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #059669;
+}

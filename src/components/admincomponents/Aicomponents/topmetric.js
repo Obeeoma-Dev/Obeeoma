@@ -1,10 +1,14 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Row, Col } from "react-bootstrap";
-import { BarChartFill, GraphUpArrow, ClockFill } from "react-bootstrap-icons"; // Bootstrap icons for visual polish
-// Functional component with Bootstrap layout and icons
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+// Import Bootstrap layout components
+import { Row, Col } from 'react-bootstrap';
+// Import Lucide icons used in the stat cards
+import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
+// Import the reusable StatCard component
+import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
+// TopMetrics component
+// Renders the top summary cards using the shared StatCard component
 const TopMetrics = ({ totalRecommendations, engagementRate, averageTime, }) => {
-    return (
-    // Row container for 3 equal-width cards
-    _jsxs(Row, { className: "mb-4 g-4", children: [_jsx(Col, { md: 4, children: _jsx(Card, { className: "shadow-sm border-0", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex align-items-center mb-2", children: [_jsx(BarChartFill, { className: "text-primary me-2", size: 24 }), _jsx(Card.Title, { className: "mb-0 fw-semibold", children: "Total Recommendations" })] }), _jsx(Card.Text, { className: "fs-4 fw-bold text-dark", children: totalRecommendations.toLocaleString() })] }) }) }), _jsx(Col, { md: 4, children: _jsx(Card, { className: "shadow-sm border-0", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex align-items-center mb-2", children: [_jsx(GraphUpArrow, { className: "text-success me-2", size: 24 }), _jsx(Card.Title, { className: "mb-0 fw-semibold", children: "Engagement Rate" })] }), _jsxs(Card.Text, { className: "fs-4 fw-bold text-dark", children: [engagementRate, "%"] })] }) }) }), _jsx(Col, { md: 4, children: _jsx(Card, { className: "shadow-sm border-0", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex align-items-center mb-2", children: [_jsx(ClockFill, { className: "text-warning me-2", size: 24 }), _jsx(Card.Title, { className: "mb-0 fw-semibold", children: "Avg Engagement Time" })] }), _jsx(Card.Text, { className: "fs-4 fw-bold text-dark", children: averageTime })] }) }) })] }));
+    return (_jsxs(_Fragment, { children: [_jsx(Row, { className: "mb-4", children: _jsxs(Col, { children: [_jsx("h1", { className: "fw-bold text-dark", style: { fontFamily: 'heading' }, children: "AI Management" }), _jsx("p", { className: "text-muted small", style: { fontFamily: 'body' }, children: "Monitor and optimize your AI recommendation engine." })] }) }), _jsxs(Row, { className: "g-4 mb-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Total Recommendations", value: totalRecommendations.toLocaleString(), subtitle: "Generated this month", trend: "+16.5% this month", icon: BrainCircuit, color: "emerald" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Avg. Engagement Rate", value: `${engagementRate}%`, subtitle: "User interaction with content", trend: "+5% this month", icon: Activity, color: "blue" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "AI Accuracy Score", value: "89%", subtitle: "Based on user feedback", trend: "+2% this month", icon: ThumbsUp, color: "amber" }) })] })] }));
 };
+// Export component
 export default TopMetrics;

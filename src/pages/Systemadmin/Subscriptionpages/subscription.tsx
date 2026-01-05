@@ -2,10 +2,10 @@ import React from "react";
 import MetricsPanel from "../../../components/admincomponents/Subscriptioncomponents/subMetricPannel";
 import RecentSubscriptionsTable from "../../../components/admincomponents/Subscriptioncomponents/recentSubscriptionTable";
 import ServiceUtilizationChart from "../../../components/admincomponents/Subscriptioncomponents/serviceUtilisationChart";
-import RecentActivityFeed from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
+import RecentActivityFeed, { Activity } from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
 /**
  * SubscriptionPage component displays subscription metrics,
@@ -15,7 +15,8 @@ import { Container, Row, Col, Card } from "react-bootstrap";
  * while maintaining all existing functionality and data structures.
  */
 const SubscriptionPage: React.FC = () => {
-  // Metrics matching the design
+  // Placeholder metrics — replace with backend data later
+  // Keeping existing data structure to avoid breaking changes
   const metrics = {
     totalOrganizations: 42,
     totalSubscriptions: 38,
@@ -23,14 +24,14 @@ const SubscriptionPage: React.FC = () => {
     utilizationRate: 68,
   };
 
-  // Subscription records matching the design
+  // Sample subscription records - maintaining existing structure
   const subscriptions = [
     {
       organization: "Acme Corporation",
       plan: "Enterprise",
       employees: 500,
       activeUsers: 423,
-      activeUsersPercent: 85,
+      activeUsersPercentage: 85,
       status: "Active" as const,
       expiryDate: "Dec 31, 2023",
     },
@@ -39,7 +40,7 @@ const SubscriptionPage: React.FC = () => {
       plan: "Business",
       employees: 250,
       activeUsers: 198,
-      activeUsersPercent: 79,
+      activeUsersPercentage: 79,
       status: "Active" as const,
       expiryDate: "Mar 15, 2024",
     },
@@ -48,7 +49,7 @@ const SubscriptionPage: React.FC = () => {
       plan: "Standard",
       employees: 75,
       activeUsers: 45,
-      activeUsersPercent: 60,
+      activeUsersPercentage: 60,
       status: "Active" as const,
       expiryDate: "Feb 28, 2024",
     },
@@ -57,7 +58,7 @@ const SubscriptionPage: React.FC = () => {
       plan: "Enterprise",
       employees: 1200,
       activeUsers: 875,
-      activeUsersPercent: 73,
+      activeUsersPercentage: 73,
       status: "Active" as const,
       expiryDate: "Jan 15, 2024",
     },
@@ -66,13 +67,13 @@ const SubscriptionPage: React.FC = () => {
       plan: "Starter",
       employees: 25,
       activeUsers: 10,
-      activeUsersPercent: 40,
+      activeUsersPercentage: 40,
       status: "Pending" as const,
       expiryDate: "Oct 30, 2023",
     },
   ];
 
-  // Service utilization percentages matching the design
+  // Service utilization percentages - maintaining existing structure
   const services = [
     { name: "Therapy Sessions", percentage: 65 },
     { name: "Mindfulness", percentage: 4 },
@@ -81,54 +82,48 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-  // Recent activity log matching the design
-  const activities: Array<{
-    organization: string;
-    icon: "person" | "refresh" | "alert" | "check";
-    iconColor: string;
-    description: string;
-    time: string;
-  }> = [
+  // Recent activity log - maintaining existing structure
+  const activities: Activity[] = [
     {
       organization: "Acme Corp",
-      icon: "person" as const,
-      iconColor: "#3CB371",
-      description: "New subscription activated for 150 employees",
-      time: "2 hours ago",
+      message: "New subscription activated for 150 employees",
+      icon: "person",
+      iconColor: "green",
+      timeAgo: "2 hours ago",
     },
     {
       organization: "TechGlobal Inc",
-      icon: "refresh" as const,
-      iconColor: "#007bff",
-      description: "Subscription renewed for another year",
-      time: "5 hours ago",
+      message: "Subscription renewed for another year",
+      icon: "refresh",
+      iconColor: "blue",
+      timeAgo: "5 hours ago",
     },
     {
       organization: "Innovate Solutions",
-      icon: "alert" as const,
-      iconColor: "#dc3545",
-      description: "Reported login issues for 5 employees",
-      time: "1 day ago",
+      message: "Reported login issues for 5 employees",
+      icon: "warning",
+      iconColor: "red",
+      timeAgo: "1 day ago",
     },
     {
       organization: "HealthFirst",
-      icon: "check" as const,
-      iconColor: "#6f42c1",
-      description: "Achieved 80% employee engagement",
-      time: "2 days ago",
+      message: "Achieved 80% employee engagement",
+      icon: "check",
+      iconColor: "purple",
+      timeAgo: "2 days ago",
     },
     {
       organization: "Green Energy Co",
-      icon: "person" as const,
-      iconColor: "#3CB371",
-      description: "Trial subscription started for 50 employees",
-      time: "3 days ago",
+      message: "Trial subscription started for 50 employees",
+      icon: "person",
+      iconColor: "green",
+      timeAgo: "3 days ago",
     },
   ];
 
   return (
-    // Main layout container with full viewport height
-    <div className="d-flex vh-100">
+    // Main layout container with full viewport height and light background
+    <div className="d-flex vh-100 bg-light">
       {/* Fixed sidebar navigation - remains unchanged */}
       <div className="flex-shrink-0">
         <AdminSidebar />
@@ -146,40 +141,35 @@ const SubscriptionPage: React.FC = () => {
           style={{
             flex: 1,
             overflowY: "auto",
-            padding: "2rem",
-            backgroundColor: "#ffffff",
+            padding: "1.5rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
           {/* Bootstrap container for responsive layout */}
           <Container fluid>
-            {/* Page header section - removed as header is in AdminHeader */}
+
+            <div className="mb-5">
+              <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Subscriptions</h5>
+              <p className="text-muted mb-0 small mt-1" style={{ fontFamily: 'body' }}>
+                Manage and monitor all subscription plans.
+              </p>
+            </div>
 
             {/* Metrics panel - passing existing metrics data unchanged */}
             <MetricsPanel {...metrics} />
 
-            {/* Recent Subscriptions - Full width */}
+            {/* Recent Subscriptions card */}
             <Card className="shadow-sm border-0 mb-4">
               <Card.Header className="bg-white border-bottom d-flex justify-content-between align-items-center">
                 <div>
-                  <h5 className="mb-0 fw-bold">Recent Subscriptions</h5>
-                  <p className="text-muted mb-0 small mt-1">
-                    Overview of organization subscriptions to mental health
-                    services
+                  <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Recent Subscriptions</h5>
+                  <p className="text-muted mb-0 small mt-1" style={{ fontFamily: 'body' }}>
+                    Overview of organization subscriptions to mental health services
                   </p>
                 </div>
-                <button
-                  className="btn"
-                  style={{
-                    backgroundColor: "#3CB371",
-                    color: "#ffffff",
-                    border: "none",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "6px",
-                    fontWeight: "500",
-                  }}
-                >
+                <Button variant="success" className="ms-auto" style={{ fontFamily: 'body' }}>
                   Add Subscription
-                </button>
+                </Button>
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with existing subscriptions data */}
@@ -187,13 +177,13 @@ const SubscriptionPage: React.FC = () => {
               </Card.Body>
             </Card>
 
-            {/* Service Utilization and Recent Activity - Same row with equal widths */}
+            {/* Bottom row with Service Utilization and Recent Activity */}
             <Row className="g-4">
               {/* Left column - Service Utilization */}
               <Col lg={6}>
-                <Card className="shadow-sm border-0 h-100">
+                <Card className="shadow-sm border-0">
                   <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold">Service Utilization</h5>
+                    <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Service Utilization</h5>
                   </Card.Header>
                   <Card.Body>
                     {/* Chart component with existing services data */}
@@ -206,7 +196,7 @@ const SubscriptionPage: React.FC = () => {
               <Col lg={6}>
                 <Card className="shadow-sm border-0 h-100">
                   <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold">Recent Activity</h5>
+                    <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Recent Activity</h5>
                   </Card.Header>
                   <Card.Body className="p-0">
                     {/* Activity feed component with existing activities data */}

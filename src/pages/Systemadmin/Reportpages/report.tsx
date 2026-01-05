@@ -5,7 +5,7 @@ import MentalHealthChart from "../../../components/admincomponents/Reportcompone
 import PlatformUsageChart from "../../../components/admincomponents/Reportcomponents/platformUsageChart";
 import TreatmentOutcomesChart from "../../../components/admincomponents/Reportcomponents/treatmentOutcomesChart";
 import OrganizationPerformanceChart from "../../../components/admincomponents/Reportcomponents/organizationPerformanceChart";
-import AvailableReports from "../../../components/admincomponents/Reportcomponents/availableReport";
+import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
 import { Container } from "react-bootstrap";
 
@@ -25,14 +25,14 @@ const ReportPage: React.FC = () => {
 
   return (
     <div className="d-flex vh-100">
-      {/* 🔒 Fixed sidebar on the left */}
+      {/* Fixed sidebar on the left */}
       <div className="flex-shrink-0">
         <AdminSidebar />
       </div>
 
-      {/* 📦 Main content area (right side) */}
+      {/* Main content area (right side) */}
       <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* 🔒 Fixed header at the top */}
+        {/* Fixed header at the top */}
         <div className="flex-shrink-0">
           <AdminHeader />
         </div>

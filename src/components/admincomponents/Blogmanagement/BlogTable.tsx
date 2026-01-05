@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Badge, Image, Card } from "react-bootstrap";
+import { Table, Button, Badge, Image, Container, Row, Col, Card } from "react-bootstrap";
 import { PencilIcon, TrashIcon, PlusIcon } from "lucide-react";
 
 // Type definition for a blog post
@@ -10,10 +10,30 @@ export type BlogPost = {
   date: string;
   status: "published" | "draft";
   excerpt: string;
-  imageUrl: string;
+  imageUrl: string | File;
   author: string;
   content: string;
   featured: boolean;
+};
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+
+const resolveImageSrc = (imageUrl: string | File): string => {
+  if (typeof imageUrl === "string") {
+    if (imageUrl.startsWith("/")) {
+      return `${BASE_URL}${imageUrl}`;
+    }
+    return imageUrl;
+  }
+
+  // TypeScript-safe check
+  if (imageUrl && typeof imageUrl === "object" && "name" in imageUrl && "type" in imageUrl) {
+    return URL.createObjectURL(imageUrl);
+  }
+
+
+
+  return "";
 };
 
 // Component props
@@ -36,10 +56,7 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
         </div>
 
         {/* Add Article Button */}
-        <Button
-          className="blogtable-add-button d-flex align-items-center gap-2"
-          onClick={onAdd}
-        >
+        <Button className="blogtable-add-button d-flex align-items-center gap-2" style={{ fontFamily: 'body' }} onClick={onAdd}>
           <PlusIcon size={16} />
           Add Article
         </Button>
@@ -65,7 +82,7 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 <td>
                   <div className="d-flex align-items-center gap-3">
                     <Image
-                      src={blog.imageUrl}
+                      src={resolveImageSrc(blog.imageUrl) || "/default-thumbnail.png"}
                       rounded
                       className="blogtable-thumb"
                     />

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Table, Button, Tabs, Tab, Form, Row, Col, InputGroup, } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaEye, FaCheckCircle, FaClock, FaTimesCircle, FaSearch, } from "react-icons/fa";
+import "./organisation.css";
 // Render status icon based on status
 const renderStatusIcon = (status) => {
     switch (status) {
@@ -45,12 +46,8 @@ const OrganizationDashboard = ({ organizations, }) => {
                                             height: "32px",
                                             objectFit: "cover",
                                             borderRadius: "4px",
-                                        } })), _jsxs("div", { children: [_jsx("div", { className: "fw-semibold", children: org.name }), _jsxs("div", { className: "text-muted small", children: ["ID: ", org.id] })] })] }) }), _jsx("td", { children: org.clients.toLocaleString() }), _jsx("td", { children: _jsx("span", { className: `badge ${org.plan === "Premium"
-                                    ? "bg-success"
-                                    : org.plan === "Enterprise"
-                                        ? "bg-primary"
-                                        : "bg-secondary"}`, children: org.plan }) }), _jsxs("td", { children: [renderStatusIcon(org.status), org.status] }), _jsx("td", { children: _jsx("span", { className: "text-muted", children: org.lastActive }) }), _jsx("td", { children: _jsx(Link, { to: `/systemadmin/organizations/${org.id}`, children: _jsxs(Button, { variant: "outline-success", size: "sm", children: [_jsx(FaEye, { className: "me-1" }), "View Details"] }) }) })] }, org.id)))) })] }));
-    return (_jsxs("div", { className: "mt-4", children: [_jsxs(Row, { className: "mb-3 align-items-center", children: [_jsx(Col, { children: _jsx("h5", { className: "fw-semibold text-success", children: "Organization Dashboard" }) }), _jsx(Col, { className: "text-end", children: _jsx(Button, { variant: "success", children: "+ Add Organization" }) })] }), _jsx(Row, { className: "mb-3", children: _jsx(Col, { md: 6, children: _jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { children: _jsx(FaSearch, {}) }), _jsx(Form.Control, { type: "text", placeholder: "Search by name, ID, or plan...", "aria-label": "Search organizations", value: searchTerm, onChange: (e) => setSearchTerm(e.target.value) })] }) }) }), _jsx("style", { children: `
+                                        } })), _jsxs("div", { children: [_jsx("div", { className: "fw-semibold", children: org.name }), _jsxs("div", { className: "text-muted small", children: ["ID: ", org.id] })] })] }) }), _jsx("td", { children: org.clients.toLocaleString() }), _jsx("td", { children: _jsx("span", { className: `badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"}`, children: org.plan }) }), _jsxs("td", { children: [renderStatusIcon(org.status), org.status] }), _jsx("td", { children: _jsx("span", { className: "text-muted", children: org.lastActive }) }), _jsx("td", { children: _jsx(Link, { to: `/systemadmin/organizations/${org.id}`, children: _jsxs(Button, { variant: "outline-success", size: "sm", children: [_jsx(FaEye, { className: "me-1" }), "View Details"] }) }) })] }, org.id)))) })] }));
+    return (_jsxs("div", { className: "mt-4", children: [_jsxs(Row, { className: "mb-3 align-items-center", children: [_jsx(Col, { children: _jsx("h5", { className: "fw-semibold text-success", style: { fontFamily: 'heading' }, children: "Organization Dashboard" }) }), _jsx(Col, { className: "text-end", children: _jsx(Button, { className: "btn-organization", children: "+ Add Organization" }) })] }), _jsx(Row, { className: "mb-3", children: _jsx(Col, { md: 6, children: _jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { children: _jsx(FaSearch, {}) }), _jsx(Form.Control, { type: "text", placeholder: "Search by name, ID, or plan...", "aria-label": "Search organizations", value: searchTerm, onChange: (e) => setSearchTerm(e.target.value) })] }) }) }), _jsx("style", { children: `
     .nav-pills .nav-link.active {
       background-color: #3CB371 !important;
       color: white !important;
@@ -62,7 +59,7 @@ const OrganizationDashboard = ({ organizations, }) => {
     }
 
     .nav-pills .nav-link:hover {
-      background-color: #2E8B57 !important;
+      background-color: #0B6E45 !important;
       color: white !important;
     }
   ` }), _jsx(Tabs, { defaultActiveKey: "All", className: "mb-3", justify: true, variant: "pills", "aria-label": "Organization filters", children: ["All", "Active", "Inactive", "Premium", "Freemium"].map((tab) => (_jsx(Tab, { eventKey: tab, title: tab, children: renderTable(filterBySearch(filterByTab(tab))) }, tab))) })] }));

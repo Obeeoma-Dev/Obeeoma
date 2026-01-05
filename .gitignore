@@ -36,3 +36,7 @@ src/**/*.js
 src/**/*.jsx
 node_modules/
 register.txt
+
+# Untracking the coverage files.
+coverage/
+

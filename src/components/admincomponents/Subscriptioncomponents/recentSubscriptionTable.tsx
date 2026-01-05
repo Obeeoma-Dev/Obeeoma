@@ -1,7 +1,8 @@
 // src/components/admincomponents/subscriptioncomponents/RecentSubscriptionsTable.tsx
 
-import React from "react";
-import { Table } from "react-bootstrap";
+import React from 'react';
+import { Table } from 'react-bootstrap';
+import { CheckCircle2, Clock } from 'lucide-react';
 
 // Define the shape of each subscription entry
 interface Subscription {
@@ -9,8 +10,8 @@ interface Subscription {
   plan: string;
   employees: number;
   activeUsers: number;
-  activeUsersPercent: number;
-  status: "Active" | "Pending";
+  activeUsersPercentage: number;
+  status: 'Active' | 'Pending';
   expiryDate: string;
 }
 

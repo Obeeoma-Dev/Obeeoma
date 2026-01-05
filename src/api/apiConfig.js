@@ -443,7 +443,7 @@ export const employerAPI = {
         return api.delete("/v1/employer/data/delete-all/");
     },
 };
-export default api;
+// export default api;
 // import axios from "axios";
 // import { RootState } from '../store/store';
 // import {
@@ -758,4 +758,19 @@ export default api;
 //     return api.get<InvoiceItem[]>("v1/dashboard/subscriptions/billing-history/");
 //   },
 // };
-// export default api;
+// Blog submission API
+export const submitArticle = async (formData) => {
+    try {
+        const response = await api.post('/v1/articles/', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error submitting article:', error);
+        throw error;
+    }
+};
+export default api;
