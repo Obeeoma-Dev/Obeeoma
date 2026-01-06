@@ -1,3 +1,5 @@
+// src/components/admincomponents/reportcomponents/PlatformUsageChart.tsx
+
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -9,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { TooltipItem } from "chart.js";
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -37,7 +38,6 @@ const PlatformUsageChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: function (context: any) {
             return `${context.parsed.y.toLocaleString()} users`;
           },
@@ -48,7 +48,6 @@ const PlatformUsageChart: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           callback: function (value: any) {
             return value.toLocaleString();
           },
@@ -98,3 +97,4 @@ const PlatformUsageChart: React.FC = () => {
 };
 
 export default PlatformUsageChart;
+
