@@ -1,8 +1,8 @@
 // src/components/admincomponents/subscriptioncomponents/RecentSubscriptionsTable.tsx
 
-import React from 'react';
-import { Table } from 'react-bootstrap';
-import { CheckCircle2, Clock } from 'lucide-react';
+import React from "react";
+import { Table } from "react-bootstrap";
+import { CheckCircle2, Clock } from "lucide-react";
 
 // Define the shape of each subscription entry
 interface Subscription {
@@ -11,7 +11,7 @@ interface Subscription {
   employees: number;
   activeUsers: number;
   activeUsersPercentage: number;
-  status: 'Active' | 'Pending';
+  status: "Active" | "Pending";
   expiryDate: string;
 }
 
@@ -74,7 +74,8 @@ const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions }) => {
                 {sub.employees.toLocaleString()}
               </td>
               <td style={{ padding: "1rem", color: "#1a1a1a" }}>
-                {sub.activeUsers.toLocaleString()} ({sub.activeUsersPercent}%)
+                {sub.activeUsers.toLocaleString()} ({sub.activeUsersPercentage}
+                %)
               </td>
               <td style={{ padding: "1rem" }}>
                 <div

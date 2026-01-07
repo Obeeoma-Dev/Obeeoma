@@ -219,7 +219,11 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 <div className="col-12 col-md-6">
                   <div className="bg-light rounded p-3 h-100">
                     <div className="d-flex align-items-center mb-2">
-                      <Building size={16} className="text-success me-2" />
+                      <Building
+                        size={16}
+                        className="me-2"
+                        style={{ color: "#22C55E" }}
+                      />
                       <span className="small text-muted">
                         Organization Name
                       </span>
@@ -290,10 +294,15 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 <div className="col-12 col-md-6">
                   <div className="bg-light rounded p-3 h-100">
                     <div className="d-flex align-items-center mb-2 justify-content-between">
-                      <Lock size={16} className="text-success me-2" />
+                      <Lock
+                        size={16}
+                        className="me-2"
+                        style={{ color: "#22C55E" }}
+                      />
                       <Link
                         to="/change-password"
-                        className="text-success text-decoration-none small"
+                        className="text-decoration-none small"
+                        style={{ color: "#22C55E" }}
                       >
                         Change Password
                       </Link>
@@ -311,7 +320,11 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 <div className="col-12 col-md-6 col-lg-4">
                   <div className="bg-light rounded p-3 h-100">
                     <div className="d-flex align-items-center mb-2">
-                      <Globe size={16} className="text-success me-2" />
+                      <Globe
+                        size={16}
+                        className="me-2"
+                        style={{ color: "#22C55E" }}
+                      />
                       <span className="small text-muted">Time Zone</span>
                     </div>
                     <p className="fw-medium mb-0">
@@ -323,7 +336,11 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 <div className="col-12 col-md-6 col-lg-4">
                   <div className="bg-light rounded p-3 h-100">
                     <div className="d-flex align-items-center mb-2">
-                      <FileText size={16} className="text-success me-2" />
+                      <FileText
+                        size={16}
+                        className="me-2"
+                        style={{ color: "#22C55E" }}
+                      />
                       <span className="small text-muted">Language</span>
                     </div>
                     <p className="fw-medium mb-0">
@@ -335,7 +352,11 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 <div className="col-12 col-md-6 col-lg-4">
                   <div className="bg-light rounded p-3 h-100">
                     <div className="d-flex align-items-center mb-2">
-                      <Calendar size={16} className="text-success me-2" />
+                      <Calendar
+                        size={16}
+                        className="me-2"
+                        style={{ color: "#22C55E" }}
+                      />
                       <span className="small text-muted">Date Format</span>
                     </div>
                     <p className="fw-medium mb-0">

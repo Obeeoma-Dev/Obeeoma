@@ -1,5 +1,14 @@
 import React from "react";
-import { Table, Button, Badge, Image, Container, Row, Col, Card } from "react-bootstrap";
+import {
+  Table,
+  Button,
+  Badge,
+  Image,
+  Container,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
 import { PencilIcon, TrashIcon, PlusIcon } from "lucide-react";
 
 // Type definition for a blog post
@@ -27,11 +36,14 @@ const resolveImageSrc = (imageUrl: string | File): string => {
   }
 
   // TypeScript-safe check
-  if (imageUrl && typeof imageUrl === "object" && "name" in imageUrl && "type" in imageUrl) {
+  if (
+    imageUrl &&
+    typeof imageUrl === "object" &&
+    "name" in imageUrl &&
+    "type" in imageUrl
+  ) {
     return URL.createObjectURL(imageUrl);
   }
-
-
 
   return "";
 };
@@ -56,7 +68,11 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
         </div>
 
         {/* Add Article Button */}
-        <Button className="blogtable-add-button d-flex align-items-center gap-2" style={{ fontFamily: 'body' }} onClick={onAdd}>
+        <Button
+          className="blogtable-add-button d-flex align-items-center gap-2"
+          style={{ fontFamily: "body" }}
+          onClick={onAdd}
+        >
           <PlusIcon size={16} />
           Add Article
         </Button>
@@ -82,7 +98,10 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 <td>
                   <div className="d-flex align-items-center gap-3">
                     <Image
-                      src={resolveImageSrc(blog.imageUrl) || "/default-thumbnail.png"}
+                      src={
+                        resolveImageSrc(blog.imageUrl) ||
+                        "/default-thumbnail.png"
+                      }
                       rounded
                       className="blogtable-thumb"
                     />

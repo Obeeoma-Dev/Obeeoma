@@ -187,9 +187,9 @@ const Dashboard: React.FC = () => {
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '2rem 1.5rem',
-            backgroundColor: '#f5f7fa',
+            overflowY: "auto",
+            padding: "2rem 1.5rem",
+            backgroundColor: "#f5f7fa",
           }}
         >
           {/* Scrollable content below header */}
@@ -197,8 +197,19 @@ const Dashboard: React.FC = () => {
             <Container fluid className="py-2">
               {/* Dashboard Title Section */}
               <div className="mb-5">
-                <h2 className="fw-bold mb-1" style={{ fontSize: '1.75rem', fontFamily: 'heading', color: '#1a1a1a' }}>Dashboard</h2>
-                <p className="text-muted mb-0" style={{ fontFamily: 'body' }}>Welcome back! Here's your platform overview.</p>
+                <h2
+                  className="fw-bold mb-1"
+                  style={{
+                    fontSize: "1.75rem",
+                    fontFamily: "heading",
+                    color: "#1a1a1a",
+                  }}
+                >
+                  Dashboard
+                </h2>
+                <p className="text-muted mb-0" style={{ fontFamily: "body" }}>
+                  Welcome back! Here's your platform overview.
+                </p>
               </div>
 
               {/* Top dashboard stats cards */}
@@ -252,7 +263,6 @@ const Dashboard: React.FC = () => {
                   </Card>
                 </Col> */}
               </Row>
-
 
               {/* Platform usage chart */}
               <Row className="gy-4 mb-5">

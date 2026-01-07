@@ -226,7 +226,7 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
                 Update{" "}
               </Dropdown.Item>
               <Dropdown.Item
-                className="text-danger"
+                className="text-secondary"
                 onClick={() => handleDelete(row.original.id)}
               >
                 Delete

@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import SubscriptionCard from "./subscriptionCards";
 // This component renders a grid of subscription cards
-const SubscriptionSettingsComp = ({ plans }) => {
+const SubscriptionSettingsComp = ({ plans, }) => {
     return (_jsx("div", { style: {
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",

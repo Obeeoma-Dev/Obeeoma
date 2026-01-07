@@ -198,9 +198,13 @@ function BenefitCarousel() {
                   />
 
                   {/* Content layer */}
-                  <div style={{
-                    position: "relative", zIndex: 1, marginTop: "14px"
-                  }}>
+                  <div
+                    style={{
+                      position: "relative",
+                      zIndex: 1,
+                      marginTop: "14px",
+                    }}
+                  >
                     <div
                       className="d-inline-flex align-items-center justify-content-center mb-4 mx-auto"
                       style={{
@@ -211,7 +215,8 @@ function BenefitCarousel() {
                       }}
                       aria-hidden="true"
                     >
-                      <Icon size={24}
+                      <Icon
+                        size={24}
                         style={{
                           transform: isHovered ? "scale(1.2)" : "scale(1)", // scale only
                           transition: "transform 0.3s ease", // smooth animation

@@ -138,12 +138,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
               {/* Plan */}
               <td>
                 <span
-                  className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                    }`}
+                  className={`badge ${
+                    org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                  }`}
                 >
                   {org.plan}
                 </span>
-
               </td>
 
               {/* Status with icon */}
@@ -180,12 +180,15 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
 
       <Row className="mb-3 align-items-center">
         <Col>
-          <h5 className="fw-semibold text-success" style={{ fontFamily: 'heading' }}>Organization Dashboard</h5>
+          <h5
+            className="fw-semibold text-success"
+            style={{ fontFamily: "heading" }}
+          >
+            Organization Dashboard
+          </h5>
         </Col>
         <Col className="text-end">
-          <Button className="btn-organization">
-            + Add Organization
-          </Button>
+          <Button className="btn-organization">+ Add Organization</Button>
         </Col>
       </Row>
 

@@ -39,4 +39,6 @@ register.txt
 
 # Untracking the coverage files.
 coverage/
+*.lcov
+.nyc_output/
 

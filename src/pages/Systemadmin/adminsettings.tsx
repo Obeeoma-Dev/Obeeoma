@@ -20,7 +20,14 @@ const AdminSettings: React.FC = () => {
         <AdminHeader />
 
         {/* Scrollable content area */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "1.5rem", backgroundColor: "#f8f9fa" }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            padding: "1.5rem",
+            backgroundColor: "#f8f9fa",
+          }}
+        >
           <Container fluid>
             {/* Center content and constrain width to match industry-standard layout */}
             <div style={{ maxWidth: 1100, margin: "0 auto" }}>

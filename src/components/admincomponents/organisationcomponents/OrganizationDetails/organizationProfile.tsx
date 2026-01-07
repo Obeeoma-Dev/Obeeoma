@@ -1,165 +1,176 @@
 // Import React (required for JSX and functional components)
-import React from 'react'
+import React from "react";
 
 // Import React-Bootstrap components
-import { Card, Badge, Button, ListGroup } from 'react-bootstrap'
+import { Card, Badge, Button, ListGroup } from "react-bootstrap";
 
 // Import icon from lucide-react (allowed, not Tailwind related)
-import { Building2 } from 'lucide-react'
+import { Building2 } from "lucide-react";
 
 // Import component-specific CSS (plain CSS, not Tailwind)
-import './organizationUse.css'
+import "./organizationUse.css";
 
 // Define the props interface for strong typing and lint safety
 interface OrganizationProfileProps {
-    name: string
-    id: string
-    subscriptionPlan: string
-    status: 'Active' | 'Inactive'
-    region: string
-    lastActive: string
+  name: string;
+  id: string;
+  subscriptionPlan: string;
+  status: "Active" | "Inactive";
+  region: string;
+  lastActive: string;
 }
 
 // Export the component as a named export
 export function OrganizationProfile({
-    name,
-    id,
-    subscriptionPlan,
-    status,
-    region,
-    lastActive
+  name,
+  id,
+  subscriptionPlan,
+  status,
+  region,
+  lastActive,
 }: OrganizationProfileProps) {
-    return (
-        // Wrapper div to stack cards vertically
-        <div className="organization-profile">
+  return (
+    // Wrapper div to stack cards vertically
+    <div className="organization-profile">
+      {/* Main organization information card */}
+      <Card className="mb-3">
+        <Card.Body>
+          {/* Centered organization icon and title */}
+          <div className="text-center mb-4">
+            {/* Icon container */}
+            <div className="org-icon mb-3">
+              <Building2 size={40} />
+            </div>
 
-            {/* Main organization information card */}
-            <Card className="mb-3">
-                <Card.Body>
+            {/* Organization name */}
+            <Card.Title className="mb-1" style={{ fontFamily: "heading" }}>
+              {name}
+            </Card.Title>
 
-                    {/* Centered organization icon and title */}
-                    <div className="text-center mb-4">
+            {/* Organization ID */}
+            <Card.Text className="text-muted" style={{ fontFamily: "body" }}>
+              ID: {id}
+            </Card.Text>
+          </div>
 
-                        {/* Icon container */}
-                        <div className="org-icon mb-3">
-                            <Building2 size={40} />
-                        </div>
+          {/* Divider line */}
+          <hr />
 
-                        {/* Organization name */}
-                        <Card.Title className="mb-1" style={{ fontFamily: 'heading' }}>
-                            {name}
-                        </Card.Title>
+          {/* Subscription plan section */}
+          <div className="mb-3" style={{ fontFamily: "body" }}>
+            <small className="text-muted d-block mb-1">Subscription Plan</small>
 
-                        {/* Organization ID */}
-                        <Card.Text className="text-muted" style={{ fontFamily: 'body' }}>
-                            ID: {id}
-                        </Card.Text>
-                    </div>
+            {/* Info badge */}
+            <Badge bg="info">{subscriptionPlan}</Badge>
+          </div>
 
-                    {/* Divider line */}
-                    <hr />
+          {/* Status section */}
+          <div className="mb-3" style={{ fontFamily: "body" }}>
+            <small className="text-muted d-block mb-1">Status</small>
 
-                    {/* Subscription plan section */}
-                    <div className="mb-3" style={{ fontFamily: 'body' }}>
-                        <small className="text-muted d-block mb-1">
-                            Subscription Plan
-                        </small>
+            {/* Conditional badge color */}
+            <Badge bg={status === "Active" ? "success" : "secondary"}>
+              {status}
+            </Badge>
+          </div>
 
-                        {/* Info badge */}
-                        <Badge bg="info">
-                            {subscriptionPlan}
-                        </Badge>
-                    </div>
+          {/* Region section */}
+          <div className="mb-3" style={{ fontFamily: "body" }}>
+            <small className="text-muted d-block mb-1">Region</small>
 
-                    {/* Status section */}
-                    <div className="mb-3" style={{ fontFamily: 'body' }}>
-                        <small className="text-muted d-block mb-1">
-                            Status
-                        </small>
+            {/* Region value */}
+            <strong>{region}</strong>
+          </div>
 
-                        {/* Conditional badge color */}
-                        <Badge bg={status === 'Active' ? 'success' : 'secondary'}>
-                            {status}
-                        </Badge>
-                    </div>
+          {/* Last active section */}
+          <div>
+            <small className="text-muted d-block mb-1">Last Active</small>
 
-                    {/* Region section */}
-                    <div className="mb-3" style={{ fontFamily: 'body' }}>
-                        <small className="text-muted d-block mb-1">
-                            Region
-                        </small>
+            {/* Last active value */}
+            <strong>{lastActive}</strong>
+          </div>
+        </Card.Body>
+      </Card>
 
-                        {/* Region value */}
-                        <strong>
-                            {region}
-                        </strong>
-                    </div>
+      {/* Navigation / actions card */}
+      <Card>
+        <ListGroup variant="flush">
+          {/* Organization settings */}
+          <ListGroup.Item>
+            <Button
+              variant="link"
+              className="action-link"
+              style={{
+                fontFamily: "body",
+                color: "black",
+                textDecoration: "none",
+              }}
+            >
+              Organization Settings
+            </Button>
+          </ListGroup.Item>
 
-                    {/* Last active section */}
-                    <div>
-                        <small className="text-muted d-block mb-1">
-                            Last Active
-                        </small>
+          {/* User management */}
+          <ListGroup.Item>
+            <Button
+              variant="link"
+              className="action-link"
+              style={{
+                fontFamily: "body",
+                color: "black",
+                textDecoration: "none",
+              }}
+            >
+              User Management
+            </Button>
+          </ListGroup.Item>
 
-                        {/* Last active value */}
-                        <strong>
-                            {lastActive}
-                        </strong>
-                    </div>
-                </Card.Body>
-            </Card>
+          {/* Program settings */}
+          <ListGroup.Item>
+            <Button
+              variant="link"
+              className="action-link"
+              style={{
+                fontFamily: "body",
+                color: "black",
+                textDecoration: "none",
+              }}
+            >
+              Program Settings
+            </Button>
+          </ListGroup.Item>
 
-            {/* Navigation / actions card */}
-            <Card>
-                <ListGroup variant="flush">
+          {/* Billing history */}
+          <ListGroup.Item>
+            <Button
+              variant="link"
+              className="action-link"
+              style={{
+                fontFamily: "body",
+                color: "black",
+                textDecoration: "none",
+              }}
+            >
+              Billing History
+            </Button>
+          </ListGroup.Item>
 
-                    {/* Organization settings */}
-                    <ListGroup.Item>
-                        <Button variant="link" className="action-link" style={{
-                            fontFamily: 'body', color: 'black', textDecoration: 'none'
-                        }}>
-                            Organization Settings
-                        </Button>
-                    </ListGroup.Item>
-
-                    {/* User management */}
-                    <ListGroup.Item>
-                        <Button variant="link" className="action-link" style={{
-                            fontFamily: 'body', color: 'black', textDecoration: 'none'
-                        }}>
-                            User Management
-                        </Button>
-                    </ListGroup.Item>
-
-                    {/* Program settings */}
-                    <ListGroup.Item>
-                        <Button variant="link" className="action-link" style={{
-                            fontFamily: 'body', color: 'black', textDecoration: 'none'
-                        }}>
-                            Program Settings
-                        </Button>
-                    </ListGroup.Item>
-
-                    {/* Billing history */}
-                    <ListGroup.Item>
-                        <Button variant="link" className="action-link" style={{
-                            fontFamily: 'body', color: 'black', textDecoration: 'none'
-                        }}>
-                            Billing History
-                        </Button>
-                    </ListGroup.Item>
-
-                    {/* Deactivate action */}
-                    <ListGroup.Item>
-                        <Button variant="link" className="action-link text-danger" style={{
-                            fontFamily: 'body', color: '#dc3545', textDecoration: 'none'
-                        }}>
-                            Deactivate Organization
-                        </Button>
-                    </ListGroup.Item>
-
-                </ListGroup>
-            </Card>
-        </div>
-    )
+          {/* Deactivate action */}
+          <ListGroup.Item>
+            <Button
+              variant="link"
+              className="action-link text-danger"
+              style={{
+                fontFamily: "body",
+                color: "#dc3545",
+                textDecoration: "none",
+              }}
+            >
+              Deactivate Organization
+            </Button>
+          </ListGroup.Item>
+        </ListGroup>
+      </Card>
+    </div>
+  );
 }

@@ -55,7 +55,11 @@ const AdminSidebar = () => {
         { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
         { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
         { id: "reports", label: "Reports", icon: "BarChart3" },
-        { id: "content-management", label: "Content Management", icon: "FolderOutput" },
+        {
+            id: "content-management",
+            label: "Content Management",
+            icon: "FolderOutput",
+        },
     ];
     // Extract current path segment to determine active menu item
     // const currentPath = location.pathname.split("/")[2];
@@ -83,14 +87,23 @@ const AdminSidebar = () => {
             borderRight: "1px solid #e9ecef",
             display: "flex",
             flexDirection: "column",
-            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
         }, children: [_jsx("div", { style: {
                     padding: "1.5rem",
                     borderBottom: "1px solid #e9ecef",
                     display: "flex",
                     justifyContent: "center",
-                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "45px", objectFit: 'contain' } }) }), _jsx("div", { style: { padding: "1rem 0.5rem", fontFamily: 'body', flexGrow: 1, overflowY: 'auto' }, children: menuItems.map((item) => {
+                }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: { width: "160px", height: "45px", objectFit: "contain" } }) }), _jsx("div", { style: {
+                    padding: "1rem 0.5rem",
+                    fontFamily: "body",
+                    flexGrow: 1,
+                    overflowY: "auto",
+                }, children: menuItems.map((item) => {
                     return (_jsx(SideNavButton, { id: item.id, label: item.label, icon: item.icon, onClick: () => handleMenuClick(item.id) }, item.id));
-                }) }), _jsxs("div", { style: { padding: "0.5rem", fontFamily: 'body', borderTop: "1px solid #e9ecef" }, children: [_jsx(SideNavButton, { id: "settings-overview", label: "Settings", icon: "Settings", onClick: handleSettingsClick }), _jsx(SideNavButton, { id: "login", label: "Log Out", icon: "LogOut", onClick: handleLogoutClick, detectActive: false })] })] }));
+                }) }), _jsxs("div", { style: {
+                    padding: "0.5rem",
+                    fontFamily: "body",
+                    borderTop: "1px solid #e9ecef",
+                }, children: [_jsx(SideNavButton, { id: "settings-overview", label: "Settings", icon: "Settings", onClick: handleSettingsClick }), _jsx(SideNavButton, { id: "login", label: "Log Out", icon: "LogOut", onClick: handleLogoutClick, detectActive: false })] })] }));
 };
 export default AdminSidebar;

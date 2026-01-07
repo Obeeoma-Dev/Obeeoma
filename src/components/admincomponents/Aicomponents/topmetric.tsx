@@ -1,20 +1,20 @@
 // Import React for JSX support
-import React from 'react';
+import React from "react";
 
 // Import Bootstrap layout components
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from "react-bootstrap";
 
 // Import Lucide icons used in the stat cards
-import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
+import { BrainCircuit, Activity, ThumbsUp } from "lucide-react";
 
 // Import the reusable StatCard component
-import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
 
 // Props interface for TopMetrics
 interface TopMetricsProps {
-  totalRecommendations: number
-  engagementRate: number
-  averageTime: string
+  totalRecommendations: number;
+  engagementRate: number;
+  averageTime: string;
 }
 
 // TopMetrics component
@@ -29,17 +29,16 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
       {/* Page Title Section */}
       <Row className="mb-4">
         <Col>
-          <h1 className="fw-bold text-dark" style={{ fontFamily: 'heading' }}>
+          <h1 className="fw-bold text-dark" style={{ fontFamily: "heading" }}>
             AI Management
           </h1>
-          <p className="text-muted small" style={{ fontFamily: 'body' }}>
+          <p className="text-muted small" style={{ fontFamily: "body" }}>
             Monitor and optimize your AI recommendation engine.
           </p>
         </Col>
       </Row>
 
       {/* Stat Cards Section */}
-
 
       <Row className="g-4 mb-4">
         {/* Total Recommendations */}
@@ -79,8 +78,8 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};
 
 // Export component
-export default TopMetrics
+export default TopMetrics;

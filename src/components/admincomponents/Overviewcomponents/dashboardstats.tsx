@@ -34,7 +34,10 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
 
         return (
           <Col key={stat.id} xs={12} sm={6} md={3} className="mb-0">
-            <Card className="shadow-sm border-0 h-100" style={{ transition: 'all 0.3s ease', backgroundColor: '#fff' }}>
+            <Card
+              className="shadow-sm border-0 h-100"
+              style={{ transition: "all 0.3s ease", backgroundColor: "#fff" }}
+            >
               <Card.Body className="d-flex flex-column justify-content-between p-4">
                 {/* Top section: icon and change badge */}
                 <div className="d-flex align-items-start justify-content-between mb-4">
@@ -50,7 +53,9 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                     className="fw-semibold px-3 py-2 rounded-2"
                     style={{
                       fontSize: "0.75rem",
-                      color: stat.change.startsWith("+") ? "#3CB371" : "#dc3545",
+                      color: stat.change.startsWith("+")
+                        ? "#3CB371"
+                        : "#dc3545",
                       backgroundColor: "transparent",
                       fontWeight: 600,
                       display: "inline-block",

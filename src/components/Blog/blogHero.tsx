@@ -29,46 +29,46 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
     onSearch(searchQuery); // Pass query up to parent
   };
 
-    return (
-        // Main hero section with a handshake background image
-        <div
-            className="blog-hero"
-            style={{
-                backgroundImage: `url(${Handshake})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                position: 'relative',
-                color: 'white', // Ensures text is visible on dark overlay
-                overflow: 'hidden',
-            }}
-        >
-            {/* Soft overlay for readability over the background image */}
-            <div
-                style={{
-                    position: 'absolute',
-                    inset: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.60)', // semi-transparent dark overlay
-                    zIndex: 1, // sits behind text but above background
-                }}
-            ></div>
+  return (
+    // Main hero section with a handshake background image
+    <div
+      className="blog-hero"
+      style={{
+        backgroundImage: `url(${Handshake})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+        color: "white", // Ensures text is visible on dark overlay
+        overflow: "hidden",
+      }}
+    >
+      {/* Soft overlay for readability over the background image */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.60)", // semi-transparent dark overlay
+          zIndex: 1, // sits behind text but above background
+        }}
+      ></div>
 
-            {/* Content container using React-Bootstrap */}
-            <Container
-                className="blog-hero-content"
-                style={{
-                    position: 'relative', // ensures it's above overlay
-                    zIndex: 2,
-                    padding: '6rem 1rem', // gives spacing top and bottom
-                    textAlign: 'center',
-                }}
-            >
-                {/* Text content with fade-in animation based on visibility */}
-                <div className={`blog-hero-text ${isVisible ? 'visible' : ''}`}>
-                    {/* Main title */}
-                    <h1 className="blog-hero-title" style={{ fontFamily: 'heading' }}>
-                        Insights & Resources
-                    </h1>
+      {/* Content container using React-Bootstrap */}
+      <Container
+        className="blog-hero-content"
+        style={{
+          position: "relative", // ensures it's above overlay
+          zIndex: 2,
+          padding: "6rem 1rem", // gives spacing top and bottom
+          textAlign: "center",
+        }}
+      >
+        {/* Text content with fade-in animation based on visibility */}
+        <div className={`blog-hero-text ${isVisible ? "visible" : ""}`}>
+          {/* Main title */}
+          <h1 className="blog-hero-title" style={{ fontFamily: "heading" }}>
+            Insights & Resources
+          </h1>
 
           {/* Subtitle text */}
           <p className="blog-hero-subtitle" style={{ fontFamily: "body" }}>
@@ -85,21 +85,21 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
               {/* Search icon from Lucide */}
               <Search className="blog-search-icon" />
 
-                            {/* Search input field */}
-                            <input
-                                type="text"
-                                placeholder="Search articles..."
-                                className="blog-search-input"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                style={{
-                                    borderRadius: '999px',
-                                    marginLeft: '0.5rem',
-                                    marginRight: '0.5rem',
-                                    fontFamily: 'body',
-                                }}
-                                aria-label="Search articles"
-                            />
+              {/* Search input field */}
+              <input
+                type="text"
+                placeholder="Search articles..."
+                className="blog-search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  borderRadius: "999px",
+                  marginLeft: "0.5rem",
+                  marginRight: "0.5rem",
+                  fontFamily: "body",
+                }}
+                aria-label="Search articles"
+              />
 
               {/* Search button */}
               <button

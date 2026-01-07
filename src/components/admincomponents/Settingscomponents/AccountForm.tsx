@@ -92,84 +92,102 @@ const AccountForm: React.FC = () => {
       <Card className="settings-card-compact shadow-sm border-0 mb-3">
         <Card.Body className="p-2 d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
-            <div style={{width:56, height:56, borderRadius:56, background:'#f1f7f3', display:'flex', alignItems:'center', justifyContent:'center', color:'var(--obeeoma-green)', fontWeight:700}}>
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 56,
+                background: "#f1f7f3",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--obeeoma-green)",
+                fontWeight: 700,
+              }}
+            >
               DR
             </div>
             <div className="ms-3">
-              <div className="fw-bold" style={{fontSize: '0.98rem'}}>{formData.fullName}</div>
+              <div className="fw-bold" style={{ fontSize: "0.98rem" }}>
+                {formData.fullName}
+              </div>
               <div className="text-muted small">{formData.role}</div>
             </div>
           </div>
 
           <div>
-            <Button variant="outline-success" size="sm">Change Photo</Button>
+            <Button variant="outline-success" size="sm">
+              Change Photo
+            </Button>
           </div>
         </Card.Body>
       </Card>
 
       <Card className="settings-card-compact shadow-sm border-0">
-        <Card.Header className="fw-semibold mb-2 ps-0">Account Information</Card.Header>
+        <Card.Header className="fw-semibold mb-2 ps-0">
+          Account Information
+        </Card.Header>
         <Form onSubmit={handleSubmit}>
-        {/* Full Name input */}
-        <Form.Group controlId="formFullName" className="mb-2">
-          <Form.Label>Full Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            placeholder="Enter full name"
-          />
-        </Form.Group>
+          {/* Full Name input */}
+          <Form.Group controlId="formFullName" className="mb-2">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              placeholder="Enter full name"
+            />
+          </Form.Group>
 
-        {/* Email input */}
-        <Form.Group controlId="formEmail" className="mb-2">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter email"
-          />
-        </Form.Group>
+          {/* Email input */}
+          <Form.Group controlId="formEmail" className="mb-2">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter email"
+            />
+          </Form.Group>
 
-        {/* Role input */}
-        <Form.Group controlId="formRole" className="mb-2">
-          <Form.Label>Role</Form.Label>
-          <Form.Control
-            type="text"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            placeholder="Enter role"
-          />
-        </Form.Group>
+          {/* Role input */}
+          <Form.Group controlId="formRole" className="mb-2">
+            <Form.Label>Role</Form.Label>
+            <Form.Control
+              type="text"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              placeholder="Enter role"
+            />
+          </Form.Group>
 
-        {/* Phone input */}
-        <Form.Group controlId="formPhone" className="mb-2">
-          <Form.Label>Phone Number</Form.Label>
-          <Form.Control
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Enter phone number"
-          />
-        </Form.Group>
+          {/* Phone input */}
+          <Form.Group controlId="formPhone" className="mb-2">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter phone number"
+            />
+          </Form.Group>
 
-        {/* Bio input */}
-        <Form.Group controlId="formBio" className="mb-3">
-          <Form.Label>Professional Bio</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={2}
-            name="bio"
-            value={formData.bio}
-            onChange={handleChange}
-            placeholder="Enter bio"
-          />
-        </Form.Group>
+          {/* Bio input */}
+          <Form.Group controlId="formBio" className="mb-3">
+            <Form.Label>Professional Bio</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={2}
+              name="bio"
+              value={formData.bio}
+              onChange={handleChange}
+              placeholder="Enter bio"
+            />
+          </Form.Group>
 
           {/* Submit button */}
           <div className="d-flex justify-content-end gap-2 mt-2">

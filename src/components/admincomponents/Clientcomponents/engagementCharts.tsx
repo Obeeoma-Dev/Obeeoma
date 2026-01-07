@@ -64,7 +64,12 @@ const EngagementCharts: React.FC = () => {
         <Col md={6}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
-              <h5 className="mb-3" style={{ color: "#00A859", fontFamily: "body" }}>Weekly Engagement Rate (%)</h5>
+              <h5
+                className="mb-3"
+                style={{ color: "#00A859", fontFamily: "body" }}
+              >
+                Weekly Engagement Rate (%)
+              </h5>
               <Line data={weeklyEngagementData} />
             </Card.Body>
           </Card>
@@ -74,7 +79,10 @@ const EngagementCharts: React.FC = () => {
         <Col md={6}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
-              <h5 className="mb-3" style={{ color: "#00A859", fontFamily: "body" }}>
+              <h5
+                className="mb-3"
+                style={{ color: "#00A859", fontFamily: "body" }}
+              >
                 Reward Redemptions (Last 6 Weeks)
               </h5>
               <Bar data={rewardRedemptionData} />

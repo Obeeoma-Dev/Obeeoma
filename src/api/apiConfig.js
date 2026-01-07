@@ -133,7 +133,7 @@ export const authAPI = {
         return response;
     },
     verifyOtp: async (payload) => {
-        const response = await api.post("v1/auth/verify-password-reset-otp/", payload);
+        const response = await api.post("/v1/auth/verify-password-reset-otp/", payload);
         return response;
     },
     resendOtp: (payload) => {
@@ -443,7 +443,7 @@ export const employerAPI = {
         return api.delete("/v1/employer/data/delete-all/");
     },
 };
-// export default api;
+//  export default api;
 // import axios from "axios";
 // import { RootState } from '../store/store';
 // import {
@@ -761,15 +761,15 @@ export const employerAPI = {
 // Blog submission API
 export const submitArticle = async (formData) => {
     try {
-        const response = await api.post('/v1/articles/', formData, {
+        const response = await api.post("/v1/articles/", formData, {
             headers: {
-                'Content-Type': 'multipart/form-data',
+                "Content-Type": "multipart/form-data",
             },
         });
         return response.data;
     }
     catch (error) {
-        console.error('Error submitting article:', error);
+        console.error("Error submitting article:", error);
         throw error;
     }
 };

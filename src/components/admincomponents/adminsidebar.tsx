@@ -96,7 +96,11 @@ const AdminSidebar: React.FC = () => {
     { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
     { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
     { id: "reports", label: "Reports", icon: "BarChart3" },
-    { id: "content-management", label: "Content Management", icon: "FolderOutput" },
+    {
+      id: "content-management",
+      label: "Content Management",
+      icon: "FolderOutput",
+    },
   ];
 
   // Extract current path segment to determine active menu item
@@ -131,7 +135,7 @@ const AdminSidebar: React.FC = () => {
         borderRight: "1px solid #e9ecef",
         display: "flex",
         flexDirection: "column",
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
       }}
     >
       {/* Top logo only (no text) */}
@@ -146,12 +150,19 @@ const AdminSidebar: React.FC = () => {
         <img
           src={logo}
           alt="Obeeoma Logo"
-          style={{ width: "160px", height: "45px", objectFit: 'contain' }}
+          style={{ width: "160px", height: "45px", objectFit: "contain" }}
         />
       </div>
 
       {/* Navigation menu */}
-      <div style={{ padding: "1rem 0.5rem", fontFamily: 'body', flexGrow: 1, overflowY: 'auto' }}>
+      <div
+        style={{
+          padding: "1rem 0.5rem",
+          fontFamily: "body",
+          flexGrow: 1,
+          overflowY: "auto",
+        }}
+      >
         {menuItems.map((item) => {
           return (
             <SideNavButton
@@ -166,7 +177,13 @@ const AdminSidebar: React.FC = () => {
       </div>
 
       {/* Bottom section: Settings and Logout */}
-      <div style={{ padding: "0.5rem", fontFamily: 'body', borderTop: "1px solid #e9ecef" }}>
+      <div
+        style={{
+          padding: "0.5rem",
+          fontFamily: "body",
+          borderTop: "1px solid #e9ecef",
+        }}
+      >
         <SideNavButton
           id="settings-overview"
           label="Settings"

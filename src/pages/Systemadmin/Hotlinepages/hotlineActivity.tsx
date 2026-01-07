@@ -39,7 +39,6 @@ const HotlineActivity: React.FC = () => {
         >
           {/* Container ensures Bootstrap spacing and responsiveness */}
           <Container fluid>
-
             {/* Page Title Section
             <Row className="mb-4">
               <Col>

@@ -1,6 +1,6 @@
 .btn-custom-green {
-    background-color: #0B6E45;
-    border-color: #0B6E45;
+    background-color: #15803d;
+    border-color: #15803d;
     color: #fff;
 }
 
@@ -17,9 +17,9 @@
 }
 
 .btn-organization {
-    background-color: #00A859 !important;
+    background-color: #22C55E !important;
     /* default green */
-    border-color: #00A859 !important;
+    border-color: #22C55E !important;
     color: white;
     /* keep text readable */
 }

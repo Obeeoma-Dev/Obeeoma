@@ -10,7 +10,7 @@ const About: React.FC = () => {
   return (
     <>
       <Navigation />
-      <main style={{ paddingTop: '80px' }}>
+      <main style={{ paddingTop: "80px" }}>
         <AboutUsHero />
         <OurStorySection />
         <MissionValuesSection />

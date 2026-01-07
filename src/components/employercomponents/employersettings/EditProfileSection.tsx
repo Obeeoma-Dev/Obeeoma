@@ -255,7 +255,12 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
             <div>
               <label
                 htmlFor="profileImageUpload"
-                className={`btn ${isUploading ? "btn-secondary" : "btn"}`}
+                className={`btn ${isUploading ? "btn-secondary" : ""}`}
+                style={
+                  isUploading
+                    ? {}
+                    : { backgroundColor: "#22C55E", color: "white" }
+                }
               >
                 <Upload size={16} className="me-2" />
                 {isUploading ? "Uploading..." : "Upload Logo"}

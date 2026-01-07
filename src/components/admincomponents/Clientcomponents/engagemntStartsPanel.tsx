@@ -31,10 +31,25 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
     <Row className="g-4 mt-4">
       {/* Top Rewards Card */}
       <Col xs={12} sm={6} md={4}>
-        <Card className="shadow-lg mb-3 h-100" style={{ fontFamily: 'body', backgroundColor: '#f8f9fa', borderRadius: '8px', padding: '1.5rem' }}>
+        <Card
+          className="shadow-lg mb-3 h-100"
+          style={{
+            fontFamily: "body",
+            backgroundColor: "#f8f9fa",
+            borderRadius: "8px",
+            padding: "1.5rem",
+          }}
+        >
           <Card.Body>
             <Award size={20} className="mb-2 text-primary" />
-            <h5 className="mb-3 fw-semibold" style={{ fontSize: "1.125rem", color: "#212529", fontFamily: 'heading' }}>
+            <h5
+              className="mb-3 fw-semibold"
+              style={{
+                fontSize: "1.125rem",
+                color: "#212529",
+                fontFamily: "heading",
+              }}
+            >
               Top Rewards
             </h5>
             {topRewards.map((reward, index) => (
@@ -42,7 +57,10 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
                 key={reward.name}
                 className="d-flex justify-content-between align-items-center mb-2"
               >
-                <span className="me-2" style={{ fontWeight: "bold", color: "#6c757d" }}>
+                <span
+                  className="me-2"
+                  style={{ fontWeight: "bold", color: "#6c757d" }}
+                >
                   #{index + 1}
                 </span>
                 <span>{reward.name}</span>
@@ -55,29 +73,38 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
 
       {/* Engagement Trends Card */}
       <Col xs={12} sm={6} md={4}>
-        <Card className="shadow-lg mb-3 h-100" style={{ fontFamily: 'body', backgroundColor: '#f8f9fa', borderRadius: '8px', padding: '1.5rem' }}>
+        <Card
+          className="shadow-lg mb-3 h-100"
+          style={{
+            fontFamily: "body",
+            backgroundColor: "#f8f9fa",
+            borderRadius: "8px",
+            padding: "1.5rem",
+          }}
+        >
           <Card.Body>
             <TrendingUp size={24} className="mb-2 text-primary" />
-            <h5 className="mb-3 fw-bold" style={{ fontSize: '1.25rem' }}>Engagement Trends</h5>
+            <h5 className="mb-3 fw-bold" style={{ fontSize: "1.25rem" }}>
+              Engagement Trends
+            </h5>
             <div className="d-flex justify-content-between align-items-center mb-3">
               <span className="fw-medium">Course Completion</span>
               <span className="text-success d-flex align-items-center fw-bold">
-                <ArrowUp size={14} className="me-1" />
-                +{trends.courseCompletion}%
+                <ArrowUp size={14} className="me-1" />+{trends.courseCompletion}
+                %
               </span>
             </div>
             <div className="d-flex justify-content-between align-items-center mb-3">
               <span className="fw-medium">Reward Redemption</span>
               <span className="text-success d-flex align-items-center fw-bold">
-                <ArrowUp size={14} className="me-1" />
-                +{trends.rewardRedemption}%
+                <ArrowUp size={14} className="me-1" />+{trends.rewardRedemption}
+                %
               </span>
             </div>
             <div className="d-flex justify-content-between align-items-center">
               <span className="fw-medium">Member Activity</span>
               <span className="text-success d-flex align-items-center fw-bold">
-                <ArrowUp size={14} className="me-1" />
-                +{trends.memberActivity}%
+                <ArrowUp size={14} className="me-1" />+{trends.memberActivity}%
               </span>
             </div>
           </Card.Body>
@@ -86,7 +113,15 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
 
       {/* Streak Statistics Card */}
       <Col xs={12} sm={6} md={4}>
-        <Card className="shadow-lg mb-3 h-100" style={{ fontFamily: 'body', backgroundColor: '#f8f9fa', borderRadius: '8px', padding: '1.5rem' }}>
+        <Card
+          className="shadow-lg mb-3 h-100"
+          style={{
+            fontFamily: "body",
+            backgroundColor: "#f8f9fa",
+            borderRadius: "8px",
+            padding: "1.5rem",
+          }}
+        >
           <Card.Body>
             <Flame size={20} className="mb-2 text-warning" />
             <h5 className="mb-3">Streak Statistics</h5>

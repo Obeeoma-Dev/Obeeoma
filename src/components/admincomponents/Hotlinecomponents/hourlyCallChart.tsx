@@ -54,7 +54,6 @@ const options = {
   },
 };
 
-
 const HourlyCallChart: React.FC = () => {
   return (
     <Card className="mb-4">

@@ -21,7 +21,14 @@ import { Search, Bell, User } from "lucide-react";
 const Header: React.FC = () => {
   return (
     // Navbar container with light background and bottom border
-    <Navbar bg="white" className="border-bottom" style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.08)', padding: '1rem 1.5rem' }}>
+    <Navbar
+      bg="white"
+      className="border-bottom"
+      style={{
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.08)",
+        padding: "1rem 1.5rem",
+      }}
+    >
       {/* Fluid container to span full width */}
       <Container fluid>
         {/* Left section: Search bar */}
@@ -40,7 +47,7 @@ const Header: React.FC = () => {
               type="search"
               placeholder="Search..."
               className="ps-5 border rounded-2"
-              style={{ backgroundColor: '#f5f7fa', borderColor: '#e9ecef' }}
+              style={{ backgroundColor: "#f5f7fa", borderColor: "#e9ecef" }}
               aria-label="Search"
             />
           </div>
@@ -54,7 +61,7 @@ const Header: React.FC = () => {
               variant="link"
               className="position-relative p-0 text-dark"
               aria-label="Notifications"
-              style={{ textDecoration: 'none' }}
+              style={{ textDecoration: "none" }}
             >
               <Bell size={22} />
               {/* Red badge showing notification count */}
@@ -78,8 +85,20 @@ const Header: React.FC = () => {
             <div className="d-flex align-items-center gap-3">
               {/* User info text */}
               <div className="text-end">
-                <div className="text-muted small fw-500" style={{ fontSize: '0.8rem' }}> Dr. </div>
-                <div className="fw-600 text-dark" style={{ fontSize: '0.9rem' }}> Obeeoma Systems Adminstrator </div>
+                <div
+                  className="text-muted small fw-500"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  {" "}
+                  Dr.{" "}
+                </div>
+                <div
+                  className="fw-600 text-dark"
+                  style={{ fontSize: "0.9rem" }}
+                >
+                  {" "}
+                  Obeeoma Systems Adminstrator{" "}
+                </div>
               </div>
 
               {/* User avatar with icon */}

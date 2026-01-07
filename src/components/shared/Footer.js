@@ -32,9 +32,11 @@ const Footer = () => {
                                 height: "50px",
                                 width: "auto",
                             }, "data-testid": "footer-logo" }) }) }), _jsxs("div", { className: "row g-4", children: [_jsxs("div", { className: "col-lg-3 mb-4", "data-testid": "footer-section-about", children: [_jsx("h6", { className: "text-white mb-3", style: {
-                                        fontFamily: 'heading', fontSize: '1rem'
+                                        fontFamily: "heading",
+                                        fontSize: "1rem",
                                     }, children: "About Obeeoma" }), _jsx("p", { className: "footer-text", children: "AI-first workplace mental health platform built for Africa. Supporting healthier, more productive teams across the continent." }), _jsx("p", { className: "footer-text", children: "\u00A9 2025 Obeeoma. All rights reserved." })] }), Object.entries(menuSections).map(([key, section]) => (_jsxs("div", { className: "col-lg-3 mb-4", "data-testid": `footer-section-${key}`, children: [_jsx("h6", { className: "text-white mb-3", style: {
-                                        fontFamily: 'heading', fontSize: '1rem'
+                                        fontFamily: "heading",
+                                        fontSize: "1rem",
                                     }, children: section.title }), _jsx("ul", { className: "list-unstyled", children: section.items.map((item, index) => (_jsx("li", { className: "mb-2", children: _jsx(Link, { to: item.link, className: "footer-text", children: item.text }) }, index))) })] }, key)))] })] }) }));
 };
 export default Footer;

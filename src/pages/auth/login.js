@@ -350,6 +350,7 @@ const LoginPage = () => {
                 navigate("/mfa-setup", { replace: false });
                 return;
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const userRole = resultAction?.role || user?.role;
             console.log("Final Role Determined:", userRole);
             const destinationPath = getDashboardRoute(userRole);

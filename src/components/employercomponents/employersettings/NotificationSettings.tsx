@@ -49,6 +49,14 @@ const NotificationsSection = ({
 
   return (
     <div className="card border-0 shadow-sm">
+      <style>
+        {`
+          .form-check-input:checked {
+            background-color: #22C55E !important;
+            border-color: #22C55E !important;
+          }
+        `}
+      </style>
       <div className="card-body p-2">
         <h3 className="h5 fw-semibold mb-4">Notification Settings</h3>
         <p className="text-muted mb-4">

@@ -1,13 +1,13 @@
 // src/components/admincomponents/Hotline-activity/TopMetrics.tsx
-import React from "react"
-import { Row, Col } from "react-bootstrap"
-import { Phone, Clock, XCircle } from "lucide-react"
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import { Phone, Clock, XCircle } from "lucide-react";
 import { HoverStatCard } from "./hoverCard";
 
 interface TopMetricsProps {
-  totalCalls: number
-  avgCallTime: string
-  missedCalls: number
+  totalCalls: number;
+  avgCallTime: string;
+  missedCalls: number;
 }
 
 const TopMetrics: React.FC<TopMetricsProps> = ({
@@ -20,15 +20,17 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
       {/* Page Title Section */}
       <Row className="mb-4">
         <Col>
-          <h1 className="fw-bold text-dark" style={{ fontFamily: 'heading' }}>Hotline Activity</h1>
-          <p className="text-muted small" style={{ fontFamily: 'body' }}>
+          <h1 className="fw-bold text-dark" style={{ fontFamily: "heading" }}>
+            Hotline Activity
+          </h1>
+          <p className="text-muted small" style={{ fontFamily: "body" }}>
             Real-time monitoring of crisis line operations and performance.
           </p>
         </Col>
       </Row>
 
       {/* Top Stats Row */}
-      <Row className="mb-4" style={{ fontFamily: 'body', fontWeight: '600px' }}>
+      <Row className="mb-4" style={{ fontFamily: "body", fontWeight: "600px" }}>
         <Col xs={12} md={4} className="mb-3 mb-md-0">
           <HoverStatCard
             title="Today's Calls"
@@ -61,7 +63,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};
 
-export default TopMetrics
+export default TopMetrics;
