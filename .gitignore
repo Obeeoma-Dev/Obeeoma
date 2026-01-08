@@ -40,3 +40,6 @@ register.txt
 # Untracking the coverage files.
 coverage/
 
+
+# Untracking the docker-compose.yml file.
+docker-compose.yml
