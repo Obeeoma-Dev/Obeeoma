@@ -24,7 +24,7 @@ const Footer = () => {
             title: "Legal",
             items: [
                 { text: "Privacy Policy", link: "/privacy-policy" },
-                { text: "Terms of Service", link: "/terms & conditions" },
+                { text: "Terms of Service", link: "/terms" },
             ],
         },
     };
