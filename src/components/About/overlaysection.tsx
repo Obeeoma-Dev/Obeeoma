@@ -51,7 +51,9 @@ export function AboutUsHero() {
           position: "absolute", // Layer over background
           inset: 0, // Stretch to fill section
           zIndex: 0, // Behind content
-          }}
+          backgroundImage:
+            "linear-gradient(to right, rgba(20,70,50,0.85), rgba(5,40,25,0.7))", // Green overlay
+        }}
       />
 
       {/* Animated Logo Graphic */}
