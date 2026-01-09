@@ -26,7 +26,7 @@ import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
 import EmployerAccountSettingsPage from "./pages/EmployerPages/AccountSettings";
 import NotFound from "./pages/NotFound";
 
-// Systemadmin routes.
+// Systemadmin routes
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import { OrganizationDetails } from "./pages/Systemadmin/OrganisationPages/organizationDetails";

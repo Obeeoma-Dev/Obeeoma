@@ -141,7 +141,7 @@ const Layout = ({ children, title }: LayoutProps) => {
 
   return (
     <div
-      className="min-vh-100 bg-light d-flex flex-column"
+      className="min-vh-100 bg-light d-flex flex-column employer-layout"
       style={{ fontFamily: "body" }}
     >
       <style>

@@ -162,6 +162,7 @@ export interface EmployerState {
   engagement: EmployerEngagementData | null;
   reports: Report[];
   summary: DashboardSummary | null;
+  featureUsage: FeatureUsage | null;
   isLoading: boolean;
   isActionLoading: boolean; // For post/action endpoints
   error: string | null;
@@ -222,7 +223,7 @@ export interface UsageData {
 
 export interface PaymentUpdatePayload {
   token_id: string;
-  email: string; // Required for Flutterwave customer
+  customer_email: string; // Required for Flutterwave customer
 }
 
 export interface InvoiceItem {
@@ -233,4 +234,17 @@ export interface InvoiceItem {
   description: string;
   status: string;
   invoice_url: string | null;
+}
+
+export interface FeatureUsage {
+  // Define the structure based on what the API returns
+  // For example:
+  totalFeatures: number;
+  usedFeatures: number;
+  featureList: {
+    name: string;
+    usage: number;
+    limit: number;
+  }[];
+  
 }
