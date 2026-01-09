@@ -58,7 +58,7 @@ const FeatureFlags: React.FC = () => {
   return (
     <Card className="settings-card-compact shadow-sm border-0">
       <Card.Header className="fw-semibold mb-2 ps-0">Feature Flags</Card.Header>
-      
+
       {/* Bootstrap form container */}
       <Form>
         <Container fluid>
@@ -73,7 +73,9 @@ const FeatureFlags: React.FC = () => {
                     label={flag.label} // Display label next to the switch
                     checked={flag.enabled} // Controlled checked state
                     onChange={() => handleToggle(flag.id)} // Toggle handler
-                    className={flag.enabled ? "text-success fw-500" : "text-muted"} // Color feedback
+                    className={
+                      flag.enabled ? "text-success fw-500" : "text-muted"
+                    } // Color feedback
                   />
                 </div>
               </Col>

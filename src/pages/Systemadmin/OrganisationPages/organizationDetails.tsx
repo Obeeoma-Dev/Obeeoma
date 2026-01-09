@@ -1,34 +1,29 @@
-import React from 'react'
-import { Container, Row, Col, Stack, Button } from 'react-bootstrap'
-import { ArrowLeft, CreditCard, Save } from 'lucide-react'
+import React from "react";
+import { Container, Row, Col, Stack, Button } from "react-bootstrap";
+import { ArrowLeft, CreditCard, Save } from "lucide-react";
 
 // Page components
-import Sidebar from '../../../components/admincomponents/adminsidebar'
-import Header from '../../../components/admincomponents/adminheader'
-import { OrganizationProfile } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationProfile'
-import { OrganizationStats } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationStats'
-import { PlatformUsageChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse'
-import { ProgramEngagementChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart'
-import { RecentActivity } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity'
-import { useNavigate } from 'react-router-dom'
-
-
+import Sidebar from "../../../components/admincomponents/adminsidebar";
+import Header from "../../../components/admincomponents/adminheader";
+import { OrganizationProfile } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationProfile";
+import { OrganizationStats } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationStats";
+import { PlatformUsageChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse";
+import { ProgramEngagementChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart";
+import { RecentActivity } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity";
+import { useNavigate } from "react-router-dom";
 
 export function OrganizationDetails() {
-
   // A navigation function.
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     // Root layout: sidebar + main content
     <div className="d-flex vh-100">
-
       {/* Sidebar navigation */}
       <Sidebar />
 
       {/* Main content column */}
       <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-
         {/* Top header bar */}
         <Header />
 
@@ -36,14 +31,13 @@ export function OrganizationDetails() {
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            overflowY: "auto",
+            padding: "1rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
           {/* Page container */}
           <Container fluid="xl">
-
             {/* ================= HEADER SECTION ================= */}
             <Row className="align-items-center mb-4">
               <Col>
@@ -56,10 +50,7 @@ export function OrganizationDetails() {
                     <ArrowLeft size={20} />
                   </Button>
 
-
-                  <h1 className="h4 mb-0 fw-bold">
-                    Wellness Center Inc.
-                  </h1>
+                  <h1 className="h4 mb-0 fw-bold">Wellness Center Inc.</h1>
                 </Stack>
               </Col>
 
@@ -111,10 +102,9 @@ export function OrganizationDetails() {
                 </div>
               </Col>
             </Row>
-
           </Container>
         </div>
       </div>
     </div>
-  )
+  );
 }

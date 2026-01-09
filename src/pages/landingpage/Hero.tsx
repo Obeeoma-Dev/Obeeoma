@@ -98,6 +98,7 @@ const Hero = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu
+                  className="custom-dropdown-menu"
                   style={{ borderRadius: "10px", marginTop: "5px" }}
                 >
                   <Dropdown.Item

@@ -1,14 +1,14 @@
 // src/components/admincomponents/Hotline-activity/OperatorPerformance.tsx
-import React from 'react'
-import { Card, Row, Col, ProgressBar } from 'react-bootstrap'
-import './hotline.css' // Optional CSS for custom spacing/progress height
+import React from "react";
+import { Card, Row, Col, ProgressBar } from "react-bootstrap";
+import "./hotline.css"; // Optional CSS for custom spacing/progress height
 
 /**
  * Operator type definition
  */
 interface Operator {
-  name: string
-  performance: number
+  name: string;
+  performance: number;
 }
 
 /**
@@ -16,11 +16,11 @@ interface Operator {
  * You can replace with API data later
  */
 const operators: Operator[] = [
-  { name: 'John Smith', performance: 92 },
-  { name: 'Emily Brown', performance: 85 },
-  { name: 'Michael Jones', performance: 78 },
-  { name: 'Sarah Doe', performance: 65 },
-]
+  { name: "John Smith", performance: 92 },
+  { name: "Emily Brown", performance: 85 },
+  { name: "Michael Jones", performance: 78 },
+  { name: "Sarah Doe", performance: 65 },
+];
 
 /**
  * OperatorPerformance Component
@@ -31,9 +31,9 @@ const OperatorPerformance: React.FC = () => {
     <Card className="h-100 operator-performance-card mb-4">
       <Card.Body>
         {/* Header */}
-        <div className="mb-4" style={{ fontFamily: 'heading' }}>
+        <div className="mb-4" style={{ fontFamily: "heading" }}>
           <Card.Title>Operator Performance</Card.Title>
-          <Card.Subtitle className="text-muted" style={{ fontFamily: 'body' }}>
+          <Card.Subtitle className="text-muted" style={{ fontFamily: "body" }}>
             Daily resolution rates and call volume
           </Card.Subtitle>
         </div>
@@ -44,32 +44,42 @@ const OperatorPerformance: React.FC = () => {
             {/* Operator info row */}
             <Row className="align-items-end mb-2">
               <Col>
-                <div className="fw-semibold" style={{ fontFamily: 'body' }}>{operator.name}</div>
-                <small className="text-muted" style={{ fontFamily: 'body' }}>{operator.performance} calls today</small>
+                <div className="fw-semibold" style={{ fontFamily: "body" }}>
+                  {operator.name}
+                </div>
+                <small className="text-muted" style={{ fontFamily: "body" }}>
+                  {operator.performance} calls today
+                </small>
               </Col>
 
               <Col className="text-end">
                 <div
-                  className={`fw-bold ${operator.performance >= 90 ? 'text-success' : 'text-warning'
-                    }`}
+                  className={`fw-bold ${
+                    operator.performance >= 90 ? "text-success" : "text-warning"
+                  }`}
                 >
                   {operator.performance}%
                 </div>
-                <small className="text-muted text-uppercase" style={{ fontFamily: 'body' }}>Resolution Rate</small>
+                <small
+                  className="text-muted text-uppercase"
+                  style={{ fontFamily: "body" }}
+                >
+                  Resolution Rate
+                </small>
               </Col>
             </Row>
 
             {/* Progress bar */}
             <ProgressBar
               now={operator.performance}
-              variant={operator.performance >= 90 ? 'success' : 'warning'}
+              variant={operator.performance >= 90 ? "success" : "warning"}
               className="operator-progress"
             />
           </div>
         ))}
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default OperatorPerformance
+export default OperatorPerformance;

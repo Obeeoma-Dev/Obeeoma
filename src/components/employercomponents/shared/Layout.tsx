@@ -144,6 +144,18 @@ const Layout = ({ children, title }: LayoutProps) => {
       className="min-vh-100 bg-light d-flex flex-column"
       style={{ fontFamily: "body" }}
     >
+      <style>
+        {`
+          .form-check-input:checked {
+            background-color: #22C55E !important;
+            border-color: #22C55E !important;
+          }
+          .dropdown-item:hover {
+            background-color: #22C55E !important;
+            color: white !important;
+          }
+        `}
+      </style>
       {isSidebarOpen && (
         <div
           className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-40 d-lg-none"
@@ -270,6 +282,18 @@ const Layout = ({ children, title }: LayoutProps) => {
                   <Dropdown.Item
                     as="button"
                     onClick={() => navigate("/employer-settings")}
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "inherit",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#22C55E";
+                      e.currentTarget.style.color = "white";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                      e.currentTarget.style.color = "inherit";
+                    }}
                   >
                     <UserIcon size={16} className="me-2" />
                     My Profile Settings
@@ -282,6 +306,18 @@ const Layout = ({ children, title }: LayoutProps) => {
                     as="button"
                     className="text-secondary"
                     onClick={handleLogout}
+                    style={{
+                      backgroundColor: "transparent",
+                      color: "inherit",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "#22C55E";
+                      e.currentTarget.style.color = "white";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                      e.currentTarget.style.color = "inherit";
+                    }}
                   >
                     Logout
                   </Dropdown.Item>

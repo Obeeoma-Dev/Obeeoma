@@ -94,7 +94,10 @@ const ClientEngagement = () => {
                         }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, { engagementRate: data?.engagementRate ?? 0, activePrograms: data?.activePrograms ?? 0, totalPoints: data?.totalPoints ?? 0 }), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, { topRewards: data?.patients
                                             .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
                                             .slice(0, 3)
-                                            .map((patient) => ({ name: patient.name, points: patient.pointsRedeemed })) ?? [], trends: {
+                                            .map((patient) => ({
+                                            name: patient.name,
+                                            points: patient.pointsRedeemed,
+                                        })) ?? [], trends: {
                                             courseCompletion: data?.trends.weekly ?? 0,
                                             rewardRedemption: data?.trends.rewardActivity ?? 0,
                                             memberActivity: data?.trends.monthly ?? 0,

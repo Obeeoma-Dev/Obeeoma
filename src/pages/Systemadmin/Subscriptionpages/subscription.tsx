@@ -2,7 +2,9 @@ import React from "react";
 import MetricsPanel from "../../../components/admincomponents/Subscriptioncomponents/subMetricPannel";
 import RecentSubscriptionsTable from "../../../components/admincomponents/Subscriptioncomponents/recentSubscriptionTable";
 import ServiceUtilizationChart from "../../../components/admincomponents/Subscriptioncomponents/serviceUtilisationChart";
-import RecentActivityFeed, { Activity } from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
+import RecentActivityFeed, {
+  Activity,
+} from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
@@ -147,10 +149,14 @@ const SubscriptionPage: React.FC = () => {
         >
           {/* Bootstrap container for responsive layout */}
           <Container fluid>
-
             <div className="mb-5">
-              <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Subscriptions</h5>
-              <p className="text-muted mb-0 small mt-1" style={{ fontFamily: 'body' }}>
+              <h5 className="mb-0 fw-bold" style={{ fontFamily: "heading" }}>
+                Subscriptions
+              </h5>
+              <p
+                className="text-muted mb-0 small mt-1"
+                style={{ fontFamily: "body" }}
+              >
                 Manage and monitor all subscription plans.
               </p>
             </div>
@@ -162,12 +168,25 @@ const SubscriptionPage: React.FC = () => {
             <Card className="shadow-sm border-0 mb-4">
               <Card.Header className="bg-white border-bottom d-flex justify-content-between align-items-center">
                 <div>
-                  <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Recent Subscriptions</h5>
-                  <p className="text-muted mb-0 small mt-1" style={{ fontFamily: 'body' }}>
-                    Overview of organization subscriptions to mental health services
+                  <h5
+                    className="mb-0 fw-bold"
+                    style={{ fontFamily: "heading" }}
+                  >
+                    Recent Subscriptions
+                  </h5>
+                  <p
+                    className="text-muted mb-0 small mt-1"
+                    style={{ fontFamily: "body" }}
+                  >
+                    Overview of organization subscriptions to mental health
+                    services
                   </p>
                 </div>
-                <Button variant="success" className="ms-auto" style={{ fontFamily: 'body' }}>
+                <Button
+                  variant="success"
+                  className="ms-auto"
+                  style={{ fontFamily: "body" }}
+                >
                   Add Subscription
                 </Button>
               </Card.Header>
@@ -183,7 +202,12 @@ const SubscriptionPage: React.FC = () => {
               <Col lg={6}>
                 <Card className="shadow-sm border-0">
                   <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Service Utilization</h5>
+                    <h5
+                      className="mb-0 fw-bold"
+                      style={{ fontFamily: "heading" }}
+                    >
+                      Service Utilization
+                    </h5>
                   </Card.Header>
                   <Card.Body>
                     {/* Chart component with existing services data */}
@@ -196,7 +220,12 @@ const SubscriptionPage: React.FC = () => {
               <Col lg={6}>
                 <Card className="shadow-sm border-0 h-100">
                   <Card.Header className="bg-white border-bottom">
-                    <h5 className="mb-0 fw-bold" style={{ fontFamily: 'heading' }}>Recent Activity</h5>
+                    <h5
+                      className="mb-0 fw-bold"
+                      style={{ fontFamily: "heading" }}
+                    >
+                      Recent Activity
+                    </h5>
                   </Card.Header>
                   <Card.Body className="p-0">
                     {/* Activity feed component with existing activities data */}

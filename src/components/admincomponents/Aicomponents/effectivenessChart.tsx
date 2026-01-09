@@ -1,12 +1,19 @@
 // src/components/admincomponents/aimanagementcomponents/EffectivenessChart.tsx
 
-import React from "react"
-import { Bar } from "react-chartjs-2"
-import { Card } from "react-bootstrap"
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from "chart.js"
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import { Card } from "react-bootstrap";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+} from "chart.js";
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip)
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 const BAR_COLORS = [
   "#0d6efd", // Articles - Bootstrap primary
@@ -14,7 +21,7 @@ const BAR_COLORS = [
   "#ffc107", // Audio - Bootstrap warning
   "#6f42c1", // Interactive - Bootstrap purple
   "#dc3545", // Worksheets - Bootstrap danger
-]
+];
 
 const data = {
   labels: ["Videos", "Articles", "Audio", "Interactive", "Worksheets"],
@@ -27,7 +34,7 @@ const data = {
       maxBarThickness: 30,
     },
   ],
-}
+};
 
 const options = {
   indexAxis: "y" as const, // Horizontal bars
@@ -41,7 +48,7 @@ const options = {
       grid: { display: false },
     },
   },
-}
+};
 
 const EffectivenessChart: React.FC = () => {
   return (
@@ -54,7 +61,7 @@ const EffectivenessChart: React.FC = () => {
         <Bar data={data} options={options} />
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default EffectivenessChart
+export default EffectivenessChart;

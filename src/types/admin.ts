@@ -139,9 +139,6 @@ export interface FeatureFlag {
 export type FeatureFlagData = Omit<FeatureFlag, "id">;
 export type FeatureFlagUpdateData = Partial<FeatureFlagData>;
 
-
-
-
 // Shared blog type.
 export interface BlogPost {
   id: string;
@@ -155,4 +152,3 @@ export interface BlogPost {
   status: "published" | "draft";
   featured?: boolean;
 }
-

@@ -42,7 +42,7 @@ const patients: Patient[] = [
     organization: "WellnessCo",
     engagementRate: 67,
     pointsRedeemed: 870,
-    lastActivity: "5h ago"
+    lastActivity: "5h ago",
   },
 ];
 
@@ -63,18 +63,24 @@ const getEngagementIcon = (rate: number): React.ReactNode => {
 // Helper function to determine status badge
 const getStatusBadge = (rate: number): React.ReactNode => {
   return rate >= 50 ? (
-    <Badge pill bg="success">Active</Badge>
+    <Badge pill bg="success">
+      Active
+    </Badge>
   ) : (
-    <Badge pill bg="secondary">Low Engagement</Badge>
+    <Badge pill bg="secondary">
+      Low Engagement
+    </Badge>
   );
 };
 
 // helper for getting initials.
 const getInitials = (fullName: string) => {
   const names = fullName.split(" ");
-  return names.map(n => n[0]).join("").toUpperCase();
+  return names
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
 };
-
 
 // Main component
 const PatientEngagementTable: React.FC = () => {
@@ -82,7 +88,10 @@ const PatientEngagementTable: React.FC = () => {
     // Card provides visual containment and matches the dashboard layout
     <Card className="mb-4 shadow-sm">
       {/* Card header for table title and hierarchy */}
-      <Card.Header className="d-flex justify-content-between align-items-center" style={{ fontFamily: 'heading' }}>
+      <Card.Header
+        className="d-flex justify-content-between align-items-center"
+        style={{ fontFamily: "heading" }}
+      >
         <strong>Client Engagement Table</strong>
       </Card.Header>
 
@@ -95,13 +104,12 @@ const PatientEngagementTable: React.FC = () => {
         - align-middle: vertical centering of content
         - mb-0: avoid extra spacing inside Card
       */}
-        <Table
-          hover
-          responsive
-          className="align-middle mb-0 table-hover"
-        >
+        <Table hover responsive className="align-middle mb-0 table-hover">
           {/* Light header with muted text for modern dashboard feel */}
-          <thead className="table-light text-muted small" style={{ fontFamily: 'heading' }}>
+          <thead
+            className="table-light text-muted small"
+            style={{ fontFamily: "heading" }}
+          >
             <tr>
               <th>Name</th>
               <th>Organization</th>
@@ -130,7 +138,6 @@ const PatientEngagementTable: React.FC = () => {
                   {patient.name}
                 </td>
 
-
                 {/* Organization name */}
                 <td>{patient.organization}</td>
 
@@ -147,12 +154,10 @@ const PatientEngagementTable: React.FC = () => {
                 </td>
 
                 {/* Engagement percentage emphasized for readability */}
-                <td className="fw-semibold">
-                  {patient.engagementRate}%
-                </td>
+                <td className="fw-semibold">{patient.engagementRate}%</td>
 
                 {/* Points formatted and emphasized */}
-                <td style={{ fontFamily: 'body' }}>
+                <td style={{ fontFamily: "body" }}>
                   {patient.pointsRedeemed.toLocaleString()}
                 </td>
 
@@ -160,9 +165,7 @@ const PatientEngagementTable: React.FC = () => {
                 <td>{patient.lastActivity}</td>
 
                 {/* Status badge with pill styling for modern UI */}
-                <td>
-                  {getStatusBadge(patient.engagementRate)}
-                </td>
+                <td>{getStatusBadge(patient.engagementRate)}</td>
               </tr>
             ))}
           </tbody>
@@ -170,7 +173,6 @@ const PatientEngagementTable: React.FC = () => {
       </Card.Body>
     </Card>
   );
-
 };
 
 export default PatientEngagementTable;

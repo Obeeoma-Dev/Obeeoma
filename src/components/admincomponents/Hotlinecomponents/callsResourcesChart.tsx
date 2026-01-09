@@ -11,7 +11,6 @@ const BAR_COLORS = [
   "#6f42c1", // Grief - Bootstrap purple
 ];
 
-
 const data = {
   labels: ["Anxiety", "Depression", "Other", "Abuse", "Grief"],
   datasets: [

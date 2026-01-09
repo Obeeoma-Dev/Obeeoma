@@ -8,7 +8,7 @@ const AboutHeader: React.FC = () => {
       className="about-header-wrapper"
       data-testid="about-header"
       style={{
-        backgroundColor: "#3CB371", // Green background
+        backgroundColor: "#3CB371",
         color: "white",
         paddingTop: "6rem",
         paddingBottom: "6rem",

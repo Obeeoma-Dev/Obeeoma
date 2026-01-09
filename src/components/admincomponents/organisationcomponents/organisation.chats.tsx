@@ -102,7 +102,10 @@ const OrganizationCharts: React.FC = () => {
       <Col md={6} className="mb-4">
         <Card className="shadow-sm h-100">
           <Card.Body>
-            <Card.Title className="fw-semibold fs-6 mb-3" style={{ fontFamily: 'body', color: '#00A859' }}>
+            <Card.Title
+              className="fw-semibold fs-6 mb-3"
+              style={{ fontFamily: "body", color: "#00A859" }}
+            >
               Organization Growth
             </Card.Title>
             <Line data={growthData} options={chartOptions} />
@@ -114,7 +117,10 @@ const OrganizationCharts: React.FC = () => {
       <Col md={6} className="mb-4">
         <Card className="shadow-sm h-100">
           <Card.Body>
-            <Card.Title className="fw-semibold fs-6 mb-3" style={{ fontFamily: 'body', color: '#00A859' }}>
+            <Card.Title
+              className="fw-semibold fs-6 mb-3"
+              style={{ fontFamily: "body", color: "#00A859" }}
+            >
               Client Distribution by Organization
             </Card.Title>
             <Bar data={distributionData} options={chartOptions} />

@@ -13,14 +13,7 @@
  */
 
 import React from "react";
-import {
-  Table,
-  Card,
-  Badge,
-  Button,
-  Form,
-  InputGroup,
-} from "react-bootstrap";
+import { Table, Card, Badge, Button, Form, InputGroup } from "react-bootstrap";
 import { Search, Filter, MoreVertical } from "lucide-react";
 
 /**

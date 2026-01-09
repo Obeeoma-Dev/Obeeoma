@@ -1,15 +1,15 @@
-import React from 'react';
-import { Card, Row, Col, ProgressBar } from 'react-bootstrap';
-import { ExclamationCircleFill } from 'react-bootstrap-icons';
-import './aicomponent.css';
+import React from "react";
+import { Card, Row, Col, ProgressBar } from "react-bootstrap";
+import { ExclamationCircleFill } from "react-bootstrap-icons";
+import "./aicomponent.css";
 
 interface TriggerItem {
-  name: string
-  score: number
+  name: string;
+  score: number;
 }
 
 interface TopTriggersProps {
-  triggers: TriggerItem[]
+  triggers: TriggerItem[];
 }
 
 const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
@@ -17,7 +17,10 @@ const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
     <Card className="mb-4 shadow-sm">
       <Card.Body>
         {/* Header */}
-        <div className="mb-4 d-flex align-items-center" style={{ fontFamily: 'heading' }}>
+        <div
+          className="mb-4 d-flex align-items-center"
+          style={{ fontFamily: "heading" }}
+        >
           <ExclamationCircleFill className="me-2 text-danger" size={24} />
           <div>
             <Card.Title className="mb-0">Top Anxiety Triggers</Card.Title>
@@ -29,7 +32,7 @@ const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
           <div key={trigger.name} className="mb-4">
             <Row className="align-items-center mb-2">
               <Col>
-                <div className="fw-semibold" style={{ fontFamily: 'body' }}>
+                <div className="fw-semibold" style={{ fontFamily: "body" }}>
                   {trigger.name}
                 </div>
               </Col>
@@ -39,12 +42,15 @@ const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
             </Row>
             <ProgressBar
               now={trigger.score}
-              style={{ height: '6px' }}
+              style={{ height: "6px" }}
               variant={
-                trigger.score >= 75 ? 'danger' :
-                  trigger.score >= 65 ? 'warning' :
-                    trigger.score >= 55 ? 'info' :
-                      'secondary'
+                trigger.score >= 75
+                  ? "danger"
+                  : trigger.score >= 65
+                    ? "warning"
+                    : trigger.score >= 55
+                      ? "info"
+                      : "secondary"
               }
               className="trigger"
             />
@@ -52,7 +58,7 @@ const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
         ))}
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default TopTriggers
+export default TopTriggers;

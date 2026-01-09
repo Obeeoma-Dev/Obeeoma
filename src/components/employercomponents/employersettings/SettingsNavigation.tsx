@@ -35,13 +35,16 @@ const SettingsNavigation = ({
                     onClick={() => onSectionChange(section.id)}
                     className={`nav-link d-flex align-items-center gap-2 py-2 px-3 ${
                       activeSection === section.id
-                        ? "active bg-success text-white"
+                        ? "active text-white"
                         : "text-dark"
                     }`}
                     style={{
                       borderRadius: "8px",
                       border: "none",
                       margin: "0 4px",
+                      ...(activeSection === section.id
+                        ? { backgroundColor: "#22C55E" }
+                        : {}),
                     }}
                   >
                     <IconComponent size={16} />

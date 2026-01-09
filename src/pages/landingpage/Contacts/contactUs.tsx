@@ -16,6 +16,7 @@ import ContactBG from "../../../assets/Images/contacts.jpg";
 
 // Importing the social handle footer.
 import Footer from "../../../components/shared/socialhandlesfooter";
+import { styleEffect } from "framer-motion";
 
 // Define the functional component using TypeScript
 export const ContactPage: React.FC = () => {
@@ -51,7 +52,7 @@ export const ContactPage: React.FC = () => {
           className="position-absolute top-0 start-0 w-100 h-100"
           style={{
             background:
-              "linear-gradient(to right, rgba(11,110,69,0.9), rgba(0,168,89,0.9))",
+              "linear-gradient(to right, rgba(11,110,69,0.3), rgba(0,168,89,0.3))",
             zIndex: 1,
           }}
         ></div>
@@ -70,7 +71,7 @@ export const ContactPage: React.FC = () => {
             >
               Contact Us
             </h1>
-            <p className="lead text-white-50" style={{ fontFamily: "body" }}>
+            <p className="blog-hero-subtitle text-white" style={{ fontFamily: "body" }}>
               We're here to listen and support you on your journey to a happier
               mind
             </p>
@@ -83,8 +84,10 @@ export const ContactPage: React.FC = () => {
                 <Row className={`g-4 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity`}
                     style={{ transform: "translateY(-100px)" }}
                 >
-                    <Col md={6}>
+                    <Col md={6} className="text-center">
+                      <div className="contact-card-wrapper">
                         <ContactCard icon={Phone} title="Call Us" content="08064780856" link="tel:08064780856" />
+                      </div>
                     </Col>
                     <Col md={6}>
                         <ContactCard icon={Mail} title="Email Us" content="hello@obeeoma.com" link="mailto:hello@obeeoma.com" />
@@ -184,8 +187,8 @@ export const ContactPage: React.FC = () => {
                     <Col lg={12} className="d-flex flex-column justify-content-center p-4 p-lg-5" style={{ background: 'linear-gradient(to bottom right, #00A859, #0B6E45)', borderRadius: '1.5rem' }}>
                         <h2 className="display-5 text-white mb-3" style={{ fontFamily: "heading" }}>We're here to help! You can call us!</h2>
                         <p className="fs-5 text-white-50 mb-3" style={{ fontFamily: "body" }}>Speak directly with our support team for immediate assistance</p>
-                        <Button href="tel:+08064780856" variant="light" className="text-success rounded-pill d-inline-flex align-items-center gap-2" style={{ fontFamily: "body" }}>
-                            <Phone size={24} />+08064780856
+                        <Button href="tel:+2348064780856" variant="light" className="text-success rounded-pill d-inline-flex align-items-center gap-2" style={{ fontFamily: "body" }}>
+                            <Phone size={24} />+2348064780856
                         </Button>
                     </Col>
                 </Row>
@@ -226,3 +229,4 @@ export const ContactPage: React.FC = () => {
     </div>
   );
 };
+export default ContactPage;

@@ -30,20 +30,19 @@ const EngagementSummary: React.FC<EngagementSummaryProps> = ({
       <Row className="mb-4">
         {/* Engagement Rate */}
         <Col md={4}>
-          <Card className="shadow-sm border-0 rounded-2" style={{ fontFamily: "body" }}>
+          <Card
+            className="shadow-sm border-0 rounded-2"
+            style={{ fontFamily: "body" }}
+          >
             <Card.Body>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="icon-badge icon-green">
                   <TrendingUp size={24} />
                 </div>
-                <small className="text-success fw-medium">
-                  +5% this week
-                </small>
+                <small className="text-success fw-medium">+5% this week</small>
               </div>
 
-              <div className="mt-3 metric-value">
-                {engagementRate}%
-              </div>
+              <div className="mt-3 metric-value">{engagementRate}%</div>
               <p className="text-muted mb-0">Engagement Rate</p>
             </Card.Body>
           </Card>
@@ -57,17 +56,11 @@ const EngagementSummary: React.FC<EngagementSummaryProps> = ({
                 <div className="icon-badge icon-blue">
                   <Award size={24} />
                 </div>
-                <small className="text-success fw-medium">
-                  +2 this month
-                </small>
+                <small className="text-success fw-medium">+2 this month</small>
               </div>
 
-              <div className="mt-3 metric-value">
-                {activePrograms}
-              </div>
-              <p className="text-muted mb-0">
-                Active Reward Programs
-              </p>
+              <div className="mt-3 metric-value">{activePrograms}</div>
+              <p className="text-muted mb-0">Active Reward Programs</p>
             </Card.Body>
           </Card>
         </Col>
@@ -88,9 +81,7 @@ const EngagementSummary: React.FC<EngagementSummaryProps> = ({
               <div className="mt-3 metric-value">
                 {totalPoints.toLocaleString()}
               </div>
-              <p className="text-muted mb-0">
-                Rewards Assisted
-              </p>
+              <p className="text-muted mb-0">Rewards Assisted</p>
             </Card.Body>
           </Card>
         </Col>

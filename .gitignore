@@ -39,6 +39,8 @@ register.txt
 
 # Untracking the coverage files.
 coverage/
+*.lcov
+.nyc_output/
 
 # Untracking the docker-composeyamo file
 docker-compose.yml 

@@ -40,7 +40,6 @@ import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscripti
 import AdminSettings from "./pages/Systemadmin/adminsettings";
 import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
 
-
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EditEmployerProfilePage from "./pages/EmployerPages/EditEmployerProfilePage";
 import EmployerSubscription from "./pages/EmployerPages/Subscription";
@@ -81,6 +80,8 @@ export default function App(): React.ReactElement {
               <Route path="/mfa-setup" element={<MfaSetupPage />} />
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/blog" element={<Blog />} />
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>

@@ -173,7 +173,7 @@ export const authAPI = {
 
   verifyOtp: async (payload: OtpVerificationPayload) => {
     const response = await api.post(
-      "v1/auth/verify-password-reset-otp/",
+      "/v1/auth/verify-password-reset-otp/",
       payload,
     );
     return response;
@@ -410,12 +410,12 @@ export const employerAPI = {
   },
 
   deleteEmployee: async (id: string) => {
-    const response = await api.delete(`/v1/employees/${id}`);
+    const response = await api.delete(`/v1/dashboard/employees/${id}`);
     return response;
   },
 
   updateEmployee: async (id: number | string, data: Partial<Employee>) => {
-    const response = await api.patch(`/employees/${id}/`, data);
+    const response = await api.patch(`/v1/dashboard/employees/${id}/`, data);
     return response.data;
   },
 
@@ -555,7 +555,7 @@ export const employerAPI = {
   },
 };
 
-// export default api;
+//  export default api;
 
 // import axios from "axios";
 // import { RootState } from '../store/store';
@@ -938,14 +938,14 @@ export const employerAPI = {
 // Blog submission API
 export const submitArticle = async (formData: FormData) => {
   try {
-    const response = await api.post('/v1/articles/', formData, {
+    const response = await api.post("/v1/articles/", formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     });
     return response.data;
   } catch (error) {
-    console.error('Error submitting article:', error);
+    console.error("Error submitting article:", error);
     throw error;
   }
 };

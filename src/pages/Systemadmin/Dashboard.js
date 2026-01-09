@@ -160,9 +160,13 @@ const Dashboard = () => {
     // Full-height layout with sidebar and main content
     _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
                             flex: 1,
-                            overflowY: 'auto',
-                            padding: '2rem 1.5rem',
-                            backgroundColor: '#f5f7fa',
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-2", children: [_jsxs("div", { className: "mb-5", children: [_jsx("h2", { className: "fw-bold mb-1", style: { fontSize: '1.75rem', fontFamily: 'heading', color: '#1a1a1a' }, children: "Dashboard" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: 'body' }, children: "Welcome back! Here's your platform overview." })] }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) }), _jsx(Row, { className: "g-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
+                            overflowY: "auto",
+                            padding: "2rem 1.5rem",
+                            backgroundColor: "#f5f7fa",
+                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-2", children: [_jsxs("div", { className: "mb-5", children: [_jsx("h2", { className: "fw-bold mb-1", style: {
+                                                    fontSize: "1.75rem",
+                                                    fontFamily: "heading",
+                                                    color: "#1a1a1a",
+                                                }, children: "Dashboard" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: "body" }, children: "Welcome back! Here's your platform overview." })] }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) }), _jsx(Row, { className: "g-4", children: _jsx(BottomMetrics, { metrics: bottomMetricData }) })] }) }) })] })] }));
 };
 export default Dashboard;

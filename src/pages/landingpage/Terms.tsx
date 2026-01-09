@@ -1,24 +1,24 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Container, Row, Col, Card, Stack } from 'react-bootstrap';
-import Navigation from '../../components/shared/Navigation';
-import Footer from '../../components/shared/Footer';
+import React from "react";
+import { motion } from "framer-motion";
+import { Container, Row, Col, Card, Stack } from "react-bootstrap";
+import Navigation from "../../components/shared/Navigation";
+import Footer from "../../components/shared/Footer";
 import {
-    FileText,
-    UserCheck,
-    UserPlus,
-    CreditCard,
-    Stethoscope,
-    MessageCircle,
-    Lock,
-    Copyright,
-    ShieldAlert,
-    XCircle,
-    RefreshCw,
-    Scale,
-    Mail,
-    AlertTriangle
-} from 'lucide-react';
+  FileText,
+  UserCheck,
+  UserPlus,
+  CreditCard,
+  Stethoscope,
+  MessageCircle,
+  Lock,
+  Copyright,
+  ShieldAlert,
+  XCircle,
+  RefreshCw,
+  Scale,
+  Mail,
+  AlertTriangle,
+} from "lucide-react";
 // import './TermsAndConditions.css'; // Custom CSS for colors & spacing
 
 // Motion variants

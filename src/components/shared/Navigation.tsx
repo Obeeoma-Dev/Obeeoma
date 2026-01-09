@@ -22,7 +22,9 @@ function Navigation() {
       fixed="top"
       className="shadow-sm"
       style={{
-        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.6)" : "rgba(255, 255, 255, 0.05)", // slight white when scrolled, nearly invisible before
+        backgroundColor: scrolled
+          ? "rgba(255, 255, 255, 0.6)"
+          : "rgba(255, 255, 255, 0.05)", // slight white when scrolled, nearly invisible before
         backdropFilter: "blur(10px)", // always blurred for glass effect
         WebkitBackdropFilter: "blur(10px)",
         transition: "background-color 0.3s ease",

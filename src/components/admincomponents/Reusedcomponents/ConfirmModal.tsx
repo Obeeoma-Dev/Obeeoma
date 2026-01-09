@@ -10,29 +10,29 @@ import { Modal, Button } from "react-bootstrap";
 
 // Define the props
 interface ConfirmModalProps {
-    show: boolean;               // Whether modal is visible
-    title: string;               // Modal title text
-    message: string;             // Message body text
-    confirmText?: string;        // Text for confirm button
-    cancelText?: string;         // Text for cancel button
-    onConfirm: () => void;       // Action triggered on confirm
-    onCancel: () => void;        // Action triggered on cancel
+  show: boolean; // Whether modal is visible
+  title: string; // Modal title text
+  message: string; // Message body text
+  confirmText?: string; // Text for confirm button
+  cancelText?: string; // Text for cancel button
+  onConfirm: () => void; // Action triggered on confirm
+  onCancel: () => void; // Action triggered on cancel
 }
 
 export function ConfirmModal({
-    show,
-    title,
-    message,
-    confirmText = "Delete",
-    cancelText = "Cancel",
-    onConfirm,
-    onCancel,
+  show,
+  title,
+  message,
+  confirmText = "Delete",
+  cancelText = "Cancel",
+  onConfirm,
+  onCancel,
 }: ConfirmModalProps) {
-    return (
-        <>
-            {/* Internal CSS that replaces Tailwind styling */}
-            <style>
-                {`
+  return (
+    <>
+      {/* Internal CSS that replaces Tailwind styling */}
+      <style>
+        {`
           /* Modal background overlay tint */
           .custom-modal-backdrop {
             background-color: rgba(0,0,0,0.5) !important;
@@ -94,42 +94,34 @@ export function ConfirmModal({
             gap: 12px;
           }
         `}
-            </style>
+      </style>
 
-            {/* Modal Component */}
-            <Modal
-                show={show}
-                onHide={onCancel}
-                centered                     // Vertically center modal
-                backdropClassName="custom-modal-backdrop" // Apply custom overlay styling
-                contentClassName="custom-modal-content"   // Apply custom white box styling
-            >
-                {/* Modal Body */}
-                <div>
-                    <h3 className="custom-title">{title}</h3>
+      {/* Modal Component */}
+      <Modal
+        show={show}
+        onHide={onCancel}
+        centered // Vertically center modal
+        backdropClassName="custom-modal-backdrop" // Apply custom overlay styling
+        contentClassName="custom-modal-content" // Apply custom white box styling
+      >
+        {/* Modal Body */}
+        <div>
+          <h3 className="custom-title">{title}</h3>
 
-                    <p className="custom-message">
-                        {message}
-                    </p>
+          <p className="custom-message">{message}</p>
 
-                    {/* Buttons Row */}
-                    <div className="custom-btn-row">
-                        <Button
-                            className="custom-cancel-btn"
-                            onClick={onCancel}
-                        >
-                            {cancelText}
-                        </Button>
+          {/* Buttons Row */}
+          <div className="custom-btn-row">
+            <Button className="custom-cancel-btn" onClick={onCancel}>
+              {cancelText}
+            </Button>
 
-                        <Button
-                            className="custom-confirm-btn"
-                            onClick={onConfirm}
-                        >
-                            {confirmText}
-                        </Button>
-                    </div>
-                </div>
-            </Modal>
-        </>
-    );
+            <Button className="custom-confirm-btn" onClick={onConfirm}>
+              {confirmText}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
+  );
 }
