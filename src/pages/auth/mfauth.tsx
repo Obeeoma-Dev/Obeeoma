@@ -70,14 +70,13 @@ const MfaSetupPage: React.FC = () => {
         <Spinner animation="border" />{" "}
         <span>&nbsp; Loading MFA setup data...</span>
       </div>
-      
     );
   }
 
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100 p-3"
-      style={{ backgroundColor: "#f5f5f5", fontFamily:'body' }}
+      style={{ backgroundColor: "#f5f5f5" }}
     >
       <Card
         className="shadow-sm p-4"
@@ -87,7 +86,7 @@ const MfaSetupPage: React.FC = () => {
           <img
             src={logo}
             alt="Logo"
-            style={{ height: "50px", width: "auto", fontFamily:'body' }}
+            style={{ height: "50px", width: "auto" }}
             className="mb-1"
           />
         </div>
@@ -111,7 +110,7 @@ const MfaSetupPage: React.FC = () => {
                   <img
                     src={`data:image/png;base64,${mfaSetupData.qr_code_base64}`}
                     alt="MFA Setup QR Code"
-                    style={{ maxWidth: "200px", height: "200px", fontFamily:'body' }}
+                    style={{ maxWidth: "200px", height: "200px" }}
                     className="img-fluid"
                   />
                 </div>
@@ -132,7 +131,7 @@ const MfaSetupPage: React.FC = () => {
                     maxLength={6}
                     inputMode="numeric"
                     className="text-center py-2"
-                    style={{ fontSize: "1.2rem", letterSpacing: "6px", fontFamily:'body' }}
+                    style={{ fontSize: "1.2rem", letterSpacing: "6px" }}
                     required
                     disabled={isLoading}
                   />
@@ -146,8 +145,8 @@ const MfaSetupPage: React.FC = () => {
                   type="submit"
                   disabled={isLoading || confirmationCode.length < 6}
                   className="w-100 mt-3"
-                  style={{ backgroundColor: "#22C55E", borderColor: "#22C55E", fontFamily:'body' }}
-                >+
+                  style={{ backgroundColor: "#22C55E", borderColor: "#22C55E" }}
+                >
                   {isLoading ? (
                     <Spinner as="span" animation="border" size="sm" />
                   ) : (
@@ -157,7 +156,7 @@ const MfaSetupPage: React.FC = () => {
               </Form>
             </div>
           ) : (
-            <Alert variant="warning" className="text-center" style={{fontFamily:'body'}}>
+            <Alert variant="warning" className="text-center">
               Could not load MFA setup data. Please check your system
               administrator permissions.
             </Alert>

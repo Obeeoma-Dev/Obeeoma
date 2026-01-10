@@ -1976,19 +1976,3 @@ motion.a {
   background-color: #22C55E !important;
   color: white !important;
 }
-
-/* Employer layout fonts */
-.employer-layout h1,
-.employer-layout h2,
-.employer-layout h3,
-.employer-layout h4,
-.employer-layout h5,
-.employer-layout h6 {
-  font-family: 'heading';
-}
-
-/* Override for specific components to use body font for all */
-.employer-body-font,
-.employer-body-font * {
-  font-family: 'body' !important;
-}

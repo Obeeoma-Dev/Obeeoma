@@ -101,7 +101,7 @@ const Layout = ({ children, title }) => {
             navigate("/login", { replace: true });
         }
     };
-    return (_jsxs("div", { className: "min-vh-100 bg-light d-flex flex-column employer-layout", style: { fontFamily: "body" }, children: [_jsx("style", { children: `
+    return (_jsxs("div", { className: "min-vh-100 bg-light d-flex flex-column", style: { fontFamily: "body" }, children: [_jsx("style", { children: `
           .form-check-input:checked {
             background-color: #22C55E !important;
             border-color: #22C55E !important;
@@ -129,23 +129,23 @@ const Layout = ({ children, title }) => {
                                                             }
                                                             return (_jsx(UserIcon, { size: 24, color: PRIMARY_COLOR, strokeWidth: 2 }));
                                                         })() })] }), _jsxs(Dropdown.Menu, { children: [_jsxs(Dropdown.Item, { as: "button", onClick: () => navigate("/employer-settings"), style: {
-                                                            backgroundColor: "transparent",
-                                                            color: "inherit",
+                                                            backgroundColor: 'transparent',
+                                                            color: 'inherit'
                                                         }, onMouseEnter: (e) => {
-                                                            e.currentTarget.style.backgroundColor = "#22C55E";
-                                                            e.currentTarget.style.color = "white";
+                                                            e.currentTarget.style.backgroundColor = '#22C55E';
+                                                            e.currentTarget.style.color = 'white';
                                                         }, onMouseLeave: (e) => {
-                                                            e.currentTarget.style.backgroundColor = "transparent";
-                                                            e.currentTarget.style.color = "inherit";
+                                                            e.currentTarget.style.backgroundColor = 'transparent';
+                                                            e.currentTarget.style.color = 'inherit';
                                                         }, children: [_jsx(UserIcon, { size: 16, className: "me-2" }), "My Profile Settings"] }), _jsx(Dropdown.Divider, {}), _jsx(Dropdown.Item, { as: "button", className: "text-secondary", onClick: handleLogout, style: {
-                                                            backgroundColor: "transparent",
-                                                            color: "inherit",
+                                                            backgroundColor: 'transparent',
+                                                            color: 'inherit'
                                                         }, onMouseEnter: (e) => {
-                                                            e.currentTarget.style.backgroundColor = "#22C55E";
-                                                            e.currentTarget.style.color = "white";
+                                                            e.currentTarget.style.backgroundColor = '#22C55E';
+                                                            e.currentTarget.style.color = 'white';
                                                         }, onMouseLeave: (e) => {
-                                                            e.currentTarget.style.backgroundColor = "transparent";
-                                                            e.currentTarget.style.color = "inherit";
+                                                            e.currentTarget.style.backgroundColor = 'transparent';
+                                                            e.currentTarget.style.color = 'inherit';
                                                         }, children: "Logout" })] })] })] })] }) }) }), _jsxs("aside", { className: `position-fixed top-0 start-0 h-100 bg-white border-end z-50 translate-x-n100 d-lg-block ${isSidebarOpen ? "translate-x-0" : ""}`, style: {
                     width: "240px",
                     fontFamily: "body",

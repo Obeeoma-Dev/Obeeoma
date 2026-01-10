@@ -695,7 +695,6 @@ import {
   EmployerUser,
   EmployeeStatusData,
   MoodTrend,
-  FeatureUsage,
 } from "../../types/employer";
 
 const getErrorMessage = (error: unknown): string => {
@@ -1058,19 +1057,6 @@ export const fetchEmployeeStatus = createAsyncThunk<
   }
 });
 
-export const fetchFeatureUsage = createAsyncThunk<
-  FeatureUsage,
-  void,
-  { rejectValue: string }
->("v1/feature-usage/", async (_, { rejectWithValue }) => {
-  try {
-    const response = await employerAPI.getFeatureUsage();
-    return response.data as FeatureUsage;
-  } catch (error: unknown) {
-    return rejectWithValue(getErrorMessage(error));
-  }
-});
-
 export const updateEmployee = createAsyncThunk(
   "employer/updateEmployee",
   async (
@@ -1105,7 +1091,6 @@ const initialState: EmployerState = {
   engagement: null,
   reports: [],
   summary: null,
-  featureUsage: null,
   isLoading: false,
   isActionLoading: false,
   error: null,
@@ -1370,18 +1355,6 @@ const employerSlice = createSlice({
       .addCase(updateEmployee.rejected, (state, action) => {
         state.isActionLoading = false;
         state.error = action.payload as string;
-      })
-      .addCase(fetchFeatureUsage.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchFeatureUsage.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.featureUsage = action.payload;
-      })
-      .addCase(fetchFeatureUsage.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload || null;
       });
   },
 });
