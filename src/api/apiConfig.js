@@ -326,11 +326,11 @@ export const employerAPI = {
         return response;
     },
     deleteEmployee: async (id) => {
-        const response = await api.delete(`/v1/dashboard/employees/${id}`);
+        const response = await api.delete(`/v1/employees/${id}`);
         return response;
     },
     updateEmployee: async (id, data) => {
-        const response = await api.patch(`/v1/dashboard/employees/${id}/`, data);
+        const response = await api.patch(`/employees/${id}/`, data);
         return response.data;
     },
     updateEmployeeStatus: async (url, status) => {
