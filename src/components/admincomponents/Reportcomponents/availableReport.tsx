@@ -60,20 +60,6 @@ export function AvailableReports() {
         <Card.Title className="mb-4">Available Reports</Card.Title>
 
         <Stack gap={3}>
-<<<<<<< HEAD
-          {reports.map((report) => (
-            // Individual report card
-            <Card key={report.id}>
-              <Card.Body>
-                {/* Layout row */}
-                <div className="d-flex justify-content-between align-items-center">
-                  {/* Left side: icon + text */}
-                  <div className="d-flex align-items-center gap-3">
-                    {/* Icon wrapper */}
-                    <div>
-                      <FileText size={20} />
-                    </div>
-=======
           {reports.map((report, index) => (
             <div
               key={report.id}
@@ -162,7 +148,6 @@ export function AvailableReports() {
                   </small>
                 </div>
               </div>
->>>>>>> 0305418c6bc29903147e41a9f90c7a47ae00e0f2
 
               {/* Right Side: Download button */}
               <Button
@@ -190,10 +175,6 @@ export function AvailableReports() {
         )}
       </Card.Body>
     </Card>
-<<<<<<< HEAD
-  )
-}
-=======
   );
 }
 
@@ -379,4 +360,3 @@ export default AvailableReports;
 // };
 
 // export default AvailableReports;
->>>>>>> 0305418c6bc29903147e41a9f90c7a47ae00e0f2
