@@ -76,7 +76,7 @@ const WellnessTrends: React.FC = () => {
     const emoji = EMOJI_MAPPING.find((e) => e.score === payload.value)?.emoji;
     return (
       <g transform={`translate(${x},${y})`}>
-        <text x={0} y={0} dy={4} textAnchor="end" fill="#666" fontSize={20}>
+        <text x={0} y={0} dy={4} textAnchor="end" fill="#555" fontSize={20}>
           {emoji}
         </text>
       </g>
@@ -127,7 +127,7 @@ const WellnessTrends: React.FC = () => {
             {/* XAxis with dates */}
             <XAxis
               dataKey="date"
-              tick={{ fill: "#666" }}
+              tick={{ fill: "#555" }}
               axisLine={{ stroke: "#ccc" }}
             />
 
@@ -143,7 +143,7 @@ const WellnessTrends: React.FC = () => {
                 angle: -90,
                 position: "insideLeft",
                 offset: -10,
-                style: { fill: "#666" },
+                style: { fill: "#555" },
               }}
             />
 
