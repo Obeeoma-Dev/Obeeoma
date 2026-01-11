@@ -1057,11 +1057,34 @@ const Register: React.FC = () => {
           fontFamily: "body",
         }}
       >
-        <Container className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center container">
           <div className="footer-copyright">
             &copy; 2025 {customStyles.logoText}. All rights reserved.
           </div>
-        </Container>
+          <div className="d-flex align-items-center">
+            <Link
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }} role="button"
+              to="/privacy-policy"
+            >
+              Privacy Policy
+            </Link>
+            <a
+              href="terms"
+              className="text-muted text-decoration-none me-3"
+              style={{ fontFamily: "body" }}
+            >
+              Terms of Service
+            </a>
+            <a
+              href="contact-us"
+              className="text-muted text-decoration-none"
+              style={{ fontFamily: "body" }}
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
       </footer>
     </div>
   );

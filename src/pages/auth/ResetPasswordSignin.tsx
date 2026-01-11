@@ -948,13 +948,13 @@ const ResetPasswordSignIn: React.FC = () => {
               className="text-muted text-decoration-none me-3"
               style={{ fontFamily: "body" }}
               role="button"
-              to="/system-admin"
+              to="/privacy-policy"
             >
               Privacy Policy
             </Link>
 
             <a
-              href="#"
+              href="/terms"
               className="text-muted text-decoration-none me-3"
               style={{ fontFamily: "body" }}
             >
@@ -962,7 +962,7 @@ const ResetPasswordSignIn: React.FC = () => {
             </a>
 
             <a
-              href="#"
+              href="/contact-us"
               className="text-muted text-decoration-none"
               style={{ fontFamily: "body" }}
             >

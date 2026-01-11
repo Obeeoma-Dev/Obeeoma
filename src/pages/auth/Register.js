@@ -385,6 +385,6 @@ const Register = () => {
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     fontFamily: "body",
-                }, children: _jsx(Container, { className: "d-flex justify-content-between align-items-center", children: _jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }) }) })] }));
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/privacy-policy", children: "Privacy Policy" }), _jsx("a", { href: "terms", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "contact-us", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default Register;
