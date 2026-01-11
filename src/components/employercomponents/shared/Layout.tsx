@@ -1,7 +1,6 @@
 import { useState, ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-// import Modal from 'react-bootstrap/Modal';
 import {
   Home as HomeIcon,
   Users as UsersIcon,
