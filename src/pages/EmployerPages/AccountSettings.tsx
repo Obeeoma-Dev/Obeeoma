@@ -196,7 +196,7 @@ const EmployerAccountProfile = () => {
                 className="d-flex align-items-center gap-2 btn"
                 style={{
                   backgroundColor: "#FFFFFF",
-                  color: "grey",
+                  color: "#3d3c3c",
                   border: "1px solid #dee2e6",
                 }}
               >
