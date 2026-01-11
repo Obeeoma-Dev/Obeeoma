@@ -119,7 +119,7 @@ jobs:
             echo "Restarting containers..."
             docker compose up -d frontend --remove-orphans
 
-            echo "Building Docker image..."
+            echo "Building Docker image...."
             docker compose build frontend
 
             echo "Restarting containers..."
