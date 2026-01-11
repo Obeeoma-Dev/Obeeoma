@@ -85,7 +85,7 @@ jobs:
             REPO_SSH="${{ env.DEPLOY_REPO_SSH }}"
             BRANCH="${{ env.DEPLOY_BRANCH }}"
             DEPLOY_DIR="${{ env.DEPLOY_DIR }}"
-            DEPLOY_KEY="$HOME/.ssh/github_deploy_ed259"
+            DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
 
             echo "Deploy: ensure directory exists"
             if [ ! -d "$DEPLOY_DIR" ]; then
@@ -113,10 +113,10 @@ jobs:
 
             # Force reset to remote branch to avoid 'local changes would be overwritten'
             echo "Resetting worktree to origin/$BRANCH (this will discard uncommitted changes on the server)"
-            git reset --hard "origin/$BRANCH"
+            git.reset --hard "origin/$BRANCH"
 
             # Remove untracked/ignored files that might interfere with build
-            git clean -fdx
+            git.clean -fdx
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 
