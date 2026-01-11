@@ -111,13 +111,6 @@ jobs:
             echo "Fetching latest from origin/$BRANCH..."
             git fetch --all --prune
 
-            # Force reset to remote branch to avoid 'local changes would be overwritten'
-            # echo "Resetting worktree to origin/$BRANCH (this will discard uncommitted changes on the server)"
-            # git.reset --hard "origin/$BRANCH"
-
-            # Remove untracked/ignored files that might interfere with build
-            # git.clean -fdx
-
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 
             echo "Stopping existing containers..."
