@@ -18,7 +18,6 @@ COPY . .
 # Build the application (runs the 'build' script defined in package.json)
 RUN npm run build
 
-
 # Stage 2: Serve the static files with a lightweight web server (Nginx)
 FROM nginx:stable-alpine
 
