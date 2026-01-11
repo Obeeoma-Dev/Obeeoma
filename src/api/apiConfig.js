@@ -21,7 +21,7 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/reset-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
-            " v1/auth/verify-invitation-otp/",
+            "/v1/auth/verify-invitation-otp/",
             "/v1/auth/mfa/setup/",
             "/v1/auth/mfa/verify/",
         ];

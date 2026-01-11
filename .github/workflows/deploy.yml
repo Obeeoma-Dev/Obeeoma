@@ -120,8 +120,8 @@ jobs:
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 
-            echo "Killing any process on port 8000"
-            sudo sh -c 'pid=$(lsof -t -iTCP:8000 -sTCP:LISTEN || true); if [ -n "$pid" ]; then kill -9 $pid || true; fi'
+            echo "Stopping existing containers..."
+            docker compose down frontend || true
 
             echo "Restarting containers..."
             docker compose up -d frontend --remove-orphans
