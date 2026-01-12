@@ -28,7 +28,7 @@ const location_options = [
     { label: "Texas, USA (TX)", value: "TX" },
     { label: "Florida, USA (FL)", value: "FL" },
     { label: "Washington, USA (WA)", value: "WA" },
-    // --- 🇳🇬 West Africa (Countries & Key States/Cities) ---
+    // --- 🇳West Africa (Countries & Key States/Cities) ---
     // Nigeria
     { label: "Lagos, Nigeria", value: "NG-LAGOS" },
     { label: "Abuja, Nigeria", value: "NG-ABUJA" },
@@ -44,7 +44,7 @@ const location_options = [
     // Other W. Africa
     { label: "Liberia (Country)", value: "LR" },
     { label: "Sierra Leone (Country)", value: "SL" },
-    // --- 🇰🇪 Other African Countries (E. & S. Africa Focus) ---
+    // --- 🇰Other African Countries (E. & S. Africa Focus) ---
     // South Africa
     { label: "Johannesburg, South Africa", value: "ZA-JHB" },
     { label: "South Africa (Country)", value: "ZA" },
@@ -147,7 +147,7 @@ const Register = () => {
         password: "",
         confirmPassword: "",
         otherContactPersonRole: "",
-        otherLocation: "", // Initialize new field
+        otherLocation: "",
     };
     useEffect(() => {
         dispatch(clearAuthStatus());
@@ -155,19 +155,10 @@ const Register = () => {
     const formGroupStyle = {
         marginBottom: "1rem",
     };
-    const inputStyle = {
+    const inputGroupTextStyle = {
+        fontFamily: "body",
         height: "48px",
         borderRadius: "4px",
-    };
-    const inputGroupTextStyle = {
-        height: "48px",
-        backgroundColor: "white",
-        borderColor: "#ced4da",
-        color: customStyles.primaryColor,
-        width: "40px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
     };
     const passwordToggleStyle = {
         cursor: "pointer",
@@ -301,45 +292,45 @@ const Register = () => {
     errors) => {
         switch (activeStep) {
             case 0: // Step 1: Organization Details
-                return (_jsxs(Row, { children: [_jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faBuilding }) }), _jsx(BootstrapForm.Control, { type: "text", name: "organizationName", placeholder: "Organization Name", value: values.organizationName, onChange: handleChange, style: inputStyle, 
+                return (_jsxs(Row, { children: [_jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faBuilding }) }), _jsx(BootstrapForm.Control, { type: "text", name: "organizationName", placeholder: "Organization Name", value: values.organizationName, onChange: handleChange, style: inputGroupTextStyle, 
                                                 // <HIGHLIGHT START> Only show invalid if touched AND errors exist </HIGHLIGHT END>
-                                                isInvalid: !!touched.organizationName && !!errors.organizationName })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "organizationName" }) })] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faEnvelope }) }), _jsx(BootstrapForm.Control, { type: "email", name: "companyEmail", placeholder: "Organization Email Address", value: values.companyEmail, onChange: handleChange, style: inputStyle, 
+                                                isInvalid: !!touched.organizationName && !!errors.organizationName })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "organizationName" }) })] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faEnvelope }) }), _jsx(BootstrapForm.Control, { type: "email", name: "companyEmail", placeholder: "Organization Email Address", value: values.companyEmail, onChange: handleChange, style: inputGroupTextStyle, 
                                                 //  Only show invalid if touched AND errors exist
-                                                isInvalid: !!touched.companyEmail && !!errors.companyEmail })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "companyEmail" }) })] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faSitemap }) }), _jsx(BootstrapForm.Select, { name: "organisationSize", value: values.organisationSize, onChange: handleChange, style: inputStyle, 
+                                                isInvalid: !!touched.companyEmail && !!errors.companyEmail })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "companyEmail" }) })] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faSitemap }) }), _jsx(BootstrapForm.Select, { name: "organisationSize", value: values.organisationSize, onChange: handleChange, style: inputGroupTextStyle, 
                                                 //  Only show invalid if touched AND errors exist
                                                 isInvalid: !!touched.organisationSize && !!errors.organisationSize, children: organisation_size_options.map((option) => (_jsx("option", { value: option.value, children: option.label }, option.label))) })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "organisationSize" }) })] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faMapMarkerAlt }) }), _jsx(BootstrapForm.Select, { name: "Location" // Match field name
-                                                , value: values.Location, onChange: handleChange, style: inputStyle, 
+                                                , value: values.Location, onChange: handleChange, style: inputGroupTextStyle, 
                                                 //  Only show invalid if touched AND errors exist
                                                 isInvalid: !!touched.Location &&
                                                     !!errors.Location &&
-                                                    values.Location !== "OTHER", children: location_options.map((option) => (_jsx("option", { value: option.value, children: option.label }, option.value))) })] }), values.Location === "OTHER" && (_jsx(BootstrapForm.Control, { type: "text", name: "otherLocation", placeholder: "Type State/City/Country", value: values.otherLocation, onChange: handleChange, style: { ...inputStyle, marginTop: "1rem" }, 
+                                                    values.Location !== "OTHER", children: location_options.map((option) => (_jsx("option", { value: option.value, children: option.label }, option.value))) })] }), values.Location === "OTHER" && (_jsx(BootstrapForm.Control, { type: "text", name: "otherLocation", placeholder: "Type State/City/Country", value: values.otherLocation, onChange: handleChange, style: { ...inputGroupTextStyle, marginTop: "1rem" }, 
                                         // <Only show invalid if touched AND errors exist
                                         isInvalid: !!touched.otherLocation && !!errors.otherLocation })), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: values.Location !== "OTHER" ? "d-block" : "", children: !!touched.Location && !!errors.Location && (_jsx(ErrorMessage, { name: "Location" })) }), values.Location === "OTHER" && (_jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: !!touched.otherLocation && !!errors.otherLocation && (_jsx(ErrorMessage, { name: "otherLocation" })) }))] }) })] }));
             case 1: // Step 2: Contact Person Details & Password
-                return (_jsxs(Row, { children: [_jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsx(BootstrapForm.Control, { type: "text", name: "contactPersonFirstName", placeholder: "First Name", value: values.contactPersonFirstName, onChange: handleChange, style: inputStyle, 
+                return (_jsxs(Row, { children: [_jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsx(BootstrapForm.Control, { type: "text", name: "contactPersonFirstName", placeholder: "First Name", value: values.contactPersonFirstName, onChange: handleChange, style: inputGroupTextStyle, 
                                         // < Only show invalid if touched AND errors exist
                                         isInvalid: !!touched.contactPersonFirstName &&
-                                            !!errors.contactPersonFirstName }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "contactPersonFirstName" }) })] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsx(BootstrapForm.Control, { type: "text", name: "contactPersonLastName", placeholder: "Last Name", value: values.contactPersonLastName, onChange: handleChange, style: inputStyle, 
+                                            !!errors.contactPersonFirstName }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "contactPersonFirstName" }) })] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsx(BootstrapForm.Control, { type: "text", name: "contactPersonLastName", placeholder: "Last Name", value: values.contactPersonLastName, onChange: handleChange, style: inputGroupTextStyle, 
                                         // Only show invalid if touched AND errors exist
                                         isInvalid: !!touched.contactPersonLastName &&
-                                            !!errors.contactPersonLastName }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "contactPersonLastName" }) })] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faEnvelope }) }), _jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Contact Email Address", value: values.email, onChange: handleChange, style: inputStyle, 
+                                            !!errors.contactPersonLastName }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "contactPersonLastName" }) })] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faEnvelope }) }), _jsx(BootstrapForm.Control, { type: "email", name: "email", placeholder: "Contact Email Address", value: values.email, onChange: handleChange, style: inputGroupTextStyle, 
                                                 //  Only show invalid if touched AND errors exist
-                                                isInvalid: !!touched.email && !!errors.email })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsx("div", { style: { position: "relative", zIndex: 99999 }, children: _jsx(FormikField, { name: "phoneNumber", component: FormikPhoneInput, inputStyle: inputStyle, placeholder: "Contact Person Phone Number" }) }), !!touched.phoneNumber && !!errors.phoneNumber && (_jsx(ErrorMessage, { name: "phoneNumber", component: "div", className: "invalid-feedback d-block" }))] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faUserTie }) }), _jsx(BootstrapForm.Select, { name: "contactPersonRole", value: values.contactPersonRole, onChange: handleChange, style: inputStyle, 
+                                                isInvalid: !!touched.email && !!errors.email })] }), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", children: _jsx(ErrorMessage, { name: "email" }) })] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsx("div", { style: { position: "relative", zIndex: 99999 }, children: _jsx(FormikField, { name: "phoneNumber", component: FormikPhoneInput, inputStyle: inputGroupTextStyle, placeholder: "Contact Person Phone Number" }) }), !!touched.phoneNumber && !!errors.phoneNumber && (_jsx(ErrorMessage, { name: "phoneNumber", component: "div", className: "invalid-feedback d-block" }))] }) }), _jsx(Col, { md: 12, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faUserTie }) }), _jsx(BootstrapForm.Select, { name: "contactPersonRole", value: values.contactPersonRole, onChange: handleChange, style: inputGroupTextStyle, 
                                                 //  Only show invalid if touched AND errors exist
                                                 isInvalid: !!touched.contactPersonRole &&
                                                     !!errors.contactPersonRole &&
-                                                    values.contactPersonRole !== "OTHER", children: contact_role_options.map((option) => (_jsx("option", { value: option.value, children: option.label }, option.label))) })] }), values.contactPersonRole === "OTHER" && (_jsx(BootstrapForm.Control, { type: "text", name: "otherContactPersonRole", placeholder: "Type your role", value: values.otherContactPersonRole, onChange: handleChange, style: { ...inputStyle, marginTop: "1rem" }, 
+                                                    values.contactPersonRole !== "OTHER", children: contact_role_options.map((option) => (_jsx("option", { value: option.value, children: option.label }, option.label))) })] }), values.contactPersonRole === "OTHER" && (_jsx(BootstrapForm.Control, { type: "text", name: "otherContactPersonRole", placeholder: "Type your role", value: values.otherContactPersonRole, onChange: handleChange, style: { ...inputGroupTextStyle, marginTop: "1rem" }, 
                                         //  Only show invalid if touched AND errors exist
                                         isInvalid: !!touched.otherContactPersonRole &&
                                             !!errors.otherContactPersonRole })), _jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: values.contactPersonRole !== "OTHER" ? "d-block" : "", children: !!touched.contactPersonRole &&
                                             !!errors.contactPersonRole && (_jsx(ErrorMessage, { name: "contactPersonRole" })) }), values.contactPersonRole === "OTHER" && (_jsx(BootstrapForm.Control.Feedback, { type: "invalid", className: "d-block", children: !!touched.otherContactPersonRole &&
-                                            !!errors.otherContactPersonRole && (_jsx(ErrorMessage, { name: "otherContactPersonRole" })) }))] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faLock }) }), _jsx(BootstrapForm.Control, { type: showPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "Password", style: inputStyle, 
+                                            !!errors.otherContactPersonRole && (_jsx(ErrorMessage, { name: "otherContactPersonRole" })) }))] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, controlId: "password", children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faLock }) }), _jsx(BootstrapForm.Control, { type: showPassword ? "text" : "password", name: "password", value: values.password, onChange: handleChange, placeholder: "Password", style: inputGroupTextStyle, 
                                                 //  Only show invalid if touched AND errors exist
-                                                isInvalid: !!touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: togglePasswordVisibility, style: passwordToggleStyle, children: _jsx(FontAwesomeIcon, { icon: showPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), !!touched.password && !!errors.password && (_jsx(ErrorMessage, { name: "password", component: "div", className: "invalid-feedback d-block" }))] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, controlId: "confirmPassword", children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faLock }) }), _jsx(BootstrapForm.Control, { type: showConfirmPassword ? "text" : "password", name: "confirmPassword", value: values.confirmPassword, onChange: handleChange, placeholder: "Confirm Password", style: inputStyle, 
+                                                isInvalid: !!touched.password && !!errors.password }), _jsx(InputGroup.Text, { onClick: togglePasswordVisibility, style: passwordToggleStyle, children: _jsx(FontAwesomeIcon, { icon: showPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), !!touched.password && !!errors.password && (_jsx(ErrorMessage, { name: "password", component: "div", className: "invalid-feedback d-block" }))] }) }), _jsx(Col, { md: 6, children: _jsxs(BootstrapForm.Group, { style: formGroupStyle, controlId: "confirmPassword", children: [_jsxs(InputGroup, { children: [_jsx(InputGroup.Text, { style: inputGroupTextStyle, children: _jsx(FontAwesomeIcon, { icon: faLock }) }), _jsx(BootstrapForm.Control, { type: showConfirmPassword ? "text" : "password", name: "confirmPassword", value: values.confirmPassword, onChange: handleChange, placeholder: "Confirm Password", style: inputGroupTextStyle, 
                                                 // Only show invalid if touched AND errors exist
                                                 isInvalid: !!touched.confirmPassword && !!errors.confirmPassword }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: passwordToggleStyle, children: _jsx(FontAwesomeIcon, { icon: showConfirmPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), !!touched.confirmPassword && !!errors.confirmPassword && (_jsx(ErrorMessage, { name: "confirmPassword", component: "div", className: "invalid-feedback d-block" }))] }) })] }));
             case 2: // Step 3: Verification/Review (Informational after successful API call)
-                return (_jsxs("div", { className: "text-center my-3", children: [_jsx(FontAwesomeIcon, { icon: faCheckCircle, size: "3x", style: { color: customStyles.primaryColor, marginBottom: "1rem" } }), _jsx("h4", { className: "fw-semibold text-dark", children: "Registration Successful!" }), _jsxs("p", { className: "text-muted mb-4", children: ["Your account has been registered and an email has been sent to your email.", " "] }), _jsx(Button, { onClick: handleContinueToDashboard, className: "w-100 py-3 fw-semibold", style: {
+                return (_jsxs("div", { className: "text-center my-3", children: [_jsx(FontAwesomeIcon, { icon: faCheckCircle, size: "3x", style: { color: customStyles.primaryColor, marginBottom: "1rem" } }), _jsx("h5", { children: "Registration Successful!" }), _jsxs("p", { className: "text-muted mb-4", children: ["Your account has been registered and an email has been sent to your email.", " "] }), _jsx(Button, { onClick: handleContinueToDashboard, className: "w-100 py-3 fw-semibold", style: {
                                 backgroundColor: customStyles.primaryColor,
                                 borderColor: customStyles.primaryColor,
                                 color: "white",
@@ -364,7 +355,7 @@ const Register = () => {
                         }, children: _jsxs(Card.Body, { style: { padding: "2.5rem" }, className: "d-flex flex-column col-12", children: [_jsx(Link, { to: "/employer-dashboard", children: _jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-3", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                                                 height: "50px",
                                                 width: "auto",
-                                            }, className: "mb-1" }) }) }), _jsxs("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: [activeStep === 0 && "Step 1: Organization Details", activeStep === 1 && "Step 2: Contact Person Details", activeStep === 2 && "Registration Complete"] }), _jsx("p", { className: "text-center mb-3 text-muted", style: { fontSize: "1rem" }, children: "Get early access to Obeeoma and empower your team with smarter mental health support." }), _jsx(CustomStepper, { activeStep: activeStep, primaryColor: customStyles.primaryColor, steps: stepperSteps, onStepClick: handleStepNavigation }), localError && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => setLocalError(null), children: localError })), error && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => dispatch(clearAuthStatus()), children: error })), _jsx(Formik, { validationSchema: getStepValidationSchema(activeStep), initialValues: initialValues, 
+                                            }, className: "mb-1" }) }) }), _jsxs("h5", { className: "text-center mb-2 text-dark", children: [activeStep === 0 && "Step 1: Organization Details", activeStep === 1 && "Step 2: Contact Person Details", activeStep === 2 && "Registration Complete"] }), _jsx("p", { className: "text-center", children: "Get early access to Obeeoma and empower your team with smarter mental health support." }), _jsx(CustomStepper, { activeStep: activeStep, primaryColor: customStyles.primaryColor, steps: stepperSteps, onStepClick: handleStepNavigation }), localError && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => setLocalError(null), children: localError })), error && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => dispatch(clearAuthStatus()), children: error })), _jsx(Formik, { validationSchema: getStepValidationSchema(activeStep), initialValues: initialValues, 
                                     //  Change onSubmit to call handleNext/handleSubmit
                                     onSubmit: handleSubmit, validateOnMount: false, 
                                     //  Disable validation on blur to prevent errors when switching fields
@@ -385,6 +376,17 @@ const Register = () => {
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     fontFamily: "body",
-                }, children: _jsx(Container, { className: "d-flex justify-content-between align-items-center", children: _jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }) }) })] }));
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/privacy-policy", children: "Privacy Policy" }), _jsx("a", { href: "terms", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "contact-us", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default Register;
+{ /* const inputTextStyle: React.CSSProperties = {
+  //   height: "48px",
+  //   backgroundColor: "white",
+  //   borderColor: "#ced4da",
+  //   color: customStyles.primaryColor,
+  //   width: "40px",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // } */
+}

@@ -7,7 +7,7 @@ import "react-phone-input-2/lib/bootstrap.css";
 
 // 1. Update the interface to include dropdownStyle (and potentially all other props)
 interface CustomPhoneInputProps extends FieldProps {
-  inputStyle: React.CSSProperties;
+  inputStyle?: React.CSSProperties;
   // Add dropdownStyle here to be explicit
   dropdownStyle?: React.CSSProperties;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,7 +17,7 @@ interface CustomPhoneInputProps extends FieldProps {
 const FormikPhoneInput: React.FC<CustomPhoneInputProps> = ({
   field,
   form: { touched, errors, setFieldValue },
-  inputStyle,
+  inputStyle = {},
   ...props // This captures props like dropdownStyle={9999}
 }) => {
   const isInvalid = touched[field.name] && errors[field.name];

@@ -326,7 +326,7 @@ export default function WellnessGraph({
 // //                   x="30"
 // //                   y={y + 4}
 // //                   fontSize="10"
-// //                   fill="#666"
+// //                   fill="#555"
 // //                   textAnchor="end"
 // //                   alignmentBaseline="middle"
 // //                 >
@@ -546,7 +546,7 @@ export default function WellnessGraph({
 //                   x="30"
 //                   y={y + 4}
 //                   fontSize="10"
-//                   fill="#666"
+//                   fill="#555"
 //                   textAnchor="end"
 //                   alignmentBaseline="middle"
 //                 >
