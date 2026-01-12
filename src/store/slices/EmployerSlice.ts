@@ -695,6 +695,7 @@ import {
   EmployerUser,
   EmployeeStatusData,
   MoodTrend,
+  FeatureUsage,
 } from "../../types/employer";
 
 const getErrorMessage = (error: unknown): string => {
@@ -820,17 +821,26 @@ export const fetchEmployees = createAsyncThunk<
     const backendData = (response.data.employees || response.data) as any[];
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
-      id: employee.id,
+    // const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
+    //   id: employee.id,
 
-      // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A',
-      emailAddress: employee.empemail || employee.email || "N/A", // Adjusted to accept 'email' field from the console data
-      employeedepartment:
-        employee.empdepartment || employee.employeedepartment || "N/A",
-      status: employee.empstatus
-        ? (employee.empstatus.toLowerCase() as Employee["status"])
-        : "N/A",
-    }));
+    //   // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A',
+    //   emailAddress: employee.empemail || employee.email || "N/A", // Adjusted to accept 'email' field from the console data
+    //   employeedepartment:
+    //     employee.empdepartment || employee.employeedepartment || "N/A",
+    //   status: employee.empstatus
+    //     ? (employee.empstatus.toLowerCase() as Employee["status"])
+    //     : "N/A",
+    // }));
+    const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
+  id: employee.id,
+  // Map backend 'email' to frontend 'emailAddress'
+  emailAddress: employee.email || employee.empemail || "N/A", 
+  // Map backend 'employeedepartment' to frontend 'employeedepartment'
+  employeedepartment: employee.employeedepartment || "N/A", 
+  phoneNumber: employee.employeephone || "", // Add this
+  status: employee.empstatus ? (employee.empstatus.toLowerCase() as Employee["status"]) : "active",
+}));
 
     return mappedEmployees;
   } catch (error) {
@@ -1051,7 +1061,23 @@ export const fetchEmployeeStatus = createAsyncThunk<
 >("employer/fetchEmployeeStatus", async (_, { rejectWithValue }) => {
   try {
     const response = await employerAPI.getEmployeeStatus();
-    return response.data;
+    const data = response.data;
+    const activePercentage = data.totalEmployees > 0 ? Math.round((data.activeEmployees / data.totalEmployees) * 100) : 0;
+    const inactivePercentage = data.totalEmployees > 0 ? Math.round((data.inactiveEmployees / data.totalEmployees) * 100) : 0;
+    return { ...data, activePercentage, inactivePercentage };
+  } catch (error: unknown) {
+    return rejectWithValue(getErrorMessage(error));
+  }
+});
+
+export const fetchFeatureUsage = createAsyncThunk<
+  FeatureUsage[],
+  void,
+  { rejectValue: string }
+>("employer/fetchFeatureUsage", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getFeatureUsage();
+    return response.data as FeatureUsage[];
   } catch (error: unknown) {
     return rejectWithValue(getErrorMessage(error));
   }
@@ -1064,9 +1090,24 @@ export const updateEmployee = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
+      // Transform frontend field names to backend field names
+      const djangoPayload: Record<string, any> = {};
+      if (updatedData.emailAddress !== undefined) {
+        djangoPayload.empemail = updatedData.emailAddress;
+      }
+      if (updatedData.employeedepartment !== undefined) {
+        djangoPayload.empdepartment = updatedData.employeedepartment;
+      }
+      if (updatedData.status !== undefined) {
+        djangoPayload.empstatus = updatedData.status;
+      }
+      if (updatedData.phoneNumber !== undefined) {
+        djangoPayload.phoneNumber = updatedData.phoneNumber; // Assuming backend uses phoneNumber
+      }
+
       const response = await employerAPI.updateEmployee(
-        `/employees/${updatedData.id}`,
-        updatedData,
+        `/employees/${updatedData.id}/`,
+        djangoPayload,
       );
       return response.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1091,10 +1132,15 @@ const initialState: EmployerState = {
   engagement: null,
   reports: [],
   summary: null,
+  featureUsage: [],
   isLoading: false,
   isActionLoading: false,
   error: null,
   EmployeeStatusData: {
+    id: 0,
+    worker_department: "",
+    hours_engaged: "",
+    recorded_at: "",
     activeEmployees: 0,
     inactiveEmployees: 0,
     totalEmployees: 0,
@@ -1355,6 +1401,18 @@ const employerSlice = createSlice({
       .addCase(updateEmployee.rejected, (state, action) => {
         state.isActionLoading = false;
         state.error = action.payload as string;
+      })
+      .addCase(fetchFeatureUsage.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchFeatureUsage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.featureUsage = action.payload;
+      })
+      .addCase(fetchFeatureUsage.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || null;
       });
   },
 });

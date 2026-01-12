@@ -1,23 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { fetchEmployeeStatus } from "../../../store/slices/EmployerSlice";
+import { EmployeeStatusData } from "../../../types/employer";
+import type { AppDispatch, RootState } from "../../../store/store";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface EmployeeStatusData {
-  activeEmployees: number;
-  inactiveEmployees: number;
-  totalEmployees: number;
-}
+const EmployeeStatusLegend: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { EmployeeStatusData: employeeStatus, isLoading, error } = useSelector(
+    (state: RootState) => state.employer
+  );
 
-interface EmployeeStatusLegendProps {
-  employeeStatus: EmployeeStatusData;
-}
+  useEffect(() => {
+    dispatch(fetchEmployeeStatus());
+  }, [dispatch]);
 
-const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({
-  employeeStatus,
-}) => {
-  const { activeEmployees, inactiveEmployees, totalEmployees } = employeeStatus;
+  if (isLoading) {
+    return (
+      <div className="department-legend-container text-center py-4">
+        <div className="spinner-border text-success" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-2">Loading employee status...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="department-legend-container text-center py-4">
+        <div className="alert alert-danger" role="alert">
+          <h6>Error loading employee status</h6>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { activeEmployees, inactiveEmployees, totalEmployees, activePercentage, inactivePercentage } = employeeStatus;
+
+  // Increase each number after the entry
+  const displayActive = activeEmployees + 1;
+  const displayInactive = inactiveEmployees + 1;
+  const displayTotal = totalEmployees + 2;
 
   // const activePercentage = totalEmployees > 0 ? Math.round((activeEmployees / totalEmployees) * 100) : 0;
   // const inactivePercentage = totalEmployees > 0 ? Math.round((inactiveEmployees / totalEmployees) * 100) : 0;
@@ -27,7 +55,7 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({
     labels: ["Active Employees", "Inactive Employees"],
     datasets: [
       {
-        data: [activeEmployees, inactiveEmployees],
+        data: [displayActive, displayInactive],
         backgroundColor: ["#10b981", "#9ca3af"], // Green for active, Gray for inactive
         borderColor: ["#10b981", "#9ca3af"],
         borderWidth: 2,
@@ -58,13 +86,10 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({
             if (data.labels.length && data.datasets.length) {
               return data.labels.map((label: string, i: number) => {
                 const value = data.datasets[0].data[i];
-                const percentage =
-                  totalEmployees > 0
-                    ? Math.round((value / totalEmployees) * 100)
-                    : 0;
+                const percentage = displayTotal > 0 ? Math.round((data.datasets[0].data[i] / displayTotal) * 100) : 0;
 
                 return {
-                  text: `${label}: ${value} (${percentage}%)`,
+                  text: `${label}`,
                   fillStyle: data.datasets[0].backgroundColor[i],
                   strokeStyle: data.datasets[0].borderColor[i],
                   lineWidth: data.datasets[0].borderWidth,
@@ -91,16 +116,13 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({
           label: function (context: any) {
             const label = context.label || "";
             const value = context.parsed || 0;
-            const percentage =
-              totalEmployees > 0
-                ? Math.round((value / totalEmployees) * 100)
-                : 0;
+            const percentage = displayTotal > 0 ? Math.round((value / displayTotal) * 100) : 0;
             return `${label}: ${value} employees (${percentage}%)`;
           },
         },
       },
     },
-    cutout: "60%",
+    cutout: "50%",
     animation: {
       animateScale: true,
       animateRotate: true,
@@ -137,3 +159,4 @@ const EmployeeStatusLegend: React.FC<EmployeeStatusLegendProps> = ({
 };
 
 export default EmployeeStatusLegend;
+

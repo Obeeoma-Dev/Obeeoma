@@ -150,7 +150,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
                 <h6 className="fw-bold mb-3 text-center text-dark small">
                   Engagement Level
                 </h6>
-                <EmployeeStatusLegend employeeStatus={employeeStatus} />
+                <EmployeeStatusLegend />
               </div>
             </div>
           </div>

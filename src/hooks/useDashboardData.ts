@@ -195,7 +195,7 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     ).length;
     const inactiveEmployees = employees.filter(
       (emp) => emp.status === "inactive" || emp.status === "pending",
-    ).length; // Adjust status logic as needed
+    ).length; 
 
     return { activeEmployees, inactiveEmployees };
   };

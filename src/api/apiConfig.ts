@@ -403,6 +403,13 @@ export const employerAPI = {
     return response;
   },
 
+  getbreakdownusage: async () => {
+    const response = await api.get("/v1/feature-usage/");
+    return response;
+
+
+  },
+
   // Dashboard Settings
   getDashboardSettings: async () => {
     const response = await api.get("/v1/settings/");
@@ -552,6 +559,11 @@ export const employerAPI = {
 
   deleteAllData: async () => {
     return api.delete("/v1/employer/data/delete-all/");
+  },
+
+  getFeatureUsage: async () => {
+    const response = await api.get("/v1/feature-usage");
+    return response;
   },
 };
 

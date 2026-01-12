@@ -90,7 +90,6 @@ export interface InviteData {
 
 export interface Employee {
   id: number;
-  // name: string;
   emailAddress: string;
   phoneNumber?: string;
   employeedepartment: string;
@@ -162,12 +161,17 @@ export interface EmployerState {
   engagement: EmployerEngagementData | null;
   reports: Report[];
   summary: DashboardSummary | null;
+  featureUsage: FeatureUsage[];
   isLoading: boolean;
   isActionLoading: boolean; // For post/action endpoints
   error: string | null;
 }
 
 export interface EmployeeStatusData {
+  id: number;
+  worker_department: string;
+  hours_engaged: string;
+  recorded_at: string;
   activeEmployees: number;
   inactiveEmployees: number;
   totalEmployees: number;
@@ -234,3 +238,14 @@ export interface InvoiceItem {
   status: string;
   invoice_url: string | null;
 }
+
+export interface FeatureUsage {
+  id: number;
+  user_email: string;
+  feature: string;
+  use_count: number;
+  first_used_at: string;
+  last_used_at: string;
+}
+
+
