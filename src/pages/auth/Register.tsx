@@ -62,7 +62,7 @@ const location_options: LocationOption[] = [
   { label: "Florida, USA (FL)", value: "FL" },
   { label: "Washington, USA (WA)", value: "WA" },
 
-  // --- 🇳🇬 West Africa (Countries & Key States/Cities) ---
+  // --- 🇳West Africa (Countries & Key States/Cities) ---
   // Nigeria
   { label: "Lagos, Nigeria", value: "NG-LAGOS" },
   { label: "Abuja, Nigeria", value: "NG-ABUJA" },
@@ -79,7 +79,7 @@ const location_options: LocationOption[] = [
   { label: "Liberia (Country)", value: "LR" },
   { label: "Sierra Leone (Country)", value: "SL" },
 
-  // --- 🇰🇪 Other African Countries (E. & S. Africa Focus) ---
+  // --- 🇰Other African Countries (E. & S. Africa Focus) ---
   // South Africa
   { label: "Johannesburg, South Africa", value: "ZA-JHB" },
   { label: "South Africa (Country)", value: "ZA" },
@@ -219,7 +219,7 @@ const Register: React.FC = () => {
     password: "",
     confirmPassword: "",
     otherContactPersonRole: "",
-    otherLocation: "", // Initialize new field
+    otherLocation: "",
   };
 
   useEffect(() => {
@@ -230,20 +230,10 @@ const Register: React.FC = () => {
     marginBottom: "1rem",
   };
 
-  const inputStyle: React.CSSProperties = {
+  const inputGroupTextStyle: React.CSSProperties = {
+    fontFamily: "body",
     height: "48px",
     borderRadius: "4px",
-  };
-
-  const inputGroupTextStyle: React.CSSProperties = {
-    height: "48px",
-    backgroundColor: "white",
-    borderColor: "#ced4da",
-    color: customStyles.primaryColor,
-    width: "40px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   };
 
   const passwordToggleStyle: React.CSSProperties = {
@@ -430,7 +420,7 @@ const Register: React.FC = () => {
                     placeholder="Organization Name"
                     value={values.organizationName}
                     onChange={handleChange}
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     // <HIGHLIGHT START> Only show invalid if touched AND errors exist </HIGHLIGHT END>
                     isInvalid={
                       !!touched.organizationName && !!errors.organizationName
@@ -455,7 +445,7 @@ const Register: React.FC = () => {
                     placeholder="Organization Email Address"
                     value={values.companyEmail}
                     onChange={handleChange}
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     //  Only show invalid if touched AND errors exist
                     isInvalid={!!touched.companyEmail && !!errors.companyEmail}
                   />
@@ -476,7 +466,7 @@ const Register: React.FC = () => {
                     name="organisationSize"
                     value={values.organisationSize}
                     onChange={handleChange}
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     //  Only show invalid if touched AND errors exist
                     isInvalid={
                       !!touched.organisationSize && !!errors.organisationSize
@@ -506,7 +496,7 @@ const Register: React.FC = () => {
                     name="Location" // Match field name
                     value={values.Location}
                     onChange={handleChange}
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     //  Only show invalid if touched AND errors exist
                     isInvalid={
                       !!touched.Location &&
@@ -529,7 +519,7 @@ const Register: React.FC = () => {
                     placeholder="Type State/City/Country"
                     value={values.otherLocation}
                     onChange={handleChange}
-                    style={{ ...inputStyle, marginTop: "1rem" }} // Added margin for separation
+                    style={{ ...inputGroupTextStyle, marginTop: "1rem" }} // Added margin for separation
                     // <Only show invalid if touched AND errors exist
                     isInvalid={
                       !!touched.otherLocation && !!errors.otherLocation
@@ -572,7 +562,7 @@ const Register: React.FC = () => {
                   placeholder="First Name"
                   value={values.contactPersonFirstName}
                   onChange={handleChange}
-                  style={inputStyle}
+                  style={inputGroupTextStyle}
                   // < Only show invalid if touched AND errors exist
                   isInvalid={
                     !!touched.contactPersonFirstName &&
@@ -593,7 +583,7 @@ const Register: React.FC = () => {
                   placeholder="Last Name"
                   value={values.contactPersonLastName}
                   onChange={handleChange}
-                  style={inputStyle}
+                  style={inputGroupTextStyle}
                   // Only show invalid if touched AND errors exist
                   isInvalid={
                     !!touched.contactPersonLastName &&
@@ -618,7 +608,7 @@ const Register: React.FC = () => {
                     placeholder="Contact Email Address"
                     value={values.email}
                     onChange={handleChange}
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     //  Only show invalid if touched AND errors exist
                     isInvalid={!!touched.email && !!errors.email}
                   />
@@ -635,9 +625,9 @@ const Register: React.FC = () => {
                   <FormikField
                     name="phoneNumber"
                     component={FormikPhoneInput}
-                    inputStyle={inputStyle} // Pass the style prop down
+                    inputStyle={inputGroupTextStyle} // Pass the style prop down
                     placeholder="Contact Person Phone Number"
-                    // The FormikPhoneInput component handles Formik integration internally
+                  // The FormikPhoneInput component handles Formik integration internally
                   />
                 </div>
                 {/*  Use touched and errors for phone number as well  */}
@@ -662,7 +652,7 @@ const Register: React.FC = () => {
                     name="contactPersonRole"
                     value={values.contactPersonRole}
                     onChange={handleChange}
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     //  Only show invalid if touched AND errors exist
                     isInvalid={
                       !!touched.contactPersonRole &&
@@ -685,7 +675,7 @@ const Register: React.FC = () => {
                     placeholder="Type your role"
                     value={values.otherContactPersonRole}
                     onChange={handleChange}
-                    style={{ ...inputStyle, marginTop: "1rem" }} // Added margin for separation
+                    style={{ ...inputGroupTextStyle, marginTop: "1rem" }} // Added margin for separation
                     //  Only show invalid if touched AND errors exist
                     isInvalid={
                       !!touched.otherContactPersonRole &&
@@ -732,7 +722,7 @@ const Register: React.FC = () => {
                     value={values.password}
                     onChange={handleChange}
                     placeholder="Password"
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     //  Only show invalid if touched AND errors exist
                     isInvalid={!!touched.password && !!errors.password}
                   />
@@ -771,7 +761,7 @@ const Register: React.FC = () => {
                     value={values.confirmPassword}
                     onChange={handleChange}
                     placeholder="Confirm Password"
-                    style={inputStyle}
+                    style={inputGroupTextStyle}
                     // Only show invalid if touched AND errors exist
                     isInvalid={
                       !!touched.confirmPassword && !!errors.confirmPassword
@@ -807,7 +797,7 @@ const Register: React.FC = () => {
               size="3x"
               style={{ color: customStyles.primaryColor, marginBottom: "1rem" }}
             />
-            <h4 className="fw-semibold text-dark">Registration Successful!</h4>
+            <h5>Registration Successful!</h5>
             <p className="text-muted mb-4">
               Your account has been registered and an email has been sent to
               your email.{" "}
@@ -892,17 +882,15 @@ const Register: React.FC = () => {
                 </div>
               </Link>
 
-              <h3
-                className="text-center mb-2 fw-semibold text-dark"
-                style={{ fontFamily: "heading" }}
+              <h5
+                className="text-center mb-2 text-dark"
               >
                 {activeStep === 0 && "Step 1: Organization Details"}
                 {activeStep === 1 && "Step 2: Contact Person Details"}
                 {activeStep === 2 && "Registration Complete"}
-              </h3>
+              </h5>
               <p
-                className="text-center mb-3 text-muted"
-                style={{ fontSize: "1rem" }}
+                className="text-center"
               >
                 Get early access to Obeeoma and empower your team with smarter
                 mental health support.
@@ -1090,3 +1078,15 @@ const Register: React.FC = () => {
   );
 };
 export default Register;
+
+
+{/* const inputTextStyle: React.CSSProperties = {
+  //   height: "48px",
+  //   backgroundColor: "white",
+  //   borderColor: "#ced4da",
+  //   color: customStyles.primaryColor,
+  //   width: "40px",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // } */}

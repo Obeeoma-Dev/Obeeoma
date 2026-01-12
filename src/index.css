@@ -40,12 +40,16 @@
    Global Page Styling
 ----------------------------------------------- */
 body {
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: 'body', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   background-color: var(--obeeoma-bg);
   color: var(--obeeoma-text);
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'heading', sans-serif;
 }
 
 a {
@@ -1370,7 +1374,7 @@ form .form-floating .form-control.message-textarea {
 body {
   margin: 0;
   /* Use Bootstrap default font stack */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'body', "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
