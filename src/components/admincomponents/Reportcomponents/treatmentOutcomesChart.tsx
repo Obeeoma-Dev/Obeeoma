@@ -44,7 +44,7 @@ const TreatmentOutcomesChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
+          label: function (context: { parsed: { y: number } }) {
             return `${context.parsed.y} patients`;
           },
         },
@@ -56,7 +56,7 @@ const TreatmentOutcomesChart: React.FC = () => {
         max: 60,
         ticks: {
           stepSize: 15,
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value;
           },
         },

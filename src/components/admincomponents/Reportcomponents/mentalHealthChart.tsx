@@ -38,7 +38,7 @@ const MentalHealthChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
+          label: function (context: { parsed: { y: number } }) {
             return `${context.parsed.y}%`;
           },
         },
@@ -50,7 +50,7 @@ const MentalHealthChart: React.FC = () => {
         max: 36,
         ticks: {
           stepSize: 9,
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value;
           },
         },

@@ -44,7 +44,7 @@ const OrganizationPerformanceChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
+          label: function (context: { parsed: { y: number } }) {
             return `Score: ${context.parsed.y}/100`;
           },
         },
@@ -56,7 +56,7 @@ const OrganizationPerformanceChart: React.FC = () => {
         max: 100,
         ticks: {
           stepSize: 20,
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value;
           },
         },

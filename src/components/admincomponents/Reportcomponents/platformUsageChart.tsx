@@ -38,7 +38,7 @@ const PlatformUsageChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: any) {
+          label: function (context: { parsed: { y: number } }) {
             return `${context.parsed.y.toLocaleString()} users`;
           },
         },
@@ -48,7 +48,7 @@ const PlatformUsageChart: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value.toLocaleString();
           },
         },
