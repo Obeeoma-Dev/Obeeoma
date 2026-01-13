@@ -110,20 +110,27 @@ jobs:
 
             echo "Fetching latest from origin/$BRANCH.."
             git fetch --all --prune
+            
+            echo "Updating to latest code..."
+            git checkout "$BRANCH"
+            git reset --hard "origin/$BRANCH"
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 
+            echo "Verifying docker-compose.yml exists..."
+            if [ ! -f "docker-compose.yml" ]; then
+              echo "Error: docker-compose.yml not found in $DEPLOY_DIR"
+              exit 1
+            fi
+
             echo "Stopping existing containers..."
-            docker compose down frontend || true
+            docker compose down || true
 
-            echo "Restarting containers..."
-            docker compose up -d frontend --remove-orphans
+            echo "Building Docker images..."
+            docker compose build
 
-            echo "Building Docker image.."
-            docker compose build frontend
-
-            echo "Restarting containers..."
-            docker compose up -d frontend --remove-orphans
+            echo "Starting containers..."
+            docker compose up -d --remove-orphans
 
             echo "Cleaning up dangling Docker images..."
             docker image prune -f
