@@ -10,6 +10,7 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  TooltipItem,
 } from "chart.js";
 
 // Register chart components
@@ -44,8 +45,8 @@ const TreatmentOutcomesChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: { parsed: { y: number } }) {
-            return `${context.parsed.y} patients`;
+          label: function (context: TooltipItem<"bar">) {
+            return `${context.parsed.y ?? 0} patients`;
           },
         },
       },

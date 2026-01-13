@@ -10,6 +10,7 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  TooltipItem,
 } from "chart.js";
 
 // Register chart components
@@ -44,8 +45,8 @@ const OrganizationPerformanceChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (context: { parsed: { y: number } }) {
-            return `Score: ${context.parsed.y}/100`;
+          label: function (context: TooltipItem<"bar">) {
+            return `Score: ${context.parsed.y ?? 0}/100`;
           },
         },
       },
