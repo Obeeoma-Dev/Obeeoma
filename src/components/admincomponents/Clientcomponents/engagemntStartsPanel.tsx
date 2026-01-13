@@ -5,6 +5,7 @@
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { Award, TrendingUp, Flame, ArrowUp } from "lucide-react";
+import "./engagement.css"
 
 // Props interface
 interface EngagementStatsPanelProps {
@@ -34,20 +35,22 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
         <Card
           className="shadow-lg mb-3 h-100"
           style={{
-            fontFamily: "body",
-            backgroundColor: "#f8f9fa",
-            borderRadius: "8px",
-            padding: "1.5rem",
+            fontFamily: 'body',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '8px',
+            padding: '1.5rem',
           }}
         >
           <Card.Body>
-            <Award size={20} className="mb-2 text-primary" />
+            <div className="icon-circle mb-3">
+              <Award size={20} />
+            </div>
             <h5
               className="mb-3 fw-semibold"
               style={{
-                fontSize: "1.125rem",
-                color: "#212529",
-                fontFamily: "heading",
+                fontSize: '1.125rem',
+                color: '#212529',
+                fontFamily: 'heading',
               }}
             >
               Top Rewards
@@ -59,7 +62,7 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
               >
                 <span
                   className="me-2"
-                  style={{ fontWeight: "bold", color: "#6c757d" }}
+                  style={{ fontWeight: 'bold', color: '#6c757d' }}
                 >
                   #{index + 1}
                 </span>
@@ -76,17 +79,23 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
         <Card
           className="shadow-lg mb-3 h-100"
           style={{
-            fontFamily: "body",
-            backgroundColor: "#f8f9fa",
-            borderRadius: "8px",
-            padding: "1.5rem",
+            fontFamily: 'body',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '8px',
+            padding: '1.5rem',
           }}
         >
           <Card.Body>
-            <TrendingUp size={24} className="mb-2 text-primary" />
-            <h5 className="mb-3 fw-bold" style={{ fontSize: "1.25rem" }}>
+            <div className="icon-circle mb-3">
+              <TrendingUp size={24} />
+            </div>
+            <h5
+              className="mb-3 fw-bold"
+              style={{ fontSize: '1.25rem' }}
+            >
               Engagement Trends
             </h5>
+
             <div className="d-flex justify-content-between align-items-center mb-3">
               <span className="fw-medium">Course Completion</span>
               <span className="text-success d-flex align-items-center fw-bold">
@@ -94,6 +103,7 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
                 %
               </span>
             </div>
+
             <div className="d-flex justify-content-between align-items-center mb-3">
               <span className="fw-medium">Reward Redemption</span>
               <span className="text-success d-flex align-items-center fw-bold">
@@ -101,6 +111,7 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
                 %
               </span>
             </div>
+
             <div className="d-flex justify-content-between align-items-center">
               <span className="fw-medium">Member Activity</span>
               <span className="text-success d-flex align-items-center fw-bold">
@@ -116,23 +127,30 @@ const EngagementStatsPanel: React.FC<EngagementStatsPanelProps> = ({
         <Card
           className="shadow-lg mb-3 h-100"
           style={{
-            fontFamily: "body",
-            backgroundColor: "#f8f9fa",
-            borderRadius: "8px",
-            padding: "1.5rem",
+            fontFamily: 'heading',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '8px',
+            padding: '1.5rem',
           }}
         >
           <Card.Body>
-            <Flame size={20} className="mb-2 text-warning" />
+            {/* Reuse the same circular icon style */}
+            <div className="icon-circle mb-3">
+              <Flame size={20} />
+            </div>
+
             <h5 className="mb-3">Streak Statistics</h5>
+
             <div className="d-flex justify-content-between mb-3">
               <span>🔥 7-Day Streak</span>
               <strong>{streaks.sevenDay}%</strong>
             </div>
+
             <div className="d-flex justify-content-between mb-3">
               <span>🔥 30-Day Streak</span>
               <strong>{streaks.thirtyDay}%</strong>
             </div>
+
             <div className="d-flex justify-content-between">
               <span>💧 60-Day Streak</span>
               <strong>{streaks.sixtyDay}%</strong>

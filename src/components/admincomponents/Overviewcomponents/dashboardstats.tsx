@@ -43,19 +43,22 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                 <div className="d-flex align-items-start justify-content-between mb-4">
                   <div
                     className={`d-flex align-items-center justify-content-center rounded-circle p-3 ${stat.iconColor}`}
-                    style={{ width: "56px", height: "56px" }}
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      backgroundColor: "#f0f5f2",
+                    }}
                   >
-                    <IconComponent size={28} className="icon-color" />
+                    <IconComponent size={28} color="#0B6E45" />
                   </div>
 
                   {/* Change indicator styled like a badge */}
                   <span
                     className="fw-semibold px-3 py-2 rounded-2"
                     style={{
+                      fontFamily: "body",
                       fontSize: "0.75rem",
-                      color: stat.change.startsWith("+")
-                        ? "#3CB371"
-                        : "#dc3545",
+                      color: stat.change.startsWith("+") ? "#3CB371" : "#0B6E45",
                       backgroundColor: "transparent",
                       fontWeight: 600,
                       display: "inline-block",
@@ -73,8 +76,8 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
 
                 {/* Bottom section: title and value */}
                 <div>
-                  <div className="h4 fw-bold text-dark mb-2">{stat.value}</div>
-                  <div className="text-muted small fw-500">{stat.title}</div>
+                  <div className="h4 fw-bold text-dark mb-2" style={{ fontFamily: 'body' }}>{stat.value}</div>
+                  <div className="text-muted small fw-500" style={{ fontFamily: 'body' }}>{stat.title}</div>
                 </div>
               </Card.Body>
             </Card>

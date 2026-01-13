@@ -1,112 +1,112 @@
-import React from "react";
-import { Modal, Button, Form, Stack } from "react-bootstrap";
-import { FileText, Download } from "lucide-react";
-import "./reports.css";
+import React from 'react'
+import { Modal, Button, Form, Stack } from 'react-bootstrap'
+import { FileText, Download } from 'lucide-react'
+import './reports.css'
 
 interface DownloadPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-  reportTitle: string;
-  reportType: string;
-  reportDate: string;
-  reportSize: string;
+    isOpen: boolean
+    onClose: () => void
+    reportTitle: string
+    reportType: string
+    reportDate: string
+    reportSize: string
 }
 
 /**
  * DownloadPopup Component
  */
 export function DownloadPopup({
-  isOpen,
-  onClose,
-  reportTitle,
-  reportType,
-  reportDate,
-  reportSize,
+    isOpen,
+    onClose,
+    reportTitle,
+    reportType,
+    reportDate,
+    reportSize
 }: DownloadPopupProps) {
-  /**
-   * Handles the download action
-   */
-  const handleDownload = () => {
-    console.log("Downloading:", reportTitle);
-    onClose();
-  };
-
-  return (
     /**
-     * Bootstrap Modal replaces your Popup component
-     * show      -> controls visibility
-     * onHide    -> handles close events
-     * centered  -> vertically centers modal
-     */
-    <Modal show={isOpen} onHide={onClose} centered>
-      {/* Modal Header */}
-      <Modal.Header closeButton>
-        <Modal.Title>Download Report</Modal.Title>
-      </Modal.Header>
+     * Handles the download action
+    */
+    const handleDownload = () => {
+        console.log('Downloading:', reportTitle)
+        onClose()
+    }
 
-      {/* Modal Body */}
-      <Modal.Body>
-        {/* Stack replaces Tailwind flex + spacing */}
-        <Stack gap={4}>
-          {/* Report Info Card */}
-          <div className="report-card">
-            <div className="report-icon">
-              <FileText size={24} />
-            </div>
+    return (
+        /**
+         * Bootstrap Modal replaces your Popup component
+         * show      -> controls visibility
+         * onHide    -> handles close events
+         * centered  -> vertically centers modal
+         */
+        <Modal show={isOpen} onHide={onClose} centered>
+            {/* Modal Header */}
+            <Modal.Header closeButton>
+                <Modal.Title style={{ fontFamily: 'heading' }}>Download Report</Modal.Title>
+            </Modal.Header>
 
-            <div className="flex-grow-1">
-              <p className="report-title">{reportTitle}</p>
-              <p className="report-meta">
-                {reportType} {reportDate} • {reportSize}
-              </p>
-            </div>
-          </div>
+            {/* Modal Body */}
+            <Modal.Body>
+                {/* Stack replaces Tailwind flex + spacing */}
+                <Stack gap={4}>
+                    {/* Report Info Card */}
+                    <div className="report-card" style={{ fontFamily: 'body' }}>
+                        <div className="report-icon">
+                            <FileText size={24} />
+                        </div>
 
-          {/* Download Options */}
-          <div>
-            <p className="fw-medium mb-2">Download Options</p>
+                        <div className="flex-grow-1">
+                            <p className="report-title">{reportTitle}</p>
+                            <p className="report-meta">
+                                {reportType} {reportDate} • {reportSize}
+                            </p>
+                        </div>
+                    </div>
 
-            {/* Radio Group */}
-            <Form>
-              <Stack gap={2}>
-                <Form.Check
-                  type="radio"
-                  name="format"
-                  id="pdf"
-                  label="PDF Format"
-                  defaultChecked
-                />
+                    {/* Download Options */}
+                    <div>
+                        <p className="fw-medium mb-2" style={{ fontFamily: 'body' }}>Download Options</p>
 
-                <Form.Check
-                  type="radio"
-                  name="format"
-                  id="excel"
-                  label="Excel Format"
-                />
+                        {/* Radio Group */}
+                        <Form style={{ fontFamily: 'body' }}>
+                            <Stack gap={2}>
+                                <Form.Check
+                                    type="radio"
+                                    name="format"
+                                    id="pdf"
+                                    label="PDF Format"
+                                    defaultChecked
+                                />
 
-                <Form.Check
-                  type="radio"
-                  name="format"
-                  id="csv"
-                  label="CSV Format"
-                />
-              </Stack>
-            </Form>
-          </div>
-        </Stack>
-      </Modal.Body>
+                                <Form.Check
+                                    type="radio"
+                                    name="format"
+                                    id="excel"
+                                    label="Excel Format"
+                                />
 
-      {/* Modal Footer */}
-      <Modal.Footer>
-        <Button variant="outline-secondary" onClick={onClose}>
-          Cancel
-        </Button>
+                                <Form.Check
+                                    type="radio"
+                                    name="format"
+                                    id="csv"
+                                    label="CSV Format"
+                                />
+                            </Stack>
+                        </Form>
+                    </div>
+                </Stack>
+            </Modal.Body>
 
-        <Button variant="success" onClick={handleDownload}>
-          <Download size={16} className="me-2" />
-          Download
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
+            {/* Modal Footer */}
+            <Modal.Footer style={{ fontFamily: 'body' }}>
+                <Button variant="outline-secondary" onClick={onClose}>
+                    Cancel
+                </Button>
+
+                <Button variant="success" onClick={handleDownload}>
+                    <Download size={16} className="me-2" />
+                    Download
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    )
 }

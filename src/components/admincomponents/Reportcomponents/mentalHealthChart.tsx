@@ -82,8 +82,7 @@ const MentalHealthChart: React.FC = () => {
       <Card.Body style={{ padding: "1.5rem" }}>
         <h5
           style={{
-            fontSize: "1.25rem",
-            fontWeight: "600",
+            fontFamily: "heading",
             color: "#1a1a1a",
             marginBottom: "1.5rem",
           }}

@@ -130,35 +130,50 @@ export function Blog() {
   // Visibility flag you already had (kept to avoid breaking anything)
   const [, setIsVisible] = useState(false);
 
+  // Date formatter.
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "—";
+    const date = new Date(dateStr);
+    return isNaN(date.getTime())
+      ? "—"
+      : date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+  };
+
   // -----------------------------
   // FETCH BLOGS FROM BACKEND
   // -----------------------------
 
   useEffect(() => {
-    // Define async function to fetch blogs
     const fetchBlogs = async () => {
       try {
-        // Call backend API (change URL if needed)
-        const response = await fetch("/api/blogs/");
+        const response = await fetch("http://127.0.0.1:8000/api/v1/articles/");
+        const data = await response.json();
 
-        // Convert response to JSON
-        const data: Blog[] = await response.json();
+        // Map backend fields to frontend Blog interface
+        const mapped: Blog[] = data.map((item: any) => ({
+          id: item.id,
+          title: item.title,
+          excerpt: item.excerpt,
+          image: item.featured_image, // backend field
+          category: item.category,
+          date: formatDate(item.date || item.published_date),
+          readTime: "5 min read", // placeholder or computed
+          author: item.author,
+          featured: item.featured,
+        }));
 
-        // Save backend data into blogs state
-        setBlogs(data);
-
-        // Initially show all blogs
-        setFilteredBlogs(data);
+        setBlogs(mapped);
+        setFilteredBlogs(mapped);
       } catch (error) {
-        // Log error if backend fails (prevents app crash)
         console.error("Error fetching blogs:", error);
       }
     };
 
-    // Call the fetch function
     fetchBlogs();
-
-    // Set visibility flag (your existing behavior)
     setIsVisible(true);
   }, []);
 
@@ -258,7 +273,10 @@ export function Blog() {
 
           {/* Empty state */}
           {filteredBlogs.length === 0 && (
-            <div className="blog-no-results" style={{ fontFamily: "body" }}>
+            <div
+              className="blog-no-results"
+              style={{ fontFamily: "body" }}
+            >
               <p>No articles found. Try adjusting your search or filter.</p>
             </div>
           )}

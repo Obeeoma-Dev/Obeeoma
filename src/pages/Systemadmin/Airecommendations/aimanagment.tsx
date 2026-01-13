@@ -11,7 +11,13 @@ import TopTriggers from "../../../components/admincomponents/Aicomponents/topTri
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
-import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
+import {
+  FileText,
+  Video,
+  Headphones,
+  MousePointerClick,
+} from 'lucide-react'
+
 
 /**
  * AIRecommendationsPage renders the AI management dashboard.
@@ -29,60 +35,60 @@ const AIRecommendationsPage: React.FC = () => {
   const resources: ResourceRow[] = [
     {
       id: 1,
-      name: "Anxiety Management Techniques",
-      type: "Article",
+      name: 'Anxiety Management Techniques',
+      type: 'Article',
       icon: FileText,
-      recommended: "156 times",
+      recommended: '156 times',
       engagement: 78,
-      effectiveness: "High",
-      lastUpdated: "2023-09-12",
-      status: "High Effectiveness",
+      effectiveness: 'High',
+      lastUpdated: '2023-09-12',
+      status: 'High Effectiveness',
     },
     {
       id: 2,
-      name: "Breathing Exercises for Anxiety",
-      type: "Video",
+      name: 'Breathing Exercises for Anxiety',
+      type: 'Video',
       icon: Video,
-      recommended: "243 times",
+      recommended: '243 times',
       engagement: 82,
-      effectiveness: "High",
-      lastUpdated: "2023-08-10",
-      status: "High Effectiveness",
+      effectiveness: 'High',
+      lastUpdated: '2023-08-10',
+      status: 'High Effectiveness',
     },
     {
       id: 3,
-      name: "Understanding Panic Attacks",
-      type: "Article",
+      name: 'Understanding Panic Attacks',
+      type: 'Article',
       icon: FileText,
-      recommended: "124 times",
+      recommended: '124 times',
       engagement: 65,
-      effectiveness: "Medium",
-      lastUpdated: "2023-09-05",
-      status: "High Effectiveness",
+      effectiveness: 'Medium',
+      lastUpdated: '2023-09-05',
+      status: 'High Effectiveness',
     },
     {
       id: 4,
-      name: "Guided Meditation for Relief",
-      type: "Audio",
+      name: 'Guided Meditation for Relief',
+      type: 'Audio',
       icon: Headphones,
-      recommended: "198 times",
+      recommended: '198 times',
       engagement: 72,
-      effectiveness: "Medium",
-      lastUpdated: "2023-09-08",
-      status: "High Effectiveness",
+      effectiveness: 'Medium',
+      lastUpdated: '2023-09-08',
+      status: 'High Effectiveness',
     },
     {
       id: 5,
-      name: "Social Anxiety Coping Strategies",
-      type: "Interactive",
+      name: 'Social Anxiety Coping Strategies',
+      type: 'Interactive',
       icon: MousePointerClick,
-      recommended: "87 times",
+      recommended: '87 times',
       engagement: 58,
-      effectiveness: "Low",
-      lastUpdated: "2023-08-28",
-      status: "High Effectiveness",
+      effectiveness: 'Low',
+      lastUpdated: '2023-08-28',
+      status: 'High Effectiveness',
     },
-  ];
+  ]
 
   // Model performance scores
   const modelScores = [
@@ -99,7 +105,7 @@ const AIRecommendationsPage: React.FC = () => {
     { name: "Academic pressure", score: 68 },
     { name: "Peer pressure", score: 65 },
     { name: "Family relationships", score: 61 },
-  ];
+  ]
 
   return (
     <div className="d-flex vh-100">

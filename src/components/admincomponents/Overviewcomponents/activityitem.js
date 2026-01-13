@@ -12,11 +12,11 @@ const ActivityItem = ({ data }) => {
         Icons.Activity);
     // Map iconColor to pastel background colors
     const bgColorMap = {
-        "bg-light": "#f0f4f8",
-        "bg-success": "#e6f4ea",
-        "bg-info": "#e7f1ff",
-        "bg-warning": "#fff4e5",
-        "bg-danger": "#fde7f3",
+        "bg-light": "#9DD3AF",
+        "bg-success": "#9DD3AF",
+        "bg-info": "#9DD3AF",
+        "bg-warning": "#9DD3AF",
+        "bg-danger": "#9DD3AF",
     };
     // Fallback to light gray if no match
     const iconBgColor = bgColorMap[data.iconColor] || "#f0f4f8";
@@ -26,6 +26,6 @@ const ActivityItem = ({ data }) => {
                                 backgroundColor: iconBgColor,
                                 width: "40px",
                                 height: "40px",
-                            }, children: _jsx(IconComponent, { size: 20, color: "#3CB371" }) }), _jsxs("div", { children: [_jsx("div", { className: "fw-semibold mb-1", children: data.type }), _jsx("div", { className: "text-muted small", children: data.details })] })] }), _jsx("div", { className: "text-muted small text-end", children: data.time })] }) }));
+                            }, children: _jsx(IconComponent, { size: 20, color: "#0B6E45" }) }), _jsxs("div", { children: [_jsx("div", { className: "fw-semibold mb-1", children: data.type }), _jsx("div", { className: "text-muted small", children: data.details })] })] }), _jsx("div", { className: "text-muted small text-end", children: data.time })] }) }));
 };
 export default ActivityItem;

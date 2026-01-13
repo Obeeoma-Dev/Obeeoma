@@ -28,8 +28,7 @@ const CustomReportForm: React.FC = () => {
       <Card.Body style={{ padding: "1.5rem" }}>
         <h5
           style={{
-            fontSize: "1.25rem",
-            fontWeight: "600",
+            fontFamily: "heading",
             color: "#1a1a1a",
             marginBottom: "1.5rem",
           }}
@@ -46,12 +45,10 @@ const CustomReportForm: React.FC = () => {
             }}
           >
             {/* Report Type Dropdown */}
-            <div style={{ flex: 1, minWidth: "200px" }}>
+            <div style={{ flex: 1, minWidth: "200px", fontFamily: "body" }}>
               <label
                 style={{
                   display: "block",
-                  fontSize: "0.875rem",
-                  fontWeight: "500",
                   color: "#495057",
                   marginBottom: "0.5rem",
                 }}
@@ -80,7 +77,7 @@ const CustomReportForm: React.FC = () => {
             </div>
 
             {/* Date Range Dropdown */}
-            <div style={{ flex: 1, minWidth: "200px" }}>
+            <div style={{ flex: 1, minWidth: "200px", fontFamily: "body" }}>
               <label
                 style={{
                   display: "block",
@@ -116,7 +113,7 @@ const CustomReportForm: React.FC = () => {
             </div>
 
             {/* Format Dropdown */}
-            <div style={{ flex: 1, minWidth: "200px" }}>
+            <div style={{ flex: 1, minWidth: "200px", fontFamily: "body" }}>
               <label
                 style={{
                   display: "block",
@@ -157,8 +154,7 @@ const CustomReportForm: React.FC = () => {
                 padding: "0.625rem 1.5rem",
                 borderRadius: "6px",
                 border: "none",
-                fontWeight: "500",
-                fontSize: "0.9375rem",
+                fontFamily: "body",
                 cursor: "pointer",
                 whiteSpace: "nowrap",
                 height: "fit-content",
