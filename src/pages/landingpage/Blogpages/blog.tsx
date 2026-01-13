@@ -143,6 +143,15 @@ export function Blog() {
       });
   };
 
+  // Image URL resolver
+  const resolveImageUrl = (imageUrl: string | null): string => {
+    if (!imageUrl) return "";
+    if (imageUrl.startsWith("/")) {
+      return `http://127.0.0.1:8000${imageUrl}`;
+    }
+    return imageUrl;
+  };
+
   // -----------------------------
   // FETCH BLOGS FROM BACKEND
   // -----------------------------
@@ -150,26 +159,43 @@ export function Blog() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
+        console.log("Fetching blogs from API...");
         const response = await fetch("http://127.0.0.1:8000/api/v1/articles/");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Raw API data:", data);
 
         // Map backend fields to frontend Blog interface
         const mapped: Blog[] = data.map((item: any) => ({
           id: item.id,
           title: item.title,
-          excerpt: item.excerpt,
-          image: item.featured_image, // backend field
-          category: item.category,
-          date: formatDate(item.date || item.published_date),
-          readTime: "5 min read", // placeholder or computed
-          author: item.author,
-          featured: item.featured,
+          excerpt: item.excerpt || "No excerpt available",
+          image: resolveImageUrl(item.featured_image) || Mentalhealthawareness, // fallback to default image
+          category: item.category || "General",
+          date: formatDate(item.published_date),
+          readTime: `${Math.max(1, Math.ceil((item.content?.length || 0) / 200))} min read`, // estimate reading time
+          author: item.author || "Obeeoma Editorial Team",
+          featured: item.featured || false,
         }));
 
-        setBlogs(mapped);
-        setFilteredBlogs(mapped);
+        console.log("Mapped blogs:", mapped);
+
+        // Only update if we have data, otherwise keep the default blogs
+        if (mapped.length > 0) {
+          setBlogs(mapped);
+          setFilteredBlogs(mapped);
+        } else {
+          console.log("No blogs from API, keeping default blogs");
+          setFilteredBlogs(blogs);
+        }
       } catch (error) {
         console.error("Error fetching blogs:", error);
+        // Keep the default blogs if API fails
+        setFilteredBlogs(blogs);
       }
     };
 

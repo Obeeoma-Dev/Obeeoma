@@ -38,24 +38,44 @@ export function BlogManager() {
         },
     ]);
 
-    // Defining an image type.
-    type BackendBlog = Omit<BlogPost, "imageUrl"> & {
-        featured_image: string;
-        published_date?: string;
+    // Defining an image type that matches your backend API
+    type BackendBlog = {
+        id: string;
+        title: string;
+        category: string;
+        published_date: string;
+        status: "published" | "draft";
+        excerpt: string | null;
+        featured_image: string | null;
+        author: string | null;
+        content: string;
+        featured: boolean;
     };
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/v1/articles/")
             .then(res => res.json())
             .then((data: BackendBlog[]) => {
+                console.log("Raw API data:", data); // Debug log
                 const mapped: BlogPost[] = data.map((item) => ({
-                    ...item,
-                    imageUrl: item.featured_image, // map backend field to frontend
-                    date: item.date || item.published_date || "",
+                    id: item.id,
+                    title: item.title,
+                    category: item.category || "Uncategorized",
+                    date: item.published_date,
+                    status: item.status,
+                    excerpt: item.excerpt || "",
+                    imageUrl: item.featured_image || "", // Handle null images
+                    author: item.author || "Anonymous",
+                    content: item.content,
+                    featured: item.featured,
                 }));
+                console.log("Mapped data:", mapped); // Debug log
                 setBlogs(mapped);
             })
-            .catch(err => console.error("Failed to load blogs", err));
+            .catch(err => {
+                console.error("Failed to load blogs", err);
+                // Keep the default blogs if API fails
+            });
     }, []);
 
 
@@ -109,22 +129,18 @@ export function BlogManager() {
         try {
             const formData = new FormData();
 
-            // Append all fields to FormData
+            // Append all fields to FormData with correct backend field names
             formData.append('title', newBlog.title);
             formData.append('category', newBlog.category);
-            formData.append('date', newBlog.date);
             formData.append('status', newBlog.status);
             formData.append('excerpt', newBlog.excerpt);
             formData.append('author', newBlog.author);
             formData.append('content', newBlog.content);
             formData.append('featured', newBlog.featured.toString());
 
-            // Handle image
+            // Handle image - use correct backend field name
             if (newBlog.imageUrl instanceof File) {
                 formData.append('featured_image', newBlog.imageUrl);
-            } else if (typeof newBlog.imageUrl === 'string') {
-                // If it's a URL, you might need to handle differently, but for now assume file
-                formData.append('image_url', newBlog.imageUrl);
             }
 
             // ADD MODE → CREATE BLOG
@@ -134,26 +150,55 @@ export function BlogManager() {
                     body: formData,
                 });
 
-                const savedBlog: BlogPost = await res.json();
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
+                const savedBlogRaw = await res.json();
+
+                // Map the response back to frontend format
+                const savedBlog: BlogPost = {
+                    id: savedBlogRaw.id,
+                    title: savedBlogRaw.title,
+                    category: savedBlogRaw.category,
+                    date: savedBlogRaw.published_date,
+                    status: savedBlogRaw.status,
+                    excerpt: savedBlogRaw.excerpt || "",
+                    imageUrl: savedBlogRaw.featured_image || "",
+                    author: savedBlogRaw.author || "Anonymous",
+                    content: savedBlogRaw.content,
+                    featured: savedBlogRaw.featured,
+                };
 
                 // Update UI immediately
                 setBlogs((prev) => [savedBlog, ...prev]);
-                // Using toast for a success message.
                 toast.success("Article added successfully!");
             }
             // EDIT MODE → UPDATE BLOG
             else {
-                formData.append('id', newBlog.id);
                 const res = await fetch(`http://127.0.0.1:8000/api/v1/articles/${newBlog.id}/`, {
                     method: "PUT",
                     body: formData,
                 });
 
-                // Update handler.
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+
                 const updatedBlogRaw = await res.json();
+
+                // Map the response back to frontend format
                 const updatedBlog: BlogPost = {
-                    ...updatedBlogRaw,
-                    imageUrl: updatedBlogRaw.featured_image,
+                    id: updatedBlogRaw.id,
+                    title: updatedBlogRaw.title,
+                    category: updatedBlogRaw.category,
+                    date: updatedBlogRaw.published_date,
+                    status: updatedBlogRaw.status,
+                    excerpt: updatedBlogRaw.excerpt || "",
+                    imageUrl: updatedBlogRaw.featured_image || "",
+                    author: updatedBlogRaw.author || "Anonymous",
+                    content: updatedBlogRaw.content,
+                    featured: updatedBlogRaw.featured,
                 };
 
                 setBlogs((prev) =>
@@ -168,6 +213,7 @@ export function BlogManager() {
             setShowForm(false);
         } catch (error) {
             console.error("Failed to save blog:", error);
+            toast.error("Failed to save article. Please try again.");
         }
     }
 
