@@ -15,6 +15,7 @@ export default [
       "coverage/",
       "src/**/*.js",
       "node_modules/",
+      ".history/",
     ],
   },
 
@@ -24,7 +25,7 @@ export default [
 
   // 3. Main Configuration Block for all source files ({js,jsx,ts,tsx})
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
 
     // Configuration extensions
     ...pluginReact.configs.flat.recommended,

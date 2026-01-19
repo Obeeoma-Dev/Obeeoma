@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { employerAPI } from "../../../api/apiConfig";
 
 // Emoji mapping based on mood scores
 const EMOJI_MAPPING = [
@@ -33,35 +34,38 @@ const dummyMoodData = [
 ];
 
 const WellnessTrends: React.FC = () => {
-  const [moodData] = useState(dummyMoodData);
+  const [moodData, setMoodData] = useState(dummyMoodData);
 
-  // In the future, replace this with actual API call
   useEffect(() => {
-    // Example of how to fetch from backend:
-    /*
-    fetch('/api/wellness/mood-trends')
-      .then(response => response.json())
-      .then(data => {
-        // Transform backend data to match our format
-        const transformedData = data.map((item: any) => ({
-          date: item.date,
-          score: item.moodScore,
-          emoji: getEmojiFromScore(item.moodScore),
-        }));
-        setMoodData(transformedData);
-      });
-    */
-  }, []);
+    const fetchMoodData = async () => {
+      try {
+        const response = await employerAPI.getWellnessMoodTrends();
+        const data = response.data;
+        if (Array.isArray(data)) {
+          const transformedData = data.map((item: { date: string; moodScore: number }) => ({
+            date: item.date,
+            score: item.moodScore,
+            emoji: getEmojiFromScore(item.moodScore),
+          }));
+          setMoodData(transformedData);
+        }
+      } catch (error) {
+        console.error("Failed to fetch the mood data:", error);
+      }
+    };
+
+    fetchMoodData();
+  }, [setMoodData]);
 
   // Helper function to get emoji based on score
-  // const getEmojiFromScore = (score: number): string => {
-  //   const emoji = EMOJI_MAPPING.find(
-  //     (item, index) =>
-  //       score <= item.score ||
-  //       (index === EMOJI_MAPPING.length - 1 && score > item.score)
-  //   );
-  //   return emoji?.emoji || '😐';
-  // };
+  const getEmojiFromScore = (score: number): string => {
+    const emoji = EMOJI_MAPPING.find(
+      (item, index) =>
+        score <= item.score ||
+        (index === EMOJI_MAPPING.length - 1 && score > item.score)
+    );
+    return emoji?.emoji || '😐';
+  };
 
   // Custom YAxis tick with emojis
   const renderEmojiTick = ({

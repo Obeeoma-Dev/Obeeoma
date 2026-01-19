@@ -110,21 +110,45 @@ jobs:
 
             echo "Fetching latest from origin/$BRANCH.."
             git fetch --all --prune
-            
+
             echo "Updating to latest code..."
             git checkout "$BRANCH"
             git reset --hard "origin/$BRANCH"
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 
-            echo "Copying backend code from existing location..."
-            if [ -d "/home/obeeoma/obeeoma_project/api" ]; then
-              echo "Copying backend from existing deployment..."
-              cp -r /home/obeeoma/obeeoma_project/api ./api
-            else
-              echo "Warning: Backend not found at /home/obeeoma/obeeoma_project/api"
-              echo "You may need to deploy backend separately first"
+            # ---------------------------------------------------------
+            # Handle Backend Repository
+            # ---------------------------------------------------------
+            BACKEND_REPO_SSH="git@github.com:Obeeoma-Dev/api.git" # <--- VERIFY THIS URL
+            BACKEND_DIR="/home/obeeoma/obeeoma_project/api"
+
+            echo "Deploy: ensure backend directory exists at $BACKEND_DIR"
+            if [ ! -d "$BACKEND_DIR" ]; then
+              mkdir -p "$BACKEND_DIR"
+              chown "$(whoami)":"$(whoami)" "$BACKEND_DIR" || true
             fi
+
+            # Using the same deploy key for backend
+            if [ -f "$DEPLOY_KEY" ]; then
+              export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+            fi
+
+            if [ ! -d "$BACKEND_DIR/.git" ]; then
+              echo "Cloning Backend repository..."
+              git clone "$BACKEND_REPO_SSH" "$BACKEND_DIR"
+              cd "$BACKEND_DIR"
+              git checkout "$BRANCH" || echo "Branch $BRANCH not found in Backend, staying on default"
+            else
+              echo "Updating Backend repository..."
+              cd "$BACKEND_DIR"
+              git fetch --all --prune
+              git checkout "$BRANCH" || echo "Branch $BRANCH not found in Backend, staying on default"
+              git reset --hard "origin/$BRANCH" || git reset --hard "origin/HEAD"
+            fi
+
+            # Return to Obeeoma directory
+            cd "$DEPLOY_DIR"
 
             echo "Verifying docker-compose.yml exists..."
             if [ ! -f "docker-compose.yml" ]; then

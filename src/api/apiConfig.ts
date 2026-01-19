@@ -498,6 +498,11 @@ export const employerAPI = {
     return response;
   },
 
+  getWellnessMoodTrends: async () => {
+    const response = await api.get("/api/wellness/mood-trends");
+    return response;
+  },
+
   getDepartmentDistribution: async () => {
     const response = await api.get("/v1/dashboard/departments");
     return response;
