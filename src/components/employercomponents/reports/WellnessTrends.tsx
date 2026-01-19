@@ -50,7 +50,7 @@ const WellnessTrends: React.FC = () => {
           setMoodData(transformedData);
         }
       } catch (error) {
-        console.error("Failed to fetch mood data:", error);
+        console.error("Failed to fetch the mood data:", error);
       }
     };
 
