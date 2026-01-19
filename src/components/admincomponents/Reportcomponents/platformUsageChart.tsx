@@ -1,3 +1,5 @@
+// src/components/admincomponents/reportcomponents/PlatformUsageChart.tsx
+
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -8,8 +10,8 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  TooltipItem,
 } from "chart.js";
-import { TooltipItem } from "chart.js";
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -37,9 +39,8 @@ const PlatformUsageChart: React.FC = () => {
       },
       tooltip: {
         callbacks: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          label: function (context: any) {
-            return `${context.parsed.y.toLocaleString()} users`;
+          label: function (context: TooltipItem<"bar">) {
+            return `${(context.parsed.y ?? 0).toLocaleString()} users`;
           },
         },
       },
@@ -48,8 +49,7 @@ const PlatformUsageChart: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          callback: function (value: any) {
+          callback: function (value: number | string) {
             return value.toLocaleString();
           },
         },
@@ -81,8 +81,7 @@ const PlatformUsageChart: React.FC = () => {
       <Card.Body style={{ padding: "1.5rem" }}>
         <h5
           style={{
-            fontSize: "1.25rem",
-            fontWeight: "600",
+            fontFamily: "heading",
             color: "#1a1a1a",
             marginBottom: "1.5rem",
           }}
@@ -98,3 +97,4 @@ const PlatformUsageChart: React.FC = () => {
 };
 
 export default PlatformUsageChart;
+

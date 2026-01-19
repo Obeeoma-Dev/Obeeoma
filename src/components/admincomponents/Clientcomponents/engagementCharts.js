@@ -11,7 +11,7 @@ const weeklyEngagementData = {
         {
             label: "Engagement Rate (%)",
             data: [75, 78, 80, 77, 79, 81, 78],
-            borderColor: "#0B6E45",
+            borderColor: "#3CB371",
             backgroundColor: "rgba(11, 110, 69, 0.2)",
             fill: true,
         },
@@ -24,7 +24,7 @@ const rewardRedemptionData = {
         {
             label: "Points Redeemed",
             data: [42000, 38000, 45000, 47000, 43000, 50000],
-            backgroundColor: "#0B6E45",
+            backgroundColor: "#3CB371",
         },
     ],
 };

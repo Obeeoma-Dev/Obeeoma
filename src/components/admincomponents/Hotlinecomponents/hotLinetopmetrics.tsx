@@ -1,7 +1,7 @@
 // src/components/admincomponents/Hotline-activity/TopMetrics.tsx
-import React from "react";
-import { Row, Col } from "react-bootstrap";
-import { Phone, Clock, XCircle } from "lucide-react";
+import React from "react"
+import { Row, Col } from "react-bootstrap"
+import { Phone, Clock, XCircle } from "lucide-react"
 import { HoverStatCard } from "./hoverCard";
 
 interface TopMetricsProps {
@@ -48,7 +48,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
             subtitle="Average duration"
             trend="-0:05 vs last week"
             icon={Clock}
-            color="blue"
+            color="emerald"
           />
         </Col>
         <Col xs={12} md={4}>

@@ -1,0 +1,4 @@
+/* Styling the palce holder in the form on the image field */
+.placeholder-body::placeholder {
+    font-family: 'body' !important;
+}

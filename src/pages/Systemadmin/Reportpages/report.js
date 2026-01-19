@@ -27,8 +27,7 @@ const ReportPage = () => {
                             padding: "2rem",
                             backgroundColor: "#ffffff",
                         }, children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-4", children: [_jsx("h1", { style: {
-                                            fontSize: "2rem",
-                                            fontWeight: "bold",
+                                            fontFamily: "heading",
                                             color: "#1a1a1a",
                                             margin: 0,
                                         }, children: "Reports & Analytics" }), _jsxs("div", { className: "d-flex gap-3", children: [_jsxs("button", { className: "btn", style: {
@@ -40,14 +39,15 @@ const ReportPage = () => {
                                                     display: "flex",
                                                     alignItems: "center",
                                                     gap: "0.5rem",
+                                                    fontFamily: "body",
                                                 }, children: [_jsx("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: _jsx("path", { d: "M2 4h12M2 8h12M2 12h8", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round" }) }), "Filter Data"] }), _jsx("button", { className: "btn", style: {
                                                     backgroundColor: "#3CB371",
                                                     color: "#ffffff",
                                                     padding: "0.5rem 1.5rem",
                                                     borderRadius: "6px",
                                                     border: "none",
-                                                    fontWeight: "500",
-                                                }, children: "Generate New Report" })] })] }), _jsx("div", { className: "d-flex gap-4 mb-4", style: { borderBottom: "1px solid #e9ecef" }, children: tabs.map((tab) => (_jsx("button", { onClick: () => setActiveTab(tab), style: {
+                                                    fontFamily: "body",
+                                                }, children: "Generate New Report" })] })] }), _jsx("div", { className: "d-flex gap-4 mb-4", style: { borderBottom: "1px solid #e9ecef", fontFamily: "body" }, children: tabs.map((tab) => (_jsx("button", { onClick: () => setActiveTab(tab), style: {
                                         background: "none",
                                         border: "none",
                                         padding: "0.75rem 0",
@@ -55,9 +55,7 @@ const ReportPage = () => {
                                         fontSize: "1rem",
                                         color: activeTab === tab ? "#3CB371" : "#6c757d",
                                         fontWeight: activeTab === tab ? "600" : "400",
-                                        borderBottom: activeTab === tab
-                                            ? "2px solid #3CB371"
-                                            : "2px solid transparent",
+                                        borderBottom: activeTab === tab ? "2px solid #3CB371" : "2px solid transparent",
                                         cursor: "pointer",
                                         transition: "all 0.2s",
                                     }, children: tab }, tab))) }), _jsxs(Container, { fluid: true, className: "px-0", children: [activeTab === "Platform Usage" && (_jsx("div", { className: "mb-5", children: _jsx(PlatformUsageChart, {}) })), activeTab === "Health Conditions" && (_jsx("div", { className: "mb-5", children: _jsx(MentalHealthChart, {}) })), activeTab === "Treatment Outcomes" && (_jsx("div", { className: "mb-5", children: _jsx(TreatmentOutcomesChart, {}) })), activeTab === "Organization Performance" && (_jsx("div", { className: "mb-5", children: _jsx(OrganizationPerformanceChart, {}) })), _jsx("div", { className: "mb-5", children: _jsx(AvailableReports, {}) }), _jsx("div", { children: _jsx(CustomReportForm, {}) })] })] })] })] }));

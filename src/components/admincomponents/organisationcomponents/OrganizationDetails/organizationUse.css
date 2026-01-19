@@ -1,28 +1,28 @@
 /* OrganizationProfile styling */
 /* Root wrapper spacing */
 .organization-profile {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Icon container styling */
 .org-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
-  background-color: #e6f4f1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  color: #198754;
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    background-color: #e6f4f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: #198754;
 }
 
 /* Navigation button styling */
 .action-link {
-  text-decoration: none;
-  padding: 0;
-  font-weight: 500;
+    text-decoration: none;
+    padding: 0;
+    font-weight: 500;
 }
 
 
@@ -35,16 +35,16 @@
 /* Title styling */
 .platform-usage-title {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-family: 'heading';
     color: #212529;
     margin-bottom: 1.5rem;
 }
 
-/* Chart container height */
+/* Chart container height
 .platform-usage-chart-wrapper {
     height: 280px;
     width: 100%;
-}
+} */
 
 
 /* ProgramEngagement styling */
@@ -53,10 +53,23 @@
     padding: 1.5rem;
 }
 
+.program-card {
+    height: 100%;
+}
+
+.platform-card {
+    height: 100%;
+}
+
+
+.platform-chart-container {
+    height: 280px;
+}
+
 /* Title styling */
 .program-title {
     font-size: 1.125rem;
-    font-weight: 600;
+    font-family: 'heading';
     margin-bottom: 1.5rem;
     color: #212529;
 }
@@ -66,6 +79,15 @@
     width: 100%;
     height: 280px;
 }
+
+.program-key {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #6c757d;
+    padding-left: 1rem;
+}
+
+
 
 
 /* Recent Activity Stylings */
@@ -78,7 +100,7 @@
 .recent-activity-title {
     font-size: 1.125rem;
     /* Equivalent to text-lg */
-    font-weight: 600;
+    font-family: 'heading';
     color: #212529;
     /* Bootstrap text-dark */
     margin-bottom: 1.5rem;

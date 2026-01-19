@@ -1,11 +1,10 @@
-import React from "react";
-import { Card, Table, Badge, ProgressBar, Button } from "react-bootstrap";
-import {
-  CheckCircleFill,
-  ExclamationTriangleFill,
-} from "react-bootstrap-icons";
-import { ThumbsUp, ThumbsDown, MoreVertical } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import React from 'react';
+import { Card, Table, Badge, ProgressBar, Button } from 'react-bootstrap';
+import { CheckCircleFill, ExclamationTriangleFill } from 'react-bootstrap-icons';
+import { ThumbsUp, ThumbsDown, MoreVertical } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+
+
 
 export interface ResourceRow {
   id: number;
@@ -14,13 +13,13 @@ export interface ResourceRow {
   icon: LucideIcon;
   recommended: string;
   engagement: number;
-  effectiveness: "High" | "Medium" | "Low";
+  effectiveness: 'High' | 'Medium' | 'Low';
   lastUpdated: string;
   status: string;
 }
 
 interface ResourcesTableProps {
-  resources: ResourceRow[];
+  resources: ResourceRow[]
 }
 
 const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
@@ -30,11 +29,11 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
       <Card.Body className="p-0">
         <Table responsive hover borderless className="mb-0">
           {/* Preserve all original headers */}
-          <thead className="table-light text-uppercase small text-muted">
+          <thead className="table-light text-uppercase small text-muted" style={{ fontFamily: 'heading' }}>
             <tr>
               <th className="pl-2">Resource</th>
               <th>Recommended</th>
-              <th style={{ width: "120px" }}>Engagement</th>
+              <th style={{ width: '120px' }}>Engagement</th>
               <th>Effectiveness</th>
               <th>Last Updated</th>
               <th className="text-end pr-2">Actions</th>
@@ -43,7 +42,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
 
           <tbody>
             {resources.map((resource) => {
-              const IconComponent = resource.icon;
+              const IconComponent = resource.icon
               return (
                 <tr key={resource.id}>
                   {/* Resource Name + Icon */}
@@ -51,28 +50,20 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                     <div className="d-flex align-items-center gap-2">
                       <div
                         className="d-flex align-items-center justify-content-center rounded"
-                        style={{
-                          width: 36,
-                          height: 36,
-                          backgroundColor: "#f1f3f5",
-                        }}
+                        style={{ width: 36, height: 36, backgroundColor: '#f1f3f5' }}
                       >
                         <IconComponent
                           size={18}
                           color={
-                            resource.type === "Article"
-                              ? "#0d6efd"
-                              : resource.type === "Video"
-                                ? "#dc3545"
-                                : resource.type === "Audio"
-                                  ? "#198754"
-                                  : resource.type === "Interactive"
-                                    ? "#fd7e14"
-                                    : "#6c757d"
+                            resource.type === 'Article' ? '#0d6efd' :
+                              resource.type === 'Video' ? '#dc3545' :
+                                resource.type === 'Audio' ? '#198754' :
+                                  resource.type === 'Interactive' ? '#fd7e14' :
+                                    '#6c757d'
                           }
                         />
                       </div>
-                      <div>
+                      <div style={{ fontFamily: 'body' }}>
                         <div className="fw-medium">{resource.name}</div>
                         <div className="text-muted small">{resource.type}</div>
                       </div>
@@ -80,24 +71,22 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                   </td>
 
                   {/* Recommended */}
-                  <td className="align-middle text-muted">
-                    {resource.recommended}
-                  </td>
+                  <td className="align-middle text-muted" style={{ fontFamily: 'body' }}>{resource.recommended}</td>
 
                   {/* Engagement */}
                   <td className="align-middle">
                     <div className="d-flex align-items-center gap-2">
-                      <span className="small fw-medium" style={{ width: 30 }}>
+                      <span className="small fw-medium" style={{ width: 30, fontFamily: 'body' }}>
                         {resource.engagement}%
                       </span>
                       <ProgressBar
                         now={resource.engagement}
                         variant={
                           resource.engagement > 75
-                            ? "success"
+                            ? 'success'
                             : resource.engagement > 60
-                              ? "warning"
-                              : "danger"
+                              ? 'warning'
+                              : 'danger'
                         }
                         style={{ height: 6, flex: 1 }}
                       />
@@ -105,18 +94,18 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                   </td>
 
                   {/* Effectiveness */}
-                  <td className="align-middle">
+                  <td className="align-middle" style={{ fontFamily: 'body' }}>
                     <Badge
                       bg={
-                        resource.effectiveness === "High"
-                          ? "success"
-                          : resource.effectiveness === "Medium"
-                            ? "warning"
-                            : "danger"
+                        resource.effectiveness === 'High'
+                          ? 'success'
+                          : resource.effectiveness === 'Medium'
+                            ? 'warning'
+                            : 'danger'
                       }
                       className="d-inline-flex align-items-center gap-2 px-3 py-2"
                     >
-                      {resource.effectiveness === "High" ? (
+                      {resource.effectiveness === 'High' ? (
                         <CheckCircleFill size={14} />
                       ) : (
                         <ExclamationTriangleFill size={14} />
@@ -126,9 +115,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                   </td>
 
                   {/* Last Updated */}
-                  <td className="align-middle text-muted">
-                    {resource.lastUpdated}
-                  </td>
+                  <td className="align-middle text-muted" style={{ fontFamily: 'body' }}>{resource.lastUpdated}</td>
 
                   {/* Actions */}
                   <td className="align-middle text-end">
@@ -145,13 +132,13 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                     </div>
                   </td>
                 </tr>
-              );
+              )
             })}
           </tbody>
         </Table>
       </Card.Body>
     </Card>
-  );
-};
+  )
+}
 
-export default ResourcesTable;
+export default ResourcesTable

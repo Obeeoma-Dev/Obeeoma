@@ -26,11 +26,11 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
 
   // Map iconColor to pastel background colors
   const bgColorMap: Record<string, string> = {
-    "bg-light": "#f0f4f8",
-    "bg-success": "#e6f4ea",
-    "bg-info": "#e7f1ff",
-    "bg-warning": "#fff4e5",
-    "bg-danger": "#fde7f3",
+    "bg-light": "#9DD3AF",
+    "bg-success": "#9DD3AF",
+    "bg-info": "#9DD3AF",
+    "bg-warning": "#9DD3AF",
+    "bg-danger": "#9DD3AF",
   };
 
   // Fallback to light gray if no match
@@ -51,7 +51,7 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
               height: "40px",
             }}
           >
-            <IconComponent size={20} color="#3CB371" />
+            <IconComponent size={20} color="#0B6E45" />
           </div>
 
           {/* Text content: type and details */}

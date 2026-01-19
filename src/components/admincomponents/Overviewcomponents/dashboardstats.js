@@ -13,11 +13,14 @@ const DashboardStats = ({ stats }) => {
             // Example: "+8% vs yesterday" => value = "+8%", restText = "vs yesterday"
             const [value, ...rest] = stat.change.split(" ");
             const restText = rest.join(" ");
-            return (_jsx(Col, { xs: 12, sm: 6, md: 3, className: "mb-0", children: _jsx(Card, { className: "shadow-sm border-0 h-100", style: { transition: "all 0.3s ease", backgroundColor: "#fff" }, children: _jsxs(Card.Body, { className: "d-flex flex-column justify-content-between p-4", children: [_jsxs("div", { className: "d-flex align-items-start justify-content-between mb-4", children: [_jsx("div", { className: `d-flex align-items-center justify-content-center rounded-circle p-3 ${stat.iconColor}`, style: { width: "56px", height: "56px" }, children: _jsx(IconComponent, { size: 28, className: "icon-color" }) }), _jsx("span", { className: "fw-semibold px-3 py-2 rounded-2", style: {
+            return (_jsx(Col, { xs: 12, sm: 6, md: 3, className: "mb-0", children: _jsx(Card, { className: "shadow-sm border-0 h-100", style: { transition: "all 0.3s ease", backgroundColor: "#fff" }, children: _jsxs(Card.Body, { className: "d-flex flex-column justify-content-between p-4", children: [_jsxs("div", { className: "d-flex align-items-start justify-content-between mb-4", children: [_jsx("div", { className: `d-flex align-items-center justify-content-center rounded-circle p-3 ${stat.iconColor}`, style: {
+                                            width: "56px",
+                                            height: "56px",
+                                            backgroundColor: "#f0f5f2",
+                                        }, children: _jsx(IconComponent, { size: 28, color: "#0B6E45" }) }), _jsx("span", { className: "fw-semibold px-3 py-2 rounded-2", style: {
+                                            fontFamily: "body",
                                             fontSize: "0.75rem",
-                                            color: stat.change.startsWith("+")
-                                                ? "#3CB371"
-                                                : "#dc3545",
+                                            color: stat.change.startsWith("+") ? "#3CB371" : "#0B6E45",
                                             backgroundColor: "transparent",
                                             fontWeight: 600,
                                             display: "inline-block",
@@ -25,7 +28,7 @@ const DashboardStats = ({ stats }) => {
                                         // Make whole change text red
                                         _jsx("span", { style: { color: "#dc3545" }, children: stat.change })) : (
                                         // Default for all other cards
-                                        _jsx(_Fragment, { children: stat.change })) })] }), _jsxs("div", { children: [_jsx("div", { className: "h4 fw-bold text-dark mb-2", children: stat.value }), _jsx("div", { className: "text-muted small fw-500", children: stat.title })] })] }) }) }, stat.id));
+                                        _jsx(_Fragment, { children: stat.change })) })] }), _jsxs("div", { children: [_jsx("div", { className: "h4 fw-bold text-dark mb-2", style: { fontFamily: 'body' }, children: stat.value }), _jsx("div", { className: "text-muted small fw-500", style: { fontFamily: 'body' }, children: stat.title })] })] }) }) }, stat.id));
         }) }));
 };
 export default DashboardStats;
