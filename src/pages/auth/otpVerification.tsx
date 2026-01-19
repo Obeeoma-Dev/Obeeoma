@@ -8,7 +8,7 @@ import { verifyOtpThunk, resendOtpThunk } from "../../store/slices/authSlice";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor: "#22C55E", // Already set to #22C55E
+  primaryColor: "#22C55E", 
 };
 
 const PRIMARY_COLOR = customStyles.primaryColor; // Define a constant for cleaner use

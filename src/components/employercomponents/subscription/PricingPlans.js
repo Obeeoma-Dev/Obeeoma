@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Check, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useState } from "react";
 const PricingPlans = () => {
     // 1. Initialize currentPlanName to null/empty string.
@@ -12,45 +12,33 @@ const PricingPlans = () => {
         }
         // 2. Set the newly selected plan as the current plan in the state.
         setCurrentPlanName(planName);
-        const sandboxUrl = "https://sandbox.flutterwave.com/pay/pxv1ofyo5e5l";
-        if (planName === "Basic") {
+        const sandboxUrl = "https://paystack.shop/pay/m17b0i5sie";
+        //  "https://sandbox.flutterwave.com/pay/pxv1ofyo5e5l";
+        if (planName === "Free") {
             // For Basic (free) plan, redirect immediately.
-            console.log("Redirecting to /success-message for Basic plan.");
+            console.log("Redirecting to /success-message for free plan.");
             // **REDIRECTION LOGIC FOR BASIC (FREE) PLAN**
             window.location.href = "/success-message";
         }
         else {
             // Redirect to payment gateway for other plans (like Premium).
-            console.log("Redirecting to payment gateway for Premium plan.");
+            console.log("Redirecting to payment gateway for Basic plan.");
             // **REDIRECTION LOGIC FOR PREMIUM (PAID) PLAN**
             window.location.href = sandboxUrl;
         }
     };
     const plans = [
         {
-            name: "Basic",
+            name: "Free Plan",
             price: "$0",
             period: "per month",
-            description: "Perfect for small teams",
-            features: [
-                "Basic wellness assessments",
-                "Email support",
-                "Monthly reports",
-            ],
-            recommended: false,
+            recommended: true,
         },
         {
-            name: "Premium",
-            price: "$99",
+            name: "Basic Plan",
+            price: "$9",
             period: "per month",
-            description: "Ideal for growing organizations",
-            features: [
-                "Advanced analytics",
-                "Priority support",
-                "Custom assessments",
-                "API access",
-            ],
-            recommended: true,
+            recommended: false,
         },
     ];
     return (_jsx("div", { className: "row mb-5", children: _jsxs("div", { className: "col-12", children: [_jsx("h3", { className: "h4 fw-semibold mb-4", style: { fontFamily: "body" }, children: "Available Plans" }), _jsx("div", { className: "row g-4", children: plans.map((plan, index) => {
@@ -88,7 +76,7 @@ const PricingPlans = () => {
                                 borderColor: "#22C55E", // Green Border
                             };
                         }
-                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: `card h-100 border-0 shadow-sm ${plan.recommended ? "border-success" : ""}`, children: [plan.recommended && (_jsxs("div", { className: "card-header text-white text-center py-2", style: { backgroundColor: "#22C55E" }, children: [" ", _jsx(Star, { size: 16, className: "me-1", style: { color: "#FFFFFF" } }), " ", "Recommended"] })), _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", style: { fontFamily: "heading", color: "#22C55E" }, children: plan.name }), _jsxs("div", { className: "my-3", children: [_jsx("span", { className: "h2 fw-bold", style: { fontFamily: "body", color: "#22C55E" }, children: plan.price }), _jsxs("span", { className: "text-muted", style: { fontFamily: "body", color: "#22C55E" }, children: ["/", plan.period] })] }), _jsx("p", { className: "text-muted mb-4", style: { fontFamily: "body", color: "#22C55E" }, children: plan.description }), _jsx("ul", { className: "list-unstyled mb-4 flex-grow-1", children: plan.features.map((feature, featureIndex) => (_jsxs("li", { className: "mb-2", children: [_jsx(Check, { size: 16, style: { color: "#22C55E" }, className: "me-2" }), " ", _jsx("span", { className: "small", children: feature })] }, featureIndex))) }), _jsxs("div", { className: "mt-auto", children: [" ", _jsx("button", { className: `btn w-100`, style: buttonStyles, disabled: isDisabled, onClick: () => handlePlanSelection(plan.name), children: buttonText })] })] })] }) }, index));
+                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: `card h-100 border-0 shadow-sm ${plan.recommended ? "border-success" : ""}`, children: [plan.recommended && (_jsxs("div", { className: "card-header text-white text-center py-2", style: { backgroundColor: "#22C55E" }, children: [" ", _jsx(Star, { size: 16, className: "me-1", style: { color: "#FFFFFF" } }), " ", "Recommended"] })), _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", style: { fontFamily: "heading", color: "#22C55E" }, children: plan.name }), _jsxs("div", { className: "my-3", children: [_jsx("span", { className: "h2 fw-bold", style: { fontFamily: "body", color: "#22C55E" }, children: plan.price }), _jsxs("span", { className: "text-muted", style: { fontFamily: "body", color: "#22C55E" }, children: ["/", plan.period] })] }), _jsx("p", { className: "text-muted mb-4", style: { fontFamily: "body", color: "#22C55E" } }), _jsx("ul", { className: "list-unstyled mb-4 flex-grow-1" }), _jsxs("div", { className: "mt-auto", children: [" ", _jsx("button", { className: `btn w-100`, style: buttonStyles, disabled: isDisabled, onClick: () => handlePlanSelection(plan.name), children: buttonText })] })] })] }) }, index));
                     }) })] }) }));
 };
 export default PricingPlans;

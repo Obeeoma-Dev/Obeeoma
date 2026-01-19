@@ -170,8 +170,8 @@ interface RawFeatureData {
 
 interface FeatureDisplayData {
   feature: string;
-  usage: number; // Percentage for the bar
-  displayCount: number; // Actual use_count
+  usage: number; 
+  displayCount: number; 
   icon: React.ReactNode;
   color: string;
 }
@@ -183,7 +183,7 @@ const FeatureUsageBreakdown: React.FC = () => {
   // Configuration to map raw 'feature' strings to UI icons and labels
   const featureConfig: Record<string, { label: string; icon: React.ReactNode; color: string }> = {
     sana_ai: { label: "Sana AI", icon: <MessageSquare size={20} />, color: "#22C55E" },
-    journalling: { label: "Journalling", icon: <BarChart3 size={20} />, color: "#22C55E" },
+    journalling: { label: "Journaling", icon: <BarChart3 size={20} />, color: "#22C55E" },
     educational_resources: { label: "Educational Resources", icon: <FileText size={20} />, color: "#22C55E" },
     self_assessment: { label: "Self Assessment", icon: <Users size={20} />, color: "#22C55E" },
   };
@@ -191,7 +191,7 @@ const FeatureUsageBreakdown: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await employerAPI.getFeatureUsage();
+        const response = await employerAPI. getbreakdownusage();
         const rawData: RawFeatureData[] = response.data;
 
         // Aggregate use_count by feature
@@ -240,11 +240,10 @@ const FeatureUsageBreakdown: React.FC = () => {
   const overallUsage = features.length 
     ? Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length) 
     : 0;
-
   return (
     <div className="feature-usage-breakdown">
       <div className="d-flex align-items-center mb-4">
-        <TrendingUp size={20} className="text-primary me-2" />
+        {/* <TrendingUp size={20} className="text-primary me-2" /> */}
         <h6 className="card-title fw-semibold mb-0" style={{ fontFamily: "heading" }}>
           Feature Usage
         </h6>

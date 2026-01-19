@@ -695,7 +695,6 @@ import {
   EmployerUser,
   EmployeeStatusData,
   MoodTrend,
-  FeatureUsage,
 } from "../../types/employer";
 
 const getErrorMessage = (error: unknown): string => {
@@ -1054,6 +1053,25 @@ export const fetchMoodTrends = createAsyncThunk<
   }
 });
 
+// export const fetchEmployeeStatus = createAsyncThunk<
+//   EmployeeStatusData,
+//   void,
+//   { rejectValue: string }
+// >("employer/fetchEmployeeStatus", async (_, { rejectWithValue }) => {
+//   try {
+//     const response = await employerAPI.getEmployeeStatus();
+//     const data = response.data;
+//     const activePercentage = data.totalEmployees > 0 ? Math.round((data.activeEmployees / data.totalEmployees) * 100) : 0;
+//     const inactivePercentage = data.totalEmployees > 0 ? Math.round((data.inactiveEmployees / data.totalEmployees) * 100) : 0;
+//     return { ...data, activePercentage, inactivePercentage };
+//   } catch (error: unknown) {
+//     return rejectWithValue(getErrorMessage(error));
+//   }
+// });
+
+
+// store/slices/EmployerSlice.ts
+
 export const fetchEmployeeStatus = createAsyncThunk<
   EmployeeStatusData,
   void,
@@ -1062,24 +1080,26 @@ export const fetchEmployeeStatus = createAsyncThunk<
   try {
     const response = await employerAPI.getEmployeeStatus();
     const data = response.data;
-    const activePercentage = data.totalEmployees > 0 ? Math.round((data.activeEmployees / data.totalEmployees) * 100) : 0;
-    const inactivePercentage = data.totalEmployees > 0 ? Math.round((data.inactiveEmployees / data.totalEmployees) * 100) : 0;
-    return { ...data, activePercentage, inactivePercentage };
-  } catch (error: unknown) {
-    return rejectWithValue(getErrorMessage(error));
-  }
-});
 
-export const fetchFeatureUsage = createAsyncThunk<
-  FeatureUsage[],
-  void,
-  { rejectValue: string }
->("employer/fetchFeatureUsage", async (_, { rejectWithValue }) => {
-  try {
-    const response = await employerAPI.getFeatureUsage();
-    return response.data as FeatureUsage[];
+    // Convert strings to numbers safely
+    const active = parseInt(data.activeEmployees) || 0;
+    const inactive = parseInt(data.inactiveEmployees) || 0;
+    // const total = parseInt(data.totalEmployees) || 0;
+    const total = active + inactive;
+
+    const activePercentage = total > 0 ? Math.round((active / total) * 100) : 0;
+    const inactivePercentage = total > 0 ? Math.round((inactive / total) * 100) : 0;
+
+    return { 
+      ...data, 
+      activeEmployees: active, 
+      inactiveEmployees: inactive, 
+      totalEmployees: total,
+      activePercentage, 
+      inactivePercentage 
+    };
   } catch (error: unknown) {
-    return rejectWithValue(getErrorMessage(error));
+    return rejectWithValue("Failed to fetch status");
   }
 });
 
@@ -1132,7 +1152,6 @@ const initialState: EmployerState = {
   engagement: null,
   reports: [],
   summary: null,
-  featureUsage: [],
   isLoading: false,
   isActionLoading: false,
   error: null,
@@ -1401,18 +1420,6 @@ const employerSlice = createSlice({
       .addCase(updateEmployee.rejected, (state, action) => {
         state.isActionLoading = false;
         state.error = action.payload as string;
-      })
-      .addCase(fetchFeatureUsage.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchFeatureUsage.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.featureUsage = action.payload;
-      })
-      .addCase(fetchFeatureUsage.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload || null;
       });
   },
 });

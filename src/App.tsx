@@ -80,6 +80,17 @@ export default function App(): React.ReactElement {
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
               <Route path="/blog" element={<Blog />} />
+
+               <Route
+                  path="/employer-subscription"
+                  element={<EmployerSubscription />}
+                />
+
+
+                <Route
+                  path="/success-message"
+                  element={<PaymentSuccessPage />}
+                />
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
@@ -91,10 +102,10 @@ export default function App(): React.ReactElement {
                   path="/employee-downloadapp"
                   element={<EmployeeLandingPage />}
                 />
-                <Route
+                {/* <Route
                   path="/success-message"
                   element={<PaymentSuccessPage />}
-                />
+                /> */}
                 {/* EMPLOYER'S ROUTES */}
                 <Route
                   path="/organization-reports"
@@ -104,10 +115,10 @@ export default function App(): React.ReactElement {
                   path="/employer-dashboard"
                   element={<EmployerDashboard companyId="your-company-id" />}
                 />
-                <Route
+                {/* <Route
                   path="/employer-subscription"
                   element={<EmployerSubscription />}
-                />
+                /> */}
                 <Route
                   path="/employee-management"
                   element={<EmployeeManagement />}

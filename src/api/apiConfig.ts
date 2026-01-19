@@ -250,6 +250,11 @@ export const adminAPI = {
   //   return response;
   // },
 
+    getFeatureUsage: async () => {
+    const response = await api.get("/v1/feature-usage");
+    return response;
+  },
+
   createFeatureUsage: async () => {
     const response = await api.post("/v1/admin/feature-usage");
     return response;
@@ -422,7 +427,7 @@ export const employerAPI = {
   },
 
   updateEmployee: async (id: number | string, data: Partial<Employee>) => {
-    const response = await api.patch(`/v1/dashboard/employees/${id}/`, data);
+    const response = await api.patch(`/v1/dashboard/employees/${id}`, data);
     return response.data;
   },
 
@@ -559,11 +564,6 @@ export const employerAPI = {
 
   deleteAllData: async () => {
     return api.delete("/v1/employer/data/delete-all/");
-  },
-
-  getFeatureUsage: async () => {
-    const response = await api.get("/v1/feature-usage");
-    return response;
   },
 };
 

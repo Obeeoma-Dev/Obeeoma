@@ -39,6 +39,10 @@ const EmployeeStatusLegend: React.FC = () => {
       </div>
     );
   }
+ 
+  // Ensure data exists before destructuring
+  if (!employeeStatus) return null;
+
 
   const { activeEmployees, inactiveEmployees, totalEmployees, activePercentage, inactivePercentage } = employeeStatus;
 
@@ -138,25 +142,12 @@ const EmployeeStatusLegend: React.FC = () => {
       {/* Additional summary stats */}
       <div className="mt-4 p-3 bg-gray-50 rounded-lg">
         <div className="grid grid-cols-2 gap-4 text-center">
-          {/* <div>
-            <div className="text-2xl font-bold text-green-600">{activeEmployees}</div>
-            <div className="text-sm text-gray-600">Active Employees</div>
-            <div className="text-xs text-green-500 mt-1">{activePercentage}% of total</div>
-          </div> */}
-          {/* <div>
-            <div className="text-2xl font-bold text-gray-500">{inactiveEmployees}</div>
-            <div className="text-sm text-gray-600">Inactive Employees</div>
-            <div className="text-xs text-gray-500 mt-1">{inactivePercentage}% of total</div>
-          </div> */}
+          
+         
         </div>
-        {/* <div className="mt-3 pt-3 border-t border-gray-200 text-center">
-          <div className="text-lg font-semibold text-gray-800">{totalEmployees}</div>
-          <div className="text-sm text-gray-600">Total Employees</div>
-        </div> */}
       </div>
     </div>
   );
 };
 
 export default EmployeeStatusLegend;
-

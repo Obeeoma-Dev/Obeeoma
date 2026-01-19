@@ -218,16 +218,16 @@ const AddEmployeeForm = ({
                     {...register("department")}
                   >
                     <option value="">Select department</option>
-                    <option value="Marketing">📈 Marketing</option>
-                    <option value="HR">👥 Human Resources</option>
-                    <option value="Finance">💰 Finance</option>
-                    <option value="Engineering">⚙️ Engineering</option>
-                    <option value="Operations">🏭 Operations</option>
-                    <option value="Sales">🎯 Sales</option>
+                    <option value="Marketing"> Marketing</option>
+                    <option value="HR"> Human Resources</option>
+                    <option value="Finance"> Finance</option>
+                    <option value="Engineering"> Engineering</option>
+                    <option value="Operations"> Operations</option>
+                    <option value="Sales"> Sales</option>
                     <option value="Customer Service">
-                      🎧 Customer Service
+                       Customer Service
                     </option>
-                    <option value="Other">📋 Other</option>
+                    <option value="Other"> Other</option>
                   </select>
                   {errors.department && (
                     <div className="invalid-feedback d-block mt-2">
@@ -249,8 +249,16 @@ const AddEmployeeForm = ({
                   </div>
                   <button
                     type="button"
-                    className="btn btn-outline-primary btn-sm"
+                    className="btn btn-sm"
                     title="Upload an excel document"
+                    style={{
+                      backgroundColor: "#22C55E",
+                      borderColor: "#22C55E",
+                      color: "white",
+                      borderRadius: "8px",
+                      fontWeight: "600",
+                      minWidth: "140px",
+                    }}
                     onClick={(e) => {
                       e.preventDefault();
                       const input = document.getElementById(
