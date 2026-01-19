@@ -35,7 +35,6 @@ import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription
 import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
-import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
 
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EditEmployerProfilePage from "./pages/EmployerPages/EditEmployerProfilePage";
