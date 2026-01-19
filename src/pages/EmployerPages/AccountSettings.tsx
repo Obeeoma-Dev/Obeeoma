@@ -45,14 +45,17 @@ const EmployerAccountProfile = () => {
    * This structure avoids the 'exhaustive-deps' warning by using a functional update
    * for the final fallback, ensuring 'accountData' isn't needed in the dependency array.
    */
+  // Get auth user from Redux store as fallback
+  const authUser = useSelector((state: RootState) => state.auth.user);
+
   useEffect(() => {
-    // 1. Priority: Redux Store
+    // 1. Priority: Redux Employer Store
     if (employer) {
       const updatedData: EmployerUser = {
         id: employer.id || "",
         role: (employer.role as "employer" | "admin") || "employer",
         dateJoined: employer.dateJoined || new Date().toISOString(),
-        organizationName: employer.organizationName || "Your Company",
+        organizationName: employer.organizationName || employer.username || "Your Company",
         firstName: employer.firstName || "",
         lastName: employer.lastName || "",
         username: employer.username || "Admin User",
@@ -70,19 +73,62 @@ const EmployerAccountProfile = () => {
       return;
     }
 
-    // 2. Priority: localStorage
-    const stored = localStorage.getItem("employerAccountData");
-    if (stored) {
+    // 2. Priority: Redux Auth Store (User might be logged in but employer profile fetch failed)
+    if (authUser) {
+      // Map AuthUser to EmployerUser as best as possible
+      const fallbackData: EmployerUser = {
+        id: authUser.id,
+        role: authUser.role || "employer",
+        dateJoined: new Date().toISOString(),
+        organizationName: authUser.username || "Your Company",
+        firstName: "", // AuthUser might not have this
+        lastName: "",
+        username: authUser.username || "Admin User",
+        email: authUser.email || "admin@example.com",
+        phone: "",
+        company: { id: "", createdAt: "", companySize: 0 },
+      };
+      setAccountData(fallbackData);
+      return;
+    }
+
+    // 3. Priority: localStorage 'employerAccountData' (Cached full profile)
+    const storedEmployer = localStorage.getItem("employerAccountData");
+    if (storedEmployer) {
       try {
-        const parsedData = JSON.parse(stored);
+        const parsedData = JSON.parse(storedEmployer);
         setAccountData(parsedData);
         return;
       } catch (error) {
-        console.warn("Failed to parse localStorage data:", error);
+        console.warn("Failed to parse localStorage employerAccountData:", error);
       }
     }
 
-    // 3. Final Fallback: Default Data
+    // 4. Priority: localStorage 'user' (Cached basic auth info)
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        const fallbackData: EmployerUser = {
+          id: parsedUser.id || "",
+          role: parsedUser.role || "employer",
+          dateJoined: new Date().toISOString(),
+          organizationName: parsedUser.username || "Your Company",
+          firstName: "",
+          lastName: "",
+          username: parsedUser.username || "Admin User",
+          email: parsedUser.email || "admin@example.com",
+          phone: "",
+          company: { id: "", createdAt: "", companySize: 0 },
+        };
+        setAccountData(fallbackData);
+        return;
+      } catch (error) {
+        console.warn("Failed to parse localStorage user:", error);
+      }
+    }
+
+    // 5. Final Fallback: Default Data
     setAccountData((current) => {
       if (current) return current; // Prevent overwrite if data was already set
 
@@ -99,7 +145,7 @@ const EmployerAccountProfile = () => {
         company: { id: "", createdAt: "", companySize: 0 },
       };
     });
-  }, [employer]);
+  }, [employer, authUser]);
 
   // Fetch employer data from backend on component mount
   useEffect(() => {

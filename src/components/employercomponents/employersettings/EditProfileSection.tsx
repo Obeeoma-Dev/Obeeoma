@@ -56,9 +56,9 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
 
   // Load data from localStorage on component mount
   useEffect(() => {
-    const storedOrgName = localStorage.getItem("organizationName") || "";
-    const storedUsername = localStorage.getItem("username") || "";
-    const storedEmail = localStorage.getItem("email") || "";
+    const storedOrgName = localStorage.getItem("organizationName");
+    const storedUsername = localStorage.getItem("username");
+    const storedEmail = localStorage.getItem("email");
     const storedCompanySize = localStorage.getItem("companySize") || "";
     const storedProfileImage =
       localStorage.getItem("companyProfileImage") || "";
@@ -72,9 +72,9 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
 
     const updatedData: EmployerUser = {
       ...accountData,
-      organizationName: storedOrgName,
-      username: storedUsername,
-      email: storedEmail,
+      organizationName: storedOrgName || accountData.organizationName || "",
+      username: storedUsername || accountData.username || "",
+      email: storedEmail || accountData.email || "",
       company: {
         ...accountData.company,
         id: accountData.company?.id ?? "",
