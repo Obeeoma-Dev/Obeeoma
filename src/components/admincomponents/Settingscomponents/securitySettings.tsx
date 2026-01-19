@@ -5,7 +5,7 @@ import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import { Shield, Monitor, Smartphone, Save } from "lucide-react";
 
-// Define the shape of security settings using TypeScript
+
 export interface SecuritySettingsState {
   currentPassword: string;
   newPassword: string;
@@ -15,7 +15,7 @@ export interface SecuritySettingsState {
   previousSession: string;
 }
 
-// Main component
+
 const SecuritySettings: React.FC = () => {
   // Local state with placeholder data
   const [settings, setSettings] = useState<SecuritySettingsState>({

@@ -1,9 +1,7 @@
-// src/components/admincomponents/notificationSettings.tsx
-
 import React, { useState } from "react";
 import { Form, Button, Card, Alert, Spinner } from "react-bootstrap";
 
-// Define the shape of notification settings using TypeScript
+
 export interface NotificationPreferences {
   systemAlerts: boolean;
   organizationActivity: boolean;
@@ -11,7 +9,6 @@ export interface NotificationPreferences {
   reportGeneration: boolean;
 }
 
-// Main component
 const NotificationSettings: React.FC = () => {
   // Local state for toggle values
   const [preferences, setPreferences] = useState<NotificationPreferences>({
@@ -21,7 +18,7 @@ const NotificationSettings: React.FC = () => {
     reportGeneration: true,
   });
 
-  // State for loading and feedback
+
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState("");

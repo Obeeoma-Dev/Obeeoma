@@ -1,4 +1,3 @@
-// EngagementSummary.tsx
 // Displays top-level client engagement metrics in a horizontal card layout
 
 import React from "react";

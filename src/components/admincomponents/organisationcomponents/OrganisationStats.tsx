@@ -2,36 +2,22 @@ import React from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import * as Icons from "lucide-react";
 
-/**
- * Represents a statistical metric card with current value and change percentage
- */
-export interface StatCardData {
-  // Unique identifier for the stat card
-  id: string;
-  // Display title for the metric
-  title: string;
-  // Current value of the metric (number or formatted string)
-  value: string | number;
-  // Percentage change from previous period (positive or negative)
-  change: string;
-  // Icon name from lucide-react to display
-  icon: string;
-  // Color scheme for the icon background
+
+export interface StatCardData { 
+  id: string;  
+  title: string;  
+  value: string | number;  
+  change: string;  
+  icon: string;  
   iconColor: string;
 }
 
-/**
- * Props interface for OrganizationStats component
- * Accepts an array of StatCardData objects
- */
+
 interface OrganizationStatsProps {
   stats: StatCardData[];
 }
 
-/**
- * OrganizationStats component displays a grid of organization metrics
- * Styled similarly to ActivityItem cards with icon, title, value, and change
- */
+
 const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
   return (
     <section className="mb-4">
@@ -43,7 +29,7 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
         </Button>
       </div>
 
-      {/* Responsive grid of stat cards styled like ActivityItem */}
+      
       <Row className="gy-4">
         {stats.map((stat) => {
           // Dynamically select icon from lucide-react

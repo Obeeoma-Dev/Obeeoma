@@ -92,8 +92,7 @@ export function OrganizationDetails() {
             </Row>
 
             {/* Right content column */}
-            <Col lg={9}>
-              <OrganizationStats />
+            <Col lg={12}>
 
               <div className="chart-row-wrapper">
                 <Row className="align-items-stretch mb-4 mb-lg-0">

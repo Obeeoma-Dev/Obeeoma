@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/OrganizationPerformanceChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -13,11 +11,11 @@ import {
   TooltipItem,
 } from "chart.js";
 
-// Register chart components
+
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const OrganizationPerformanceChart: React.FC = () => {
-  // Data for organization performance metrics
+ 
   const data = {
     labels: [
       "Wellness Center",

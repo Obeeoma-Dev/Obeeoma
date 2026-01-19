@@ -1,22 +1,16 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-/**
- * ConfirmModal Component
- * ----------------------
- * A fully reusable confirmation modal using React-Bootstrap.
- * Matches the design of your Tailwind version, including spacing, colors, and layout.
- */
 
 // Define the props
 interface ConfirmModalProps {
-  show: boolean; // Whether modal is visible
-  title: string; // Modal title text
-  message: string; // Message body text
-  confirmText?: string; // Text for confirm button
-  cancelText?: string; // Text for cancel button
-  onConfirm: () => void; // Action triggered on confirm
-  onCancel: () => void; // Action triggered on cancel
+  show: boolean;
+  title: string;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
 export function ConfirmModal({
@@ -30,7 +24,7 @@ export function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <>
-      {/* Internal CSS that replaces Tailwind styling */}
+
       <style>
         {`
           /* Modal background overlay tint */
@@ -100,9 +94,9 @@ export function ConfirmModal({
       <Modal
         show={show}
         onHide={onCancel}
-        centered // Vertically center modal
-        backdropClassName="custom-modal-backdrop" // Apply custom overlay styling
-        contentClassName="custom-modal-content" // Apply custom white box styling
+        centered
+        backdropClassName="custom-modal-backdrop"
+        contentClassName="custom-modal-content"
       >
         {/* Modal Body */}
         <div>

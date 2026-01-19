@@ -1,4 +1,3 @@
-// src/components/admincomponents/Hotline-activity/CriticalCases.tsx
 import React from "react";
 import { Card, Badge } from "react-bootstrap";
 import { AlertTriangle, Clock } from "lucide-react";
@@ -9,7 +8,7 @@ interface Case {
   reason: string;
   status: string;
   assignedTo: string;
-  type?: "critical" | "warning"; // optional type for styling
+  type?: "critical" | "warning";
 }
 
 // Sample data

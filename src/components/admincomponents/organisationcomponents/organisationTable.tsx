@@ -18,7 +18,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import "./organisation.css";
-// Define the shape of organization data
+
 export interface Organization {
   id: string;
   name: string;
@@ -28,10 +28,10 @@ export interface Organization {
   lastActive: string;
   address: string;
   programs: number;
-  icon: string; // It is optional because some organisations might not have an icon.
+  icon: string; 
 }
 
-// Props for the dashboard component
+
 interface OrganizationDashboardProps {
   organizations: Organization[];
 }

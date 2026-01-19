@@ -1,45 +1,29 @@
-// Import React and required Bootstrap components
 import React from "react";
 import { Card, Badge } from "react-bootstrap";
-
-// Import icons from lucide-react
 import * as Icons from "lucide-react";
-
-// Import the StatCardData type
 import { StatCardData } from "./admindashboard";
 
-/**
- * Props interface for the StatCard component
- * Accepts a single `data` object containing all stat information
- */
 interface StatCardProps {
   data: StatCardData;
 }
 
-/**
- * StatCard component displays a metric with:
- * - Title
- * - Value
- * - Change indicator
- * - Icon
- * Uses React Bootstrap Card and Badge components
- */
+
 const StatCard: React.FC<StatCardProps> = ({ data }) => {
-  // Determine if the change is positive (starts with '+') for conditional styling
+  
   const isPositive = data.change.startsWith("+");
 
-  // Dynamically get the icon component from lucide-react
+  
   const IconComponent = (Icons[data.icon as keyof typeof Icons] ??
     Icons.Activity) as React.FC<{ size?: number; color?: string }>;
 
   // Set icon color based on change direction
-  const iconColor = isPositive ? "#3CB371" : "#dc3545"; // emerald vs red
+  const iconColor = isPositive ? "#3CB371" : "#dc3545"; 
 
   // Set badge variant and text color
   const badgeVariant = isPositive ? "success" : "danger";
 
   return (
-    // Bootstrap Card container
+    
     <Card
       className="shadow-sm border-0"
       role="region"
@@ -76,5 +60,5 @@ const StatCard: React.FC<StatCardProps> = ({ data }) => {
   );
 };
 
-// Export the component for use in DashboardStats
+
 export default StatCard;

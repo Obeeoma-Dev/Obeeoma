@@ -1,10 +1,6 @@
-// Import React and useState for managing form state
 import React, { useState } from "react";
-
-// Import Bootstrap components for layout and styling
 import { Form, Button, Card, Row, Col } from "react-bootstrap";
 
-// Define the shape of account data using a TypeScript interface
 export interface AccountDetails {
   name: string;
   title: string;
@@ -13,7 +9,7 @@ export interface AccountDetails {
   bio: string;
 }
 
-// Main component
+
 const AccountForm: React.FC = () => {
   // Initialize local state with placeholder account data
   const [account, setAccount] = useState<AccountDetails>({

@@ -3,9 +3,9 @@ import { Card } from "react-bootstrap";
 import * as Icons from "lucide-react";
 import { ActivityItem as ActivityItemType } from "./admindashboard";
 
-// Define props interface for the RecentActivities component (kept as-is)
+
 interface RecentActivitiesProps {
-  activities: ActivityItemType[]; // Array of activity items to display
+  activities: ActivityItemType[];
 }
 
 const iconColorMap: Record<string, string> = {
@@ -16,13 +16,13 @@ const iconColorMap: Record<string, string> = {
   "text-info": "#0dcaf0",
 };
 
-// Define the RecentActivities component (kept name and structure)
+
 const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
-  // Return the card layout that wraps recent activities
+
   return (
-    // Card container for the Recent Activities section (kept class names)
+
     <Card className="mb-4 shadow-sm border-0 h-100">
-      {/* Card header with section title (kept the same) */}
+      {/* Card header */}
       <Card.Header
         className="bg-white fw-bold fs-5 px-4 py-3 border-0"
         style={{ fontFamily: "heading" }}
@@ -30,7 +30,7 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
         Recent Activities
       </Card.Header>
 
-      {/* Card body containing the activity list (replaces the Table usage) */}
+      {/* Card body containing the activity list */}
       <Card.Body className="px-4 py-3">
         {/* Vertical stack of activity rows using flex column and consistent gaps */}
         <div className="d-flex flex-column gap-0">
@@ -38,9 +38,9 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
           {activities.map((activity, index) => {
             const IconComponent = (Icons[activity.icon as keyof typeof Icons] ??
               Icons.Activity) as React.FC<{
-              size?: number;
-              color?: string;
-            }>;
+                size?: number;
+                color?: string;
+              }>;
 
             const iconFgColor = iconColorMap[activity.iconColor] || "#3CB371";
 
@@ -118,5 +118,5 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
   );
 };
 
-// Export the component for use in dashboard layout (kept as-is)
+
 export default RecentActivities;

@@ -1,11 +1,7 @@
-// src/components/PlatformUsageChart.tsx
-
 import React from 'react'
-
-// Import React-Bootstrap Card component
 import { Card } from 'react-bootstrap'
 
-// Import Recharts components needed for the area chart
+
 import {
     AreaChart,
     Area,
@@ -16,7 +12,7 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 
-// Import component-specific CSS (NO Tailwind)
+
 import './organizationUse.css'
 
 // Static data representing weekly platform usage
@@ -31,10 +27,8 @@ const data = [
 
 // Functional component definition
 export function PlatformUsageChart() {
-    return (
-        // React-Bootstrap Card wrapper
-        <Card className="platform-usage-card">
-            {/* Card body spacing handled by Bootstrap */}
+    return (        
+        <Card className="platform-usage-card">            
             <Card.Body>
                 {/* Chart title */}
                 <Card.Title className="platform-usage-title">
@@ -43,7 +37,7 @@ export function PlatformUsageChart() {
 
                 {/* Fixed-height container to control chart size */}
                 <div className="program-chart-container">
-                    {/* Makes the chart responsive to container size */}
+                    
                     <ResponsiveContainer width="100%" height="100%">
                         {/* Area chart configuration */}
                         <AreaChart

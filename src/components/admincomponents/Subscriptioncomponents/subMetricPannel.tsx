@@ -1,11 +1,7 @@
-// src/components/admincomponents/subscriptioncomponents/subMetricPannel.tsx
-
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { Building2, Calendar, Users, TrendingUp } from 'lucide-react';
 
-// Define the props interface for flexibility and backend readiness
-// Keeping the same interface to maintain compatibility with existing code
 interface MetricsPanelProps {
   totalOrganizations: number;
   totalSubscriptions: number;
@@ -16,7 +12,7 @@ interface MetricsPanelProps {
 /**
  * MetricsPanel Component
  * 
- * Displays key subscription metrics in a card layout matching the design specification.
+ * Displays key subscription metrics in a card layout.
  * Each metric card shows the main value with a percentage change indicator.
  * Maintains backward compatibility with existing props interface.
  * 
@@ -33,7 +29,7 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
   utilizationRate,
 }) => {
   return (
-    // Main container row with bottom margin for spacing
+
     <Row className="mb-4 g-3">
       {/* Total Organizations Metric Card */}
       <Col md={3}>

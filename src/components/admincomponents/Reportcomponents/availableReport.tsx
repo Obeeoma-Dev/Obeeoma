@@ -1,16 +1,9 @@
-// Import React core
 import React, { useState } from 'react'
-
-// Import React-Bootstrap components
 import { Card, Button, Stack } from 'react-bootstrap'
-
-// Import icons
 import { FileText, Download } from 'lucide-react'
-
-// Import popup component
 import { DownloadPopup } from './dowloadpopup'
 
-// Define the Report interface (unchanged, just fixed syntax)
+
 interface Report {
   id: string
   title: string
@@ -19,7 +12,7 @@ interface Report {
   size: string
 }
 
-// Example reports data (you already had this somewhere)
+
 const reports: Report[] = [
   {
     id: '1',
@@ -30,12 +23,12 @@ const reports: Report[] = [
   },
 ]
 
-// Main component export
+
 export function AvailableReports() {
-  // Controls popup visibility
+
   const [downloadPopupOpen, setDownloadPopupOpen] = useState(false)
 
-  // Stores the selected report
+
   const [selectedReport, setSelectedReport] = useState<Report | null>(null)
 
   // Handles clicking the download button
@@ -47,9 +40,9 @@ export function AvailableReports() {
     setDownloadPopupOpen(true)
   }
 
-  // JSX return
+
   return (
-    // Bootstrap Card wrapper
+
     <Card className="p-3">
       {/* Card body */}
       <Card.Body>
@@ -62,7 +55,7 @@ export function AvailableReports() {
             // Individual report card
             <Card key={report.id}>
               <Card.Body>
-                {/* Layout row */}
+
                 <div className="d-flex justify-content-between align-items-center">
                   {/* Left side: icon + text */}
                   <div className="d-flex align-items-center gap-3">

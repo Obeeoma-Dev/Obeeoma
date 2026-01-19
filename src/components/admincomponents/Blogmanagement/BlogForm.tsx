@@ -32,14 +32,7 @@ export function BlogForm({
     });
 
 
-    // Image helper.
-    // const imagePreviewUrl =
-    //     formData.imageUrl instanceof File
-    //         ? URL.createObjectURL(formData.imageUrl)
-    //         : typeof formData.imageUrl === "string" && formData.imageUrl !== ""
-    //             ? formData.imageUrl
-    //             : null;
-
+    
     useEffect(() => {
         if (initialData && mode === "edit") {
             setFormData(initialData);
@@ -85,9 +78,9 @@ export function BlogForm({
         <Modal
             show={show}
             onHide={onClose}
-            size="lg"           // IMPORTANT: gives space like your image
+            size="lg"           
             centered
-            scrollable          // allows long article forms
+            scrollable          
             backdrop="static"   // prevents accidental close
             keyboard={false}
         >

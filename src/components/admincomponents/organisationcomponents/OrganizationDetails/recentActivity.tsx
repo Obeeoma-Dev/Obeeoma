@@ -1,48 +1,33 @@
-import React from 'react' // Import React for JSX support
-
-// Import Card component from React-Bootstrap
+import React from 'react' 
 import { Card, Button, ListGroup, Row, Col } from 'react-bootstrap'
-
-// Import layout utility from React-Bootstrap
 import Stack from 'react-bootstrap/Stack'
-
-// Import Lucide icons (icons stay the same, only styling changes)
 import { CreditCard, FileText } from 'lucide-react'
-
-// Import component-specific CSS (NO Tailwind)
 import './programEngagementChart'
 
-/**
- * TypeScript interface defining the shape of an activity item
- */
 interface ActivityItem {
-    icon: React.ReactNode // Icon element to render
-    title: string // Activity title text
-    timestamp: string // Time description text
-    iconBgClass: string // CSS class for icon background
+    icon: React.ReactNode 
+    title: string 
+    timestamp: string
+    iconBgClass: string 
 }
 
-/**
- * Static list of recent activities
- */
+/* Static list of recent activities */
 const activities: ActivityItem[] = [
     {
-        icon: <CreditCard size={20} />, // Credit card icon
+        icon: <CreditCard size={20} />, 
         title: 'Subscription Renewed',
         timestamp: '2 days ago • Premium Plan',
         iconBgClass: 'icon-bg-success'
     },
     {
-        icon: <FileText size={20} />, // File icon
+        icon: <FileText size={20} />, 
         title: 'Monthly Report Generated',
         timestamp: '1 week ago • August 2023',
         iconBgClass: 'icon-bg-success'
     }
 ]
 
-/**
- * RecentActivity component
- */
+
 export function RecentActivity() {
     return (
 

@@ -1,10 +1,7 @@
-// Import React and necessary hooks
 import React, { useState, useEffect } from "react";
-
-// Import Bootstrap components
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
 
-// Define the shape of the form data using a TypeScript interface
+
 interface AccountData {
   fullName: string;
   email: string;
@@ -13,7 +10,7 @@ interface AccountData {
   bio: string;
 }
 
-// Define the AccountForm component
+
 const AccountForm: React.FC = () => {
   // State to hold form input values
   const [formData, setFormData] = useState<AccountData>({

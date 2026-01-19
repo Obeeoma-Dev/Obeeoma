@@ -1,7 +1,5 @@
 // components/ContentTable.tsx
 // This component renders the "Content Library" table from your Media Library.
-// It uses React-Bootstrap components for layout, table, form controls, and buttons.
-// Tailwind classes are removed, replaced with Bootstrap styling and inline styles where needed.
 
 import React, { useEffect, useState } from 'react';
 import {
@@ -12,13 +10,13 @@ import {
     Music,
     CheckCircle2,
     Clock,
-} from 'lucide-react'; // Import icons for type/status visualization
-import Card from 'react-bootstrap/Card'; // Bootstrap card container
-import Table from 'react-bootstrap/Table'; // Bootstrap table
-import Form from 'react-bootstrap/Form'; // Bootstrap form controls (select dropdowns)
-import Button from 'react-bootstrap/Button'; // Bootstrap buttons
-import Stack from 'react-bootstrap/Stack'; // Flexbox utility for spacing/alignment
-import Image from 'react-bootstrap/Image'; // Bootstrap image component
+} from 'lucide-react';
+import Card from 'react-bootstrap/Card';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
+import Image from 'react-bootstrap/Image';
 import { contentMediaAPI, ContentItem } from '../../../services/contentService';
 
 // Helper component: render icon or image based on content type
@@ -40,13 +38,13 @@ const TypeIcon = ({ type, file_url }: { type: ContentItem['type'], file_url?: st
 
     switch (type) {
         case 'video':
-            return <PlayCircle size={20} color="#0d6efd" />; // Blue for video
+            return <PlayCircle size={20} color="#0d6efd" />;
         case 'audio':
-            return <Music size={20} color="#6f42c1" />; // Purple for audio
+            return <Music size={20} color="#6f42c1" />;
         case 'image':
-            return <ImageIcon size={20} color="#198754" />; // Green for image (fallback)
+            return <ImageIcon size={20} color="#198754" />;
         default:
-            return <FileText size={20} color="#6c757d" />; // Gray for other
+            return <FileText size={20} color="#6c757d" />;
     }
 };
 
@@ -54,9 +52,9 @@ const TypeIcon = ({ type, file_url }: { type: ContentItem['type'], file_url?: st
 const StatusBadge = ({ status }: { status: ContentItem['status'] }) => {
     // Map status to Bootstrap background/text colors
     const styles: Record<ContentItem['status'], React.CSSProperties> = {
-        published: { backgroundColor: '#d1e7dd', color: '#0f5132' }, // Green
-        draft: { backgroundColor: '#fff3cd', color: '#664d03' }, // Yellow
-        processing: { backgroundColor: '#cfe2ff', color: '#084298' }, // Blue
+        published: { backgroundColor: '#d1e7dd', color: '#0f5132' },
+        draft: { backgroundColor: '#fff3cd', color: '#664d03' },
+        processing: { backgroundColor: '#cfe2ff', color: '#084298' },
     };
 
     // Map status to labels

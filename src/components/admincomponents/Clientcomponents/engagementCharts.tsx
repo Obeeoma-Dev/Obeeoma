@@ -1,6 +1,3 @@
-// EngagementCharts.tsx
-// Displays line and bar charts for engagement and reward redemption in a responsive layout
-
 import React from "react";
 import { Line, Bar } from "react-chartjs-2";
 import { Row, Col, Card } from "react-bootstrap";

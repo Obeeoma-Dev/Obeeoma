@@ -1,8 +1,7 @@
-// Import React and required Bootstrap components
 import React, { useState } from "react";
 import { Card, ButtonGroup, Button } from "react-bootstrap";
 
-// Import chart components from Recharts
+
 import {
   LineChart,
   Line,
@@ -15,13 +14,10 @@ import {
   Area,
 } from "recharts";
 
-// Import the chart data type
+
 import { EmployeeDataPoint } from "./admindashboard";
 
-/**
- * PlatformUsageChart component renders a responsive line chart
- * Includes tab navigation for future expansion (organization growth, subscription revenue)
- */
+
 const PlatformUsageChart: React.FC = () => {
   // Track which tab is currently active
   const [activeTab, setActiveTab] = useState<string>("platform");
@@ -44,9 +40,9 @@ const PlatformUsageChart: React.FC = () => {
   ];
 
   return (
-    // Bootstrap Card container for chart section
+
     <Card className="mb-4 shadow-sm border-0">
-      {/* Card body contains tab navigation and chart */}
+
       <Card.Body>
         {/* Tab navigation using ButtonGroup */}
         <ButtonGroup className="mb-4 w-100 justify-content-between">
@@ -192,7 +188,7 @@ const PlatformUsageChart: React.FC = () => {
               <Line
                 type="natural"
                 dataKey="value"
-                stroke="#198754" // Bootstrap blue
+                stroke="#198754"
                 strokeWidth={3}
                 dot={{
                   r: 3,
@@ -254,7 +250,7 @@ const PlatformUsageChart: React.FC = () => {
               <Area
                 type="natural"
                 dataKey="value"
-                stroke="#198754" // Bootstrap green
+                stroke="#198754"
                 strokeWidth={3}
                 fill="#198754"
                 fillOpacity={0.1}
@@ -274,5 +270,5 @@ const PlatformUsageChart: React.FC = () => {
   );
 };
 
-// Export the component for use in the dashboard layout
+
 export default PlatformUsageChart;

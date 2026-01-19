@@ -1,4 +1,3 @@
-// src/components/admincomponents/settingsappearancecomp/ThemeSelector.tsx
 import React from "react";
 import { Form } from "react-bootstrap";
 

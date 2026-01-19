@@ -1,24 +1,15 @@
-// src/components/admincomponents/dashboardstats.tsx
-
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 import * as Icons from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { StatCardData } from "./admindashboard";
 
-/**
- * Props for the DashboardStats component
- * Accepts an array of stat cards to render
- */
+
 interface DashboardStatsProps {
   stats: StatCardData[];
 }
 
-/**
- * DashboardStats renders a responsive row of stat cards
- * Each card displays an icon, title, value, and change indicator
- * Styled to match modern dashboard layout
- */
+
 const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
   return (
     <>

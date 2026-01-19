@@ -153,8 +153,8 @@ export default function App(): React.ReactElement {
                 element={<HotlineActivity />}
               />
               <Route
-                path="/system-admin/Subscriptions"
-                element={<SubscriptionPage />}
+                path="/system-admin/content-management"
+                element={<ContentManagement />}
               />
               <Route path="/system-admin/reports" element={<ReportPage />} />
               {/* SYSTEMS ADMIN SETTINGS ROUTES */}
@@ -166,6 +166,12 @@ export default function App(): React.ReactElement {
                 path="/settings-overview/subscription-editor"
                 element={<SubscriptionEditor />}
               />
+              <Route
+                path="/settings-overview/subscription-editor"
+                element={<SubscriptionEditor />}
+              />
+
+
               {/* End ProtectedRoute */}
               {/* === CATCH-ALL ROUTE === */}
               <Route path="*" element={<NotFound />} />

@@ -1,16 +1,9 @@
-// Import React for JSX support
 import React from 'react';
-
-// Import Bootstrap layout components
 import { Row, Col } from 'react-bootstrap';
-
-// Import Lucide icons used in the stat cards
 import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
-
-// Import the reusable StatCard component
 import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
 
-// Props interface for TopMetrics
+
 // Props interface for TopMetrics
 interface TopMetricsProps {
   totalRecommendations: number
@@ -18,8 +11,6 @@ interface TopMetricsProps {
   averageTime: string
 }
 
-// TopMetrics component
-// Renders the top summary cards using the shared StatCard component
 // TopMetrics component
 // Renders the top summary cards using the shared StatCard component
 const TopMetrics: React.FC<TopMetricsProps> = ({
@@ -42,8 +33,6 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
       </Row>
 
       {/* Stat Cards Section */}
-
-
       <Row className="g-4 mb-4">
         {/* Total Recommendations */}
         <Col xs={12} md={4}>
@@ -69,7 +58,7 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
           />
         </Col>
 
-        {/* AI Accuracy / Time (mapped visually like the image) */}
+
         <Col xs={12} md={4}>
           <HoverStatCard
             title="AI Accuracy Score"

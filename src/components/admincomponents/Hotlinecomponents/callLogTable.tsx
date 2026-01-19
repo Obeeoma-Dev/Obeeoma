@@ -1,25 +1,8 @@
-// src/components/admincomponents/Hotline-activity/CallLogTable.tsx
-
-/**
- * CallLogTable
- * -------------
- * Refined React-Bootstrap version of the call log table.
- * Styling and layout upgraded to match enterprise dashboard standards.
- *
- * NOTE:
- * - No TailwindCSS used
- * - No functional logic changed
- * - Safe drop-in replacement
- */
-
 import React from "react";
 import { Table, Card, Badge, Button, Form, InputGroup } from "react-bootstrap";
 import { Search, Filter, MoreVertical } from "lucide-react";
 
-/**
- * Type definition for each call log entry
- * (kept minimal to avoid breaking existing logic)
- */
+
 interface CallLog {
   time: string;
   date: string;
@@ -28,10 +11,7 @@ interface CallLog {
   status: string;
 }
 
-/**
- * Placeholder call logs
- * (unchanged to avoid breaking current behavior)
- */
+/* Placeholder call logs */
 const callLogs: CallLog[] = [
   {
     time: "11:00 AM",
@@ -56,18 +36,12 @@ const callLogs: CallLog[] = [
   },
 ];
 
-/**
- * CallLogTable component
- */
+/* CallLogTable component */
 const CallLogTable: React.FC = () => {
   return (
-    /**
-     * Card wrapper for clean dashboard presentation
-     */
+
     <Card className="p-4 mb-4">
-      {/* ======================
-          Header Section
-      ====================== */}
+      {/* ===== Header Section ===== */}
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">
         {/* Search input (visual only) */}
         <InputGroup style={{ maxWidth: "320px" }}>
@@ -92,9 +66,7 @@ const CallLogTable: React.FC = () => {
         </Button>
       </div>
 
-      {/* ======================
-          Table Section
-      ====================== */}
+      {/* ====  Table Section ==== */}
       <div className="table-responsive">
         <Table hover borderless className="align-middle">
           {/* Table Head */}

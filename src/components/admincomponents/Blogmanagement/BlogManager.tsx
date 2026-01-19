@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BlogTable } from "./BlogTable";
-import { BlogForm } from "./BlogForm"; // the Offcanvas form
-import { BlogPost } from "./BlogTable"; // import the type
+import { BlogForm } from "./BlogForm";
+import { BlogPost } from "./BlogTable";
 import { ConfirmModal } from "./../Reusedcomponents/ConfirmModal";
 
-// Importing toast.
+
 import { toast } from "react-toastify";
 
 
@@ -38,7 +38,7 @@ export function BlogManager() {
         },
     ]);
 
-    // Defining an image type that matches your backend API
+    // Defining an image type.
     type BackendBlog = {
         id: string;
         title: string;
@@ -56,7 +56,7 @@ export function BlogManager() {
         fetch("http://127.0.0.1:8000/api/v1/articles/")
             .then(res => res.json())
             .then((data: BackendBlog[]) => {
-                console.log("Raw API data:", data); // Debug log
+                console.log("Raw API data:", data);
                 const mapped: BlogPost[] = data.map((item) => ({
                     id: item.id,
                     title: item.title,
@@ -64,17 +64,16 @@ export function BlogManager() {
                     date: item.published_date,
                     status: item.status,
                     excerpt: item.excerpt || "",
-                    imageUrl: item.featured_image || "", // Handle null images
+                    imageUrl: item.featured_image || "",
                     author: item.author || "Anonymous",
                     content: item.content,
                     featured: item.featured,
                 }));
-                console.log("Mapped data:", mapped); // Debug log
+                console.log("Mapped data:", mapped);
                 setBlogs(mapped);
             })
             .catch(err => {
                 console.error("Failed to load blogs", err);
-                // Keep the default blogs if API fails
             });
     }, []);
 
@@ -91,7 +90,7 @@ export function BlogManager() {
     function handleAdd() {
         setFormMode("add");
         setSelectedBlog(null);
-        setShowForm(true); // opens the Offcanvas
+        setShowForm(true);
     }
 
     // Edit existing article
@@ -103,7 +102,7 @@ export function BlogManager() {
 
     // Delete article
     function handleDelete(id: string) {
-        setDeleteConfirm(id); // open the confirm modal
+        setDeleteConfirm(id); // opens the confirm modal
     }
 
     // Confirmation handler delete.
@@ -138,7 +137,7 @@ export function BlogManager() {
             formData.append('content', newBlog.content);
             formData.append('featured', newBlog.featured.toString());
 
-            // Handle image - use correct backend field name
+            // Handle image 
             if (newBlog.imageUrl instanceof File) {
                 formData.append('featured_image', newBlog.imageUrl);
             }

@@ -117,6 +117,15 @@ jobs:
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 
+            echo "Copying backend code from existing location..."
+            if [ -d "/home/obeeoma/obeeoma_project/api" ]; then
+              echo "Copying backend from existing deployment..."
+              cp -r /home/obeeoma/obeeoma_project/api ./api
+            else
+              echo "Warning: Backend not found at /home/obeeoma/obeeoma_project/api"
+              echo "You may need to deploy backend separately first"
+            fi
+
             echo "Verifying docker-compose.yml exists..."
             if [ ! -f "docker-compose.yml" ]; then
               echo "Error: docker-compose.yml not found in $DEPLOY_DIR"

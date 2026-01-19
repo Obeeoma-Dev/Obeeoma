@@ -1,19 +1,17 @@
 // components/Layout.tsx
-// This file defines the main application layout using React-Bootstrap utilities only.
-// It mirrors the structure shown in your "ObeeOma" screenshot: a fixed brand stripe,
-// a persistent left sidebar, a sticky header in the content area, and a scrollable main content region.
+// This file defines the main application layout using React-Bootstrap utilities.
 
-import React from "react"; // Import React to define the component
-import AdminSidebar from "../adminsidebar"; // Import your existing Sidebar component (left navigation)
-import Header from "../adminheader"; // Import your existing Header component (top bar)
+import React from "react"; 
+import AdminSidebar from "../adminsidebar"; 
+import Header from "../adminheader"; 
 
 // Define the props for the Layout component: children for page content and an optional title
 interface LayoutProps {
-  children: React.ReactNode; // The scrollable page content that changes per route/view
-  title?: string; // Optional page title to pass down to the Header (defaults to "Dashboard")
+  children: React.ReactNode; 
+  title?: string; 
 }
 
-// Export the Layout component which wraps the entire page structure
+
 export function Layout({ children, title = "Dashboard" }: LayoutProps) {
   return (
     // Root wrapper: full viewport height, light background (Bootstrap), and semantic font defaults

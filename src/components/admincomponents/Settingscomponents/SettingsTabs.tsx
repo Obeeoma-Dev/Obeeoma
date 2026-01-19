@@ -1,10 +1,5 @@
-// Import React and the useState hook for managing component state
 import React, { useState } from "react";
-
-// Import Tabs and Tab components from React-Bootstrap
 import { Tabs, Tab } from "react-bootstrap";
-
-// Import the AccountForm component to be rendered inside the "Account" tab
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
 import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
@@ -52,10 +47,6 @@ const subscriptionPlans = [
   },
 ];
 
-/*
- * SettingsTabs component renders a tabbed interface for different settings sections.
- * It uses React-Bootstrap's Tabs and Tab components to organize content.
- */
 
 const SettingsTabs: React.FC = () => {
   // State to track which tab is currently active; default is "account"
@@ -65,10 +56,10 @@ const SettingsTabs: React.FC = () => {
     <div className="p-3 settings-main-container">
       {/* Tabs components with controlled activeKey to manage selected tab */}
       <Tabs
-        id="settings-tabs" // Unique ID for accessibility
+        id="settings-tabs"
         activeKey={key}
-        onSelect={(k) => k && setKey(k)} // Updates active tab when a new one is selected
-        className="settings-nav mb-3 border-bottom" // Bottom margin for spacing and custom styles
+        onSelect={(k) => k && setKey(k)}
+        className="settings-nav mb-3 border-bottom"
       >
         {/* Tab for Account settings */}
         <Tab eventKey="account" title="Account">

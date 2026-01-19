@@ -1,19 +1,17 @@
-// src/components/admincomponents/aimanagementcomponents/EffectivenessChart.tsx
-
 import React from "react"
 import { Bar } from "react-chartjs-2"
 import { Card } from "react-bootstrap"
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from "chart.js"
 
-// Register Chart.js components
+// Register Chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip)
 
 const BAR_COLORS = [
-  "rgba(13, 110, 253, 0.5)",  // Blue
-  "rgba(25, 135, 84, 0.5)",   // Green
-  "rgba(255, 193, 7, 0.5)",   // Yellow
-  "rgba(111, 66, 193, 0.5)",  // Purple
-  "rgba(220, 53, 69, 0.5)",   // Red
+  "rgba(13, 110, 253, 0.5)",
+  "rgba(25, 135, 84, 0.5)",
+  "rgba(255, 193, 7, 0.5)",
+  "rgba(111, 66, 193, 0.5)",
+  "rgba(220, 53, 69, 0.5)",
 ]
 
 const data = {
@@ -21,7 +19,7 @@ const data = {
   datasets: [
     {
       label: "Effectiveness (%)",
-      data: [85, 70, 60, 50, 40], // Replace with your actual values
+      data: [85, 70, 60, 50, 40],
       backgroundColor: BAR_COLORS,
       borderRadius: 6,
       maxBarThickness: 30,
@@ -29,8 +27,9 @@ const data = {
   ],
 }
 
+// Horizontal bars
 const options = {
-  indexAxis: "y" as const, // Horizontal bars
+  indexAxis: "y" as const,
   responsive: true,
   scales: {
     x: {

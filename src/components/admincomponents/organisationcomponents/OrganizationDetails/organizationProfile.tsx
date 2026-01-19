@@ -1,16 +1,9 @@
-// Import React (required for JSX and functional components)
 import React from 'react'
-
-// Import React-Bootstrap components
 import { Card, Badge } from 'react-bootstrap'
-
-// Import icon from lucide-react (allowed, not Tailwind related)
 import { Building2 } from 'lucide-react'
-
-// Import component-specific CSS (plain CSS, not Tailwind)
 import './organizationUse.css'
 
-// Define the props interface for strong typing and lint safety
+
 interface OrganizationProfileProps {
     name: string
     id: string
@@ -30,7 +23,6 @@ export function OrganizationProfile({
     lastActive
 }: OrganizationProfileProps) {
     return (
-        // Wrapper div to stack cards vertically
         <div className="organization-profile">
 
             {/* Main organization information card */}

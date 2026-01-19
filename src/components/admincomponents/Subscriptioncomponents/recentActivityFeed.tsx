@@ -1,5 +1,3 @@
-// src/components/admincomponents/subscriptioncomponents/RecentActivityFeed.tsx
-
 import React from 'react';
 import { Users, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react';
 
