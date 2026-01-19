@@ -120,8 +120,11 @@ jobs:
             # ---------------------------------------------------------
             # Handle Backend Repository
             # ---------------------------------------------------------
-            BACKEND_REPO_SSH="git@github.com:Obeeoma-Dev/api.git" # <--- VERIFY THIS URL
-            BACKEND_DIR="/home/obeeoma/obeeoma_project/api"
+            # ---------------------------------------------------------
+            # Handle Backend Repository
+            # ---------------------------------------------------------
+            BACKEND_REPO_SSH="git@github.com:Obeeoma-Dev/api.git" 
+            BACKEND_DIR="/home/obeeoma/obeeoma_project/Backend" # Context for docker compose build (../Backend/api)
 
             echo "Deploy: ensure backend directory exists at $BACKEND_DIR"
             if [ ! -d "$BACKEND_DIR" ]; then
@@ -136,12 +139,22 @@ jobs:
 
             if [ ! -d "$BACKEND_DIR/.git" ]; then
               echo "Cloning Backend repository..."
+              # Remove directory content if it exists but isn't a git repo (clean slate)
+              # Also cleaning up the old/wrong directory if it exists to avoid confusion (optional)
+              rm -rf "/home/obeeoma/obeeoma_project/api" || true
+
+              if [ -d "$BACKEND_DIR" ] && [ "$(ls -A $BACKEND_DIR)" ]; then
+                 echo "Warning: $BACKEND_DIR exists and is not empty. Cleaning up..."
+                 rm -rf "$BACKEND_DIR"/*
+              fi
               git clone "$BACKEND_REPO_SSH" "$BACKEND_DIR"
               cd "$BACKEND_DIR"
               git checkout "$BRANCH" || echo "Branch $BRANCH not found in Backend, staying on default"
             else
               echo "Updating Backend repository..."
               cd "$BACKEND_DIR"
+              # FORCE SSH URL to fix "fatal: could not read Username for 'https://...'" error
+              git remote set-url origin "$BACKEND_REPO_SSH"
               git fetch --all --prune
               git checkout "$BRANCH" || echo "Branch $BRANCH not found in Backend, staying on default"
               git reset --hard "origin/$BRANCH" || git reset --hard "origin/HEAD"
