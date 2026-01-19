@@ -85,10 +85,9 @@ const EmployerSubscription = () => {
             </h6>
             <Button
               variant="outline-secondary"
-              style={{fontFamily:'body', color:'white', backgroundColor:'#22C55E', borderColor:'#22C55E'}}
+              style={{fontFamily:'body', color:'white', backgroundColor:'#22C55E', borderColor:'#22C55E', cursor: 'pointer'}}
               size="sm"
               onClick={() => setShowPaymentUpdateModal(true)}
-              disabled={!employer?.email}
             >
               Update Payment Method
             </Button> 
@@ -121,17 +120,12 @@ const EmployerSubscription = () => {
         <PricingPlans />
         <BillingHistory />
 
-        {/* CRITICAL FIX: 
-            Only render PaymentUpdateModal if show is true AND employer email exists.
-            This prevents the Flutterwave hook from initializing with an empty email.
-        */}
-        {showPaymentUpdateModal && employer?.email && (
-          <PaymentUpdateModal
-            show={showPaymentUpdateModal}
-            onHide={() => setShowPaymentUpdateModal(false)}
-            userEmail={employer.email}
-          />
-        )}
+        {/* PaymentUpdateModal - renders when showPaymentUpdateModal is true */}
+        <PaymentUpdateModal
+          show={showPaymentUpdateModal}
+          onHide={() => setShowPaymentUpdateModal(false)}
+          userEmail={employer?.email || ''}
+        />
       </div>
     </Layout>
   );
