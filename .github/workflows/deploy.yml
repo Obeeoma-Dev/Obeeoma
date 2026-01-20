@@ -108,7 +108,7 @@ jobs:
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
             fi
 
-            echo "Fetching latest from origin/$BRANCH.."
+            echo "Fetching latest from origin/$BRANCH..."
             git fetch --all --prune
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
