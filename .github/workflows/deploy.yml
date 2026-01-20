@@ -108,22 +108,20 @@ jobs:
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
             fi
 
-            echo "Fetching latest from origin/$BRANCH..."
+            echo "Fetching latest from origin/$BRANCH...."
             git fetch --all --prune
 
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
-
+            cd /home/obeeoma/obeeoma_project/
+            
             echo "Stopping existing containers..."
-            docker compose down frontend || true
+            docker compose down || true
+            
+            echo "Building and starting all services..."
+            docker compose up -d --build --force-recreate --remove-orphans
 
-            echo "Restarting containers.."
-            docker compose up -d frontend --remove-orphans
-
-            echo "Building Docker image..."
-            docker compose build frontend
-
-            echo "Restarting containers..."
-            docker compose up -d frontend --remove-orphans
+            # echo "Restarting containers..."
+            # docker compose up -d frontend --remove-orphans
 
             echo "Cleaning up dangling Docker images..."
             docker image prune -f
