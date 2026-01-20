@@ -30,13 +30,13 @@ const PricingPlans = () => {
     const plans = [
         {
             name: "Free Plan",
-            price: "$0",
-            period: "per month",
+            price: "₦0",
+            period: "",
             recommended: true,
         },
         {
             name: "Basic Plan",
-            price: "$9",
+            price: "₦9",
             period: "per month",
             recommended: false,
         },
@@ -76,7 +76,7 @@ const PricingPlans = () => {
                                 borderColor: "#22C55E", // Green Border
                             };
                         }
-                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: `card h-100 border-0 shadow-sm ${plan.recommended ? "border-success" : ""}`, children: [plan.recommended && (_jsxs("div", { className: "card-header text-white text-center py-2", style: { backgroundColor: "#22C55E" }, children: [" ", _jsx(Star, { size: 16, className: "me-1", style: { color: "#FFFFFF" } }), " ", "Recommended"] })), _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", style: { fontFamily: "heading", color: "#22C55E" }, children: plan.name }), _jsxs("div", { className: "my-3", children: [_jsx("span", { className: "h2 fw-bold", style: { fontFamily: "body", color: "#22C55E" }, children: plan.price }), _jsxs("span", { className: "text-muted", style: { fontFamily: "body", color: "#22C55E" }, children: ["/", plan.period] })] }), _jsx("p", { className: "text-muted mb-4", style: { fontFamily: "body", color: "#22C55E" } }), _jsx("ul", { className: "list-unstyled mb-4 flex-grow-1" }), _jsxs("div", { className: "mt-auto", children: [" ", _jsx("button", { className: `btn w-100`, style: buttonStyles, disabled: isDisabled, onClick: () => handlePlanSelection(plan.name), children: buttonText })] })] })] }) }, index));
+                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: `card h-100 border-0 shadow-sm ${plan.recommended ? "border-success" : ""}`, children: [plan.recommended && (_jsxs("div", { className: "card-header text-white text-center py-2", style: { backgroundColor: "#22C55E" }, children: [" ", _jsx(Star, { size: 16, className: "me-1", style: { color: "#FFFFFF" } }), " ", "Recommended"] })), _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", style: { fontFamily: "heading", color: "#22C55E" }, children: plan.name }), _jsxs("div", { className: "my-3", children: [_jsx("span", { className: "h2 fw-bold", style: { fontFamily: "body", color: "#22C55E" }, children: plan.price }), plan.period && (_jsxs("span", { className: "text-muted", style: { fontFamily: "body", color: "#22C55E" }, children: ["/", plan.period] }))] }), _jsx("p", { className: "text-muted mb-4", style: { fontFamily: "body", color: "#22C55E" } }), _jsx("ul", { className: "list-unstyled mb-4 flex-grow-1" }), _jsxs("div", { className: "mt-auto", children: [" ", _jsx("button", { className: `btn w-100`, style: buttonStyles, disabled: isDisabled, onClick: () => handlePlanSelection(plan.name), children: buttonText })] })] })] }) }, index));
                     }) })] }) }));
 };
 export default PricingPlans;

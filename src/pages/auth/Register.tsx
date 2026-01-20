@@ -49,7 +49,7 @@ interface LocationOption {
   label: string;
   value: string;
 }
-
+  
 const location_options: LocationOption[] = [
   // --- Initial Selection and Other/Search Option ---
   { label: "Select Location (State/City/Country)", value: "" },
@@ -233,6 +233,8 @@ const Register: React.FC = () => {
   const inputStyle: React.CSSProperties = {
     height: "48px",
     borderRadius: "4px",
+    fontFamily: "body",
+   
   };
 
   const inputGroupTextStyle: React.CSSProperties = {
@@ -244,6 +246,7 @@ const Register: React.FC = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: "body",
   };
 
   const passwordToggleStyle: React.CSSProperties = {
@@ -253,6 +256,7 @@ const Register: React.FC = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: "body",
   };
 
   // Function to determine the final role and location values for the API call
@@ -807,8 +811,8 @@ const Register: React.FC = () => {
               size="3x"
               style={{ color: customStyles.primaryColor, marginBottom: "1rem" }}
             />
-            <h4 className="fw-semibold text-dark">Registration Successful!</h4>
-            <p className="text-muted mb-4">
+            <h4 className="fw-semibold text-dark" style={{fontFamily:'body'}}>Registration Successful!</h4>
+            <p className="text-muted mb-4" style={{fontFamily:'body'}}>
               Your account has been registered and an email has been sent to
               your email.{" "}
             </p>
@@ -835,6 +839,7 @@ const Register: React.FC = () => {
                 color: "white",
                 boxShadow: "none",
                 marginTop: "1rem", // Added margin for separation
+                fontFamily: "body",
               }}
             >
               Continue to Dashboard
@@ -856,6 +861,7 @@ const Register: React.FC = () => {
         maxHeight: "100vh",
         overflow: "auto",
         paddingBottom: "80px",
+        fontFamily: "body",
       }}
       className="d-flex flex-column col-12"
     >
@@ -869,6 +875,7 @@ const Register: React.FC = () => {
               width: "100%",
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+              fontFamily: "body",
             }}
           >
             <Card.Body
@@ -902,7 +909,7 @@ const Register: React.FC = () => {
               </h3>
               <p
                 className="text-center mb-3 text-muted"
-                style={{ fontSize: "1rem" }}
+                style={{ fontSize: "1rem", fontFamily: "body" }}
               >
                 Get early access to Obeeoma and empower your team with smarter
                 mental health support.
@@ -967,6 +974,7 @@ const Register: React.FC = () => {
                               onClick={handleBack}
                               className="w-100 py-3 fw-semibold mb-2 mb-md-0"
                               disabled={isLoading || isSubmitting}
+                              style={{fontFamily:'body'}}
                             >
                               {/* <FontAwesomeIcon icon={faArrowLeft} className="me-2" /> */}
                               Back
@@ -992,6 +1000,7 @@ const Register: React.FC = () => {
                               borderColor: customStyles.primaryColor,
                               color: "white",
                               boxShadow: "none",
+                              fontFamily: "body",
                             }}
                           >
                             {isLoading || isSubmitting ? (
@@ -1020,7 +1029,7 @@ const Register: React.FC = () => {
                     )}
 
                     {activeStep < 2 && (
-                      <p className="text-center mt-3 text-muted">
+                      <p className="text-center mt-3 text-muted" style={{fontFamily:'body'}}>
                         Already have an account?{" "}
                         <Link
                           to="/login"
@@ -1028,6 +1037,7 @@ const Register: React.FC = () => {
                             color: customStyles.primaryColor,
                             textDecoration: "none",
                             fontWeight: "600",
+                            fontFamily:'body',
                           }}
                         >
                           Log in
@@ -1043,6 +1053,7 @@ const Register: React.FC = () => {
                 onHide={handleCloseSuccessModal} // Pass the handler for closing/redirection
                 primaryColor={customStyles.primaryColor}
                 handleClose={handleCloseSuccessModal}
+                
               />
             </Card.Body>
           </Card>

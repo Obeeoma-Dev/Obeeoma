@@ -73,7 +73,8 @@ const EmployerSubscription = () => {
             Billing: <strong>{billingCycle}</strong>
           </p>
           <div className="h4 fw-bold" style={{ color: '#22C55E' }}>
-            ${billingCycle === 'annually' ? currentPlan.annualPrice : currentPlan.monthlyPrice} / month
+            ₦{billingCycle === 'annually' ? currentPlan.annualPrice : currentPlan.monthlyPrice}
+            {currentPlan.id !== 'Free Plan' && ' / month'}
           </div>
         </div>
 

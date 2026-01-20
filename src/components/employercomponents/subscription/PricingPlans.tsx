@@ -37,13 +37,13 @@ const PricingPlans = () => {
   const plans = [
     {
       name: "Free Plan",
-      price: "$0",
-      period: "per month",
+      price: "₦0",
+      period: "",
       recommended: true,
     },
     {
       name: "Basic Plan",
-      price: "$9",
+      price: "₦9",
       period: "per month",
 
       recommended: false,
@@ -133,12 +133,14 @@ const PricingPlans = () => {
                       >
                         {plan.price}
                       </span>
-                      <span
-                        className="text-muted"
-                        style={{ fontFamily: "body", color: "#22C55E" }}
-                      >
-                        /{plan.period}
-                      </span>
+                      {plan.period && (
+                        <span
+                          className="text-muted"
+                          style={{ fontFamily: "body", color: "#22C55E" }}
+                        >
+                          /{plan.period}
+                        </span>
+                      )}
                     </div>
                     <p
                       className="text-muted mb-4"

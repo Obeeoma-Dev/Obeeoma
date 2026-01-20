@@ -82,6 +82,7 @@ const LoginPage = () => {
                                             borderColor: customStyles.primaryColor,
                                             color: "white",
                                             boxShadow: "none",
+                                            fontFamily: "body",
                                         }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing in..."] })) : ("Sign In") })] })) }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/reset-password-signin", className: "small text-decoration-none", style: { color: customStyles.primaryColor, fontFamily: "body" }, children: "Forgot Password?" }) }), _jsxs("div", { className: "text-center mt-3", children: [_jsxs("span", { className: "small text-muted", style: { fontFamily: "body" }, children: ["Don't have an account?", " "] }), _jsx(Link, { to: "/signup", className: "small text-decoration-none", style: {
                                         color: customStyles.primaryColor,
                                         fontFamily: "body",

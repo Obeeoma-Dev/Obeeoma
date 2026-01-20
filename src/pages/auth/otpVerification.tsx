@@ -182,7 +182,7 @@ export default function OtpVerificationPage() {
           reset your password
         </p>
 
-        <p className="mb-2" style={{ fontWeight: "500", fontSize: "15px" }}>
+        <p className="mb-2" style={{ fontWeight: "500", fontSize: "15px", fontFamily: "body" }}>
           Enter Verification Code
         </p>
 
@@ -263,6 +263,7 @@ export default function OtpVerificationPage() {
               color: PRIMARY_COLOR,
               textDecoration: "none",
               fontSize: "14px",
+              fontFamily: "body",
             }}
           >
             ← Back to Sign In

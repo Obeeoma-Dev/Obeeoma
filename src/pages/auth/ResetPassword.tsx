@@ -270,6 +270,7 @@ const ResetPassword: React.FC = () => {
                         borderColor: customStyles.primaryColor,
                         color: "white",
                         boxShadow: "none",
+                        fontFamily: "body",
                       }}
                     >
                       {isLoading ? (

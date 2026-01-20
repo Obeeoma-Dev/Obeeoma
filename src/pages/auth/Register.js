@@ -158,6 +158,7 @@ const Register = () => {
     const inputStyle = {
         height: "48px",
         borderRadius: "4px",
+        fontFamily: "body",
     };
     const inputGroupTextStyle = {
         height: "48px",
@@ -168,6 +169,7 @@ const Register = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        fontFamily: "body",
     };
     const passwordToggleStyle = {
         cursor: "pointer",
@@ -176,6 +178,7 @@ const Register = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        fontFamily: "body",
     };
     // Function to determine the final role and location values for the API call
     const getFinalValues = (values) => {
@@ -339,12 +342,13 @@ const Register = () => {
                                                 // Only show invalid if touched AND errors exist
                                                 isInvalid: !!touched.confirmPassword && !!errors.confirmPassword }), _jsx(InputGroup.Text, { onClick: toggleConfirmPasswordVisibility, style: passwordToggleStyle, children: _jsx(FontAwesomeIcon, { icon: showConfirmPassword ? faEyeSlash : faEyeRegular, style: { color: customStyles.primaryColor } }) })] }), !!touched.confirmPassword && !!errors.confirmPassword && (_jsx(ErrorMessage, { name: "confirmPassword", component: "div", className: "invalid-feedback d-block" }))] }) })] }));
             case 2: // Step 3: Verification/Review (Informational after successful API call)
-                return (_jsxs("div", { className: "text-center my-3", children: [_jsx(FontAwesomeIcon, { icon: faCheckCircle, size: "3x", style: { color: customStyles.primaryColor, marginBottom: "1rem" } }), _jsx("h4", { className: "fw-semibold text-dark", children: "Registration Successful!" }), _jsxs("p", { className: "text-muted mb-4", children: ["Your account has been registered and an email has been sent to your email.", " "] }), _jsx(Button, { onClick: handleContinueToDashboard, className: "w-100 py-3 fw-semibold", style: {
+                return (_jsxs("div", { className: "text-center my-3", children: [_jsx(FontAwesomeIcon, { icon: faCheckCircle, size: "3x", style: { color: customStyles.primaryColor, marginBottom: "1rem" } }), _jsx("h4", { className: "fw-semibold text-dark", style: { fontFamily: 'body' }, children: "Registration Successful!" }), _jsxs("p", { className: "text-muted mb-4", style: { fontFamily: 'body' }, children: ["Your account has been registered and an email has been sent to your email.", " "] }), _jsx(Button, { onClick: handleContinueToDashboard, className: "w-100 py-3 fw-semibold", style: {
                                 backgroundColor: customStyles.primaryColor,
                                 borderColor: customStyles.primaryColor,
                                 color: "white",
                                 boxShadow: "none",
                                 marginTop: "1rem", // Added margin for separation
+                                fontFamily: "body",
                             }, children: "Continue to Dashboard" })] }));
             default:
                 return null;
@@ -355,20 +359,22 @@ const Register = () => {
             maxHeight: "100vh",
             overflow: "auto",
             paddingBottom: "80px",
+            fontFamily: "body",
         }, className: "d-flex flex-column col-12", children: [_jsx(Container, { className: "flex-grow-1 d-flex justify-content-center align-items-center py-5", children: _jsx("div", { className: "d-flex justify-content-center w-100", children: _jsx(Card, { className: "shadow-lg border-0", style: {
                             // Increased maxWidth for success step to 700px
                             maxWidth: activeStep === 2 ? "700px" : "800px",
                             width: "100%",
                             borderRadius: "8px",
                             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                            fontFamily: "body",
                         }, children: _jsxs(Card.Body, { style: { padding: "2.5rem" }, className: "d-flex flex-column col-12", children: [_jsx(Link, { to: "/employer-dashboard", children: _jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-3", style: { fontFamily: "heading" }, children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                                                 height: "50px",
                                                 width: "auto",
-                                            }, className: "mb-1" }) }) }), _jsxs("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: [activeStep === 0 && "Step 1: Organization Details", activeStep === 1 && "Step 2: Contact Person Details", activeStep === 2 && "Registration Complete"] }), _jsx("p", { className: "text-center mb-3 text-muted", style: { fontSize: "1rem" }, children: "Get early access to Obeeoma and empower your team with smarter mental health support." }), _jsx(CustomStepper, { activeStep: activeStep, primaryColor: customStyles.primaryColor, steps: stepperSteps, onStepClick: handleStepNavigation }), localError && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => setLocalError(null), children: localError })), error && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => dispatch(clearAuthStatus()), children: error })), _jsx(Formik, { validationSchema: getStepValidationSchema(activeStep), initialValues: initialValues, 
+                                            }, className: "mb-1" }) }) }), _jsxs("h3", { className: "text-center mb-2 fw-semibold text-dark", style: { fontFamily: "heading" }, children: [activeStep === 0 && "Step 1: Organization Details", activeStep === 1 && "Step 2: Contact Person Details", activeStep === 2 && "Registration Complete"] }), _jsx("p", { className: "text-center mb-3 text-muted", style: { fontSize: "1rem", fontFamily: "body" }, children: "Get early access to Obeeoma and empower your team with smarter mental health support." }), _jsx(CustomStepper, { activeStep: activeStep, primaryColor: customStyles.primaryColor, steps: stepperSteps, onStepClick: handleStepNavigation }), localError && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => setLocalError(null), children: localError })), error && (_jsx(Alert, { variant: "danger", dismissible: true, onClose: () => dispatch(clearAuthStatus()), children: error })), _jsx(Formik, { validationSchema: getStepValidationSchema(activeStep), initialValues: initialValues, 
                                     //  Change onSubmit to call handleNext/handleSubmit
                                     onSubmit: handleSubmit, validateOnMount: false, 
                                     //  Disable validation on blur to prevent errors when switching fields
-                                    validateOnBlur: false, children: ({ handleSubmit, handleChange, values, touched, errors, setTouched, setErrors, validateForm, isSubmitting, }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [renderStepContent(values, handleChange, touched, errors), activeStep < 2 && (_jsxs(Row, { className: "mt-3", children: [_jsx(Col, { md: activeStep > 0 ? 6 : 12, children: activeStep > 0 && (_jsx(Button, { variant: "secondary", onClick: handleBack, className: "w-100 py-3 fw-semibold mb-2 mb-md-0", disabled: isLoading || isSubmitting, children: "Back" })) }), _jsx(Col, { md: activeStep > 0 ? 6 : 12, children: _jsx(Button
+                                    validateOnBlur: false, children: ({ handleSubmit, handleChange, values, touched, errors, setTouched, setErrors, validateForm, isSubmitting, }) => (_jsxs(FormikForm, { noValidate: true, onSubmit: handleSubmit, children: [renderStepContent(values, handleChange, touched, errors), activeStep < 2 && (_jsxs(Row, { className: "mt-3", children: [_jsx(Col, { md: activeStep > 0 ? 6 : 12, children: activeStep > 0 && (_jsx(Button, { variant: "secondary", onClick: handleBack, className: "w-100 py-3 fw-semibold mb-2 mb-md-0", disabled: isLoading || isSubmitting, style: { fontFamily: 'body' }, children: "Back" })) }), _jsx(Col, { md: activeStep > 0 ? 6 : 12, children: _jsx(Button
                                                         //If activeStep === 1, the button is rendered via FormikForm's onSubmit on click, but we will use the onClick handler.
                                                         , { 
                                                             //If activeStep === 1, the button is rendered via FormikForm's onSubmit on click, but we will use the onClick handler.
@@ -377,10 +383,12 @@ const Register = () => {
                                                                 borderColor: customStyles.primaryColor,
                                                                 color: "white",
                                                                 boxShadow: "none",
-                                                            }, children: isLoading || isSubmitting ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing Up..."] })) : activeStep === 0 ? (_jsx(_Fragment, { children: "Next" })) : ("Sign Up") }) })] })), activeStep < 2 && (_jsxs("p", { className: "text-center mt-3 text-muted", children: ["Already have an account?", " ", _jsx(Link, { to: "/login", style: {
+                                                                fontFamily: "body",
+                                                            }, children: isLoading || isSubmitting ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Signing Up..."] })) : activeStep === 0 ? (_jsx(_Fragment, { children: "Next" })) : ("Sign Up") }) })] })), activeStep < 2 && (_jsxs("p", { className: "text-center mt-3 text-muted", style: { fontFamily: 'body' }, children: ["Already have an account?", " ", _jsx(Link, { to: "/login", style: {
                                                             color: customStyles.primaryColor,
                                                             textDecoration: "none",
                                                             fontWeight: "600",
+                                                            fontFamily: 'body',
                                                         }, children: "Log in" })] }))] })) }), _jsx(SuccessModal, { show: showSuccessModal, onHide: handleCloseSuccessModal, primaryColor: customStyles.primaryColor, handleClose: handleCloseSuccessModal })] }) }) }) }), _jsx("footer", { className: "text-center text-muted py-3 small border-top", style: {
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",

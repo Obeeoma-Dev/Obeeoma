@@ -224,8 +224,9 @@ export interface UsageData {
 }
 
 export interface PaymentUpdatePayload {
-  token_id: string;
-  email: string; // Required for Flutterwave customer
+  token_id?: string; // For Flutterwave (legacy)
+  authorization_code?: string; // For Paystack
+  email: string; // Required for both payment providers
 }
 
 export interface InvoiceItem {

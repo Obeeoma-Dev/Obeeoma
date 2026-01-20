@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col, Card, Badge } from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col, Card, Badge, Alert } from 'react-bootstrap';
 
 const THEME_COLOR = '#22C55E';
 
@@ -26,6 +26,15 @@ interface ChangePlanModalProps {
 export const ChangePlanModal: React.FC<ChangePlanModalProps> = ({ show, onHide, currentPlanId, onConfirm }) => {
   const [isAnnual, setIsAnnual] = useState(false);
   const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
+  const [showFreePlanAlert, setShowFreePlanAlert] = useState(false);
+
+  const handlePlanSelect = (planId: string, isCurrent: boolean) => {
+    if (isCurrent) return;
+    
+    // Show alert popup for any plan selection
+    setShowFreePlanAlert(true);
+    setSelectedPlanId(selectedPlanId === planId ? null : planId);
+  };
 
   const handleConfirmClick = () => {
     const selectedPlan = plans.find(p => p.id === (selectedPlanId || currentPlanId));
@@ -73,7 +82,7 @@ export const ChangePlanModal: React.FC<ChangePlanModalProps> = ({ show, onHide, 
                     cursor: isCurrent ? 'default' : 'pointer',
                     border: (isCurrent || isSelected) ? `2px solid ${THEME_COLOR}` : '1px solid #dee2e6',
                   }}
-                  onClick={() => !isCurrent && setSelectedPlanId(selectedPlanId === plan.id ? null : plan.id)}
+                  onClick={() => handlePlanSelect(plan.id, isCurrent)}
                 >
                   <Card.Body className="d-flex flex-column text-black">
                     <div className="d-flex justify-content-between align-items-start mb-3">
@@ -82,10 +91,14 @@ export const ChangePlanModal: React.FC<ChangePlanModalProps> = ({ show, onHide, 
 
                     <div className="mb-4 text-center">
                        <h2 className="fw-bold text-black" style={{ fontFamily: 'body' }}>
-                         ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
-                         <small className="fs-6 text-muted" style={{ fontFamily: 'body' }}> /mo</small>
+                         ₦{isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                         {plan.id !== 'Free Plan' && (
+                           <small className="fs-6 text-muted" style={{ fontFamily: 'body' }}> /mo</small>
+                         )}
                        </h2>
                     </div>
+
+
 
                     <div className="flex-grow-1 mb-4" style={{ fontSize: '0.9rem', color: '#000' , fontFamily: 'body' }}>
                         {/* <div className="mb-2"><strong>Users:</strong> {plan.users}</div>
@@ -126,6 +139,35 @@ export const ChangePlanModal: React.FC<ChangePlanModalProps> = ({ show, onHide, 
           Confirm Plan Change
         </Button>
       </Modal.Footer>
+
+      {/* Plan Selection Alert Popup */}
+      <Modal 
+        show={showFreePlanAlert} 
+        onHide={() => setShowFreePlanAlert(false)} 
+        centered
+        size="sm"
+      >
+        <Modal.Header closeButton className="border-0">
+          <Modal.Title className="fw-bold" style={{ color: THEME_COLOR, fontFamily: 'body', fontSize: '1.1rem' }}>
+            <i className="bi bi-info-circle me-2"></i>
+            Plan Notice
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-center py-4">
+          <Alert variant="info" className="mb-0" style={{ fontFamily: 'body' }}>
+            Consider the Free Plan for the first version.
+          </Alert>
+        </Modal.Body>
+        <Modal.Footer className="border-0 justify-content-center">
+          <Button 
+            variant="primary"
+            onClick={() => setShowFreePlanAlert(false)}
+            style={{ backgroundColor: THEME_COLOR, borderColor: THEME_COLOR, fontFamily: 'body' }}
+          >
+            Got it
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Modal>
   );
 };
