@@ -42,11 +42,13 @@ const WellnessTrends: React.FC = () => {
         const response = await employerAPI.getWellnessMoodTrends();
         const data = response.data;
         if (Array.isArray(data)) {
-          const transformedData = data.map((item: { date: string; moodScore: number }) => ({
-            date: item.date,
-            score: item.moodScore,
-            emoji: getEmojiFromScore(item.moodScore),
-          }));
+          const transformedData = data.map(
+            (item: { date: string; moodScore: number }) => ({
+              date: item.date,
+              score: item.moodScore,
+              emoji: getEmojiFromScore(item.moodScore),
+            }),
+          );
           setMoodData(transformedData);
         }
       } catch (error) {
@@ -62,9 +64,9 @@ const WellnessTrends: React.FC = () => {
     const emoji = EMOJI_MAPPING.find(
       (item, index) =>
         score <= item.score ||
-        (index === EMOJI_MAPPING.length - 1 && score > item.score)
+        (index === EMOJI_MAPPING.length - 1 && score > item.score),
     );
-    return emoji?.emoji || '😐';
+    return emoji?.emoji || "😐";
   };
 
   // Custom YAxis tick with emojis

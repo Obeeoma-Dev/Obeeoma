@@ -224,9 +224,7 @@ const AddEmployeeForm = ({
                     <option value="Engineering"> Engineering</option>
                     <option value="Operations"> Operations</option>
                     <option value="Sales"> Sales</option>
-                    <option value="Customer Service">
-                       Customer Service
-                    </option>
+                    <option value="Customer Service">Customer Service</option>
                     <option value="Other"> Other</option>
                   </select>
                   {errors.department && (

@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
-import "./engagement.css"
+import "./engagement.css";
 
 // Define the component using React.FC
 const PatientSearchFilter: React.FC = () => {

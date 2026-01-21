@@ -19,7 +19,15 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const MentalHealthChart: React.FC = () => {
   // Data matching the design: Mental Health Condition Distribution
   const data = {
-    labels: ["Anxiety", "Depression", "PTSD", "Bipolar", "ADHD", "OCD", "Other"],
+    labels: [
+      "Anxiety",
+      "Depression",
+      "PTSD",
+      "Bipolar",
+      "ADHD",
+      "OCD",
+      "Other",
+    ],
     datasets: [
       {
         label: "Distribution (%)",
@@ -99,4 +107,3 @@ const MentalHealthChart: React.FC = () => {
 };
 
 export default MentalHealthChart;
-

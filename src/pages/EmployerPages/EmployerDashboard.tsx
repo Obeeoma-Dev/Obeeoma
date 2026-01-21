@@ -220,13 +220,13 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
             </div>
           </div>
         </div>
-
         {/* Modal for adding employees */}
         <AddEmployeeForm
           onEmployeeAdded={refreshDashboardData}
           showModal={showAddEmployeeModal}
           onClose={() => setShowAddEmployeeModal(false)}
-        />s
+        />
+        s
       </div>
     </Layout>
   );

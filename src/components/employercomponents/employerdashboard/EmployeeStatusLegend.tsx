@@ -10,9 +10,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const EmployeeStatusLegend: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { EmployeeStatusData: employeeStatus, isLoading, error } = useSelector(
-    (state: RootState) => state.employer
-  );
+  const {
+    EmployeeStatusData: employeeStatus,
+    isLoading,
+    error,
+  } = useSelector((state: RootState) => state.employer);
 
   useEffect(() => {
     dispatch(fetchEmployeeStatus());
@@ -39,12 +41,17 @@ const EmployeeStatusLegend: React.FC = () => {
       </div>
     );
   }
- 
+
   // Ensure data exists before destructuring
   if (!employeeStatus) return null;
 
-
-  const { activeEmployees, inactiveEmployees, totalEmployees, activePercentage, inactivePercentage } = employeeStatus;
+  const {
+    activeEmployees,
+    inactiveEmployees,
+    totalEmployees,
+    activePercentage,
+    inactivePercentage,
+  } = employeeStatus;
 
   // Increase each number after the entry
   const displayActive = activeEmployees + 1;
@@ -90,7 +97,12 @@ const EmployeeStatusLegend: React.FC = () => {
             if (data.labels.length && data.datasets.length) {
               return data.labels.map((label: string, i: number) => {
                 const value = data.datasets[0].data[i];
-                const percentage = displayTotal > 0 ? Math.round((data.datasets[0].data[i] / displayTotal) * 100) : 0;
+                const percentage =
+                  displayTotal > 0
+                    ? Math.round(
+                        (data.datasets[0].data[i] / displayTotal) * 100,
+                      )
+                    : 0;
 
                 return {
                   text: `${label}`,
@@ -120,7 +132,8 @@ const EmployeeStatusLegend: React.FC = () => {
           label: function (context: any) {
             const label = context.label || "";
             const value = context.parsed || 0;
-            const percentage = displayTotal > 0 ? Math.round((value / displayTotal) * 100) : 0;
+            const percentage =
+              displayTotal > 0 ? Math.round((value / displayTotal) * 100) : 0;
             return `${label}: ${value} employees (${percentage}%)`;
           },
         },
@@ -141,10 +154,7 @@ const EmployeeStatusLegend: React.FC = () => {
 
       {/* Additional summary stats */}
       <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-        <div className="grid grid-cols-2 gap-4 text-center">
-          
-         
-        </div>
+        <div className="grid grid-cols-2 gap-4 text-center"></div>
       </div>
     </div>
   );

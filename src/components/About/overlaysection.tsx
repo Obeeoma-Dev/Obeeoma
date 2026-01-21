@@ -51,7 +51,7 @@ export function AboutUsHero() {
           position: "absolute", // Layer over background
           inset: 0, // Stretch to fill section
           zIndex: 0, // Behind content
-          }}
+        }}
       />
 
       {/* Animated Logo Graphic */}

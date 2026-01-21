@@ -1,51 +1,51 @@
 // Import React core
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 // Import React-Bootstrap components
-import { Card, Button, Stack } from 'react-bootstrap'
+import { Card, Button, Stack } from "react-bootstrap";
 
 // Import icons
-import { FileText, Download } from 'lucide-react'
+import { FileText, Download } from "lucide-react";
 
 // Import popup component
-import { DownloadPopup } from './dowloadpopup'
+import { DownloadPopup } from "./dowloadpopup";
 
 // Define the Report interface (unchanged, just fixed syntax)
 interface Report {
-  id: string
-  title: string
-  type: string
-  date: string
-  size: string
+  id: string;
+  title: string;
+  type: string;
+  date: string;
+  size: string;
 }
 
 // Example reports data (you already had this somewhere)
 const reports: Report[] = [
   {
-    id: '1',
-    title: 'Monthly Usage Report',
-    type: 'PDF',
-    date: 'Jan 2026',
-    size: '2.3 MB',
+    id: "1",
+    title: "Monthly Usage Report",
+    type: "PDF",
+    date: "Jan 2026",
+    size: "2.3 MB",
   },
-]
+];
 
 // Main component export
 export function AvailableReports() {
   // Controls popup visibility
-  const [downloadPopupOpen, setDownloadPopupOpen] = useState(false)
+  const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
 
   // Stores the selected report
-  const [selectedReport, setSelectedReport] = useState<Report | null>(null)
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
   // Handles clicking the download button
   const handleDownloadClick = (report: Report) => {
     // Set selected report
-    setSelectedReport(report)
+    setSelectedReport(report);
 
     // Open popup
-    setDownloadPopupOpen(true)
-  }
+    setDownloadPopupOpen(true);
+  };
 
   // JSX return
   return (
@@ -54,7 +54,9 @@ export function AvailableReports() {
       {/* Card body */}
       <Card.Body>
         {/* Section title */}
-        <Card.Title className="mb-4" style={{ fontFamily: 'heading' }}>Available Reports</Card.Title>
+        <Card.Title className="mb-4" style={{ fontFamily: "heading" }}>
+          Available Reports
+        </Card.Title>
 
         {/* Reports list */}
         <Stack gap={3}>
@@ -72,7 +74,7 @@ export function AvailableReports() {
                     </div>
 
                     {/* Text content */}
-                    <div style={{ fontFamily: 'body' }}>
+                    <div style={{ fontFamily: "body" }}>
                       <div className="fw-medium">{report.title}</div>
                       <small className="text-muted">
                         {report.type} • {report.date} • {report.size}
@@ -106,5 +108,5 @@ export function AvailableReports() {
         )}
       </Card.Body>
     </Card>
-  )
+  );
 }

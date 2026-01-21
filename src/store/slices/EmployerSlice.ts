@@ -819,7 +819,6 @@ export const fetchEmployees = createAsyncThunk<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const backendData = (response.data.employees || response.data) as any[];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
     //   id: employee.id,
 
@@ -831,15 +830,18 @@ export const fetchEmployees = createAsyncThunk<
     //     ? (employee.empstatus.toLowerCase() as Employee["status"])
     //     : "N/A",
     // }));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
-  id: employee.id,
-  // Map backend 'email' to frontend 'emailAddress'
-  emailAddress: employee.email || employee.empemail || "N/A", 
-  // Map backend 'employeedepartment' to frontend 'employeedepartment'
-  employeedepartment: employee.employeedepartment || "N/A", 
-  phoneNumber: employee.employeephone || "", // Add this
-  status: employee.empstatus ? (employee.empstatus.toLowerCase() as Employee["status"]) : "active",
-}));
+      id: employee.id,
+      // Map backend 'email' to frontend 'emailAddress'
+      emailAddress: employee.email || employee.empemail || "N/A",
+      // Map backend 'employeedepartment' to frontend 'employeedepartment'
+      employeedepartment: employee.employeedepartment || "N/A",
+      phoneNumber: employee.employeephone || "", // Add this
+      status: employee.empstatus
+        ? (employee.empstatus.toLowerCase() as Employee["status"])
+        : "active",
+    }));
 
     return mappedEmployees;
   } catch (error) {
@@ -1069,7 +1071,6 @@ export const fetchMoodTrends = createAsyncThunk<
 //   }
 // });
 
-
 // store/slices/EmployerSlice.ts
 
 export const fetchEmployeeStatus = createAsyncThunk<
@@ -1088,15 +1089,16 @@ export const fetchEmployeeStatus = createAsyncThunk<
     const total = active + inactive;
 
     const activePercentage = total > 0 ? Math.round((active / total) * 100) : 0;
-    const inactivePercentage = total > 0 ? Math.round((inactive / total) * 100) : 0;
+    const inactivePercentage =
+      total > 0 ? Math.round((inactive / total) * 100) : 0;
 
-    return { 
-      ...data, 
-      activeEmployees: active, 
-      inactiveEmployees: inactive, 
+    return {
+      ...data,
+      activeEmployees: active,
+      inactiveEmployees: inactive,
       totalEmployees: total,
-      activePercentage, 
-      inactivePercentage 
+      activePercentage,
+      inactivePercentage,
     };
   } catch (error: unknown) {
     return rejectWithValue("Failed to fetch status");
@@ -1111,6 +1113,7 @@ export const updateEmployee = createAsyncThunk(
   ) => {
     try {
       // Transform frontend field names to backend field names
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const djangoPayload: Record<string, any> = {};
       if (updatedData.emailAddress !== undefined) {
         djangoPayload.empemail = updatedData.emailAddress;

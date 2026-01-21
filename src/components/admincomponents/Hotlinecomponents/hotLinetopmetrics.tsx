@@ -1,7 +1,7 @@
 // src/components/admincomponents/Hotline-activity/TopMetrics.tsx
-import React from "react"
-import { Row, Col } from "react-bootstrap"
-import { Phone, Clock, XCircle } from "lucide-react"
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import { Phone, Clock, XCircle } from "lucide-react";
 import { HoverStatCard } from "./hoverCard";
 
 interface TopMetricsProps {

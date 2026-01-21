@@ -29,7 +29,7 @@ const MonthlyUsageChart: React.FC = () => {
   };
 
   return (
-    <Card className="mb-4" style={{ fontFamily: 'heading' }}>
+    <Card className="mb-4" style={{ fontFamily: "heading" }}>
       <Card.Header>Monthly Platform Usage</Card.Header>
       <Card.Body>
         <Bar data={data} />

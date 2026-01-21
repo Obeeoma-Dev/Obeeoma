@@ -79,17 +79,11 @@ export default function App(): React.ReactElement {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/blog" element={<Blog />} />
-
-               <Route
-                  path="/employer-subscription"
-                  element={<EmployerSubscription />}
-                />
-
-
-                <Route
-                  path="/success-message"
-                  element={<PaymentSuccessPage />}
-                />
+              <Route
+                path="/employer-subscription"
+                element={<EmployerSubscription />}
+              />
+              <Route path="/success-message" element={<PaymentSuccessPage />} />
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}

@@ -97,4 +97,3 @@ const PlatformUsageChart: React.FC = () => {
 };
 
 export default PlatformUsageChart;
-

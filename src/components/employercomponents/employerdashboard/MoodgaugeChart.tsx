@@ -8,7 +8,8 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
   const colors = ["#dcfce7", "#bbf7d0", "#86efac", "#4ade80", "#22c55e"];
   const emojis = ["😞", "🙁", "😐", "🙂", "😊"];
 
-  const cleanedMoodLabel = moodLabel.replace("Needs Attention", "").trim() || "Neutral";
+  const cleanedMoodLabel =
+    moodLabel.replace("Needs Attention", "").trim() || "Neutral";
 
   const getScoreFromMood = (mood: string): number => {
     const moodMap: { [key: string]: number } = {
@@ -26,13 +27,18 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
   const needleAngle = 180 - (clampedScore / 1000) * 180;
 
   const centerX = 165;
-  const centerY = 170; 
-  
-  const casingRadius = 160; 
-  const chartRadius = 155;  
-  const innerRadius = 75;   
+  const centerY = 170;
 
-  const polarToCartesian = (cx: number, cy: number, r: number, angleDeg: number) => {
+  const casingRadius = 160;
+  const chartRadius = 155;
+  const innerRadius = 75;
+
+  const polarToCartesian = (
+    cx: number,
+    cy: number,
+    r: number,
+    angleDeg: number,
+  ) => {
     const angleRad = (angleDeg * Math.PI) / 180;
     return {
       x: cx + r * Math.cos(angleRad),
@@ -40,7 +46,12 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
     };
   };
 
-  const getDonutPath = (start: number, end: number, rOut: number, rIn: number) => {
+  const getDonutPath = (
+    start: number,
+    end: number,
+    rOut: number,
+    rIn: number,
+  ) => {
     const s = polarToCartesian(centerX, centerY, rOut, start);
     const e = polarToCartesian(centerX, centerY, rOut, end);
     const sIn = polarToCartesian(centerX, centerY, rIn, start);
@@ -51,7 +62,10 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center w-100">
-      <h6 className="fw-bold mb-3" style={{ color: "#000", fontSize: "0.9rem" }}>
+      <h6
+        className="fw-bold mb-3"
+        style={{ color: "#000", fontSize: "0.9rem" }}
+      >
         Mood Tracker
       </h6>
 
@@ -59,7 +73,13 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
         <svg viewBox="0 0 330 200" style={{ display: "block", width: "100%" }}>
           <defs>
             {/* Soft Shadow Filter */}
-            <filter id="softShadow" x="-20%" y="-20%" width="150%" height="150%">
+            <filter
+              id="softShadow"
+              x="-20%"
+              y="-20%"
+              width="150%"
+              height="150%"
+            >
               <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
               <feOffset dx="0" dy="2" result="offsetblur" />
               <feComponentTransfer>
@@ -78,8 +98,8 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
             <path
               d={`M ${centerX - casingRadius} ${centerY} A ${casingRadius} ${casingRadius} 0 0 1 ${centerX + casingRadius} ${centerY}`}
               fill="none"
-              stroke="#e5e7eb" 
-              strokeWidth="10" 
+              stroke="#e5e7eb"
+              strokeWidth="10"
             />
 
             <g transform={`rotate(180 ${centerX} ${centerY})`}>
@@ -87,14 +107,24 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
               {colors.map((color, i) => (
                 <path
                   key={i}
-                  d={getDonutPath(i * 36, (i + 1) * 36, chartRadius, innerRadius)}
+                  d={getDonutPath(
+                    i * 36,
+                    (i + 1) * 36,
+                    chartRadius,
+                    innerRadius,
+                  )}
                   fill={color}
                 />
               ))}
 
               {/* 3. Emojis */}
               {emojis.map((emoji, i) => {
-                const pos = polarToCartesian(centerX, centerY, (chartRadius + innerRadius) / 2, (i + 0.5) * 36);
+                const pos = polarToCartesian(
+                  centerX,
+                  centerY,
+                  (chartRadius + innerRadius) / 2,
+                  (i + 0.5) * 36,
+                );
                 return (
                   <text
                     key={i}
@@ -111,30 +141,43 @@ const MoodGaugeChart: React.FC<MoodGaugeChartProps> = ({ moodLabel }) => {
               })}
 
               {/* 4. The Needle with its own subtle shadow */}
-              <g transform={`rotate(${needleAngle} ${centerX} ${centerY})`} style={{ filter: "drop-shadow(0px 2px 2px rgba(0,0,0,0.4))" }}>
+              <g
+                transform={`rotate(${needleAngle} ${centerX} ${centerY})`}
+                style={{ filter: "drop-shadow(0px 2px 2px rgba(0,0,0,0.4))" }}
+              >
                 <path
                   d={`M ${centerX} ${centerY - 5} L ${centerX + chartRadius - 5} ${centerY} L ${centerX} ${centerY + 5} Z`}
                   fill="#374151"
                 />
-                <circle cx={centerX} cy={centerY} r="14" fill="#9ca3af" stroke="#4b5563" strokeWidth="3" />
+                <circle
+                  cx={centerX}
+                  cy={centerY}
+                  r="14"
+                  fill="#9ca3af"
+                  stroke="#4b5563"
+                  strokeWidth="3"
+                />
                 <circle cx={centerX} cy={centerY} r="4" fill="white" />
               </g>
             </g>
-            
+
             {/* Bottom flat base line */}
-            <line 
-                x1={centerX - casingRadius - 5} 
-                y1={centerY} 
-                x2={centerX + casingRadius + 5} 
-                y2={centerY} 
-                stroke="#e5e7eb" 
-                strokeWidth="5" 
+            <line
+              x1={centerX - casingRadius - 5}
+              y1={centerY}
+              x2={centerX + casingRadius + 5}
+              y2={centerY}
+              stroke="#e5e7eb"
+              strokeWidth="5"
             />
           </g>
         </svg>
       </div>
 
-      <div className="mt-2 fw-bold" style={{ color: "#374151", fontSize: "1.1rem" }}>
+      <div
+        className="mt-2 fw-bold"
+        style={{ color: "#374151", fontSize: "1.1rem" }}
+      >
         {cleanedMoodLabel}
       </div>
     </div>
@@ -944,4 +987,3 @@ export default MoodGaugeChart;
 // // };
 
 // // export default MoodGaugeChart;
-

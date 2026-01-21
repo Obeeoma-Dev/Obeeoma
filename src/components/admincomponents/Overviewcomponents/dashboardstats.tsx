@@ -58,7 +58,9 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
                     style={{
                       fontFamily: "body",
                       fontSize: "0.75rem",
-                      color: stat.change.startsWith("+") ? "#3CB371" : "#0B6E45",
+                      color: stat.change.startsWith("+")
+                        ? "#3CB371"
+                        : "#0B6E45",
                       backgroundColor: "transparent",
                       fontWeight: 600,
                       display: "inline-block",
@@ -76,8 +78,18 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
 
                 {/* Bottom section: title and value */}
                 <div>
-                  <div className="h4 fw-bold text-dark mb-2" style={{ fontFamily: 'body' }}>{stat.value}</div>
-                  <div className="text-muted small fw-500" style={{ fontFamily: 'body' }}>{stat.title}</div>
+                  <div
+                    className="h4 fw-bold text-dark mb-2"
+                    style={{ fontFamily: "body" }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div
+                    className="text-muted small fw-500"
+                    style={{ fontFamily: "body" }}
+                  >
+                    {stat.title}
+                  </div>
                 </div>
               </Card.Body>
             </Card>

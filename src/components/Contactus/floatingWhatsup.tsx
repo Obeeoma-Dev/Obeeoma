@@ -79,7 +79,6 @@ export function FloatingWhatsApp() {
   );
 }
 
-
 // // Import React to use JSX and functional components
 // import React from "react";
 // // Import Button from React-Bootstrap for consistent Bootstrap styling
@@ -148,9 +147,9 @@ export function FloatingWhatsApp() {
 //           }}
 //         >
 //           {/* The WhatsApp icon inside the button */}
-//           <img 
-//             src={whatsappLogoIcon} 
-//             alt="WhatsApp" 
+//           <img
+//             src={whatsappLogoIcon}
+//             alt="WhatsApp"
 //             style={{
 //               width: "32px",
 //               height: "32px",

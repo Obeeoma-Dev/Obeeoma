@@ -244,7 +244,7 @@ export const adminAPI = {
   //   return response;
   // },
 
-    getFeatureUsage: async () => {
+  getFeatureUsage: async () => {
     const response = await api.get("/v1/feature-usage");
     return response;
   },
@@ -405,8 +405,6 @@ export const employerAPI = {
   getbreakdownusage: async () => {
     const response = await api.get("/v1/feature-usage/");
     return response;
-
-
   },
 
   // Dashboard Settings

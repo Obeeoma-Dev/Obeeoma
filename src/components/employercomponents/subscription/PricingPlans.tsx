@@ -15,11 +15,8 @@ const PricingPlans = () => {
     // 2. Set the newly selected plan as the current plan in the state.
     setCurrentPlanName(planName);
 
-    const sandboxUrl: string = 
-    "https://paystack.shop/pay/m17b0i5sie";
-      //  "https://sandbox.flutterwave.com/pay/pxv1ofyo5e5l";
-      
-
+    const sandboxUrl: string = "https://paystack.shop/pay/m17b0i5sie";
+    //  "https://sandbox.flutterwave.com/pay/pxv1ofyo5e5l";
 
     if (planName === "Free") {
       // For Basic (free) plan, redirect immediately.
@@ -158,12 +155,12 @@ const PricingPlans = () => {
                         //     className="me-2"
                         //   />{" "}
                         //   {/* Green Checkmark */}
-                        {/* //   <span className="small">{feature}</span>
+                      {
+                        /* //   <span className="small">{feature}</span>
                         // </li>
                       ) */
-                      // }
+                        // }
                       }
-                      
                     </ul>
 
                     <div className="mt-auto">
@@ -182,13 +179,10 @@ const PricingPlans = () => {
                 </div>
               </div>
             );
-          
           })}
-          
         </div>
       </div>
     </div>
   );
 };
 export default PricingPlans;
-

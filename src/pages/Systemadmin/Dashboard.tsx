@@ -21,7 +21,6 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -179,7 +178,6 @@ const Dashboard: React.FC = () => {
   return (
     // Full-height layout with sidebar and main content
     <div className="d-flex vh-100">
-
       {/* Toast container must be rendered once */}
       <ToastContainer
         position="top-right"
@@ -192,7 +190,6 @@ const Dashboard: React.FC = () => {
         draggable
         pauseOnHover
       />
-
 
       {/* Sidebar navigation */}
       <Sidebar />

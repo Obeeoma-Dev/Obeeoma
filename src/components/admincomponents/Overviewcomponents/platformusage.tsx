@@ -56,10 +56,11 @@ const PlatformUsageChart: React.FC = () => {
               variant="light"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`px-3 py-2 border-0 position-relative ${activeTab === tab.id
-                ? "fw-semibold text-success"
-                : "text-secondary"
-                }`}
+              className={`px-3 py-2 border-0 position-relative ${
+                activeTab === tab.id
+                  ? "fw-semibold text-success"
+                  : "text-secondary"
+              }`}
               style={{
                 backgroundColor: "transparent",
                 borderBottom:
@@ -78,7 +79,10 @@ const PlatformUsageChart: React.FC = () => {
         </ButtonGroup>
 
         {/* Dynamic section header with green underline */}
-        <h5 className="fw-semibold text-dark mb-4 md-4 position-relative ms-5" style={{ fontFamily: 'body' }}>
+        <h5
+          className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
+          style={{ fontFamily: "body" }}
+        >
           {activeTab === "platform" && "Weekly Platform Usage"}
           {activeTab === "organization" && "Monthly Organization Growth"}
           {activeTab === "subscription" && "Monthly Subscription Revenue"}
@@ -86,7 +90,11 @@ const PlatformUsageChart: React.FC = () => {
 
         {/* Render chart only when 'platform' tab is active */}
         {activeTab === "platform" && (
-          <ResponsiveContainer width="100%" height={300} style={{ fontFamily: 'body' }}>
+          <ResponsiveContainer
+            width="100%"
+            height={300}
+            style={{ fontFamily: "body" }}
+          >
             <AreaChart
               data={employeeData}
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
@@ -144,7 +152,11 @@ const PlatformUsageChart: React.FC = () => {
         )}
 
         {activeTab === "organization" && (
-          <ResponsiveContainer width="100%" height={300} style={{ fontFamily: 'body' }}>
+          <ResponsiveContainer
+            width="100%"
+            height={300}
+            style={{ fontFamily: "body" }}
+          >
             <LineChart
               data={[
                 { week: "Week 1", value: 1200 },
