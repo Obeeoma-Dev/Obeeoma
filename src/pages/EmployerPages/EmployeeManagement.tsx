@@ -1,12 +1,14 @@
 import EmployeeTable from "../../components/employercomponents/employerdashboard/EmployeeTable";
 import Layout from "../../components/employercomponents/shared/Layout";
-import { Search } from "lucide-react";
+import { Search, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
 
 const EmployeeManagement = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
 
   // Get employees from Redux
   const employeeData = useSelector((state: RootState) => ({
@@ -19,6 +21,19 @@ const EmployeeManagement = () => {
 
   // // Hardcode companyId for now
   const companyId = "your-company-id";
+
+  const handleAddEmployee = () => {
+    setShowAddEmployeeModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowAddEmployeeModal(false);
+  };
+
+  const handleEmployeeAdded = () => {
+    // Refresh employee list or handle success
+    console.log("Employee added successfully");
+  };
 
   return (
     <Layout title="Employee Management Portal">
@@ -48,6 +63,21 @@ const EmployeeManagement = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                       />
                     </div>
+                    <button
+                      className="btn d-flex align-items-center"
+                      onClick={handleAddEmployee}
+                      style={{
+                        backgroundColor: "#22C55E",
+                        borderColor: "#22C55E",
+                        color: "white",
+                        borderRadius: "8px",
+                        fontWeight: "600",
+                        padding: "0.5rem 1rem",
+                      }}
+                    >
+                      <UserPlus size={18} className="me-2" />
+                      Add Employee
+                    </button>
                   </div>
                 </div>
               </div>
@@ -56,6 +86,12 @@ const EmployeeManagement = () => {
           </div>
         </div>
       </div>
+
+      <AddEmployeeForm
+        showModal={showAddEmployeeModal}
+        onClose={handleCloseModal}
+        onEmployeeAdded={handleEmployeeAdded}
+      />
     </Layout>
   );
 };
