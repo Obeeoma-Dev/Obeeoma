@@ -3,8 +3,6 @@ export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 import { store } from "../store/store";
-// import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
-// declare const authApiClient: any;
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://64.225.122.101/api";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
@@ -23,8 +21,7 @@ export const setupApiInterceptors = (store) => {
             "/v1/auth/reset-password/",
             "/v1/auth/reset-password/complete/",
             "/v1/organization-signup/",
-            " v1/auth/verify-invitation-otp/",
-            // "/v1/auth/logout/",
+            "/v1/auth/verify-invitation-otp/",
             "/v1/auth/mfa/setup/",
             "/v1/auth/mfa/verify/",
         ];
@@ -407,6 +404,10 @@ export const employerAPI = {
     // Wellness Data
     getMoodTrends: async () => {
         const response = await api.get("/v1/dashboard/trends/");
+        return response;
+    },
+    getWellnessMoodTrends: async () => {
+        const response = await api.get("/api/wellness/mood-trends");
         return response;
     },
     getDepartmentDistribution: async () => {

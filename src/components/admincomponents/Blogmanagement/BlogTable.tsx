@@ -27,26 +27,36 @@ export type BlogPost = {
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 
-const resolveImageSrc = (imageUrl: string | File): string => {
-  if (typeof imageUrl === "string") {
-    if (imageUrl.startsWith("/")) {
-      return `${BASE_URL}${imageUrl}`;
-    }
-    return imageUrl;
-  }
-
-  // TypeScript-safe check
-  if (
-    imageUrl &&
-    typeof imageUrl === "object" &&
-    "name" in imageUrl &&
-    "type" in imageUrl
-  ) {
+export const resolveImageSrc = (imageUrl: string | File): string => {
+  // Handle File objects (for newly uploaded images)
+  if (imageUrl && typeof imageUrl === "object" && "name" in imageUrl && "type" in imageUrl) {
     return URL.createObjectURL(imageUrl);
   }
 
+  // Handle string URLs
+  if (typeof imageUrl === "string" && imageUrl.trim() !== "") {
+    // If it's a relative path, prepend the base URL
+    if (imageUrl.startsWith("/")) {
+      return `${BASE_URL}${imageUrl}`;
+    }
+    // If it's already a full URL, return as is
+    return imageUrl;
+  }
+
+  // Return empty string for null/undefined/empty values
   return "";
 };
+
+
+// Date formator. 
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return isNaN(date.getTime())
+    ? "—"
+    : date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+};
+
+
 
 // Component props
 type BlogTableProps = {
@@ -97,23 +107,44 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 {/* TITLE + IMAGE */}
                 <td>
                   <div className="d-flex align-items-center gap-3">
-                    <Image
-                      src={
-                        resolveImageSrc(blog.imageUrl) ||
-                        "/default-thumbnail.png"
-                      }
-                      rounded
-                      className="blogtable-thumb"
-                    />
+                    {(() => {
+                      const imageSrc = resolveImageSrc(blog.imageUrl);
+                      return imageSrc ? (
+                        <Image
+                          src={imageSrc}
+                          rounded
+                          className="blogtable-thumb"
+                          onError={(e) => {
+                            // Fallback to default image if loading fails
+                            const target = e.target as HTMLImageElement;
+                            target.src = "/default-thumbnail.png";
+                          }}
+                        />
+                      ) : (
+                        <div
+                          className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            fontSize: "18px",
+                            color: "#6c757d"
+                          }}
+                        >
+                          📄
+                        </div>
+                      );
+                    })()}
                     <span className="blogtable-title-text">{blog.title}</span>
                   </div>
                 </td>
 
                 {/* CATEGORY */}
-                <td className="text-muted">{blog.category}</td>
+                <td className="text-muted" style={{ fontFamily: 'body' }}>{blog.category}</td>
 
                 {/* DATE */}
-                <td className="text-muted">{blog.date}</td>
+                <td className="text-muted" style={{ fontFamily: 'body' }}>
+                  {blog.date ? formatDate(blog.date) : "—"}
+                </td>
 
                 {/* STATUS */}
                 <td>

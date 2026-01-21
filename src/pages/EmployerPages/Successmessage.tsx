@@ -48,7 +48,7 @@ const styles: StyleMap = {
   // .message
   message: {
     fontSize: "16px",
-    color: "#666",
+    color: "#555",
     fontFamily: "body",
     marginBottom: "30px",
     lineHeight: 1.5,

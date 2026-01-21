@@ -35,10 +35,9 @@ const CompanyReports = () => {
       <div className="container-fluid py-4">
         <div>
           <h3 className="mb-4">Wellness Trends</h3>
-          <div className="mb-4"></div>
           <WellnessTrends />
         </div>
-        <DepartmentMetrics />
+        {/* <DepartmentMetrics /> */}
         <AvailableReports />
         <KeyMetrics />
       </div>

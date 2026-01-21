@@ -10,14 +10,9 @@ import {
   changePasswordData,
   OtpVerificationPayload,
   ChangePassword,
-  // MfaSetupData,
-  // MfaVerifyPayload,
   MfaSetupRequestPayload,
 } from "../types/auth";
 import { Employee } from "../types/TData";
-
-// import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
-// declare const authApiClient: any;
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://64.225.122.101/api";
@@ -41,8 +36,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "/v1/auth/reset-password/",
         "/v1/auth/reset-password/complete/",
         "/v1/organization-signup/",
-        " v1/auth/verify-invitation-otp/",
-        // "/v1/auth/logout/",
+        "/v1/auth/verify-invitation-otp/",
         "/v1/auth/mfa/setup/",
         "/v1/auth/mfa/verify/",
       ];
@@ -513,6 +507,11 @@ export const employerAPI = {
   // Wellness Data
   getMoodTrends: async () => {
     const response = await api.get("/v1/dashboard/trends/");
+    return response;
+  },
+
+  getWellnessMoodTrends: async () => {
+    const response = await api.get("/api/wellness/mood-trends");
     return response;
   },
 

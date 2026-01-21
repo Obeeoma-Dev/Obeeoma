@@ -1,7 +1,7 @@
 /* Wrapper for the icon background */
 .icon-badge {
-    width: 42px;
-    height: 42px;
+    width: 50px !important;
+    height: 50px !important;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -10,18 +10,18 @@
 
 /* Soft background colors (like your screenshot) */
 .icon-green {
-    background-color: #e8f8f0;
-    color: #12b76a;
+    background-color: #f0f5f2;
+    color: #0B6E45;
 }
 
 .icon-blue {
-    background-color: #e7f0ff;
-    color: #3b82f6;
+    background-color: #f0f5f2;
+    color: #0B6E45;
 }
 
 .icon-purple {
-    background-color: #f3e8ff;
-    color: #8b5cf6;
+    background-color: #f0f5f2;
+    color: #0B6E45;
 }
 
 /* Bigger main numbers */
@@ -30,4 +30,37 @@
     font-weight: 700;
     line-height: 1.2;
     font-family: 'body';
+}
+
+/* Styles of the engamntStatesPanel.tsx icons */
+.icon-circle {
+    background-color: #0B6E45 !important;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.icon-circle:hover {
+    box-shadow: 0 0 0 3px rgba(11, 110, 69, 0.3) !important;
+}
+
+
+/* Styles of the patientsearchfilter */
+.btn-search {
+    background-color: #3CB371 !important;
+    /* normal state */
+    border-color: #3CB371 !important;
+    color: #fff !important;
+    /* text color */
+}
+
+.btn-search:hover {
+    background-color: #0B6E45 !important;
+    /* hover state */
+    border-color: #0B6E45 !important;
+    color: #fff !important;
 }

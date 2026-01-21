@@ -1,0 +1,17 @@
+/* Styles of the oraganisation details */
+.chart-row-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* or a fixed height like 320px */
+}
+
+.chart-row-wrapper .row {
+    flex: 1;
+    display: flex;
+}
+
+.chart-row-wrapper .col {
+    display: flex;
+    flex-direction: column;
+}

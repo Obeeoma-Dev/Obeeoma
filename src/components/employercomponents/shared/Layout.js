@@ -2,7 +2,6 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-// import Modal from 'react-bootstrap/Modal';
 import { Home as HomeIcon, Users as UsersIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
 import { useSelector, useDispatch } from "react-redux";

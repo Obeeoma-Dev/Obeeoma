@@ -17,6 +17,7 @@ import Mentalhealthawareness from "../../../assets/Images/mentalhealthimage.png"
 
 // Importing the social handle footer.
 import Footer from "../../../components/shared/socialhandlesfooter";
+
 interface Blog {
   id: number;
   title: string;
@@ -29,6 +30,104 @@ interface Blog {
   featured?: boolean;
 }
 
+// Interface for backend article data
+interface BackendArticle {
+  id: number;
+  title: string;
+  excerpt?: string;
+  featured_image?: string | null;
+  category?: string;
+  published_date?: string;
+  content?: string;
+  author?: string;
+  featured?: boolean;
+}
+
+// Default blogs data - moved outside component to avoid dependency issues
+const defaultBlogs: Blog[] = [
+  {
+    id: 1,
+    title:
+      "Why Employee Mental Health Should Be Every Company's Priority in 2025",
+    excerpt:
+      "In today's fast-changing work environment, mental health has become a strategic business priority. Learn why companies that support emotional well-being outperform others.",
+    image: Africaworkforce,
+    category: "Workplace Wellness",
+    date: "Jan 20, 2025",
+    readTime: "6 min read",
+    author: "Obeeoma Editorial Team",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "How to Build a Psychologically Safe Workplace",
+    excerpt:
+      "Discover how African organizations can create environments where employees feel safe to speak up, innovate, and collaborate without fear of judgment.",
+    image: Freeworkspace,
+    category: "Leadership",
+    date: "Jan 21, 2025",
+    readTime: "5 min read",
+    author: "Obeeoma Editorial Team",
+  },
+  {
+    id: 3,
+    title: "How AI Is Revolutionizing Employee Mental Health Support",
+    excerpt:
+      "Explore how AI-driven tools are personalizing mental health care in the workplace, helping leaders predict and prevent burnout.",
+    image: Aiworkplaces,
+    category: "Technology",
+    date: "Jan 22, 2025",
+    readTime: "5 min read",
+    author: "Obeeoma Tech Team",
+  },
+  {
+    id: 4,
+    title: "5 Simple Daily Habits to Boost Your Mental Well-Being at Work",
+    excerpt:
+      "Learn easy, science-backed habits to manage stress, boost mood, and stay productive throughout your workday.",
+    image: Dailyhabbits,
+    category: "Self-Care",
+    date: "Jan 23, 2025",
+    readTime: "4 min read",
+    author: "Obeeoma Wellness Team",
+  },
+  {
+    id: 5,
+    title: "How HR Leaders Can Champion Mental Health in 2025",
+    excerpt:
+      "From policy creation to manager training, here's how HR professionals can become the architects of mentally healthy workplaces.",
+    image: Mentallyhealthyworkplace,
+    category: "HR & Leadership",
+    date: "Jan 24, 2025",
+    readTime: "6 min read",
+    author: "Obeeoma HR Insights",
+  },
+  {
+    id: 6,
+    title:
+      "Breaking the Stigma: Mental Health Conversations in African Workplaces",
+    excerpt:
+      "Learn how African professionals are redefining mental health culture by breaking silence and promoting openness in the workplace.",
+    image: Breakingstigma,
+    category: "Community",
+    date: "Jan 25, 2025",
+    readTime: "6 min read",
+    author: "Obeeoma Editorial Team",
+  },
+  {
+    id: 7,
+    title:
+      "Behind Obeeoma: Why We're Building Africa's AI Mental Health Platform",
+    excerpt:
+      "Discover the vision and mission behind Obeeoma — Africa's first AI-powered platform transforming access to mental health care.",
+    image: Mentalhealthawareness,
+    category: "Innovation",
+    date: "Jan 26, 2025",
+    readTime: "7 min read",
+    author: "Obeeoma Founding Team",
+  },
+];
+
 // const categories = ['Self-Care', 'Anxiety', 'Wellness', 'Relationships', 'Community']
 export function Blog() {
   // -----------------------------
@@ -39,89 +138,7 @@ export function Blog() {
   // You already had this – we keep it unchanged
   const [activeCategory] = useState<string>("All");
 
-  const [blogs, setBlogs] = useState<Blog[]>([
-    {
-      id: 1,
-      title:
-        "Why Employee Mental Health Should Be Every Company’s Priority in 2025",
-      excerpt:
-        "In today’s fast-changing work environment, mental health has become a strategic business priority. Learn why companies that support emotional well-being outperform others.",
-      image: Africaworkforce,
-      category: "Workplace Wellness",
-      date: "Jan 20, 2025",
-      readTime: "6 min read",
-      author: "Obeeoma Editorial Team",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "How to Build a Psychologically Safe Workplace",
-      excerpt:
-        "Discover how African organizations can create environments where employees feel safe to speak up, innovate, and collaborate without fear of judgment.",
-      image: Freeworkspace,
-      category: "Leadership",
-      date: "Jan 21, 2025",
-      readTime: "5 min read",
-      author: "Obeeoma Editorial Team",
-    },
-    {
-      id: 3,
-      title: "How AI Is Revolutionizing Employee Mental Health Support",
-      excerpt:
-        "Explore how AI-driven tools are personalizing mental health care in the workplace, helping leaders predict and prevent burnout.",
-      image: Aiworkplaces,
-      category: "Technology",
-      date: "Jan 22, 2025",
-      readTime: "5 min read",
-      author: "Obeeoma Tech Team",
-    },
-    {
-      id: 4,
-      title: "5 Simple Daily Habits to Boost Your Mental Well-Being at Work",
-      excerpt:
-        "Learn easy, science-backed habits to manage stress, boost mood, and stay productive throughout your workday.",
-      image: Dailyhabbits,
-      category: "Self-Care",
-      date: "Jan 23, 2025",
-      readTime: "4 min read",
-      author: "Obeeoma Wellness Team",
-    },
-    {
-      id: 5,
-      title: "How HR Leaders Can Champion Mental Health in 2025",
-      excerpt:
-        "From policy creation to manager training, here’s how HR professionals can become the architects of mentally healthy workplaces.",
-      image: Mentallyhealthyworkplace,
-      category: "HR & Leadership",
-      date: "Jan 24, 2025",
-      readTime: "6 min read",
-      author: "Obeeoma HR Insights",
-    },
-    {
-      id: 6,
-      title:
-        "Breaking the Stigma: Mental Health Conversations in African Workplaces",
-      excerpt:
-        "Learn how African professionals are redefining mental health culture by breaking silence and promoting openness in the workplace.",
-      image: Breakingstigma,
-      category: "Community",
-      date: "Jan 25, 2025",
-      readTime: "6 min read",
-      author: "Obeeoma Editorial Team",
-    },
-    {
-      id: 7,
-      title:
-        "Behind Obeeoma: Why We’re Building Africa’s AI Mental Health Platform",
-      excerpt:
-        "Discover the vision and mission behind Obeeoma — Africa’s first AI-powered platform transforming access to mental health care.",
-      image: Mentalhealthawareness,
-      category: "Innovation",
-      date: "Jan 26, 2025",
-      readTime: "7 min read",
-      author: "Obeeoma Founding Team",
-    },
-  ]);
+  const [blogs, setBlogs] = useState<Blog[]>(defaultBlogs);
 
   // Holds blogs AFTER filtering/searching
   // This is what the UI renders
@@ -130,37 +147,78 @@ export function Blog() {
   // Visibility flag you already had (kept to avoid breaking anything)
   const [, setIsVisible] = useState(false);
 
+  // Date formatter.
+  const formatDate = (dateStr: string | undefined) => {
+    if (!dateStr) return "—";
+    const date = new Date(dateStr);
+    return isNaN(date.getTime())
+      ? "—"
+      : date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+  };
+
+  // Image URL resolver
+  const resolveImageUrl = (imageUrl: string | null | undefined): string => {
+    if (!imageUrl) return "";
+    if (imageUrl.startsWith("/")) {
+      return `http://127.0.0.1:8000${imageUrl}`;
+    }
+    return imageUrl;
+  };
+
   // -----------------------------
   // FETCH BLOGS FROM BACKEND
   // -----------------------------
 
   useEffect(() => {
-    // Define async function to fetch blogs
     const fetchBlogs = async () => {
       try {
-        // Call backend API (change URL if needed)
-        const response = await fetch("/api/blogs/");
+        console.log("Fetching blogs from API...");
+        const response = await fetch("http://127.0.0.1:8000/api/v1/articles/");
 
-        // Convert response to JSON
-        const data: Blog[] = await response.json();
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        // Save backend data into blogs state
-        setBlogs(data);
+        const data = await response.json();
+        console.log("Raw API data:", data);
 
-        // Initially show all blogs
-        setFilteredBlogs(data);
+        // Map backend fields to frontend Blog interface
+        const mapped: Blog[] = data.map((item: BackendArticle) => ({
+          id: item.id,
+          title: item.title,
+          excerpt: item.excerpt || "No excerpt available",
+          image: resolveImageUrl(item.featured_image) || Mentalhealthawareness, // fallback to default image
+          category: item.category || "General",
+          date: formatDate(item.published_date),
+          readTime: `${Math.max(1, Math.ceil((item.content?.length || 0) / 200))} min read`, // estimate reading time
+          author: item.author || "Obeeoma Editorial Team",
+          featured: item.featured || false,
+        }));
+
+        console.log("Mapped blogs:", mapped);
+
+        // Only update if we have data, otherwise keep the default blogs
+        if (mapped.length > 0) {
+          setBlogs(mapped);
+          setFilteredBlogs(mapped);
+        } else {
+          console.log("No blogs from API, keeping default blogs");
+          setFilteredBlogs(defaultBlogs);
+        }
       } catch (error) {
-        // Log error if backend fails (prevents app crash)
         console.error("Error fetching blogs:", error);
+        // Keep the default blogs if API fails
+        setFilteredBlogs(defaultBlogs);
       }
     };
 
-    // Call the fetch function
     fetchBlogs();
-
-    // Set visibility flag (your existing behavior)
     setIsVisible(true);
-  }, []);
+  }, []); // Remove blogs from dependency array to prevent infinite loop
 
   // -----------------------------
   // FILTER BY CATEGORY
@@ -258,7 +316,10 @@ export function Blog() {
 
           {/* Empty state */}
           {filteredBlogs.length === 0 && (
-            <div className="blog-no-results" style={{ fontFamily: "body" }}>
+            <div
+              className="blog-no-results"
+              style={{ fontFamily: "body" }}
+            >
               <p>No articles found. Try adjusting your search or filter.</p>
             </div>
           )}

@@ -50,8 +50,7 @@ const ReportPage: React.FC = () => {
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h1
               style={{
-                fontSize: "2rem",
-                fontWeight: "bold",
+                fontFamily: "heading",
                 color: "#1a1a1a",
                 margin: 0,
               }}
@@ -70,6 +69,7 @@ const ReportPage: React.FC = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: "0.5rem",
+                  fontFamily: "body",
                 }}
               >
                 <svg
@@ -96,7 +96,7 @@ const ReportPage: React.FC = () => {
                   padding: "0.5rem 1.5rem",
                   borderRadius: "6px",
                   border: "none",
-                  fontWeight: "500",
+                  fontFamily: "body",
                 }}
               >
                 Generate New Report
@@ -105,10 +105,7 @@ const ReportPage: React.FC = () => {
           </div>
 
           {/* Tabs */}
-          <div
-            className="d-flex gap-4 mb-4"
-            style={{ borderBottom: "1px solid #e9ecef" }}
-          >
+          <div className="d-flex gap-4 mb-4" style={{ borderBottom: "1px solid #e9ecef", fontFamily: "body" }}>
             {tabs.map((tab) => (
               <button
                 key={tab}
@@ -122,9 +119,7 @@ const ReportPage: React.FC = () => {
                   color: activeTab === tab ? "#3CB371" : "#6c757d",
                   fontWeight: activeTab === tab ? "600" : "400",
                   borderBottom:
-                    activeTab === tab
-                      ? "2px solid #3CB371"
-                      : "2px solid transparent",
+                    activeTab === tab ? "2px solid #3CB371" : "2px solid transparent",
                   cursor: "pointer",
                   transition: "all 0.2s",
                 }}

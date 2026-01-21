@@ -18,8 +18,6 @@ import ChangePassword from "./pages/auth/changePassword";
 import OtpVerificationPage from "./pages/auth/otpVerification";
 import ResetPasswordSignin from "./pages/auth/ResetPasswordSignin";
 import MfaSetupPage from "./pages/auth/mfauth";
-// import { TermsAndConditions } from "./pages/landingpage/Terms";
-// import { PrivacyPolicy } from "./pages/landingpage/Policy";
 import AcceptInvite from "./pages/auth/accept-invite";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployerDashboard from "./pages/EmployerPages/EmployerDashboard";
@@ -37,7 +35,6 @@ import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription
 import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
-import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
 
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EditEmployerProfilePage from "./pages/EmployerPages/EditEmployerProfilePage";
@@ -79,6 +76,8 @@ export default function App(): React.ReactElement {
               <Route path="/mfa-setup" element={<MfaSetupPage />} />
               <Route path="/about-us" element={<Aboutus />} />
               <Route path="/contact-us" element={<ContactPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/blog" element={<Blog />} />
 
                <Route

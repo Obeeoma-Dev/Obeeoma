@@ -9,15 +9,18 @@ import Header from "../../components/admincomponents/adminheader";
 import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
-import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
+// import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 import { BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 // Import shared type definitions
 import {
   ActivityItem,
-  BottomMetricCard,
+  // BottomMetricCard,
   StatCardData,
 } from "../../components/admincomponents/Overviewcomponents/admindashboard";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 /**
  * Static placeholder data for recent activities
@@ -38,7 +41,7 @@ const recentActivityData: ActivityItem[] = [
     details: "New AI recommendation available for review",
     time: "1 hour ago",
     icon: "Brain", // Icon representing AI or intelligence
-    iconColor: "text-info",
+    iconColor: "text-success",
   },
   {
     id: "3",
@@ -46,7 +49,7 @@ const recentActivityData: ActivityItem[] = [
     details: "12 hotline calls were received",
     time: "45 minutes ago",
     icon: "PhoneCall", // Icon representing phone or hotline
-    iconColor: "text-danger",
+    iconColor: "text-success",
   },
   {
     id: "4",
@@ -54,7 +57,7 @@ const recentActivityData: ActivityItem[] = [
     details: "45 patients were engaged today",
     time: "30 minutes ago",
     icon: "UserPlus", // Icon representing user engagement or addition
-    iconColor: "text-primary",
+    iconColor: "text-success",
   },
   {
     id: "5",
@@ -62,7 +65,7 @@ const recentActivityData: ActivityItem[] = [
     details: "University Counseling Center subscribed to the platform",
     time: "25 minutes ago",
     icon: "CreditCard", // Icon representing financial or subscription activity
-    iconColor: "text-warning",
+    iconColor: "text-success",
   },
 ];
 
@@ -70,44 +73,44 @@ const recentActivityData: ActivityItem[] = [
  * Static placeholder data for bottom metric cards
  * Replace with API data when backend is ready
  */
-const bottomMetricData: BottomMetricCard[] = [
-  {
-    id: "1",
-    title: "Organizations",
-    value: "0",
-    subtitle: "Active organizations",
-    linkText: "View all organizations",
-    icon: "Building2",
-    color: "emerald",
-  },
-  {
-    id: "2",
-    title: "AI Recommendations",
-    value: "0",
-    subtitle: "Reviewed today",
-    linkText: "View recommendations",
-    icon: "Brain",
-    color: "blue",
-  },
-  {
-    id: "3",
-    title: "Hotline",
-    value: "0",
-    subtitle: "Calls received",
-    linkText: "View hotline logs",
-    icon: "PhoneCall",
-    color: "purple",
-  },
-  {
-    id: "4",
-    title: "Subscriptions",
-    value: "$0k",
-    subtitle: "Monthly revenue",
-    linkText: "View subscriptions",
-    icon: "CreditCard",
-    color: "pink",
-  },
-];
+// const bottomMetricData: BottomMetricCard[] = [
+//   {
+//     id: "1",
+//     title: "Organizations",
+//     value: "0",
+//     subtitle: "Active organizations",
+//     linkText: "View all organizations",
+//     icon: "Building2",
+//     color: "emerald",
+//   },
+//   {
+//     id: "2",
+//     title: "AI Recommendations",
+//     value: "0",
+//     subtitle: "Reviewed today",
+//     linkText: "View recommendations",
+//     icon: "Brain",
+//     color: "blue",
+//   },
+//   {
+//     id: "3",
+//     title: "Hotline",
+//     value: "0",
+//     subtitle: "Calls received",
+//     linkText: "View hotline logs",
+//     icon: "PhoneCall",
+//     color: "purple",
+//   },
+//   {
+//     id: "4",
+//     title: "Subscriptions",
+//     value: "$0k",
+//     subtitle: "Monthly revenue",
+//     linkText: "View subscriptions",
+//     icon: "CreditCard",
+//     color: "pink",
+//   },
+// ];
 
 /**
  * Static placeholder data for top dashboard stats
@@ -120,7 +123,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Total Organizations",
     change: "+3 this month",
     icon: "Building2",
-    iconColor: "bg-success-subtle text-success",
+    iconColor: "custom-green",
   },
   {
     id: "2",
@@ -128,7 +131,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Total Clients",
     change: "+124 this week",
     icon: "Users",
-    iconColor: "bg-primary-subtle text-primary",
+    iconColor: "custom-green",
   },
   {
     id: "3",
@@ -136,7 +139,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Monthly Revenue",
     change: "+5.3% this month",
     icon: "CreditCard",
-    iconColor: "bg-warning-subtle text-warning",
+    iconColor: "custom-green",
   },
   {
     id: "4",
@@ -144,7 +147,7 @@ const dashboardStatsData: StatCardData[] = [
     title: "Hotline Calls Today",
     change: "+8% vs yesterday",
     icon: "PhoneCall",
-    iconColor: "bg-danger-subtle text-danger",
+    iconColor: "custom-green",
   },
 ];
 
@@ -176,6 +179,21 @@ const Dashboard: React.FC = () => {
   return (
     // Full-height layout with sidebar and main content
     <div className="d-flex vh-100">
+
+      {/* Toast container must be rendered once */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
+
       {/* Sidebar navigation */}
       <Sidebar />
 
@@ -272,9 +290,9 @@ const Dashboard: React.FC = () => {
               </Row>
 
               {/* Bottom metric summary cards */}
-              <Row className="g-4">
+              {/* <Row className="g-4">
                 <BottomMetrics metrics={bottomMetricData} />
-              </Row>
+              </Row> */}
             </Container>
           </div>
         </div>

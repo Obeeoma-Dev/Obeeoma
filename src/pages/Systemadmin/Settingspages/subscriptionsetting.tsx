@@ -6,18 +6,7 @@ import SubscriptionSettingsComp from "../../../components/admincomponents/Settin
 // Placeholder data for subscription plans
 const subscriptionPlans = [
   {
-    name: "Basic",
-    price: "$5.99/month",
-    billingNote: "Billed annually (save $12)",
-    features: [
-      "Access to basic resources",
-      "Monthly check-ins",
-      "Up to 10 employees",
-      "Email support",
-    ],
-  },
-  {
-    name: "Professional",
+    name: "Freemium",
     price: "$12.99/month",
     billingNote: "Billed annually (save $24)",
     features: [
@@ -52,6 +41,12 @@ const SubscriptionSettingsPage: React.FC = () => {
         backgroundColor: "#f8f9fa",
       }}
     >
+
+      {/* Page title */}
+      <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
+        <h2 style={{ margin: 0, fontFamily: 'heading' }}>Subscription Settings</h2>
+      </div>
+
       {/* Sidebar stays fixed on the left */}
       <div style={{ width: "250px", flexShrink: 0 }}>
         <AdminSidebar />
@@ -70,10 +65,6 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-          {/* Page title */}
-          <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
-            <h2 style={{ margin: 0 }}>Subscription Settings</h2>
-          </div>
 
           {/* Subscription cards grid */}
           <SubscriptionSettingsComp plans={subscriptionPlans} />
