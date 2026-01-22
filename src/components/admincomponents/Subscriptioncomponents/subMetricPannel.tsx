@@ -1,6 +1,10 @@
-import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
-import { Building2, Calendar, Users, TrendingUp } from 'lucide-react';
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import { Building2, Calendar, Users, TrendingUp, LucideIcon } from "lucide-react";
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
+
+type MetricColor = "emerald" | "blue" | "amber" | "rose";
+
 
 interface MetricsPanelProps {
   totalOrganizations: number;
@@ -9,131 +13,70 @@ interface MetricsPanelProps {
   utilizationRate: number;
 }
 
-/**
- * MetricsPanel Component
- * 
- * Displays key subscription metrics in a card layout.
- * Each metric card shows the main value with a percentage change indicator.
- * Maintains backward compatibility with existing props interface.
- * 
- * @param totalOrganizations - Number of total organizations
- * @param totalSubscriptions - Number of total subscriptions  
- * @param coveredEmployees - String representation of covered employees (e.g., "4.2k")
- * @param utilizationRate - Percentage value for utilization rate
- * @returns React functional component with styled metric cards
- */
 const MetricsPanel: React.FC<MetricsPanelProps> = ({
   totalOrganizations,
   totalSubscriptions,
   coveredEmployees,
   utilizationRate,
 }) => {
+  const metrics: {
+    title: string;
+    value: string | number;
+    subtitle: string;
+    trend: string;
+    icon: LucideIcon;
+    color: MetricColor;
+  }[] = [
+
+
+      {
+        title: "Total Organizations",
+        value: totalOrganizations,
+        subtitle: "Organizations onboarded",
+        trend: "+12% from last month",
+        icon: Building2,
+        color: "emerald",
+      },
+      {
+        title: "Total Subscriptions",
+        value: totalSubscriptions,
+        subtitle: "Active subscription plans",
+        trend: "+8% from last month",
+        icon: Calendar,
+        color: "emerald",
+      },
+      {
+        title: "Covered Employees",
+        value: coveredEmployees,
+        subtitle: "Employees covered",
+        trend: "+5% from last month",
+        icon: Users,
+        color: "emerald",
+      },
+      {
+        title: "Utilization Rate",
+        value: `${utilizationRate}%`,
+        subtitle: "Platform usage",
+        trend: "+3% from last month",
+        icon: TrendingUp,
+        color: "emerald",
+      },
+    ];
+
   return (
-
     <Row className="mb-4 g-3">
-      {/* Total Organizations Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            <div className="d-flex justify-content-between align-items-start mb-2">
-              <div className="flex-grow-1">
-                {/* Metric title with muted text color */}
-                <Card.Title className="text-muted small fw-normal mb-1" style={{ fontFamily: 'heading' }}>
-                  Total Organizations
-                </Card.Title>
-                {/* Main metric value with large bold styling */}
-                <div className="fw-bold fs-4 mb-1" style={{ fontFamily: 'body' }}>
-                  {totalOrganizations}
-                </div>
-                {/* Percentage change indicator with positive styling */}
-                <div className="text-success small fw-medium d-flex align-items-center" style={{ fontFamily: 'body' }}>
-                  <span className="me-1">↑</span>
-                  +12% from last month
-                </div>
-              </div>
-              <Building2 size={24} className="text-success" />
-            </div>
-          </Card.Body>
-        </Card>
-      </Col>
-
-      {/* Total Subscriptions Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            <div className="d-flex justify-content-between align-items-start mb-2">
-              <div className="flex-grow-1">
-                {/* Metric title with consistent styling */}
-                <Card.Title className="text-muted small fw-normal mb-1" style={{ fontFamily: 'heading' }}>
-                  Total Subscriptions
-                </Card.Title>
-                {/* Main metric value */}
-                <div className="fw-bold fs-4 mb-1" style={{ fontFamily: 'body' }}>
-                  {totalSubscriptions}
-                </div>
-                {/* Percentage change indicator */}
-                <div className="text-success small fw-medium d-flex align-items-center" style={{ fontFamily: 'body' }}>
-                  <span className="me-1">↑</span>
-                  +8% from last month
-                </div>
-              </div>
-              <Calendar size={24} className="text-success" />
-            </div>
-          </Card.Body>
-        </Card>
-      </Col>
-
-      {/* Covered Employees Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            <div className="d-flex justify-content-between align-items-start mb-2">
-              <div className="flex-grow-1">
-                {/* Metric title */}
-                <Card.Title className="text-muted small fw-normal mb-1" style={{ fontFamily: 'heading' }}>
-                  Covered Employees
-                </Card.Title>
-                {/* Main metric value - using the coveredEmployees prop directly */}
-                <div className="fw-bold fs-4 mb-1" style={{ fontFamily: 'body' }}>
-                  {coveredEmployees}
-                </div>
-                {/* Percentage change indicator */}
-                <div className="text-success small fw-medium d-flex align-items-center" style={{ fontFamily: 'body' }}>
-                  <span className="me-1">↑</span>
-                  +5% from last month
-                </div>
-              </div>
-              <Users size={24} className="text-success" />
-            </div>
-          </Card.Body>
-        </Card>
-      </Col>
-
-      {/* Utilization Rate Metric Card */}
-      <Col md={3}>
-        <Card className="h-100 shadow-sm border-0">
-          <Card.Body className="p-3">
-            <div className="d-flex justify-content-between align-items-start mb-2">
-              <div className="flex-grow-1">
-                {/* Metric title */}
-                <Card.Title className="text-muted small fw-normal mb-1" style={{ fontFamily: 'heading' }}>
-                  Utilization Rate
-                </Card.Title>
-                {/* Main metric value with percentage symbol */}
-                <div className="fw-bold fs-4 mb-1" style={{ fontFamily: 'body' }}>
-                  {utilizationRate}%
-                </div>
-                {/* Percentage change indicator */}
-                <div className="text-success small fw-medium d-flex align-items-center" style={{ fontFamily: 'body' }}>
-                  <span className="me-1">↑</span>
-                  +3% from last month
-                </div>
-              </div>
-              <TrendingUp size={24} className="text-success" />
-            </div>
-          </Card.Body>
-        </Card>
-      </Col>
+      {metrics.map((metric, index) => (
+        <Col key={index} md={3}>
+          <HoverStatCard
+            title={metric.title}
+            value={metric.value}
+            subtitle={metric.subtitle}
+            trend={metric.trend}
+            icon={metric.icon}
+            color={metric.color}
+          />
+        </Col>
+      ))}
     </Row>
   );
 };

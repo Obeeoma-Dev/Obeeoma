@@ -34,22 +34,22 @@ const styles = {
   card: { padding: "1.5rem", height: "100%" },
   caseContainer: (type?: string) => ({
     padding: "1rem",
-    borderLeft: `4px solid ${type === "critical" ? "#dc3545" : "#ffc107"}`,
-    backgroundColor: type === "critical" ? "#f8d7da" : "#fff3cd",
+    borderLeft: `4px solid ${type === "critical" ? "#9DD3AF" : "#9DD3AF"}`,
+    backgroundColor: type === "critical" ? "#0B6E45" : "#0B6E45",
     borderRadius: "0.375rem",
     marginBottom: "1rem",
   }),
   caseTitle: (type?: string) => ({
     fontSize: "0.875rem",
     fontWeight: "bold",
-    color: type === "critical" ? "#842029" : "#664d03",
+    color: type === "critical" ? "#fff" : "#fff",
   }),
   caseDescription: (type?: string) => ({
     fontSize: "0.875rem",
-    color: type === "critical" ? "#842029" : "#664d03",
+    color: type === "critical" ? "#3CB371" : "#3CB371",
     marginTop: "0.25rem",
   }),
-  metaText: { fontSize: "0.75rem", color: "#6c757d" },
+  metaText: { fontSize: "0.75rem", color: "#fff" },
   header: {
     display: "flex",
     alignItems: "center",
@@ -65,7 +65,7 @@ const CriticalCases: React.FC = () => {
     <Card style={styles.card} className="mb-4">
       {/* Card Header */}
       <div style={styles.header}>
-        <AlertTriangle size={20} color="#ffc107" />
+        <AlertTriangle size={20} color="#0B6E45" />
         <h5 style={{ margin: 0, fontWeight: 600, fontFamily: "heading" }}>
           Critical Cases
         </h5>
@@ -90,7 +90,7 @@ const CriticalCases: React.FC = () => {
 
                 {/* Meta info: reason and assignedTo */}
                 <div style={styles.metaWrapper}>
-                  <Clock size={12} style={{ marginRight: "0.25rem" }} />
+                  <Clock size={12} style={{ marginRight: "0.25rem", color: "#fff" }} />
                   <span style={styles.metaText}>{c.reason}</span>
                   <span style={{ ...styles.metaText, margin: "0 0.25rem" }}>
                     •

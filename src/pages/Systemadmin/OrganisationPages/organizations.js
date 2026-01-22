@@ -5,6 +5,7 @@ import DashboardStats from "../../../components/admincomponents/Overviewcomponen
 import OrganizationTable from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import Header from "../../../components/admincomponents/adminheader";
+import { Building2, Users, Map, CircleCheckBig, } from "lucide-react";
 /**
  * Sample organization data for table display.
  * Will be replaced with backend data later.
@@ -53,9 +54,9 @@ const mockStats = [
         id: "1",
         title: "Total Organizations",
         value: "0",
-        change: "+3 this month",
-        icon: "Building2",
-        iconColor: "custom-green",
+        trend: "+3 this month",
+        icon: Building2,
+        color: "emerald",
         // subtitle: "Active organizations",
         // linkText: "View all organizations",
         // color: "emerald",
@@ -64,9 +65,9 @@ const mockStats = [
         id: "2",
         title: "Total Client",
         value: "0",
-        change: "+24 this month",
-        icon: "Users",
-        iconColor: "custom-green",
+        trend: "+24 this month",
+        icon: Users,
+        color: "emerald",
         // subtitle: "Active organizations",
         // linkText: "View all organizations",
         // color: "emerald",
@@ -75,9 +76,9 @@ const mockStats = [
         id: "3",
         title: "Active Programs",
         value: "0",
-        change: "+5 this month",
-        icon: "CircleCheckBig",
-        iconColor: "custom-green",
+        trend: "+5 this month",
+        icon: CircleCheckBig,
+        color: "emerald",
         // subtitle: "Active organizations",
         // linkText: "View all organizations",
         // color: "emerald",
@@ -86,9 +87,9 @@ const mockStats = [
         id: "4",
         title: "Regional Coverage",
         value: "0 regions",
-        change: "",
-        icon: "Map",
-        iconColor: "custom-green",
+        trend: "",
+        icon: Map,
+        color: "emerald",
         // subtitle: "Active organizations",
         // linkText: "View all organizations",
         // color: "emerald",

@@ -156,7 +156,14 @@ export default function App(): React.ReactElement {
                 path="/system-admin/content-management"
                 element={<ContentManagement />}
               />
-              <Route path="/system-admin/reports" element={<ReportPage />} />
+              <Route path="/system-admin/reports"
+                element={<ReportPage />}
+              />
+              <Route
+                path="/system-admin/system-subscriptions"
+                element={<SubscriptionPage />}
+              />
+
               {/* SYSTEMS ADMIN SETTINGS ROUTES */}
               <Route
                 path="/system-admin/settings-overview"
@@ -166,11 +173,6 @@ export default function App(): React.ReactElement {
                 path="/settings-overview/subscription-editor"
                 element={<SubscriptionEditor />}
               />
-              <Route
-                path="/settings-overview/subscription-editor"
-                element={<SubscriptionEditor />}
-              />
-
 
               {/* End ProtectedRoute */}
               {/* === CATCH-ALL ROUTE === */}

@@ -1,8 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-// src/components/admincomponents/notificationSettings.tsx
 import { useState } from "react";
 import { Form, Button, Card, Alert, Spinner } from "react-bootstrap";
-// Main component
 const NotificationSettings = () => {
     // Local state for toggle values
     const [preferences, setPreferences] = useState({
@@ -11,7 +9,6 @@ const NotificationSettings = () => {
         criticalHotlineAlerts: false,
         reportGeneration: true,
     });
-    // State for loading and feedback
     const [isSaving, setIsSaving] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
     const [saveError, setSaveError] = useState("");

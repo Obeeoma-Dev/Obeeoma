@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import { Shield, Monitor, Smartphone, Save } from "lucide-react";
-// Main component
 const SecuritySettings = () => {
     // Local state with placeholder data
     const [settings, setSettings] = useState({

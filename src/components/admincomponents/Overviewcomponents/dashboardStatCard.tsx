@@ -17,15 +17,13 @@ const colorMap = {
 
 const DashboardStatCard: React.FC<DashboardStatCardProps> = ({ data }) => {
 
-    const Icon =
-        (Icons[data.icon as keyof typeof Icons] ??
-            Icons.Activity) as LucideIcon;
+    const Icon = data.icon;
 
 
     const color =
-        data.iconColor.includes("success") ? "emerald" :
-            data.iconColor.includes("primary") ? "blue" :
-                data.iconColor.includes("warning") ? "amber" :
+        data.color.includes("success") ? "emerald" :
+            data.color.includes("primary") ? "blue" :
+                data.color.includes("warning") ? "amber" :
                     "rose";
 
     return (
@@ -33,7 +31,7 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({ data }) => {
             title={data.title}
             value={data.value}
             subtitle="Updated recently"
-            trend={data.change}
+            trend={data.trend}
             icon={Icon}
             color={color}
         />

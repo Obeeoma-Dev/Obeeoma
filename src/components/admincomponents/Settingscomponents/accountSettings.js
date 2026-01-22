@@ -1,9 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-// Import React and useState for managing form state
 import { useState } from "react";
-// Import Bootstrap components for layout and styling
 import { Form, Button, Card, Row, Col } from "react-bootstrap";
-// Main component
 const AccountForm = () => {
     // Initialize local state with placeholder account data
     const [account, setAccount] = useState({

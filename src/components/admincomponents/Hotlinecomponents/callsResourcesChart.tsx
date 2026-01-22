@@ -3,11 +3,11 @@ import { Bar } from "react-chartjs-2";
 import { Card } from "react-bootstrap";
 
 const BAR_COLORS = [
-  "#0d6efd",
+  "#3CB371",
   "#198754",
-  "#ffc107",
-  "#dc3545",
-  "#6f42c1",
+  "#9DD3AF",
+  "#0B6E45",
+  "#00A859",
 ];
 
 const data = {

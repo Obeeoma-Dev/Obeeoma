@@ -7,15 +7,14 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip)
 
 const BAR_COLORS = [
-  "rgba(13, 110, 253, 0.5)",
-  "rgba(25, 135, 84, 0.5)",
-  "rgba(255, 193, 7, 0.5)",
-  "rgba(111, 66, 193, 0.5)",
-  "rgba(220, 53, 69, 0.5)",
+  "#9DD3AF",
+  "#00A859",
+  "#3CB371",
+  "#0B6E45",
 ]
 
 const data = {
-  labels: ["Videos", "Articles", "Audio", "Interactive", "Worksheets"],
+  labels: ["Videos", "Articles", "Audio", "Interactive"],
   datasets: [
     {
       label: "Effectiveness (%)",

@@ -90,7 +90,7 @@ const AdminSidebar: React.FC = () => {
     { id: "client-engagement", label: "Client Engagement", icon: "Users" },
     { id: "ai-management", label: "AI Management", icon: "Brain" },
     { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
-    { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
+    { id: "system-subscriptions", label: "Subscriptions", icon: "CreditCard" },
     { id: "reports", label: "Reports", icon: "BarChart3" },
     { id: "content-management", label: "Content Management", icon: "FolderOutput" },
   ];

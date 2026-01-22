@@ -11,6 +11,7 @@ import RecentActivities from "../../components/admincomponents/Overviewcomponent
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Building2, Users, CreditCard, PhoneCall, } from "lucide-react";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -58,48 +59,6 @@ const recentActivityData = [
     },
 ];
 /**
- * Static placeholder data for bottom metric cards
- * Replace with API data when backend is ready
- */
-// const bottomMetricData: BottomMetricCard[] = [
-//   {
-//     id: "1",
-//     title: "Organizations",
-//     value: "0",
-//     subtitle: "Active organizations",
-//     linkText: "View all organizations",
-//     icon: "Building2",
-//     color: "emerald",
-//   },
-//   {
-//     id: "2",
-//     title: "AI Recommendations",
-//     value: "0",
-//     subtitle: "Reviewed today",
-//     linkText: "View recommendations",
-//     icon: "Brain",
-//     color: "blue",
-//   },
-//   {
-//     id: "3",
-//     title: "Hotline",
-//     value: "0",
-//     subtitle: "Calls received",
-//     linkText: "View hotline logs",
-//     icon: "PhoneCall",
-//     color: "purple",
-//   },
-//   {
-//     id: "4",
-//     title: "Subscriptions",
-//     value: "$0k",
-//     subtitle: "Monthly revenue",
-//     linkText: "View subscriptions",
-//     icon: "CreditCard",
-//     color: "pink",
-//   },
-// ];
-/**
  * Static placeholder data for top dashboard stats
  * Replace with API data when backend is ready
  */
@@ -108,33 +67,33 @@ const dashboardStatsData = [
         id: "1",
         value: "0",
         title: "Total Organizations",
-        change: "+3 this month",
-        icon: "Building2",
-        iconColor: "custom-green",
+        trend: "+3 this month",
+        icon: Building2,
+        color: "emerald",
     },
     {
         id: "2",
         value: "0",
         title: "Total Clients",
-        change: "+124 this week",
-        icon: "Users",
-        iconColor: "custom-green",
+        trend: "+124 this week",
+        icon: Users,
+        color: "emerald",
     },
     {
         id: "3",
         value: "$0",
         title: "Monthly Revenue",
-        change: "+5.3% this month",
-        icon: "CreditCard",
-        iconColor: "custom-green",
+        trend: "+5.3% this month",
+        icon: CreditCard,
+        color: "emerald",
     },
     {
         id: "4",
         value: "0",
         title: "Hotline Calls Today",
-        change: "+8% vs yesterday",
-        icon: "PhoneCall",
-        iconColor: "custom-green",
+        trend: "+8% vs yesterday",
+        icon: PhoneCall,
+        color: "rose",
     },
 ];
 /**

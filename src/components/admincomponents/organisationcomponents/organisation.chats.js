@@ -2,7 +2,6 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Row, Col, Card } from "react-bootstrap";
 import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, } from "chart.js";
-// Register chart components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 /**
  * OrganizationCharts component displays two charts:
@@ -19,7 +18,7 @@ const OrganizationCharts = () => {
                 label: "Organization Growth",
                 data: [5, 10, 15, 25, 35, 42],
                 borderColor: "#00A859", // Bootstrap green
-                backgroundColor: "rgba(40,167,69,0.2)", // Transparent green fill
+                backgroundColor: "rgba(40,167,69,0.2)",
                 tension: 0.4, // Smooth curve
             },
         ],
@@ -31,26 +30,25 @@ const OrganizationCharts = () => {
             {
                 label: "Clients",
                 data: [284, 194, 134],
-                backgroundColor: ["#00A859", "#00A859", "#00A859"], // Varying greens
-                borderRadius: 4, // Rounded bars
+                backgroundColor: ["#00A859", "#00A859", "#00A859"],
+                borderRadius: 4,
             },
         ],
     };
-    // Chart options for consistent styling
     const chartOptions = {
         responsive: true,
         plugins: {
             legend: {
                 position: "top",
                 labels: {
-                    color: "#6c757d", // Muted gray
+                    color: "#6c757d",
                     font: {
                         size: 12,
                     },
                 },
             },
             title: {
-                display: false, // We use Card titles instead
+                display: false,
             },
         },
         scales: {

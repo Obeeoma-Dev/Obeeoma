@@ -1,12 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import * as Icons from "lucide-react";
-/**
- * Props interface for BottomMetrics component
- * Accepts an array of BottomMetricCard objects
- */
 const BottomMetrics = ({ metrics, }) => {
-    // Define color palette for icons
     const colorMap = {
         emerald: "#3CB371",
         blue: "#3CB371",
@@ -17,7 +12,6 @@ const BottomMetrics = ({ metrics, }) => {
                 // Dynamically select icon from lucide-react
                 const IconComponent = (Icons[metric.icon] ??
                     Icons.Activity);
-                // Resolve icon color from palette
                 const iconColor = colorMap[metric.color] || colorMap.emerald;
                 return (_jsx(Col, { xs: 12, md: 6, lg: 3, children: _jsx(Card, { className: "shadow-sm border-0 h-100", style: { transition: "all 0.3s ease" }, onMouseEnter: (e) => (e.currentTarget.style.boxShadow =
                             "0 8px 24px rgba(0,0,0,0.12)"), onMouseLeave: (e) => (e.currentTarget.style.boxShadow =

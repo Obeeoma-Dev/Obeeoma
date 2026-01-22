@@ -1,12 +1,16 @@
+import { LucideIcon } from "lucide-react";
+
 /* Represents a statistical metric card with current value and change percentage */
 export interface StatCardData {
   id: string;
   title: string;
   value: string | number;
-  change: string;
-  icon: string;
-  iconColor: string;
+  subtitle?: string; // Optional 
+  trend?: string;
+  icon: LucideIcon;
+  color: "emerald" | "blue" | "amber" | "rose";
 }
+
 
 /* Represents a recent activity item in the dashboard */
 export interface ActivityItem {

@@ -3,13 +3,13 @@ import { Row, Col, Card, Button } from "react-bootstrap";
 import * as Icons from "lucide-react";
 
 
-export interface StatCardData { 
-  id: string;  
-  title: string;  
-  value: string | number;  
-  change: string;  
-  icon: string;  
-  iconColor: string;
+export interface StatCardData {
+  id: string;
+  title: string;
+  value: string | number;
+  trend: string;
+  icon: string;
+  color: string;
 }
 
 
@@ -29,15 +29,15 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
         </Button>
       </div>
 
-      
+
       <Row className="gy-4">
         {stats.map((stat) => {
           // Dynamically select icon from lucide-react
           const IconComponent = (Icons[stat.icon as keyof typeof Icons] ??
             Icons.Activity) as React.FC<{
-            size?: number;
-            color?: string;
-          }>;
+              size?: number;
+              color?: string;
+            }>;
 
           return (
             <Col key={stat.id} xs={12} md={6} lg={3}>
@@ -59,7 +59,7 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
                   </div>
 
                   {/* Right section: change percentage */}
-                  <div className="text-muted small text-end">{stat.change}</div>
+                  <div className="text-muted small text-end">{stat.trend}</div>
                 </Card.Body>
               </Card>
             </Col>

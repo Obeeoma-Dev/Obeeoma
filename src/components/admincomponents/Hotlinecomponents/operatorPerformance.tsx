@@ -42,10 +42,7 @@ const OperatorPerformance: React.FC = () => {
               </Col>
 
               <Col className="text-end">
-                <div
-                  className={`fw-bold ${operator.performance >= 90 ? "text-success" : "text-warning"
-                    }`}
-                >
+                <div className="fw-bold" style={{ color: '#00A859' }}>
                   {operator.performance}%
                 </div>
                 <small
@@ -60,7 +57,6 @@ const OperatorPerformance: React.FC = () => {
             {/* Progress bar */}
             <ProgressBar
               now={operator.performance}
-              variant={operator.performance >= 90 ? "success" : "warning"}
               className="operator-progress"
             />
           </div>

@@ -1,8 +1,35 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { Card, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { TrendingUp, Award, Gift } from "lucide-react";
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard"; // adjust path
 import "./engagement.css";
 const EngagementSummary = ({ engagementRate, activePrograms, totalPoints, }) => {
-    return (_jsxs(_Fragment, { children: [_jsxs("div", { className: "mb-4", style: { fontFamily: "heading" }, children: [_jsx("h2", { children: "Client Engagement & Rewards" }), _jsx("p", { className: "text-muted", style: { fontFamily: "body" }, children: "Monitor client activity and reward program performance." })] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 4, children: _jsx(Card, { className: "shadow-sm border-0 rounded-2", style: { fontFamily: "body" }, children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsx("div", { className: "icon-badge icon-green", children: _jsx(TrendingUp, { size: 24 }) }), _jsx("small", { className: "text-success fw-medium", children: "+5% this week" })] }), _jsxs("div", { className: "mt-3 metric-value", children: [engagementRate, "%"] }), _jsx("p", { className: "text-muted mb-0", children: "Engagement Rate" })] }) }) }), _jsx(Col, { md: 4, children: _jsx(Card, { className: "shadow-sm border-0 rounded-2", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsx("div", { className: "icon-badge icon-blue", children: _jsx(Award, { size: 24 }) }), _jsx("small", { className: "text-success fw-medium", children: "+2 this month" })] }), _jsx("div", { className: "mt-3 metric-value", children: activePrograms }), _jsx("p", { className: "text-muted mb-0", children: "Active Reward Programs" })] }) }) }), _jsx(Col, { md: 4, children: _jsx(Card, { className: "shadow-sm border-0 rounded-2", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center", children: [_jsx("div", { className: "icon-badge icon-purple", children: _jsx(Gift, { size: 24 }) }), _jsx("small", { className: "text-success fw-medium", children: "+15% this month" })] }), _jsx("div", { className: "mt-3 metric-value", children: totalPoints.toLocaleString() }), _jsx("p", { className: "text-muted mb-0", children: "Rewards Assisted" })] }) }) })] })] }));
+    const metrics = [
+        {
+            title: "Engagement Rate",
+            value: `${engagementRate}%`,
+            subtitle: "Client activity this week",
+            trend: "+5% this week",
+            icon: TrendingUp,
+            color: "emerald",
+        },
+        {
+            title: "Active Reward Programs",
+            value: activePrograms,
+            subtitle: "Programs currently running",
+            trend: "+2 this month",
+            icon: Award,
+            color: "emerald",
+        },
+        {
+            title: "Rewards Assisted",
+            value: totalPoints.toLocaleString(),
+            subtitle: "Total points distributed",
+            trend: "+15% this month",
+            icon: Gift,
+            color: "emerald",
+        },
+    ];
+    return (_jsxs(_Fragment, { children: [_jsxs("div", { className: "mb-4", style: { fontFamily: "heading" }, children: [_jsx("h2", { children: "Client Engagement & Rewards" }), _jsx("p", { className: "text-muted", style: { fontFamily: "body" }, children: "Monitor client activity and reward program performance." })] }), _jsx(Row, { className: "mb-4", children: metrics.map((metric, index) => (_jsx(Col, { md: 4, children: _jsx(HoverStatCard, { title: metric.title, value: metric.value, subtitle: metric.subtitle, trend: metric.trend, icon: metric.icon, color: metric.color }) }, index))) })] }));
 };
 export default EngagementSummary;
