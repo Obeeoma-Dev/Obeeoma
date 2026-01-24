@@ -8,7 +8,7 @@ interface StatCardProps {
     value: string | number;
     subtitle: string;
     trend?: string;
-    icon: LucideIcon;
+    icon: LucideIcon; // Reverted back to LucideIcon
     color: 'emerald' | 'blue' | 'amber' | 'rose';
 }
 
@@ -45,7 +45,6 @@ export function HoverStatCard({
         },
     } as const
 
-
     const styles = colorStyles[color]
 
     return (
@@ -60,7 +59,7 @@ export function HoverStatCard({
                         className={`d-flex align-items-center justify-content-center rounded-circle ${styles.bg} ${styles.text}`}
                         style={{ width: 48, height: 48 }}
                     >
-                        {/* Lucide icon */}
+                        {/* Safe icon rendering */}
                         <Icon size={24} />
                     </div>
 

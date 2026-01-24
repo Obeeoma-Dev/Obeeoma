@@ -51,11 +51,13 @@ const WellnessTrends: React.FC = () => {
         }
       } catch (error) {
         console.error("Failed to fetch the mood data:", error);
+        // Keep using dummy data if API fails
+        // This prevents the component from crashing
       }
     };
 
     fetchMoodData();
-  }, [setMoodData]);
+  }, []); // Remove setMoodData from dependencies to prevent infinite loops
 
   // Helper function to get emoji based on score
   const getEmojiFromScore = (score: number): string => {

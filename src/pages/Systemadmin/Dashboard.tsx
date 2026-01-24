@@ -1,7 +1,7 @@
 // src/pages/Dashboard.tsx
 
-import React from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Spinner, Alert, Button } from "react-bootstrap";
 
 // Import reusable dashboard components
 import Sidebar from "../../components/admincomponents/adminsidebar";
@@ -26,6 +26,7 @@ import {
   CreditCard,
   PhoneCall,
 } from "lucide-react";
+import { adminAPI } from "../../api/apiConfig";
 
 /**
  * Static placeholder data for recent activities
@@ -75,10 +76,10 @@ const recentActivityData: ActivityItem[] = [
 ];
 
 /**
- * Static placeholder data for top dashboard stats
- * Replace with API data when backend is ready
+ * Default fallback data for dashboard stats
+ * Used when API call fails or during loading
  */
-const dashboardStatsData: StatCardData[] = [
+const defaultStatsData: StatCardData[] = [
   {
     id: "1",
     value: "0",
@@ -121,10 +122,15 @@ const dashboardStatsData: StatCardData[] = [
 const Dashboard: React.FC = () => {
   /* The blog state + handlers */
   const [blogs, setBlogs] = React.useState<BlogPost[]>([]);
-
   const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
+
+  /* Dashboard stats state */
+  const [dashboardStats, setDashboardStats] = useState<StatCardData[]>(defaultStatsData);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleAdd = () => {
     setShowAddModal(true);
@@ -138,6 +144,129 @@ const Dashboard: React.FC = () => {
   const handleDelete = (id: string) => {
     setBlogs((prev) => prev.filter((blog) => blog.id !== id));
   };
+
+  // Simple refresh function - shows loading state for 3 seconds
+  const handleRefresh = async () => {
+    // Show loading state immediately
+    setLoading(true);
+    setError(null);
+
+    // Clear cache and trigger refresh
+    localStorage.removeItem('dashboardStats');
+    setRefreshTrigger(prev => prev + 1);
+
+    // After 3 seconds, if still loading, hide loading state
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  };
+
+  // Fetch real dashboard statistics with persistent cache
+  useEffect(() => {
+    const fetchDashboardStats = async () => {
+      try {
+        // Check if we have cached data (session-based)
+        const cachedData = localStorage.getItem('dashboardStats');
+
+        if (cachedData && refreshTrigger === 0) {
+          // Use cached data on initial load - no API call
+          const parsedData = JSON.parse(cachedData || '[]');
+
+          // Re-add icons since they can't be serialized
+          const dataWithIcons = parsedData.map((item: any) => {
+            let icon;
+            switch (item.title) {
+              case "Total Organizations":
+                icon = Building2;
+                break;
+              case "Total Clients":
+                icon = Users;
+                break;
+              case "Monthly Revenue":
+                icon = CreditCard;
+                break;
+              case "Hotline Calls Today":
+                icon = PhoneCall;
+                break;
+              default:
+                icon = Building2;
+            }
+            return { ...item, icon };
+          });
+
+          setDashboardStats(dataWithIcons);
+          setLoading(false);
+          return;
+        }
+
+        // Only show loading if this is a manual refresh
+        if (refreshTrigger > 0) {
+          setLoading(true);
+        }
+        setError(null);
+
+        // Try API call but fallback to default if it fails
+        try {
+          const response = await adminAPI.getDashboardSummary();
+          const data = response.data;
+
+          // Transform API data to match StatCardData format
+          const transformedStats: StatCardData[] = [
+            {
+              id: "1",
+              value: data.total_organizations?.toString() || "0",
+              title: "Total Organizations",
+              trend: `+${data.organizations_this_month || 0} this month`,
+              icon: Building2,
+              color: "emerald",
+            },
+            {
+              id: "2",
+              value: data.total_clients?.toString() || "0",
+              title: "Total Clients",
+              trend: `+${data.clients_this_month || 0} this month`,
+              icon: Users,
+              color: "emerald",
+            },
+            {
+              id: "3",
+              value: `$${data.monthly_revenue?.toFixed(2) || "0"}`,
+              title: "Monthly Revenue",
+              trend: `+${data.revenue_growth_percentage || 0}% this month`,
+              icon: CreditCard,
+              color: "emerald",
+            },
+            {
+              id: "4",
+              value: data.hotline_calls_today?.toString() || "0",
+              title: "Hotline Calls Today",
+              trend: "+8% vs yesterday",
+              icon: PhoneCall,
+              color: "rose",
+            },
+          ];
+
+          // Cache the data for the session (without icons since they can't be serialized)
+          const dataToCache = transformedStats.map(({ icon, ...rest }) => rest);
+          localStorage.setItem('dashboardStats', JSON.stringify(dataToCache));
+          setDashboardStats(transformedStats);
+        } catch (apiError) {
+          console.error("API call failed, using default data:", apiError);
+          // Use default data if API fails
+          setDashboardStats(defaultStatsData);
+        }
+      } catch (err) {
+        console.error("Failed to fetch dashboard stats:", err);
+        setError("Failed to load dashboard statistics");
+        // Keep default stats on error
+        setDashboardStats(defaultStatsData);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardStats();
+  }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
 
   return (
     // Full-height layout with sidebar and main content
@@ -177,25 +306,48 @@ const Dashboard: React.FC = () => {
           <div className="flex-grow-1 overflow-auto">
             <Container fluid className="py-2">
               {/* Dashboard Title Section */}
-              <div className="mb-5">
-                <h2
-                  className="fw-bold mb-1"
-                  style={{
-                    fontSize: "1.75rem",
-                    fontFamily: "heading",
-                    color: "#1a1a1a",
-                  }}
+              <div className="mb-5 d-flex justify-content-between align-items-center">
+                <div>
+                  <h2
+                    className="fw-bold mb-1"
+                    style={{
+                      fontSize: "1.75rem",
+                      fontFamily: "heading",
+                      color: "#1a1a1a",
+                    }}
+                  >
+                    Dashboard
+                  </h2>
+                  <p className="text-muted mb-0" style={{ fontFamily: "body" }}>
+                    Welcome back! Here's your platform overview.
+                  </p>
+                </div>
+                <Button
+                  variant="outline-secondary"
+                  size="sm"
+                  onClick={handleRefresh}
+                  className="d-flex align-items-center gap-2"
                 >
-                  Dashboard
-                </h2>
-                <p className="text-muted mb-0" style={{ fontFamily: "body" }}>
-                  Welcome back! Here's your platform overview.
-                </p>
+                  ↻ Refresh
+                </Button>
               </div>
 
               {/* Top dashboard stats cards */}
               <Row className="g-4 mb-5">
-                <DashboardStats stats={dashboardStatsData} />
+                {loading ? (
+                  <Col className="text-center py-4">
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading dashboard stats...</span>
+                    </Spinner>
+                  </Col>
+                ) : error ? (
+                  <Col className="py-2">
+                    <Alert variant="danger">{error}</Alert>
+                    <DashboardStats stats={dashboardStats} />
+                  </Col>
+                ) : (
+                  <DashboardStats stats={dashboardStats} />
+                )}
               </Row>
 
               {/* Platform usage chart */}

@@ -211,6 +211,11 @@ export const adminAPI = {
     return response;
   },
 
+  getDashboardOverview: async () => {
+    const response = await api.get("/v1/admin/overview/");
+    return response;
+  },
+
   addEmployee: async () => {
     const response = await api.post("/v1/admin/invites/");
     return response;
@@ -499,12 +504,12 @@ export const employerAPI = {
   },
 
   getWellnessMoodTrends: async () => {
-    const response = await api.get("/api/wellness/mood-trends");
+    const response = await api.get("/v1/wellness/mood-trends");
     return response;
   },
 
   getDepartmentDistribution: async () => {
-    const response = await api.get("/v1/dashboard/departments");
+    const response = await api.get("/v1/dashboard/departments/");
     return response;
   },
 

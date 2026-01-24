@@ -7,7 +7,7 @@ export interface StatCardData {
   value: string | number;
   subtitle?: string; // Optional 
   trend?: string;
-  icon: LucideIcon;
+  icon: LucideIcon; // Reverted back to LucideIcon
   color: "emerald" | "blue" | "amber" | "rose";
 }
 
