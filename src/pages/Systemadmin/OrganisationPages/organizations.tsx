@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable, {
-  Organization,
+  DatabaseOrganization,
 } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
@@ -16,46 +16,6 @@ import {
   Map,
   CircleCheckBig,
 } from "lucide-react";
-
-/**
- * Sample organization data for table display.
- * Will be replaced with backend data later.
- */
-const mockOrganizations: Organization[] = [
-  {
-    id: "1",
-    icon: "Building2",
-    name: "Wellness Center Inc.",
-    clients: 284,
-    programs: 12,
-    status: "Active",
-    lastActive: "2 hours ago",
-    plan: "Premium",
-    address: "123 Main St",
-  },
-  {
-    id: "2",
-    icon: "Building2",
-    name: "Community Mental Health",
-    clients: 194,
-    programs: 8,
-    status: "Active",
-    lastActive: "3 hours ago",
-    plan: "Premium",
-    address: "456 Elm Ave",
-  },
-  {
-    id: "3",
-    icon: "Building2",
-    name: "Urban Outreach",
-    clients: 134,
-    programs: 6,
-    status: "Inactive",
-    lastActive: "2 days ago",
-    plan: "Freemium",
-    address: "789 Oak Blvd",
-  },
-];
 
 /**
  * Main admin page for managing organizations.
@@ -139,8 +99,8 @@ const OrganizationPage: React.FC = () => {
           <DashboardStats stats={dashboardStats} />
         </Row>
 
-        {/* Organization table with mock data */}
-        <OrganizationTable organizations={mockOrganizations} />
+        {/* Organization table with real data */}
+        <OrganizationTable />
 
         {/* Graphs section */}
         <OrganizationCharts />

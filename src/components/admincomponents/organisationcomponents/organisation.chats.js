@@ -151,29 +151,59 @@ const OrganizationCharts = () => {
                 }
                 // Fetch client distribution data
                 const distributionResponse = await adminAPI.getOrganizationsClientDistribution();
-                if (distributionResponse.data && distributionResponse.data.labels && distributionResponse.data.data) {
-                    // Create an array of the same color for each organization
-                    const colors = Array(distributionResponse.data.data.length).fill("#00A859");
-                    // Set individual organization data
-                    setDistributionData({
-                        labels: distributionResponse.data.labels,
+                console.log("Distribution API Response:", distributionResponse);
+                console.log("Distribution data structure:", distributionResponse.data);
+                // Handle different response structures
+                let orgLabels = [];
+                let orgData = [];
+                if (Array.isArray(distributionResponse.data)) {
+                    // API returns array of objects directly
+                    console.log("API returns array of organization objects");
+                    orgLabels = distributionResponse.data.map((org) => org.name || org.organizationName || 'Unknown');
+                    orgData = distributionResponse.data.map((org) => org.client_count || org.clients || 0);
+                }
+                else if (distributionResponse.data && distributionResponse.data.labels && distributionResponse.data.data) {
+                    // API returns object with labels and data arrays
+                    console.log("API returns object with labels and data");
+                    orgLabels = distributionResponse.data.labels;
+                    orgData = distributionResponse.data.data;
+                }
+                console.log("Processed labels:", orgLabels);
+                console.log("Processed data:", orgData);
+                if (orgLabels.length > 0 && orgData.length > 0) {
+                    console.log("Processing distribution data...");
+                    // Create arrays with organization data and their indices
+                    const orgDataWithIndex = orgLabels.map((label, index) => ({
+                        name: label,
+                        clients: orgData[index],
+                        index: index
+                    }));
+                    // Sort by index (assuming API returns in creation order, latest first)
+                    // If API doesn't return in order, we'd need to add creation dates
+                    const latestThreeOrgs = orgDataWithIndex.slice(-3); // Take last 3 (latest organizations)
+                    console.log("All organizations:", orgDataWithIndex.map((o) => o.name));
+                    console.log("Latest 3 organizations:", latestThreeOrgs.map((o) => o.name));
+                    const newDistributionData = {
+                        labels: latestThreeOrgs.map((org) => org.name),
                         datasets: [
                             {
                                 label: "Clients",
-                                data: distributionResponse.data.data,
-                                backgroundColor: colors,
+                                data: latestThreeOrgs.map((org) => org.clients),
+                                backgroundColor: Array(3).fill("#00A859"),
                                 borderRadius: 4,
                             },
                         ],
-                    });
-                    // Process and categorize the data
+                    };
+                    console.log("Setting distribution data:", newDistributionData);
+                    setDistributionData(newDistributionData);
+                    // Process and categorize the data (use full data for categories)
                     const categorizedData = categorizeOrganizations({
-                        labels: distributionResponse.data.labels,
-                        data: distributionResponse.data.data
+                        labels: orgLabels,
+                        data: orgData
                     });
                     // Create colors for categories
                     const categoryColors = Array(categorizedData.data.length).fill("#00A859");
-                    setCategorizedDistributionData({
+                    const newCategorizedData = {
                         labels: categorizedData.labels,
                         datasets: [
                             {
@@ -183,7 +213,12 @@ const OrganizationCharts = () => {
                                 borderRadius: 4,
                             },
                         ],
-                    });
+                    };
+                    console.log("Setting categorized data:", newCategorizedData);
+                    setCategorizedDistributionData(newCategorizedData);
+                }
+                else {
+                    console.log("No valid organization data found in API response");
                 }
             }
             catch (error) {
@@ -193,7 +228,8 @@ const OrganizationCharts = () => {
         };
         fetchChartData();
     }, []);
-    const chartOptions = {
+    // Chart options for growth chart
+    const growthChartOptions = {
         responsive: true,
         plugins: {
             legend: {
@@ -219,12 +255,26 @@ const OrganizationCharts = () => {
                 },
             },
             y: {
+                beginAtZero: true,
+                max: 2000,
                 ticks: {
                     color: "#6c757d",
+                    stepSize: 500,
+                    callback: function (value) {
+                        return value;
+                    }
                 },
                 grid: {
                     color: "#e9ecef",
                 },
+                title: {
+                    display: true,
+                    text: "Number of Organizations",
+                    color: "#6c757d",
+                    font: {
+                        size: 12
+                    }
+                }
             },
         },
         onClick: () => {
@@ -234,6 +284,121 @@ const OrganizationCharts = () => {
             event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
         },
     };
-    return (_jsxs(_Fragment, { children: [_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: "body", color: "#00A859" }, children: "Organization Growth" }), _jsx(Line, { data: growthData, options: chartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-0", style: { fontFamily: "body", color: "#00A859" }, children: viewMode === 'category' ? 'Client Distribution by Category' : 'Client Distribution by Organization' }), _jsxs("div", { className: "btn-group", role: "group", style: { fontSize: '0.75rem' }, children: [_jsx("button", { type: "button", className: `btn ${viewMode === 'category' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('category'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Categories" }), _jsx("button", { type: "button", className: `btn ${viewMode === 'individual' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('individual'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Individual" })] })] }), _jsx(Bar, { data: viewMode === 'category' ? categorizedDistributionData : distributionData, options: chartOptions })] }) }) })] }), _jsx(OrganizationListPopup, { show: showOrganizationPopup, onHide: () => setShowOrganizationPopup(false) })] }));
+    // Chart options for distribution chart (individual view)
+    const distributionChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+                labels: {
+                    color: "#6c757d",
+                    font: {
+                        size: 12,
+                    },
+                },
+            },
+            title: {
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: "#6c757d",
+                },
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                beginAtZero: true,
+                max: 2000,
+                ticks: {
+                    color: "#6c757d",
+                    stepSize: 500,
+                    callback: function (value) {
+                        return value;
+                    }
+                },
+                grid: {
+                    color: "#e9ecef",
+                },
+                title: {
+                    display: true,
+                    text: "Number of Clients",
+                    color: "#6c757d",
+                    font: {
+                        size: 12
+                    }
+                }
+            },
+        },
+        onClick: () => {
+            setShowOrganizationPopup(true);
+        },
+        onHover: (event, activeElements) => {
+            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+        },
+    };
+    // Chart options for categories (vertical bars)
+    const categoryChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+                labels: {
+                    color: "#6c757d",
+                    font: {
+                        size: 12,
+                    },
+                },
+            },
+            title: {
+                display: false,
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: "#6c757d",
+                    font: {
+                        size: 10,
+                    },
+                },
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                beginAtZero: true,
+                max: 2000,
+                ticks: {
+                    color: "#6c757d",
+                    stepSize: 500,
+                    callback: function (value) {
+                        return value;
+                    }
+                },
+                grid: {
+                    color: "#e9ecef",
+                },
+                title: {
+                    display: true,
+                    text: "Number of Clients",
+                    color: "#6c757d",
+                    font: {
+                        size: 12
+                    }
+                }
+            },
+        },
+        onClick: () => {
+            setShowOrganizationPopup(true);
+        },
+        onHover: (event, activeElements) => {
+            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+        },
+    };
+    return (_jsxs(_Fragment, { children: [_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: "body", color: "#00A859" }, children: "Organization Growth" }), _jsx(Line, { data: growthData, options: growthChartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-0", style: { fontFamily: "body", color: "#00A859" }, children: viewMode === 'category' ? 'Client Distribution by Category' : 'Client Distribution by Organization' }), _jsxs("div", { className: "btn-group", role: "group", style: { fontSize: '0.75rem' }, children: [_jsx("button", { type: "button", className: `btn ${viewMode === 'category' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('category'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Categories" }), _jsx("button", { type: "button", className: `btn ${viewMode === 'individual' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('individual'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Individual" })] })] }), _jsx(Bar, { data: viewMode === 'category' ? categorizedDistributionData : distributionData, options: viewMode === 'category' ? categoryChartOptions : distributionChartOptions })] }) }) })] }), _jsx(OrganizationListPopup, { show: showOrganizationPopup, onHide: () => setShowOrganizationPopup(false) })] }));
 };
 export default OrganizationCharts;

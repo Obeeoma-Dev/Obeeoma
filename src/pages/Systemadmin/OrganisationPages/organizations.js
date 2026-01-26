@@ -8,45 +8,6 @@ import SystemAdminLayout from "../../../components/admincomponents/shared/System
 import { adminAPI } from "../../../api/apiConfig";
 import { Building2, Users, CircleCheckBig, } from "lucide-react";
 /**
- * Sample organization data for table display.
- * Will be replaced with backend data later.
- */
-const mockOrganizations = [
-    {
-        id: "1",
-        icon: "Building2",
-        name: "Wellness Center Inc.",
-        clients: 284,
-        programs: 12,
-        status: "Active",
-        lastActive: "2 hours ago",
-        plan: "Premium",
-        address: "123 Main St",
-    },
-    {
-        id: "2",
-        icon: "Building2",
-        name: "Community Mental Health",
-        clients: 194,
-        programs: 8,
-        status: "Active",
-        lastActive: "3 hours ago",
-        plan: "Premium",
-        address: "456 Elm Ave",
-    },
-    {
-        id: "3",
-        icon: "Building2",
-        name: "Urban Outreach",
-        clients: 134,
-        programs: 6,
-        status: "Inactive",
-        lastActive: "2 days ago",
-        plan: "Freemium",
-        address: "789 Oak Blvd",
-    },
-];
-/**
  * Main admin page for managing organizations.
  * Combines sidebar, header, stats, table, and charts.
  */
@@ -116,6 +77,6 @@ const OrganizationPage = () => {
         };
         fetchDashboardData();
     }, []);
-    return (_jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(Row, { className: "gy-4 mb-4", children: _jsx(DashboardStats, { stats: dashboardStats }) }), _jsx(OrganizationTable, { organizations: mockOrganizations }), _jsx(OrganizationCharts, {})] }) }));
+    return (_jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(Row, { className: "gy-4 mb-4", children: _jsx(DashboardStats, { stats: dashboardStats }) }), _jsx(OrganizationTable, {}), _jsx(OrganizationCharts, {})] }) }));
 };
 export default OrganizationPage;
