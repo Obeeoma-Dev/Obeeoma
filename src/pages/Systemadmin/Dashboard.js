@@ -1,17 +1,16 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/Dashboard.tsx
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Spinner, Alert, Button } from "react-bootstrap";
+import { Row, Col, Spinner, Alert, Button } from "react-bootstrap";
 // Import reusable dashboard components
-import Sidebar from "../../components/admincomponents/adminsidebar";
-import Header from "../../components/admincomponents/adminheader";
 import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
+import SystemAdminLayout from "../../components/admincomponents/shared/SystemAdminLayout";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Building2, Users, CreditCard, PhoneCall, } from "lucide-react";
+import { Building2, Users, PhoneCall, } from "lucide-react";
 import { adminAPI } from "../../api/apiConfig";
 /**
  * Static placeholder data for recent activities
@@ -80,16 +79,16 @@ const defaultStatsData = [
         icon: Users,
         color: "emerald",
     },
+    // {
+    //   id: "3",
+    //   value: "$0",
+    //   title: "Monthly Revenue",
+    //   trend: "+5.3% this month",
+    //   icon: CreditCard,
+    //   color: "emerald",
+    // },
     {
         id: "3",
-        value: "$0",
-        title: "Monthly Revenue",
-        trend: "+5.3% this month",
-        icon: CreditCard,
-        color: "emerald",
-    },
-    {
-        id: "4",
         value: "0",
         title: "Hotline Calls Today",
         trend: "+8% vs yesterday",
@@ -154,9 +153,9 @@ const Dashboard = () => {
                             case "Total Clients":
                                 icon = Users;
                                 break;
-                            case "Monthly Revenue":
-                                icon = CreditCard;
-                                break;
+                            // case "Monthly Revenue":
+                            //   icon = CreditCard;
+                            //   break;
                             case "Hotline Calls Today":
                                 icon = PhoneCall;
                                 break;
@@ -196,16 +195,16 @@ const Dashboard = () => {
                             icon: Users,
                             color: "emerald",
                         },
+                        // {
+                        //   id: "3",
+                        //   value: `$${data.monthly_revenue?.toFixed(2) || "0"}`,
+                        //   title: "Monthly Revenue",
+                        //   trend: `+${data.revenue_growth_percentage || 0}% this month`,
+                        //   icon: CreditCard,
+                        //   color: "emerald",
+                        // },
                         {
                             id: "3",
-                            value: `$${data.monthly_revenue?.toFixed(2) || "0"}`,
-                            title: "Monthly Revenue",
-                            trend: `+${data.revenue_growth_percentage || 0}% this month`,
-                            icon: CreditCard,
-                            color: "emerald",
-                        },
-                        {
-                            id: "4",
                             value: data.hotline_calls_today?.toString() || "0",
                             title: "Hotline Calls Today",
                             trend: "+8% vs yesterday",
@@ -236,17 +235,6 @@ const Dashboard = () => {
         };
         fetchDashboardStats();
     }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
-    return (
-    // Full-height layout with sidebar and main content
-    _jsxs("div", { className: "d-flex vh-100", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
-                            flex: 1,
-                            overflowY: "auto",
-                            padding: "2rem 1.5rem",
-                            backgroundColor: "#f5f7fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-2", children: [_jsxs("div", { className: "mb-5 d-flex justify-content-between align-items-center", children: [_jsxs("div", { children: [_jsx("h2", { className: "fw-bold mb-1", style: {
-                                                            fontSize: "1.75rem",
-                                                            fontFamily: "heading",
-                                                            color: "#1a1a1a",
-                                                        }, children: "Dashboard" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: "body" }, children: "Welcome back! Here's your platform overview." })] }), _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" })] }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] }) }) })] })] }));
+    return (_jsxs(SystemAdminLayout, { title: "Dashboard", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsxs("div", { className: "p-4", children: [_jsx("div", { className: "mb-4 d-flex justify-content-between align-items-center", children: _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" }) }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] })] }));
 };
 export default Dashboard;

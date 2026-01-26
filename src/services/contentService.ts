@@ -16,8 +16,9 @@ export interface ContentItem {
   description?: string;
 }
 
-// API base URL
-const API_BASE_URL = "https://api-0904.onrender.com/api/v1";
+// API base URL - Use local server for development
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
+// const API_BASE_URL = "https://api-0904.onrender.com/api/v1";
 
 // Create axios instance with interceptors
 const apiClient = axios.create({
@@ -31,7 +32,7 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     // Add auth token if available
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -45,10 +46,36 @@ export const contentMediaAPI = {
   // Get all content
   getAllContent: async (): Promise<ContentItem[]> => {
     try {
-      const response = await apiClient.get("/content/");
-      return response.data;
-    } catch (error) {
+      // Debug: Check if token exists
+      const token = localStorage.getItem("token");
+      console.log("Auth token exists:", !!token);
+      if (token) {
+        console.log("Token preview:", token.substring(0, 20) + "...");
+      }
+
+      const response = await apiClient.get("/content/media/");
+      console.log("API response:", response.data);
+
+      // Handle both shapes: { data: [...] } or just [...]
+      const items = Array.isArray(response.data)
+        ? response.data
+        : response.data.data;
+
+      return items;
+    } catch (error: any) {
       console.error("Error fetching content:", error);
+
+      // Enhanced error logging
+      if (error.response) {
+        console.error("Error response data:", error.response.data);
+        console.error("Error response status:", error.response.status);
+        console.error("Error response headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("Error request:", error.request);
+      } else {
+        console.error("Error message:", error.message);
+      }
+
       throw error;
     }
   },
@@ -56,7 +83,7 @@ export const contentMediaAPI = {
   // Create new content/media
   createMedia: async (formData: FormData): Promise<ContentItem> => {
     try {
-      const response = await apiClient.post("/content/", formData, {
+      const response = await apiClient.post("/content/media/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -71,7 +98,7 @@ export const contentMediaAPI = {
   // Get content by ID
   getContentById: async (id: number): Promise<ContentItem> => {
     try {
-      const response = await apiClient.get(`/content/${id}/`);
+      const response = await apiClient.get(`/content/media/${id}/`);
       return response.data;
     } catch (error) {
       console.error("Error fetching content by ID:", error);
@@ -85,7 +112,7 @@ export const contentMediaAPI = {
     data: Partial<ContentItem>,
   ): Promise<ContentItem> => {
     try {
-      const response = await apiClient.put(`/content/${id}/`, data);
+      const response = await apiClient.put(`/content/media/${id}/`, data);
       return response.data;
     } catch (error) {
       console.error("Error updating content:", error);
@@ -96,10 +123,12 @@ export const contentMediaAPI = {
   // Delete content
   deleteContent: async (id: number): Promise<void> => {
     try {
-      await apiClient.delete(`/content/${id}/`);
+      await apiClient.delete(`/content/media/${id}/`);
     } catch (error) {
       console.error("Error deleting content:", error);
       throw error;
     }
   },
 };
+
+export default contentMediaAPI;

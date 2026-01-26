@@ -4,11 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Spinner, Alert, Button } from "react-bootstrap";
 
 // Import reusable dashboard components
-import Sidebar from "../../components/admincomponents/adminsidebar";
-import Header from "../../components/admincomponents/adminheader";
 import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
+import SystemAdminLayout from "../../components/admincomponents/shared/SystemAdminLayout";
 // import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 import { BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
@@ -96,16 +95,16 @@ const defaultStatsData: StatCardData[] = [
     icon: Users,
     color: "emerald",
   },
+  // {
+  //   id: "3",
+  //   value: "$0",
+  //   title: "Monthly Revenue",
+  //   trend: "+5.3% this month",
+  //   icon: CreditCard,
+  //   color: "emerald",
+  // },
   {
     id: "3",
-    value: "$0",
-    title: "Monthly Revenue",
-    trend: "+5.3% this month",
-    icon: CreditCard,
-    color: "emerald",
-  },
-  {
-    id: "4",
     value: "0",
     title: "Hotline Calls Today",
     trend: "+8% vs yesterday",
@@ -182,9 +181,9 @@ const Dashboard: React.FC = () => {
               case "Total Clients":
                 icon = Users;
                 break;
-              case "Monthly Revenue":
-                icon = CreditCard;
-                break;
+              // case "Monthly Revenue":
+              //   icon = CreditCard;
+              //   break;
               case "Hotline Calls Today":
                 icon = PhoneCall;
                 break;
@@ -228,16 +227,16 @@ const Dashboard: React.FC = () => {
               icon: Users,
               color: "emerald",
             },
+            // {
+            //   id: "3",
+            //   value: `$${data.monthly_revenue?.toFixed(2) || "0"}`,
+            //   title: "Monthly Revenue",
+            //   trend: `+${data.revenue_growth_percentage || 0}% this month`,
+            //   icon: CreditCard,
+            //   color: "emerald",
+            // },
             {
               id: "3",
-              value: `$${data.monthly_revenue?.toFixed(2) || "0"}`,
-              title: "Monthly Revenue",
-              trend: `+${data.revenue_growth_percentage || 0}% this month`,
-              icon: CreditCard,
-              color: "emerald",
-            },
-            {
-              id: "4",
               value: data.hotline_calls_today?.toString() || "0",
               title: "Hotline Calls Today",
               trend: "+8% vs yesterday",
@@ -269,9 +268,7 @@ const Dashboard: React.FC = () => {
   }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
 
   return (
-    // Full-height layout with sidebar and main content
-    <div className="d-flex vh-100">
-
+    <SystemAdminLayout title="Dashboard">
       {/* Toast container must be rendered once */}
       <ToastContainer
         position="top-right"
@@ -285,134 +282,98 @@ const Dashboard: React.FC = () => {
         pauseOnHover
       />
 
-
-      {/* Sidebar navigation */}
-      <Sidebar />
-
-      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* Top header bar */}
-        <Header />
-
-        {/* Scrollable content area below the header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "2rem 1.5rem",
-            backgroundColor: "#f5f7fa",
-          }}
-        >
-          {/* Scrollable content below header */}
-          <div className="flex-grow-1 overflow-auto">
-            <Container fluid className="py-2">
-              {/* Dashboard Title Section */}
-              <div className="mb-5 d-flex justify-content-between align-items-center">
-                <div>
-                  <h2
-                    className="fw-bold mb-1"
-                    style={{
-                      fontSize: "1.75rem",
-                      fontFamily: "heading",
-                      color: "#1a1a1a",
-                    }}
-                  >
-                    Dashboard
-                  </h2>
-                  <p className="text-muted mb-0" style={{ fontFamily: "body" }}>
-                    Welcome back! Here's your platform overview.
-                  </p>
-                </div>
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  onClick={handleRefresh}
-                  className="d-flex align-items-center gap-2"
-                >
-                  ↻ Refresh
-                </Button>
-              </div>
-
-              {/* Top dashboard stats cards */}
-              <Row className="g-4 mb-5">
-                {loading ? (
-                  <Col className="text-center py-4">
-                    <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Loading dashboard stats...</span>
-                    </Spinner>
-                  </Col>
-                ) : error ? (
-                  <Col className="py-2">
-                    <Alert variant="danger">{error}</Alert>
-                    <DashboardStats stats={dashboardStats} />
-                  </Col>
-                ) : (
-                  <DashboardStats stats={dashboardStats} />
-                )}
-              </Row>
-
-              {/* Platform usage chart */}
-              <Row className="g-4 mb-5">
-                <Col>
-                  <PlatformUsageChart />
-                </Col>
-              </Row>
-
-              {/* Recent activity feed and Bottom metrics in a 2-column layout */}
-              <Row className="g-4 mb-5">
-                {/* Left column: Recent Activities */}
-                <Col>
-                  <RecentActivities activities={recentActivityData} />
-                </Col>
-
-                {/* Right column: Quick Stats
-                <Col lg={5}>
-                  <Card className="mb-4 shadow-sm border-0 h-100">
-                    <Card.Header className="bg-white fw-bold fs-6 px-4 py-3 border-0">Quick Stats</Card.Header>
-                    <Card.Body className="px-4 py-3">
-                      <div className="d-flex flex-column gap-3">
-                        <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#f0f9f7' }}>
-                          <div>
-                            <div className="small text-muted">Active Users</div>
-                            <div className="h5 fw-bold text-dark mb-0">2,450</div>
-                          </div>
-                          <div className="text-success fw-semibold">+12%</div>
-                        </div>
-                        <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#f0f5ff' }}>
-                          <div>
-                            <div className="small text-muted">Platform Health</div>
-                            <div className="h5 fw-bold text-dark mb-0">99.8%</div>
-                          </div>
-                          <div className="text-primary fw-semibold">Excellent</div>
-                        </div>
-                        <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#fffaf0' }}>
-                          <div>
-                            <div className="small text-muted">Support Tickets</div>
-                            <div className="h5 fw-bold text-dark mb-0">24</div>
-                          </div>
-                          <div className="text-warning fw-semibold">In Progress</div>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col> */}
-              </Row>
-
-              {/* Platform usage chart */}
-              <Row className="gy-4 mb-5">
-                <Col>
-                  <BlogManager />
-                </Col>
-              </Row>
-
-              {/* Bottom metric summary cards */}
-              {/* <Row className="g-4">
-                <BottomMetrics metrics={bottomMetricData} />
-              </Row> */}
-            </Container>
-          </div>
+      {/* Main content container with proper spacing */}
+      <div className="p-4">
+        {/* Dashboard Title Section */}
+        <div className="mb-4 d-flex justify-content-between align-items-center">
+          <Button
+            variant="outline-secondary"
+            size="sm"
+            onClick={handleRefresh}
+            className="d-flex align-items-center gap-2"
+          >
+            ↻ Refresh
+          </Button>
         </div>
+
+        {/* Top dashboard stats cards */}
+        <Row className="g-4 mb-5">
+          {loading ? (
+            <Col className="text-center py-4">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading dashboard stats...</span>
+              </Spinner>
+            </Col>
+          ) : error ? (
+            <Col className="py-2">
+              <Alert variant="danger">{error}</Alert>
+              <DashboardStats stats={dashboardStats} />
+            </Col>
+          ) : (
+            <DashboardStats stats={dashboardStats} />
+          )}
+        </Row>
+
+        {/* Platform usage chart */}
+        <Row className="g-4 mb-5">
+          <Col>
+            <PlatformUsageChart />
+          </Col>
+        </Row>
+
+        {/* Recent activity feed and Bottom metrics in a 2-column layout */}
+        <Row className="g-4 mb-5">
+          {/* Left column: Recent Activities */}
+          <Col>
+            <RecentActivities activities={recentActivityData} />
+          </Col>
+
+          {/* Right column: Quick Stats
+          <Col lg={5}>
+            <Card className="mb-4 shadow-sm border-0 h-100">
+              <Card.Header className="bg-white fw-bold fs-6 px-4 py-3 border-0">Quick Stats</Card.Header>
+              <Card.Body className="px-4 py-3">
+                <div className="d-flex flex-column gap-3">
+                  <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#f0f9f7' }}>
+                    <div>
+                      <div className="small text-muted">Active Users</div>
+                      <div className="h5 fw-bold text-dark mb-0">2,450</div>
+                    </div>
+                    <div className="text-success fw-semibold">+12%</div>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#f0f5ff' }}>
+                    <div>
+                      <div className="small text-muted">Platform Health</div>
+                      <div className="h5 fw-bold text-dark mb-0">99.8%</div>
+                    </div>
+                    <div className="text-primary fw-semibold">Excellent</div>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center p-3 rounded-3" style={{ backgroundColor: '#fffaf0' }}>
+                    <div>
+                      <div className="small text-muted">Support Tickets</div>
+                      <div className="h5 fw-bold text-dark mb-0">24</div>
+                    </div>
+                    <div className="text-warning fw-semibold">In Progress</div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col> */}
+        </Row>
+
+        {/* Platform usage chart */}
+        <Row className="gy-4 mb-5">
+          <Col>
+            <BlogManager />
+          </Col>
+        </Row>
+
+        {/* Bottom metric summary cards */}
+        {/* <Row className="g-4">
+          <BottomMetrics metrics={bottomMetricData} />
+        </Row> */}
       </div>
-    </div>
+    </SystemAdminLayout>
   );
 };
 

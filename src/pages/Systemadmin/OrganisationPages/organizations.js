@@ -1,11 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Container, Row } from "react-bootstrap";
-import Sidebar from "../../../components/admincomponents/adminsidebar";
+import { Row } from "react-bootstrap";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
-import Header from "../../../components/admincomponents/adminheader";
-import { Building2, Users, Map, CircleCheckBig, } from "lucide-react";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
+import { Building2, Users, CircleCheckBig, } from "lucide-react";
 /**
  * Sample organization data for table display.
  * Will be replaced with backend data later.
@@ -83,28 +82,23 @@ const mockStats = [
         // linkText: "View all organizations",
         // color: "emerald",
     },
-    {
-        id: "4",
-        title: "Regional Coverage",
-        value: "0 regions",
-        trend: "",
-        icon: Map,
-        color: "emerald",
-        // subtitle: "Active organizations",
-        // linkText: "View all organizations",
-        // color: "emerald",
-    },
+    // {
+    //   id: "4",
+    //   title: "Regional Coverage",
+    //   value: "0 regions",
+    //   trend: "",
+    //   icon: Map,
+    //   color: "emerald",
+    //   // subtitle: "Active organizations",
+    //   // linkText: "View all organizations",
+    //   // color: "emerald",
+    // },
 ];
 /**
  * Main admin page for managing organizations.
  * Combines sidebar, header, stats, table, and charts.
  */
 const OrganizationPage = () => {
-    return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
-                            flex: 1,
-                            overflowY: "auto",
-                            padding: "1rem",
-                            backgroundColor: "#f8f9fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Row, { className: "gy-4", children: _jsx(DashboardStats, { stats: mockStats }) }), _jsx(OrganizationTable, { organizations: mockOrganizations }), _jsx(OrganizationCharts, {})] }) }) })] })] }));
+    return (_jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(Row, { className: "gy-4 mb-4", children: _jsx(DashboardStats, { stats: mockStats }) }), _jsx(OrganizationTable, { organizations: mockOrganizations }), _jsx(OrganizationCharts, {})] }) }));
 };
 export default OrganizationPage;

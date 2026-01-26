@@ -5,13 +5,12 @@ import React, { useEffect, useState } from "react";
 import { Container, Alert } from "react-bootstrap";
 
 // Import sidebar and dashboard components
-import AdminSidebar from "../../../components/admincomponents/adminsidebar";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import EngagementSummary from "../../../components/admincomponents/Clientcomponents/engagementsummary";
 import EngagementCharts from "../../../components/admincomponents/Clientcomponents/engagementCharts";
 import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
 import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
-import Header from "../../../components/admincomponents/adminheader";
 
 // Define TypeScript interface for expected backend structure
 interface EngagementData {
@@ -116,82 +115,61 @@ const ClientEngagement: React.FC = () => {
   // Show error message if something goes wrong
   if (error) {
     return (
-      <div style={{ display: "flex" }}>
-        {/* Sidebar remains visible even on error */}
-        <AdminSidebar />
+      <SystemAdminLayout title="Client Engagement">
         <Container className="mt-5">
           <Alert variant="danger">Error: {error}</Alert>
         </Container>
-      </div>
+      </SystemAdminLayout>
     );
   }
 
   // Render dashboard layout
   return (
-    <div className="d-flex vh-100">
-      {/* Sidebar on the left */}
-      <AdminSidebar />
+    <SystemAdminLayout title="Client Engagement">
+      {/* Main dashboard content on the right */}
+      <div className="flex-grow-1 overflow-auto">
+        <Container className="py-4">
+          {/* Top summary metrics */}
+          <EngagementSummary
+            engagementRate={data?.engagementRate ?? 0}
+            activePrograms={data?.activePrograms ?? 0}
+            totalPoints={data?.totalPoints ?? 0}
+          />
 
-      {/* Main content area (right column) */}
-      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* Top header bar */}
-        <Header />
+          {/* Charts for engagement and redemptions */}
+          <EngagementCharts />
 
-        {/* Scrollable content area below the header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          {/* Main dashboard content on the right */}
-          <div className="flex-grow-1 overflow-auto">
-            <Container className="py-4">
-              {/* Top summary metrics */}
-              <EngagementSummary
-                engagementRate={data?.engagementRate ?? 0}
-                activePrograms={data?.activePrograms ?? 0}
-                totalPoints={data?.totalPoints ?? 0}
-              />
+          {/* Search and filter controls */}
+          <PatientSearchFilter />
 
-              {/* Charts for engagement and redemptions */}
-              <EngagementCharts />
+          {/* Table of patient engagement */}
+          <PatientEngagementTable />
 
-              {/* Search and filter controls */}
-              <PatientSearchFilter />
-
-              {/* Table of patient engagement */}
-              <PatientEngagementTable />
-
-              {/* Bottom panel with trends and streaks */}
-              <EngagementStatsPanel
-                topRewards={
-                  data?.patients
-                    .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
-                    .slice(0, 3)
-                    .map((patient) => ({
-                      name: patient.name,
-                      points: patient.pointsRedeemed,
-                    })) ?? []
-                }
-                trends={{
-                  courseCompletion: data?.trends.weekly ?? 0,
-                  rewardRedemption: data?.trends.rewardActivity ?? 0,
-                  memberActivity: data?.trends.monthly ?? 0,
-                }}
-                streaks={{
-                  sevenDay: data?.streaks.sevenDay ?? 0,
-                  thirtyDay: data?.streaks.thirtyDay ?? 0,
-                  sixtyDay: data?.streaks.sixtyDay ?? 0,
-                }}
-              />
-            </Container>
-          </div>
-        </div>
+          {/* Bottom panel with trends and streaks */}
+          <EngagementStatsPanel
+            topRewards={
+              data?.patients
+                .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
+                .slice(0, 3)
+                .map((patient) => ({
+                  name: patient.name,
+                  points: patient.pointsRedeemed,
+                })) ?? []
+            }
+            trends={{
+              courseCompletion: data?.trends.weekly ?? 0,
+              rewardRedemption: data?.trends.rewardActivity ?? 0,
+              memberActivity: data?.trends.monthly ?? 0,
+            }}
+            streaks={{
+              sevenDay: data?.streaks.sevenDay ?? 0,
+              thirtyDay: data?.streaks.thirtyDay ?? 0,
+              sixtyDay: data?.streaks.sixtyDay ?? 0,
+            }}
+          />
+        </Container>
       </div>
-    </div>
+    </SystemAdminLayout>
   );
 };
 

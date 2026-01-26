@@ -4,8 +4,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 // Importing shared layout components
-import AdminSidebar from "../../../components/admincomponents/adminsidebar";
-import AdminHeader from "../../../components/admincomponents/adminheader";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 
 // Importing dashboard modules
 import TopMetrics from "../../../components/admincomponents/Hotlinecomponents/hotLinetopmetrics";
@@ -18,69 +17,49 @@ import OperatorPerformance from "../../../components/admincomponents/Hotlinecomp
 // Define the main HotlineActivity page component
 const HotlineActivity: React.FC = () => {
   return (
-    // Main wrapper to hold sidebar, header, and content
-    <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
-      {/* Sidebar stays fixed on the left */}
-      <AdminSidebar />
+    <SystemAdminLayout title="Hotline Activity">
+      {/* Container ensures Bootstrap spacing and responsiveness */}
+      <Container fluid>
+        {/* Page Title Section
+        <Row className="mb-4">
+          <Col>
+            <h1 className="fw-bold text-dark">Hotline Activity</h1>
+            <p className="text-muted small">
+              Real-time monitoring of crisis line operations and performance.
+            </p>
+          </Col>
+        </Row> */}
 
-      {/* Right section holds header and scrollable content */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        {/* Header stays fixed at the top */}
-        <AdminHeader />
+        {/* Top summary metrics */}
+        <TopMetrics totalCalls={42} avgCallTime="9:22" missedCalls={3} />
 
-        {/* Scrollable content area below the header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          {/* Container ensures Bootstrap spacing and responsiveness */}
-          <Container fluid>
-            {/* Page Title Section
-            <Row className="mb-4">
-              <Col>
-                <h1 className="fw-bold text-dark">Hotline Activity</h1>
-                <p className="text-muted small">
-                  Real-time monitoring of crisis line operations and performance.
-                </p>
-              </Col>
-            </Row> */}
+        {/* Row for charts: Hourly volume and Call reasons */}
+        <Row>
+          <Col md={6}>
+            <HourlyCallChart />
+          </Col>
+          <Col md={6}>
+            <CallReasonsChart />
+          </Col>
+        </Row>
 
-            {/* Top summary metrics */}
-            <TopMetrics totalCalls={42} avgCallTime="9:22" missedCalls={3} />
+        {/* Call log table */}
+        <CallLogTable />
 
-            {/* Row for charts: Hourly volume and Call reasons */}
-            <Row>
-              <Col md={6}>
-                <HourlyCallChart />
-              </Col>
-              <Col md={6}>
-                <CallReasonsChart />
-              </Col>
-            </Row>
+        {/* Two-column section */}
+        <Row className="g-4">
+          {/* Left column */}
+          <Col xs={12} lg={6}>
+            <CriticalCases />
+          </Col>
 
-            {/* Call log table */}
-            <CallLogTable />
-
-            {/* Two-column section */}
-            <Row className="g-4">
-              {/* Left column */}
-              <Col xs={12} lg={6}>
-                <CriticalCases />
-              </Col>
-
-              {/* Right column */}
-              <Col xs={12} lg={6}>
-                <OperatorPerformance />
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </div>
-    </div>
+          {/* Right column */}
+          <Col xs={12} lg={6}>
+            <OperatorPerformance />
+          </Col>
+        </Row>
+      </Container>
+    </SystemAdminLayout>
   );
 };
 

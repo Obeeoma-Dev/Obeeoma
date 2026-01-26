@@ -20,18 +20,6 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
 }) => {
   return (
     <>
-      {/* Page Title Section */}
-      <Row className="mb-4">
-        <Col>
-          <h1 className="fw-bold text-dark" style={{ fontFamily: 'heading' }}>
-            AI Management
-          </h1>
-          <p className="text-muted small" style={{ fontFamily: 'body' }}>
-            Monitor and optimize your AI recommendation engine.
-          </p>
-        </Col>
-      </Row>
-
       {/* Stat Cards Section */}
       <Row className="g-4 mb-4">
         {/* Total Recommendations */}

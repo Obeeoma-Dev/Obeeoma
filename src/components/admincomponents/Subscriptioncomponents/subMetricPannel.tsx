@@ -14,7 +14,6 @@ interface MetricsPanelProps {
 }
 
 const MetricsPanel: React.FC<MetricsPanelProps> = ({
-  totalOrganizations,
   totalSubscriptions,
   coveredEmployees,
   utilizationRate,
@@ -29,14 +28,6 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
   }[] = [
 
 
-      {
-        title: "Total Organizations",
-        value: totalOrganizations,
-        subtitle: "Organizations onboarded",
-        trend: "+12% from last month",
-        icon: Building2,
-        color: "emerald",
-      },
       {
         title: "Total Subscriptions",
         value: totalSubscriptions,
@@ -66,7 +57,7 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
   return (
     <Row className="mb-4 g-3">
       {metrics.map((metric, index) => (
-        <Col key={index} md={3}>
+        <Col key={index} md={4} className="d-flex">
           <HoverStatCard
             title={metric.title}
             value={metric.value}

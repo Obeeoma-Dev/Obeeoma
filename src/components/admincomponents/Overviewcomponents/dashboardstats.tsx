@@ -11,7 +11,7 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({ stats }) => {
   return (
     <>
       {stats.map((stat) => (
-        <Col key={stat.id} md={3}>
+        <Col key={stat.id} xs={12} sm={6} md={4}>
           <HoverStatCard
             title={stat.title}
             value={stat.value}

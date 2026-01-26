@@ -4,7 +4,7 @@
 // Tailwind classes are removed; spacing and typography use inline styles for clarity.
 
 import React, { useState } from 'react'; // Import React to define the component
-import { Layout } from '../../../components/admincomponents/Content_Managements/layout'; // Import the app-wide layout (sidebar + header + scrollable content area)
+import { LayoutWrapper } from '../../../components/admincomponents/Content_Managements/layout'; // Import the app-wide layout (sidebar + header + scrollable content area)
 import { UploadZone } from '../../../components/admincomponents/Content_Managements/uploadZone'; // Import the upload card component (React-Bootstrap version)
 import { ContentTable } from '../../../components/admincomponents/Content_Managements/contentTable'; // Import the content table component (React-Bootstrap version)
 import { toast, ToastContainer } from 'react-toastify';
@@ -33,33 +33,10 @@ export function ContentManagement() {
     // Return the structured page using the shared Layout wrapper
     return (
         // Layout provides the fixed sidebar, sticky header, and a scrollable content region
-        <Layout title="Content Management">
+        <LayoutWrapper title="Content Management">
 
             {/* Toast container must be rendered once */}
             <ToastContainer />
-
-
-            {/* Page header area: title and subtitle aligned with your design */}
-            <div
-                // Bottom margin to separate the header from the upload card
-                style={{ marginBottom: 32 }}
-            >
-                {/* Main page title "Media Library" */}
-                <h1
-                    // Typography: larger font, bold, remove default margins for tight layout
-                    style={{ fontFamily: 'heading', margin: 0 }}
-                >
-                    Media Library
-                </h1>
-
-                {/* Subtitle line describing the page purpose */}
-                <p
-                    // Muted text color similar to Bootstrap's secondary tone, slight top spacing
-                    style={{ color: '#6c757d', marginTop: 4, fontFamily: 'body' }}
-                >
-                    Upload and manage your organization&apos;s media content.
-                </p>
-            </div>
 
             {/* Upload card: drag-and-drop area, file preview, metadata form, and submit button */}
             <UploadZone onUploadSuccess={handleUploadSuccess} />
@@ -72,6 +49,6 @@ export function ContentManagement() {
                 {/* Content table: lists existing media with type icon, status badge, and actions */}
                 <ContentTable key={refreshKey} />
             </div>
-        </Layout>
+        </LayoutWrapper>
     );
 }

@@ -6,8 +6,7 @@ import WeeklyRecommendationsChart from "../../../components/admincomponents/Aico
 import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
-import AdminSidebar from "../../../components/admincomponents/adminsidebar";
-import AdminHeader from "../../../components/admincomponents/adminheader";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { FileText, Video, Headphones, MousePointerClick, } from 'lucide-react';
 /**
  * AIRecommendationsPage renders the AI management dashboard.
@@ -93,11 +92,6 @@ const AIRecommendationsPage = () => {
         { name: "Peer pressure", score: 65 },
         { name: "Family relationships", score: 61 },
     ];
-    return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx(AdminSidebar, {}) }), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx("div", { className: "flex-shrink-0", children: _jsx(AdminHeader, {}) }), _jsx("div", { style: {
-                            flex: 1,
-                            overflowY: "auto",
-                            padding: "1rem",
-                            backgroundColor: "#f8f9fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }) })] })] }));
+    return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }));
 };
 export default AIRecommendationsPage;

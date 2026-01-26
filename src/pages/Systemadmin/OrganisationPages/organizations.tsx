@@ -1,12 +1,11 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import Sidebar from "../../../components/admincomponents/adminsidebar";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable, {
   Organization,
 } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
-import Header from "../../../components/admincomponents/adminheader";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 
 // Import shared type definitions
 import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
@@ -95,17 +94,17 @@ const mockStats: StatCardData[] = [
     // linkText: "View all organizations",
     // color: "emerald",
   },
-  {
-    id: "4",
-    title: "Regional Coverage",
-    value: "0 regions",
-    trend: "",
-    icon: Map,
-    color: "emerald",
-    // subtitle: "Active organizations",
-    // linkText: "View all organizations",
-    // color: "emerald",
-  },
+  // {
+  //   id: "4",
+  //   title: "Regional Coverage",
+  //   value: "0 regions",
+  //   trend: "",
+  //   icon: Map,
+  //   color: "emerald",
+  //   // subtitle: "Active organizations",
+  //   // linkText: "View all organizations",
+  //   // color: "emerald",
+  // },
 ];
 
 /**
@@ -114,43 +113,21 @@ const mockStats: StatCardData[] = [
  */
 const OrganizationPage: React.FC = () => {
   return (
-    <div className="d-flex vh-100">
-      {/* Sidebar navigation */}
-      <Sidebar />
+    <SystemAdminLayout title="Organizations">
+      {/* Main content container with proper spacing */}
+      <div className="p-4">
+        {/* Stats summary with props */}
+        <Row className="gy-4 mb-4">
+          <DashboardStats stats={mockStats} />
+        </Row>
 
-      {/* Main content area */}
-      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* Top header bar */}
-        <Header />
+        {/* Organization table with mock data */}
+        <OrganizationTable organizations={mockOrganizations} />
 
-        {/* Scrollable content below header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          {/* Main content container */}
-          <div className="flex-grow-1 overflow-auto">
-            <Container fluid className="py-4">
-              {/* Stats summary with props */}
-
-              <Row className="gy-4">
-                <DashboardStats stats={mockStats} />
-              </Row>
-
-              {/* Organization table with mock data */}
-              <OrganizationTable organizations={mockOrganizations} />
-
-              {/* Graphs section */}
-              <OrganizationCharts />
-            </Container>
-          </div>
-        </div>
+        {/* Graphs section */}
+        <OrganizationCharts />
       </div>
-    </div>
+    </SystemAdminLayout>
   );
 };
 

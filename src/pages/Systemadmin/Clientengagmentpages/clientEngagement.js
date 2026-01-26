@@ -1,16 +1,15 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
 // clientEngagement.tsx
 // Main page for displaying client engagement dashboard with sidebar layout
 import { useEffect, useState } from "react";
 import { Container, Alert } from "react-bootstrap";
 // Import sidebar and dashboard components
-import AdminSidebar from "../../../components/admincomponents/adminsidebar";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import EngagementSummary from "../../../components/admincomponents/Clientcomponents/engagementsummary";
 import EngagementCharts from "../../../components/admincomponents/Clientcomponents/engagementCharts";
 import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
 import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
-import Header from "../../../components/admincomponents/adminheader";
 // Placeholder data to simulate backend response
 const placeholderData = {
     engagementRate: 78,
@@ -83,28 +82,23 @@ const ClientEngagement = () => {
     console.log("Loading state:", loading);
     // Show error message if something goes wrong
     if (error) {
-        return (_jsxs("div", { style: { display: "flex" }, children: [_jsx(AdminSidebar, {}), _jsx(Container, { className: "mt-5", children: _jsxs(Alert, { variant: "danger", children: ["Error: ", error] }) })] }));
+        return (_jsx(SystemAdminLayout, { title: "Client Engagement", children: _jsx(Container, { className: "mt-5", children: _jsxs(Alert, { variant: "danger", children: ["Error: ", error] }) }) }));
     }
     // Render dashboard layout
-    return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(AdminSidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
-                            flex: 1,
-                            overflowY: "auto",
-                            padding: "1rem",
-                            backgroundColor: "#f8f9fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, { engagementRate: data?.engagementRate ?? 0, activePrograms: data?.activePrograms ?? 0, totalPoints: data?.totalPoints ?? 0 }), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, { topRewards: data?.patients
-                                            .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
-                                            .slice(0, 3)
-                                            .map((patient) => ({
-                                            name: patient.name,
-                                            points: patient.pointsRedeemed,
-                                        })) ?? [], trends: {
-                                            courseCompletion: data?.trends.weekly ?? 0,
-                                            rewardRedemption: data?.trends.rewardActivity ?? 0,
-                                            memberActivity: data?.trends.monthly ?? 0,
-                                        }, streaks: {
-                                            sevenDay: data?.streaks.sevenDay ?? 0,
-                                            thirtyDay: data?.streaks.thirtyDay ?? 0,
-                                            sixtyDay: data?.streaks.sixtyDay ?? 0,
-                                        } })] }) }) })] })] }));
+    return (_jsx(SystemAdminLayout, { title: "Client Engagement", children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, { engagementRate: data?.engagementRate ?? 0, activePrograms: data?.activePrograms ?? 0, totalPoints: data?.totalPoints ?? 0 }), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, { topRewards: data?.patients
+                            .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
+                            .slice(0, 3)
+                            .map((patient) => ({
+                            name: patient.name,
+                            points: patient.pointsRedeemed,
+                        })) ?? [], trends: {
+                            courseCompletion: data?.trends.weekly ?? 0,
+                            rewardRedemption: data?.trends.rewardActivity ?? 0,
+                            memberActivity: data?.trends.monthly ?? 0,
+                        }, streaks: {
+                            sevenDay: data?.streaks.sevenDay ?? 0,
+                            thirtyDay: data?.streaks.thirtyDay ?? 0,
+                            sixtyDay: data?.streaks.sixtyDay ?? 0,
+                        } })] }) }) }));
 };
 export default ClientEngagement;

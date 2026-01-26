@@ -53,13 +53,6 @@ const EngagementSummary: React.FC<EngagementSummaryProps> = ({
 
   return (
     <>
-      <div className="mb-4" style={{ fontFamily: "heading" }}>
-        <h2>Client Engagement & Rewards</h2>
-        <p className="text-muted" style={{ fontFamily: "body" }}>
-          Monitor client activity and reward program performance.
-        </p>
-      </div>
-
       <Row className="mb-4">
         {metrics.map((metric, index) => (
           <Col key={index} md={4}>
