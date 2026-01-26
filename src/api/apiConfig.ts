@@ -216,6 +216,32 @@ export const adminAPI = {
     return response;
   },
 
+  // Organization management APIs
+  getOrganizationsGrowthChart: async () => {
+    const response = await api.get("/v1/admin/organizations/growth-chart/");
+    return response;
+  },
+
+  getOrganizationsClientDistribution: async () => {
+    const response = await api.get("/v1/admin/organizations/client-distribution/");
+    return response;
+  },
+
+  // Get organizations list with pagination and search
+  getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      page_size: pageSize.toString(),
+    });
+
+    if (search) {
+      params.append('search', search);
+    }
+
+    const response = await api.get(`/v1/admin/organizations/?${params}`);
+    return response;
+  },
+
   addEmployee: async () => {
     const response = await api.post("/v1/admin/invites/");
     return response;
