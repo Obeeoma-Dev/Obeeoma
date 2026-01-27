@@ -28,7 +28,7 @@ COPY --from=build /obeeoma/dist /usr/share/nginx/html
 #  COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose the default Nginx HTTP port
-EXPOSE 80
+EXPOSE 3000
 
 # The default Nginx CMD will start the server
 CMD ["nginx", "-g", "daemon off;"]
