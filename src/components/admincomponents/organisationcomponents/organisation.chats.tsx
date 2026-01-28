@@ -11,9 +11,33 @@ import {
     Title,
     Tooltip,
     Legend,
+    ChartEvent,
+    ActiveElement,
 } from "chart.js";
 import { adminAPI } from "../../../api/apiConfig";
 import OrganizationListPopup from "./OrganizationListPopup";
+
+// Define interfaces for better type safety
+interface OrganizationData {
+    name?: string;
+    organizationName?: string;
+    client_count?: number;
+    clients?: number;
+}
+
+interface OrganizationWithIndex {
+    name: string;
+    clients: number;
+    index: number;
+}
+
+interface ChartCallbackContext {
+    chart: ChartJS;
+    tick: {
+        value: number;
+        label: string;
+    };
+}
 
 ChartJS.register(
     CategoryScale,
@@ -195,8 +219,8 @@ const OrganizationCharts: React.FC = () => {
                 if (Array.isArray(distributionResponse.data)) {
                     // API returns array of objects directly
                     console.log("API returns array of organization objects");
-                    orgLabels = distributionResponse.data.map((org: any) => org.name || org.organizationName || 'Unknown');
-                    orgData = distributionResponse.data.map((org: any) => org.client_count || org.clients || 0);
+                    orgLabels = distributionResponse.data.map((org: OrganizationData) => org.name || org.organizationName || 'Unknown');
+                    orgData = distributionResponse.data.map((org: OrganizationData) => org.client_count || org.clients || 0);
                 } else if (distributionResponse.data && distributionResponse.data.labels && distributionResponse.data.data) {
                     // API returns object with labels and data arrays
                     console.log("API returns object with labels and data");
@@ -220,15 +244,15 @@ const OrganizationCharts: React.FC = () => {
                     // If API doesn't return in order, we'd need to add creation dates
                     const latestThreeOrgs = orgDataWithIndex.slice(-3); // Take last 3 (latest organizations)
 
-                    console.log("All organizations:", orgDataWithIndex.map((o: any) => o.name));
-                    console.log("Latest 3 organizations:", latestThreeOrgs.map((o: any) => o.name));
+                    console.log("All organizations:", orgDataWithIndex.map((o: OrganizationWithIndex) => o.name));
+                    console.log("Latest 3 organizations:", latestThreeOrgs.map((o: OrganizationWithIndex) => o.name));
 
                     const newDistributionData = {
-                        labels: latestThreeOrgs.map((org: any) => org.name),
+                        labels: latestThreeOrgs.map((org: OrganizationWithIndex) => org.name),
                         datasets: [
                             {
                                 label: "Clients",
-                                data: latestThreeOrgs.map((org: any) => org.clients),
+                                data: latestThreeOrgs.map((org: OrganizationWithIndex) => org.clients),
                                 backgroundColor: Array(3).fill("#00A859"),
                                 borderRadius: 4,
                             },
@@ -305,7 +329,7 @@ const OrganizationCharts: React.FC = () => {
                 ticks: {
                     color: "#6c757d",
                     stepSize: 500,
-                    callback: function (value: any) {
+                    callback: function (value: string | number) {
                         return value;
                     }
                 },
@@ -325,8 +349,10 @@ const OrganizationCharts: React.FC = () => {
         onClick: () => {
             setShowOrganizationPopup(true);
         },
-        onHover: (event: any, activeElements: any[]) => {
-            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+        onHover: (event: ChartEvent, activeElements: ActiveElement[]) => {
+            if (event.native && 'target' in event.native && event.native.target) {
+                (event.native.target as HTMLElement).style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            }
         },
     };
 
@@ -362,7 +388,7 @@ const OrganizationCharts: React.FC = () => {
                 ticks: {
                     color: "#6c757d",
                     stepSize: 500,
-                    callback: function (value: any) {
+                    callback: function (value: string | number) {
                         return value;
                     }
                 },
@@ -382,8 +408,10 @@ const OrganizationCharts: React.FC = () => {
         onClick: () => {
             setShowOrganizationPopup(true);
         },
-        onHover: (event: any, activeElements: any[]) => {
-            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+        onHover: (event: ChartEvent, activeElements: ActiveElement[]) => {
+            if (event.native && 'target' in event.native && event.native.target) {
+                (event.native.target as HTMLElement).style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            }
         },
     };
 
@@ -422,7 +450,7 @@ const OrganizationCharts: React.FC = () => {
                 ticks: {
                     color: "#6c757d",
                     stepSize: 500,
-                    callback: function (value: any) {
+                    callback: function (value: string | number) {
                         return value;
                     }
                 },
@@ -442,8 +470,10 @@ const OrganizationCharts: React.FC = () => {
         onClick: () => {
             setShowOrganizationPopup(true);
         },
-        onHover: (event: any, activeElements: any[]) => {
-            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+        onHover: (event: ChartEvent, activeElements: ActiveElement[]) => {
+            if (event.native && 'target' in event.native && event.native.target) {
+                (event.native.target as HTMLElement).style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            }
         },
     };
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1768295492168" clover="3.2.0">
-  <project timestamp="1768295492168" name="All files">
-    <metrics statements="32" coveredstatements="13" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="2" elements="46" coveredelements="16" complexity="0" loc="32" ncloc="32" packages="2" files="2" classes="2"/>
+<coverage generated="1769560374661" clover="3.2.0">
+  <project timestamp="1769560374661" name="All files">
+    <metrics statements="32" coveredstatements="13" conditionals="3" coveredconditionals="1" methods="10" coveredmethods="2" elements="45" coveredelements="16" complexity="0" loc="32" ncloc="32" packages="2" files="2" classes="2"/>
     <package name="assets.Images">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="headerimage.png" path="C:\Users\SYKAT COMPUTER\Desktop\Frontend\Obeeoma\src\assets\Images\headerimage.png">
@@ -10,9 +10,9 @@
       </file>
     </package>
     <package name="pages.landingpage">
-      <metrics statements="31" coveredstatements="12" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="2"/>
+      <metrics statements="31" coveredstatements="12" conditionals="3" coveredconditionals="1" methods="10" coveredmethods="2"/>
       <file name="Hero.tsx" path="C:\Users\SYKAT COMPUTER\Desktop\Frontend\Obeeoma\src\pages\landingpage\Hero.tsx">
-        <metrics statements="31" coveredstatements="12" conditionals="4" coveredconditionals="1" methods="10" coveredmethods="2"/>
+        <metrics statements="31" coveredstatements="12" conditionals="3" coveredconditionals="1" methods="10" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -28,7 +28,7 @@
         <line num="86" count="0" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
-        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="91" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="105" count="0" type="stmt"/>

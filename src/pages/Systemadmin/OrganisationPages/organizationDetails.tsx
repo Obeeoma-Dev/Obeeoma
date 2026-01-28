@@ -1,6 +1,7 @@
-import React from 'react'
-import { Container, Row, Col, Stack, Button } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Container, Row, Col, Stack, Button, Spinner } from 'react-bootstrap'
 import { ArrowLeft, CreditCard, Save } from 'lucide-react'
+import { useParams, useNavigate } from 'react-router-dom'
 
 // Page components
 import Sidebar from '../../../components/admincomponents/adminsidebar'
@@ -10,15 +11,96 @@ import { OrganizationStats } from '../../../components/admincomponents/organisat
 import { PlatformUsageChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse'
 import { ProgramEngagementChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart'
 import { RecentActivity } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity'
-import { useNavigate } from 'react-router-dom'
+import { adminAPI } from '../../../api/apiConfig'
+import { DatabaseOrganization } from '../../../components/admincomponents/organisationcomponents/organisationTable'
 import "./orgpage.css"
 
 
 
 export function OrganizationDetails() {
+  // Get organization ID from URL params
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-  // A navigation function.
-  const navigate = useNavigate()
+  // State for organization data
+  const [organization, setOrganization] = useState<DatabaseOrganization | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Fetch organization details
+  useEffect(() => {
+    const fetchOrganizationDetails = async () => {
+      if (!id) {
+        setError("Organization ID not found");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        console.log(`Fetching organization details for ID: ${id}`);
+
+        // Fetch all organizations and find the specific one
+        // Note: You might want to create a specific API endpoint for single organization
+        const response = await adminAPI.getOrganizationsList(1, 100, ""); // Get all orgs
+        const allOrgs = response.data.results || response.data || [];
+
+        const foundOrg = allOrgs.find((org: DatabaseOrganization) => org.id.toString() === id);
+
+        if (foundOrg) {
+          setOrganization(foundOrg);
+          console.log("Found organization:", foundOrg);
+        } else {
+          setError("Organization not found");
+        }
+      } catch (err) {
+        console.error("Error fetching organization details:", err);
+        setError("Failed to load organization details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrganizationDetails();
+  }, [id]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="d-flex vh-100">
+        <Sidebar />
+        <div className="flex-grow-1 d-flex flex-column overflow-hidden">
+          <Header />
+          <div className="flex-grow-1 d-flex align-items-center justify-content-center">
+            <div className="text-center">
+              <Spinner animation="border" variant="success" />
+              <div className="mt-2">Loading organization details...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error || !organization) {
+    return (
+      <div className="d-flex vh-100">
+        <Sidebar />
+        <div className="flex-grow-1 d-flex flex-column overflow-hidden">
+          <Header />
+          <div className="flex-grow-1 d-flex align-items-center justify-content-center">
+            <div className="text-center">
+              <div className="text-danger mb-3">{error || "Organization not found"}</div>
+              <Button variant="outline-success" onClick={() => navigate(-1)}>
+                Go Back
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     // Root layout: sidebar + main content
@@ -73,16 +155,44 @@ export function OrganizationDetails() {
             </Row>
 
             {/* ================= MAIN CONTENT ================= */}
+            {/* Debug info */}
+            <div className="mb-3 p-2 bg-light">
+              <small className="text-muted">
+                Debug: Organization ID = {id} |
+                Org Name = {organization?.name} |
+                Plan = {organization?.current_plan} |
+                Status = {organization?.is_active ? 'Active' : 'Inactive'} |
+                Location = {organization?.Location || 'No Location field'} |
+                Location Type = {typeof organization?.Location} |
+                Location Value = {JSON.stringify(organization?.Location)} |
+                Clients = {organization?.client_count || 'No client_count field'} |
+                Available Keys: {organization ? Object.keys(organization).join(', ') : 'No org data'}
+              </small>
+            </div>
+
+            {/* OrganizationProfile Props Debug */}
+            <div className="mb-3 p-2 bg-warning">
+              <small className="text-muted">
+                Props being passed to OrganizationProfile:
+                Name = {organization?.name} |
+                ID = {`ORG-${organization?.id}`} |
+                Plan = {organization?.current_plan || "Freemium"} |
+                Status = {organization?.is_active ? "Active" : "Inactive"} |
+                Location = {organization?.Location || "Not specified"} |
+                LastActive = {organization ? new Date(organization.joined_date).toLocaleDateString() : 'N/A'}
+              </small>
+            </div>
+
             {/* Left profile column */}
             <Row className="mb-4">
               <Col lg={6} className="mb-4">
                 <OrganizationProfile
-                  name="Wellness Center Inc."
-                  id="ORG-001"
-                  subscriptionPlan="Premium"
-                  status="Active"
-                  region="West"
-                  lastActive="2 hours ago"
+                  name={organization.name}
+                  id={`ORG-${organization.id}`}
+                  subscriptionPlan={organization.current_plan || "Freemium"}
+                  status={organization.is_active ? "Active" : "Inactive"}
+                  location={organization.Location || "Not specified"}
+                  lastActive={new Date(organization.joined_date).toLocaleDateString()}
                 />
               </Col>
 

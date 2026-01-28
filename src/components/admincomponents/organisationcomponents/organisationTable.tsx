@@ -32,7 +32,7 @@ export interface DatabaseOrganization {
   // Additional fields that might be available
   email?: string;
   phone?: string;
-  location?: string;
+  Location?: string; // Note: Capital L from API
   contact_person?: {
     id: number;
     email: string;
@@ -41,15 +41,28 @@ export interface DatabaseOrganization {
   };
 }
 
+// Define interface for table format
+interface TableOrganization {
+  id: string;
+  name: string;
+  clients: number;
+  plan: string;
+  status: string;
+  lastActive: string;
+  address: string;
+  programs: number;
+  icon: string;
+}
+
 // Convert database organization to table format
-const convertToTableFormat = (org: DatabaseOrganization) => ({
+const convertToTableFormat = (org: DatabaseOrganization): TableOrganization => ({
   id: org.id.toString(),
   name: org.name,
   clients: org.client_count || 0,
   plan: org.current_plan === "Premium" ? "Premium" : "Freemium",
   status: org.is_active ? "Active" : "Inactive",
   lastActive: new Date(org.joined_date).toLocaleDateString(),
-  address: org.location || "Not specified",
+  address: org.Location || "Not specified", // Use Location with capital L
   programs: 0, // Not available from API
   icon: "", // Not available from API
 });
@@ -77,7 +90,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   organizations: propOrganizations,
 }) => {
   // State for organizations
-  const [organizations, setOrganizations] = useState<any[]>([]);
+  const [organizations, setOrganizations] = useState<TableOrganization[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
@@ -158,7 +171,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   }, [loading, hasMore, page, searchTerm]);
 
   // Filter organizations by tab category
-  const filterByTab = (orgs: any[], tab: string) => {
+  const filterByTab = (orgs: TableOrganization[], tab: string) => {
     switch (tab) {
       case "Active":
         return orgs.filter((org) => org.status === "Active");
@@ -174,7 +187,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   };
 
   // Filter by search term
-  const filterBySearch = (orgs: any[]) =>
+  const filterBySearch = (orgs: TableOrganization[]) =>
     orgs.filter((org) =>
       `${org.name} ${org.id} ${org.plan}`
         .toLowerCase()
@@ -182,7 +195,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     );
 
   // Render table rows
-  const renderTable = (orgs: any[]) => (
+  const renderTable = (orgs: TableOrganization[]) => (
     <div>
       <div className="mb-2 text-muted">
         Showing {orgs.length} of {totalCount} organizations

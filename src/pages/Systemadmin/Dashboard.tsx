@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
           const parsedData = JSON.parse(cachedData || '[]');
 
           // Re-add icons since they can't be serialized
-          const dataWithIcons = parsedData.map((item: any) => {
+          const dataWithIcons = parsedData.map((item: StatCardData) => {
             let icon;
             switch (item.title) {
               case "Total Organizations":

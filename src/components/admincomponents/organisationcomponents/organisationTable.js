@@ -13,7 +13,7 @@ const convertToTableFormat = (org) => ({
     plan: org.current_plan === "Premium" ? "Premium" : "Freemium",
     status: org.is_active ? "Active" : "Inactive",
     lastActive: new Date(org.joined_date).toLocaleDateString(),
-    address: org.location || "Not specified",
+    address: org.Location || "Not specified", // Use Location with capital L
     programs: 0, // Not available from API
     icon: "", // Not available from API
 });

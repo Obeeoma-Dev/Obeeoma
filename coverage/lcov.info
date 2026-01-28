@@ -68,7 +68,6 @@ LH:12
 BRDA:30,0,0,1
 BRDA:30,0,1,0
 BRDA:91,1,0,0
-BRDA:91,1,1,0
-BRF:4
+BRF:3
 BRH:1
 end_of_record

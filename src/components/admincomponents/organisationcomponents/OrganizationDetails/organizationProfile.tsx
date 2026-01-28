@@ -9,7 +9,7 @@ interface OrganizationProfileProps {
     id: string
     subscriptionPlan: string
     status: 'Active' | 'Inactive'
-    region: string
+    location: string
     lastActive: string
 }
 
@@ -19,11 +19,26 @@ export function OrganizationProfile({
     id,
     subscriptionPlan,
     status,
-    region,
+    location,
     lastActive
 }: OrganizationProfileProps) {
+    // Debug: Log props to console
+    console.log('OrganizationProfile Props:', { name, id, subscriptionPlan, status, location, lastActive });
+
     return (
         <div className="organization-profile">
+            {/* Debug info */}
+            <div className="mb-2 p-2 bg-danger text-white">
+                <small>
+                    Component Props Debug:<br />
+                    Name: {name}<br />
+                    ID: {id}<br />
+                    Plan: {subscriptionPlan}<br />
+                    Status: {status}<br />
+                    Location: {location}<br />
+                    LastActive: {lastActive}
+                </small>
+            </div>
 
             {/* Main organization information card */}
             <Card className="mb-3">
@@ -56,8 +71,8 @@ export function OrganizationProfile({
                         </div>
 
                         <div className="d-flex justify-content-between align-items-center mb-2" style={{ fontFamily: 'body' }}>
-                            <small className="text-muted">Region</small>
-                            <strong>{region}</strong>
+                            <small className="text-muted">Location</small>
+                            <strong>{location}</strong>
                         </div>
                     </div>
 

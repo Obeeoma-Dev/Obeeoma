@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Modal, Table, Button, Spinner, Form, Row, Col, InputGroup } from "react-bootstrap";
 import { FaSearch, FaTimes, FaEye } from "react-icons/fa";
 import { adminAPI } from "../../../api/apiConfig";
@@ -40,7 +40,7 @@ const OrganizationListPopup: React.FC<OrganizationListPopupProps> = ({ show, onH
     const lastOrganizationElementRef = useRef<HTMLTableRowElement>(null);
 
     // Fetch organizations with pagination
-    const fetchOrganizations = async (pageNum = 1, search = "") => {
+    const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
         try {
             setLoading(true);
             console.log(`Fetching organizations: page=${pageNum}, search="${search}"`);
@@ -77,7 +77,7 @@ const OrganizationListPopup: React.FC<OrganizationListPopupProps> = ({ show, onH
             // Type-safe error handling
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             const errorResponse = error && typeof error === 'object' && 'response' in error ?
-                (error as any).response?.data : null;
+                (error as { response?: { data?: unknown } }).response?.data : null;
 
             console.error("Error details:", errorResponse || errorMessage);
 
@@ -88,7 +88,7 @@ const OrganizationListPopup: React.FC<OrganizationListPopupProps> = ({ show, onH
         } finally {
             setLoading(false);
         }
-    };
+    }, [hasMore]);
 
     // Initial fetch and search
     useEffect(() => {
@@ -97,7 +97,7 @@ const OrganizationListPopup: React.FC<OrganizationListPopupProps> = ({ show, onH
             setHasMore(true);
             fetchOrganizations(1, searchTerm);
         }
-    }, [show, searchTerm]);
+    }, [show, searchTerm, fetchOrganizations]);
 
     // Infinite scroll observer
     useEffect(() => {
@@ -119,7 +119,7 @@ const OrganizationListPopup: React.FC<OrganizationListPopupProps> = ({ show, onH
         return () => {
             if (observer.current) observer.current.disconnect();
         };
-    }, [loading, hasMore, page, searchTerm]);
+    }, [loading, hasMore, page, searchTerm, fetchOrganizations]);
 
     // Filter organizations by search term
     const filteredOrganizations = organizations.filter(org =>

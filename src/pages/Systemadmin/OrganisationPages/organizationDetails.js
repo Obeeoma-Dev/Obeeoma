@@ -1,6 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Container, Row, Col, Stack, Button } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Container, Row, Col, Stack, Button, Spinner } from 'react-bootstrap';
 import { ArrowLeft, CreditCard, Save } from 'lucide-react';
+import { useParams, useNavigate } from 'react-router-dom';
 // Page components
 import Sidebar from '../../../components/admincomponents/adminsidebar';
 import Header from '../../../components/admincomponents/adminheader';
@@ -9,11 +11,58 @@ import { OrganizationStats } from '../../../components/admincomponents/organisat
 import { PlatformUsageChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse';
 import { ProgramEngagementChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart';
 import { RecentActivity } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity';
-import { useNavigate } from 'react-router-dom';
+import { adminAPI } from '../../../api/apiConfig';
 import "./orgpage.css";
 export function OrganizationDetails() {
-    // A navigation function.
+    // Get organization ID from URL params
+    const { id } = useParams();
     const navigate = useNavigate();
+    // State for organization data
+    const [organization, setOrganization] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    // Fetch organization details
+    useEffect(() => {
+        const fetchOrganizationDetails = async () => {
+            if (!id) {
+                setError("Organization ID not found");
+                setLoading(false);
+                return;
+            }
+            try {
+                setLoading(true);
+                console.log(`Fetching organization details for ID: ${id}`);
+                // Fetch all organizations and find the specific one
+                // Note: You might want to create a specific API endpoint for single organization
+                const response = await adminAPI.getOrganizationsList(1, 100, ""); // Get all orgs
+                const allOrgs = response.data.results || response.data || [];
+                const foundOrg = allOrgs.find((org) => org.id.toString() === id);
+                if (foundOrg) {
+                    setOrganization(foundOrg);
+                    console.log("Found organization:", foundOrg);
+                }
+                else {
+                    setError("Organization not found");
+                }
+            }
+            catch (err) {
+                console.error("Error fetching organization details:", err);
+                setError("Failed to load organization details");
+            }
+            finally {
+                setLoading(false);
+            }
+        };
+        fetchOrganizationDetails();
+    }, [id]);
+    // Show loading state
+    if (loading) {
+        return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { className: "flex-grow-1 d-flex align-items-center justify-content-center", children: _jsxs("div", { className: "text-center", children: [_jsx(Spinner, { animation: "border", variant: "success" }), _jsx("div", { className: "mt-2", children: "Loading organization details..." })] }) })] })] }));
+    }
+    // Show error state
+    if (error || !organization) {
+        return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { className: "flex-grow-1 d-flex align-items-center justify-content-center", children: _jsxs("div", { className: "text-center", children: [_jsx("div", { className: "text-danger mb-3", children: error || "Organization not found" }), _jsx(Button, { variant: "outline-success", onClick: () => navigate(-1), children: "Go Back" })] }) })] })] }));
+    }
     return (
     // Root layout: sidebar + main content
     _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
@@ -21,5 +70,5 @@ export function OrganizationDetails() {
                             overflowY: 'auto',
                             padding: '1rem',
                             backgroundColor: '#f8f9fa',
-                        }, children: _jsxs(Container, { fluid: "xl", children: [_jsxs(Row, { className: "align-items-center mb-4", children: [_jsx(Col, { children: _jsx(Stack, { direction: "horizontal", gap: 3, children: _jsx(Button, { variant: "light", onClick: () => navigate(-1), "aria-label": "Go back", children: _jsx(ArrowLeft, { size: 20 }) }) }) }), _jsx(Col, { xs: "auto", children: _jsxs(Stack, { direction: "horizontal", gap: 2, children: [_jsxs(Button, { variant: "outline-success", children: [_jsx(CreditCard, { size: 16 }), "Manage Subscription"] }), _jsxs(Button, { variant: "success", children: [_jsx(Save, { size: 16 }), "Save Changes"] })] }) })] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationProfile, { name: "Wellness Center Inc.", id: "ORG-001", subscriptionPlan: "Premium", status: "Active", region: "West", lastActive: "2 hours ago" }) }), _jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationStats, {}) })] }), _jsxs(Col, { lg: 12, children: [_jsx("div", { className: "chart-row-wrapper", children: _jsxs(Row, { className: "align-items-stretch mb-4 mb-lg-0", children: [_jsx(Col, { lg: 6, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Col, { lg: 6, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(ProgramEngagementChart, {}) }) })] }) }), _jsx("div", { className: "mt-4", children: _jsx(RecentActivity, {}) })] })] }) })] })] }));
+                        }, children: _jsxs(Container, { fluid: "xl", children: [_jsxs(Row, { className: "align-items-center mb-4", children: [_jsx(Col, { children: _jsx(Stack, { direction: "horizontal", gap: 3, children: _jsx(Button, { variant: "light", onClick: () => navigate(-1), "aria-label": "Go back", children: _jsx(ArrowLeft, { size: 20 }) }) }) }), _jsx(Col, { xs: "auto", children: _jsxs(Stack, { direction: "horizontal", gap: 2, children: [_jsxs(Button, { variant: "outline-success", children: [_jsx(CreditCard, { size: 16 }), "Manage Subscription"] }), _jsxs(Button, { variant: "success", children: [_jsx(Save, { size: 16 }), "Save Changes"] })] }) })] }), _jsx("div", { className: "mb-3 p-2 bg-light", children: _jsxs("small", { className: "text-muted", children: ["Debug: Organization ID = ", id, " | Org Name = ", organization?.name, " | Plan = ", organization?.current_plan, " | Status = ", organization?.is_active ? 'Active' : 'Inactive', " | Location = ", organization?.Location || 'No Location field', " | Location Type = ", typeof organization?.Location, " | Location Value = ", JSON.stringify(organization?.Location), " | Clients = ", organization?.client_count || 'No client_count field', " | Available Keys: ", organization ? Object.keys(organization).join(', ') : 'No org data'] }) }), _jsx("div", { className: "mb-3 p-2 bg-warning", children: _jsxs("small", { className: "text-muted", children: ["Props being passed to OrganizationProfile: Name = ", organization?.name, " | ID = ", `ORG-${organization?.id}`, " | Plan = ", organization?.current_plan || "Freemium", " | Status = ", organization?.is_active ? "Active" : "Inactive", " | Location = ", organization?.Location || "Not specified", " | LastActive = ", organization ? new Date(organization.joined_date).toLocaleDateString() : 'N/A'] }) }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationProfile, { name: organization.name, id: `ORG-${organization.id}`, subscriptionPlan: organization.current_plan || "Freemium", status: organization.is_active ? "Active" : "Inactive", location: organization.Location || "Not specified", lastActive: new Date(organization.joined_date).toLocaleDateString() }) }), _jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationStats, {}) })] }), _jsxs(Col, { lg: 12, children: [_jsx("div", { className: "chart-row-wrapper", children: _jsxs(Row, { className: "align-items-stretch mb-4 mb-lg-0", children: [_jsx(Col, { lg: 6, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Col, { lg: 6, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(ProgramEngagementChart, {}) }) })] }) }), _jsx("div", { className: "mt-4", children: _jsx(RecentActivity, {}) })] })] }) })] })] }));
 }

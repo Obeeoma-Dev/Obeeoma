@@ -62,18 +62,28 @@ export const contentMediaAPI = {
         : response.data.data;
 
       return items;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error fetching content:", error);
 
-      // Enhanced error logging
-      if (error.response) {
-        console.error("Error response data:", error.response.data);
-        console.error("Error response status:", error.response.status);
-        console.error("Error response headers:", error.response.headers);
-      } else if (error.request) {
-        console.error("Error request:", error.request);
-      } else {
+      // Enhanced error logging with proper type checking
+      if (error && typeof error === 'object') {
+        const err = error as Record<string, unknown>;
+        if ('response' in err && err.response) {
+          const response = err.response as Record<string, unknown>;
+          console.error("Error response data:", response.data);
+          console.error("Error response status:", response.status);
+          console.error("Error response headers:", response.headers);
+        } else if ('request' in err && err.request) {
+          console.error("Error request:", err.request);
+        } else if ('message' in err && typeof err.message === 'string') {
+          console.error("Error message:", err.message);
+        } else {
+          console.error("Unknown error structure:", err);
+        }
+      } else if (error instanceof Error) {
         console.error("Error message:", error.message);
+      } else {
+        console.error("Unknown error:", error);
       }
 
       throw error;
