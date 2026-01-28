@@ -35,7 +35,6 @@ import SubscriptionPage from "./pages/Systemadmin/Subscriptionpages/subscription
 import ReportPage from "./pages/Systemadmin/Reportpages/report";
 import SubscriptionEditor from "./pages/Systemadmin/Subscriptionpages/subscriptionEditor";
 import AdminSettings from "./pages/Systemadmin/adminsettings";
-import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
 
 import EmployerAccountProfile from "./pages/EmployerPages/AccountSettings";
 import EditEmployerProfilePage from "./pages/EmployerPages/EditEmployerProfilePage";
@@ -80,6 +79,11 @@ export default function App(): React.ReactElement {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/blog" element={<Blog />} />
+              <Route
+                path="/employer-subscription"
+                element={<EmployerSubscription />}
+              />
+              <Route path="/success-message" element={<PaymentSuccessPage />} />
               {/* === PROTECTED ROUTES WRAPPER === */}
               <Route element={<ProtectedRoute />}>
                 {/* EMPLOYEE'S ROUTES */}
@@ -91,10 +95,10 @@ export default function App(): React.ReactElement {
                   path="/employee-downloadapp"
                   element={<EmployeeLandingPage />}
                 />
-                <Route
+                {/* <Route
                   path="/success-message"
                   element={<PaymentSuccessPage />}
-                />
+                /> */}
                 {/* EMPLOYER'S ROUTES */}
                 <Route
                   path="/organization-reports"
@@ -104,10 +108,10 @@ export default function App(): React.ReactElement {
                   path="/employer-dashboard"
                   element={<EmployerDashboard companyId="your-company-id" />}
                 />
-                <Route
+                {/* <Route
                   path="/employer-subscription"
                   element={<EmployerSubscription />}
-                />
+                /> */}
                 <Route
                   path="/employee-management"
                   element={<EmployeeManagement />}

@@ -103,4 +103,3 @@ const TreatmentOutcomesChart: React.FC = () => {
 };
 
 export default TreatmentOutcomesChart;
-

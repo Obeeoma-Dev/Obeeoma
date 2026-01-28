@@ -26,7 +26,7 @@ const FormikPhoneInput: React.FC<CustomPhoneInputProps> = ({
     <PhoneInput
       {...field}
       {...props} // This passes the dropdownStyle prop to react-phone-input-2
-      country="us"
+      country="ng"
       enableSearch={true}
       inputStyle={{
         ...inputStyle,

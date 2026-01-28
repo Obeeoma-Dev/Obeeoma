@@ -57,18 +57,26 @@ export function OrganizationProfile({
                             </Card.Text>
                         </div>
 
-                        <hr />
+            <hr />
 
-                        {/* Info sections */}
-                        <div className="d-flex justify-content-between align-items-center mb-2" style={{ fontFamily: 'body' }}>
-                            <small className="text-muted">Subscription Plan</small>
-                            <Badge bg="info">{subscriptionPlan}</Badge>
-                        </div>
+            {/* Info sections */}
+            <div
+              className="d-flex justify-content-between align-items-center mb-2"
+              style={{ fontFamily: "body" }}
+            >
+              <small className="text-muted">Subscription Plan</small>
+              <Badge bg="info">{subscriptionPlan}</Badge>
+            </div>
 
-                        <div className="d-flex justify-content-between align-items-center mb-2" style={{ fontFamily: 'body' }}>
-                            <small className="text-muted">Status</small>
-                            <Badge bg={status === 'Active' ? 'success' : 'secondary'}>{status}</Badge>
-                        </div>
+            <div
+              className="d-flex justify-content-between align-items-center mb-2"
+              style={{ fontFamily: "body" }}
+            >
+              <small className="text-muted">Status</small>
+              <Badge bg={status === "Active" ? "success" : "secondary"}>
+                {status}
+              </Badge>
+            </div>
 
                         <div className="d-flex justify-content-between align-items-center mb-2" style={{ fontFamily: 'body' }}>
                             <small className="text-muted">Location</small>
@@ -76,13 +84,16 @@ export function OrganizationProfile({
                         </div>
                     </div>
 
-                    {/* Bottom-right aligned Last Active */}
-                    <div className="d-flex justify-content-between align-items-center pe-2" style={{ fontFamily: 'body' }}>
-                        <small className="text-muted">Last Active</small>
-                        <strong>{lastActive}</strong>
-                    </div>
-                </Card.Body>
-            </Card>
-        </div>
-    )
+          {/* Bottom-right aligned Last Active */}
+          <div
+            className="d-flex justify-content-between align-items-center pe-2"
+            style={{ fontFamily: "body" }}
+          >
+            <small className="text-muted">Last Active</small>
+            <strong>{lastActive}</strong>
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
+  );
 }

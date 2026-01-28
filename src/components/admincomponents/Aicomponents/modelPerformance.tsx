@@ -1,23 +1,23 @@
-import React from 'react';
-import { Card, Row, Col, ProgressBar } from 'react-bootstrap';
-import './aicomponent.css';
+import React from "react";
+import { Card, Row, Col, ProgressBar } from "react-bootstrap";
+import "./aicomponent.css";
 
 interface ScoreItem {
-  name: string
-  score: number
+  name: string;
+  score: number;
 }
 
 interface ModelPerformanceProps {
-  performance: ScoreItem[]
+  performance: ScoreItem[];
 }
 
 const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
   return (
     <Card className="mb-4 shadow-sm">
       <Card.Body>
-        <div className="mb-4" style={{ fontFamily: 'heading' }}>
+        <div className="mb-4" style={{ fontFamily: "heading" }}>
           <Card.Title>AI Model Performance</Card.Title>
-          <Card.Subtitle className="text-muted" style={{ fontFamily: 'body' }}>
+          <Card.Subtitle className="text-muted" style={{ fontFamily: "body" }}>
             Key metrics for evaluating model effectiveness
           </Card.Subtitle>
         </div>
@@ -26,7 +26,7 @@ const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
           <div key={item.name} className="mb-4">
             <Row className="align-items-center mb-2">
               <Col>
-                <div className="fw-semibold" style={{ fontFamily: 'body' }}>
+                <div className="fw-semibold" style={{ fontFamily: "body" }}>
                   {item.name}
                 </div>
               </Col>
@@ -51,7 +51,7 @@ const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
         ))}
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default ModelPerformance
+export default ModelPerformance;

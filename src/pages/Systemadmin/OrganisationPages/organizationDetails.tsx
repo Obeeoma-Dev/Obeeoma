@@ -117,14 +117,13 @@ export function OrganizationDetails() {
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
-            padding: '1rem',
-            backgroundColor: '#f8f9fa',
+            overflowY: "auto",
+            padding: "1rem",
+            backgroundColor: "#f8f9fa",
           }}
         >
           {/* Page container */}
           <Container fluid="xl">
-
             {/* ================= HEADER SECTION ================= */}
             <Row className="align-items-center mb-4">
               <Col>
@@ -224,10 +223,9 @@ export function OrganizationDetails() {
                 <RecentActivity />
               </div>
             </Col>
-
           </Container>
         </div>
       </div>
     </div>
-  )
+  );
 }

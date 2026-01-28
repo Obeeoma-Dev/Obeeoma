@@ -88,6 +88,7 @@ const ResetPassword = () => {
                                                     borderColor: customStyles.primaryColor,
                                                     color: "white",
                                                     boxShadow: "none",
+                                                    fontFamily: "body",
                                                 }, children: isLoading ? (_jsxs(_Fragment, { children: [_jsx(Spinner, { as: "span", animation: "border", size: "sm", role: "status", "aria-hidden": "true", className: "me-2" }), "Changing..."] })) : ("Change Password") })] })) }), _jsx("div", { className: "text-center mt-3", children: _jsx(Link, { to: "/login", className: "small text-decoration-none", style: {
                                             color: customStyles.primaryColor,
                                             fontFamily: "body",

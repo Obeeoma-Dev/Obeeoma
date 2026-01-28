@@ -24,7 +24,7 @@ const data = {
       maxBarThickness: 30,
     },
   ],
-}
+};
 
 // Horizontal bars
 const options = {
@@ -39,20 +39,22 @@ const options = {
       grid: { display: false },
     },
   },
-}
+};
 
 const EffectivenessChart: React.FC = () => {
   return (
     <Card className="mb-4 shadow-sm h-100">
       <Card.Body>
-        <h5 className="fw-semibold" style={{ fontFamily: 'heading' }}>Effectiveness by Resource Type (%)</h5>
-        <p className="text-muted small mb-4" style={{ fontFamily: 'body' }}>
+        <h5 className="fw-semibold" style={{ fontFamily: "heading" }}>
+          Effectiveness by Resource Type (%)
+        </h5>
+        <p className="text-muted small mb-4" style={{ fontFamily: "body" }}>
           Comparison of engagement across different media formats
         </p>
-        <Bar data={data} options={options} style={{ fontFamily: 'body' }} />
+        <Bar data={data} options={options} style={{ fontFamily: "body" }} />
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default EffectivenessChart
+export default EffectivenessChart;

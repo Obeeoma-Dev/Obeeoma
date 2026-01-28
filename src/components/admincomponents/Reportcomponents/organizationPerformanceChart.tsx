@@ -103,4 +103,3 @@ const OrganizationPerformanceChart: React.FC = () => {
 };
 
 export default OrganizationPerformanceChart;
-

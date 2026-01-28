@@ -8,7 +8,7 @@ import { verifyOtpThunk, resendOtpThunk } from "../../store/slices/authSlice";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const customStyles = {
-  primaryColor: "#22C55E", // Already set to #22C55E
+  primaryColor: "#22C55E",
 };
 
 const PRIMARY_COLOR = customStyles.primaryColor; // Define a constant for cleaner use
@@ -182,7 +182,10 @@ export default function OtpVerificationPage() {
           reset your password
         </p>
 
-        <p className="mb-2" style={{ fontWeight: "500", fontSize: "15px" }}>
+        <p
+          className="mb-2"
+          style={{ fontWeight: "500", fontSize: "15px", fontFamily: "body" }}
+        >
           Enter Verification Code
         </p>
 
@@ -263,6 +266,7 @@ export default function OtpVerificationPage() {
               color: PRIMARY_COLOR,
               textDecoration: "none",
               fontSize: "14px",
+              fontFamily: "body",
             }}
           >
             ← Back to Sign In

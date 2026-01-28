@@ -55,7 +55,8 @@ const EmployerAccountProfile = () => {
         id: employer.id || "",
         role: (employer.role as "employer" | "admin") || "employer",
         dateJoined: employer.dateJoined || new Date().toISOString(),
-        organizationName: employer.organizationName || employer.username || "Your Company",
+        organizationName:
+          employer.organizationName || employer.username || "Your Company",
         firstName: employer.firstName || "",
         lastName: employer.lastName || "",
         username: employer.username || "Admin User",
@@ -100,7 +101,10 @@ const EmployerAccountProfile = () => {
         setAccountData(parsedData);
         return;
       } catch (error) {
-        console.warn("Failed to parse localStorage employerAccountData:", error);
+        console.warn(
+          "Failed to parse localStorage employerAccountData:",
+          error,
+        );
       }
     }
 

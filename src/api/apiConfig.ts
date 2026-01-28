@@ -15,7 +15,7 @@ import {
 import { Employee } from "../types/TData";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+  import.meta.env.VITE_API_BASE_URL || "http://64.225.122.101/api";
 console.log("API Base URL:", API_BASE_URL);
 
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
@@ -275,6 +275,11 @@ export const adminAPI = {
   //   return response;
   // },
 
+  getFeatureUsage: async () => {
+    const response = await api.get("/v1/feature-usage");
+    return response;
+  },
+
   createFeatureUsage: async () => {
     const response = await api.post("/v1/admin/feature-usage");
     return response;
@@ -428,6 +433,11 @@ export const employerAPI = {
     return response;
   },
 
+  getbreakdownusage: async () => {
+    const response = await api.get("/v1/feature-usage/");
+    return response;
+  },
+
   // Dashboard Settings
   getDashboardSettings: async () => {
     const response = await api.get("/v1/settings/");
@@ -440,7 +450,7 @@ export const employerAPI = {
   },
 
   updateEmployee: async (id: number | string, data: Partial<Employee>) => {
-    const response = await api.patch(`/v1/dashboard/employees/${id}/`, data);
+    const response = await api.patch(`/v1/dashboard/employees/${id}`, data);
     return response.data;
   },
 

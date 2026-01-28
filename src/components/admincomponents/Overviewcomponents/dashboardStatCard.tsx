@@ -5,14 +5,14 @@ import { StatCardData } from "./admindashboard";
 import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
 
 interface DashboardStatCardProps {
-    data: StatCardData;
+  data: StatCardData;
 }
 
 const colorMap = {
-    success: "emerald",
-    primary: "blue",
-    warning: "amber",
-    danger: "rose",
+  success: "emerald",
+  primary: "blue",
+  warning: "amber",
+  danger: "rose",
 } as const;
 
 const DashboardStatCard: React.FC<DashboardStatCardProps> = ({ data }) => {

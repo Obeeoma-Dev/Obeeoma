@@ -47,7 +47,7 @@ const Hero = () => {
               className="fw-bold display-5 mb-3"
               style={{ fontFamily: "heading" }}
             >
-              Start Your Journey to Better Mental Health
+              Your Workplace Mental Health Companion
             </h1>
             <p
               data-aos="fade-left"
@@ -59,7 +59,7 @@ const Hero = () => {
                 fontFamily: "heading",
               }}
             >
-              Obeeoma professional mental health service.
+              Obeeoma 24/7 professional mental health service.
             </p>
           </Col>
           <Col

@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 import { verifyOtpThunk, resendOtpThunk } from "../../store/slices/authSlice";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 const customStyles = {
-    primaryColor: "#22C55E", // Already set to #22C55E
+    primaryColor: "#22C55E",
 };
 const PRIMARY_COLOR = customStyles.primaryColor; // Define a constant for cleaner use
 const OTP_LENGTH = 6;
@@ -114,7 +114,7 @@ export default function OtpVerificationPage() {
     return (_jsx("div", { className: "container d-flex justify-content-center align-items-center vh-100", children: _jsxs("div", { className: "card p-4 shadow-lg text-center", style: { maxWidth: "700px", width: "100%" }, children: [_jsx("div", { className: "d-flex flex-column align-items-center justify-content-center mb-4", children: _jsx("img", { src: logo, alt: "Obeeoma Logo", style: {
                             height: "50px",
                             width: "auto",
-                        }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: "1.5rem", fontWeight: "bold" }, children: "Check Your Email" }), _jsx("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: "0.9rem" }, children: "We sent a verification code to your email. Enter the code below to reset your password" }), _jsx("p", { className: "mb-2", style: { fontWeight: "500", fontSize: "15px" }, children: "Enter Verification Code" }), _jsx("div", { className: "otpGroup", style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
+                        }, className: "mb-1" }) }), _jsx("h2", { className: "text-center mb-2", style: { fontFamily: "body", fontSize: "1.5rem", fontWeight: "bold" }, children: "Check Your Email" }), _jsx("p", { className: "text-muted mb-4", style: { fontFamily: "body", fontSize: "0.9rem" }, children: "We sent a verification code to your email. Enter the code below to reset your password" }), _jsx("p", { className: "mb-2", style: { fontWeight: "500", fontSize: "15px", fontFamily: "body" }, children: "Enter Verification Code" }), _jsx("div", { className: "otpGroup", style: otpGroupStyle, children: _jsx(OtpInput, { value: otp, valueLength: OTP_LENGTH, onChange: setOtp }) }), (localError || authError) && (_jsx("div", { className: "text-danger mt-1 mb-3 small fw-bold", children: localError || authError })), _jsx(Button, { type: "button", className: "w-100 mb-3 py-2 fw-semibold", 
                     // Disable if OTP length is wrong or if any operation is loading
                     disabled: otp.length !== OTP_LENGTH || isAnyLoading, onClick: () => handleVerify(otp), style: {
                         // Custom color applied here
@@ -136,5 +136,6 @@ export default function OtpVerificationPage() {
                             color: PRIMARY_COLOR,
                             textDecoration: "none",
                             fontSize: "14px",
+                            fontFamily: "body",
                         }, children: "\u2190 Back to Sign In" }) })] }) }));
 }

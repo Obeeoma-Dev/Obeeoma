@@ -154,10 +154,10 @@ export function Blog() {
     return isNaN(date.getTime())
       ? "—"
       : date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
   };
 
   // Image URL resolver
@@ -316,10 +316,7 @@ export function Blog() {
 
           {/* Empty state */}
           {filteredBlogs.length === 0 && (
-            <div
-              className="blog-no-results"
-              style={{ fontFamily: "body" }}
-            >
+            <div className="blog-no-results" style={{ fontFamily: "body" }}>
               <p>No articles found. Try adjusting your search or filter.</p>
             </div>
           )}

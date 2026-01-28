@@ -1,57 +1,119 @@
-import React from "react";
-import {
-  BarChart3,
-  Users,
-  MessageSquare,
-  FileText,
-  TrendingUp,
-} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { BarChart3, Users, MessageSquare, FileText } from "lucide-react";
+import { employerAPI } from "../../../api/apiConfig";
 
-interface FeatureUsageData {
+// --- Types & Interfaces ---
+interface RawFeatureData {
+  id: number;
+  user_email: string;
+  feature: string;
+  use_count: number;
+  first_used_at: string;
+  last_used_at: string;
+}
+
+interface FeatureDisplayData {
   feature: string;
   usage: number;
-  maxUsage: number;
+  displayCount: number;
   icon: React.ReactNode;
   color: string;
 }
 
+// --- Static Configuration ---
+// Defined outside the component to prevent re-creation on every render
+// and to resolve the react-hooks/exhaustive-deps warning.
+const FEATURE_CONFIG: Record<
+  string,
+  { label: string; icon: React.ReactNode; color: string }
+> = {
+  sana_ai: {
+    label: "Sana AI",
+    icon: <MessageSquare size={20} />,
+    color: "#22C55E",
+  },
+  journalling: {
+    label: "Journaling",
+    icon: <BarChart3 size={20} />,
+    color: "#22C55E",
+  },
+  educational_resources: {
+    label: "Educational Resources",
+    icon: <FileText size={20} />,
+    color: "#22C55E",
+  },
+  self_assessment: {
+    label: "Self Assessment",
+    icon: <Users size={20} />,
+    color: "#22C55E",
+  },
+};
+
 const FeatureUsageBreakdown: React.FC = () => {
-  // Mock data - in a real app, this would come from props or API
-  const features: FeatureUsageData[] = [
-    {
-      feature: "Sana AI",
-      usage: 85,
-      maxUsage: 100,
-      icon: <MessageSquare size={20} />,
-      color: "#22C55E",
-    },
-    {
-      feature: "Journalling",
-      usage: 67,
-      maxUsage: 100,
-      icon: <BarChart3 size={20} />,
-      color: "#22C55E",
-    },
-    {
-      feature: "Educational Resources",
-      usage: 43,
-      maxUsage: 100,
-      icon: <FileText size={20} />,
-      color: "#22C55E",
-    },
-    {
-      feature: "Self assessment",
-      usage: 92,
-      maxUsage: 100,
-      icon: <Users size={20} />,
-      color: "#22C55E",
-    },
-  ];
+  const [features, setFeatures] = useState<FeatureDisplayData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await employerAPI.getbreakdownusage();
+        const rawData: RawFeatureData[] = response.data;
+
+        // Aggregate use_count by feature
+        const aggregated: Record<string, number> = {};
+        rawData.forEach((item) => {
+          if (aggregated[item.feature]) {
+            aggregated[item.feature] += item.use_count;
+          } else {
+            aggregated[item.feature] = item.use_count;
+          }
+        });
+
+        const mappedData = Object.entries(aggregated).map(
+          ([featureKey, totalUseCount]) => {
+            const config = FEATURE_CONFIG[featureKey] || {
+              label: featureKey,
+              icon: <FileText size={20} />,
+              color: "#22C55E",
+            };
+
+            // Calculating percentage (Assuming 100 is the goal/max for the bar)
+            const maxGoal = 100;
+            const percentage = Math.min((totalUseCount / maxGoal) * 100, 100);
+
+            return {
+              feature: config.label,
+              usage: percentage,
+              displayCount: totalUseCount,
+              icon: config.icon,
+              color: config.color,
+            };
+          },
+        );
+
+        setFeatures(mappedData);
+      } catch (error) {
+        console.error("Error fetching feature usage:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); // dependency array is now safely empty
+
+  if (loading)
+    return <div className="p-4 text-center">Loading Usage Data...</div>;
+
+  const overallUsage = features.length
+    ? Math.round(
+        features.reduce((acc, f) => acc + f.usage, 0) / features.length,
+      )
+    : 0;
 
   return (
     <div className="feature-usage-breakdown">
       <div className="d-flex align-items-center mb-4">
-        <TrendingUp size={20} className="text-primary me-2" />
         <h6
           className="card-title fw-semibold mb-0"
           style={{ fontFamily: "heading" }}
@@ -72,23 +134,16 @@ const FeatureUsageBreakdown: React.FC = () => {
                     height: "32px",
                     backgroundColor: `${feature.color}20`,
                     color: feature.color,
-                    fontFamily: "heading",
                   }}
                 >
                   {feature.icon}
                 </div>
-                <span
-                  className="fw-medium small text-dark"
-                  style={{ fontFamily: "body" }}
-                >
+                <span className="fw-medium small text-dark">
                   {feature.feature}
                 </span>
               </div>
-              <span
-                className="small fw-semibold text-muted"
-                style={{ fontFamily: "body" }}
-              >
-                {feature.usage}%
+              <span className="small fw-semibold text-muted">
+                {Math.round(feature.usage)}%
               </span>
             </div>
 
@@ -100,11 +155,11 @@ const FeatureUsageBreakdown: React.FC = () => {
                   width: `${feature.usage}%`,
                   backgroundColor: feature.color,
                   borderRadius: "3px",
-                  fontFamily: "body",
+                  transition: "width 0.5s ease-in-out",
                 }}
                 aria-valuenow={feature.usage}
                 aria-valuemin={0}
-                aria-valuemax={feature.maxUsage}
+                aria-valuemax={100}
               />
             </div>
           </div>
@@ -113,29 +168,21 @@ const FeatureUsageBreakdown: React.FC = () => {
 
       <div className="mt-3 pt-3 border-top">
         <div className="d-flex align-items-center justify-content-between">
-          {/* <span className="small text-muted" style={{fontFamily: 'heading',color:'#22C55E'}}>Overall Usage</span> */}
           <h6
             className="fw-bold mb-3 text-center"
             style={{ color: "#000000", fontSize: "0.9rem" }}
           >
             Overall Usage
           </h6>
-
-          <span className="small fw-semibold text-dark">
-            {Math.round(
-              features.reduce((acc, f) => acc + f.usage, 0) / features.length,
-            )}
-            %
-          </span>
+          <span className="small fw-semibold text-dark">{overallUsage}%</span>
         </div>
         <div className="progress mt-2" style={{ height: "8px" }}>
           <div
-            className="progress-bar "
+            className="progress-bar"
             role="progressbar"
             style={{
-              width: `${Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length)}%`,
+              width: `${overallUsage}%`,
               borderRadius: "4px",
-              fontFamily: "heading",
               backgroundColor: "#22C55E",
             }}
           />

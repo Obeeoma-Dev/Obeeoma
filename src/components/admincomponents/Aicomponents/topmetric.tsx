@@ -6,9 +6,9 @@ import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
 
 // Props interface for TopMetrics
 interface TopMetricsProps {
-  totalRecommendations: number
-  engagementRate: number
-  averageTime: string
+  totalRecommendations: number;
+  engagementRate: number;
+  averageTime: string;
 }
 
 // TopMetrics component
@@ -59,8 +59,8 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};
 
 // Export component
-export default TopMetrics
+export default TopMetrics;

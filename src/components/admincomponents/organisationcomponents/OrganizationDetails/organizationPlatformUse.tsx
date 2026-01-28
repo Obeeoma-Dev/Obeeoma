@@ -3,27 +3,27 @@ import { Card } from 'react-bootstrap'
 
 
 import {
-    AreaChart,
-    Area,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-} from 'recharts'
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 
 import './organizationUse.css'
 
 // Static data representing weekly platform usage
 const data = [
-    { week: 'Week 1', usage: 180 },
-    { week: 'Week 2', usage: 220 },
-    { week: 'Week 3', usage: 250 },
-    { week: 'Week 4', usage: 280 },
-    { week: 'Week 5', usage: 310 },
-    { week: 'Week 6', usage: 290 },
-]
+  { week: "Week 1", usage: 180 },
+  { week: "Week 2", usage: 220 },
+  { week: "Week 3", usage: 250 },
+  { week: "Week 4", usage: 280 },
+  { week: "Week 5", usage: 310 },
+  { week: "Week 6", usage: 290 },
+];
 
 // Functional component definition
 export function PlatformUsageChart() {
@@ -71,49 +71,49 @@ export function PlatformUsageChart() {
                                 </linearGradient>
                             </defs>
 
-                            {/* Grid lines (horizontal only) */}
-                            <CartesianGrid
-                                strokeDasharray="3 3"
-                                vertical={false}
-                                stroke="#e9ecef"
-                            />
+              {/* Grid lines (horizontal only) */}
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="#e9ecef"
+              />
 
-                            {/* X-axis configuration */}
-                            <XAxis
-                                dataKey="week"
-                                axisLine={false}
-                                tickLine={false}
-                                tick={{ fill: '#6c757d', fontSize: 12 }}
-                            />
+              {/* X-axis configuration */}
+              <XAxis
+                dataKey="week"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#6c757d", fontSize: 12 }}
+              />
 
-                            {/* Y-axis configuration */}
-                            <YAxis
-                                axisLine={false}
-                                tickLine={false}
-                                tick={{ fill: '#6c757d', fontSize: 12 }}
-                            />
+              {/* Y-axis configuration */}
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: "#6c757d", fontSize: 12 }}
+              />
 
-                            {/* Tooltip styling */}
-                            <Tooltip
-                                contentStyle={{
-                                    borderRadius: '0.5rem',
-                                    border: 'none',
-                                    boxShadow: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
-                                }}
-                            />
+              {/* Tooltip styling */}
+              <Tooltip
+                contentStyle={{
+                  borderRadius: "0.5rem",
+                  border: "none",
+                  boxShadow: "0 0.5rem 1rem rgba(0, 0, 0, 0.15)",
+                }}
+              />
 
-                            {/* Area (usage line + filled area) */}
-                            <Area
-                                type="monotone"
-                                dataKey="usage"
-                                stroke="#20c997"
-                                strokeWidth={3}
-                                fill="url(#usageGradient)"
-                            />
-                        </AreaChart>
-                    </ResponsiveContainer>
-                </div>
-            </Card.Body>
-        </Card>
-    )
+              {/* Area (usage line + filled area) */}
+              <Area
+                type="monotone"
+                dataKey="usage"
+                stroke="#20c997"
+                strokeWidth={3}
+                fill="url(#usageGradient)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </Card.Body>
+    </Card>
+  );
 }

@@ -3,7 +3,7 @@ export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 import { store } from "../store/store";
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://64.225.122.101/api";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
 const api = axios.create({
@@ -217,6 +217,10 @@ export const adminAPI = {
     //   const response = await api.get("/v1/dashboard/feature-usage/");
     //   return response;
     // },
+    getFeatureUsage: async () => {
+        const response = await api.get("/v1/feature-usage");
+        return response;
+    },
     createFeatureUsage: async () => {
         const response = await api.post("/v1/admin/feature-usage");
         return response;
@@ -342,6 +346,10 @@ export const employerAPI = {
         const response = await api.get("/v1/users/");
         return response;
     },
+    getbreakdownusage: async () => {
+        const response = await api.get("/v1/feature-usage/");
+        return response;
+    },
     // Dashboard Settings
     getDashboardSettings: async () => {
         const response = await api.get("/v1/settings/");
@@ -352,7 +360,7 @@ export const employerAPI = {
         return response;
     },
     updateEmployee: async (id, data) => {
-        const response = await api.patch(`/v1/dashboard/employees/${id}/`, data);
+        const response = await api.patch(`/v1/dashboard/employees/${id}`, data);
         return response.data;
     },
     updateEmployeeStatus: async (url, status) => {

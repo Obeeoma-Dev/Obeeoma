@@ -29,109 +29,122 @@ const activities: ActivityItem[] = [
 
 
 export function RecentActivity() {
-    return (
+  return (
+    <Row className="align-items-stretch">
+      <Col md={6}>
+        {/* Navigation / actions card */}
+        <Card className="h-100">
+          <ListGroup variant="flush">
+            {/* Organization settings */}
+            <ListGroup.Item>
+              <Button
+                variant="link"
+                className="action-link"
+                style={{
+                  fontFamily: "body",
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                Organization Settings
+              </Button>
+            </ListGroup.Item>
 
+            {/* User management */}
+            <ListGroup.Item>
+              <Button
+                variant="link"
+                className="action-link"
+                style={{
+                  fontFamily: "body",
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                User Management
+              </Button>
+            </ListGroup.Item>
 
-        <Row className="align-items-stretch">
-            <Col md={6}>
-                {/* Navigation / actions card */}
-                <Card className="h-100">
-                    <ListGroup variant="flush">
+            {/* Program settings */}
+            <ListGroup.Item>
+              <Button
+                variant="link"
+                className="action-link"
+                style={{
+                  fontFamily: "body",
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                Program Settings
+              </Button>
+            </ListGroup.Item>
 
-                        {/* Organization settings */}
-                        <ListGroup.Item>
-                            <Button variant="link" className="action-link" style={{
-                                fontFamily: 'body', color: 'black', textDecoration: 'none'
-                            }}>
-                                Organization Settings
-                            </Button>
-                        </ListGroup.Item>
+            {/* Billing history */}
+            <ListGroup.Item>
+              <Button
+                variant="link"
+                className="action-link"
+                style={{
+                  fontFamily: "body",
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                Billing History
+              </Button>
+            </ListGroup.Item>
 
-                        {/* User management */}
-                        <ListGroup.Item>
-                            <Button variant="link" className="action-link" style={{
-                                fontFamily: 'body', color: 'black', textDecoration: 'none'
-                            }}>
-                                User Management
-                            </Button>
-                        </ListGroup.Item>
+            {/* Deactivate action */}
+            <ListGroup.Item>
+              <Button
+                variant="link"
+                className="action-link text-danger"
+                style={{
+                  fontFamily: "body",
+                  color: "#dc3545",
+                  textDecoration: "none",
+                }}
+              >
+                Deactivate Organization
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Card>
+      </Col>
 
-                        {/* Program settings */}
-                        <ListGroup.Item>
-                            <Button variant="link" className="action-link" style={{
-                                fontFamily: 'body', color: 'black', textDecoration: 'none'
-                            }}>
-                                Program Settings
-                            </Button>
-                        </ListGroup.Item>
+      <Col md={6}>
+        <Card className="h-100">
+          {/* Card body wrapper */}
+          <Card.Body>
+            {/* Card title */}
+            <Card.Title className="recent-activity-title">
+              Recent Activity
+            </Card.Title>
 
-                        {/* Billing history */}
-                        <ListGroup.Item>
-                            <Button variant="link" className="action-link" style={{
-                                fontFamily: 'body', color: 'black', textDecoration: 'none'
-                            }}>
-                                Billing History
-                            </Button>
-                        </ListGroup.Item>
+            {/* Vertical stack for activity items */}
+            <Stack gap={3}>
+              {activities.map((activity, index) => (
+                // Single activity row
+                <div key={index} className="activity-item">
+                  {/* Icon wrapper */}
+                  <div className={`activity-icon ${activity.iconBgClass}`}>
+                    {activity.icon}
+                  </div>
 
-                        {/* Deactivate action */}
-                        <ListGroup.Item>
-                            <Button variant="link" className="action-link text-danger" style={{
-                                fontFamily: 'body', color: '#dc3545', textDecoration: 'none'
-                            }}>
-                                Deactivate Organization
-                            </Button>
-                        </ListGroup.Item>
-
-                    </ListGroup>
-                </Card>
-            </Col>
-
-
-
-
-            <Col md={6}>
-
-                <Card className="h-100">
-                    {/* Card body wrapper */}
-                    <Card.Body>
-
-                        {/* Card title */}
-                        <Card.Title className="recent-activity-title">
-                            Recent Activity
-                        </Card.Title>
-
-                        {/* Vertical stack for activity items */}
-                        <Stack gap={3}>
-                            {activities.map((activity, index) => (
-
-                                // Single activity row
-                                <div
-                                    key={index}
-                                    className="activity-item"
-                                >
-                                    {/* Icon wrapper */}
-                                    <div className={`activity-icon ${activity.iconBgClass}`}>
-                                        {activity.icon}
-                                    </div>
-
-                                    {/* Text content */}
-                                    <div className="activity-content">
-                                        <div className="activity-title">
-                                            {activity.title}
-                                        </div>
-                                        <div className="activity-timestamp">
-                                            {activity.timestamp}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </Stack>
-
-                    </Card.Body>
-                </Card>
-            </Col>
-        </Row>
-
-    )
+                  {/* Text content */}
+                  <div className="activity-content">
+                    <div className="activity-title">{activity.title}</div>
+                    <div className="activity-timestamp">
+                      {activity.timestamp}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Stack>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
+  );
 }

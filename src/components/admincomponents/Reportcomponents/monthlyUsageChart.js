@@ -15,6 +15,6 @@ const MonthlyUsageChart = () => {
             },
         ],
     };
-    return (_jsxs(Card, { className: "mb-4", style: { fontFamily: 'heading' }, children: [_jsx(Card.Header, { children: "Monthly Platform Usage" }), _jsx(Card.Body, { children: _jsx(Bar, { data: data }) })] }));
+    return (_jsxs(Card, { className: "mb-4", style: { fontFamily: "heading" }, children: [_jsx(Card.Header, { children: "Monthly Platform Usage" }), _jsx(Card.Body, { children: _jsx(Bar, { data: data }) })] }));
 };
 export default MonthlyUsageChart;

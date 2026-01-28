@@ -29,7 +29,12 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 export const resolveImageSrc = (imageUrl: string | File): string => {
   // Handle File objects (for newly uploaded images)
-  if (imageUrl && typeof imageUrl === "object" && "name" in imageUrl && "type" in imageUrl) {
+  if (
+    imageUrl &&
+    typeof imageUrl === "object" &&
+    "name" in imageUrl &&
+    "type" in imageUrl
+  ) {
     return URL.createObjectURL(imageUrl);
   }
 
@@ -47,16 +52,17 @@ export const resolveImageSrc = (imageUrl: string | File): string => {
   return "";
 };
 
-
-// Date formator. 
+// Date formator.
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
   return isNaN(date.getTime())
     ? "—"
-    : date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+    : date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
 };
-
-
 
 // Component props
 type BlogTableProps = {
@@ -152,10 +158,12 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                 </td>
 
                 {/* CATEGORY */}
-                <td className="text-muted" style={{ fontFamily: 'body' }}>{blog.category}</td>
+                <td className="text-muted" style={{ fontFamily: "body" }}>
+                  {blog.category}
+                </td>
 
                 {/* DATE */}
-                <td className="text-muted" style={{ fontFamily: 'body' }}>
+                <td className="text-muted" style={{ fontFamily: "body" }}>
                   {blog.date ? formatDate(blog.date) : "—"}
                 </td>
 

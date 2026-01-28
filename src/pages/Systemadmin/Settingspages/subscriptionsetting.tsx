@@ -41,10 +41,11 @@ const SubscriptionSettingsPage: React.FC = () => {
         backgroundColor: "#f8f9fa",
       }}
     >
-
       {/* Page title */}
       <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
-        <h2 style={{ margin: 0, fontFamily: 'heading' }}>Subscription Settings</h2>
+        <h2 style={{ margin: 0, fontFamily: "heading" }}>
+          Subscription Settings
+        </h2>
       </div>
 
       {/* Sidebar stays fixed on the left */}
@@ -65,7 +66,6 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-
           {/* Subscription cards grid */}
           <SubscriptionSettingsComp plans={subscriptionPlans} />
         </div>

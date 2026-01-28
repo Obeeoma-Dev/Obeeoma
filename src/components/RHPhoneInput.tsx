@@ -26,7 +26,7 @@ const RHFPhoneInput: React.FC<CustomPhoneInputProps> = ({
         <PhoneInput
           {...field}
           {...props}
-          country="us"
+          country="ng"
           enableSearch={true}
           inputStyle={{
             ...inputStyle,

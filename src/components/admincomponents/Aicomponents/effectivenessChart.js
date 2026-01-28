@@ -37,6 +37,6 @@ const options = {
     },
 };
 const EffectivenessChart = () => {
-    return (_jsx(Card, { className: "mb-4 shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx("h5", { className: "fw-semibold", style: { fontFamily: 'heading' }, children: "Effectiveness by Resource Type (%)" }), _jsx("p", { className: "text-muted small mb-4", style: { fontFamily: 'body' }, children: "Comparison of engagement across different media formats" }), _jsx(Bar, { data: data, options: options, style: { fontFamily: 'body' } })] }) }));
+    return (_jsx(Card, { className: "mb-4 shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx("h5", { className: "fw-semibold", style: { fontFamily: "heading" }, children: "Effectiveness by Resource Type (%)" }), _jsx("p", { className: "text-muted small mb-4", style: { fontFamily: "body" }, children: "Comparison of engagement across different media formats" }), _jsx(Bar, { data: data, options: options, style: { fontFamily: "body" } })] }) }));
 };
 export default EffectivenessChart;

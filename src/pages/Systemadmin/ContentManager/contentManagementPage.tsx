@@ -13,22 +13,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // Export the page component so it can be routed/used elsewhere
 export function ContentManagement() {
-    const [refreshKey, setRefreshKey] = useState(0);
+  const [refreshKey, setRefreshKey] = useState(0);
 
-    const handleUploadSuccess = () => {
-        setRefreshKey(prev => prev + 1);
-        toast.success("Content saved successfully!", {
-            position: "top-right",   // you can change to "top-center", "bottom-left", etc.
-            autoClose: 3000,         // auto dismiss after 3s
-            hideProgressBar: false,  // show progress bar
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "colored",        // "light", "dark", or "colored"
-        });
-    };
-
-
+  const handleUploadSuccess = () => {
+    setRefreshKey((prev) => prev + 1);
+    toast.success("Content saved successfully!", {
+      position: "top-right", // you can change to "top-center", "bottom-left", etc.
+      autoClose: 3000, // auto dismiss after 3s
+      hideProgressBar: false, // show progress bar
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored", // "light", "dark", or "colored"
+    });
+  };
 
     // Return the structured page using the shared Layout wrapper
     return (

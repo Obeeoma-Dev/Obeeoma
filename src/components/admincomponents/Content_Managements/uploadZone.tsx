@@ -13,84 +13,85 @@ import Stack from 'react-bootstrap/Stack';
 import { contentMediaAPI } from '../../../services/contentService';
 
 const MEDIA_TYPES = [
-    { id: 'video', label: 'Video', icon: FileVideo },
-    { id: 'audio', label: 'Audio', icon: FileAudio },
-    { id: 'image', label: 'Image', icon: ImageIcon },
-    { id: 'other', label: 'Other', icon: FileIcon },
+  { id: "video", label: "Video", icon: FileVideo },
+  { id: "audio", label: "Audio", icon: FileAudio },
+  { id: "image", label: "Image", icon: ImageIcon },
+  { id: "other", label: "Other", icon: FileIcon },
 ] as const;
 
 // Component export.
 interface UploadZoneProps {
-    onUploadSuccess?: () => void;
+  onUploadSuccess?: () => void;
 }
 
 export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
-    // Track the selected media type (default "other" like your original)
-    const [selectedType, setSelectedType] = useState<typeof MEDIA_TYPES[number]['id']>('other');
-    // Track whether the drag area is active (dragenter/dragover) to adjust visual feedback
-    const [dragActive, setDragActive] = useState(false);
-    // Track the selected file (from drop or file input)
-    const [file, setFile] = useState<File | null>(null);
-    // Track title and description
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+  // Track the selected media type (default "other" like your original)
+  const [selectedType, setSelectedType] =
+    useState<(typeof MEDIA_TYPES)[number]["id"]>("other");
+  // Track whether the drag area is active (dragenter/dragover) to adjust visual feedback
+  const [dragActive, setDragActive] = useState(false);
+  // Track the selected file (from drop or file input)
+  const [file, setFile] = useState<File | null>(null);
+  // Track title and description
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-    // Handle drag events to toggle the "active" state and prevent default browser behavior
-    const handleDrag = useCallback((e: React.DragEvent) => {
-        e.preventDefault(); // Prevent opening the file in the browser
-        e.stopPropagation(); // Stop event bubbling to parent nodes
-        if (e.type === 'dragenter' || e.type === 'dragover') {
-            setDragActive(true); // Highlight drop zone while dragging over
-        } else if (e.type === 'dragleave') {
-            setDragActive(false); // Remove highlight when leaving
-        }
-    }, []);
+  // Handle drag events to toggle the "active" state and prevent default browser behavior
+  const handleDrag = useCallback((e: React.DragEvent) => {
+    e.preventDefault(); // Prevent opening the file in the browser
+    e.stopPropagation(); // Stop event bubbling to parent nodes
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true); // Highlight drop zone while dragging over
+    } else if (e.type === "dragleave") {
+      setDragActive(false); // Remove highlight when leaving
+    }
+  }, []);
 
-    // Handle drop event: store the first file dropped and reset active state
-    const handleDrop = useCallback((e: React.DragEvent) => {
-        e.preventDefault(); // Prevent default file-open behavior
-        e.stopPropagation(); // Stop propagation
-        setDragActive(false); // Remove highlight on drop
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            setFile(e.dataTransfer.files[0]); // Save the dropped file to state
-        }
-    }, []);
+  // Handle drop event: store the first file dropped and reset active state
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault(); // Prevent default file-open behavior
+    e.stopPropagation(); // Stop propagation
+    setDragActive(false); // Remove highlight on drop
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setFile(e.dataTransfer.files[0]); // Save the dropped file to state
+    }
+  }, []);
 
-    // Handle file input change: store the first selected file from the input
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault(); // Prevent form submission (defensive)
-        if (e.target.files && e.target.files[0]) {
-            setFile(e.target.files[0]); // Save the chosen file to state
-        }
-    };
+  // Handle file input change: store the first selected file from the input
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault(); // Prevent form submission (defensive)
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]); // Save the chosen file to state
+    }
+  };
 
-    const handleUpload = async () => {
-        if (!file) {
-            alert("Please select a file first.");
-            return;
-        }
+  const handleUpload = async () => {
+    if (!file) {
+      alert("Please select a file first.");
+      return;
+    }
 
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("media_type", selectedType); // 'video' | 'audio' | 'image' | 'other'
-        formData.append("file", file); // actual file object
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("media_type", selectedType); // 'video' | 'audio' | 'image' | 'other'
+    formData.append("file", file); // actual file object
 
-        try {
-            const response = await contentMediaAPI.createMedia(formData);
-            console.log("Upload successful:", response);
+    try {
+      const response = await contentMediaAPI.createMedia(formData);
+      console.log("Upload successful:", response);
 
-            // Call success callback
-            onUploadSuccess?.();
+      // Call success callback
+      onUploadSuccess?.();
 
-            // Optionally reset form
-            setFile(null);
-            setTitle('');
-            setDescription('');
-        } catch (err) {
-            console.error("Upload failed:", err);
-        }
-    };
+      // Optionally reset form
+      setFile(null);
+      setTitle("");
+      setDescription("");
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+  };
 
 
     return (
@@ -101,32 +102,53 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                 Upload New Content
             </Card.Header>
 
-            {/* Card body: everything else (tabs, drop zone, form, button) */}
-            <Card.Body>
-                {/* Media type selection as pill-style nav (scrollable horizontally if needed) */}
-                <div className="content-type-pills" style={{ overflowX: 'auto', paddingBottom: 8, marginBottom: 16 }}>
-                    <Nav variant="pills" activeKey={selectedType} onSelect={(k) => k && setSelectedType(k as typeof selectedType)}>
-                        {/* Map media types into Nav.Item/Nav.Link entries */}
-                        {MEDIA_TYPES.map((type) => {
-                            const Icon = type.icon; // Select the icon component per type
-                            const isSelected = selectedType === type.id; // Determine current selection
-                            return (
-                                <Nav.Item key={type.id}>
-                                    <Nav.Link
-                                        eventKey={type.id} // Link key used by Nav to track active
-                                        // Add some horizontal spacing between pills
-                                        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 8px', marginRight: 8, fontFamily: 'body' }}
-                                    >
-                                        {/* Icon left of label; color changes subtly when active */}
-                                        <Icon size={18} color={isSelected ? '#fff' : '#6c757d'} />
-                                        {/* Label text */}
-                                        <span style={{ fontWeight: 500, color: isSelected ? '#fff' : '#6c757d' }}>{type.label}</span>
-                                    </Nav.Link>
-                                </Nav.Item>
-                            );
-                        })}
-                    </Nav>
-                </div>
+      {/* Card body: everything else (tabs, drop zone, form, button) */}
+      <Card.Body>
+        {/* Media type selection as pill-style nav (scrollable horizontally if needed) */}
+        <div
+          className="content-type-pills"
+          style={{ overflowX: "auto", paddingBottom: 8, marginBottom: 16 }}
+        >
+          <Nav
+            variant="pills"
+            activeKey={selectedType}
+            onSelect={(k) => k && setSelectedType(k as typeof selectedType)}
+          >
+            {/* Map media types into Nav.Item/Nav.Link entries */}
+            {MEDIA_TYPES.map((type) => {
+              const Icon = type.icon; // Select the icon component per type
+              const isSelected = selectedType === type.id; // Determine current selection
+              return (
+                <Nav.Item key={type.id}>
+                  <Nav.Link
+                    eventKey={type.id} // Link key used by Nav to track active
+                    // Add some horizontal spacing between pills
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "4px 8px",
+                      marginRight: 8,
+                      fontFamily: "body",
+                    }}
+                  >
+                    {/* Icon left of label; color changes subtly when active */}
+                    <Icon size={18} color={isSelected ? "#fff" : "#6c757d"} />
+                    {/* Label text */}
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        color: isSelected ? "#fff" : "#6c757d",
+                      }}
+                    >
+                      {type.label}
+                    </span>
+                  </Nav.Link>
+                </Nav.Item>
+              );
+            })}
+          </Nav>
+        </div>
 
                 {/* Drag-and-drop upload area; styled with dashed border and hover/active feedback */}
                 <div
@@ -219,52 +241,86 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                                 <UploadCloud size={24} color="#00A859" />
                             </div>
 
-                            {/* Instruction line: click or drag-and-drop */}
-                            <div style={{ marginTop: 8, color: '#6c757d' }}>
-                                <span style={{ fontWeight: 600, color: '#00A859', fontFamily: 'body' }}>Click to upload</span> or drag and drop
-                            </div>
+              {/* Instruction line: click or drag-and-drop */}
+              <div style={{ marginTop: 8, color: "#6c757d" }}>
+                <span
+                  style={{
+                    fontWeight: 600,
+                    color: "#00A859",
+                    fontFamily: "body",
+                  }}
+                >
+                  Click to upload
+                </span>{" "}
+                or drag and drop
+              </div>
 
-                            {/* Supported file types and size note */}
-                            <p style={{ marginTop: 4, color: '#6c757d', fontFamily: 'body' }}>MP4, MP3, PNG, JPG up to 50MB</p>
-                        </div>
-                    )}
-                </div>
+              {/* Supported file types and size note */}
+              <p style={{ marginTop: 4, color: "#6c757d", fontFamily: "body" }}>
+                MP4, MP3, PNG, JPG up to 50MB
+              </p>
+            </div>
+          )}
+        </div>
 
-                {/* Metadata form for Title and Description, laid out responsively using Bootstrap grid */}
-                <Row style={{ marginTop: 24 }} xs={1} md={2}>
-                    {/* Title input */}
-                    <Col style={{ fontFamily: 'body' }}>
-                        <Form.Label style={{ fontSize: 13, fontWeight: 600, color: '#495057', marginBottom: 4, fontFamily: 'body' }}>Title</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter content title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                    </Col>
+        {/* Metadata form for Title and Description, laid out responsively using Bootstrap grid */}
+        <Row style={{ marginTop: 24 }} xs={1} md={2}>
+          {/* Title input */}
+          <Col style={{ fontFamily: "body" }}>
+            <Form.Label
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#495057",
+                marginBottom: 4,
+                fontFamily: "body",
+              }}
+            >
+              Title
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter content title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </Col>
 
-                    {/* Description input */}
-                    <Col style={{ fontFamily: 'body' }}>
-                        <Form.Label style={{ fontSize: 13, fontWeight: 600, color: '#495057', marginBottom: 4 }}>Description</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Brief description"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                    </Col>
-                </Row>
+          {/* Description input */}
+          <Col style={{ fontFamily: "body" }}>
+            <Form.Label
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#495057",
+                marginBottom: 4,
+              }}
+            >
+              Description
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Brief description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Col>
+        </Row>
 
-                {/* Right-aligned upload button */}
-                <div style={{ marginTop: 24, display: 'flex', justifyContent: 'flex-end', fontFamily: 'body' }}>
-                    <Button
-                        variant="success"
-                        onClick={handleUpload}
-                    >
-                        Upload Content
-                    </Button>
-                </div>
-            </Card.Body>
-        </Card>
-    );
+        {/* Right-aligned upload button */}
+        <div
+          style={{
+            marginTop: 24,
+            display: "flex",
+            justifyContent: "flex-end",
+            fontFamily: "body",
+          }}
+        >
+          <Button variant="success" onClick={handleUpload}>
+            Upload Content
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
+  );
 }

@@ -207,6 +207,7 @@ const LoginPage = () => {
                     borderColor: customStyles.primaryColor,
                     color: "white",
                     boxShadow: "none",
+                    fontFamily: "body",
                   }}
                 >
                   {isLoading ? (

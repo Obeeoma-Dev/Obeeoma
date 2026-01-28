@@ -1,98 +1,201 @@
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { Button, Modal, Form, Alert } from 'react-bootstrap';
-// import { useFlutterwave, closePaymentModal, FlutterwaveResponse } from 'flutterwave-react-v3';
-// import { PaymentUpdatePayload } from '../../../types/employer';
-// import { updatePaymentMethod } from '../../../store/slices/billingSlice';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Modal, Alert, Form } from "react-bootstrap";
+import PaystackPop from "@paystack/inline-js";
+import { updatePaymentMethod } from "../../../store/slices/billingSlice";
+import { RootState } from "../../../store/store";
 
-// import { RootState } from '../../../store/store';
+const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY as string;
 
-// const FLUTTERWAVE_PUBLIC_KEY = import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY as string;
+interface PaymentUpdateModalProps {
+  show: boolean;
+  onHide: () => void;
+  userEmail: string;
+}
 
-// interface PaymentUpdateModalProps {
-//     show: boolean;
-//     onHide: () => void;
-//     userEmail: string;
-// }
+const PaymentUpdateModal: React.FC<PaymentUpdateModalProps> = ({
+  show,
+  onHide,
+  userEmail,
+}) => {
+  const dispatch = useDispatch();
+  const billingStatus = useSelector((state: RootState) => state.billing.status);
+  const billingError = useSelector((state: RootState) => state.billing.error);
+  const employer = useSelector(
+    (state: RootState) => state.employer.currentEmployer,
+  );
 
-// const PaymentUpdateModal: React.FC<PaymentUpdateModalProps> = ({ show, onHide, userEmail }) => {
-//     const dispatch = useDispatch();
-//     const billingStatus = useSelector((state: RootState) => state.billing.status);
-//     const billingError = useSelector((state: RootState) => state.billing.error);
+  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
-//     const config = {
-//         public_key: FLUTTERWAVE_PUBLIC_KEY,
-//         tx_ref: Date.now().toString(),
-//         amount: 100,
-//         currency: 'NGN',
-//         payment_options: 'card',
-//         customer: {
-//             email: userEmail,
-//             name: 'Customer Name',
-//         },
-//         customizations: {
-//             title: 'Update Payment Card',
-//             description: 'Securely generate token for recurring payment.',
-//         },
-//         meta: {
-//             is_tokenization: 'true',
-//         },
-//     };
+  // Reset state when modal opens/closes
+  useEffect(() => {
+    if (show) {
+      setShowEmailInput(!userEmail);
+      setEmail(userEmail || "");
+      setEmailError("");
+    } else {
+      setShowEmailInput(false);
+      setEmail("");
+      setEmailError("");
+    }
+  }, [show, userEmail]);
 
-//     const handleFlutterwaveCall = useFlutterwave(config);
+  const validateEmail = (emailToValidate: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(emailToValidate);
+  };
 
-//     const initiateTokenization = () => {
-//         handleFlutterwaveCall({
-//             callback: (response:FlutterwaveResponse) => {
-//                 if (response.status === 'successful' && response.card?.token) {
-//                     const token_id = response.card.token;
+  const handleEmailSubmit = () => {
+    if (!email.trim()) {
+      setEmailError("Please enter your email address");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    setEmailError("");
+    initiateTokenization(email);
+  };
 
-//                     dispatch(updatePaymentMethod({ token_id, email: userEmail }) as any)
-//                         .unwrap()
-//                         .then(() => {
-//                             onHide();
-//                             alert('Payment method updated successfully!');
-//                         })
-//                         .catch((error: any) => {
-//                              // The catch block now handles the error returned by rejectWithValue
-//                              console.error("Payment method update failed:", error);
-//                         });
+  const initiateTokenization = (emailToUse: string) => {
+    const paystack = new PaystackPop();
 
-//                 } else {
-//                     alert('Card tokenization failed or was canceled.');
-//                 }
-//                 closePaymentModal();
-//             },
-//             onClose: () => {
-//                 console.log('Payment modal closed by user.');
-//             },
-//         });
-//     };
+    paystack.newTransaction({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: emailToUse,
+      amount: 4000,
+      currency: "NGN",
+      reference: `token_${Date.now()}`,
+      channels: ["card"],
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Customer Name",
+            variable_name: "customer_name",
+            value: employer
+              ? `${employer.firstName} ${employer.lastName}`
+              : "Customer Name",
+          },
+          {
+            display_name: "Phone Number",
+            variable_name: "phone_number",
+            value: employer?.phone || "",
+          },
+        ],
+      },
+      onSuccess: (transaction) => {
+        // Extract authorization code for card tokenization
+        const authorizationCode = transaction.reference;
 
-//     return (
-//         <Modal show={show} onHide={onHide} centered>
-//             <Modal.Header closeButton>
-//                 <Modal.Title>Update Payment Method</Modal.Title>
-//             </Modal.Header>
-//             <Modal.Body>
-//                 <p>We use a secure payment portal to generate a token for recurring billing. Your card details will not be stored on our servers.</p>
+        // Dispatch the update payment method action
+        dispatch(
+          updatePaymentMethod({
+            authorization_code: authorizationCode,
+            email: emailToUse,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          }) as any,
+        )
+          .unwrap()
+          .then(() => {
+            onHide();
+            alert("Payment method updated successfully!");
+          })
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .catch((error: any) => {
+            console.error("Payment method update failed:", error);
+          });
+      },
+      onCancel: () => {
+        console.log("Payment modal closed by user.");
+      },
+    });
+  };
 
-//                 {billingError && <Alert variant="danger">{billingError}</Alert>}
-//                 {billingStatus === 'succeeded' && <Alert variant="success">Update successful!</Alert>}
+  const handleButtonClick = () => {
+    if (!userEmail && !showEmailInput) {
+      setShowEmailInput(true);
+      return;
+    }
 
-//                 <Form>
-//                     <Button
-//                         variant="primary"
-//                         onClick={initiateTokenization}
-//                         disabled={billingStatus === 'loading'}
-//                         className="w-100 mt-3"
-//                     >
-//                         {billingStatus === 'loading' ? 'Processing...' : 'Securely Update Card'}
-//                     </Button>
-//                 </Form>
-//             </Modal.Body>
-//         </Modal>
-//     );
-// };
+    if (showEmailInput) {
+      handleEmailSubmit();
+    } else {
+      initiateTokenization(userEmail);
+    }
+  };
 
-// export default PaymentUpdateModal;
+  return (
+    <Modal show={show} onHide={onHide} centered backdrop="static">
+      <Modal.Header closeButton>
+        <Modal.Title className="fw-bold" style={{ fontFamily: "body" }}>
+          Update Payment Method
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="mb-4">
+          <p className="text-muted small" style={{ fontFamily: "body" }}>
+            To securely update your card, Paystack will perform a small
+            validation. This tokenizes your card for future recurring billing
+            without storing your full card details on our servers.
+          </p>
+        </div>
+
+        {billingError && (
+          <Alert variant="danger" className="small">
+            {billingError}
+          </Alert>
+        )}
+
+        {showEmailInput && (
+          <Form.Group className="mb-3">
+            <Form.Label
+              className="small fw-semibold"
+              style={{ fontFamily: "body" }}
+            >
+              Email Address
+            </Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (emailError) setEmailError("");
+              }}
+              isInvalid={!!emailError}
+              style={{ fontFamily: "body" }}
+            />
+            {emailError && (
+              <Form.Control.Feedback type="invalid">
+                {emailError}
+              </Form.Control.Feedback>
+            )}
+          </Form.Group>
+        )}
+
+        <Button
+          variant="primary"
+          onClick={handleButtonClick}
+          disabled={billingStatus === "loading"}
+          className="w-100 py-2 fw-bold"
+          style={{
+            backgroundColor: "#22C55E",
+            border: "none",
+            fontFamily: "body",
+          }}
+        >
+          {billingStatus === "loading"
+            ? "Processing..."
+            : showEmailInput
+              ? "Continue"
+              : "Securely Update Card"}
+        </Button>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
+export default PaymentUpdateModal;

@@ -819,17 +819,28 @@ export const fetchEmployees = createAsyncThunk<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const backendData = (response.data.employees || response.data) as any[];
 
+    // const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
+    //   id: employee.id,
+
+    //   // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A',
+    //   emailAddress: employee.empemail || employee.email || "N/A", // Adjusted to accept 'email' field from the console data
+    //   employeedepartment:
+    //     employee.empdepartment || employee.employeedepartment || "N/A",
+    //   status: employee.empstatus
+    //     ? (employee.empstatus.toLowerCase() as Employee["status"])
+    //     : "N/A",
+    // }));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mappedEmployees: Employee[] = backendData.map((employee: any) => ({
       id: employee.id,
-
-      // name: employee.full_name || `${employee.first_name || ''} ${employee.last_name || ''}`.trim() || 'N/A',
-      emailAddress: employee.empemail || employee.email || "N/A", // Adjusted to accept 'email' field from the console data
-      employeedepartment:
-        employee.empdepartment || employee.employeedepartment || "N/A",
+      // Map backend 'email' to frontend 'emailAddress'
+      emailAddress: employee.email || employee.empemail || "N/A",
+      // Map backend 'employeedepartment' to frontend 'employeedepartment'
+      employeedepartment: employee.employeedepartment || "N/A",
+      phoneNumber: employee.employeephone || "", // Add this
       status: employee.empstatus
         ? (employee.empstatus.toLowerCase() as Employee["status"])
-        : "N/A",
+        : "active",
     }));
 
     return mappedEmployees;
@@ -1044,6 +1055,24 @@ export const fetchMoodTrends = createAsyncThunk<
   }
 });
 
+// export const fetchEmployeeStatus = createAsyncThunk<
+//   EmployeeStatusData,
+//   void,
+//   { rejectValue: string }
+// >("employer/fetchEmployeeStatus", async (_, { rejectWithValue }) => {
+//   try {
+//     const response = await employerAPI.getEmployeeStatus();
+//     const data = response.data;
+//     const activePercentage = data.totalEmployees > 0 ? Math.round((data.activeEmployees / data.totalEmployees) * 100) : 0;
+//     const inactivePercentage = data.totalEmployees > 0 ? Math.round((data.inactiveEmployees / data.totalEmployees) * 100) : 0;
+//     return { ...data, activePercentage, inactivePercentage };
+//   } catch (error: unknown) {
+//     return rejectWithValue(getErrorMessage(error));
+//   }
+// });
+
+// store/slices/EmployerSlice.ts
+
 export const fetchEmployeeStatus = createAsyncThunk<
   EmployeeStatusData,
   void,
@@ -1051,9 +1080,28 @@ export const fetchEmployeeStatus = createAsyncThunk<
 >("employer/fetchEmployeeStatus", async (_, { rejectWithValue }) => {
   try {
     const response = await employerAPI.getEmployeeStatus();
-    return response.data;
+    const data = response.data;
+
+    // Convert strings to numbers safely
+    const active = parseInt(data.activeEmployees) || 0;
+    const inactive = parseInt(data.inactiveEmployees) || 0;
+    // const total = parseInt(data.totalEmployees) || 0;
+    const total = active + inactive;
+
+    const activePercentage = total > 0 ? Math.round((active / total) * 100) : 0;
+    const inactivePercentage =
+      total > 0 ? Math.round((inactive / total) * 100) : 0;
+
+    return {
+      ...data,
+      activeEmployees: active,
+      inactiveEmployees: inactive,
+      totalEmployees: total,
+      activePercentage,
+      inactivePercentage,
+    };
   } catch (error: unknown) {
-    return rejectWithValue(getErrorMessage(error));
+    return rejectWithValue("Failed to fetch status");
   }
 });
 
@@ -1064,9 +1112,25 @@ export const updateEmployee = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
+      // Transform frontend field names to backend field names
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const djangoPayload: Record<string, any> = {};
+      if (updatedData.emailAddress !== undefined) {
+        djangoPayload.empemail = updatedData.emailAddress;
+      }
+      if (updatedData.employeedepartment !== undefined) {
+        djangoPayload.empdepartment = updatedData.employeedepartment;
+      }
+      if (updatedData.status !== undefined) {
+        djangoPayload.empstatus = updatedData.status;
+      }
+      if (updatedData.phoneNumber !== undefined) {
+        djangoPayload.phoneNumber = updatedData.phoneNumber; // Assuming backend uses phoneNumber
+      }
+
       const response = await employerAPI.updateEmployee(
-        `/employees/${updatedData.id}`,
-        updatedData,
+        `/employees/${updatedData.id}/`,
+        djangoPayload,
       );
       return response.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1095,6 +1159,10 @@ const initialState: EmployerState = {
   isActionLoading: false,
   error: null,
   EmployeeStatusData: {
+    id: 0,
+    worker_department: "",
+    hours_engaged: "",
+    recorded_at: "",
     activeEmployees: 0,
     inactiveEmployees: 0,
     totalEmployees: 0,

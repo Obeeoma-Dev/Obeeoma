@@ -30,7 +30,6 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState<"success" | "error">("success");
-
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null,
   );
@@ -38,20 +37,20 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
     "table",
   );
 
-  // State for form fields
   const [formData, setFormData] = useState<Partial<Employee>>({});
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({});
   const THEME_COLOR = "#22C55E";
 
-  // Initialize form data when entering update mode
+  // 1. FIXED INITIALIZATION: Ensure null values from backend become empty strings
   useEffect(() => {
     if (selectedEmployee && viewMode === "update") {
       setFormData({
-        emailAddress: selectedEmployee.emailAddress,
-        employeedepartment: selectedEmployee.employeedepartment,
-        status: selectedEmployee.status,
+        emailAddress: selectedEmployee.emailAddress || "",
+        employeedepartment: selectedEmployee.employeedepartment || "",
+        phoneNumber: selectedEmployee.phoneNumber || "",
+        status: selectedEmployee.status || "active",
       });
     }
   }, [selectedEmployee, viewMode]);
@@ -60,9 +59,12 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
     setSelectedEmployee(null);
     setViewMode("table");
     setFormData({});
+    setValidationErrors({});
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -70,24 +72,29 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
   const handleSave = async () => {
     if (!selectedEmployee) return;
 
+    // DEBUG: Check this log in your browser console!
+    console.log("Payload being sent to Django:", {
+      id: selectedEmployee.id,
+      ...formData,
+    });
+
     try {
-      // Validate using the Yup schema
       await updateEmployeeValidationSchema.validate(formData, {
         abortEarly: false,
       });
-
-      // Clear previous errors if validation passes
       setValidationErrors({});
 
-      //Dispatch the thunk
+      // 2. DISPATCH: Explicitly pass the ID and the form data
       await dispatch(
         updateEmployee({
           id: selectedEmployee.id,
-          ...formData,
+          emailAddress: formData.emailAddress,
+          employeedepartment: formData.employeedepartment,
+          phoneNumber: formData.phoneNumber,
+          status: formData.status,
         }),
       ).unwrap();
 
-      // 3. Success handling
       setModalMessage("Employee updated successfully");
       setModalType("success");
       setShowModal(true);
@@ -95,42 +102,18 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err instanceof yup.ValidationError) {
-        //  Yup errors to the validationErrors state
         const mappedErrors: Record<string, string> = {};
         err.inner.forEach((error) => {
           if (error.path) mappedErrors[error.path] = error.message;
         });
         setValidationErrors(mappedErrors);
       } else {
-        //  Handle API or unexpected errors
         setModalMessage(err || "Failed to update employee");
         setModalType("error");
         setShowModal(true);
       }
     }
   };
-  // const handleSave = async () => {
-  //   if (!selectedEmployee) return;
-
-  //   try {
-  //     // Logic for dispatching the update
-  //    await dispatch(
-  //     updateEmployee({
-  //       id: selectedEmployee.id,
-  //       ...formData,
-  //     })
-  //   ).unwrap();
-
-  //     setModalMessage("Employee updated successfully");
-  //     setModalType("success");
-  //     setShowModal(true);
-  //     handleBackToTable(); // Return to table on success
-  //   } catch (error) {
-  //     setModalMessage("Failed to update employee");
-  //     setModalType("error");
-  //     setShowModal(true);
-  //   }
-  // };
 
   const handleToggleStatus = async (id: number, currentStatus: string) => {
     try {
@@ -139,14 +122,13 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
       ).unwrap();
       setModalMessage("Status updated successfully");
       setModalType("success");
-    } catch (error) {
+    } catch {
       setModalMessage("Failed to update status");
       setModalType("error");
     }
     setShowModal(true);
   };
 
-  // ... (handleDelete and Columns remain the same as your provided code)
   const handleDelete = useCallback(
     async (id: number) => {
       if (window.confirm("Are you sure?")) {
@@ -167,7 +149,13 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
   const columnHelper = createColumnHelper<Employee>();
   const columns = [
     columnHelper.accessor("emailAddress", { header: "Email" }),
-    columnHelper.accessor("employeedepartment", { header: "Department" }),
+    columnHelper.accessor("employeedepartment", {
+      header: "Department",
+      cell: (info) =>
+        info.getValue() || (
+          <span className="text-muted italic">Not Assigned</span>
+        ),
+    }),
     columnHelper.accessor("status", {
       header: "Status",
       cell: (info) => (
@@ -215,7 +203,7 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
                   setViewMode("view");
                 }}
               >
-                View{" "}
+                View
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={() => {
@@ -223,7 +211,7 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
                   setViewMode("update");
                 }}
               >
-                Update{" "}
+                Update
               </Dropdown.Item>
               <Dropdown.Item
                 className="text-secondary"
@@ -248,7 +236,6 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  // --- VIEW SUMMARY ---
   if (viewMode === "view" && selectedEmployee) {
     return (
       <div className="p-4">
@@ -265,7 +252,8 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
             <strong>Email:</strong> {selectedEmployee.emailAddress}
           </p>
           <p>
-            <strong>Department:</strong> {selectedEmployee.employeedepartment}
+            <strong>Department:</strong>{" "}
+            {selectedEmployee.employeedepartment || "N/A"}
           </p>
           <p>
             <strong>Status:</strong> {selectedEmployee.status}
@@ -277,7 +265,7 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
 
   if (viewMode === "update" && selectedEmployee) {
     return (
-      <div className="p-4 btn p-0 mb-3 border-0" style={{ maxWidth: "900px" }}>
+      <div className="p-4" style={{ maxWidth: "900px" }}>
         <button
           className="btn btn-link p-0 mb-4 text-decoration-none d-flex align-items-center gap-2"
           style={{ color: THEME_COLOR }}
@@ -290,13 +278,12 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
           <div className="card-body p-4">
             <h4 className="fw-bold mb-4">Edit Employee</h4>
 
-            {/* Email Input */}
-            <div className="mb-2 w-100 text-start">
+            <div className="mb-3 w-100 text-start">
               <label className="form-label small fw-bold">EMAIL ADDRESS</label>
               <input
                 type="email"
                 name="emailAddress"
-                className={`form-control py-2 ${validationErrors.emailAddress ? "is-invalid" : ""}`}
+                className={`form-control ${validationErrors.emailAddress ? "is-invalid" : ""}`}
                 value={formData.emailAddress || ""}
                 onChange={handleInputChange}
               />
@@ -305,13 +292,12 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
               </div>
             </div>
 
-            {/* Department Input */}
-            <div className="mb-2 w-100 text-start">
+            <div className="mb-3 w-100 text-start">
               <label className="form-label small fw-bold">DEPARTMENT</label>
               <input
                 type="text"
                 name="employeedepartment"
-                className={`form-control py-2 ${validationErrors.employeedepartment ? "is-invalid" : ""}`}
+                className={`form-control ${validationErrors.employeedepartment ? "is-invalid" : ""}`}
                 value={formData.employeedepartment || ""}
                 onChange={handleInputChange}
               />
@@ -320,22 +306,13 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
               </div>
             </div>
 
-            {/* Status Select */}
-            <div className=" mb-2 w-100 text-start">
-              <label className="form-label small  fw-semibold mb-2">
-                STATUS
-              </label>
+            <div className="mb-4 w-100 text-start">
+              <label className="form-label small fw-bold">STATUS</label>
               <select
                 name="status"
-                className={`form-select py-2 ${validationErrors.status ? "is-invalid" : ""}`}
+                className={`form-select ${validationErrors.status ? "is-invalid" : ""}`}
                 value={formData.status || ""}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    status: e.target.value as any,
-                  }))
-                }
+                onChange={handleInputChange}
               >
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -364,38 +341,6 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
       </div>
     );
   }
-
-  // --- UPDATE FORM ---
-  // if (viewMode === "update" && selectedEmployee) {
-  //   return (
-  //     <div className="p-4">
-  //       <button className="btn p-0 mb-3 border-0" style={{ color: THEME_COLOR }} onClick={handleBackToTable}>
-  //         <i className="bi bi-arrow-left"></i> Cancel
-  //       </button>
-  //       <h3>Update Employee</h3>
-  //       <div className="card p-4 shadow-sm border-0">
-  //         <div className="mb-3">
-  //           <label className="form-label">Email</label>
-  //           <input type="text" name="emailAddress" className="form-control" value={formData.emailAddress || ""} onChange={handleInputChange} />
-  //         </div>
-  //         <div className="mb-3">
-  //           <label className="form-label">Department</label>
-  //           <input type="text" name="employeedepartment" className="form-control" value={formData.employeedepartment || ""} onChange={handleInputChange} />
-  //         </div>
-  //         <div className="mb-3">
-  //           <label className="form-label">Status</label>
-  //           <input type="text" name="status" className="form-control" value={formData.status || ""} onChange={handleInputChange} />
-  //         </div>
-  //         <Button
-  //           style={{ backgroundColor: THEME_COLOR, borderColor: THEME_COLOR }}
-  //           onClick={handleSave}
-  //           disabled={isActionLoading}
-  //         >
-  //           {isActionLoading ? <Spinner size="sm" /> : "Save Changes"}
-  //         </Button>
-  //       </div>
-  //     </div>
-  //   );
 
   return (
     <>
@@ -436,7 +381,6 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
         <div className="text-muted">
           Showing {table.getFilteredRowModel().rows.length} of{" "}
