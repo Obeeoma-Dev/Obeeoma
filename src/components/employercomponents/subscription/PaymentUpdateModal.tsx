@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
+// @ts-expect-error - Paystack inline-js doesn't have TypeScript definitions
 import PaystackPop from "@paystack/inline-js";
 import { updatePaymentMethod } from "../../../store/slices/billingSlice";
 import { RootState } from "../../../store/store";
+
+// Define transaction interface for better type safety
+interface PaystackTransaction {
+  reference: string;
+  trans: string;
+  status: string;
+  message: string;
+  transaction: string;
+  trxref: string;
+}
 
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY as string;
 
@@ -86,7 +97,7 @@ const PaymentUpdateModal: React.FC<PaymentUpdateModalProps> = ({
           },
         ],
       },
-      onSuccess: (transaction) => {
+      onSuccess: (transaction: PaystackTransaction) => {
         // Extract authorization code for card tokenization
         const authorizationCode = transaction.reference;
 

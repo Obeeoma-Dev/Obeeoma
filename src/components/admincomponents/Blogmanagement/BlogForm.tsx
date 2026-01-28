@@ -31,25 +31,25 @@ export function BlogForm({
     featured: false,
   });
 
-    
-    useEffect(() => {
-        if (initialData && mode === "edit") {
-            setFormData(initialData);
-        } else {
-            setFormData({
-                id: crypto.randomUUID(),
-                title: "",
-                category: "",
-                date: "",
-                status: "draft",
-                excerpt: "",
-                imageUrl: "",
-                author: "",
-                content: "",
-                featured: false,
-            });
-        }
-    }, [initialData, mode]);
+
+  useEffect(() => {
+    if (initialData && mode === "edit") {
+      setFormData(initialData);
+    } else {
+      setFormData({
+        id: crypto.randomUUID(),
+        title: "",
+        category: "",
+        date: "",
+        status: "draft",
+        excerpt: "",
+        imageUrl: "",
+        author: "",
+        content: "",
+        featured: false,
+      });
+    }
+  }, [initialData, mode]);
 
   function handleChange(
     event: React.ChangeEvent<
@@ -73,16 +73,18 @@ export function BlogForm({
     }
   }
 
-    return (
-        <Modal
-            show={show}
-            onHide={onClose}
-            size="lg"           
-            centered
-            scrollable          
-            backdrop="static"   // prevents accidental close
-            keyboard={false}
-        >
+  return (
+    <Modal
+      show={show}
+      onHide={onClose}
+      size="lg"
+      centered
+      scrollable
+      backdrop="static"   // prevents accidental close
+      keyboard={false}
+    >
+      <Modal.Header>
+        <Modal.Title>
           {mode === "add" ? "Add New Article" : "Edit Article"}
         </Modal.Title>
       </Modal.Header>

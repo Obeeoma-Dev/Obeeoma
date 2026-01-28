@@ -28,6 +28,7 @@ import NotFound from "./pages/NotFound";
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import { OrganizationDetails } from "./pages/Systemadmin/OrganisationPages/organizationDetails";
+import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
 import ClientEngagement from "./pages/Systemadmin/Clientengagmentpages/clientEngagement";
 import AIRecommendationsPage from "./pages/Systemadmin/Airecommendations/aimanagment";
 import HotlineActivity from "./pages/Systemadmin/Hotlinepages/hotlineActivity";
