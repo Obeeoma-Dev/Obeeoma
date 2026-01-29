@@ -38,7 +38,7 @@ const Layout = ({ children, title }) => {
         ? localEmployer?.email
         : employer?.email
             ? employer?.email || employer?.email
-            : "User";
+            : "Corporate Admin";
     // Prefer backend for companyJoinDate, fallback to localStorage, then now
     const companyJoinDate = employer?.company?.createdAt
         ? new Date(employer.company.createdAt)

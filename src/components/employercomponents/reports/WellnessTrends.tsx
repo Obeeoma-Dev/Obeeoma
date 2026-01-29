@@ -77,13 +77,13 @@ const WellnessTrends: React.FC = () => {
     y,
     payload,
   }: {
-    x: number;
-    y: number;
+    x: number | string;
+    y: number | string;
     payload: { value: number };
   }) => {
     const emoji = EMOJI_MAPPING.find((e) => e.score === payload.value)?.emoji;
     return (
-      <g transform={`translate(${x},${y})`}>
+      <g transform={`translate(${Number(x)},${Number(y)})`}>
         <text x={0} y={0} dy={4} textAnchor="end" fill="#555" fontSize={20}>
           {emoji}
         </text>

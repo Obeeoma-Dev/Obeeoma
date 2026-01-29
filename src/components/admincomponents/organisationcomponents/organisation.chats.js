@@ -281,7 +281,9 @@ const OrganizationCharts = () => {
             setShowOrganizationPopup(true);
         },
         onHover: (event, activeElements) => {
-            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            if (event.native && 'target' in event.native && event.native.target) {
+                event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            }
         },
     };
     // Chart options for distribution chart (individual view)
@@ -337,7 +339,9 @@ const OrganizationCharts = () => {
             setShowOrganizationPopup(true);
         },
         onHover: (event, activeElements) => {
-            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            if (event.native && 'target' in event.native && event.native.target) {
+                event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            }
         },
     };
     // Chart options for categories (vertical bars)
@@ -396,7 +400,9 @@ const OrganizationCharts = () => {
             setShowOrganizationPopup(true);
         },
         onHover: (event, activeElements) => {
-            event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            if (event.native && 'target' in event.native && event.native.target) {
+                event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            }
         },
     };
     return (_jsxs(_Fragment, { children: [_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: "body", color: "#00A859" }, children: "Organization Growth" }), _jsx(Line, { data: growthData, options: growthChartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-0", style: { fontFamily: "body", color: "#00A859" }, children: viewMode === 'category' ? 'Client Distribution by Category' : 'Client Distribution by Organization' }), _jsxs("div", { className: "btn-group", role: "group", style: { fontSize: '0.75rem' }, children: [_jsx("button", { type: "button", className: `btn ${viewMode === 'category' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('category'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Categories" }), _jsx("button", { type: "button", className: `btn ${viewMode === 'individual' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('individual'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Individual" })] })] }), _jsx(Bar, { data: viewMode === 'category' ? categorizedDistributionData : distributionData, options: viewMode === 'category' ? categoryChartOptions : distributionChartOptions })] }) }) })] }), _jsx(OrganizationListPopup, { show: showOrganizationPopup, onHide: () => setShowOrganizationPopup(false) })] }));

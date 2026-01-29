@@ -17,46 +17,46 @@ import './organizationUse.css'
 // Chart data definition
 // Each object represents one bar in the chart
 const data = [
-    { name: 'AM', full: 'Anxiety Management', value: 52 },
-    { name: 'SR', full: 'Stress Reduction', value: 45 },
-    { name: 'SI', full: 'Sleep Improvement', value: 38 },
-    { name: 'M', full: 'Mindfulness', value: 28 },
-    { name: 'CS', full: 'Crisis Support', value: 18 },
+  { name: 'AM', full: 'Anxiety Management', value: 52 },
+  { name: 'SR', full: 'Stress Reduction', value: 45 },
+  { name: 'SI', full: 'Sleep Improvement', value: 38 },
+  { name: 'M', full: 'Mindfulness', value: 28 },
+  { name: 'CS', full: 'Crisis Support', value: 18 },
 ]
 
 
 export function ProgramEngagementChart() {
-   
-    return (
-        
-        <Card className="program-card">
-           
-            <Card.Body>
-                {/* Chart title */}
-                <Card.Title className="program-title">
-                    Program Engagement (%)
-                </Card.Title>
 
-                
-                <div className="program-chart-container">
-                  
-                    <ResponsiveContainer width="100%" height="100%">
-                        {/* Bar chart definition */}
-                        <BarChart
-                            data={data}
-                            margin={{
-                                top: 10,
-                                right: 10,
-                                left: -20,
-                                bottom: 0,
-                            }}
-                        >
-                            {/* Background grid lines */}
-                            <CartesianGrid
-                                strokeDasharray="3 3"
-                                vertical={false}
-                                stroke="#dee2e6"
-                            />
+  return (
+
+    <Card className="program-card">
+
+      <Card.Body>
+        {/* Chart title */}
+        <Card.Title className="program-title">
+          Program Engagement (%)
+        </Card.Title>
+
+
+        <div className="program-chart-container">
+
+          <ResponsiveContainer width="100%" height="100%">
+            {/* Bar chart definition */}
+            <BarChart
+              data={data}
+              margin={{
+                top: 10,
+                right: 10,
+                left: -20,
+                bottom: 0,
+              }}
+            >
+              {/* Background grid lines */}
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="#dee2e6"
+              />
 
               {/* X-axis configuration */}
               <XAxis
@@ -71,7 +71,7 @@ export function ProgramEngagementChart() {
                   return (
                     <text
                       x={x}
-                      y={y + 10}
+                      y={Number(y) + 10}
                       textAnchor="middle"
                       fill="#6c757d"
                       fontSize={11}

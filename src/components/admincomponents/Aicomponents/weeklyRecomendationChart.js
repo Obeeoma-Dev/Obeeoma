@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Card } from 'react-bootstrap';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, } from 'chart.js';
+import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, } from "chart.js";
 import './aicomponent.css';
 // Register Chart.js components once
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);

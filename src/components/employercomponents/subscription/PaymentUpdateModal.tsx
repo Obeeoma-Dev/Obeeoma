@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Alert, Form } from "react-bootstrap";
-// @ts-expect-error - Paystack inline-js doesn't have TypeScript definitions
 import PaystackPop from "@paystack/inline-js";
 import { updatePaymentMethod } from "../../../store/slices/billingSlice";
 import { RootState } from "../../../store/store";

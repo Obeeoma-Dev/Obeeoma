@@ -7,7 +7,7 @@ import AIResourcesTable from "../../../components/admincomponents/Aicomponents/a
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import { FileText, Video, Headphones, MousePointerClick, } from 'lucide-react';
+import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 /**
  * AIRecommendationsPage renders the AI management dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
