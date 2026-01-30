@@ -1,32 +1,31 @@
-import React from 'react' 
-import { Card, Button, ListGroup, Row, Col } from 'react-bootstrap'
-import Stack from 'react-bootstrap/Stack'
-import { CreditCard, FileText } from 'lucide-react'
-import './programEngagementChart'
+import React from "react";
+import { Card, Button, ListGroup, Row, Col } from "react-bootstrap";
+import Stack from "react-bootstrap/Stack";
+import { CreditCard, FileText } from "lucide-react";
+import "./programEngagementChart";
 
 interface ActivityItem {
-    icon: React.ReactNode 
-    title: string 
-    timestamp: string
-    iconBgClass: string 
+  icon: React.ReactNode;
+  title: string;
+  timestamp: string;
+  iconBgClass: string;
 }
 
 /* Static list of recent activities */
 const activities: ActivityItem[] = [
-    {
-        icon: <CreditCard size={20} />, 
-        title: 'Subscription Renewed',
-        timestamp: '2 days ago • Premium Plan',
-        iconBgClass: 'icon-bg-success'
-    },
-    {
-        icon: <FileText size={20} />, 
-        title: 'Monthly Report Generated',
-        timestamp: '1 week ago • August 2023',
-        iconBgClass: 'icon-bg-success'
-    }
-]
-
+  {
+    icon: <CreditCard size={20} />,
+    title: "Subscription Renewed",
+    timestamp: "2 days ago • Premium Plan",
+    iconBgClass: "icon-bg-success",
+  },
+  {
+    icon: <FileText size={20} />,
+    title: "Monthly Report Generated",
+    timestamp: "1 week ago • August 2023",
+    iconBgClass: "icon-bg-success",
+  },
+];
 
 export function RecentActivity() {
   return (

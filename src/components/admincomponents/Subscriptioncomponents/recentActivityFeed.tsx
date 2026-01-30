@@ -1,5 +1,5 @@
-import React from 'react';
-import { Users, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react';
+import React from "react";
+import { Users, RefreshCw, AlertCircle, CheckCircle2 } from "lucide-react";
 
 export interface Activity {
   organization: string;

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
+import React from "react";
+import { Card } from "react-bootstrap";
 
 import {
   BarChart,
@@ -11,35 +11,28 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
-import './organizationUse.css'
+import "./organizationUse.css";
 
 // Chart data definition
 // Each object represents one bar in the chart
 const data = [
-  { name: 'AM', full: 'Anxiety Management', value: 52 },
-  { name: 'SR', full: 'Stress Reduction', value: 45 },
-  { name: 'SI', full: 'Sleep Improvement', value: 38 },
-  { name: 'M', full: 'Mindfulness', value: 28 },
-  { name: 'CS', full: 'Crisis Support', value: 18 },
-]
-
+  { name: "AM", full: "Anxiety Management", value: 52 },
+  { name: "SR", full: "Stress Reduction", value: 45 },
+  { name: "SI", full: "Sleep Improvement", value: 38 },
+  { name: "M", full: "Mindfulness", value: 28 },
+  { name: "CS", full: "Crisis Support", value: 18 },
+];
 
 export function ProgramEngagementChart() {
-
   return (
-
     <Card className="program-card">
-
       <Card.Body>
         {/* Chart title */}
         <Card.Title className="program-title">
           Program Engagement (%)
         </Card.Title>
 
-
         <div className="program-chart-container">
-
           <ResponsiveContainer width="100%" height="100%">
             {/* Bar chart definition */}
             <BarChart

@@ -1,6 +1,8 @@
 import Layout from "../../components/employercomponents/shared/Layout";
 import WellnessTrends from "../../components/employercomponents/reports/WellnessTrends";
-import AvailableReports, { ReportType } from "../../components/employercomponents/reports/AvailableReports";
+import AvailableReports, {
+  ReportType,
+} from "../../components/employercomponents/reports/AvailableReports";
 import { Download, Filter, Calendar } from "lucide-react";
 
 const CompanyReports = () => {

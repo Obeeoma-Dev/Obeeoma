@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/Dashboard.tsx
 import React, { useEffect, useState } from "react";
-import { Row, Col, Spinner, Alert, Button } from "react-bootstrap";
+import { Row, Col, Spinner, Alert, Button, } from "react-bootstrap";
 // Import reusable dashboard components
 import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
@@ -10,7 +10,7 @@ import SystemAdminLayout from "../../components/admincomponents/shared/SystemAdm
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Building2, Users, PhoneCall, } from "lucide-react";
+import { Building2, Users, PhoneCall } from "lucide-react";
 import { adminAPI } from "../../api/apiConfig";
 /**
  * Static placeholder data for recent activities
@@ -127,8 +127,8 @@ const Dashboard = () => {
         setLoading(true);
         setError(null);
         // Clear cache and trigger refresh
-        localStorage.removeItem('dashboardStats');
-        setRefreshTrigger(prev => prev + 1);
+        localStorage.removeItem("dashboardStats");
+        setRefreshTrigger((prev) => prev + 1);
         // After 3 seconds, if still loading, hide loading state
         setTimeout(() => {
             setLoading(false);
@@ -139,10 +139,10 @@ const Dashboard = () => {
         const fetchDashboardStats = async () => {
             try {
                 // Check if we have cached data (session-based)
-                const cachedData = localStorage.getItem('dashboardStats');
+                const cachedData = localStorage.getItem("dashboardStats");
                 if (cachedData && refreshTrigger === 0) {
                     // Use cached data on initial load - no API call
-                    const parsedData = JSON.parse(cachedData || '[]');
+                    const parsedData = JSON.parse(cachedData || "[]");
                     // Re-add icons since they can't be serialized
                     const dataWithIcons = parsedData.map((item) => {
                         let icon;
@@ -214,7 +214,7 @@ const Dashboard = () => {
                     ];
                     // Cache the data for the session (without icons since they can't be serialized)
                     const dataToCache = transformedStats.map(({ icon, ...rest }) => rest);
-                    localStorage.setItem('dashboardStats', JSON.stringify(dataToCache));
+                    localStorage.setItem("dashboardStats", JSON.stringify(dataToCache));
                     setDashboardStats(transformedStats);
                 }
                 catch (apiError) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Define props for each service usage
 interface ServiceUsage {

@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Row, Col } from "react-bootstrap";
-import { Calendar, Users, TrendingUp } from "lucide-react";
+import { Calendar, Users, TrendingUp, } from "lucide-react";
 import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
 const MetricsPanel = ({ totalSubscriptions, coveredEmployees, utilizationRate, }) => {
     const metrics = [

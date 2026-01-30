@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import * as Icons from "lucide-react";
 
-
 export interface StatCardData {
   id: string;
   title: string;
@@ -12,11 +11,9 @@ export interface StatCardData {
   color: string;
 }
 
-
 interface OrganizationStatsProps {
   stats: StatCardData[];
 }
-
 
 const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
   return (
@@ -29,15 +26,14 @@ const OrganizationStats: React.FC<OrganizationStatsProps> = ({ stats }) => {
         </Button>
       </div>
 
-
       <Row className="gy-4">
         {stats.map((stat) => {
           // Dynamically select icon from lucide-react
           const IconComponent = (Icons[stat.icon as keyof typeof Icons] ??
             Icons.Activity) as React.FC<{
-              size?: number;
-              color?: string;
-            }>;
+            size?: number;
+            color?: string;
+          }>;
 
           return (
             <Col key={stat.id} xs={12} md={6} lg={3}>

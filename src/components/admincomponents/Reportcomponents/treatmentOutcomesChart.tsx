@@ -11,11 +11,9 @@ import {
   TooltipItem,
 } from "chart.js";
 
-
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const TreatmentOutcomesChart: React.FC = () => {
-
   const data = {
     labels: [
       "Significant Improvement",

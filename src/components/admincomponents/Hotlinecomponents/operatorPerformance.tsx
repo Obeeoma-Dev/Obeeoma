@@ -7,7 +7,6 @@ interface Operator {
   performance: number;
 }
 
-
 const operators: Operator[] = [
   { name: "John Smith", performance: 92 },
   { name: "Emily Brown", performance: 85 },
@@ -42,7 +41,7 @@ const OperatorPerformance: React.FC = () => {
               </Col>
 
               <Col className="text-end">
-                <div className="fw-bold" style={{ color: '#00A859' }}>
+                <div className="fw-bold" style={{ color: "#00A859" }}>
                   {operator.performance}%
                 </div>
                 <small

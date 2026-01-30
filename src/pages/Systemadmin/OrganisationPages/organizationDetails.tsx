@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Stack, Button, Spinner } from 'react-bootstrap'
-import { ArrowLeft, CreditCard, Save } from 'lucide-react'
-import { useParams, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Stack, Button, Spinner } from "react-bootstrap";
+import { ArrowLeft, CreditCard, Save } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
 
 // Page components
-import Sidebar from '../../../components/admincomponents/adminsidebar'
-import Header from '../../../components/admincomponents/adminheader'
-import { OrganizationProfile } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationProfile'
-import { OrganizationStats } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationStats'
-import { PlatformUsageChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse'
-import { ProgramEngagementChart } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart'
-import { RecentActivity } from '../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity'
-import { adminAPI } from '../../../api/apiConfig'
-import { DatabaseOrganization } from '../../../components/admincomponents/organisationcomponents/organisationTable'
-import "./orgpage.css"
-
-
+import Sidebar from "../../../components/admincomponents/adminsidebar";
+import Header from "../../../components/admincomponents/adminheader";
+import { OrganizationProfile } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationProfile";
+import { OrganizationStats } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationStats";
+import { PlatformUsageChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse";
+import { ProgramEngagementChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart";
+import { RecentActivity } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity";
+import { adminAPI } from "../../../api/apiConfig";
+import { DatabaseOrganization } from "../../../components/admincomponents/organisationcomponents/organisationTable";
+import "./orgpage.css";
 
 export function OrganizationDetails() {
   // Get organization ID from URL params
@@ -23,7 +21,9 @@ export function OrganizationDetails() {
   const navigate = useNavigate();
 
   // State for organization data
-  const [organization, setOrganization] = useState<DatabaseOrganization | null>(null);
+  const [organization, setOrganization] = useState<DatabaseOrganization | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +45,9 @@ export function OrganizationDetails() {
         const response = await adminAPI.getOrganizationsList(1, 100, ""); // Get all orgs
         const allOrgs = response.data.results || response.data || [];
 
-        const foundOrg = allOrgs.find((org: DatabaseOrganization) => org.id.toString() === id);
+        const foundOrg = allOrgs.find(
+          (org: DatabaseOrganization) => org.id.toString() === id,
+        );
 
         if (foundOrg) {
           setOrganization(foundOrg);
@@ -91,7 +93,9 @@ export function OrganizationDetails() {
           <Header />
           <div className="flex-grow-1 d-flex align-items-center justify-content-center">
             <div className="text-center">
-              <div className="text-danger mb-3">{error || "Organization not found"}</div>
+              <div className="text-danger mb-3">
+                {error || "Organization not found"}
+              </div>
               <Button variant="outline-success" onClick={() => navigate(-1)}>
                 Go Back
               </Button>
@@ -157,28 +161,31 @@ export function OrganizationDetails() {
             {/* Debug info */}
             <div className="mb-3 p-2 bg-light">
               <small className="text-muted">
-                Debug: Organization ID = {id} |
-                Org Name = {organization?.name} |
-                Plan = {organization?.current_plan} |
-                Status = {organization?.is_active ? 'Active' : 'Inactive'} |
-                Location = {organization?.Location || 'No Location field'} |
-                Location Type = {typeof organization?.Location} |
-                Location Value = {JSON.stringify(organization?.Location)} |
-                Clients = {organization?.client_count || 'No client_count field'} |
-                Available Keys: {organization ? Object.keys(organization).join(', ') : 'No org data'}
+                Debug: Organization ID = {id} | Org Name = {organization?.name}{" "}
+                | Plan = {organization?.current_plan} | Status ={" "}
+                {organization?.is_active ? "Active" : "Inactive"} | Location ={" "}
+                {organization?.Location || "No Location field"} | Location Type
+                = {typeof organization?.Location} | Location Value ={" "}
+                {JSON.stringify(organization?.Location)} | Clients ={" "}
+                {organization?.client_count || "No client_count field"} |
+                Available Keys:{" "}
+                {organization
+                  ? Object.keys(organization).join(", ")
+                  : "No org data"}
               </small>
             </div>
 
             {/* OrganizationProfile Props Debug */}
             <div className="mb-3 p-2 bg-warning">
               <small className="text-muted">
-                Props being passed to OrganizationProfile:
-                Name = {organization?.name} |
-                ID = {`ORG-${organization?.id}`} |
-                Plan = {organization?.current_plan || "Freemium"} |
-                Status = {organization?.is_active ? "Active" : "Inactive"} |
-                Location = {organization?.Location || "Not specified"} |
-                LastActive = {organization ? new Date(organization.joined_date).toLocaleDateString() : 'N/A'}
+                Props being passed to OrganizationProfile: Name ={" "}
+                {organization?.name} | ID = {`ORG-${organization?.id}`} | Plan ={" "}
+                {organization?.current_plan || "Freemium"} | Status ={" "}
+                {organization?.is_active ? "Active" : "Inactive"} | Location ={" "}
+                {organization?.Location || "Not specified"} | LastActive ={" "}
+                {organization
+                  ? new Date(organization.joined_date).toLocaleDateString()
+                  : "N/A"}
               </small>
             </div>
 
@@ -191,7 +198,9 @@ export function OrganizationDetails() {
                   subscriptionPlan={organization.current_plan || "Freemium"}
                   status={organization.is_active ? "Active" : "Inactive"}
                   location={organization.Location || "Not specified"}
-                  lastActive={new Date(organization.joined_date).toLocaleDateString()}
+                  lastActive={new Date(
+                    organization.joined_date,
+                  ).toLocaleDateString()}
                 />
               </Col>
 
@@ -202,7 +211,6 @@ export function OrganizationDetails() {
 
             {/* Right content column */}
             <Col lg={12}>
-
               <div className="chart-row-wrapper">
                 <Row className="align-items-stretch mb-4 mb-lg-0">
                   <Col lg={6} className="d-flex flex-column">

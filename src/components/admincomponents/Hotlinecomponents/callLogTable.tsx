@@ -2,7 +2,6 @@ import React from "react";
 import { Table, Card, Badge, Button, Form, InputGroup } from "react-bootstrap";
 import { Search, Filter, MoreVertical } from "lucide-react";
 
-
 interface CallLog {
   time: string;
   date: string;
@@ -39,7 +38,6 @@ const callLogs: CallLog[] = [
 /* CallLogTable component */
 const CallLogTable: React.FC = () => {
   return (
-
     <Card className="p-4 mb-4">
       {/* ===== Header Section ===== */}
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
-import { CheckCircle2, Clock } from 'lucide-react';
+import React from "react";
+import { Table } from "react-bootstrap";
+import { CheckCircle2, Clock } from "lucide-react";
 
 // Define the shape of each subscription entry
 interface Subscription {

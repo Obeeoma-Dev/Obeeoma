@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Users, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Users, RefreshCw, AlertCircle, CheckCircle2 } from "lucide-react";
 const RecentActivityFeed = ({ activities }) => {
     const getIcon = (iconType, color) => {
         const iconSize = 16;

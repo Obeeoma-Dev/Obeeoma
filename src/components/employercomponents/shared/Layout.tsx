@@ -209,13 +209,13 @@ const Layout = ({ children, title }: LayoutProps) => {
                       {organizationNameOrDefault}
                     </span>
 
-                    {/* 2. user email */}
+                    {/* 2. Contact link*/}
                     <Link
-                      to = "/contact-us"
+                      to="/privacy-policy"
                       className="text-muted fw-small d-block"
                       style={{ fontFamily: "body", fontSize: "0.7rem" }}
                     >
-                      Contact Support
+                      Privacy Policy
                     </Link>
                   </div>
 

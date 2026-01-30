@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
 
-
 interface AccountData {
   fullName: string;
   email: string;
@@ -9,7 +8,6 @@ interface AccountData {
   phone: string;
   bio: string;
 }
-
 
 const AccountForm: React.FC = () => {
   // State to hold form input values

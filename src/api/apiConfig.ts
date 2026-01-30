@@ -223,7 +223,9 @@ export const adminAPI = {
   },
 
   getOrganizationsClientDistribution: async () => {
-    const response = await api.get("/v1/admin/organizations/client-distribution/");
+    const response = await api.get(
+      "/v1/admin/organizations/client-distribution/",
+    );
     return response;
   },
 
@@ -235,7 +237,7 @@ export const adminAPI = {
     });
 
     if (search) {
-      params.append('search', search);
+      params.append("search", search);
     }
 
     const response = await api.get(`/v1/admin/organizations/?${params}`);

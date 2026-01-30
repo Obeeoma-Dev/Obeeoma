@@ -85,7 +85,6 @@ const getInitials = (fullName: string) => {
 // Main component
 const PatientEngagementTable: React.FC = () => {
   return (
-
     <Card className="mb-4 shadow-sm">
       {/* Card header for table title and hierarchy */}
       <Card.Header
@@ -94,7 +93,6 @@ const PatientEngagementTable: React.FC = () => {
       >
         <strong>Client Engagement Table</strong>
       </Card.Header>
-
 
       <Card.Body className="p-2">
         {/* 

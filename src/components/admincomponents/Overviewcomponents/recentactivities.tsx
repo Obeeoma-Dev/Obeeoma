@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import * as Icons from "lucide-react";
 import { ActivityItem as ActivityItemType } from "./admindashboard";
 
-
 interface RecentActivitiesProps {
   activities: ActivityItemType[];
 }
@@ -16,11 +15,8 @@ const iconColorMap: Record<string, string> = {
   "text-info": "#0dcaf0",
 };
 
-
 const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
-
   return (
-
     <Card className="mb-4 shadow-sm border-0 h-100">
       {/* Card header */}
       <Card.Header
@@ -38,9 +34,9 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
           {activities.map((activity, index) => {
             const IconComponent = (Icons[activity.icon as keyof typeof Icons] ??
               Icons.Activity) as React.FC<{
-                size?: number;
-                color?: string;
-              }>;
+              size?: number;
+              color?: string;
+            }>;
 
             const iconFgColor = iconColorMap[activity.iconColor] || "#3CB371";
 
@@ -117,6 +113,5 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
     </Card>
   );
 };
-
 
 export default RecentActivities;

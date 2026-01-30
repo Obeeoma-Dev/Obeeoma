@@ -228,7 +228,9 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                         className=" me-2"
                         style={{ color: "#22C55E" }}
                       />
-                      <span className="small text-muted">Contact Email Address</span>
+                      <span className="small text-muted">
+                        Contact Email Address
+                      </span>
                     </div>
                     <p className="fw-medium mb-0">
                       {formatDisplayValue(localData.email)}

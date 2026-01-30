@@ -1,6 +1,5 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
-
+import React from "react";
+import { Card } from "react-bootstrap";
 
 import {
   AreaChart,
@@ -12,8 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
-import './organizationUse.css'
+import "./organizationUse.css";
 
 // Static data representing weekly platform usage
 const data = [
@@ -27,49 +25,34 @@ const data = [
 
 // Functional component definition
 export function PlatformUsageChart() {
-    return (        
-        <Card className="platform-usage-card">            
-            <Card.Body>
-                {/* Chart title */}
-                <Card.Title className="platform-usage-title">
-                    Platform Usage (Last 6 Weeks)
-                </Card.Title>
+  return (
+    <Card className="platform-usage-card">
+      <Card.Body>
+        {/* Chart title */}
+        <Card.Title className="platform-usage-title">
+          Platform Usage (Last 6 Weeks)
+        </Card.Title>
 
-                {/* Fixed-height container to control chart size */}
-                <div className="program-chart-container">
-                    
-                    <ResponsiveContainer width="100%" height="100%">
-                        {/* Area chart configuration */}
-                        <AreaChart
-                            data={data}
-                            margin={{
-                                top: 10,
-                                right: 10,
-                                left: 0,
-                                bottom: 0,
-                            }}
-                        >
-                            {/* Gradient definition for area fill */}
-                            <defs>
-                                <linearGradient
-                                    id="usageGradient"
-                                    x1="0"
-                                    y1="0"
-                                    x2="0"
-                                    y2="1"
-                                >
-                                    <stop
-                                        offset="5%"
-                                        stopColor="#20c997"
-                                        stopOpacity={0.3}
-                                    />
-                                    <stop
-                                        offset="95%"
-                                        stopColor="#20c997"
-                                        stopOpacity={0}
-                                    />
-                                </linearGradient>
-                            </defs>
+        {/* Fixed-height container to control chart size */}
+        <div className="program-chart-container">
+          <ResponsiveContainer width="100%" height="100%">
+            {/* Area chart configuration */}
+            <AreaChart
+              data={data}
+              margin={{
+                top: 10,
+                right: 10,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              {/* Gradient definition for area fill */}
+              <defs>
+                <linearGradient id="usageGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#20c997" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#20c997" stopOpacity={0} />
+                </linearGradient>
+              </defs>
 
               {/* Grid lines (horizontal only) */}
               <CartesianGrid

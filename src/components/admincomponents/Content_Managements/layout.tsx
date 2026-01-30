@@ -10,7 +10,6 @@ interface LayoutProps {
   title?: string;
 }
 
-
 export function LayoutWrapper({ children, title = "Dashboard" }: LayoutProps) {
   return (
     <SystemAdminLayout title={title}>

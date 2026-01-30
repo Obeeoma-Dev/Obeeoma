@@ -11,11 +11,9 @@ import {
   TooltipItem,
 } from "chart.js";
 
-
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const PlatformUsageChart: React.FC = () => {
-
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
     datasets: [

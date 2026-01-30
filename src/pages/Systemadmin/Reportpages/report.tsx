@@ -74,7 +74,10 @@ const ReportPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="d-flex gap-4 mb-4" style={{ borderBottom: "1px solid #e9ecef", fontFamily: "body" }}>
+      <div
+        className="d-flex gap-4 mb-4"
+        style={{ borderBottom: "1px solid #e9ecef", fontFamily: "body" }}
+      >
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -88,7 +91,9 @@ const ReportPage: React.FC = () => {
               color: activeTab === tab ? "#3CB371" : "#6c757d",
               fontWeight: activeTab === tab ? "600" : "400",
               borderBottom:
-                activeTab === tab ? "2px solid #3CB371" : "2px solid transparent",
+                activeTab === tab
+                  ? "2px solid #3CB371"
+                  : "2px solid transparent",
               cursor: "pointer",
               transition: "all 0.2s",
             }}

@@ -10,7 +10,6 @@ export interface SubscriptionPlan {
   isPopular?: boolean;
 }
 
-
 const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
   return (
     <Card

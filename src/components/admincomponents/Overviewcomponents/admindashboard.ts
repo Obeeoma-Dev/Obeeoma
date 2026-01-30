@@ -5,12 +5,11 @@ export interface StatCardData {
   id: string;
   title: string;
   value: string | number;
-  subtitle?: string; // Optional 
+  subtitle?: string; // Optional
   trend?: string;
   icon: LucideIcon; // Reverted back to LucideIcon
   color: "emerald" | "blue" | "amber" | "rose";
 }
-
 
 /* Represents a recent activity item in the dashboard */
 export interface ActivityItem {

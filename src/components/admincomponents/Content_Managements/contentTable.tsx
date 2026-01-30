@@ -3,21 +3,21 @@
 
 import React, { useEffect, useState } from "react";
 import {
-    MoreVertical,
-    PlayCircle,
-    Image as ImageIcon,
-    FileText,
-    Music,
-    CheckCircle2,
-    Clock,
-} from 'lucide-react';
-import Card from 'react-bootstrap/Card';
-import Table from 'react-bootstrap/Table';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Stack from 'react-bootstrap/Stack';
-import Image from 'react-bootstrap/Image';
-import { contentMediaAPI, ContentItem } from '../../../services/contentService';
+  MoreVertical,
+  PlayCircle,
+  Image as ImageIcon,
+  FileText,
+  Music,
+  CheckCircle2,
+  Clock,
+} from "lucide-react";
+import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Stack from "react-bootstrap/Stack";
+import Image from "react-bootstrap/Image";
+import { contentMediaAPI, ContentItem } from "../../../services/contentService";
 
 // Helper component: render icon or image based on content type
 const TypeIcon = ({
@@ -44,26 +44,26 @@ const TypeIcon = ({
     );
   }
 
-    switch (type) {
-        case 'video':
-            return <PlayCircle size={20} color="#0d6efd" />;
-        case 'audio':
-            return <Music size={20} color="#6f42c1" />;
-        case 'image':
-            return <ImageIcon size={20} color="#198754" />;
-        default:
-            return <FileText size={20} color="#6c757d" />;
-    }
+  switch (type) {
+    case "video":
+      return <PlayCircle size={20} color="#0d6efd" />;
+    case "audio":
+      return <Music size={20} color="#6f42c1" />;
+    case "image":
+      return <ImageIcon size={20} color="#198754" />;
+    default:
+      return <FileText size={20} color="#6c757d" />;
+  }
 };
 
 // Helper component: render badge based on status
-const StatusBadge = ({ status }: { status: ContentItem['status'] }) => {
-    // Map status to Bootstrap background/text colors
-    const styles: Record<ContentItem['status'], React.CSSProperties> = {
-        published: { backgroundColor: '#d1e7dd', color: '#0f5132' },
-        draft: { backgroundColor: '#fff3cd', color: '#664d03' },
-        processing: { backgroundColor: '#cfe2ff', color: '#084298' },
-    };
+const StatusBadge = ({ status }: { status: ContentItem["status"] }) => {
+  // Map status to Bootstrap background/text colors
+  const styles: Record<ContentItem["status"], React.CSSProperties> = {
+    published: { backgroundColor: "#d1e7dd", color: "#0f5132" },
+    draft: { backgroundColor: "#fff3cd", color: "#664d03" },
+    processing: { backgroundColor: "#cfe2ff", color: "#084298" },
+  };
 
   // Map status to labels
   const labels: Record<ContentItem["status"], string> = {

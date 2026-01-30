@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { Row, Col } from 'react-bootstrap';
-import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
-import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
+import { Row, Col } from "react-bootstrap";
+import { BrainCircuit, Activity, ThumbsUp } from "lucide-react";
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
 // TopMetrics component
 // Renders the top summary cards using the shared StatCard component
 const TopMetrics = ({ totalRecommendations, engagementRate, averageTime, }) => {

@@ -47,7 +47,6 @@ const subscriptionPlans = [
   },
 ];
 
-
 const SettingsTabs: React.FC = () => {
   // State to track which tab is currently active; default is "account"
   const [key, setKey] = useState<string>("account");

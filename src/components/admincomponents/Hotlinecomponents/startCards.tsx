@@ -12,7 +12,6 @@ interface StatCardProps {
   color: "emerald" | "blue" | "amber" | "rose";
 }
 
-
 export function StatCard({
   title,
   value,
@@ -21,7 +20,6 @@ export function StatCard({
   icon: Icon,
   color,
 }: StatCardProps) {
- 
   const colorStyles = {
     emerald: {
       bg: "bg-success bg-opacity-10",
@@ -45,11 +43,9 @@ export function StatCard({
     },
   } as const;
 
-
   const styles = colorStyles[color];
 
   return (
-   
     <Card className="h-100 shadow-sm stat-card">
       {/* Card body wraps all main content */}
       <Card.Body className="d-flex flex-column justify-content-between">

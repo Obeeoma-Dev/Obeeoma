@@ -11,11 +11,9 @@ import {
   TooltipItem,
 } from "chart.js";
 
-
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const MentalHealthChart: React.FC = () => {
-
   const data = {
     labels: [
       "Anxiety",

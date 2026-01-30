@@ -184,7 +184,7 @@ export const adminAPI = {
             page_size: pageSize.toString(),
         });
         if (search) {
-            params.append('search', search);
+            params.append("search", search);
         }
         const response = await api.get(`/v1/admin/organizations/?${params}`);
         return response;

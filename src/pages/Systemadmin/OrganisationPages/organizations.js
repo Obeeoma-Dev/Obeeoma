@@ -6,7 +6,7 @@ import OrganizationTable from "../../../components/admincomponents/organisationc
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { adminAPI } from "../../../api/apiConfig";
-import { Building2, Users, CircleCheckBig, } from "lucide-react";
+import { Building2, Users, CircleCheckBig } from "lucide-react";
 /**
  * Main admin page for managing organizations.
  * Combines sidebar, header, stats, table, and charts.

@@ -10,7 +10,6 @@ import {
   Legend,
 } from "chart.js";
 
-
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const MonthlyUsageChart: React.FC = () => {

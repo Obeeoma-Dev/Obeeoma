@@ -13,7 +13,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
  * Now uses real data from backend APIs with intelligent categorization.
  */
 const OrganizationCharts = () => {
-    const [viewMode, setViewMode] = useState('category');
+    const [viewMode, setViewMode] = useState("category");
     const [showOrganizationPopup, setShowOrganizationPopup] = useState(false);
     const [growthData, setGrowthData] = useState({
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -39,18 +39,32 @@ const OrganizationCharts = () => {
         ],
     });
     const [categorizedDistributionData, setCategorizedDistributionData] = useState({
-        labels: ["Sports Organizations", "Creative Arts", "Performing Arts", "Corporate Offices", "Healthcare", "Education"],
+        labels: [
+            "Sports Organizations",
+            "Creative Arts",
+            "Performing Arts",
+            "Corporate Offices",
+            "Healthcare",
+            "Education",
+        ],
         datasets: [
             {
                 label: "Clients",
                 data: [0, 0, 0, 0, 0, 0],
-                backgroundColor: ["#00A859", "#00A859", "#00A859", "#00A859", "#00A859", "#00A859"],
+                backgroundColor: [
+                    "#00A859",
+                    "#00A859",
+                    "#00A859",
+                    "#00A859",
+                    "#00A859",
+                    "#00A859",
+                ],
                 borderRadius: 4,
             },
         ],
     });
     const toggleViewMode = () => {
-        setViewMode((prevMode) => (prevMode === 'category' ? 'individual' : 'category'));
+        setViewMode((prevMode) => prevMode === "category" ? "individual" : "category");
     };
     // Enhanced organization categorization logic
     const categorizeOrganizations = (orgData) => {
@@ -64,43 +78,121 @@ const OrganizationCharts = () => {
         // Enhanced keyword categories with more comprehensive terms
         const categories = {
             "Sports Organizations": [
-                "football", "boxing", "racing", "sports", "athletic", "fitness",
-                "gym", "soccer", "basketball", "tennis", "golf", "swimming",
-                "baseball", "hockey", "volleyball", "track", "field"
+                "football",
+                "boxing",
+                "racing",
+                "sports",
+                "athletic",
+                "fitness",
+                "gym",
+                "soccer",
+                "basketball",
+                "tennis",
+                "golf",
+                "swimming",
+                "baseball",
+                "hockey",
+                "volleyball",
+                "track",
+                "field",
             ],
             "Creative Arts": [
-                "fashion", "design", "art", "creative", "studio", "gallery",
-                "photography", "graphic", "interior", "architecture", "sculpture",
-                "painting", "digital", "animation", "illustration"
+                "fashion",
+                "design",
+                "art",
+                "creative",
+                "studio",
+                "gallery",
+                "photography",
+                "graphic",
+                "interior",
+                "architecture",
+                "sculpture",
+                "painting",
+                "digital",
+                "animation",
+                "illustration",
             ],
             "Performing Arts": [
-                "music", "singing", "dance", "theater", "performance", "concert",
-                "orchestra", "band", "opera", "ballet", "drama", "acting",
-                "musical", "entertainment", "production"
+                "music",
+                "singing",
+                "dance",
+                "theater",
+                "performance",
+                "concert",
+                "orchestra",
+                "band",
+                "opera",
+                "ballet",
+                "drama",
+                "acting",
+                "musical",
+                "entertainment",
+                "production",
             ],
             "Corporate Offices": [
-                "corporate", "office", "business", "company", "enterprise", "firm",
-                "consulting", "services", "solutions", "technology", "tech", "software",
-                "startup", "venture", "holding", "group", "associates"
+                "corporate",
+                "office",
+                "business",
+                "company",
+                "enterprise",
+                "firm",
+                "consulting",
+                "services",
+                "solutions",
+                "technology",
+                "tech",
+                "software",
+                "startup",
+                "venture",
+                "holding",
+                "group",
+                "associates",
             ],
-            "Healthcare": [
-                "health", "medical", "hospital", "clinic", "wellness", "therapy",
-                "pharmacy", "dental", "rehab", "nursing", "care", "treatment",
-                "diagnostic", "surgical", "physician", "healthcare"
+            Healthcare: [
+                "health",
+                "medical",
+                "hospital",
+                "clinic",
+                "wellness",
+                "therapy",
+                "pharmacy",
+                "dental",
+                "rehab",
+                "nursing",
+                "care",
+                "treatment",
+                "diagnostic",
+                "surgical",
+                "physician",
+                "healthcare",
             ],
-            "Education": [
-                "school", "university", "college", "academy", "education", "learning",
-                "institute", "training", "center", "tutorial", "course", "program",
-                "educational", "teaching", "student", "academic"
-            ]
+            Education: [
+                "school",
+                "university",
+                "college",
+                "academy",
+                "education",
+                "learning",
+                "institute",
+                "training",
+                "center",
+                "tutorial",
+                "course",
+                "program",
+                "educational",
+                "teaching",
+                "student",
+                "academic",
+            ],
         };
         const categorizedData = {
             "Sports Organizations": 0,
             "Creative Arts": 0,
             "Performing Arts": 0,
             "Corporate Offices": 0,
-            "Healthcare": 0,
-            "Education": 0
+            Healthcare: 0,
+            Education: 0,
         };
         // Categorize each organization
         orgData.labels.forEach((orgName, index) => {
@@ -114,7 +206,7 @@ const OrganizationCharts = () => {
             // Then check keyword matching
             let categorized = false;
             for (const [category, keywords] of Object.entries(categories)) {
-                if (keywords.some(keyword => lowerOrgName.includes(keyword))) {
+                if (keywords.some((keyword) => lowerOrgName.includes(keyword))) {
                     categorizedData[category] += clientCount;
                     categorized = true;
                     break;
@@ -127,7 +219,7 @@ const OrganizationCharts = () => {
         });
         return {
             labels: Object.keys(categorizedData),
-            data: Object.values(categorizedData)
+            data: Object.values(categorizedData),
         };
     };
     useEffect(() => {
@@ -135,7 +227,9 @@ const OrganizationCharts = () => {
             try {
                 // Fetch growth chart data
                 const growthResponse = await adminAPI.getOrganizationsGrowthChart();
-                if (growthResponse.data && growthResponse.data.labels && growthResponse.data.data) {
+                if (growthResponse.data &&
+                    growthResponse.data.labels &&
+                    growthResponse.data.data) {
                     setGrowthData({
                         labels: growthResponse.data.labels,
                         datasets: [
@@ -159,10 +253,12 @@ const OrganizationCharts = () => {
                 if (Array.isArray(distributionResponse.data)) {
                     // API returns array of objects directly
                     console.log("API returns array of organization objects");
-                    orgLabels = distributionResponse.data.map((org) => org.name || org.organizationName || 'Unknown');
+                    orgLabels = distributionResponse.data.map((org) => org.name || org.organizationName || "Unknown");
                     orgData = distributionResponse.data.map((org) => org.client_count || org.clients || 0);
                 }
-                else if (distributionResponse.data && distributionResponse.data.labels && distributionResponse.data.data) {
+                else if (distributionResponse.data &&
+                    distributionResponse.data.labels &&
+                    distributionResponse.data.data) {
                     // API returns object with labels and data arrays
                     console.log("API returns object with labels and data");
                     orgLabels = distributionResponse.data.labels;
@@ -176,7 +272,7 @@ const OrganizationCharts = () => {
                     const orgDataWithIndex = orgLabels.map((label, index) => ({
                         name: label,
                         clients: orgData[index],
-                        index: index
+                        index: index,
                     }));
                     // Sort by index (assuming API returns in creation order, latest first)
                     // If API doesn't return in order, we'd need to add creation dates
@@ -199,7 +295,7 @@ const OrganizationCharts = () => {
                     // Process and categorize the data (use full data for categories)
                     const categorizedData = categorizeOrganizations({
                         labels: orgLabels,
-                        data: orgData
+                        data: orgData,
                     });
                     // Create colors for categories
                     const categoryColors = Array(categorizedData.data.length).fill("#00A859");
@@ -262,7 +358,7 @@ const OrganizationCharts = () => {
                     stepSize: 500,
                     callback: function (value) {
                         return value;
-                    }
+                    },
                 },
                 grid: {
                     color: "#e9ecef",
@@ -272,17 +368,18 @@ const OrganizationCharts = () => {
                     text: "Number of Organizations",
                     color: "#6c757d",
                     font: {
-                        size: 12
-                    }
-                }
+                        size: 12,
+                    },
+                },
             },
         },
         onClick: () => {
             setShowOrganizationPopup(true);
         },
         onHover: (event, activeElements) => {
-            if (event.native && 'target' in event.native && event.native.target) {
-                event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            if (event.native && "target" in event.native && event.native.target) {
+                event.native.target.style.cursor =
+                    activeElements.length > 0 ? "pointer" : "default";
             }
         },
     };
@@ -320,7 +417,7 @@ const OrganizationCharts = () => {
                     stepSize: 500,
                     callback: function (value) {
                         return value;
-                    }
+                    },
                 },
                 grid: {
                     color: "#e9ecef",
@@ -330,17 +427,18 @@ const OrganizationCharts = () => {
                     text: "Number of Clients",
                     color: "#6c757d",
                     font: {
-                        size: 12
-                    }
-                }
+                        size: 12,
+                    },
+                },
             },
         },
         onClick: () => {
             setShowOrganizationPopup(true);
         },
         onHover: (event, activeElements) => {
-            if (event.native && 'target' in event.native && event.native.target) {
-                event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            if (event.native && "target" in event.native && event.native.target) {
+                event.native.target.style.cursor =
+                    activeElements.length > 0 ? "pointer" : "default";
             }
         },
     };
@@ -381,7 +479,7 @@ const OrganizationCharts = () => {
                     stepSize: 500,
                     callback: function (value) {
                         return value;
-                    }
+                    },
                 },
                 grid: {
                     color: "#e9ecef",
@@ -391,20 +489,27 @@ const OrganizationCharts = () => {
                     text: "Number of Clients",
                     color: "#6c757d",
                     font: {
-                        size: 12
-                    }
-                }
+                        size: 12,
+                    },
+                },
             },
         },
         onClick: () => {
             setShowOrganizationPopup(true);
         },
         onHover: (event, activeElements) => {
-            if (event.native && 'target' in event.native && event.native.target) {
-                event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+            if (event.native && "target" in event.native && event.native.target) {
+                event.native.target.style.cursor =
+                    activeElements.length > 0 ? "pointer" : "default";
             }
         },
     };
-    return (_jsxs(_Fragment, { children: [_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: "body", color: "#00A859" }, children: "Organization Growth" }), _jsx(Line, { data: growthData, options: growthChartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-0", style: { fontFamily: "body", color: "#00A859" }, children: viewMode === 'category' ? 'Client Distribution by Category' : 'Client Distribution by Organization' }), _jsxs("div", { className: "btn-group", role: "group", style: { fontSize: '0.75rem' }, children: [_jsx("button", { type: "button", className: `btn ${viewMode === 'category' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('category'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Categories" }), _jsx("button", { type: "button", className: `btn ${viewMode === 'individual' ? 'btn-success' : 'btn-outline-success'}`, onClick: () => setViewMode('individual'), style: { padding: '0.25rem 0.5rem', fontSize: '0.7rem' }, children: "Individual" })] })] }), _jsx(Bar, { data: viewMode === 'category' ? categorizedDistributionData : distributionData, options: viewMode === 'category' ? categoryChartOptions : distributionChartOptions })] }) }) })] }), _jsx(OrganizationListPopup, { show: showOrganizationPopup, onHide: () => setShowOrganizationPopup(false) })] }));
+    return (_jsxs(_Fragment, { children: [_jsxs(Row, { className: "mt-4", children: [_jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-3", style: { fontFamily: "body", color: "#00A859" }, children: "Organization Growth" }), _jsx(Line, { data: growthData, options: growthChartOptions })] }) }) }), _jsx(Col, { md: 6, className: "mb-4", children: _jsx(Card, { className: "shadow-sm h-100", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "d-flex justify-content-between align-items-center mb-3", children: [_jsx(Card.Title, { className: "fw-semibold fs-6 mb-0", style: { fontFamily: "body", color: "#00A859" }, children: viewMode === "category"
+                                                    ? "Client Distribution by Category"
+                                                    : "Client Distribution by Organization" }), _jsxs("div", { className: "btn-group", role: "group", style: { fontSize: "0.75rem" }, children: [_jsx("button", { type: "button", className: `btn ${viewMode === "category" ? "btn-success" : "btn-outline-success"}`, onClick: () => setViewMode("category"), style: { padding: "0.25rem 0.5rem", fontSize: "0.7rem" }, children: "Categories" }), _jsx("button", { type: "button", className: `btn ${viewMode === "individual" ? "btn-success" : "btn-outline-success"}`, onClick: () => setViewMode("individual"), style: { padding: "0.25rem 0.5rem", fontSize: "0.7rem" }, children: "Individual" })] })] }), _jsx(Bar, { data: viewMode === "category"
+                                            ? categorizedDistributionData
+                                            : distributionData, options: viewMode === "category"
+                                            ? categoryChartOptions
+                                            : distributionChartOptions })] }) }) })] }), _jsx(OrganizationListPopup, { show: showOrganizationPopup, onHide: () => setShowOrganizationPopup(false) })] }));
 };
 export default OrganizationCharts;
