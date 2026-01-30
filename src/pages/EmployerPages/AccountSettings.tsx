@@ -65,7 +65,6 @@ const EmployerAccountProfile = () => {
         company: employer.company || {
           id: "",
           createdAt: "",
-          companySize: 0,
         },
       };
 
@@ -87,7 +86,7 @@ const EmployerAccountProfile = () => {
         username: authUser.username || "Admin User",
         email: authUser.email || "admin@example.com",
         phone: "",
-        company: { id: "", createdAt: "", companySize: 0 },
+        company: { id: "", createdAt: "" },
       };
       setAccountData(fallbackData);
       return;
@@ -123,7 +122,7 @@ const EmployerAccountProfile = () => {
           username: parsedUser.username || "Admin User",
           email: parsedUser.email || "admin@example.com",
           phone: "",
-          company: { id: "", createdAt: "", companySize: 0 },
+          company: { id: "", createdAt: "" },
         };
         setAccountData(fallbackData);
         return;

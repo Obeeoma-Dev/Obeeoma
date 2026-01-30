@@ -17,16 +17,6 @@ import { EmployerUser } from "../../../types/employer";
 interface AccountSectionProps {
   accountData: EmployerUser;
 }
-const COMPANY_SIZES = [
-  "1-10 employees",
-  "11-50 employees",
-  "51-200 employees",
-  "201-500 employees",
-  "501-1000 employees",
-  "1000+ employees",
-];
-const storedCompanySize = localStorage.getItem("companySize") || "";
-const companySizeIndex = COMPANY_SIZES.indexOf(storedCompanySize);
 
 const AccountSection: React.FC<AccountSectionProps> = React.memo(
   ({ accountData }) => {
@@ -92,7 +82,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
       const storedEmail = localStorage.getItem("email");
       const storedTimeZone =
         localStorage.getItem("timeZone") ||
-        "UTC-05:00 Eastern Time (US & Canada)";
+        "UTC-05:00 West African Time (Nigeria & Gh)";
       const storedLanguage = localStorage.getItem("language") || "English";
       const storedDateFormat =
         localStorage.getItem("dateFormat") || "MM/DD/YYYY";
@@ -106,10 +96,6 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
           ...accountData.company,
           id: accountData.company?.id ?? "",
           createdAt: accountData.company?.createdAt ?? "",
-          companySize:
-            companySizeIndex > -1
-              ? companySizeIndex
-              : (accountData.company?.companySize ?? 0),
         },
         timeZone: storedTimeZone,
         language: storedLanguage,
@@ -199,7 +185,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
               </h4>
               <p className="text-muted mb-1">
                 <User size={14} className="me-2" />
-                {localData.username || "Admin User"}
+                {localData.username || "Corporate Admin User"}
               </p>
               <p className="text-muted mb-0">
                 <Mail size={14} className="me-2" />
@@ -237,30 +223,12 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 <div className="col-12 col-md-6">
                   <div className="bg-light rounded p-3 h-100">
                     <div className="d-flex align-items-center mb-2">
-                      <Users
-                        size={16}
-                        className=" me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">Company Size</span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(
-                        localData.company?.companySize.toString(),
-                      )}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
                       <Mail
                         size={16}
                         className=" me-2"
                         style={{ color: "#22C55E" }}
                       />
-                      <span className="small text-muted">Email Address</span>
+                      <span className="small text-muted">Contact Email Address</span>
                     </div>
                     <p className="fw-medium mb-0">
                       {formatDisplayValue(localData.email)}
