@@ -27,7 +27,6 @@ const EmployeeLandingPage: React.FC = () => {
       {/* 3. RENDER the AppDownloadSection component and PASS the data */}
       <AppDownloadSection {...employeeAppDownloadProps} />
 
-      {/* Optional additional content for the employee page */}
       <footer className="text-center py-4 text-secondary">
         <Link to="/privacy-policy" className="text-secondary">
           Privacy Policy
