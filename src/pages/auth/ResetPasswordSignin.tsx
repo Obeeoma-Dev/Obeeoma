@@ -36,7 +36,7 @@ const ResetPasswordSignIn: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const API_URL = "http://64.225.122.101/api/v1/auth/reset-password/";
+      const API_URL = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/reset-password/`;
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -50,7 +50,7 @@ const ResetPasswordSignIn: React.FC = () => {
         const errorData = await response.json();
         throw new Error(
           errorData.message ||
-            `Failed to send email with status: ${response.status}`,
+          `Failed to send email with status: ${response.status}`,
         );
       }
 
@@ -168,10 +168,10 @@ const ResetPasswordSignIn: React.FC = () => {
                     style={
                       error
                         ? {
-                            borderColor: "red",
-                            borderWidth: "1.5px",
-                            fontFamily: "body",
-                          }
+                          borderColor: "red",
+                          borderWidth: "1.5px",
+                          fontFamily: "body",
+                        }
                         : {}
                     }
                   />

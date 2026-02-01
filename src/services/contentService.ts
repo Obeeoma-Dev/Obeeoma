@@ -16,8 +16,8 @@ export interface ContentItem {
   description?: string;
 }
 
-// API base URL - Use local server for development
-const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
+// API base URL - Use environment variable for production
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/v1`;
 // const API_BASE_URL = "https://api-0904.onrender.com/api/v1";
 
 // Create axios instance with interceptors

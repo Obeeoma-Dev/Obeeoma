@@ -25,7 +25,7 @@ export type BlogPost = {
   featured: boolean;
 };
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 export const resolveImageSrc = (imageUrl: string | File): string => {
   // Handle File objects (for newly uploaded images)
@@ -58,10 +58,10 @@ const formatDate = (dateStr: string) => {
   return isNaN(date.getTime())
     ? "—"
     : date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
 };
 
 // Component props

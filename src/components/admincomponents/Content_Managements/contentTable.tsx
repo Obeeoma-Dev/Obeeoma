@@ -3,13 +3,13 @@
 
 import React, { useEffect, useState } from "react";
 import {
-    MoreVertical,
-    PlayCircle,
-    Image as ImageIcon,
-    FileText,
-    Music,
-    CheckCircle2,
-    Clock,
+  MoreVertical,
+  PlayCircle,
+  Image as ImageIcon,
+  FileText,
+  Music,
+  CheckCircle2,
+  Clock,
 } from 'lucide-react';
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
@@ -29,7 +29,7 @@ const TypeIcon = ({
 }) => {
   if (type === "image" && file_url) {
     const src = file_url.startsWith("/")
-      ? `http://127.0.0.1:8000${file_url}`
+      ? `${import.meta.env.VITE_API_BASE_URL}${file_url}`
       : file_url;
     return (
       <Image
@@ -44,26 +44,26 @@ const TypeIcon = ({
     );
   }
 
-    switch (type) {
-        case 'video':
-            return <PlayCircle size={20} color="#0d6efd" />;
-        case 'audio':
-            return <Music size={20} color="#6f42c1" />;
-        case 'image':
-            return <ImageIcon size={20} color="#198754" />;
-        default:
-            return <FileText size={20} color="#6c757d" />;
-    }
+  switch (type) {
+    case 'video':
+      return <PlayCircle size={20} color="#0d6efd" />;
+    case 'audio':
+      return <Music size={20} color="#6f42c1" />;
+    case 'image':
+      return <ImageIcon size={20} color="#198754" />;
+    default:
+      return <FileText size={20} color="#6c757d" />;
+  }
 };
 
 // Helper component: render badge based on status
 const StatusBadge = ({ status }: { status: ContentItem['status'] }) => {
-    // Map status to Bootstrap background/text colors
-    const styles: Record<ContentItem['status'], React.CSSProperties> = {
-        published: { backgroundColor: '#d1e7dd', color: '#0f5132' },
-        draft: { backgroundColor: '#fff3cd', color: '#664d03' },
-        processing: { backgroundColor: '#cfe2ff', color: '#084298' },
-    };
+  // Map status to Bootstrap background/text colors
+  const styles: Record<ContentItem['status'], React.CSSProperties> = {
+    published: { backgroundColor: '#d1e7dd', color: '#0f5132' },
+    draft: { backgroundColor: '#fff3cd', color: '#664d03' },
+    processing: { backgroundColor: '#cfe2ff', color: '#084298' },
+  };
 
   // Map status to labels
   const labels: Record<ContentItem["status"], string> = {

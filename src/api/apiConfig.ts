@@ -15,7 +15,7 @@ import {
 import { Employee } from "../types/TData";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://64.225.122.101/api";
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
 console.log("API Base URL:", API_BASE_URL);
 
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";

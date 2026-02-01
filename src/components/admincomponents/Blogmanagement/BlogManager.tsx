@@ -35,44 +35,44 @@ export function BlogManager() {
     },
   ]);
 
-    // Defining an image type.
-    type BackendBlog = {
-        id: string;
-        title: string;
-        category: string;
-        published_date: string;
-        status: "published" | "draft";
-        excerpt: string | null;
-        featured_image: string | null;
-        author: string | null;
-        content: string;
-        featured: boolean;
-    };
+  // Defining an image type.
+  type BackendBlog = {
+    id: string;
+    title: string;
+    category: string;
+    published_date: string;
+    status: "published" | "draft";
+    excerpt: string | null;
+    featured_image: string | null;
+    author: string | null;
+    content: string;
+    featured: boolean;
+  };
 
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/v1/articles/")
-            .then(res => res.json())
-            .then((data: BackendBlog[]) => {
-                console.log("Raw API data:", data);
-                const mapped: BlogPost[] = data.map((item) => ({
-                    id: item.id,
-                    title: item.title,
-                    category: item.category || "Uncategorized",
-                    date: item.published_date,
-                    status: item.status,
-                    excerpt: item.excerpt || "",
-                    imageUrl: item.featured_image || "",
-                    author: item.author || "Anonymous",
-                    content: item.content,
-                    featured: item.featured,
-                }));
-                console.log("Mapped data:", mapped);
-                setBlogs(mapped);
-            })
-            .catch(err => {
-                console.error("Failed to load blogs", err);
-            });
-    }, []);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`)
+      .then(res => res.json())
+      .then((data: BackendBlog[]) => {
+        console.log("Raw API data:", data);
+        const mapped: BlogPost[] = data.map((item) => ({
+          id: item.id,
+          title: item.title,
+          category: item.category || "Uncategorized",
+          date: item.published_date,
+          status: item.status,
+          excerpt: item.excerpt || "",
+          imageUrl: item.featured_image || "",
+          author: item.author || "Anonymous",
+          content: item.content,
+          featured: item.featured,
+        }));
+        console.log("Mapped data:", mapped);
+        setBlogs(mapped);
+      })
+      .catch(err => {
+        console.error("Failed to load blogs", err);
+      });
+  }, []);
 
 
   const [showForm, setShowForm] = useState(false);
@@ -80,12 +80,12 @@ export function BlogManager() {
   const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
-    // Add new article
-    function handleAdd() {
-        setFormMode("add");
-        setSelectedBlog(null);
-        setShowForm(true);
-    }
+  // Add new article
+  function handleAdd() {
+    setFormMode("add");
+    setSelectedBlog(null);
+    setShowForm(true);
+  }
 
   // Edit existing article
   function handleEdit(blog: BlogPost) {
@@ -94,16 +94,16 @@ export function BlogManager() {
     setShowForm(true);
   }
 
-    // Delete article
-    function handleDelete(id: string) {
-        setDeleteConfirm(id); // opens the confirm modal
-    }
+  // Delete article
+  function handleDelete(id: string) {
+    setDeleteConfirm(id); // opens the confirm modal
+  }
 
   // Confirmation handler delete.
   async function confirmDelete() {
     if (!deleteConfirm) return;
 
-    await fetch(`http://127.0.0.1:8000/api/v1/articles/${deleteConfirm}/`, {
+    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/${deleteConfirm}/`, {
       method: "DELETE",
     });
 
@@ -126,14 +126,14 @@ export function BlogManager() {
       formData.append("content", newBlog.content);
       formData.append("featured", newBlog.featured.toString());
 
-            // Handle image 
-            if (newBlog.imageUrl instanceof File) {
-                formData.append('featured_image', newBlog.imageUrl);
-            }
+      // Handle image 
+      if (newBlog.imageUrl instanceof File) {
+        formData.append('featured_image', newBlog.imageUrl);
+      }
 
       // ADD MODE → CREATE BLOG
       if (formMode === "add") {
-        const res = await fetch("http://127.0.0.1:8000/api/v1/articles/", {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`, {
           method: "POST",
           body: formData,
         });
@@ -165,7 +165,7 @@ export function BlogManager() {
       // EDIT MODE → UPDATE BLOG
       else {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/v1/articles/${newBlog.id}/`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/${newBlog.id}/`,
           {
             method: "PUT",
             body: formData,
