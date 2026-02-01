@@ -10,7 +10,6 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../../store/store";
 import { logoutUserThunk } from "../../../store/slices/authSlice";
-import { EmployerUser } from "../../../../src/types/employer";
 import AdminSidebar from "../adminsidebar";
 
 interface SystemAdminLayoutProps {
@@ -33,35 +32,33 @@ const SystemAdminLayout = ({
     const location = useLocation();
     const dispatch = useDispatch<AppDispatch>();
 
-    const employer = useSelector(
-        (state: RootState) => state.employer.currentEmployer,
-    ) as EmployerUser;
+    const user = useSelector(
+        (state: RootState) => state.auth.user,
+    );
 
-    // Try to get employer data from localStorage if available
-    let localEmployer = null;
+    // Try to get user data from localStorage if available
+    let localUser = null;
     try {
-        const stored = localStorage.getItem("employerAccountData");
-        localEmployer = stored ? JSON.parse(stored) : null;
+        const stored = localStorage.getItem("user");
+        localUser = stored ? JSON.parse(stored) : null;
     } catch (err) {
         console.warn("Storage recovery failed", err);
-        localEmployer = null;
+        localUser = null;
     }
 
-    console.log("employer", employer);
-    console.log("local-employer", localEmployer);
+    console.log("user", user);
+    console.log("local-user", localUser);
+    console.log("user.date_joined:", user?.date_joined);
+    console.log("localUser.date_joined:", localUser?.date_joined);
 
-    // Prefer localStorage for organizationName, fallback to Redux, then default
-    const organizationNameOrDefault = localEmployer?.email
-        ? localEmployer?.email
-        : employer?.email
-            ? employer?.email || employer?.email
-            : "User";
+    // Use system admin email and data
+    const adminEmail = user?.email || localUser?.email || "System Admin";
 
-    // Prefer backend for companyJoinDate, fallback to localStorage, then now
-    const companyJoinDate = employer?.company?.createdAt
-        ? new Date(employer.company.createdAt)
-        : localEmployer?.dateJoined
-            ? new Date(localEmployer.dateJoined)
+    // Use user creation date or current date as fallback
+    const adminJoinDate = user?.date_joined
+        ? new Date(user.date_joined)
+        : localUser?.date_joined
+            ? new Date(localUser.date_joined)
             : new Date();
 
     const formatDate = (date: Date) => {
@@ -121,7 +118,7 @@ const SystemAdminLayout = ({
 
                 {/* Main Content Area */}
                 <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-                    {/* Header - Using Employer Header Logic */}
+                    {/* Header - System Admin Header */}
                     <header
                         className="bg-white border-bottom sticky-top z-30"
                         style={{
@@ -155,7 +152,7 @@ const SystemAdminLayout = ({
                                     <button
                                         className="btn btn-link position-relative p-2"
                                         style={{ color: PRIMARY_COLOR, fontFamily: "body" }}
-                                        onClick={() => navigate("/employer-notifications")}
+                                        onClick={() => navigate("/admin-settings")}
                                     >
                                         <Bell size={20} />
                                         <span
@@ -178,21 +175,21 @@ const SystemAdminLayout = ({
                                                 className="text-end d-none d-md-block"
                                                 style={{ lineHeight: 1 }}
                                             >
-                                                {/* 1. Organization Name/Fallback */}
+                                                {/* 1. Admin Email */}
                                                 <span
                                                     className="fw-medium text-dark d-block"
                                                     style={{ fontFamily: "body" }}
-                                                    aria-label={`Organization name: ${organizationNameOrDefault}`}
+                                                    aria-label={`Admin email: ${adminEmail}`}
                                                 >
-                                                    {organizationNameOrDefault}
+                                                    {adminEmail}
                                                 </span>
 
-                                                {/* 2. Member Since Date - Moved up to line 2 */}
+                                                {/* 2. Admin Since Date */}
                                                 <small
                                                     className="text-muted fw-medium d-block"
                                                     style={{ fontFamily: "body", fontSize: "0.7rem" }}
                                                 >
-                                                    Member since {formatDate(companyJoinDate)}
+                                                    Admin since {formatDate(adminJoinDate)}
                                                 </small>
                                             </div>
 
@@ -234,10 +231,10 @@ const SystemAdminLayout = ({
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            {/* My Profile settings */}
+                                            {/* System Admin Settings */}
                                             <Dropdown.Item
                                                 as="button"
-                                                onClick={() => navigate("/employer-settings")}
+                                                onClick={() => navigate("/admin-settings")}
                                                 style={{
                                                     backgroundColor: "transparent",
                                                     color: "inherit",
@@ -252,7 +249,7 @@ const SystemAdminLayout = ({
                                                 }}
                                             >
                                                 <UserIcon size={16} className="me-2" />
-                                                My Profile Settings
+                                                System Admin Settings
                                             </Dropdown.Item>
 
                                             {/* Divider */}

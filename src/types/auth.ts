@@ -2,7 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-
+  date_joined?: string; // Add date_joined to fix TypeScript error
   role: "system_admin" | "systemadmin" | "employer" | "employee";
   is_verified: boolean;
   mfa_enabled?: boolean;
