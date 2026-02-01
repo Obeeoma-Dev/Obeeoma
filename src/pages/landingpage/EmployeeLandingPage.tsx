@@ -7,6 +7,7 @@ import AppDownloadSection from "../../components/employercomponents/employerdash
 import mainAppScreenshot from "../../assets/Images/app-screenshot-employee.png";
 import googlePlayBtn from "../../assets/Images/downloadgoogleplay.png";
 import appStoreBtn from "../../assets/Images/downloadappstore.png";
+import { Link } from "lucide-react";
 
 // 1. Define the component that holds the route/page structure
 const EmployeeLandingPage: React.FC = () => {
@@ -26,9 +27,10 @@ const EmployeeLandingPage: React.FC = () => {
       {/* 3. RENDER the AppDownloadSection component and PASS the data */}
       <AppDownloadSection {...employeeAppDownloadProps} />
 
-      {/* Optional additional content for the employee page */}
       <footer className="text-center py-4 text-secondary">
-        Need help? Contact HR or IT support.
+        <Link to="/privacy-policy" className="text-secondary">
+          Privacy Policy
+        </Link>
       </footer>
     </div>
   );

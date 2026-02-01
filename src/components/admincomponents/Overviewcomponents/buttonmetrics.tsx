@@ -2,14 +2,11 @@ import React from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import * as Icons from "lucide-react";
 
-
 import { BottomMetricCard } from "./admindashboard";
-
 
 const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
   metrics,
 }) => {
-
   const colorMap: Record<string, string> = {
     emerald: "#3CB371",
     blue: "#3CB371",
@@ -19,16 +16,14 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
 
   return (
     <section className="mb-4">
-
       <Row className="g-4">
         {metrics.map((metric) => {
           // Dynamically select icon from lucide-react
           const IconComponent = (Icons[metric.icon as keyof typeof Icons] ??
             Icons.Activity) as React.FC<{
-              size?: number;
-              color?: string;
-            }>;
-
+            size?: number;
+            color?: string;
+          }>;
 
           const iconColor = colorMap[metric.color] || colorMap.emerald;
 
@@ -38,12 +33,12 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
                 className="shadow-sm border-0 h-100"
                 style={{ transition: "all 0.3s ease" }}
                 onMouseEnter={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 8px 24px rgba(0,0,0,0.12)")
+                  (e.currentTarget.style.boxShadow =
+                    "0 8px 24px rgba(0,0,0,0.12)")
                 }
                 onMouseLeave={(e) =>
-                (e.currentTarget.style.boxShadow =
-                  "0 1px 3px rgba(0,0,0,0.12)")
+                  (e.currentTarget.style.boxShadow =
+                    "0 1px 3px rgba(0,0,0,0.12)")
                 }
               >
                 <Card.Body className="d-flex flex-column justify-content-between p-4">

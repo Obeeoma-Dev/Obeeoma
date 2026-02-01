@@ -1,8 +1,7 @@
-import React from 'react';
-import { Row, Col } from 'react-bootstrap';
-import { BrainCircuit, Activity, ThumbsUp } from 'lucide-react';
-import { HoverStatCard } from '../Hotlinecomponents/hoverCard';
-
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import { BrainCircuit, Activity, ThumbsUp } from "lucide-react";
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
 
 // Props interface for TopMetrics
 interface TopMetricsProps {
@@ -45,7 +44,6 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
             color="emerald"
           />
         </Col>
-
 
         <Col xs={12} md={4}>
           <HoverStatCard

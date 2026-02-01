@@ -43,13 +43,13 @@ const TopTriggers: React.FC<TopTriggersProps> = ({ triggers }) => {
             <ProgressBar
               now={trigger.score}
               className="trigger"
-              style={{ height: '6px', backgroundColor: '#e9ecef' }} // background track
+              style={{ height: "6px", backgroundColor: "#e9ecef" }} // background track
             >
               <div
                 className="progress-bar"
                 style={{
                   width: `${trigger.score}%`,
-                  backgroundColor: '#0B6E45',
+                  backgroundColor: "#0B6E45",
                 }}
               />
             </ProgressBar>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-
 // Define the props
 interface ConfirmModalProps {
   show: boolean;
@@ -24,7 +23,6 @@ export function ConfirmModal({
 }: ConfirmModalProps) {
   return (
     <>
-
       <style>
         {`
           /* Modal background overlay tint */

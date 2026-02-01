@@ -10,12 +10,7 @@ import { adminAPI } from "../../../api/apiConfig";
 
 // Import shared type definitions
 import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
-import {
-  Building2,
-  Users,
-  Map,
-  CircleCheckBig,
-} from "lucide-react";
+import { Building2, Users, Map, CircleCheckBig } from "lucide-react";
 
 /**
  * Main admin page for managing organizations.

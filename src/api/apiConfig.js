@@ -197,7 +197,7 @@ export const adminAPI = {
             page_size: pageSize.toString(),
         });
         if (search) {
-            params.append('search', search);
+            params.append("search", search);
         }
         const response = await api.get(`/v1/admin/organizations/?${params}`);
         return response;
@@ -444,8 +444,11 @@ export const employerAPI = {
         const response = await api.get("/v1/dashboard/trends/");
         return response;
     },
-    getWellnessMoodTrends: async () => {
-        const response = await api.get("/v1/wellness/mood-trends");
+    getWellnessMoodTrends: async (companyId) => {
+        const url = companyId
+            ? `/v1/company-mood/${companyId}/`
+            : "/v1/company-mood/";
+        const response = await api.get(url);
         return response;
     },
     getDepartmentDistribution: async () => {

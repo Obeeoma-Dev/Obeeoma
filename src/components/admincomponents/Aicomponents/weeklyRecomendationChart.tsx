@@ -1,6 +1,6 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
-import { Line } from 'react-chartjs-2'
+import React from "react";
+import { Card } from "react-bootstrap";
+import { Line } from "react-chartjs-2";
 
 import {
   Chart as ChartJS,
@@ -12,8 +12,7 @@ import {
   Legend,
 } from "chart.js";
 
-
-import './aicomponent.css'
+import "./aicomponent.css";
 
 // Register Chart.js components once
 ChartJS.register(
@@ -32,8 +31,8 @@ const chartData = {
     {
       label: "Recommendations Sent",
       data: [245, 312, 289, 340, 298, 360],
-      borderColor: '#3CB371',
-      backgroundColor: 'rgba(13,148,136,0.15)',
+      borderColor: "#3CB371",
+      backgroundColor: "rgba(13,148,136,0.15)",
       tension: 0.35,
       pointRadius: 4,
       pointHoverRadius: 6,

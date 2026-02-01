@@ -10,7 +10,6 @@ import {
   Col,
 } from "react-bootstrap";
 
-
 import { Search, Bell, User } from "lucide-react";
 
 /**

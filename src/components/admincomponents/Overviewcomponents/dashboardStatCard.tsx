@@ -16,26 +16,26 @@ const colorMap = {
 } as const;
 
 const DashboardStatCard: React.FC<DashboardStatCardProps> = ({ data }) => {
+  const Icon = data.icon;
 
-    const Icon = data.icon;
+  const color = data.color.includes("success")
+    ? "emerald"
+    : data.color.includes("primary")
+      ? "blue"
+      : data.color.includes("warning")
+        ? "amber"
+        : "rose";
 
-
-    const color =
-        data.color.includes("success") ? "emerald" :
-            data.color.includes("primary") ? "blue" :
-                data.color.includes("warning") ? "amber" :
-                    "rose";
-
-    return (
-        <HoverStatCard
-            title={data.title}
-            value={data.value}
-            subtitle="Updated recently"
-            trend={data.trend}
-            icon={Icon}
-            color={color}
-        />
-    );
+  return (
+    <HoverStatCard
+      title={data.title}
+      value={data.value}
+      subtitle="Updated recently"
+      trend={data.trend}
+      icon={Icon}
+      color={color}
+    />
+  );
 };
 
 export default DashboardStatCard;

@@ -45,7 +45,9 @@ const ReportPage = () => {
                         fontSize: "1rem",
                         color: activeTab === tab ? "#3CB371" : "#6c757d",
                         fontWeight: activeTab === tab ? "600" : "400",
-                        borderBottom: activeTab === tab ? "2px solid #3CB371" : "2px solid transparent",
+                        borderBottom: activeTab === tab
+                            ? "2px solid #3CB371"
+                            : "2px solid transparent",
                         cursor: "pointer",
                         transition: "all 0.2s",
                     }, children: tab }, tab))) }), _jsxs(Container, { fluid: true, className: "px-0", children: [activeTab === "Platform Usage" && (_jsx("div", { className: "mb-5", children: _jsx(PlatformUsageChart, {}) })), activeTab === "Health Conditions" && (_jsx("div", { className: "mb-5", children: _jsx(MentalHealthChart, {}) })), activeTab === "Treatment Outcomes" && (_jsx("div", { className: "mb-5", children: _jsx(TreatmentOutcomesChart, {}) })), activeTab === "Organization Performance" && (_jsx("div", { className: "mb-5", children: _jsx(OrganizationPerformanceChart, {}) })), _jsx("div", { className: "mb-5", children: _jsx(AvailableReports, {}) }), _jsx("div", { children: _jsx(CustomReportForm, {}) })] })] }));

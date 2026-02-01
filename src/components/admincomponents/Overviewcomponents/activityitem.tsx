@@ -3,11 +3,9 @@ import * as Icons from "lucide-react";
 import { Card } from "react-bootstrap";
 import { ActivityItem as ActivityItemType } from "./admindashboard";
 
-
 interface ActivityItemProps {
   data: ActivityItemType;
 }
-
 
 const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
   // Dynamically select icon from lucide-react based on string name
@@ -30,12 +28,10 @@ const ActivityItem: React.FC<ActivityItemProps> = ({ data }) => {
   const iconBgColor = bgColorMap[data.iconColor] || "#f0f4f8";
 
   return (
-    
     <Card className="border-0 shadow-sm mb-3">
       <Card.Body className="d-flex align-items-start justify-content-between px-2 py-3">
         {/* Left section: icon and text */}
         <div className="d-flex align-items-start gap-3 flex-grow-1">
-          
           <div
             className="rounded d-flex align-items-center justify-content-center"
             style={{

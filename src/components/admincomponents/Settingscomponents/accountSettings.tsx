@@ -9,7 +9,6 @@ export interface AccountDetails {
   bio: string;
 }
 
-
 const AccountForm: React.FC = () => {
   // Initialize local state with placeholder account data
   const [account, setAccount] = useState<AccountDetails>({

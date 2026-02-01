@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from 'react';
-import { Card, Button, Stack } from 'react-bootstrap';
-import { FileText, Download } from 'lucide-react';
-import { DownloadPopup } from './dowloadpopup';
+import { useState } from "react";
+import { Card, Button, Stack } from "react-bootstrap";
+import { FileText, Download } from "lucide-react";
+import { DownloadPopup } from "./dowloadpopup";
 const reports = [
     {
         id: "1",

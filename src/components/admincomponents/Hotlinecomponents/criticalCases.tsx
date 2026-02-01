@@ -90,7 +90,10 @@ const CriticalCases: React.FC = () => {
 
                 {/* Meta info: reason and assignedTo */}
                 <div style={styles.metaWrapper}>
-                  <Clock size={12} style={{ marginRight: "0.25rem", color: "#fff" }} />
+                  <Clock
+                    size={12}
+                    style={{ marginRight: "0.25rem", color: "#fff" }}
+                  />
                   <span style={styles.metaText}>{c.reason}</span>
                   <span style={{ ...styles.metaText, margin: "0 0.25rem" }}>
                     •

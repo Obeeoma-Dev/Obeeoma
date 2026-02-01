@@ -79,10 +79,6 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
         ...accountData.company,
         id: accountData.company?.id ?? "",
         createdAt: accountData.company?.createdAt ?? "",
-        companySize:
-          companySizeIndex > -1
-            ? companySizeIndex
-            : (accountData.company?.companySize ?? 0),
       },
       timeZone: storedTimeZone,
       language: storedLanguage,
@@ -186,12 +182,6 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
     localStorage.setItem("username", localData.username || "");
     localStorage.setItem("email", localData.email || "");
     localStorage.setItem("contactPerson", localData.contactPerson || "");
-    if (localData.company) {
-      localStorage.setItem(
-        "companySize",
-        COMPANY_SIZES[localData.company.companySize] || "",
-      );
-    }
     localStorage.setItem("timeZone", localData.timeZone || "");
     localStorage.setItem("language", localData.language || "");
     localStorage.setItem("dateFormat", localData.dateFormat || "");
@@ -320,31 +310,6 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
                 <label htmlFor="company-size" className="form-label fw-medium">
                   Company Size
                 </label>
-                <div className="position-relative">
-                  <Users
-                    size={16}
-                    className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-                  />
-                  <select
-                    id="company-size"
-                    className="form-select ps-5"
-                    value={
-                      localData.company
-                        ? COMPANY_SIZES[localData.company.companySize]
-                        : ""
-                    }
-                    onChange={(e) =>
-                      handleInputChange("companySize", e.target.value)
-                    }
-                  >
-                    <option value="">Select company size</option>
-                    {COMPANY_SIZES.map((size) => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
-                </div>
               </div>
 
               <div className="col-12 col-md-6">

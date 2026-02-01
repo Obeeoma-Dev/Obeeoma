@@ -33,13 +33,13 @@ const dummyMoodData = [
   { date: "Fri", score: 60, emoji: "🙂" },
 ];
 
-const WellnessTrends: React.FC = () => {
+const WellnessTrends: React.FC<{ companyId?: string }> = ({ companyId }) => {
   const [moodData, setMoodData] = useState(dummyMoodData);
 
   useEffect(() => {
     const fetchMoodData = async () => {
       try {
-        const response = await employerAPI.getWellnessMoodTrends();
+        const response = await employerAPI.getWellnessMoodTrends(companyId);
         const data = response.data;
         if (Array.isArray(data)) {
           const transformedData = data.map(
@@ -59,7 +59,7 @@ const WellnessTrends: React.FC = () => {
     };
 
     fetchMoodData();
-  }, []); // Remove setMoodData from dependencies to prevent infinite loops
+  }, [companyId]); // Remove setMoodData from dependencies to prevent infinite loops
 
   // Helper function to get emoji based on score
   const getEmojiFromScore = (score: number): string => {

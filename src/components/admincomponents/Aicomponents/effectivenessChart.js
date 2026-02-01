@@ -1,15 +1,10 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Bar } from "react-chartjs-2";
 import { Card } from "react-bootstrap";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, } from "chart.js";
 // Register Chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
-const BAR_COLORS = [
-    "#9DD3AF",
-    "#00A859",
-    "#3CB371",
-    "#0B6E45",
-];
+const BAR_COLORS = ["#9DD3AF", "#00A859", "#3CB371", "#0B6E45"];
 const data = {
     labels: ["Videos", "Articles", "Audio", "Interactive"],
     datasets: [

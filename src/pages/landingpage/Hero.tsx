@@ -59,7 +59,7 @@ const Hero = () => {
                 fontFamily: "heading",
               }}
             >
-              Obeeoma 24/7 professional mental health service.
+              Obeeoma 24/7 professional mental health services
             </p>
           </Col>
           <Col

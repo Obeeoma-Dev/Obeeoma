@@ -1,61 +1,73 @@
-import React from 'react'
-import { Card, Badge } from 'react-bootstrap'
-import { Building2 } from 'lucide-react'
-import './organizationUse.css'
-
+import React from "react";
+import { Card, Badge } from "react-bootstrap";
+import { Building2 } from "lucide-react";
+import "./organizationUse.css";
 
 interface OrganizationProfileProps {
-    name: string
-    id: string
-    subscriptionPlan: string
-    status: 'Active' | 'Inactive'
-    location: string
-    lastActive: string
+  name: string;
+  id: string;
+  subscriptionPlan: string;
+  status: "Active" | "Inactive";
+  location: string;
+  lastActive: string;
 }
 
 // Export the component as a named export
 export function OrganizationProfile({
+  name,
+  id,
+  subscriptionPlan,
+  status,
+  location,
+  lastActive,
+}: OrganizationProfileProps) {
+  // Debug: Log props to console
+  console.log("OrganizationProfile Props:", {
     name,
     id,
     subscriptionPlan,
     status,
     location,
-    lastActive
-}: OrganizationProfileProps) {
-    // Debug: Log props to console
-    console.log('OrganizationProfile Props:', { name, id, subscriptionPlan, status, location, lastActive });
+    lastActive,
+  });
 
-    return (
-        <div className="organization-profile">
-            {/* Debug info */}
-            <div className="mb-2 p-2 bg-danger text-white">
-                <small>
-                    Component Props Debug:<br />
-                    Name: {name}<br />
-                    ID: {id}<br />
-                    Plan: {subscriptionPlan}<br />
-                    Status: {status}<br />
-                    Location: {location}<br />
-                    LastActive: {lastActive}
-                </small>
+  return (
+    <div className="organization-profile">
+      {/* Debug info */}
+      <div className="mb-2 p-2 bg-danger text-white">
+        <small>
+          Component Props Debug:
+          <br />
+          Name: {name}
+          <br />
+          ID: {id}
+          <br />
+          Plan: {subscriptionPlan}
+          <br />
+          Status: {status}
+          <br />
+          Location: {location}
+          <br />
+          LastActive: {lastActive}
+        </small>
+      </div>
+
+      {/* Main organization information card */}
+      <Card className="mb-3">
+        <Card.Body className="d-flex flex-column">
+          {/* Top content */}
+          <div>
+            <div className="text-center mb-3">
+              <div className="org-icon mb-2">
+                <Building2 size={40} />
+              </div>
+              <Card.Title className="mb-1" style={{ fontFamily: "body" }}>
+                {name}
+              </Card.Title>
+              <Card.Text className="text-muted" style={{ fontFamily: "body" }}>
+                ID: {id}
+              </Card.Text>
             </div>
-
-            {/* Main organization information card */}
-            <Card className="mb-3">
-                <Card.Body className="d-flex flex-column">
-                    {/* Top content */}
-                    <div>
-                        <div className="text-center mb-3">
-                            <div className="org-icon mb-2">
-                                <Building2 size={40} />
-                            </div>
-                            <Card.Title className="mb-1" style={{ fontFamily: 'body' }}>
-                                {name}
-                            </Card.Title>
-                            <Card.Text className="text-muted" style={{ fontFamily: 'body' }}>
-                                ID: {id}
-                            </Card.Text>
-                        </div>
 
             <hr />
 
@@ -78,11 +90,14 @@ export function OrganizationProfile({
               </Badge>
             </div>
 
-                        <div className="d-flex justify-content-between align-items-center mb-2" style={{ fontFamily: 'body' }}>
-                            <small className="text-muted">Location</small>
-                            <strong>{location}</strong>
-                        </div>
-                    </div>
+            <div
+              className="d-flex justify-content-between align-items-center mb-2"
+              style={{ fontFamily: "body" }}
+            >
+              <small className="text-muted">Location</small>
+              <strong>{location}</strong>
+            </div>
+          </div>
 
           {/* Bottom-right aligned Last Active */}
           <div

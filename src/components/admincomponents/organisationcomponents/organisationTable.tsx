@@ -55,7 +55,9 @@ interface TableOrganization {
 }
 
 // Convert database organization to table format
-const convertToTableFormat = (org: DatabaseOrganization): TableOrganization => ({
+const convertToTableFormat = (
+  org: DatabaseOrganization,
+): TableOrganization => ({
   id: org.id.toString(),
   name: org.name,
   clients: org.client_count || 0,
@@ -108,29 +110,37 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   const fetchOrganizations = async (pageNum = 1, search = "") => {
     try {
       setLoading(true);
-      console.log(`Fetching organizations: page=${pageNum}, search="${search}"`);
+      console.log(
+        `Fetching organizations: page=${pageNum}, search="${search}"`,
+      );
 
       const response = await adminAPI.getOrganizationsList(pageNum, 5, search); // 5 per page
       console.log("Table API Response:", response);
 
       // Handle different response structures
       const results = response.data.results || response.data || [];
-      const totalCount = response.data.count || (Array.isArray(results) ? results.length : 0);
-      const hasNext = response.data.next !== undefined ? response.data.next !== null : false;
+      const totalCount =
+        response.data.count || (Array.isArray(results) ? results.length : 0);
+      const hasNext =
+        response.data.next !== undefined ? response.data.next !== null : false;
 
       // Convert to table format
-      const formattedOrgs = results.map((org: DatabaseOrganization) => convertToTableFormat(org));
+      const formattedOrgs = results.map((org: DatabaseOrganization) =>
+        convertToTableFormat(org),
+      );
 
       if (pageNum === 1) {
         setOrganizations(formattedOrgs);
       } else {
-        setOrganizations(prev => [...prev, ...formattedOrgs]);
+        setOrganizations((prev) => [...prev, ...formattedOrgs]);
       }
 
       setHasMore(hasNext);
       setTotalCount(totalCount);
 
-      console.log(`Table: Processed ${formattedOrgs.length} organizations, total: ${totalCount}, hasMore: ${hasNext}`);
+      console.log(
+        `Table: Processed ${formattedOrgs.length} organizations, total: ${totalCount}, hasMore: ${hasNext}`,
+      );
     } catch (error) {
       console.error("Error fetching organizations for table:", error);
       setOrganizations([]);
@@ -153,7 +163,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     if (loading) return;
     if (observer.current) observer.current.disconnect();
 
-    observer.current = new IntersectionObserver(entries => {
+    observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasMore) {
         const nextPage = page + 1;
         setPage(nextPage);
@@ -200,7 +210,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       <div className="mb-2 text-muted">
         Showing {orgs.length} of {totalCount} organizations
       </div>
-      <div style={{ height: '450px', overflowY: 'auto' }}>
+      <div style={{ height: "450px", overflowY: "auto" }}>
         <Table
           bordered
           hover
@@ -228,7 +238,11 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
               orgs.map((org, index) => (
                 <tr
                   key={org.id}
-                  ref={index === orgs.length - 1 ? lastOrganizationElementRef : null}
+                  ref={
+                    index === orgs.length - 1
+                      ? lastOrganizationElementRef
+                      : null
+                  }
                 >
                   {/* Composite cell: name + ID */}
                   <td>
@@ -246,8 +260,9 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                   {/* Plan */}
                   <td>
                     <span
-                      className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                        }`}
+                      className={`badge ${
+                        org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                      }`}
                     >
                       {org.plan}
                     </span>

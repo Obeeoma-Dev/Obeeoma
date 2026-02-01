@@ -121,16 +121,22 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                             src={imageSrc}
                             rounded
                             className="blogtable-thumb"
-                            style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              objectFit: "cover",
+                            }}
                             onError={(e) => {
                               // Replace with fallback when image fails
                               const target = e.target as HTMLImageElement;
                               const parent = target.parentElement;
                               if (parent) {
-                                target.style.display = 'none';
-                                const fallback = parent.querySelector('.fallback-icon') as HTMLElement;
+                                target.style.display = "none";
+                                const fallback = parent.querySelector(
+                                  ".fallback-icon",
+                                ) as HTMLElement;
                                 if (fallback) {
-                                  fallback.style.display = 'flex';
+                                  fallback.style.display = "flex";
                                 }
                               }
                             }}
@@ -144,7 +150,7 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                               width: "40px",
                               height: "40px",
                               fontSize: "18px",
-                              color: "#6c757d"
+                              color: "#6c757d",
                             }}
                           >
                             📄

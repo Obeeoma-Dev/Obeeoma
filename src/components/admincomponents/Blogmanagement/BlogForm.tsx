@@ -31,7 +31,6 @@ export function BlogForm({
     featured: false,
   });
 
-
   useEffect(() => {
     if (initialData && mode === "edit") {
       setFormData(initialData);
@@ -80,7 +79,7 @@ export function BlogForm({
       size="lg"
       centered
       scrollable
-      backdrop="static"   // prevents accidental close
+      backdrop="static" // prevents accidental close
       keyboard={false}
     >
       <Modal.Header>

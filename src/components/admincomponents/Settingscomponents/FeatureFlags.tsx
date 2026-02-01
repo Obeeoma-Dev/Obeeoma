@@ -44,7 +44,6 @@ const FeatureFlags: React.FC = () => {
     <Card className="settings-card-compact shadow-sm border-0">
       <Card.Header className="fw-semibold mb-2 ps-0">Feature Flags</Card.Header>
 
-
       <Form>
         <Container fluid>
           <Row className="g-2">

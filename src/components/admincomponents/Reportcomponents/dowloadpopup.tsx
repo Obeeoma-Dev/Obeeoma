@@ -12,7 +12,6 @@ interface DownloadPopupProps {
   reportSize: string;
 }
 
-
 export function DownloadPopup({
   isOpen,
   onClose,
@@ -21,29 +20,28 @@ export function DownloadPopup({
   reportDate,
   reportSize,
 }: DownloadPopupProps) {
+  const handleDownload = () => {
+    console.log("Downloading:", reportTitle);
+    onClose();
+  };
 
-    const handleDownload = () => {
-        console.log('Downloading:', reportTitle)
-        onClose()
-    }
+  return (
+    <Modal show={isOpen} onHide={onClose} centered>
+      {/* Modal Header */}
+      <Modal.Header closeButton>
+        <Modal.Title style={{ fontFamily: "heading" }}>
+          Download Report
+        </Modal.Title>
+      </Modal.Header>
 
-    return (
-
-        <Modal show={isOpen} onHide={onClose} centered>
-            {/* Modal Header */}
-            <Modal.Header closeButton>
-                <Modal.Title style={{ fontFamily: 'heading' }}>Download Report</Modal.Title>
-            </Modal.Header>
-
-            {/* Modal Body */}
-            <Modal.Body>
-
-                <Stack gap={4}>
-                    {/* Report Info Card */}
-                    <div className="report-card" style={{ fontFamily: 'body' }}>
-                        <div className="report-icon">
-                            <FileText size={24} />
-                        </div>
+      {/* Modal Body */}
+      <Modal.Body>
+        <Stack gap={4}>
+          {/* Report Info Card */}
+          <div className="report-card" style={{ fontFamily: "body" }}>
+            <div className="report-icon">
+              <FileText size={24} />
+            </div>
 
             <div className="flex-grow-1">
               <p className="report-title">{reportTitle}</p>

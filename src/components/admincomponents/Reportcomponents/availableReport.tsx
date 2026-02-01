@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { Card, Button, Stack } from 'react-bootstrap'
-import { FileText, Download } from 'lucide-react'
-import { DownloadPopup } from './dowloadpopup'
-
+import React, { useState } from "react";
+import { Card, Button, Stack } from "react-bootstrap";
+import { FileText, Download } from "lucide-react";
+import { DownloadPopup } from "./dowloadpopup";
 
 interface Report {
   id: string;
@@ -12,7 +11,6 @@ interface Report {
   size: string;
 }
 
-
 const reports: Report[] = [
   {
     id: "1",
@@ -21,15 +19,12 @@ const reports: Report[] = [
     date: "Jan 2026",
     size: "2.3 MB",
   },
-]
-
+];
 
 export function AvailableReports() {
+  const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
 
-  const [downloadPopupOpen, setDownloadPopupOpen] = useState(false)
-
-
-  const [selectedReport, setSelectedReport] = useState<Report | null>(null)
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
   // Handles clicking the download button
   const handleDownloadClick = (report: Report) => {
@@ -37,12 +32,10 @@ export function AvailableReports() {
     setSelectedReport(report);
 
     // Open popup
-    setDownloadPopupOpen(true)
-  }
-
+    setDownloadPopupOpen(true);
+  };
 
   return (
-
     <Card className="p-3">
       {/* Card body */}
       <Card.Body>
@@ -57,7 +50,6 @@ export function AvailableReports() {
             // Individual report card
             <Card key={report.id}>
               <Card.Body>
-
                 <div className="d-flex justify-content-between align-items-center">
                   {/* Left side: icon + text */}
                   <div className="d-flex align-items-center gap-3">

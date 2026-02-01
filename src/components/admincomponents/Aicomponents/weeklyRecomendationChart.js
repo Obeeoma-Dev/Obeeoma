@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card } from 'react-bootstrap';
-import { Line } from 'react-chartjs-2';
+import { Card } from "react-bootstrap";
+import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, } from "chart.js";
-import './aicomponent.css';
+import "./aicomponent.css";
 // Register Chart.js components once
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 // Chart data (visuals only — backend can replace this later)
@@ -12,8 +12,8 @@ const chartData = {
         {
             label: "Recommendations Sent",
             data: [245, 312, 289, 340, 298, 360],
-            borderColor: '#3CB371',
-            backgroundColor: 'rgba(13,148,136,0.15)',
+            borderColor: "#3CB371",
+            backgroundColor: "rgba(13,148,136,0.15)",
             tension: 0.35,
             pointRadius: 4,
             pointHoverRadius: 6,

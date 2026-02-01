@@ -236,7 +236,9 @@ export const adminAPI = {
   },
 
   getOrganizationsClientDistribution: async () => {
-    const response = await api.get("/v1/admin/organizations/client-distribution/");
+    const response = await api.get(
+      "/v1/admin/organizations/client-distribution/",
+    );
     return response;
   },
 
@@ -248,7 +250,7 @@ export const adminAPI = {
     });
 
     if (search) {
-      params.append('search', search);
+      params.append("search", search);
     }
 
     const response = await api.get(`/v1/admin/organizations/?${params}`);
@@ -552,8 +554,11 @@ export const employerAPI = {
     return response;
   },
 
-  getWellnessMoodTrends: async () => {
-    const response = await api.get("/v1/wellness/mood-trends");
+  getWellnessMoodTrends: async (companyId?: string) => {
+    const url = companyId
+      ? `/v1/company-mood/${companyId}/`
+      : "/v1/company-mood/";
+    const response = await api.get(url);
     return response;
   },
 

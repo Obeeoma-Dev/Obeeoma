@@ -25,31 +25,31 @@ const EngagementSummary: React.FC<EngagementSummaryProps> = ({
     icon: LucideIcon;
     color: MetricColor;
   }[] = [
-      {
-        title: "Engagement Rate",
-        value: `${engagementRate}%`,
-        subtitle: "Client activity this week",
-        trend: "+5% this week",
-        icon: TrendingUp,
-        color: "emerald",
-      },
-      {
-        title: "Active Reward Programs",
-        value: activePrograms,
-        subtitle: "Programs currently running",
-        trend: "+2 this month",
-        icon: Award,
-        color: "emerald",
-      },
-      {
-        title: "Rewards Assisted",
-        value: totalPoints.toLocaleString(),
-        subtitle: "Total points distributed",
-        trend: "+15% this month",
-        icon: Gift,
-        color: "emerald",
-      },
-    ];
+    {
+      title: "Engagement Rate",
+      value: `${engagementRate}%`,
+      subtitle: "Client activity this week",
+      trend: "+5% this week",
+      icon: TrendingUp,
+      color: "emerald",
+    },
+    {
+      title: "Active Reward Programs",
+      value: activePrograms,
+      subtitle: "Programs currently running",
+      trend: "+2 this month",
+      icon: Award,
+      color: "emerald",
+    },
+    {
+      title: "Rewards Assisted",
+      value: totalPoints.toLocaleString(),
+      subtitle: "Total points distributed",
+      trend: "+15% this month",
+      icon: Gift,
+      color: "emerald",
+    },
+  ];
 
   return (
     <>

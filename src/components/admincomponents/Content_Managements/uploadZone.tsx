@@ -1,16 +1,23 @@
 // components/UploadZone.tsx
 // This component implements the "Upload New Content" card from your Media Library.
 
-import React, { useState, useCallback } from 'react';
-import { UploadCloud, FileVideo, FileAudio, Image as ImageIcon, File as FileIcon, X } from 'lucide-react';
-import Card from 'react-bootstrap/Card';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Stack from 'react-bootstrap/Stack';
-import { contentMediaAPI } from '../../../services/contentService';
+import React, { useState, useCallback } from "react";
+import {
+  UploadCloud,
+  FileVideo,
+  FileAudio,
+  Image as ImageIcon,
+  File as FileIcon,
+  X,
+} from "lucide-react";
+import Card from "react-bootstrap/Card";
+import Nav from "react-bootstrap/Nav";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Stack from "react-bootstrap/Stack";
+import { contentMediaAPI } from "../../../services/contentService";
 
 const MEDIA_TYPES = [
   { id: "video", label: "Video", icon: FileVideo },
@@ -93,14 +100,16 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
     }
   };
 
-
-    return (
-        // Card provides a clean container with padding, border, and shadow
-        <Card style={{ borderRadius: 12 }}>
-            {/* Card header: "Upload New Content" */}
-            <Card.Header as="h2" style={{ fontSize: '1rem', fontWeight: 600, fontFamily: 'body' }}>
-                Upload New Content
-            </Card.Header>
+  return (
+    // Card provides a clean container with padding, border, and shadow
+    <Card style={{ borderRadius: 12 }}>
+      {/* Card header: "Upload New Content" */}
+      <Card.Header
+        as="h2"
+        style={{ fontSize: "1rem", fontWeight: 600, fontFamily: "body" }}
+      >
+        Upload New Content
+      </Card.Header>
 
       {/* Card body: everything else (tabs, drop zone, form, button) */}
       <Card.Body>
@@ -150,96 +159,120 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
           </Nav>
         </div>
 
-                {/* Drag-and-drop upload area; styled with dashed border and hover/active feedback */}
-                <div
-                    // Relative container to host the invisible file input overlay
-                    style={{
-                        position: 'relative',
-                        border: '2px dashed',
-                        borderColor: dragActive ? '#00A859' : '#ced4da',
-                        borderRadius: 12,
-                        padding: 24,
-                        textAlign: 'center',
-                        transition: 'border-color 150ms ease, background-color 150ms ease',
-                        backgroundColor: dragActive ? 'rgba(25, 135, 84, 0.08)' : 'transparent',
-                        cursor: 'pointer',
-                    }}
-                    onDragEnter={handleDrag} // Activate on drag enter
-                    onDragLeave={handleDrag} // Deactivate on drag leave
-                    onDragOver={handleDrag} // Keep active while over
-                    onDrop={handleDrop} // Handle file drop
+        {/* Drag-and-drop upload area; styled with dashed border and hover/active feedback */}
+        <div
+          // Relative container to host the invisible file input overlay
+          style={{
+            position: "relative",
+            border: "2px dashed",
+            borderColor: dragActive ? "#00A859" : "#ced4da",
+            borderRadius: 12,
+            padding: 24,
+            textAlign: "center",
+            transition: "border-color 150ms ease, background-color 150ms ease",
+            backgroundColor: dragActive
+              ? "rgba(25, 135, 84, 0.08)"
+              : "transparent",
+            cursor: "pointer",
+          }}
+          onDragEnter={handleDrag} // Activate on drag enter
+          onDragLeave={handleDrag} // Deactivate on drag leave
+          onDragOver={handleDrag} // Keep active while over
+          onDrop={handleDrop} // Handle file drop
+        >
+          {/* Invisible file input covering the whole drop zone to support click-to-upload */}
+          <Form.Control
+            type="file" // File input
+            onChange={handleChange} // Store selected file
+            // Overlay the input so clicks anywhere open the file picker
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              opacity: 0,
+              cursor: "pointer",
+            }}
+          />
+
+          {/* If a file is selected, show preview name, size, and a remove button */}
+          {file ? (
+            <Stack
+              direction="horizontal"
+              gap={3}
+              className="justify-content-center"
+            >
+              {/* Icon bubble for the selected file */}
+              <div
+                style={{
+                  padding: 12,
+                  backgroundColor: "rgba(25, 135, 84, 0.15)",
+                  borderRadius: 999,
+                }}
+              >
+                {/* Green file icon */}
+                <FileIcon size={24} color="#198754" />
+              </div>
+
+              {/* File name and size */}
+              <div style={{ textAlign: "left" }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: "#212529",
+                    fontFamily: "body",
+                  }}
                 >
-                    {/* Invisible file input covering the whole drop zone to support click-to-upload */}
-                    <Form.Control
-                        type="file" // File input
-                        onChange={handleChange} // Store selected file
-                        // Overlay the input so clicks anywhere open the file picker
-                        style={{
-                            position: 'absolute',
-                            inset: 0,
-                            width: '100%',
-                            height: '100%',
-                            opacity: 0,
-                            cursor: 'pointer',
-                        }}
-                    />
+                  {file.name}
+                </p>{" "}
+                {/* File name */}
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: 12,
+                    color: "#6c757d",
+                    fontFamily: "body",
+                  }}
+                >
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                </p>
+              </div>
 
-                    {/* If a file is selected, show preview name, size, and a remove button */}
-                    {file ? (
-                        <Stack direction="horizontal" gap={3} className="justify-content-center">
-                            {/* Icon bubble for the selected file */}
-                            <div
-                                style={{
-                                    padding: 12,
-                                    backgroundColor: 'rgba(25, 135, 84, 0.15)',
-                                    borderRadius: 999,
-                                }}
-                            >
-                                {/* Green file icon */}
-                                <FileIcon size={24} color="#198754" />
-                            </div>
-
-                            {/* File name and size */}
-                            <div style={{ textAlign: 'left' }}>
-                                <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: '#212529', fontFamily: 'body' }}>{file.name}</p> {/* File name */}
-                                <p style={{ margin: 0, fontSize: 12, color: '#6c757d', fontFamily: 'body' }}>
-                                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
-                            </div>
-
-                            {/* Remove file button */}
-                            <Button
-                                variant="light"
-                                size="sm"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setFile(null);
-                                }}
-                                style={{ borderRadius: 999 }}
-                                aria-label="Remove selected file"
-                            >
-                                {/* Gray 'X' icon */}
-                                <X size={16} color="#6c757d" />
-                            </Button>
-                        </Stack>
-                    ) : (
-                        // Empty state: prompt user to click or drag files, with an upload icon and helper text
-                        <div>
-                            {/* Circular backdrop for upload icon */}
-                            <div
-                                style={{
-                                    margin: '0 auto',
-                                    width: 48,
-                                    height: 48,
-                                    borderRadius: 999,
-                                    backgroundColor: 'rgba(25, 135, 84, 0.08)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <UploadCloud size={24} color="#00A859" />
-                            </div>
+              {/* Remove file button */}
+              <Button
+                variant="light"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFile(null);
+                }}
+                style={{ borderRadius: 999 }}
+                aria-label="Remove selected file"
+              >
+                {/* Gray 'X' icon */}
+                <X size={16} color="#6c757d" />
+              </Button>
+            </Stack>
+          ) : (
+            // Empty state: prompt user to click or drag files, with an upload icon and helper text
+            <div>
+              {/* Circular backdrop for upload icon */}
+              <div
+                style={{
+                  margin: "0 auto",
+                  width: 48,
+                  height: 48,
+                  borderRadius: 999,
+                  backgroundColor: "rgba(25, 135, 84, 0.08)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <UploadCloud size={24} color="#00A859" />
+              </div>
 
               {/* Instruction line: click or drag-and-drop */}
               <div style={{ marginTop: 8, color: "#6c757d" }}>

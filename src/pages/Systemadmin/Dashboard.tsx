@@ -1,7 +1,15 @@
 // src/pages/Dashboard.tsx
 
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Spinner, Alert, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Spinner,
+  Alert,
+  Button,
+} from "react-bootstrap";
 
 // Import reusable dashboard components
 import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
@@ -19,12 +27,7 @@ import {
 } from "../../components/admincomponents/Overviewcomponents/admindashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Building2,
-  Users,
-  CreditCard,
-  PhoneCall,
-} from "lucide-react";
+import { Building2, Users, CreditCard, PhoneCall } from "lucide-react";
 import { adminAPI } from "../../api/apiConfig";
 
 /**
@@ -113,7 +116,6 @@ const defaultStatsData: StatCardData[] = [
   },
 ];
 
-
 /**
  * Main Dashboard component
  * Combines sidebar, header, and dashboard content
@@ -126,7 +128,8 @@ const Dashboard: React.FC = () => {
   const [showEditModal, setShowEditModal] = React.useState(false);
 
   /* Dashboard stats state */
-  const [dashboardStats, setDashboardStats] = useState<StatCardData[]>(defaultStatsData);
+  const [dashboardStats, setDashboardStats] =
+    useState<StatCardData[]>(defaultStatsData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -151,8 +154,8 @@ const Dashboard: React.FC = () => {
     setError(null);
 
     // Clear cache and trigger refresh
-    localStorage.removeItem('dashboardStats');
-    setRefreshTrigger(prev => prev + 1);
+    localStorage.removeItem("dashboardStats");
+    setRefreshTrigger((prev) => prev + 1);
 
     // After 3 seconds, if still loading, hide loading state
     setTimeout(() => {
@@ -165,11 +168,11 @@ const Dashboard: React.FC = () => {
     const fetchDashboardStats = async () => {
       try {
         // Check if we have cached data (session-based)
-        const cachedData = localStorage.getItem('dashboardStats');
+        const cachedData = localStorage.getItem("dashboardStats");
 
         if (cachedData && refreshTrigger === 0) {
           // Use cached data on initial load - no API call
-          const parsedData = JSON.parse(cachedData || '[]');
+          const parsedData = JSON.parse(cachedData || "[]");
 
           // Re-add icons since they can't be serialized
           const dataWithIcons = parsedData.map((item: StatCardData) => {
@@ -247,7 +250,7 @@ const Dashboard: React.FC = () => {
 
           // Cache the data for the session (without icons since they can't be serialized)
           const dataToCache = transformedStats.map(({ icon, ...rest }) => rest);
-          localStorage.setItem('dashboardStats', JSON.stringify(dataToCache));
+          localStorage.setItem("dashboardStats", JSON.stringify(dataToCache));
           setDashboardStats(transformedStats);
         } catch (apiError) {
           console.error("API call failed, using default data:", apiError);
@@ -301,7 +304,9 @@ const Dashboard: React.FC = () => {
           {loading ? (
             <Col className="text-center py-4">
               <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading dashboard stats...</span>
+                <span className="visually-hidden">
+                  Loading dashboard stats...
+                </span>
               </Spinner>
             </Col>
           ) : error ? (

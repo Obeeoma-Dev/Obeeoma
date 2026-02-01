@@ -16,7 +16,6 @@ const EditEmployerProfilePage: React.FC = () => {
     phone: "",
     company: {
       id: "",
-      companySize: 0,
       createdAt: new Date().toISOString(),
     },
     timeZone: "UTC-05:00 Eastern Time (US & Canada)",

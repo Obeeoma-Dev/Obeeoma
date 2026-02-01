@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Card, ButtonGroup, Button } from "react-bootstrap";
 
-
 import {
   LineChart,
   Line,
@@ -14,9 +13,7 @@ import {
   Area,
 } from "recharts";
 
-
 import { EmployeeDataPoint } from "./admindashboard";
-
 
 const PlatformUsageChart: React.FC = () => {
   // Track which tab is currently active
@@ -40,9 +37,7 @@ const PlatformUsageChart: React.FC = () => {
   ];
 
   return (
-
     <Card className="mb-4 shadow-sm border-0">
-
       <Card.Body>
         {/* Tab navigation using ButtonGroup */}
         <ButtonGroup className="mb-4 w-100 justify-content-between">
@@ -281,6 +276,5 @@ const PlatformUsageChart: React.FC = () => {
     </Card>
   );
 };
-
 
 export default PlatformUsageChart;
