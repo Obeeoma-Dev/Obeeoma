@@ -16,35 +16,47 @@ export const setupApiInterceptors = (store) => {
     api.interceptors.request.use((config) => {
         const requestPath = config.url || "";
         const publicEndpoints = [
-            "/v1/auth/login/",
-            "/v1/auth/signup/",
-            "/v1/auth/reset-password/",
-            "/v1/auth/reset-password/complete/",
-            "/v1/organization-signup/",
-            "/v1/auth/verify-invitation-otp/",
-            "/v1/auth/mfa/setup/",
-            "/v1/auth/mfa/verify/",
+            "auth/login/",
+            "auth/signup/",
+            "auth/reset-password/",
+            "auth/reset-password/complete/",
+            "organization-signup/",
+            "auth/verify-invitation-otp/",
+            "auth/mfa/setup/",
+            "auth/mfa/verify/",
         ];
-        const isPublicEndpoint = publicEndpoints.some((path) => requestPath.endsWith(path));
+        const isPublicEndpoint = publicEndpoints.some((path) => requestPath.includes(path) || requestPath.endsWith(path));
         //check local storage first (more reliable)
         const persistedToken = localStorage.getItem("token");
         // checking the redux token as fallback
         const state = store.getState();
         const token = state.auth.token;
         const activeToken = persistedToken || token;
-        if (activeToken && !isPublicEndpoint) {
+        // Special handling for MFA setup - use temp_token
+        if (requestPath.includes("auth/mfa/setup/")) {
+            const tempToken = localStorage.getItem("temp_token") || state.auth.tempToken;
+            if (tempToken) {
+                config.headers.Authorization = `Bearer ${tempToken}`;
+                console.log("Using temp_token for MFA setup:", tempToken);
+            }
+        }
+        else if (activeToken && !isPublicEndpoint) {
             //  "inject the authorization"
             config.headers.Authorization = `Bearer ${activeToken}`;
         }
         else if (isPublicEndpoint) {
-            // to remove the token header
+            // to remove the token header for public endpoints
             delete config.headers.Authorization;
+            // Also remove any existing Authorization header
+            if (config.headers.Authorization) {
+                delete config.headers.Authorization;
+            }
         }
         console.log(" Making API Request:", {
             method: config.method,
             url: config.url,
             data: config.data,
-            token_injected: !!(activeToken && !isPublicEndpoint),
+            token_injected: !!(activeToken && !isPublicEndpoint) || !!localStorage.getItem("temp_token"),
             token_source: persistedToken
                 ? "localStorage"
                 : token
@@ -137,6 +149,7 @@ export const authAPI = {
         return api.post("v1/auth/verify-password-reset-otp/", payload);
     },
     fetchMfaSetupData: async (payload) => {
+        // For MFA setup, we need to use the temp_token from login response
         const response = await api.post("/v1/auth/mfa/setup/", payload);
         return response;
     },

@@ -3,7 +3,7 @@ export interface User {
   username: string;
   email: string;
 
-  role: "systemadmin" | "employer" | "employee";
+  role: "system_admin" | "systemadmin" | "employer" | "employee";
   is_verified: boolean;
   mfa_enabled?: boolean;
 }
@@ -73,6 +73,7 @@ export interface MfaVerifyPayload {
 export interface AuthState {
   user: User | null;
   token: string | null;
+  tempToken: string | null; // Add temp token for MFA setup
   isLoading: boolean;
   error: string | null;
   is_verified: boolean;
@@ -88,6 +89,7 @@ export interface LoginSuccessPayload {
   refresh: string;
   mfa_required?: boolean;
   temp_token?: string;
+  mfa_setup_data?: MfaSetupData;
 }
 
 export interface OtpVerificationPayload {
