@@ -169,7 +169,7 @@ export function ContentTable() {
             </tr>
           </thead>
           <tbody>
-            {contentData.map((item) => (
+            {Array.isArray(contentData) && contentData.map((item) => (
               <tr key={item.id}>
                 {/* Content cell: icon + title + type */}
                 <td>
