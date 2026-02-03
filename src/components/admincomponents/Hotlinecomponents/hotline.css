@@ -10,4 +10,9 @@
 
 .operator-progress {
     height: 0.5rem !important;
+    background-color: #e9ecef;
+}
+
+.operator-progress .progress-bar {
+    background-color: #00A859 !important;
 }

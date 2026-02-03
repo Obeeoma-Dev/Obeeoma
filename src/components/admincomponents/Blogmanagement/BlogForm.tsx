@@ -31,14 +31,6 @@ export function BlogForm({
     featured: false,
   });
 
-  // Image helper.
-  // const imagePreviewUrl =
-  //     formData.imageUrl instanceof File
-  //         ? URL.createObjectURL(formData.imageUrl)
-  //         : typeof formData.imageUrl === "string" && formData.imageUrl !== ""
-  //             ? formData.imageUrl
-  //             : null;
-
   useEffect(() => {
     if (initialData && mode === "edit") {
       setFormData(initialData);
@@ -84,17 +76,14 @@ export function BlogForm({
     <Modal
       show={show}
       onHide={onClose}
-      size="lg" // IMPORTANT: gives space like your image
+      size="lg"
       centered
-      scrollable // allows long article forms
+      scrollable
       backdrop="static" // prevents accidental close
       keyboard={false}
     >
-      <Modal.Header closeButton>
-        <Modal.Title
-          className="modal-title-custom"
-          style={{ fontFamily: "heading" }}
-        >
+      <Modal.Header>
+        <Modal.Title>
           {mode === "add" ? "Add New Article" : "Edit Article"}
         </Modal.Title>
       </Modal.Header>

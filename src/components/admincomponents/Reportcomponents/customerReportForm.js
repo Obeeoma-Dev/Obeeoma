@@ -1,5 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-// src/components/admincomponents/reportcomponents/CustomReportForm.tsx
 import { useState } from "react";
 import { Card } from "react-bootstrap";
 const CustomReportForm = () => {

@@ -1,5 +1,3 @@
-// src/components/admincomponents/adminsidebar.tsx
-
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -77,11 +75,8 @@ const SideNavButton = ({
   );
 };
 
-/**
- * AdminSidebar component for system admin dashboard navigation
- */
+/* AdminSidebar component for navigation */
 const AdminSidebar: React.FC = () => {
-  // Enables programmatic navigation
   const navigate = useNavigate();
 
   // Redux dispatch for logout action
@@ -94,7 +89,7 @@ const AdminSidebar: React.FC = () => {
     { id: "client-engagement", label: "Client Engagement", icon: "Users" },
     { id: "ai-management", label: "AI Management", icon: "Brain" },
     { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
-    { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
+    { id: "system-subscriptions", label: "Subscriptions", icon: "CreditCard" },
     { id: "reports", label: "Reports", icon: "BarChart3" },
     {
       id: "content-management",

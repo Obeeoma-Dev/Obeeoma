@@ -36,7 +36,7 @@ const ResetPasswordSignIn: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const API_URL = "http://64.225.122.101/api/v1/auth/reset-password/";
+      const API_URL = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/reset-password/`;
 
       const response = await fetch(API_URL, {
         method: "POST",

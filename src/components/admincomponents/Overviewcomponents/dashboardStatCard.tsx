@@ -2,7 +2,7 @@ import React from "react";
 import * as Icons from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { StatCardData } from "./admindashboard";
-import { HoverStatCard } from "../Hotlinecomponents/hoverCard"; // your hover card
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
 
 interface DashboardStatCardProps {
   data: StatCardData;
@@ -16,16 +16,13 @@ const colorMap = {
 } as const;
 
 const DashboardStatCard: React.FC<DashboardStatCardProps> = ({ data }) => {
-  // Resolve icon string → Lucide icon component
-  const Icon = (Icons[data.icon as keyof typeof Icons] ??
-    Icons.Activity) as LucideIcon;
+  const Icon = data.icon;
 
-  // Extract semantic color from Bootstrap class
-  const color = data.iconColor.includes("success")
+  const color = data.color.includes("success")
     ? "emerald"
-    : data.iconColor.includes("primary")
+    : data.color.includes("primary")
       ? "blue"
-      : data.iconColor.includes("warning")
+      : data.color.includes("warning")
         ? "amber"
         : "rose";
 
@@ -34,7 +31,7 @@ const DashboardStatCard: React.FC<DashboardStatCardProps> = ({ data }) => {
       title={data.title}
       value={data.value}
       subtitle="Updated recently"
-      trend={data.change}
+      trend={data.trend}
       icon={Icon}
       color={color}
     />

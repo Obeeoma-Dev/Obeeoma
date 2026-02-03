@@ -23,22 +23,22 @@ const styles = {
     card: { padding: "1.5rem", height: "100%" },
     caseContainer: (type) => ({
         padding: "1rem",
-        borderLeft: `4px solid ${type === "critical" ? "#dc3545" : "#ffc107"}`,
-        backgroundColor: type === "critical" ? "#f8d7da" : "#fff3cd",
+        borderLeft: `4px solid ${type === "critical" ? "#9DD3AF" : "#9DD3AF"}`,
+        backgroundColor: type === "critical" ? "#0B6E45" : "#0B6E45",
         borderRadius: "0.375rem",
         marginBottom: "1rem",
     }),
     caseTitle: (type) => ({
         fontSize: "0.875rem",
         fontWeight: "bold",
-        color: type === "critical" ? "#842029" : "#664d03",
+        color: type === "critical" ? "#fff" : "#fff",
     }),
     caseDescription: (type) => ({
         fontSize: "0.875rem",
-        color: type === "critical" ? "#842029" : "#664d03",
+        color: type === "critical" ? "#3CB371" : "#3CB371",
         marginTop: "0.25rem",
     }),
-    metaText: { fontSize: "0.75rem", color: "#6c757d" },
+    metaText: { fontSize: "0.75rem", color: "#fff" },
     header: {
         display: "flex",
         alignItems: "center",
@@ -49,11 +49,11 @@ const styles = {
 };
 // Main component
 const CriticalCases = () => {
-    return (_jsxs(Card, { style: styles.card, className: "mb-4", children: [_jsxs("div", { style: styles.header, children: [_jsx(AlertTriangle, { size: 20, color: "#ffc107" }), _jsx("h5", { style: { margin: 0, fontWeight: 600, fontFamily: "heading" }, children: "Critical Cases" })] }), _jsx("div", { children: cases.map((c) => (_jsx("div", { style: styles.caseContainer(c.type), children: _jsxs("div", { style: {
+    return (_jsxs(Card, { style: styles.card, className: "mb-4", children: [_jsxs("div", { style: styles.header, children: [_jsx(AlertTriangle, { size: 20, color: "#0B6E45" }), _jsx("h5", { style: { margin: 0, fontWeight: 600, fontFamily: "heading" }, children: "Critical Cases" })] }), _jsx("div", { children: cases.map((c) => (_jsx("div", { style: styles.caseContainer(c.type), children: _jsxs("div", { style: {
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "flex-start",
                             fontFamily: "body",
-                        }, children: [_jsxs("div", { children: [_jsxs("span", { style: styles.caseTitle(c.type), children: ["Case ID: ", c.id] }), _jsxs("div", { style: styles.metaWrapper, children: [_jsx(Clock, { size: 12, style: { marginRight: "0.25rem" } }), _jsx("span", { style: styles.metaText, children: c.reason }), _jsx("span", { style: { ...styles.metaText, margin: "0 0.25rem" }, children: "\u2022" }), _jsxs("span", { style: styles.metaText, children: ["Assigned to: ", c.assignedTo] })] })] }), _jsx(Badge, { bg: c.type === "critical" ? "danger" : "warning", children: c.status })] }) }, c.id))) })] }));
+                        }, children: [_jsxs("div", { children: [_jsxs("span", { style: styles.caseTitle(c.type), children: ["Case ID: ", c.id] }), _jsxs("div", { style: styles.metaWrapper, children: [_jsx(Clock, { size: 12, style: { marginRight: "0.25rem", color: "#fff" } }), _jsx("span", { style: styles.metaText, children: c.reason }), _jsx("span", { style: { ...styles.metaText, margin: "0 0.25rem" }, children: "\u2022" }), _jsxs("span", { style: styles.metaText, children: ["Assigned to: ", c.assignedTo] })] })] }), _jsx(Badge, { bg: c.type === "critical" ? "danger" : "warning", children: c.status })] }) }, c.id))) })] }));
 };
 export default CriticalCases;

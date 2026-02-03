@@ -5,7 +5,7 @@ import { downloadReport } from "../../../store/slices/EmployerSlice";
 
 const PRIMARY_COLOR = "#22C55E";
 
-interface ReportType {
+export interface ReportType {
   name: string;
   description: string;
   defaultFrequency: string;
@@ -64,40 +64,13 @@ const ReportCard = ({ report }: { report: ReportType }) => {
   );
 };
 
-const AvailableReports = () => {
-  const reportTypes: ReportType[] = [
-    {
-      name: "Wellness Summary",
-      description: "Overall employee wellness metrics",
-      defaultFrequency: "Monthly",
-      url: "/v1/download/department-analysis/",
-    },
-    {
-      name: "Department Analysis",
-      description: "Detailed department-wise breakdown",
-      defaultFrequency: "Quarterly",
-      url: "/v1/download/department-analysis/",
-    },
-    {
-      name: "Risk Assessment",
-      description: "Identified risk factors and trends",
-      defaultFrequency: "Weekly",
-      url: "/v1/download/risk-assessment/",
-    },
-    {
-      name: "Engagement Report",
-      description: "Employee engagement and participation",
-      defaultFrequency: "Monthly",
-      url: "/v1/download/engagement/",
-    },
-  ];
-
+const AvailableReports = ({ reports }: { reports: ReportType[] }) => {
   return (
     <div className="row">
       <div className="col-12">
         <h3 className="h4 fw-semibold mb-4">Available Reports</h3>
         <div className="row g-4">
-          {reportTypes.map((report, index) => (
+          {reports.map((report, index) => (
             <div key={index} className="col-12 col-md-6 col-lg-3">
               <ReportCard report={report} />
             </div>

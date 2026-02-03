@@ -25,7 +25,7 @@ export type BlogPost = {
   featured: boolean;
 };
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 export const resolveImageSrc = (imageUrl: string | File): string => {
   // Handle File objects (for newly uploaded images)
@@ -115,31 +115,50 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                   <div className="d-flex align-items-center gap-3">
                     {(() => {
                       const imageSrc = resolveImageSrc(blog.imageUrl);
-                      return imageSrc ? (
-                        <Image
-                          src={imageSrc}
-                          rounded
-                          className="blogtable-thumb"
-                          onError={(e) => {
-                            // Fallback to default image if loading fails
-                            const target = e.target as HTMLImageElement;
-                            target.src = "/default-thumbnail.png";
-                          }}
-                        />
-                      ) : (
-                        <div
-                          className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
-                          style={{
-                            width: "40px",
-                            height: "40px",
-                            fontSize: "18px",
-                            color: "#6c757d",
-                          }}
-                        >
-                          📄
-                        </div>
-                      );
+                      if (imageSrc) {
+                        return (
+                          <Image
+                            src={imageSrc}
+                            rounded
+                            className="blogtable-thumb"
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              objectFit: "cover",
+                            }}
+                            onError={(e) => {
+                              // Replace with fallback when image fails
+                              const target = e.target as HTMLImageElement;
+                              const parent = target.parentElement;
+                              if (parent) {
+                                target.style.display = "none";
+                                const fallback = parent.querySelector(
+                                  ".fallback-icon",
+                                ) as HTMLElement;
+                                if (fallback) {
+                                  fallback.style.display = "flex";
+                                }
+                              }
+                            }}
+                          />
+                        );
+                      } else {
+                        return (
+                          <div
+                            className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              fontSize: "18px",
+                              color: "#6c757d",
+                            }}
+                          >
+                            📄
+                          </div>
+                        );
+                      }
                     })()}
+
                     <span className="blogtable-title-text">{blog.title}</span>
                   </div>
                 </td>

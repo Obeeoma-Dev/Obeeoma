@@ -11,9 +11,17 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": [
+        "*"
+      ]
     }
   },
-  "include": ["src", "src/__tests__"], // Compile everything inside /src
-  "exclude": ["node_modules", "dist"] // Ignore build output
+  "include": [
+    "src",
+    "src/__tests__"
+  ], // Compile everything inside /src
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Ignore build output
 }

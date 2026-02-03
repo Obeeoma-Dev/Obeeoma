@@ -1,7 +1,4 @@
-// Import React and necessary hooks
 import React, { useState, useEffect } from "react";
-
-// Import Bootstrap components
 import { Form, Row, Col, Container, Card } from "react-bootstrap";
 
 // Define the shape of a feature flag
@@ -13,27 +10,15 @@ interface FeatureFlag {
 
 // Initial feature flags list
 const defaultFlags: FeatureFlag[] = [
-  { id: "featureFlags", label: "Feature Flags", enabled: true },
+  { id: "assessments", label: "Assessments", enabled: true },
   { id: "subscriptionTiers", label: "Subscription Tiers", enabled: true },
-  { id: "multipleProducts", label: "Multiple Products", enabled: true },
-  { id: "customTrialLengths", label: "Custom Trial Lengths", enabled: true },
-  { id: "trialExtension", label: "Trial Extension", enabled: true },
-  { id: "trialConversion", label: "Trial Conversion", enabled: true },
-  { id: "emailCustomization", label: "Email Customization", enabled: true },
-  { id: "emailTemplates", label: "Email Templates", enabled: true },
   { id: "emailDelivery", label: "Email Delivery", enabled: true },
-  { id: "emailMetrics", label: "Email Metrics", enabled: true },
-  { id: "emailLogs", label: "Email Logs", enabled: true },
-  { id: "emailSuppression", label: "Email Suppression", enabled: true },
-  { id: "emailThrottling", label: "Email Throttling", enabled: true },
-  { id: "emailRetry", label: "Email Retry", enabled: true },
-  { id: "emailAlias", label: "Email Alias", enabled: true },
+  { id: "notifications", label: "Notifications", enabled: true },
+  { id: "hotline", label: "Hot Line", enabled: true },
+  { id: "sanaai", label: "Sana Ai", enabled: true },
 ];
 
-/**
- * FeatureFlags component — renders toggle switches for each feature
- * with persistent state and custom styling
- */
+/* FeatureFlags component — renders toggle switches for each feature */
 const FeatureFlags: React.FC = () => {
   // Load flags from localStorage or use default
   const [flags, setFlags] = useState<FeatureFlag[]>(() => {
@@ -59,7 +44,6 @@ const FeatureFlags: React.FC = () => {
     <Card className="settings-card-compact shadow-sm border-0">
       <Card.Header className="fw-semibold mb-2 ps-0">Feature Flags</Card.Header>
 
-      {/* Bootstrap form container */}
       <Form>
         <Container fluid>
           <Row className="g-2">
@@ -68,14 +52,14 @@ const FeatureFlags: React.FC = () => {
               <Col md={6} lg={5} key={flag.id}>
                 <div className="p-2 border rounded-2 bg-light-hover transition settings-section-compact">
                   <Form.Check
-                    type="switch" // Render as a toggle switch
-                    id={`switch-${flag.id}`} // Unique ID for accessibility
-                    label={flag.label} // Display label next to the switch
-                    checked={flag.enabled} // Controlled checked state
-                    onChange={() => handleToggle(flag.id)} // Toggle handler
+                    type="switch"
+                    id={`switch-${flag.id}`}
+                    label={flag.label}
+                    checked={flag.enabled}
+                    onChange={() => handleToggle(flag.id)}
                     className={
                       flag.enabled ? "text-success fw-500" : "text-muted"
-                    } // Color feedback
+                    }
                   />
                 </div>
               </Col>

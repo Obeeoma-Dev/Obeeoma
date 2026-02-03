@@ -1,150 +1,106 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
-import Sidebar from "../../../components/admincomponents/adminsidebar";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable, {
-  Organization,
+  DatabaseOrganization,
 } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
-import Header from "../../../components/admincomponents/adminheader";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
+import { adminAPI } from "../../../api/apiConfig";
 
 // Import shared type definitions
 import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
-
-/**
- * Sample organization data for table display.
- * Will be replaced with backend data later.
- */
-const mockOrganizations: Organization[] = [
-  {
-    id: "1",
-    icon: "Building2",
-    name: "Wellness Center Inc.",
-    clients: 284,
-    programs: 12,
-    status: "Active",
-    lastActive: "2 hours ago",
-    plan: "Premium",
-    address: "123 Main St",
-  },
-  {
-    id: "2",
-    icon: "Building2",
-    name: "Community Mental Health",
-    clients: 194,
-    programs: 8,
-    status: "Active",
-    lastActive: "3 hours ago",
-    plan: "Premium",
-    address: "456 Elm Ave",
-  },
-  {
-    id: "3",
-    icon: "Building2",
-    name: "Urban Outreach",
-    clients: 134,
-    programs: 6,
-    status: "Inactive",
-    lastActive: "2 days ago",
-    plan: "Freemium",
-    address: "789 Oak Blvd",
-  },
-];
-
-/**
- * Sample stat data for top-level metrics.
- * Moved from OrganizationStats component to here.
- */
-const mockStats: StatCardData[] = [
-  {
-    id: "1",
-    title: "Total Organizations",
-    value: "0",
-    change: "+3 this month",
-    icon: "Building2",
-    iconColor: "custom-green",
-    // subtitle: "Active organizations",
-    // linkText: "View all organizations",
-    // color: "emerald",
-  },
-  {
-    id: "2",
-    title: "Total Client",
-    value: "0",
-    change: "+24 this month",
-    icon: "Users",
-    iconColor: "custom-green",
-    // subtitle: "Active organizations",
-    // linkText: "View all organizations",
-    // color: "emerald",
-  },
-  {
-    id: "3",
-    title: "Active Programs",
-    value: "0",
-    change: "+5 this month",
-    icon: "CircleCheckBig",
-    iconColor: "custom-green",
-    // subtitle: "Active organizations",
-    // linkText: "View all organizations",
-    // color: "emerald",
-  },
-  {
-    id: "4",
-    title: "Regional Coverage",
-    value: "0 regions",
-    change: "",
-    icon: "Map",
-    iconColor: "custom-green",
-    // subtitle: "Active organizations",
-    // linkText: "View all organizations",
-    // color: "emerald",
-  },
-];
+import { Building2, Users, Map, CircleCheckBig } from "lucide-react";
 
 /**
  * Main admin page for managing organizations.
  * Combines sidebar, header, stats, table, and charts.
  */
 const OrganizationPage: React.FC = () => {
+  const [dashboardStats, setDashboardStats] = useState<StatCardData[]>([
+    {
+      id: "1",
+      title: "Total Organizations",
+      value: "0",
+      trend: "+3 this month",
+      icon: Building2,
+      color: "emerald",
+    },
+    {
+      id: "2",
+      title: "Total Client",
+      value: "0",
+      trend: "+24 this month",
+      icon: Users,
+      color: "emerald",
+    },
+    {
+      id: "3",
+      title: "Active Programs",
+      value: "0",
+      trend: "+5 this month",
+      icon: CircleCheckBig,
+      color: "emerald",
+    },
+  ]);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const response = await adminAPI.getDashboardOverview();
+        const data = response.data;
+
+        // Update stats with real data
+        setDashboardStats([
+          {
+            id: "1",
+            title: "Total Organizations",
+            value: data.total_organizations?.toString() || "0",
+            trend: `+${data.organizations_this_month || 0} this month`,
+            icon: Building2,
+            color: "emerald",
+          },
+          {
+            id: "2",
+            title: "Total Client",
+            value: data.total_clients?.toString() || "0",
+            trend: `+${data.clients_this_month || 0} this month`,
+            icon: Users,
+            color: "emerald",
+          },
+          {
+            id: "3",
+            title: "Active Programs",
+            value: "0", // This field wasn't in the API response, keeping as 0 for now
+            trend: "+5 this month",
+            icon: CircleCheckBig,
+            color: "emerald",
+          },
+        ]);
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
   return (
-    <div className="d-flex vh-100">
-      {/* Sidebar navigation */}
-      <Sidebar />
+    <SystemAdminLayout title="Organizations">
+      {/* Main content container with proper spacing */}
+      <div className="p-4">
+        {/* Stats summary with props */}
+        <Row className="gy-4 mb-4">
+          <DashboardStats stats={dashboardStats} />
+        </Row>
 
-      {/* Main content area */}
-      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* Top header bar */}
-        <Header />
+        {/* Organization table with real data */}
+        <OrganizationTable />
 
-        {/* Scrollable content below header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          {/* Main content container */}
-          <div className="flex-grow-1 overflow-auto">
-            <Container fluid className="py-4">
-              {/* Stats summary with props */}
-
-              <Row className="gy-4">
-                <DashboardStats stats={mockStats} />
-              </Row>
-
-              {/* Organization table with mock data */}
-              <OrganizationTable organizations={mockOrganizations} />
-
-              {/* Graphs section */}
-              <OrganizationCharts />
-            </Container>
-          </div>
-        </div>
+        {/* Graphs section */}
+        <OrganizationCharts />
       </div>
-    </div>
+    </SystemAdminLayout>
   );
 };
 

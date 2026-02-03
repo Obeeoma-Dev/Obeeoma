@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/MentalHealthChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -13,11 +11,9 @@ import {
   TooltipItem,
 } from "chart.js";
 
-// Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const MentalHealthChart: React.FC = () => {
-  // Data matching the design: Mental Health Condition Distribution
   const data = {
     labels: [
       "Anxiety",
@@ -32,7 +28,7 @@ const MentalHealthChart: React.FC = () => {
       {
         label: "Distribution (%)",
         data: [35, 28, 12, 8, 6, 5, 5],
-        backgroundColor: "#3CB371", // Green color matching the design
+        backgroundColor: "#3CB371",
         borderRadius: 4,
       },
     ],

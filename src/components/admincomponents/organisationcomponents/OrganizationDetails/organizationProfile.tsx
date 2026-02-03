@@ -1,22 +1,14 @@
-// Import React (required for JSX and functional components)
 import React from "react";
-
-// Import React-Bootstrap components
 import { Card, Badge } from "react-bootstrap";
-
-// Import icon from lucide-react (allowed, not Tailwind related)
 import { Building2 } from "lucide-react";
-
-// Import component-specific CSS (plain CSS, not Tailwind)
 import "./organizationUse.css";
 
-// Define the props interface for strong typing and lint safety
 interface OrganizationProfileProps {
   name: string;
   id: string;
   subscriptionPlan: string;
   status: "Active" | "Inactive";
-  region: string;
+  location: string;
   lastActive: string;
 }
 
@@ -26,12 +18,40 @@ export function OrganizationProfile({
   id,
   subscriptionPlan,
   status,
-  region,
+  location,
   lastActive,
 }: OrganizationProfileProps) {
+  // Debug: Log props to console
+  console.log("OrganizationProfile Props:", {
+    name,
+    id,
+    subscriptionPlan,
+    status,
+    location,
+    lastActive,
+  });
+
   return (
-    // Wrapper div to stack cards vertically
     <div className="organization-profile">
+      {/* Debug info */}
+      <div className="mb-2 p-2 bg-danger text-white">
+        <small>
+          Component Props Debug:
+          <br />
+          Name: {name}
+          <br />
+          ID: {id}
+          <br />
+          Plan: {subscriptionPlan}
+          <br />
+          Status: {status}
+          <br />
+          Location: {location}
+          <br />
+          LastActive: {lastActive}
+        </small>
+      </div>
+
       {/* Main organization information card */}
       <Card className="mb-3">
         <Card.Body className="d-flex flex-column">
@@ -74,8 +94,8 @@ export function OrganizationProfile({
               className="d-flex justify-content-between align-items-center mb-2"
               style={{ fontFamily: "body" }}
             >
-              <small className="text-muted">Region</small>
-              <strong>{region}</strong>
+              <small className="text-muted">Location</small>
+              <strong>{location}</strong>
             </div>
           </div>
 

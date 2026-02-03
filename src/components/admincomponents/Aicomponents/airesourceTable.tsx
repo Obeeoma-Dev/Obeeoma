@@ -64,13 +64,13 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                           size={18}
                           color={
                             resource.type === "Article"
-                              ? "#0d6efd"
+                              ? "#3CB371"
                               : resource.type === "Video"
-                                ? "#dc3545"
+                                ? "#3CB371"
                                 : resource.type === "Audio"
-                                  ? "#198754"
+                                  ? "#3CB371"
                                   : resource.type === "Interactive"
-                                    ? "#fd7e14"
+                                    ? "#3CB371"
                                     : "#6c757d"
                           }
                         />
@@ -101,29 +101,42 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                       </span>
                       <ProgressBar
                         now={resource.engagement}
-                        variant={
-                          resource.engagement > 75
-                            ? "success"
-                            : resource.engagement > 60
-                              ? "warning"
-                              : "danger"
-                        }
-                        style={{ height: 6, flex: 1 }}
-                      />
+                        style={{
+                          height: 6,
+                          flex: 1,
+                          backgroundColor: "#e9ecef", // background track
+                        }}
+                      >
+                        <div
+                          className="progress-bar"
+                          style={{
+                            width: `${resource.engagement}%`,
+                            backgroundColor:
+                              resource.engagement > 75
+                                ? "#00A859"
+                                : resource.engagement > 60
+                                  ? "#3CB371"
+                                  : "#0B6E45",
+                          }}
+                        />
+                      </ProgressBar>
                     </div>
                   </td>
 
                   {/* Effectiveness */}
                   <td className="align-middle" style={{ fontFamily: "body" }}>
-                    <Badge
-                      bg={
-                        resource.effectiveness === "High"
-                          ? "success"
-                          : resource.effectiveness === "Medium"
-                            ? "warning"
-                            : "danger"
-                      }
-                      className="d-inline-flex align-items-center gap-2 px-3 py-2"
+                    <span
+                      className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded"
+                      style={{
+                        backgroundColor:
+                          resource.effectiveness === "High"
+                            ? "#00A859"
+                            : resource.effectiveness === "Medium"
+                              ? "#3CB371"
+                              : "#0B6E45",
+                        color: "white",
+                        fontWeight: 500,
+                      }}
                     >
                       {resource.effectiveness === "High" ? (
                         <CheckCircleFill size={14} />
@@ -131,7 +144,7 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                         <ExclamationTriangleFill size={14} />
                       )}
                       {resource.effectiveness}
-                    </Badge>
+                    </span>
                   </td>
 
                   {/* Last Updated */}

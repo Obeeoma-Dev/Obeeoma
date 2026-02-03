@@ -2,29 +2,24 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Bar } from "react-chartjs-2";
 import { Card } from "react-bootstrap";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, } from "chart.js";
-// Register Chart.js components
+// Register Chart components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
-const BAR_COLORS = [
-    "rgba(13, 110, 253, 0.5)", // Blue
-    "rgba(25, 135, 84, 0.5)", // Green
-    "rgba(255, 193, 7, 0.5)", // Yellow
-    "rgba(111, 66, 193, 0.5)", // Purple
-    "rgba(220, 53, 69, 0.5)", // Red
-];
+const BAR_COLORS = ["#9DD3AF", "#00A859", "#3CB371", "#0B6E45"];
 const data = {
-    labels: ["Videos", "Articles", "Audio", "Interactive", "Worksheets"],
+    labels: ["Videos", "Articles", "Audio", "Interactive"],
     datasets: [
         {
             label: "Effectiveness (%)",
-            data: [85, 70, 60, 50, 40], // Replace with your actual values
+            data: [85, 70, 60, 50, 40],
             backgroundColor: BAR_COLORS,
             borderRadius: 6,
             maxBarThickness: 30,
         },
     ],
 };
+// Horizontal bars
 const options = {
-    indexAxis: "y", // Horizontal bars
+    indexAxis: "y",
     responsive: true,
     scales: {
         x: {

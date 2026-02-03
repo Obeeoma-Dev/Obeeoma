@@ -1,5 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-// src/pages/Systemadmin/Settingspages/appearancesettings.tsx
 import { useState } from "react";
 import { Card } from "react-bootstrap";
 import ThemeSelector from "./themeselector";

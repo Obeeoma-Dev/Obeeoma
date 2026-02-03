@@ -2,37 +2,47 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Form, Alert, Spinner } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { setupMfa, confirmMfa } from "../../store/slices/authSlice";
+import { useNavigate } from "react-router-dom";
+import { getDashboardRoute } from "../../utils/routing";
 import logo from "./../../assets/Images/obeeomalogoword1.png";
 
 const MfaSetupPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const {
     mfaSetupData,
     isLoading,
     error,
     isMfaSetupConfirmed,
-    // user // Assuming user is available in authSlice
+    tempToken, // Get tempToken from Redux state
+    user, // Get user from authSlice
   } = useAppSelector((state) => state.auth);
 
   const [confirmationCode, setConfirmationCode] = useState("");
 
-  // 1. Fetch QR Code data on component mount
+  // 1. Fetch QR Code data on component mount (only if not already fetched)
   useEffect(() => {
     // Only fetch if data is not already present and not confirmed
-    if (!mfaSetupData && !isMfaSetupConfirmed) {
-      dispatch(setupMfa());
-    }
+    // Don't call setupMfa here since it's already called from Login component
   }, [dispatch, mfaSetupData, isMfaSetupConfirmed]);
 
   // 2. Handle Confirmation Submission
   const handleConfirmMfa = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (confirmationCode.length !== 6 || isLoading || !mfaSetupData) return;
+    if (
+      confirmationCode.length !== 6 ||
+      isLoading ||
+      !mfaSetupData ||
+      !tempToken
+    )
+      return;
 
     const payload = {
-      temp_token: mfaSetupData.temp_token,
+      temp_token: tempToken, // tempToken is now guaranteed to be string
       code: confirmationCode,
     };
+
+    console.log("Sending MFA verification payload:", payload);
 
     // Dispatch the confirm thunk
     const result = await dispatch(confirmMfa(payload));
@@ -60,9 +70,12 @@ const MfaSetupPage: React.FC = () => {
         <p>Your account is now protected. You can close this window.</p>
         <Button
           variant="success"
-          onClick={() => (window.location.href = "/system-admin")}
+          onClick={() => {
+            const dashboardRoute = getDashboardRoute(user);
+            navigate(dashboardRoute, { replace: true });
+          }}
         >
-          CLOSE
+          CONTINUE TO DASHBOARD
         </Button>
       </Alert>
     );
@@ -120,35 +133,44 @@ const MfaSetupPage: React.FC = () => {
             className="text-center text-muted mb-4"
             style={{ fontFamily: "body" }}
           >
-            Scan the QR code below using an authenticator app.if you haven't set
-            it up yet,
+            Use the manual key below to set up Two-Factor Authentication.
           </p>
 
           {mfaSetupData ? (
             <div className="text-center">
-              {/* QR Code Display: Uses the base64 data from the backend */}
-              {mfaSetupData.qr_code_base64 ? (
-                <div
-                  className="qr-code p-3 border rounded mb-3 bg-white"
-                  style={{ fontFamily: "body" }}
-                >
-                  <img
-                    src={`data:image/png;base64,${mfaSetupData.qr_code_base64}`}
-                    alt="MFA Setup QR Code"
-                    style={{ maxWidth: "200px", height: "200px" }}
-                    className="img-fluid"
-                  />
-                </div>
-              ) : null}
-
-              {/* Manual Secret Key */}
+              {/* Manual Secret Key - Prominently Displayed */}
               <Alert
                 variant="info"
-                className="p-2 mb-4"
-                style={{ fontFamily: "body" }}
+                className="p-3 mb-4"
+                style={{ fontFamily: "body", fontSize: "1.1rem" }}
               >
-                Manual Key: <code>{mfaSetupData.secret}</code>
+                <strong>Manual Key:</strong>
+                <br />
+                <code style={{ fontSize: "1.2rem", wordBreak: "break-all" }}>
+                  {mfaSetupData.secret}
+                </code>
               </Alert>
+
+              {/* Instructions */}
+              <div
+                className="mb-4 p-3 border rounded"
+                style={{ backgroundColor: "#f8f9fa" }}
+              >
+                <h5>📱 How to Setup:</h5>
+                <ol className="text-start">
+                  <li>Install Google Authenticator on your phone</li>
+                  <li>Open the app and tap "+" to add account</li>
+                  <li>Choose "Enter a setup key"</li>
+                  <li>
+                    Account name: <code>mikeangelodonatelo@gmail.com</code>
+                  </li>
+                  <li>
+                    Secret key: <strong>Copy the manual key above</strong>
+                  </li>
+                  <li>Time-based: ON</li>
+                  <li>Enter the 6-digit code below</li>
+                </ol>
+              </div>
 
               <Form onSubmit={handleConfirmMfa}>
                 <Form.Group className="mb-3">

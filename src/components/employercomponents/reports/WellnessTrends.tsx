@@ -33,13 +33,13 @@ const dummyMoodData = [
   { date: "Fri", score: 60, emoji: "🙂" },
 ];
 
-const WellnessTrends: React.FC = () => {
+const WellnessTrends: React.FC<{ companyId?: string }> = ({ companyId }) => {
   const [moodData, setMoodData] = useState(dummyMoodData);
 
   useEffect(() => {
     const fetchMoodData = async () => {
       try {
-        const response = await employerAPI.getWellnessMoodTrends();
+        const response = await employerAPI.getWellnessMoodTrends(companyId);
         const data = response.data;
         if (Array.isArray(data)) {
           const transformedData = data.map(
@@ -53,11 +53,13 @@ const WellnessTrends: React.FC = () => {
         }
       } catch (error) {
         console.error("Failed to fetch the mood data:", error);
+        // Keep using dummy data if API fails
+        // This prevents the component from crashing
       }
     };
 
     fetchMoodData();
-  }, [setMoodData]);
+  }, [companyId]); // Remove setMoodData from dependencies to prevent infinite loops
 
   // Helper function to get emoji based on score
   const getEmojiFromScore = (score: number): string => {
@@ -75,13 +77,13 @@ const WellnessTrends: React.FC = () => {
     y,
     payload,
   }: {
-    x: number;
-    y: number;
+    x: number | string;
+    y: number | string;
     payload: { value: number };
   }) => {
     const emoji = EMOJI_MAPPING.find((e) => e.score === payload.value)?.emoji;
     return (
-      <g transform={`translate(${x},${y})`}>
+      <g transform={`translate(${Number(x)},${Number(y)})`}>
         <text x={0} y={0} dy={4} textAnchor="end" fill="#555" fontSize={20}>
           {emoji}
         </text>

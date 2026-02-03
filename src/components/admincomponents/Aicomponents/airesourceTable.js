@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Table, Badge, ProgressBar, Button } from "react-bootstrap";
+import { Card, Table, ProgressBar, Button } from "react-bootstrap";
 import { CheckCircleFill, ExclamationTriangleFill, } from "react-bootstrap-icons";
 import { ThumbsUp, ThumbsDown, MoreVertical } from "lucide-react";
 const ResourcesTable = ({ resources }) => {
@@ -10,22 +10,33 @@ const ResourcesTable = ({ resources }) => {
                                                             height: 36,
                                                             backgroundColor: "#f1f3f5",
                                                         }, children: _jsx(IconComponent, { size: 18, color: resource.type === "Article"
-                                                                ? "#0d6efd"
+                                                                ? "#3CB371"
                                                                 : resource.type === "Video"
-                                                                    ? "#dc3545"
+                                                                    ? "#3CB371"
                                                                     : resource.type === "Audio"
-                                                                        ? "#198754"
+                                                                        ? "#3CB371"
                                                                         : resource.type === "Interactive"
-                                                                            ? "#fd7e14"
-                                                                            : "#6c757d" }) }), _jsxs("div", { style: { fontFamily: "body" }, children: [_jsx("div", { className: "fw-medium", children: resource.name }), _jsx("div", { className: "text-muted small", children: resource.type })] })] }) }), _jsx("td", { className: "align-middle text-muted", style: { fontFamily: "body" }, children: resource.recommended }), _jsx("td", { className: "align-middle", children: _jsxs("div", { className: "d-flex align-items-center gap-2", children: [_jsxs("span", { className: "small fw-medium", style: { width: 30, fontFamily: "body" }, children: [resource.engagement, "%"] }), _jsx(ProgressBar, { now: resource.engagement, variant: resource.engagement > 75
-                                                            ? "success"
-                                                            : resource.engagement > 60
-                                                                ? "warning"
-                                                                : "danger", style: { height: 6, flex: 1 } })] }) }), _jsx("td", { className: "align-middle", style: { fontFamily: "body" }, children: _jsxs(Badge, { bg: resource.effectiveness === "High"
-                                                    ? "success"
-                                                    : resource.effectiveness === "Medium"
-                                                        ? "warning"
-                                                        : "danger", className: "d-inline-flex align-items-center gap-2 px-3 py-2", children: [resource.effectiveness === "High" ? (_jsx(CheckCircleFill, { size: 14 })) : (_jsx(ExclamationTriangleFill, { size: 14 })), resource.effectiveness] }) }), _jsx("td", { className: "align-middle text-muted", style: { fontFamily: "body" }, children: resource.lastUpdated }), _jsx("td", { className: "align-middle text-end", children: _jsxs("div", { className: "d-flex justify-content-end gap-2", children: [_jsx(Button, { variant: "link", className: "p-1 text-muted", children: _jsx(ThumbsUp, { size: 16, color: "#198754" }) }), _jsx(Button, { variant: "link", className: "p-1 text-danger", children: _jsx(ThumbsDown, { size: 16, color: "#dc3545" }) }), _jsx(Button, { variant: "link", className: "p-1 text-muted", children: _jsx(MoreVertical, { size: 16, color: "#6c757d" }) })] }) })] }, resource.id));
+                                                                            ? "#3CB371"
+                                                                            : "#6c757d" }) }), _jsxs("div", { style: { fontFamily: "body" }, children: [_jsx("div", { className: "fw-medium", children: resource.name }), _jsx("div", { className: "text-muted small", children: resource.type })] })] }) }), _jsx("td", { className: "align-middle text-muted", style: { fontFamily: "body" }, children: resource.recommended }), _jsx("td", { className: "align-middle", children: _jsxs("div", { className: "d-flex align-items-center gap-2", children: [_jsxs("span", { className: "small fw-medium", style: { width: 30, fontFamily: "body" }, children: [resource.engagement, "%"] }), _jsx(ProgressBar, { now: resource.engagement, style: {
+                                                            height: 6,
+                                                            flex: 1,
+                                                            backgroundColor: "#e9ecef", // background track
+                                                        }, children: _jsx("div", { className: "progress-bar", style: {
+                                                                width: `${resource.engagement}%`,
+                                                                backgroundColor: resource.engagement > 75
+                                                                    ? "#00A859"
+                                                                    : resource.engagement > 60
+                                                                        ? "#3CB371"
+                                                                        : "#0B6E45",
+                                                            } }) })] }) }), _jsx("td", { className: "align-middle", style: { fontFamily: "body" }, children: _jsxs("span", { className: "d-inline-flex align-items-center gap-2 px-3 py-2 rounded", style: {
+                                                    backgroundColor: resource.effectiveness === "High"
+                                                        ? "#00A859"
+                                                        : resource.effectiveness === "Medium"
+                                                            ? "#3CB371"
+                                                            : "#0B6E45",
+                                                    color: "white",
+                                                    fontWeight: 500,
+                                                }, children: [resource.effectiveness === "High" ? (_jsx(CheckCircleFill, { size: 14 })) : (_jsx(ExclamationTriangleFill, { size: 14 })), resource.effectiveness] }) }), _jsx("td", { className: "align-middle text-muted", style: { fontFamily: "body" }, children: resource.lastUpdated }), _jsx("td", { className: "align-middle text-end", children: _jsxs("div", { className: "d-flex justify-content-end gap-2", children: [_jsx(Button, { variant: "link", className: "p-1 text-muted", children: _jsx(ThumbsUp, { size: 16, color: "#198754" }) }), _jsx(Button, { variant: "link", className: "p-1 text-danger", children: _jsx(ThumbsDown, { size: 16, color: "#dc3545" }) }), _jsx(Button, { variant: "link", className: "p-1 text-muted", children: _jsx(MoreVertical, { size: 16, color: "#6c757d" }) })] }) })] }, resource.id));
                             }) })] }) })] }));
 };
 export default ResourcesTable;

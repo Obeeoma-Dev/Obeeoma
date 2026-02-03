@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/PlatformUsageChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -13,11 +11,9 @@ import {
   TooltipItem,
 } from "chart.js";
 
-// Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const PlatformUsageChart: React.FC = () => {
-  // Data for platform usage over months
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
     datasets: [

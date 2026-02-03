@@ -12,9 +12,6 @@ interface DownloadPopupProps {
   reportSize: string;
 }
 
-/**
- * DownloadPopup Component
- */
 export function DownloadPopup({
   isOpen,
   onClose,
@@ -23,21 +20,12 @@ export function DownloadPopup({
   reportDate,
   reportSize,
 }: DownloadPopupProps) {
-  /**
-   * Handles the download action
-   */
   const handleDownload = () => {
     console.log("Downloading:", reportTitle);
     onClose();
   };
 
   return (
-    /**
-     * Bootstrap Modal replaces your Popup component
-     * show      -> controls visibility
-     * onHide    -> handles close events
-     * centered  -> vertically centers modal
-     */
     <Modal show={isOpen} onHide={onClose} centered>
       {/* Modal Header */}
       <Modal.Header closeButton>
@@ -48,7 +36,6 @@ export function DownloadPopup({
 
       {/* Modal Body */}
       <Modal.Body>
-        {/* Stack replaces Tailwind flex + spacing */}
         <Stack gap={4}>
           {/* Report Info Card */}
           <div className="report-card" style={{ fontFamily: "body" }}>

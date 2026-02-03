@@ -1,12 +1,6 @@
-// src/components/ProgramEngagementChart.tsx
-
-// Import React (required for JSX)
 import React from "react";
-
-// Import Card component from react-bootstrap
 import { Card } from "react-bootstrap";
 
-// Import required chart components from Recharts
 import {
   BarChart,
   Bar,
@@ -17,7 +11,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Import component-specific CSS (NO Tailwind)
 import "./organizationUse.css";
 
 // Chart data definition
@@ -30,22 +23,16 @@ const data = [
   { name: "CS", full: "Crisis Support", value: 18 },
 ];
 
-// Functional component definition
 export function ProgramEngagementChart() {
-  // JSX returned by the component
   return (
-    // React-Bootstrap Card wrapper
     <Card className="program-card">
-      {/* Card body for proper Bootstrap spacing */}
       <Card.Body>
         {/* Chart title */}
         <Card.Title className="program-title">
           Program Engagement (%)
         </Card.Title>
 
-        {/* Fixed-height container for responsive chart */}
         <div className="program-chart-container">
-          {/* Makes the chart automatically resize */}
           <ResponsiveContainer width="100%" height="100%">
             {/* Bar chart definition */}
             <BarChart
@@ -77,7 +64,7 @@ export function ProgramEngagementChart() {
                   return (
                     <text
                       x={x}
-                      y={y + 10}
+                      y={Number(y) + 10}
                       textAnchor="middle"
                       fill="#6c757d"
                       fontSize={11}

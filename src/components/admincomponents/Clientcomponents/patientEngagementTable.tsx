@@ -85,7 +85,6 @@ const getInitials = (fullName: string) => {
 // Main component
 const PatientEngagementTable: React.FC = () => {
   return (
-    // Card provides visual containment and matches the dashboard layout
     <Card className="mb-4 shadow-sm">
       {/* Card header for table title and hierarchy */}
       <Card.Header
@@ -95,7 +94,6 @@ const PatientEngagementTable: React.FC = () => {
         <strong>Client Engagement Table</strong>
       </Card.Header>
 
-      {/* Remove padding so the table touches card edges cleanly */}
       <Card.Body className="p-2">
         {/* 
         Responsive Bootstrap table
@@ -105,7 +103,7 @@ const PatientEngagementTable: React.FC = () => {
         - mb-0: avoid extra spacing inside Card
       */}
         <Table hover responsive className="align-middle mb-0 table-hover">
-          {/* Light header with muted text for modern dashboard feel */}
+          {/* Light header with muted text for a modern dashboard feel */}
           <thead
             className="table-light text-muted small"
             style={{ fontFamily: "heading" }}

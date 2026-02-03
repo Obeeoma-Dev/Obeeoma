@@ -1,5 +1,3 @@
-// src/components/admincomponents/subscriptioncomponents/RecentSubscriptionsTable.tsx
-
 import React from "react";
 import { Table } from "react-bootstrap";
 import { CheckCircle2, Clock } from "lucide-react";

@@ -22,33 +22,7 @@ const ReportCard = ({ report }) => {
                                 textOverflow: "ellipsis",
                             }, children: [_jsx(Download, { size: 14, className: "flex-shrink-0" }), _jsx("span", { className: "text-truncate", children: "Download" })] })] })] }) }));
 };
-const AvailableReports = () => {
-    const reportTypes = [
-        {
-            name: "Wellness Summary",
-            description: "Overall employee wellness metrics",
-            defaultFrequency: "Monthly",
-            url: "/v1/download/department-analysis/",
-        },
-        {
-            name: "Department Analysis",
-            description: "Detailed department-wise breakdown",
-            defaultFrequency: "Quarterly",
-            url: "/v1/download/department-analysis/",
-        },
-        {
-            name: "Risk Assessment",
-            description: "Identified risk factors and trends",
-            defaultFrequency: "Weekly",
-            url: "/v1/download/risk-assessment/",
-        },
-        {
-            name: "Engagement Report",
-            description: "Employee engagement and participation",
-            defaultFrequency: "Monthly",
-            url: "/v1/download/engagement/",
-        },
-    ];
-    return (_jsx("div", { className: "row", children: _jsxs("div", { className: "col-12", children: [_jsx("h3", { className: "h4 fw-semibold mb-4", children: "Available Reports" }), _jsx("div", { className: "row g-4", children: reportTypes.map((report, index) => (_jsx("div", { className: "col-12 col-md-6 col-lg-3", children: _jsx(ReportCard, { report: report }) }, index))) })] }) }));
+const AvailableReports = ({ reports }) => {
+    return (_jsx("div", { className: "row", children: _jsxs("div", { className: "col-12", children: [_jsx("h3", { className: "h4 fw-semibold mb-4", children: "Available Reports" }), _jsx("div", { className: "row g-4", children: reports.map((report, index) => (_jsx("div", { className: "col-12 col-md-6 col-lg-3", children: _jsx(ReportCard, { report: report }) }, index))) })] }) }));
 };
 export default AvailableReports;

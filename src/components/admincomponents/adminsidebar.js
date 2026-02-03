@@ -38,11 +38,8 @@ const SideNavButton = ({ id, label, icon, onClick, }) => {
                     backgroundColor: "#3CB371",
                 } }))] }));
 };
-/**
- * AdminSidebar component for system admin dashboard navigation
- */
+/* AdminSidebar component for navigation */
 const AdminSidebar = () => {
-    // Enables programmatic navigation
     const navigate = useNavigate();
     // Redux dispatch for logout action
     const dispatch = useDispatch();
@@ -53,7 +50,7 @@ const AdminSidebar = () => {
         { id: "client-engagement", label: "Client Engagement", icon: "Users" },
         { id: "ai-management", label: "AI Management", icon: "Brain" },
         { id: "hotline-activity", label: "Hotline Activity", icon: "PhoneCall" },
-        { id: "subscriptions", label: "Subscriptions", icon: "CreditCard" },
+        { id: "system-subscriptions", label: "Subscriptions", icon: "CreditCard" },
         { id: "reports", label: "Reports", icon: "BarChart3" },
         {
             id: "content-management",

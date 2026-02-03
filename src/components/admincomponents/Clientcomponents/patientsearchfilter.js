@@ -4,7 +4,6 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import "./engagement.css";
-// Define the component using React.FC
 const PatientSearchFilter = () => {
     // Local state to hold search input value
     const [searchTerm, setSearchTerm] = useState("");

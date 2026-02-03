@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-// Define the shape of a subscription plan using TypeScript interface
 export interface SubscriptionPlan {
   name: string;
   price: string;
@@ -11,7 +10,6 @@ export interface SubscriptionPlan {
   isPopular?: boolean;
 }
 
-// This component renders a single subscription card
 const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
   return (
     <Card

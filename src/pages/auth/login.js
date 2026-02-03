@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, clearError } from "../../store/slices/authSlice";
+import { loginUser, clearError, setupMfa } from "../../store/slices/authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
 import { Formik } from "formik";
@@ -30,6 +30,7 @@ const LoginPage = () => {
     const getDashboardRoute = (role) => {
         const normalizedRole = role?.toLowerCase().trim();
         switch (normalizedRole) {
+            case "system_admin":
             case "systemadmin":
                 return "/system-admin";
             case "employer":
@@ -45,11 +46,20 @@ const LoginPage = () => {
         try {
             const resultAction = await dispatch(loginUser({ email: values.email, password: values.password })).unwrap();
             if (resultAction.mfa_required && resultAction.temp_token) {
+                // Check if MFA setup data is included in the login response
+                if (resultAction.mfa_setup_data) {
+                    // MFA setup data is already included, no need to fetch it
+                    console.log("MFA setup data included in login response");
+                }
+                else {
+                    // Fetch MFA setup data if not included
+                    dispatch(setupMfa());
+                }
                 navigate("/mfa-setup", { replace: false });
                 return;
             }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const userRole = resultAction?.role || user?.role;
+            const userRole = resultAction?.user?.role || user?.role;
             console.log("Final Role Determined:", userRole);
             const destinationPath = getDashboardRoute(userRole);
             navigate(destinationPath, { replace: true });

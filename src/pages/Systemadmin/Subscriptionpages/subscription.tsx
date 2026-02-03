@@ -5,8 +5,7 @@ import ServiceUtilizationChart from "../../../components/admincomponents/Subscri
 import RecentActivityFeed, {
   Activity,
 } from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
-import AdminHeader from "../../../components/admincomponents/adminheader";
-import AdminSidebar from "../../../components/admincomponents/adminsidebar";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
 /**
@@ -124,120 +123,74 @@ const SubscriptionPage: React.FC = () => {
   ];
 
   return (
-    // Main layout container with full viewport height and light background
-    <div className="d-flex vh-100 bg-light">
-      {/* Fixed sidebar navigation - remains unchanged */}
-      <div className="flex-shrink-0">
-        <AdminSidebar />
-      </div>
+    <SystemAdminLayout title="Subscriptions">
+      {/* Bootstrap container for responsive layout */}
+      <Container fluid>
+        {/* Metrics panel - passing existing metrics data unchanged */}
+        <MetricsPanel {...metrics} />
 
-      {/* Main content area - takes remaining width */}
-      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* Fixed header at the top - remains unchanged */}
-        <div className="flex-shrink-0">
-          <AdminHeader />
-        </div>
-
-        {/* Scrollable content area below the header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1.5rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          {/* Bootstrap container for responsive layout */}
-          <Container fluid>
-            <div className="mb-5">
+        {/* Recent Subscriptions card */}
+        <Card className="shadow-sm border-0 mb-4">
+          <Card.Header className="bg-white border-bottom d-flex justify-content-between align-items-center">
+            <div>
               <h5 className="mb-0 fw-bold" style={{ fontFamily: "heading" }}>
-                Subscriptions
+                Recent Subscriptions
               </h5>
               <p
                 className="text-muted mb-0 small mt-1"
                 style={{ fontFamily: "body" }}
               >
-                Manage and monitor all subscription plans.
+                Overview of organization subscriptions to mental health services
               </p>
             </div>
+            <Button
+              variant="success"
+              className="ms-auto"
+              style={{ fontFamily: "body" }}
+            >
+              Add Subscription
+            </Button>
+          </Card.Header>
+          <Card.Body className="p-0">
+            {/* Table component with existing subscriptions data */}
+            <RecentSubscriptionsTable subscriptions={subscriptions} />
+          </Card.Body>
+        </Card>
 
-            {/* Metrics panel - passing existing metrics data unchanged */}
-            <MetricsPanel {...metrics} />
-
-            {/* Recent Subscriptions card */}
-            <Card className="shadow-sm border-0 mb-4">
-              <Card.Header className="bg-white border-bottom d-flex justify-content-between align-items-center">
-                <div>
-                  <h5
-                    className="mb-0 fw-bold"
-                    style={{ fontFamily: "heading" }}
-                  >
-                    Recent Subscriptions
-                  </h5>
-                  <p
-                    className="text-muted mb-0 small mt-1"
-                    style={{ fontFamily: "body" }}
-                  >
-                    Overview of organization subscriptions to mental health
-                    services
-                  </p>
-                </div>
-                <Button
-                  variant="success"
-                  className="ms-auto"
-                  style={{ fontFamily: "body" }}
-                >
-                  Add Subscription
-                </Button>
+        {/* Bottom row with Service Utilization and Recent Activity */}
+        <Row className="g-4">
+          {/* Left column - Service Utilization */}
+          <Col lg={6}>
+            <Card className="shadow-sm border-0">
+              <Card.Header className="bg-white border-bottom">
+                <h5 className="mb-0 fw-bold" style={{ fontFamily: "heading" }}>
+                  Service Utilization
+                </h5>
               </Card.Header>
-              <Card.Body className="p-0">
-                {/* Table component with existing subscriptions data */}
-                <RecentSubscriptionsTable subscriptions={subscriptions} />
+              <Card.Body>
+                {/* Chart component with existing services data */}
+                <ServiceUtilizationChart services={services} />
               </Card.Body>
             </Card>
+          </Col>
 
-            {/* Bottom row with Service Utilization and Recent Activity */}
-            <Row className="g-4">
-              {/* Left column - Service Utilization */}
-              <Col lg={6}>
-                <Card className="shadow-sm border-0">
-                  <Card.Header className="bg-white border-bottom">
-                    <h5
-                      className="mb-0 fw-bold"
-                      style={{ fontFamily: "heading" }}
-                    >
-                      Service Utilization
-                    </h5>
-                  </Card.Header>
-                  <Card.Body>
-                    {/* Chart component with existing services data */}
-                    <ServiceUtilizationChart services={services} />
-                  </Card.Body>
-                </Card>
-              </Col>
-
-              {/* Right column - Recent Activity */}
-              <Col lg={6}>
-                <Card className="shadow-sm border-0 h-100">
-                  <Card.Header className="bg-white border-bottom">
-                    <h5
-                      className="mb-0 fw-bold"
-                      style={{ fontFamily: "heading" }}
-                    >
-                      Recent Activity
-                    </h5>
-                  </Card.Header>
-                  <Card.Body className="p-0">
-                    {/* Activity feed component with existing activities data */}
-                    <RecentActivityFeed activities={activities} />
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </div>
-    </div>
+          {/* Right column - Recent Activity */}
+          <Col lg={6}>
+            <Card className="shadow-sm border-0 h-100">
+              <Card.Header className="bg-white border-bottom">
+                <h5 className="mb-0 fw-bold" style={{ fontFamily: "heading" }}>
+                  Recent Activity
+                </h5>
+              </Card.Header>
+              <Card.Body className="p-0">
+                {/* Activity feed component with existing activities data */}
+                <RecentActivityFeed activities={activities} />
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </SystemAdminLayout>
   );
 };
 

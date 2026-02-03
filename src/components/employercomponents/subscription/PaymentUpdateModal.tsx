@@ -5,6 +5,16 @@ import PaystackPop from "@paystack/inline-js";
 import { updatePaymentMethod } from "../../../store/slices/billingSlice";
 import { RootState } from "../../../store/store";
 
+// Define transaction interface for better type safety
+interface PaystackTransaction {
+  reference: string;
+  trans: string;
+  status: string;
+  message: string;
+  transaction: string;
+  trxref: string;
+}
+
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY as string;
 
 interface PaymentUpdateModalProps {
@@ -86,7 +96,7 @@ const PaymentUpdateModal: React.FC<PaymentUpdateModalProps> = ({
           },
         ],
       },
-      onSuccess: (transaction) => {
+      onSuccess: (transaction: PaystackTransaction) => {
         // Extract authorization code for card tokenization
         const authorizationCode = transaction.reference;
 

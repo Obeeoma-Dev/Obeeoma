@@ -1,4 +1,3 @@
-// Import React and required Bootstrap components
 import React from "react";
 import {
   Navbar,
@@ -11,7 +10,6 @@ import {
   Col,
 } from "react-bootstrap";
 
-// Import icons from lucide-react
 import { Search, Bell, User } from "lucide-react";
 
 /**

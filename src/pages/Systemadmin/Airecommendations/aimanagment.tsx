@@ -8,8 +8,7 @@ import WeeklyRecommendationsChart from "../../../components/admincomponents/Aico
 import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
-import AdminSidebar from "../../../components/admincomponents/adminsidebar";
-import AdminHeader from "../../../components/admincomponents/adminheader";
+import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 
@@ -102,59 +101,35 @@ const AIRecommendationsPage: React.FC = () => {
   ];
 
   return (
-    <div className="d-flex vh-100">
-      {/* Fixed sidebar on the left */}
-      <div className="flex-shrink-0">
-        <AdminSidebar />
-      </div>
+    <SystemAdminLayout title="AI Management">
+      {/* Container ensures Bootstrap spacing and responsiveness */}
+      <Container fluid className="py-4">
+        {/* Top summary metrics */}
+        <TopMetrics {...metrics} />
 
-      {/* Main content area (right side) */}
-      <div className="flex-grow-1 d-flex flex-column overflow-hidden">
-        {/* Fixed header at the top */}
-        <div className="flex-shrink-0">
-          <AdminHeader />
-        </div>
+        {/* Charts side by side */}
+        <Row className="mb-4">
+          <Col md={6}>
+            <EffectivenessChart />
+          </Col>
+          <Col md={6}>
+            <WeeklyRecommendationsChart />
+          </Col>
+        </Row>
 
-        {/* Scrollable content area below the header */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "1rem",
-            backgroundColor: "#f8f9fa",
-          }}
-        >
-          <div className="flex-grow-1 overflow-auto">
-            <Container fluid className="py-4">
-              {/* Top summary metrics */}
-              <TopMetrics {...metrics} />
+        {/* Table of AI resources */}
+        <AIResourcesTable resources={resources} />
 
-              {/* Charts side by side */}
-              <Row className="mb-4">
-                <Col md={6}>
-                  <EffectivenessChart />
-                </Col>
-                <Col md={6}>
-                  <WeeklyRecommendationsChart />
-                </Col>
-              </Row>
-
-              {/* Table of AI resources */}
-              <AIResourcesTable resources={resources} />
-
-              <Row className="mb-4">
-                <Col md={6}>
-                  <ModelPerformance performance={modelScores} />
-                </Col>
-                <Col md={6}>
-                  <TopTriggers triggers={triggers} />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Row className="mb-4">
+          <Col md={6}>
+            <ModelPerformance performance={modelScores} />
+          </Col>
+          <Col md={6}>
+            <TopTriggers triggers={triggers} />
+          </Col>
+        </Row>
+      </Container>
+    </SystemAdminLayout>
   );
 };
 

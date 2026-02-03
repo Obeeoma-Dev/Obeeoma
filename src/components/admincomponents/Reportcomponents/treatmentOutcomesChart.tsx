@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/TreatmentOutcomesChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -13,11 +11,9 @@ import {
   TooltipItem,
 } from "chart.js";
 
-// Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const TreatmentOutcomesChart: React.FC = () => {
-  // Data for treatment outcomes matching the design
   const data = {
     labels: [
       "Significant Improvement",

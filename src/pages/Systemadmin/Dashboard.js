@@ -1,16 +1,17 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/Dashboard.tsx
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Spinner, Alert, Button, } from "react-bootstrap";
 // Import reusable dashboard components
-import Sidebar from "../../components/admincomponents/adminsidebar";
-import Header from "../../components/admincomponents/adminheader";
 import DashboardStats from "../../components/admincomponents/Overviewcomponents/dashboardstats";
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
+import SystemAdminLayout from "../../components/admincomponents/shared/SystemAdminLayout";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Building2, Users, PhoneCall } from "lucide-react";
+import { adminAPI } from "../../api/apiConfig";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -58,83 +59,41 @@ const recentActivityData = [
     },
 ];
 /**
- * Static placeholder data for bottom metric cards
- * Replace with API data when backend is ready
+ * Default fallback data for dashboard stats
+ * Used when API call fails or during loading
  */
-// const bottomMetricData: BottomMetricCard[] = [
-//   {
-//     id: "1",
-//     title: "Organizations",
-//     value: "0",
-//     subtitle: "Active organizations",
-//     linkText: "View all organizations",
-//     icon: "Building2",
-//     color: "emerald",
-//   },
-//   {
-//     id: "2",
-//     title: "AI Recommendations",
-//     value: "0",
-//     subtitle: "Reviewed today",
-//     linkText: "View recommendations",
-//     icon: "Brain",
-//     color: "blue",
-//   },
-//   {
-//     id: "3",
-//     title: "Hotline",
-//     value: "0",
-//     subtitle: "Calls received",
-//     linkText: "View hotline logs",
-//     icon: "PhoneCall",
-//     color: "purple",
-//   },
-//   {
-//     id: "4",
-//     title: "Subscriptions",
-//     value: "$0k",
-//     subtitle: "Monthly revenue",
-//     linkText: "View subscriptions",
-//     icon: "CreditCard",
-//     color: "pink",
-//   },
-// ];
-/**
- * Static placeholder data for top dashboard stats
- * Replace with API data when backend is ready
- */
-const dashboardStatsData = [
+const defaultStatsData = [
     {
         id: "1",
         value: "0",
         title: "Total Organizations",
-        change: "+3 this month",
-        icon: "Building2",
-        iconColor: "custom-green",
+        trend: "+3 this month",
+        icon: Building2,
+        color: "emerald",
     },
     {
         id: "2",
         value: "0",
         title: "Total Clients",
-        change: "+124 this week",
-        icon: "Users",
-        iconColor: "custom-green",
+        trend: "+124 this week",
+        icon: Users,
+        color: "emerald",
     },
+    // {
+    //   id: "3",
+    //   value: "$0",
+    //   title: "Monthly Revenue",
+    //   trend: "+5.3% this month",
+    //   icon: CreditCard,
+    //   color: "emerald",
+    // },
     {
         id: "3",
-        value: "$0",
-        title: "Monthly Revenue",
-        change: "+5.3% this month",
-        icon: "CreditCard",
-        iconColor: "custom-green",
-    },
-    {
-        id: "4",
         value: "0",
         title: "Hotline Calls Today",
-        change: "+8% vs yesterday",
-        icon: "PhoneCall",
-        iconColor: "custom-green",
+        trend: "+8% vs yesterday",
+        icon: PhoneCall,
+        color: "rose",
     },
 ];
 /**
@@ -147,6 +106,11 @@ const Dashboard = () => {
     const [selectedBlog, setSelectedBlog] = React.useState(null);
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
+    /* Dashboard stats state */
+    const [dashboardStats, setDashboardStats] = useState(defaultStatsData);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
     const handleAdd = () => {
         setShowAddModal(true);
     };
@@ -157,17 +121,120 @@ const Dashboard = () => {
     const handleDelete = (id) => {
         setBlogs((prev) => prev.filter((blog) => blog.id !== id));
     };
-    return (
-    // Full-height layout with sidebar and main content
-    _jsxs("div", { className: "d-flex vh-100", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
-                            flex: 1,
-                            overflowY: "auto",
-                            padding: "2rem 1.5rem",
-                            backgroundColor: "#f5f7fa",
-                        }, children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { fluid: true, className: "py-2", children: [_jsxs("div", { className: "mb-5", children: [_jsx("h2", { className: "fw-bold mb-1", style: {
-                                                    fontSize: "1.75rem",
-                                                    fontFamily: "heading",
-                                                    color: "#1a1a1a",
-                                                }, children: "Dashboard" }), _jsx("p", { className: "text-muted mb-0", style: { fontFamily: "body" }, children: "Welcome back! Here's your platform overview." })] }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(DashboardStats, { stats: dashboardStatsData }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] }) }) })] })] }));
+    // Simple refresh function - shows loading state for 3 seconds
+    const handleRefresh = async () => {
+        // Show loading state immediately
+        setLoading(true);
+        setError(null);
+        // Clear cache and trigger refresh
+        localStorage.removeItem("dashboardStats");
+        setRefreshTrigger((prev) => prev + 1);
+        // After 3 seconds, if still loading, hide loading state
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    };
+    // Fetch real dashboard statistics with persistent cache
+    useEffect(() => {
+        const fetchDashboardStats = async () => {
+            try {
+                // Check if we have cached data (session-based)
+                const cachedData = localStorage.getItem("dashboardStats");
+                if (cachedData && refreshTrigger === 0) {
+                    // Use cached data on initial load - no API call
+                    const parsedData = JSON.parse(cachedData || "[]");
+                    // Re-add icons since they can't be serialized
+                    const dataWithIcons = parsedData.map((item) => {
+                        let icon;
+                        switch (item.title) {
+                            case "Total Organizations":
+                                icon = Building2;
+                                break;
+                            case "Total Clients":
+                                icon = Users;
+                                break;
+                            // case "Monthly Revenue":
+                            //   icon = CreditCard;
+                            //   break;
+                            case "Hotline Calls Today":
+                                icon = PhoneCall;
+                                break;
+                            default:
+                                icon = Building2;
+                        }
+                        return { ...item, icon };
+                    });
+                    setDashboardStats(dataWithIcons);
+                    setLoading(false);
+                    return;
+                }
+                // Only show loading if this is a manual refresh
+                if (refreshTrigger > 0) {
+                    setLoading(true);
+                }
+                setError(null);
+                // Try API call but fallback to default if it fails
+                try {
+                    const response = await adminAPI.getDashboardSummary();
+                    const data = response.data;
+                    // Transform API data to match StatCardData format
+                    const transformedStats = [
+                        {
+                            id: "1",
+                            value: data.total_organizations?.toString() || "0",
+                            title: "Total Organizations",
+                            trend: `+${data.organizations_this_month || 0} this month`,
+                            icon: Building2,
+                            color: "emerald",
+                        },
+                        {
+                            id: "2",
+                            value: data.total_clients?.toString() || "0",
+                            title: "Total Clients",
+                            trend: `+${data.clients_this_month || 0} this month`,
+                            icon: Users,
+                            color: "emerald",
+                        },
+                        // {
+                        //   id: "3",
+                        //   value: `$${data.monthly_revenue?.toFixed(2) || "0"}`,
+                        //   title: "Monthly Revenue",
+                        //   trend: `+${data.revenue_growth_percentage || 0}% this month`,
+                        //   icon: CreditCard,
+                        //   color: "emerald",
+                        // },
+                        {
+                            id: "3",
+                            value: data.hotline_calls_today?.toString() || "0",
+                            title: "Hotline Calls Today",
+                            trend: "+8% vs yesterday",
+                            icon: PhoneCall,
+                            color: "rose",
+                        },
+                    ];
+                    // Cache the data for the session (without icons since they can't be serialized)
+                    const dataToCache = transformedStats.map(({ icon, ...rest }) => rest);
+                    localStorage.setItem("dashboardStats", JSON.stringify(dataToCache));
+                    setDashboardStats(transformedStats);
+                }
+                catch (apiError) {
+                    console.error("API call failed, using default data:", apiError);
+                    // Use default data if API fails
+                    setDashboardStats(defaultStatsData);
+                }
+            }
+            catch (err) {
+                console.error("Failed to fetch dashboard stats:", err);
+                setError("Failed to load dashboard statistics");
+                // Keep default stats on error
+                setDashboardStats(defaultStatsData);
+            }
+            finally {
+                setLoading(false);
+            }
+        };
+        fetchDashboardStats();
+    }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
+    return (_jsxs(SystemAdminLayout, { title: "Dashboard", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsxs("div", { className: "p-4", children: [_jsx("div", { className: "mb-4 d-flex justify-content-between align-items-center", children: _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" }) }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] })] }));
 };
 export default Dashboard;
