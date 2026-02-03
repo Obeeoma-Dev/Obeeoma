@@ -50,7 +50,7 @@ const ResetPasswordSignIn: React.FC = () => {
         const errorData = await response.json();
         throw new Error(
           errorData.message ||
-          `Failed to send email with status: ${response.status}`,
+            `Failed to send email with status: ${response.status}`,
         );
       }
 
@@ -168,10 +168,10 @@ const ResetPasswordSignIn: React.FC = () => {
                     style={
                       error
                         ? {
-                          borderColor: "red",
-                          borderWidth: "1.5px",
-                          fontFamily: "body",
-                        }
+                            borderColor: "red",
+                            borderWidth: "1.5px",
+                            fontFamily: "body",
+                          }
                         : {}
                     }
                   />

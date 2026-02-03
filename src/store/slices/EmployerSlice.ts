@@ -1184,6 +1184,25 @@ const employerSlice = createSlice({
       state.isActionLoading = false;
       state.error = null;
     },
+    updateEmployeeLocal: (
+      state,
+      action: PayloadAction<Partial<Employee> & { id: number | string }>,
+    ) => {
+      const index = state.employees.findIndex(
+        (emp) => emp.id === Number(action.payload.id),
+      );
+      if (index !== -1) {
+        state.employees[index] = {
+          ...state.employees[index],
+          ...action.payload,
+        };
+      }
+    },
+    deleteEmployeeLocal: (state, action: PayloadAction<number | string>) => {
+      state.employees = state.employees.filter(
+        (emp) => emp.id !== Number(action.payload),
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -1428,6 +1447,10 @@ const employerSlice = createSlice({
 });
 
 // === Exports ===
-export const { clearEmployerError, clearEmployerStatus } =
-  employerSlice.actions;
+export const {
+  clearEmployerError,
+  clearEmployerStatus,
+  updateEmployeeLocal,
+  deleteEmployeeLocal,
+} = employerSlice.actions;
 export default employerSlice.reducer;

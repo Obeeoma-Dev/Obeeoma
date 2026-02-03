@@ -154,10 +154,10 @@ export function Blog() {
     return isNaN(date.getTime())
       ? "—"
       : date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
   };
 
   // Image URL resolver
@@ -177,7 +177,9 @@ export function Blog() {
     const fetchBlogs = async () => {
       try {
         console.log("Fetching blogs from API...");
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`,
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

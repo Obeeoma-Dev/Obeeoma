@@ -56,7 +56,8 @@ export const setupApiInterceptors = (store) => {
             method: config.method,
             url: config.url,
             data: config.data,
-            token_injected: !!(activeToken && !isPublicEndpoint) || !!localStorage.getItem("temp_token"),
+            token_injected: !!(activeToken && !isPublicEndpoint) ||
+                !!localStorage.getItem("temp_token"),
             token_source: persistedToken
                 ? "localStorage"
                 : token

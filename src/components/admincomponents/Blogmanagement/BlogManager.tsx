@@ -4,7 +4,6 @@ import { BlogForm } from "./BlogForm";
 import { BlogPost } from "./BlogTable";
 import { ConfirmModal } from "./../Reusedcomponents/ConfirmModal";
 
-
 import { toast } from "react-toastify";
 
 export function BlogManager() {
@@ -51,7 +50,7 @@ export function BlogManager() {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then((data: BackendBlog[]) => {
         console.log("Raw API data:", data);
         const mapped: BlogPost[] = data.map((item) => ({
@@ -69,11 +68,10 @@ export function BlogManager() {
         console.log("Mapped data:", mapped);
         setBlogs(mapped);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Failed to load blogs", err);
       });
   }, []);
-
 
   const [showForm, setShowForm] = useState(false);
   const [formMode, setFormMode] = useState<"add" | "edit">("add");
@@ -103,9 +101,12 @@ export function BlogManager() {
   async function confirmDelete() {
     if (!deleteConfirm) return;
 
-    await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/${deleteConfirm}/`, {
-      method: "DELETE",
-    });
+    await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/${deleteConfirm}/`,
+      {
+        method: "DELETE",
+      },
+    );
 
     setBlogs((prev) => prev.filter((b) => b.id !== deleteConfirm));
     setDeleteConfirm(null);
@@ -126,17 +127,20 @@ export function BlogManager() {
       formData.append("content", newBlog.content);
       formData.append("featured", newBlog.featured.toString());
 
-      // Handle image 
+      // Handle image
       if (newBlog.imageUrl instanceof File) {
-        formData.append('featured_image', newBlog.imageUrl);
+        formData.append("featured_image", newBlog.imageUrl);
       }
 
       // ADD MODE → CREATE BLOG
       if (formMode === "add") {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`, {
-          method: "POST",
-          body: formData,
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
 
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

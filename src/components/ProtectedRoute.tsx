@@ -74,7 +74,7 @@ const selectIsAuthenticated = (state: RootState) => {
 const validateToken = (token: string): boolean => {
   try {
     // Simple JWT token validation (check if token is not expired)
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    const payload = JSON.parse(atob(token.split(".")[1]));
     const currentTime = Date.now() / 1000;
     return payload.exp > currentTime;
   } catch (error) {
@@ -105,7 +105,7 @@ const ProtectedRoute: React.FC = () => {
       }
 
       // Get token from Redux or localStorage
-      const token = authState.token || localStorage.getItem('token');
+      const token = authState.token || localStorage.getItem("token");
 
       if (!token) {
         setTokenValid(false);
@@ -137,30 +137,34 @@ const ProtectedRoute: React.FC = () => {
       if (!tokenValid || !isAuthenticated) {
         // Prevent navigation and redirect to login
         event.preventDefault();
-        navigate('/login', { replace: true });
+        navigate("/login", { replace: true });
 
         // Push login state to history to prevent forward navigation
-        window.history.pushState({ noBack: true }, '', '/login');
+        window.history.pushState({ noBack: true }, "", "/login");
 
         // Force replace current history entry
-        window.history.replaceState({ noBack: true }, '', '/login');
+        window.history.replaceState({ noBack: true }, "", "/login");
       }
     };
 
     // Add the popstate listener
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
 
     // Initial history setup for authenticated users
     if (isAuthenticated && tokenValid) {
-      window.history.replaceState({ authenticated: true }, '', location.pathname);
+      window.history.replaceState(
+        { authenticated: true },
+        "",
+        location.pathname,
+      );
     } else {
       // For unauthenticated users, ensure login is the only entry
-      window.history.replaceState({ noBack: true }, '', '/login');
-      window.history.pushState({ noBack: true }, '', '/login');
+      window.history.replaceState({ noBack: true }, "", "/login");
+      window.history.pushState({ noBack: true }, "", "/login");
     }
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, [tokenValid, isAuthenticated, navigate, location.pathname]);
 

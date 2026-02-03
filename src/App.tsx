@@ -86,7 +86,10 @@ export default function App(): React.ReactElement {
                   path="/employer-subscription"
                   element={<EmployerSubscription />}
                 />
-                <Route path="/success-message" element={<PaymentSuccessPage />} />
+                <Route
+                  path="/success-message"
+                  element={<PaymentSuccessPage />}
+                />
                 {/* === PROTECTED ROUTES WRAPPER === */}
                 <Route element={<ProtectedRoute />}>
                   {/* EMPLOYEE'S ROUTES */}
@@ -153,7 +156,8 @@ export default function App(): React.ReactElement {
                     path="/system-admin/content-management"
                     element={<ContentManagement />}
                   />
-                  <Route path="/system-admin/reports"
+                  <Route
+                    path="/system-admin/reports"
                     element={<ReportPage />}
                   />
                   <Route
