@@ -7,13 +7,13 @@ import employeeReducer from "./slices/employeeSlice";
 import { setupApiInterceptors } from "../api/apiConfig";
 import billingReducer from "./slices/billingSlice";
 export const store = configureStore({
-reducer: {
-auth: authReducer,
-admin: adminReducer,
-employer: employerReducer,
-billing: billingReducer,
-employee: employeeReducer,
-},
+  reducer: {
+    auth: authReducer,
+    admin: adminReducer,
+    employer: employerReducer,
+    billing: billingReducer,
+    employee: employeeReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
