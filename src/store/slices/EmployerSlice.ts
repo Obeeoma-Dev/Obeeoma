@@ -1632,8 +1632,8 @@ export const fetchEmployees = createAsyncThunk<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const backendData = (response.data.employees || response.data) as any[];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const mappedEmployees: Employee[] = backendData.map(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (employee: any, idx: number) => ({
         id: Number(
           employee.id ??

@@ -21,7 +21,9 @@ const Header = ({
   additionalContent,
 }: HeaderProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { currentEmployer, isLoading } = useSelector((state: RootState) => state.employer);
+  const { currentEmployer, isLoading } = useSelector(
+    (state: RootState) => state.employer,
+  );
 
   useEffect(() => {
     dispatch(fetchCurrentEmployer());
@@ -74,17 +76,29 @@ const Header = ({
 
               <div className="d-flex align-items-center gap-3">
                 <div className="text-end d-none d-md-block">
-                  <div className="text-muted small" style={{ fontSize: "0.8rem" }}>
+                  <div
+                    className="text-muted small"
+                    style={{ fontSize: "0.8rem" }}
+                  >
                     {isLoading ? "Loading..." : "Employer"}
                   </div>
-                  <div className="fw-600 text-dark" style={{ fontSize: "0.9rem" }}>
-                    {currentEmployer?.organizationName || currentEmployer?.firstName || "Employer Dashboard"}
+                  <div
+                    className="fw-600 text-dark"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    {currentEmployer?.organizationName ||
+                      currentEmployer?.firstName ||
+                      "Employer Dashboard"}
                   </div>
                 </div>
 
                 <div
                   className="bg-success rounded-circle d-flex align-items-center justify-content-center"
-                  style={{ width: "40px", height: "40px", backgroundColor: PRIMARY_COLOR }}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: PRIMARY_COLOR,
+                  }}
                 >
                   <User size={22} color="#fff" />
                 </div>
