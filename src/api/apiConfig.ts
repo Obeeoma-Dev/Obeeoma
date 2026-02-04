@@ -15,7 +15,7 @@ import {
 import { Employee } from "../types/TData";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1";
 console.log("API Base URL:", API_BASE_URL);
 
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
@@ -126,7 +126,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
-    const response = await api.post("v1/auth/login/", credentials);
+    const response = await api.post("auth/login/", credentials);
     return response;
   },
 
@@ -191,13 +191,13 @@ export const authAPI = {
 
   fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
     // For MFA setup, we need to use the temp_token from login response
-    const response = await api.post("/v1/auth/mfa/setup/", payload);
+    const response = await api.post("auth/mfa/setup/", payload);
     return response;
   },
 
   confirmMfaSetup: async (payload: { temp_token: string; code: string }) => {
     // The payload is expected to be an object: { temp_token: string, code: string }
-    const response = await api.post("/v1/auth/mfa/verify/", payload);
+    const response = await api.post("auth/mfa/verify/", payload);
     return response;
   },
 };
@@ -206,7 +206,7 @@ export const authAPI = {
 
 export const adminAPI = {
   getDashboardStats: async () => {
-    const response = await api.get("/v1/admin/statistics/");
+    const response = await api.get("admin/statistics/");
     return response;
   },
 

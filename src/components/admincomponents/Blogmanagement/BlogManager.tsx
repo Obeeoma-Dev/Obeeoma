@@ -50,7 +50,7 @@ export function BlogManager() {
   };
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}articles/`)
       .then(res => res.json())
       .then((data: BackendBlog[]) => {
         console.log("Raw API data:", data);
