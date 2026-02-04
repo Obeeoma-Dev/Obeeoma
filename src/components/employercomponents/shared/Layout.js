@@ -31,7 +31,7 @@ const Layout = ({ children, title }) => {
         ? localEmployer?.email
         : employer?.email
             ? employer?.email || employer?.email
-            : "Corporate Admin";
+            : "Employer";
     const menuItems = [
         {
             icon: HomeIcon,

@@ -190,18 +190,27 @@ const PricingPlans = () => {
     };
     const plans = [
         { name: "Free Plan", price: "₦0", period: "", recommended: true },
-        { name: "Basic Plan", price: "₦9", period: "per month", recommended: false },
+        {
+            name: "Basic Plan",
+            price: "₦9",
+            period: "per month",
+            recommended: false,
+        },
     ];
     return (_jsx("div", { className: "row mb-5", children: _jsxs("div", { className: "col-12", children: [_jsx("h3", { className: "h4 fw-semibold mb-4", style: { fontFamily: "body" }, children: "Available Plans" }), _jsx("div", { className: "row g-4", children: plans.map((plan, index) => {
                         const isSelected = plan.name === currentPlanName;
                         const buttonText = isSelected ? "Current Plan" : "Select Plan";
                         const buttonStyles = {
                             fontFamily: "body",
-                            backgroundColor: isSelected || (plan.recommended && !isSelected) ? "#22C55E" : "transparent",
-                            color: isSelected || (plan.recommended && !isSelected) ? "#FFFFFF" : "#22C55E",
+                            backgroundColor: isSelected || (plan.recommended && !isSelected)
+                                ? "#22C55E"
+                                : "transparent",
+                            color: isSelected || (plan.recommended && !isSelected)
+                                ? "#FFFFFF"
+                                : "#22C55E",
                             borderColor: "#22C55E",
                         };
-                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: `card h-100 border-0 shadow-sm ${plan.recommended ? "border-success" : ""}`, children: [plan.recommended && (_jsxs("div", { className: "card-header text-white text-center py-2", style: { backgroundColor: "#22C55E" }, children: [_jsx(Star, { size: 16, className: "me-1" }), " Recommended"] })), _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", style: { color: "#22C55E" }, children: plan.name }), _jsxs("div", { className: "my-3", children: [_jsx("span", { className: "h2 fw-bold", style: { color: "#22C55E" }, children: plan.price }), plan.period && _jsxs("span", { className: "text-muted", children: ["/", plan.period] })] }), _jsx("div", { className: "mt-auto", children: _jsx("button", { className: "btn w-100", style: buttonStyles, disabled: isSelected, onClick: () => handlePlanSelection(plan.name), children: buttonText }) })] })] }) }, index));
+                        return (_jsx("div", { className: "col-12 col-md-6", children: _jsxs("div", { className: `card h-100 border-0 shadow-sm ${plan.recommended ? "border-success" : ""}`, children: [plan.recommended && (_jsxs("div", { className: "card-header text-white text-center py-2", style: { backgroundColor: "#22C55E" }, children: [_jsx(Star, { size: 16, className: "me-1" }), " Recommended"] })), _jsxs("div", { className: "card-body p-4 d-flex flex-column", children: [_jsx("h5", { className: "card-title fw-bold", style: { color: "#22C55E" }, children: plan.name }), _jsxs("div", { className: "my-3", children: [_jsx("span", { className: "h2 fw-bold", style: { color: "#22C55E" }, children: plan.price }), plan.period && (_jsxs("span", { className: "text-muted", children: ["/", plan.period] }))] }), _jsx("div", { className: "mt-auto", children: _jsx("button", { className: "btn w-100", style: buttonStyles, disabled: isSelected, onClick: () => handlePlanSelection(plan.name), children: buttonText }) })] })] }) }, index));
                     }) })] }) }));
 };
 export default PricingPlans;
