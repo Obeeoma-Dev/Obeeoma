@@ -15,7 +15,7 @@ const MfaSetupPage: React.FC = () => {
     error,
     isMfaSetupConfirmed,
     tempToken, // Get tempToken from Redux state
-    user // Get user from authSlice
+    user, // Get user from authSlice
   } = useAppSelector((state) => state.auth);
 
   const [confirmationCode, setConfirmationCode] = useState("");
@@ -29,14 +29,20 @@ const MfaSetupPage: React.FC = () => {
   // 2. Handle Confirmation Submission
   const handleConfirmMfa = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (confirmationCode.length !== 6 || isLoading || !mfaSetupData || !tempToken) return;
+    if (
+      confirmationCode.length !== 6 ||
+      isLoading ||
+      !mfaSetupData ||
+      !tempToken
+    )
+      return;
 
     const payload = {
       temp_token: tempToken, // tempToken is now guaranteed to be string
       code: confirmationCode,
     };
 
-    console.log('Sending MFA verification payload:', payload);
+    console.log("Sending MFA verification payload:", payload);
 
     // Dispatch the confirm thunk
     const result = await dispatch(confirmMfa(payload));
@@ -138,21 +144,29 @@ const MfaSetupPage: React.FC = () => {
                 className="p-3 mb-4"
                 style={{ fontFamily: "body", fontSize: "1.1rem" }}
               >
-                <strong>Manual Key:</strong><br />
+                <strong>Manual Key:</strong>
+                <br />
                 <code style={{ fontSize: "1.2rem", wordBreak: "break-all" }}>
                   {mfaSetupData.secret}
                 </code>
               </Alert>
 
               {/* Instructions */}
-              <div className="mb-4 p-3 border rounded" style={{ backgroundColor: "#f8f9fa" }}>
+              <div
+                className="mb-4 p-3 border rounded"
+                style={{ backgroundColor: "#f8f9fa" }}
+              >
                 <h5>📱 How to Setup:</h5>
                 <ol className="text-start">
                   <li>Install Google Authenticator on your phone</li>
                   <li>Open the app and tap "+" to add account</li>
                   <li>Choose "Enter a setup key"</li>
-                  <li>Account name: <code>mikeangelodonatelo@gmail.com</code></li>
-                  <li>Secret key: <strong>Copy the manual key above</strong></li>
+                  <li>
+                    Account name: <code>mikeangelodonatelo@gmail.com</code>
+                  </li>
+                  <li>
+                    Secret key: <strong>Copy the manual key above</strong>
+                  </li>
                   <li>Time-based: ON</li>
                   <li>Enter the 6-digit code below</li>
                 </ol>

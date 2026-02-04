@@ -49,7 +49,7 @@ const LoginPage = () => {
                 // Check if MFA setup data is included in the login response
                 if (resultAction.mfa_setup_data) {
                     // MFA setup data is already included, no need to fetch it
-                    console.log('MFA setup data included in login response');
+                    console.log("MFA setup data included in login response");
                 }
                 else {
                     // Fetch MFA setup data if not included

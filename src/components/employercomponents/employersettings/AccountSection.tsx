@@ -148,7 +148,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 )}
               </div>
               {/* Logo Upload Button */}
-              <input
+              {/* <input
                 type="file"
                 accept="image/*"
                 onChange={handleLogoUpload}
@@ -162,8 +162,8 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                   height: "30px",
                 }}
                 title="Upload company logo"
-              />
-              <label
+              /> */}
+              {/* <label
                 htmlFor="logo-upload"
                 style={{
                   position: "absolute",
@@ -177,12 +177,9 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
                 }}
               >
                 Upload Logo
-              </label>
+              </label> */}
             </div>
             <div>
-              <h4 className="h3 fw-bold text-dark mb-2">
-                {localData.organizationName || "Your Company"}
-              </h4>
               <p className="text-muted mb-1">
                 <User size={14} className="me-2" />
                 {localData.username || "Corporate Admin User"}

@@ -12,7 +12,7 @@ interface AuthGuardProps {
 const validateToken = (token: string): boolean => {
   try {
     // Simple JWT token validation (check if token is not expired)
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    const payload = JSON.parse(atob(token.split(".")[1]));
     const currentTime = Date.now() / 1000;
     return payload.exp > currentTime;
   } catch (error) {
@@ -29,8 +29,8 @@ const validateAuthentication = (state: RootState): boolean => {
     if (tokenValid) return true;
 
     // If token is invalid, check localStorage as fallback
-    const localToken = localStorage.getItem('token');
-    const localUser = localStorage.getItem('user');
+    const localToken = localStorage.getItem("token");
+    const localUser = localStorage.getItem("user");
 
     if (localToken && localUser) {
       return validateToken(localToken);
@@ -38,8 +38,8 @@ const validateAuthentication = (state: RootState): boolean => {
   }
 
   // Fallback to localStorage
-  const token = localStorage.getItem('token');
-  const user = localStorage.getItem('user');
+  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
 
   return !!(token && user && validateToken(token));
 };
@@ -78,7 +78,9 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
       <div className="d-flex justify-content-center align-items-center min-vh-100">
         <div className="text-center">
           <div className="spinner-border text-success" role="status">
-            <span className="visually-hidden">Validating authentication...</span>
+            <span className="visually-hidden">
+              Validating authentication...
+            </span>
           </div>
           <p className="mt-3 text-muted">Validating your session...</p>
         </div>

@@ -58,10 +58,10 @@ const formatDate = (dateStr: string) => {
   return isNaN(date.getTime())
     ? "—"
     : date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
 };
 
 // Component props

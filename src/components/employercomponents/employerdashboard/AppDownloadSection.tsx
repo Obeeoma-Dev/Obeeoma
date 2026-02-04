@@ -4,8 +4,7 @@ import React from "react";
 // We MUST extend React.HTMLAttributes<HTMLElement> or React.HTMLAttributes<HTMLSectionElement>
 // to allow standard attributes like 'className' and the spread 'rest' to be used without TypeScript errors.
 // Using HTMLSectionElement is the most precise type here.
-export interface AppDownloadSectionProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface AppDownloadSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   googlePlayLink: string;
   appStoreLink: string;
   mainImageUrl: string;

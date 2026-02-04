@@ -152,16 +152,16 @@ export const logoutUserThunk = createAsyncThunk<void, void>(
       delete api.defaults.headers.common["Authorization"];
 
       // AGGRESSIVE CACHE CLEARING ON LOGOUT
-      console.log(' Clearing browser cache on logout...');
+      console.log(" Clearing browser cache on logout...");
 
       // Clear all localStorage data
       localStorage.clear();
       sessionStorage.clear();
 
       // Clear IndexedDB (if used)
-      if ('caches' in window) {
-        caches.keys().then(names => {
-          names.forEach(name => {
+      if ("caches" in window) {
+        caches.keys().then((names) => {
+          names.forEach((name) => {
             caches.delete(name);
           });
         });
@@ -171,21 +171,29 @@ export const logoutUserThunk = createAsyncThunk<void, void>(
       const timestamp = Date.now();
 
       // Replace current history to prevent back navigation
-      window.history.replaceState({ loggedOut: true, timestamp }, '', `/login?t=${timestamp}`);
-      window.history.pushState({ loggedOut: true, timestamp }, '', `/login?t=${timestamp}`);
+      window.history.replaceState(
+        { loggedOut: true, timestamp },
+        "",
+        `/login?t=${timestamp}`,
+      );
+      window.history.pushState(
+        { loggedOut: true, timestamp },
+        "",
+        `/login?t=${timestamp}`,
+      );
 
       // Prevent back button from accessing cached pages
       const preventBack = (event: PopStateEvent) => {
-        console.log(' Preventing back navigation after logout');
+        console.log(" Preventing back navigation after logout");
         event.preventDefault();
-        window.history.pushState({ loggedOut: true }, '', '/login');
+        window.history.pushState({ loggedOut: true }, "", "/login");
       };
 
-      window.addEventListener('popstate', preventBack);
+      window.addEventListener("popstate", preventBack);
 
       // Clean up the listener after a short delay
       setTimeout(() => {
-        window.removeEventListener('popstate', preventBack);
+        window.removeEventListener("popstate", preventBack);
       }, 100);
 
       dispatch(logout());
@@ -247,7 +255,7 @@ export const setupMfa = createAsyncThunk<
 
     if (!tempToken) {
       // Wait a bit and try again (timing fix)
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => setTimeout(resolve, 50));
       tempToken = localStorage.getItem("temp_token");
     }
 
@@ -255,16 +263,16 @@ export const setupMfa = createAsyncThunk<
       return rejectWithValue("No temporary token found. Please login first.");
     }
 
-    console.log('setupMfa - using tempToken:', tempToken);
+    console.log("setupMfa - using tempToken:", tempToken);
 
     // Use authAPI to ensure proper interceptor handling
     const response = await authAPI.fetchMfaSetupData({});
-    console.log('setupMfa - response:', response);
+    console.log("setupMfa - response:", response);
 
     // Return the data from the Axios response
     return response.data as MfaSetupData;
   } catch (err: unknown) {
-    console.error('setupMfa error:', err);
+    console.error("setupMfa error:", err);
     return rejectWithValue(getErrorMessage(err));
   }
 });
@@ -318,7 +326,9 @@ function saveAuthValue(
   key: "refresh" | "token" | "user" | "temp_token",
   value = "",
 ) {
-  console.log(`saveAuthValue called: key=${key}, value=${value}, type=${typeof value}`);
+  console.log(
+    `saveAuthValue called: key=${key}, value=${value}, type=${typeof value}`,
+  );
   if (!value) {
     console.log(`Removing ${key} from localStorage`);
     localStorage.removeItem(key);
@@ -359,7 +369,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log('loginUser.fulfilled - action.payload:', action.payload);
+        console.log("loginUser.fulfilled - action.payload:", action.payload);
         state.isLoading = false;
         state.user = action.payload.user || action.payload;
         state.token = action.payload.access || action.payload.token;
@@ -370,19 +380,22 @@ const authSlice = createSlice({
 
         // Handle MFA setup data if included in login response
         if (action.payload.mfa_setup_data) {
-          console.log('Setting MFA setup data from login response:', action.payload.mfa_setup_data);
+          console.log(
+            "Setting MFA setup data from login response:",
+            action.payload.mfa_setup_data,
+          );
           state.mfaSetupData = action.payload.mfa_setup_data;
         } else {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           state.mfaSetupData = action.payload as any;
         }
 
-        console.log('About to save auth values...');
+        console.log("About to save auth values...");
         saveAuthValue("token", action.payload?.access || action.payload?.token);
         saveAuthValue("refresh", action.payload.refresh);
         saveAuthValue("user", JSON.stringify(action.payload.user));
         saveAuthValue("temp_token", action.payload.temp_token);
-        console.log('Auth values saved');
+        console.log("Auth values saved");
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;

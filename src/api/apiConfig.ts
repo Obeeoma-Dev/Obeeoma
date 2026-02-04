@@ -41,8 +41,8 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "auth/mfa/verify/",
       ];
 
-      const isPublicEndpoint = publicEndpoints.some((path) =>
-        requestPath.includes(path) || requestPath.endsWith(path),
+      const isPublicEndpoint = publicEndpoints.some(
+        (path) => requestPath.includes(path) || requestPath.endsWith(path),
       );
 
       //check local storage first (more reliable)
@@ -56,7 +56,8 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 
       // Special handling for MFA setup - use temp_token
       if (requestPath.includes("auth/mfa/setup/")) {
-        const tempToken = localStorage.getItem("temp_token") || state.auth.tempToken;
+        const tempToken =
+          localStorage.getItem("temp_token") || state.auth.tempToken;
         if (tempToken) {
           config.headers.Authorization = `Bearer ${tempToken}`;
           console.log("Using temp_token for MFA setup:", tempToken);
@@ -76,7 +77,9 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         method: config.method,
         url: config.url,
         data: config.data,
-        token_injected: !!(activeToken && !isPublicEndpoint) || !!localStorage.getItem("temp_token"),
+        token_injected:
+          !!(activeToken && !isPublicEndpoint) ||
+          !!localStorage.getItem("temp_token"),
         token_source: persistedToken
           ? "localStorage"
           : token
