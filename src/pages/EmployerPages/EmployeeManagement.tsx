@@ -145,6 +145,8 @@ const EmployeeManagement = () => {
     "activate_all" | "deactivate_all" | "delete_all" | null
   >(null);
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage] = useState(10);
 
   const { employees, isLoading } = useSelector(
     (state: RootState) => state.employer,
@@ -165,6 +167,20 @@ const EmployeeManagement = () => {
       emp.emailAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
       emp.employeedepartment.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedEmployees = filteredEmployees.slice(startIndex, endIndex);
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(totalPages - 1, prev + 1));
+  };
 
   /* =======================
      GET EMPLOYEE BY ID
@@ -472,8 +488,8 @@ const EmployeeManagement = () => {
               </thead>
 
               <tbody>
-                {filteredEmployees.length > 0 ? (
-                  filteredEmployees.map((emp, idx) => (
+                {paginatedEmployees.length > 0 ? (
+                  paginatedEmployees.map((emp, idx) => (
                     <tr key={emp.id ?? `emp-${idx}`}>
                       <td>{emp.emailAddress}</td>
                       <td>{emp.employeedepartment}</td>
@@ -549,6 +565,34 @@ const EmployeeManagement = () => {
                 )}
               </tbody>
             </Table>
+
+            {/* PAGINATION */}
+            <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
+              <div className="text-muted">
+                Showing {startIndex + 1}-
+                {Math.min(endIndex, filteredEmployees.length)} of{" "}
+                {filteredEmployees.length} employees
+              </div>
+              <div className="d-flex gap-2">
+                <button
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 0}
+                >
+                  Previous
+                </button>
+                <span className="align-self-center mx-2">
+                  Page {currentPage + 1} of {totalPages || 1}
+                </span>
+                <button
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={handleNextPage}
+                  disabled={currentPage >= totalPages - 1}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
 
             {isLoading && (
               <div className="text-center text-muted">Loading employees...</div>
