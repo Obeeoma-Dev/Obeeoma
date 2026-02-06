@@ -61,7 +61,7 @@ const Layout = ({ children, title }: LayoutProps) => {
     ? localEmployer?.email
     : employer?.email
       ? employer?.email || employer?.email
-      : "Corporate Admin";
+      : "Employer";
 
   const menuItems = [
     {

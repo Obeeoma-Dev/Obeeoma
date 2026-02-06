@@ -462,13 +462,13 @@ export const employerAPI = {
     return response;
   },
 
-  deleteEmployee: async (id: string) => {
-    const response = await api.delete(`/v1/dashboard/employees/${id}`);
+  deleteEmployee: async (id: string | number) => {
+    const response = await api.delete(`/v1/auth/invitations/${id}/`);
     return response;
   },
 
   updateEmployee: async (id: number | string, data: Partial<Employee>) => {
-    const response = await api.patch(`/v1/dashboard/employees/${id}`, data);
+    const response = await api.patch(`/v1/auth/invitation/${id}/`, data);
     return response.data;
   },
 

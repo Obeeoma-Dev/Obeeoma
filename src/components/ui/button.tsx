@@ -8,7 +8,8 @@ import { buttonVariants, ButtonVariantProps } from "./button.styles";
 // Define the ButtonProps interface
 // Combines HTML button props with variant styling props
 interface ButtonProps
-  extends React.ComponentProps<"button">, ButtonVariantProps {
+  extends React.ComponentProps<"button">,
+    ButtonVariantProps {
   asChild?: boolean; // Allows rendering as a different element via Radix Slot
 }
 
