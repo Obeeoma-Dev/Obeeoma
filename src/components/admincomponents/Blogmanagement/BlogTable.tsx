@@ -25,7 +25,8 @@ export type BlogPost = {
   featured: boolean;
 };
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const MEDIA_BASE_URL = "http://64.225.122.101:8000";
 
 export const resolveImageSrc = (imageUrl: string | File): string => {
   // Handle File objects (for newly uploaded images)
@@ -40,9 +41,13 @@ export const resolveImageSrc = (imageUrl: string | File): string => {
 
   // Handle string URLs
   if (typeof imageUrl === "string" && imageUrl.trim() !== "") {
+    // If it's just a filename (no slash), construct the full media URL
+    if (!imageUrl.startsWith("/") && !imageUrl.startsWith("http")) {
+      return `${MEDIA_BASE_URL}/media/${imageUrl}`;
+    }
     // If it's a relative path, prepend the base URL
     if (imageUrl.startsWith("/")) {
-      return `${BASE_URL}${imageUrl}`;
+      return `${MEDIA_BASE_URL}${imageUrl}`;
     }
     // If it's already a full URL, return as is
     return imageUrl;
@@ -58,10 +63,10 @@ const formatDate = (dateStr: string) => {
   return isNaN(date.getTime())
     ? "—"
     : date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
 };
 
 // Component props
@@ -125,20 +130,6 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
                               width: "40px",
                               height: "40px",
                               objectFit: "cover",
-                            }}
-                            onError={(e) => {
-                              // Replace with fallback when image fails
-                              const target = e.target as HTMLImageElement;
-                              const parent = target.parentElement;
-                              if (parent) {
-                                target.style.display = "none";
-                                const fallback = parent.querySelector(
-                                  ".fallback-icon",
-                                ) as HTMLElement;
-                                if (fallback) {
-                                  fallback.style.display = "flex";
-                                }
-                              }
                             }}
                           />
                         );

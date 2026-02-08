@@ -223,12 +223,12 @@ export const adminAPI = {
     return response;
   },
   getDashboardSummary: async () => {
-    const response = await api.get("/v1/admin/overview");
+    const response = await api.get("admin/overview");
     return response;
   },
 
   getDashboardOverview: async () => {
-    const response = await api.get("/v1/admin/overview/");
+    const response = await api.get("admin/overview/");
     return response;
   },
 
@@ -999,7 +999,7 @@ export const employerAPI = {
 // Blog submission API
 export const submitArticle = async (formData: FormData) => {
   try {
-    const response = await api.post("/v1/articles/", formData, {
+    const response = await api.post("articles/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

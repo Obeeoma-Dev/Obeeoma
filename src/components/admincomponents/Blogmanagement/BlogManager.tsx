@@ -49,7 +49,7 @@ export function BlogManager() {
   };
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}articles/`)
       .then((res) => res.json())
       .then((data: BackendBlog[]) => {
         console.log("Raw API data:", data);
@@ -102,7 +102,7 @@ export function BlogManager() {
     if (!deleteConfirm) return;
 
     await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/${deleteConfirm}/`,
+      `${import.meta.env.VITE_API_BASE_URL}articles/${deleteConfirm}/`,
       {
         method: "DELETE",
       },
@@ -135,7 +135,7 @@ export function BlogManager() {
       // ADD MODE → CREATE BLOG
       if (formMode === "add") {
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`,
+          `${import.meta.env.VITE_API_BASE_URL}articles/`,
           {
             method: "POST",
             body: formData,
@@ -169,7 +169,7 @@ export function BlogManager() {
       // EDIT MODE → UPDATE BLOG
       else {
         const res = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/${newBlog.id}/`,
+          `${import.meta.env.VITE_API_BASE_URL}articles/${newBlog.id}/`,
           {
             method: "PUT",
             body: formData,

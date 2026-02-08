@@ -154,18 +154,27 @@ export function Blog() {
     return isNaN(date.getTime())
       ? "—"
       : date.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        });
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
   };
 
   // Image URL resolver
   const resolveImageUrl = (imageUrl: string | null | undefined): string => {
     if (!imageUrl) return "";
-    if (imageUrl.startsWith("/")) {
-      return `${import.meta.env.VITE_API_BASE_URL}${imageUrl}`;
+
+    // If it's a filename (no slash), construct the full media URL
+    if (!imageUrl.startsWith("/") && !imageUrl.startsWith("http")) {
+      return `http://64.225.122.101:8000/media/${imageUrl}`;
     }
+
+    // If it's a relative path, prepend the base URL
+    if (imageUrl.startsWith("/")) {
+      return `http://64.225.122.101:8000${imageUrl}`;
+    }
+
+    // If it's already a full URL, return as is
     return imageUrl;
   };
 
@@ -178,7 +187,7 @@ export function Blog() {
       try {
         console.log("Fetching blogs from API...");
         const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/api/v1/articles/`,
+          `${import.meta.env.VITE_API_BASE_URL}articles/`,
         );
 
         if (!response.ok) {
