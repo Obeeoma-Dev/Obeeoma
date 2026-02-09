@@ -12,10 +12,7 @@ import { adminAPI } from "../../../api/apiConfig";
 import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
 import { Building2, Users, Map, CircleCheckBig } from "lucide-react";
 
-/**
- * Main admin page for managing organizations.
- * Combines sidebar, header, stats, table, and charts.
- */
+/* Main admin page for managing organizations. */
 const OrganizationPage: React.FC = () => {
   const [dashboardStats, setDashboardStats] = useState<StatCardData[]>([
     {
