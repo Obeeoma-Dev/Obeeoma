@@ -184,11 +184,11 @@ export const adminAPI = {
     },
     // Organization management APIs
     getOrganizationsGrowthChart: async () => {
-        const response = await api.get("/v1/admin/organizations/growth-chart/");
+        const response = await api.get("admin/organizations/growth-chart/");
         return response;
     },
     getOrganizationsClientDistribution: async () => {
-        const response = await api.get("/v1/admin/organizations/client-distribution/");
+        const response = await api.get("admin/organizations/client-distribution/");
         return response;
     },
     // Get organizations list with pagination and search
@@ -200,7 +200,7 @@ export const adminAPI = {
         if (search) {
             params.append("search", search);
         }
-        const response = await api.get(`/v1/admin/organizations/?${params}`);
+        const response = await api.get(`admin/organizations/?${params}`);
         return response;
     },
     addEmployee: async () => {
