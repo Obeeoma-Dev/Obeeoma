@@ -22,26 +22,29 @@ import { contentMediaAPI, ContentItem } from "../../../services/contentService";
 // Helper component: render icon or image based on content type
 const TypeIcon = ({
   type,
-  file_url,
+  public_url,
+  s3_key,
 }: {
-  type: ContentItem["type"];
-  file_url?: string;
+  type: ContentItem["media_type"];
+  public_url?: string;
+  s3_key?: string;
 }) => {
-  if (type === "image" && file_url) {
-    const src = file_url.startsWith("/")
-      ? `${import.meta.env.VITE_API_BASE_URL}${file_url}`
-      : file_url;
-    return (
-      <Image
-        src={src}
-        rounded
-        style={{ width: 40, height: 40, objectFit: "cover" }}
-        onError={(e) => {
-          const img = e.currentTarget as HTMLImageElement;
-          img.src = "https://placehold.co/40x40?text=No+Image";
-        }}
-      />
-    );
+  if (type === "image" && (public_url || s3_key)) {
+    // Use public_url if available, otherwise construct from s3_key
+    const src = public_url || (s3_key ? `http://127.0.0.1:8000/media/${s3_key}` : undefined);
+    if (src) {
+      return (
+        <Image
+          src={src}
+          rounded
+          style={{ width: 40, height: 40, objectFit: "cover" }}
+          onError={(e) => {
+            const img = e.currentTarget as HTMLImageElement;
+            img.src = "https://placehold.co/40x40?text=No+Image";
+          }}
+        />
+      );
+    }
   }
 
   switch (type) {
@@ -187,7 +190,7 @@ export function ContentTable({ key }: { key?: number }) {
                           justifyContent: "center",
                         }}
                       >
-                        <TypeIcon type={item.type} file_url={item.file_url} />
+                        <TypeIcon type={item.media_type} public_url={item.public_url} s3_key={item.s3_key} />
                       </div>
                       {/* Title and type */}
                       <div>
@@ -198,7 +201,9 @@ export function ContentTable({ key }: { key?: number }) {
                             textTransform: "capitalize",
                           }}
                         >
-                          {item.type}
+                          <div>
+                            {item.media_type}
+                          </div>
                         </div>
                       </div>
                     </Stack>
@@ -213,10 +218,12 @@ export function ContentTable({ key }: { key?: number }) {
                   </td>
 
                   {/* Date */}
-                  <td style={{ color: "#6c757d" }}>{item.date}</td>
+                  <td style={{ color: "#6c757d" }}>
+                    {new Date(item.created_at).toLocaleDateString()}
+                  </td>
 
                   {/* Size */}
-                  <td style={{ color: "#6c757d" }}>{item.size}</td>
+                  <td style={{ color: "#6c757d" }}>{item.file_size || "N/A"}</td>
 
                   {/* Actions */}
                   <td style={{ textAlign: "right" }}>
@@ -246,8 +253,8 @@ export function ContentTable({ key }: { key?: number }) {
       >
         {/* Showing results info */}
         <div style={{ fontSize: 14, color: "#6c757d" }}>
-          Showing <strong>1</strong> to <strong>5</strong> of{" "}
-          <strong>12</strong> results
+          Showing <strong>1</strong> to <strong>{Math.min(contentData.length, 5)}</strong> of{" "}
+          <strong>{contentData.length}</strong> results
         </div>
 
         {/* Pagination buttons */}
