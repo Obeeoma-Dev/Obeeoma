@@ -122,7 +122,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
         as="h2"
         style={{ fontSize: "1rem", fontWeight: 600, fontFamily: "body" }}
       >
-        Upload New Content
+        Upload Mobile Resources
       </Card.Header>
 
       {/* Card body: everything else (tabs, drop zone, form, button) */}

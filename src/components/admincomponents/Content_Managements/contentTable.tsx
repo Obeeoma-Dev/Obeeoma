@@ -2,14 +2,17 @@
 // This component renders the "Content Library" table from your Media Library.
 
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  MoreVertical,
   PlayCircle,
   Image as ImageIcon,
   FileText,
   Music,
   CheckCircle2,
   Clock,
+  Eye,
+  Edit,
+  Trash2,
 } from "lucide-react";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
@@ -18,6 +21,7 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Image from "react-bootstrap/Image";
 import { contentMediaAPI, ContentItem } from "../../../services/contentService";
+import { VideoDetail } from "./VideoDetail";
 
 // Helper component: render icon or image based on content type
 const TypeIcon = ({
@@ -101,6 +105,7 @@ const StatusBadge = ({ status }: { status: ContentItem["status"] }) => {
 
 // Main component: renders the content table
 export function ContentTable({ key }: { key?: number }) {
+  const navigate = useNavigate();
   const [contentData, setContentData] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -130,7 +135,6 @@ export function ContentTable({ key }: { key?: number }) {
   }
 
   return (
-    // Card container for the whole table
     <Card style={{ borderRadius: 12 }}>
       {/* Header with title and filters */}
       <Card.Header
@@ -172,72 +176,72 @@ export function ContentTable({ key }: { key?: number }) {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(contentData) &&
-              contentData.map((item) => (
-                <tr key={item.id}>
-                  {/* Content cell: icon + title + type */}
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      {/* Icon bubble */}
+            {contentData.map((item) => (
+              <tr key={item.id}>
+                {/* Content cell: icon + title + type */}
+                <td>
+                  <Stack direction="horizontal" gap={3}>
+                    {/* Icon bubble */}
+                    <div
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 8,
+                        backgroundColor: "#f8f9fa",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <TypeIcon type={item.media_type} public_url={item.public_url} s3_key={item.s3_key} />
+                    </div>
+                    {/* Title and type */}
+                    <div>
+                      <div>{item.title}</div>
                       <div
                         style={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: 8,
-                          backgroundColor: "#f8f9fa",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          color: "#6c757d",
+                          textTransform: "capitalize",
                         }}
                       >
-                        <TypeIcon type={item.media_type} public_url={item.public_url} s3_key={item.s3_key} />
-                      </div>
-                      {/* Title and type */}
-                      <div>
-                        <div>{item.title}</div>
-                        <div
-                          style={{
-                            color: "#6c757d",
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          <div>
-                            {item.media_type}
-                          </div>
+                        <div>
+                          {item.media_type}
                         </div>
                       </div>
-                    </Stack>
-                  </td>
+                    </div>
+                  </Stack>
+                </td>
 
-                  {/* Category */}
-                  <td style={{ color: "#6c757d" }}>{item.category || "N/A"}</td>
+                {/* Category */}
+                <td style={{ color: "#6c757d" }}>{item.category || "N/A"}</td>
 
-                  {/* Status */}
-                  <td>
-                    <StatusBadge status={item.status} />
-                  </td>
+                {/* Status */}
+                <td>
+                  <StatusBadge status={item.status} />
+                </td>
 
-                  {/* Date */}
-                  <td style={{ color: "#6c757d" }}>
-                    {new Date(item.created_at).toLocaleDateString()}
-                  </td>
+                {/* Date */}
+                <td style={{ color: "#6c757d" }}>
+                  {new Date(item.created_at).toLocaleDateString()}
+                </td>
 
-                  {/* Size */}
-                  <td style={{ color: "#6c757d" }}>{item.file_size || "N/A"}</td>
+                {/* Size */}
+                <td style={{ color: "#6c757d" }}>{item.file_size || "N/A"}</td>
 
-                  {/* Actions */}
-                  <td style={{ textAlign: "right" }}>
-                    <Button
-                      variant="light"
-                      size="sm"
-                      style={{ borderRadius: 999 }}
-                      aria-label="More actions"
-                    >
-                      <MoreVertical size={18} />
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+                {/* Actions */}
+                <td style={{ textAlign: "right" }}>
+                  <Button
+                    variant="light"
+                    size="sm"
+                    style={{ borderRadius: 999 }}
+                    aria-label="View/Preview"
+                    onClick={() => navigate(`/system-admin/content-management/view/${item.id}`)}
+                  >
+                    <Eye size={16} />
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
