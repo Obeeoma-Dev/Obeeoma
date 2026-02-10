@@ -97,7 +97,7 @@ const StatusBadge = ({ status }: { status: ContentItem["status"] }) => {
 };
 
 // Main component: renders the content table
-export function ContentTable() {
+export function ContentTable({ key }: { key?: number }) {
   const [contentData, setContentData] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,7 +116,7 @@ export function ContentTable() {
     };
 
     fetchContent();
-  }, []);
+  }, [key]); // Refresh when key changes (after upload)
 
   if (loading) {
     return <div>Loading...</div>;
