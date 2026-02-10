@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import {
   PlayCircle,
   Image as ImageIcon,
@@ -10,9 +11,7 @@ import {
   Music,
   CheckCircle2,
   Clock,
-  Eye,
-  Edit,
-  Trash2,
+  MoreVertical,
 } from "lucide-react";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
@@ -21,7 +20,18 @@ import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Image from "react-bootstrap/Image";
 import { contentMediaAPI, ContentItem } from "../../../services/contentService";
-import { VideoDetail } from "./VideoDetail";
+import {
+  selectContentItems,
+  selectContentLoading,
+  selectContentError,
+  selectContentLastFetched,
+  fetchAllContent,
+  setSelectedContent
+} from "../../../store/slices/contentSlice";
+import { RootState, AppDispatch } from "../../../store/store";
+// import { VideoDetail } from "./VideoDetail";
+import { ActionModal } from "../Reusedcomponents/ActionModal";
+import { ConfirmModal } from "../Reusedcomponents/ConfirmModal";
 
 // Helper component: render icon or image based on content type
 const TypeIcon = ({
@@ -106,25 +116,58 @@ const StatusBadge = ({ status }: { status: ContentItem["status"] }) => {
 // Main component: renders the content table
 export function ContentTable({ key }: { key?: number }) {
   const navigate = useNavigate();
-  const [contentData, setContentData] = useState<ContentItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Use Redux selectors instead of local state
+  const contentData = useSelector(selectContentItems);
+  const loading = useSelector(selectContentLoading);
+  const error = useSelector(selectContentError);
+  const lastFetched = useSelector(selectContentLastFetched);
+
+  // Local state for modals
+  const [showActionModal, setShowActionModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
 
   useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const data = await contentMediaAPI.getAllContent();
-        setContentData(data);
-      } catch (err) {
-        console.error("Failed to fetch content:", err);
-        setError("Failed to load content");
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Only fetch content if it hasn't been fetched yet
+    if (!lastFetched && !loading) {
+      dispatch(fetchAllContent());
+    }
+  }, [dispatch, lastFetched, loading]);
 
-    fetchContent();
-  }, [key]); // Refresh when key changes (after upload)
+  // Action handlers
+  const handleViewContent = (item: ContentItem) => {
+    dispatch(setSelectedContent(item));
+    navigate(`/system-admin/content-management/view/${item.id}`);
+  };
+
+  const handleEditContent = (item: ContentItem) => {
+    // TODO: Implement edit functionality
+    console.log("Edit content:", item);
+    // Navigate to edit page or open edit modal
+  };
+
+  const handleDeleteClick = (item: ContentItem) => {
+    setSelectedItem(item);
+    setShowConfirmModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedItem) {
+      // TODO: Implement delete functionality
+      console.log("Delete content:", selectedItem);
+      // Dispatch delete action
+      // dispatch(removeContentItem(selectedItem.id));
+    }
+    setShowConfirmModal(false);
+    setSelectedItem(null);
+  };
+
+  const handleActionClick = (item: ContentItem) => {
+    setSelectedItem(item);
+    setShowActionModal(true);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -234,10 +277,10 @@ export function ContentTable({ key }: { key?: number }) {
                     variant="light"
                     size="sm"
                     style={{ borderRadius: 999 }}
-                    aria-label="View/Preview"
-                    onClick={() => navigate(`/system-admin/content-management/view/${item.id}`)}
+                    aria-label="Actions"
+                    onClick={() => handleActionClick(item)}
                   >
-                    <Eye size={16} />
+                    <MoreVertical size={16} />
                   </Button>
                 </td>
               </tr>
@@ -248,20 +291,12 @@ export function ContentTable({ key }: { key?: number }) {
 
       {/* Pagination footer */}
       <Card.Footer
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontFamily: "body",
-        }}
+        className="d-flex justify-content-between align-items-center"
+        style={{ padding: "16px 24px", backgroundColor: "#f8f9fa" }}
       >
-        {/* Showing results info */}
-        <div style={{ fontSize: 14, color: "#6c757d" }}>
-          Showing <strong>1</strong> to <strong>{Math.min(contentData.length, 5)}</strong> of{" "}
-          <strong>{contentData.length}</strong> results
+        <div style={{ color: "#6c757d", fontSize: "14px" }}>
+          Showing {contentData.length} items
         </div>
-
-        {/* Pagination buttons */}
         <Stack direction="horizontal" gap={2}>
           <Button variant="outline-secondary" size="sm" disabled>
             Previous
@@ -271,6 +306,27 @@ export function ContentTable({ key }: { key?: number }) {
           </Button>
         </Stack>
       </Card.Footer>
+
+      {/* Action Modal */}
+      <ActionModal
+        show={showActionModal}
+        item={selectedItem}
+        onView={handleViewContent}
+        onEdit={handleEditContent}
+        onDelete={handleDeleteClick}
+        onClose={() => setShowActionModal(false)}
+      />
+
+      {/* Confirm Delete Modal */}
+      <ConfirmModal
+        show={showConfirmModal}
+        title="Delete Content"
+        message={`Are you sure you want to delete "${selectedItem?.title}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setShowConfirmModal(false)}
+      />
     </Card>
   );
 }

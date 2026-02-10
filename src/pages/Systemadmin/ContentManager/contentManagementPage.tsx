@@ -3,27 +3,31 @@
 // It renders the heading, the UploadZone, and the ContentTable inside your Layout.
 // Tailwind classes are removed; spacing and typography use inline styles for clarity.
 
-import React, { useState } from "react"; // Import React to define the component
-import { LayoutWrapper } from "../../../components/admincomponents/Content_Managements/layout"; // Import the app-wide layout (sidebar + header + scrollable content area)
-import { UploadZone } from "../../../components/admincomponents/Content_Managements/uploadZone"; // Import the upload card component (React-Bootstrap version)
-import { ContentTable } from "../../../components/admincomponents/Content_Managements/contentTable"; // Import the content table component (React-Bootstrap version)
+import React from "react";
+import { useDispatch } from "react-redux";
+import { LayoutWrapper } from "../../../components/admincomponents/Content_Managements/layout";
+import { UploadZone } from "../../../components/admincomponents/Content_Managements/uploadZone";
+import { ContentTable } from "../../../components/admincomponents/Content_Managements/contentTable";
 import { toast, ToastContainer } from "react-toastify";
+import { AppDispatch } from "../../../store/store";
+import { fetchAllContent } from "../../../store/slices/contentSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 // Export the page component so it can be routed/used elsewhere
 export function ContentManagement() {
-  const [refreshKey, setRefreshKey] = useState(0);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleUploadSuccess = () => {
-    setRefreshKey((prev) => prev + 1);
+    // Refresh content data after successful upload
+    dispatch(fetchAllContent());
     toast.success("Content saved successfully!", {
-      position: "top-right", // you can change to "top-center", "bottom-left", etc.
-      autoClose: 3000, // auto dismiss after 3s
-      hideProgressBar: false, // show progress bar
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      theme: "colored", // "light", "dark", or "colored"
+      theme: "colored",
     });
   };
 
@@ -43,7 +47,7 @@ export function ContentManagement() {
         style={{ marginTop: 32 }}
       >
         {/* Content table: lists existing media with type icon, status badge, and actions */}
-        <ContentTable key={refreshKey} />
+        <ContentTable />
       </div>
     </LayoutWrapper>
   );

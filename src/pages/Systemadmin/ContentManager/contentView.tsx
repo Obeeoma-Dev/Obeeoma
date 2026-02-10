@@ -2,47 +2,44 @@
 // This page renders the VideoDetail component with proper SystemAdminLayout
 // Following the same pattern as other admin interfaces
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { VideoDetail } from "../../../components/admincomponents/Content_Managements/VideoDetail";
-import { contentMediaAPI, ContentItem } from "../../../services/contentService";
+import {
+  selectSelectedContent,
+  selectContentLoading,
+  selectContentError,
+  fetchContentById,
+  setSelectedContent
+} from "../../../store/slices/contentSlice";
+import { RootState, AppDispatch } from "../../../store/store";
 
 export function ContentDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [contentItem, setContentItem] = useState<ContentItem | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+
+  // Use Redux selectors instead of local state
+  const contentItem = useSelector(selectSelectedContent);
+  const loading = useSelector(selectContentLoading);
+  const error = useSelector(selectContentError);
 
   useEffect(() => {
-    const fetchContent = async () => {
-      if (!id) {
-        setError("No content ID provided");
-        setLoading(false);
-        return;
-      }
+    if (!id) {
+      return;
+    }
 
-      try {
-        // Fetch specific content item by ID
-        const data = await contentMediaAPI.getAllContent();
-        const item = data.find(item => item.id === parseInt(id));
+    // Check if content is already cached in Redux
+    if (contentItem && contentItem.id === parseInt(id)) {
+      // Content already cached, no need to fetch
+      return;
+    }
 
-        if (item) {
-          setContentItem(item);
-        } else {
-          setError("Content not found");
-        }
-      } catch (err) {
-        console.error("Failed to fetch content:", err);
-        setError("Failed to load content");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchContent();
-  }, [id]);
+    // Fetch content if not cached or if ID doesn't match
+    dispatch(fetchContentById(id));
+  }, [id, contentItem, dispatch]);
 
   const handleBack = () => {
     navigate("/system-admin/content-management");

@@ -80,7 +80,7 @@ export function VideoDetail({ item, onBack, useLayout = true }: VideoDetailProps
               thumbnail={item.public_url}
             />
 
-            <Card className="border shadow-sm">
+            <Card className="border shadow-sm mt-4">
               <Card.Body>
                 <Card.Title as="h3" className="mb-4">
                   Video Description
@@ -101,7 +101,7 @@ export function VideoDetail({ item, onBack, useLayout = true }: VideoDetailProps
         {/* Right Column: Metadata & Settings */}
         <Col lg={4}>
           <div className="space-y-4">
-            <Card className="border shadow-sm">
+            <Card className="border shadow-sm mb-4">
               <Card.Body>
                 <Card.Title as="h3" className="mb-4 pb-3 border-bottom">
                   Metadata

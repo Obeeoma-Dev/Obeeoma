@@ -3,6 +3,7 @@ import { authAPI } from "../../api/apiConfig";
 import api from "../../api/apiConfig";
 import axios from "axios";
 import { getDashboardRoute } from "../../utils/routing";
+import { clearContentState } from "./contentSlice";
 const getErrorMessage = (error) => {
     if (axios.isAxiosError(error)) {
         // Attempt to get a detailed error message from the response data
@@ -249,6 +250,8 @@ const authSlice = createSlice({
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             localStorage.removeItem("refresh");
+            // Clear content state on logout
+            clearContentState();
         },
         clearError: (state) => {
             state.error = null;
