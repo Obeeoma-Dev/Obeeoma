@@ -15,13 +15,17 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showControls, setShowControls] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const togglePlay = () => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
       } else {
-        videoRef.current.play();
+        videoRef.current.play().catch(error => {
+          console.error('Video play error:', error);
+          setVideoError(true);
+        });
       }
       setIsPlaying(!isPlaying);
     }
@@ -59,7 +63,7 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div 
+    <div
       className="position-relative bg-dark rounded overflow-hidden shadow-lg"
       style={{ aspectRatio: '16/9' }}
       onMouseEnter={() => setShowControls(true)}
@@ -74,6 +78,17 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
           onTimeUpdate={handleTimeUpdate}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
+          onError={(e) => {
+            console.error('Video element error occurred:', e);
+            console.error('Video error details:', {
+              error: e,
+              videoUrl: videoUrl,
+              videoElement: videoRef.current
+            });
+            setVideoError(true);
+          }}
+          onLoadStart={() => console.log('Video loading started...')}
+          onCanPlay={() => console.log('Video can play')}
         />
       ) : (
         <div className="w-100 h-100 d-flex align-items-center justify-content-center bg-gradient-to-br from-gray-800 to-gray-900">
@@ -86,6 +101,17 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
           ) : (
             <Play className="w-16 h-16 text-secondary opacity-20" />
           )}
+        </div>
+      )}
+
+      {/* Error State */}
+      {videoError && (
+        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-90">
+          <div className="text-center text-white p-4">
+            <h5 className="mb-3">Video Error</h5>
+            <p className="mb-3">Unable to load video. Check console for details.</p>
+            <small className="text-muted">URL: {videoUrl}</small>
+          </div>
         </div>
       )}
 
@@ -103,7 +129,7 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
       )}
 
       {/* Controls Bar */}
-      <div 
+      <div
         className={`position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-200 ${showControls || isPlaying ? 'opacity-100' : 'opacity-0'}`}
       >
         {/* Progress Bar */}

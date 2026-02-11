@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ArrowLeft,
   Save,
@@ -26,9 +26,49 @@ export function VideoDetail({ item, onBack, useLayout = true }: VideoDetailProps
     item.description || 'This is a sample description for video content. It helps users understand what they are about to watch.',
   );
   const [category, setCategory] = useState(item.category || 'general');
+  const [videoUrl, setVideoUrl] = useState<string | undefined>(undefined);
 
-  // Construct video URL from s3_key or public_url
-  const videoUrl = item.public_url || (item.s3_key ? `http://127.0.0.1:8000/media/${item.s3_key}` : undefined);
+  // Test different URL patterns
+  const testVideoUrl = async (s3Key: string) => {
+    const urlPatterns = [
+      `http://127.0.0.1:8000/media/${s3Key}`, // Correct Django media URL
+      `http://127.0.0.1:8000/uploads/${s3Key}`, // Direct uploads folder
+      `http://127.0.0.1:8000/${s3Key}`,  // Try without /media prefix
+      `http://127.0.0.1:8000/api/v1/media/${s3Key}`, // API path
+      `http://127.0.0.1:8000/api/v1/uploads/${s3Key}`, // API uploads
+      `http://127.0.0.1:8000/static/${s3Key}`, // Static folder
+      `http://127.0.0.1:8000/static/media/${s3Key}` // Static media
+    ];
+
+    for (const url of urlPatterns) {
+      console.log(`Testing URL pattern: ${url}`);
+      try {
+        const response = await fetch(url, { method: 'HEAD' });
+        console.log(`URL ${url} - Status: ${response.status}, Content-Type: ${response.headers.get('content-type')}`);
+
+        if (response.ok && response.headers.get('content-type')?.includes('video')) {
+          console.log(`✅ Found working URL: ${url}`);
+          return url;
+        }
+      } catch (error) {
+        console.log(`❌ URL ${url} failed:`, error);
+      }
+    }
+
+    console.log('⚠️ No working URL found, using first pattern as fallback');
+    return urlPatterns[0];
+  };
+
+  // Initialize video URL
+  useEffect(() => {
+    if (item.s3_key && !videoUrl) {
+      testVideoUrl(item.s3_key).then(url => {
+        setVideoUrl(url);
+      });
+    } else if (item.public_url) {
+      setVideoUrl(item.public_url);
+    }
+  }, [item.s3_key, item.public_url]);
 
   const handleSave = () => {
     // TODO: Implement save functionality
