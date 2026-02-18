@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Play, Volume2, Maximize2, Settings } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Play, Pause, Volume2, Maximize2, Settings } from 'lucide-react';
 import { Button } from 'react-bootstrap';
 
 interface VideoPlayerProps {
@@ -14,8 +14,27 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
-  const [showControls, setShowControls] = useState(false);
+  const [showControls, setShowControls] = useState(true);
   const [videoError, setVideoError] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Auto-hide controls when playing, show when paused
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isPlaying && !isDragging) {
+      timeout = setTimeout(() => {
+        setShowControls(false);
+      }, 3000);
+    } else {
+      setShowControls(true);
+    }
+    return () => clearTimeout(timeout);
+  }, [isPlaying, isDragging]);
+
+  // Show controls on mouse movement
+  const handleMouseMove = () => {
+    setShowControls(true);
+  };
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -33,17 +52,44 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
 
   const handleTimeUpdate = () => {
     if (videoRef.current) {
-      setCurrentTime(videoRef.current.currentTime);
-      setDuration(videoRef.current.duration || 0);
+      const current = videoRef.current.currentTime;
+      const total = videoRef.current.duration;
+      setCurrentTime(current);
+      if (total && !isNaN(total)) {
+        setDuration(total);
+      }
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      const total = videoRef.current.duration;
+      if (total && !isNaN(total)) {
+        setDuration(total);
+      }
     }
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const time = parseFloat(e.target.value);
+    if (videoRef.current && !isNaN(time)) {
+      videoRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  };
+
+  const handleSeekStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleSeekEnd = (e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const time = parseFloat(target.value);
     if (videoRef.current) {
       videoRef.current.currentTime = time;
       setCurrentTime(time);
     }
+    setIsDragging(false);
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +112,7 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
     <div
       className="position-relative bg-dark rounded overflow-hidden shadow-lg"
       style={{ aspectRatio: '16/9' }}
+      onMouseMove={handleMouseMove}
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
     >
@@ -78,6 +125,7 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
           onTimeUpdate={handleTimeUpdate}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
+          onLoadedMetadata={handleLoadedMetadata}
           onError={(e) => {
             console.error('Video element error occurred:', e);
             console.error('Video error details:', {
@@ -115,7 +163,7 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
         </div>
       )}
 
-      {/* Play Button Overlay */}
+      {/* Play/Pause Button Overlay - Only when paused */}
       {!isPlaying && (
         <button
           className="position-absolute top-50 start-50 translate-middle border-0 bg-transparent"
@@ -130,7 +178,9 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
 
       {/* Controls Bar */}
       <div
-        className={`position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-200 ${showControls || isPlaying ? 'opacity-100' : 'opacity-0'}`}
+        className={`position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-200 ${showControls ? 'opacity-100' : 'opacity-0'}`}
+        onMouseEnter={() => setShowControls(true)}
+        onMouseLeave={() => setShowControls(false)}
       >
         {/* Progress Bar */}
         <div className="w-100 mb-3">
@@ -138,10 +188,14 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
             type="range"
             className="form-range"
             min="0"
-            max={duration}
+            max={duration || 0}
             value={currentTime}
             onChange={handleSeek}
-            style={{ height: '4px' }}
+            onMouseDown={handleSeekStart}
+            onMouseUp={handleSeekEnd}
+            onTouchStart={handleSeekStart}
+            onTouchEnd={handleSeekEnd}
+            style={{ height: '6px', cursor: 'pointer' }}
           />
         </div>
 
@@ -149,10 +203,7 @@ export function VideoPlayer({ thumbnail, title, videoUrl }: VideoPlayerProps) {
           <div className="d-flex align-items-center gap-3">
             <Button variant="link" className="text-white p-0" onClick={togglePlay}>
               {isPlaying ? (
-                <div className="w-5 h-5 d-flex align-items-center justify-content-center">
-                  <div className="w-3 h-3 bg-white rounded me-1"></div>
-                  <div className="w-3 h-3 bg-white rounded"></div>
-                </div>
+                <Pause className="w-5 h-5" />
               ) : (
                 <Play className="w-5 h-5 fill-current" />
               )}

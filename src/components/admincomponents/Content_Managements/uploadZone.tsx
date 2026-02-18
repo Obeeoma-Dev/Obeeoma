@@ -18,6 +18,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Stack from "react-bootstrap/Stack";
 import { contentMediaAPI } from "../../../services/contentService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MEDIA_TYPES = [
   { id: "video", label: "Video", icon: FileVideo },
@@ -99,25 +101,28 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
       const response = await contentMediaAPI.createMedia(formData);
       console.log("Upload successful:", response);
 
-      // Call success callback
-      onUploadSuccess?.();
+      // Call success callback with the uploaded content data
+      console.log("Upload successful:", response);
 
-      // Optionally reset form
-      setFile(null);
-      setTitle("");
+      // Simple success toast
+      toast.success("Content uploaded successfully!");
+
+      // Simple approach: just trigger refresh
+      onUploadSuccess?.();
       setDescription("");
       setCategory("");
       setStatus("published");
       setDuration("");
     } catch (err) {
       console.error("Upload failed:", err);
+
+      // Simple error toast
+      toast.error("Upload failed. Please try again.");
     }
   };
 
   return (
-    // Card provides a clean container with padding, border, and shadow
     <Card style={{ borderRadius: 12 }}>
-      {/* Card header: "Upload New Content" */}
       <Card.Header
         as="h2"
         style={{ fontSize: "1rem", fontWeight: 600, fontFamily: "body" }}

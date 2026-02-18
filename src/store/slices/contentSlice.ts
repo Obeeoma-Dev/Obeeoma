@@ -53,6 +53,20 @@ export const fetchContentById = createAsyncThunk<
   }
 });
 
+// Async thunk to delete content
+export const deleteContent = createAsyncThunk<
+  void,
+  number,
+  { rejectValue: string }
+>("content/delete", async (id, { rejectWithValue }) => {
+  try {
+    await contentMediaAPI.deleteContent(id);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Failed to delete content";
+    return rejectWithValue(errorMessage);
+  }
+});
+
 // Content slice
 const contentSlice = createSlice({
   name: "content",
@@ -91,6 +105,22 @@ const contentSlice = createSlice({
         state.selectedContent = null;
       }
     },
+    // Optimistic add for immediate UI updates
+    addContentOptimistically: (state, action) => {
+      // Add new item to the beginning of the list
+      state.items.unshift(action.payload);
+    },
+    // Update item without full refresh
+    updateContentOptimistically: (state, action) => {
+      const index = state.items.findIndex(item => item.id === action.payload.id);
+      if (index !== -1) {
+        state.items[index] = action.payload;
+      }
+      // Also update selectedContent if it's the same item
+      if (state.selectedContent && state.selectedContent.id === action.payload.id) {
+        state.selectedContent = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -121,11 +151,41 @@ const contentSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
         state.selectedContent = null;
+      })
+      .addCase(deleteContent.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+        // Optimistically remove item from state immediately
+        state.items = state.items.filter(item => item.id !== action.meta.arg);
+        // Clear selectedContent if it was the deleted item
+        if (state.selectedContent && state.selectedContent.id === action.meta.arg) {
+          state.selectedContent = null;
+        }
+      })
+      .addCase(deleteContent.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        // State already updated optimistically, no need to do anything here
+      })
+      .addCase(deleteContent.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+        // If delete failed, refetch data to restore correct state
+        // In a real app, you might want to revert the optimistic update
       });
   },
 });
 
-export const { clearContentState, addContentItem, updateContentItem, removeContentItem, setSelectedContent, clearSelectedContent } = contentSlice.actions;
+export const {
+  clearContentState,
+  addContentItem,
+  updateContentItem,
+  removeContentItem,
+  setSelectedContent,
+  clearSelectedContent,
+  addContentOptimistically,
+  updateContentOptimistically
+} = contentSlice.actions;
 
 // Selectors
 export const selectContentItems = (state: { content: ContentState }) => state.content.items;

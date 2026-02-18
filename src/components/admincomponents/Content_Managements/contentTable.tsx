@@ -19,6 +19,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Stack from "react-bootstrap/Stack";
 import Image from "react-bootstrap/Image";
+import { toast, ToastContainer } from "react-toastify";
 import { contentMediaAPI, ContentItem } from "../../../services/contentService";
 import {
   selectContentItems,
@@ -26,12 +27,14 @@ import {
   selectContentError,
   selectContentLastFetched,
   fetchAllContent,
-  setSelectedContent
+  setSelectedContent,
+  deleteContent
 } from "../../../store/slices/contentSlice";
 import { RootState, AppDispatch } from "../../../store/store";
 // import { VideoDetail } from "./VideoDetail";
 import { ActionModal } from "../Reusedcomponents/ActionModal";
 import { ConfirmModal } from "../Reusedcomponents/ConfirmModal";
+import "react-toastify/dist/ReactToastify.css";
 
 // Helper component: render icon or image based on content type
 const TypeIcon = ({
@@ -130,11 +133,9 @@ export function ContentTable({ key }: { key?: number }) {
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
 
   useEffect(() => {
-    // Only fetch content if it hasn't been fetched yet
-    if (!lastFetched && !loading) {
-      dispatch(fetchAllContent());
-    }
-  }, [dispatch, lastFetched, loading]);
+    // Force refresh data when component mounts
+    dispatch(fetchAllContent());
+  }, [dispatch]);
 
   // Action handlers
   const handleViewContent = (item: ContentItem) => {
@@ -153,15 +154,56 @@ export function ContentTable({ key }: { key?: number }) {
     setShowConfirmModal(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (selectedItem) {
-      // TODO: Implement delete functionality
-      console.log("Delete content:", selectedItem);
-      // Dispatch delete action
-      // dispatch(removeContentItem(selectedItem.id));
+      try {
+        console.log("Deleting content:", selectedItem);
+
+        // Close modal immediately to prevent double-clicks
+        setShowConfirmModal(false);
+
+        // Show loading toast
+        const toastId = toast.loading("Deleting content...", {
+          position: "top-right",
+        });
+
+        // Dispatch delete action to call API and update state
+        await dispatch(deleteContent(selectedItem.id)).unwrap();
+
+        // Update toast to success
+        toast.update(toastId, {
+          render: `"${selectedItem.title}" deleted successfully!`,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+        });
+
+        console.log("Content deleted successfully");
+
+        // Clear selection
+        setSelectedItem(null);
+
+      } catch (error) {
+        console.error("Failed to delete content:", error);
+
+        // Show error toast
+        toast.error(`Failed to delete "${selectedItem.title}". Please try again.`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+        });
+
+        // Refetch data on error to restore correct state
+        dispatch(fetchAllContent());
+
+        // Ensure modal is closed on error too
+        setShowConfirmModal(false);
+        setSelectedItem(null);
+      }
     }
-    setShowConfirmModal(false);
-    setSelectedItem(null);
   };
 
   const handleActionClick = (item: ContentItem) => {
@@ -178,155 +220,158 @@ export function ContentTable({ key }: { key?: number }) {
   }
 
   return (
-    <Card style={{ borderRadius: 12 }}>
-      {/* Header with title and filters */}
-      <Card.Header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          fontFamily: "heading",
-        }}
-      >
-        <h3 style={{ margin: 0, fontFamily: "heading" }}>Content Library</h3>
-        {/* Filters: type and status dropdowns */}
-        <Stack direction="horizontal" gap={2} style={{ fontFamily: "body" }}>
-          <Form.Select size="sm">
-            <option>All Types</option>
-            <option>Video</option>
-            <option>Audio</option>
-            <option>Image</option>
-          </Form.Select>
-          <Form.Select size="sm">
-            <option>All Status</option>
-            <option>Published</option>
-            <option>Draft</option>
-          </Form.Select>
-        </Stack>
-      </Card.Header>
+    <>
+      <ToastContainer />
+      <Card style={{ borderRadius: 12 }}>
+        {/* Header with title and filters */}
+        <Card.Header
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            fontFamily: "heading",
+          }}
+        >
+          <h3 style={{ margin: 0, fontFamily: "heading" }}>Content Library</h3>
+          {/* Filters: type and status dropdowns */}
+          <Stack direction="horizontal" gap={2} style={{ fontFamily: "body" }}>
+            <Form.Select size="sm">
+              <option>All Types</option>
+              <option>Video</option>
+              <option>Audio</option>
+              <option>Image</option>
+            </Form.Select>
+            <Form.Select size="sm">
+              <option>All Status</option>
+              <option>Published</option>
+              <option>Draft</option>
+            </Form.Select>
+          </Stack>
+        </Card.Header>
 
-      {/* Table body */}
-      <div style={{ overflowX: "auto", fontFamily: "body" }}>
-        <Table hover responsive>
-          <thead>
-            <tr>
-              <th>Content</th>
-              <th>Category</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Size</th>
-              <th style={{ textAlign: "right" }}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contentData.map((item) => (
-              <tr key={item.id}>
-                {/* Content cell: icon + title + type */}
-                <td>
-                  <Stack direction="horizontal" gap={3}>
-                    {/* Icon bubble */}
-                    <div
-                      style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 8,
-                        backgroundColor: "#f8f9fa",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <TypeIcon type={item.media_type} public_url={item.public_url} s3_key={item.s3_key} />
-                    </div>
-                    {/* Title and type */}
-                    <div>
-                      <div>{item.title}</div>
+        {/* Table body */}
+        <div style={{ overflowX: "auto", fontFamily: "body" }}>
+          <Table hover responsive>
+            <thead>
+              <tr>
+                <th>Content</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Size</th>
+                <th style={{ textAlign: "right" }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {contentData.map((item) => (
+                <tr key={item.id}>
+                  {/* Content cell: icon + title + type */}
+                  <td>
+                    <Stack direction="horizontal" gap={3}>
+                      {/* Icon bubble */}
                       <div
                         style={{
-                          color: "#6c757d",
-                          textTransform: "capitalize",
+                          width: 40,
+                          height: 40,
+                          borderRadius: 8,
+                          backgroundColor: "#f8f9fa",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        <div>
-                          {item.media_type}
+                        <TypeIcon type={item.media_type} public_url={item.public_url} s3_key={item.s3_key} />
+                      </div>
+                      {/* Title and type */}
+                      <div>
+                        <div>{item.title}</div>
+                        <div
+                          style={{
+                            color: "#6c757d",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          <div>
+                            {item.media_type}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Stack>
-                </td>
+                    </Stack>
+                  </td>
 
-                {/* Category */}
-                <td style={{ color: "#6c757d" }}>{item.category || "N/A"}</td>
+                  {/* Category */}
+                  <td style={{ color: "#6c757d" }}>{item.category || "N/A"}</td>
 
-                {/* Status */}
-                <td>
-                  <StatusBadge status={item.status} />
-                </td>
+                  {/* Status */}
+                  <td>
+                    <StatusBadge status={item.status} />
+                  </td>
 
-                {/* Date */}
-                <td style={{ color: "#6c757d" }}>
-                  {new Date(item.created_at).toLocaleDateString()}
-                </td>
+                  {/* Date */}
+                  <td style={{ color: "#6c757d" }}>
+                    {new Date(item.created_at).toLocaleDateString()}
+                  </td>
 
-                {/* Size */}
-                <td style={{ color: "#6c757d" }}>{item.file_size || "N/A"}</td>
+                  {/* Size */}
+                  <td style={{ color: "#6c757d" }}>{item.file_size || "N/A"}</td>
 
-                {/* Actions */}
-                <td style={{ textAlign: "right" }}>
-                  <Button
-                    variant="light"
-                    size="sm"
-                    style={{ borderRadius: 999 }}
-                    aria-label="Actions"
-                    onClick={() => handleActionClick(item)}
-                  >
-                    <MoreVertical size={16} />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
-
-      {/* Pagination footer */}
-      <Card.Footer
-        className="d-flex justify-content-between align-items-center"
-        style={{ padding: "16px 24px", backgroundColor: "#f8f9fa" }}
-      >
-        <div style={{ color: "#6c757d", fontSize: "14px" }}>
-          Showing {contentData.length} items
+                  {/* Actions */}
+                  <td style={{ textAlign: "right" }}>
+                    <Button
+                      variant="light"
+                      size="sm"
+                      style={{ borderRadius: 999 }}
+                      aria-label="Actions"
+                      onClick={() => handleActionClick(item)}
+                    >
+                      <MoreVertical size={16} />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
-        <Stack direction="horizontal" gap={2}>
-          <Button variant="outline-secondary" size="sm" disabled>
-            Previous
-          </Button>
-          <Button variant="outline-secondary" size="sm">
-            Next
-          </Button>
-        </Stack>
-      </Card.Footer>
 
-      {/* Action Modal */}
-      <ActionModal
-        show={showActionModal}
-        item={selectedItem}
-        onView={handleViewContent}
-        onEdit={handleEditContent}
-        onDelete={handleDeleteClick}
-        onClose={() => setShowActionModal(false)}
-      />
+        {/* Pagination footer */}
+        <Card.Footer
+          className="d-flex justify-content-between align-items-center"
+          style={{ padding: "16px 24px", backgroundColor: "#f8f9fa" }}
+        >
+          <div style={{ color: "#6c757d", fontSize: "14px" }}>
+            Showing {contentData.length} items
+          </div>
+          <Stack direction="horizontal" gap={2}>
+            <Button variant="outline-secondary" size="sm" disabled>
+              Previous
+            </Button>
+            <Button variant="outline-secondary" size="sm">
+              Next
+            </Button>
+          </Stack>
+        </Card.Footer>
 
-      {/* Confirm Delete Modal */}
-      <ConfirmModal
-        show={showConfirmModal}
-        title="Delete Content"
-        message={`Are you sure you want to delete "${selectedItem?.title}"? This action cannot be undone.`}
-        confirmText="Delete"
-        cancelText="Cancel"
-        onConfirm={handleConfirmDelete}
-        onCancel={() => setShowConfirmModal(false)}
-      />
-    </Card>
+        {/* Action Modal */}
+        <ActionModal
+          show={showActionModal}
+          item={selectedItem}
+          onView={handleViewContent}
+          onEdit={handleEditContent}
+          onDelete={handleDeleteClick}
+          onClose={() => setShowActionModal(false)}
+        />
+
+        {/* Confirm Delete Modal */}
+        <ConfirmModal
+          show={showConfirmModal}
+          title="Delete Content"
+          message={`Are you sure you want to delete "${selectedItem?.title}"? This action cannot be undone.`}
+          confirmText="Delete"
+          cancelText="Cancel"
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setShowConfirmModal(false)}
+        />
+      </Card>
+    </>
   );
 }
