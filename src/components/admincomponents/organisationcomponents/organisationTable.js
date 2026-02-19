@@ -31,7 +31,7 @@ const renderStatusIcon = (status) => {
     }
 };
 // Main dashboard component
-const OrganizationDashboard = ({ organizations: propOrganizations, }) => {
+const OrganizationDashboard = ({ organizations: propOrganizations, conditionalAPI, }) => {
     // State for organizations
     const [organizations, setOrganizations] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -49,7 +49,9 @@ const OrganizationDashboard = ({ organizations: propOrganizations, }) => {
         try {
             setLoading(true);
             console.log(`Fetching organizations: page=${pageNum}, search="${search}"`);
-            const response = await adminAPI.getOrganizationsList(pageNum, 5, search); // 5 per page
+            // Use conditionalAPI if provided, otherwise use original adminAPI
+            const apiInstance = conditionalAPI || adminAPI;
+            const response = await apiInstance.getOrganizationsList(pageNum, 5, search); // 5 per page
             console.log("Table API Response:", response);
             // Handle different response structures
             const results = response.data.results || response.data || [];

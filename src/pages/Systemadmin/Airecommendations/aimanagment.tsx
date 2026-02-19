@@ -9,6 +9,7 @@ import AIResourcesTable from "../../../components/admincomponents/Aicomponents/a
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
+import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 
@@ -129,6 +130,9 @@ const AIRecommendationsPage: React.FC = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* AI Assistant Floating Chat */}
+      <AIAssistant />
     </SystemAdminLayout>
   );
 };

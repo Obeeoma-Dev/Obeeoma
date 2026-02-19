@@ -7,6 +7,7 @@ import AIResourcesTable from "../../../components/admincomponents/Aicomponents/a
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
+import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 /**
  * AIRecommendationsPage renders the AI management dashboard.
@@ -92,6 +93,6 @@ const AIRecommendationsPage = () => {
         { name: "Peer pressure", score: 65 },
         { name: "Family relationships", score: 61 },
     ];
-    return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }));
+    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(AIAssistant, {})] }));
 };
 export default AIRecommendationsPage;

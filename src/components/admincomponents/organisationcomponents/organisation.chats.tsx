@@ -15,6 +15,7 @@ import {
   ActiveElement,
 } from "chart.js";
 import { adminAPI } from "../../../api/apiConfig";
+import axios from "axios";
 import OrganizationListPopup from "./OrganizationListPopup";
 
 // Define interfaces for better type safety
@@ -23,6 +24,10 @@ interface OrganizationData {
   organizationName?: string;
   client_count?: number;
   clients?: number;
+}
+
+interface OrganizationChartsProps {
+  conditionalAPI?: any; // Axios instance for conditional API calls
 }
 
 interface OrganizationWithIndex {
@@ -56,7 +61,7 @@ ChartJS.register(
  * - Bar chart for client distribution across organizations (with category grouping)
  * Now uses real data from backend APIs with intelligent categorization.
  */
-const OrganizationCharts: React.FC = () => {
+const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI }) => {
   const [viewMode, setViewMode] = useState<"category" | "individual">(
     "category",
   );
@@ -290,8 +295,11 @@ const OrganizationCharts: React.FC = () => {
   useEffect(() => {
     const fetchChartData = async () => {
       try {
+        // Use conditionalAPI if provided, otherwise use original adminAPI
+        const apiInstance = conditionalAPI || adminAPI;
+
         // Fetch growth chart data
-        const growthResponse = await adminAPI.getOrganizationsGrowthChart();
+        const growthResponse = await apiInstance.getOrganizationsGrowthChart();
         if (
           growthResponse.data &&
           growthResponse.data.labels &&
@@ -313,7 +321,7 @@ const OrganizationCharts: React.FC = () => {
 
         // Fetch client distribution data
         const distributionResponse =
-          await adminAPI.getOrganizationsClientDistribution();
+          await apiInstance.getOrganizationsClientDistribution();
         console.log("Distribution API Response:", distributionResponse);
         console.log("Distribution data structure:", distributionResponse.data);
 

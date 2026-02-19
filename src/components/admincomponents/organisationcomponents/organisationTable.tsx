@@ -19,6 +19,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { adminAPI } from "../../../api/apiConfig";
+import axios from "axios";
 import "./organisation.css";
 
 // Database-based organization interface (matching API response)
@@ -71,6 +72,7 @@ const convertToTableFormat = (
 
 interface OrganizationDashboardProps {
   organizations?: DatabaseOrganization[];
+  conditionalAPI?: any; // Axios instance for conditional API calls
 }
 
 // Render status icon based on status
@@ -90,6 +92,7 @@ const renderStatusIcon = (status: string) => {
 // Main dashboard component
 const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   organizations: propOrganizations,
+  conditionalAPI,
 }) => {
   // State for organizations
   const [organizations, setOrganizations] = useState<TableOrganization[]>([]);
@@ -114,7 +117,9 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         `Fetching organizations: page=${pageNum}, search="${search}"`,
       );
 
-      const response = await adminAPI.getOrganizationsList(pageNum, 5, search); // 5 per page
+      // Use conditionalAPI if provided, otherwise use original adminAPI
+      const apiInstance = conditionalAPI || adminAPI;
+      const response = await apiInstance.getOrganizationsList(pageNum, 5, search); // 5 per page
       console.log("Table API Response:", response);
 
       // Handle different response structures
@@ -260,9 +265,8 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                   {/* Plan */}
                   <td>
                     <span
-                      className={`badge ${
-                        org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                      }`}
+                      className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                        }`}
                     >
                       {org.plan}
                     </span>
