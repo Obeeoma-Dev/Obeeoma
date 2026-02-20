@@ -197,14 +197,6 @@ export function AIAssistant() {
         <>
             {/* Floating Button */}
             <div className="ai-fab-container">
-                {!isOpen && (
-                    <div className="ai-smoke-container">
-                        {particles.map(p => (
-                            <SmokeIcon key={p.id} particle={p} />
-                        ))}
-                    </div>
-                )}
-
                 <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -219,12 +211,12 @@ export function AIAssistant() {
                         repeatDelay: 0.5,
                     } : {}}
                 >
-                    <Button
+                    <button
                         className="ai-fab"
                         onClick={() => setIsOpen(prev => !prev)}
                     >
                         {isOpen ? <X size={22} /> : <Sparkles size={22} />}
-                    </Button>
+                    </button>
                 </motion.div>
             </div>
 

@@ -1,77 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
-import OrganizationTable, {
-  DatabaseOrganization,
-} from "../../../components/admincomponents/organisationcomponents/organisationTable";
+import OrganizationTable from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { adminAPI } from "../../../api/apiConfig";
-import axios from "axios";
+import { OrganizationProvider, useOrganizationContext } from "../../../contexts/OrganizationContext";
 
 // Import shared type definitions
 import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
 import { Building2, Users, Map, CircleCheckBig } from "lucide-react";
 
 /**
- * Main admin page for managing organizations.
- * Combines sidebar, header, stats, table, and charts.
- * Supports switching between Digital Ocean (production) and Neon (development) databases.
+ * Component that handles dashboard stats (uses original API)
  */
-const OrganizationPage: React.FC = () => {
-  // Environment detection and API configuration
-  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-  // Conditional API base URL for table and graphs
-  const conditionalAPIBaseURL = isLocalhost
-    ? 'http://127.0.0.1:8000/api/v1'  // Neon backend for localhost development
-    : 'https://obeeoma-api.com/api/v1'; // Digital Ocean backend for production
-
-  // Create conditional API instance for table and graphs
-  const conditionalAPI = axios.create({
-    baseURL: conditionalAPIBaseURL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  // Add authorization interceptor to conditional API
-  conditionalAPI.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
-
-  // Create conditional API methods without /v1/ prefix (since it's already in baseURL)
-  const conditionalAPIWithMethods = {
-    ...conditionalAPI,
-    getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
-      const params = new URLSearchParams({
-        page: page.toString(),
-        page_size: pageSize.toString(),
-      });
-
-      if (search) {
-        params.append("search", search);
-      }
-
-      const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
-      return response;
-    },
-    getOrganizationsGrowthChart: async () => {
-      const response = await conditionalAPI.get("/admin/organizations/growth-chart/");
-      return response;
-    },
-    getOrganizationsClientDistribution: async () => {
-      const response = await conditionalAPI.get("/admin/organizations/client-distribution/");
-      return response;
-    },
-  };
-
-  console.log('Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
-  console.log('Conditional API Base URL:', conditionalAPIBaseURL);
+const DashboardStatsSection: React.FC = () => {
   const [dashboardStats, setDashboardStats] = useState<StatCardData[]>([
     {
       id: "1",
@@ -141,21 +84,49 @@ const OrganizationPage: React.FC = () => {
   }, []);
 
   return (
-    <SystemAdminLayout title="Organizations">
-      {/* Main content container with proper spacing */}
-      <div className="p-4">
-        {/* Stats summary with props */}
-        <Row className="gy-4 mb-4">
-          <DashboardStats stats={dashboardStats} />
-        </Row>
+    <Row className="gy-4 mb-4">
+      <DashboardStats stats={dashboardStats} />
+    </Row>
+  );
+};
 
-        {/* Organization table with conditional API */}
-        <OrganizationTable conditionalAPI={conditionalAPIWithMethods} />
+/**
+ * Component that handles table and charts (uses context with conditional API)
+ */
+const OrganizationContent: React.FC = () => {
+  const { conditionalAPI } = useOrganizationContext();
 
-        {/* Graphs section with conditional API */}
-        <OrganizationCharts conditionalAPI={conditionalAPIWithMethods} />
-      </div>
-    </SystemAdminLayout>
+  return (
+    <>
+      {/* Organization table with conditional API */}
+      <OrganizationTable conditionalAPI={conditionalAPI} />
+
+      {/* Graphs section with conditional API */}
+      <OrganizationCharts conditionalAPI={conditionalAPI} />
+    </>
+  );
+};
+
+/**
+ * Main admin page for managing organizations.
+ * Combines sidebar, header, stats, table, and charts.
+ * Supports switching between Digital Ocean (production) and Neon (development) databases.
+ * Uses context for state management to prevent unnecessary refreshing.
+ */
+const OrganizationPage: React.FC = () => {
+  return (
+    <OrganizationProvider>
+      <SystemAdminLayout title="Organizations">
+        {/* Main content container with proper spacing */}
+        <div className="p-4">
+          {/* Stats summary with props */}
+          <DashboardStatsSection />
+
+          {/* Table and charts with context-based state management */}
+          <OrganizationContent />
+        </div>
+      </SystemAdminLayout>
+    </OrganizationProvider>
   );
 };
 

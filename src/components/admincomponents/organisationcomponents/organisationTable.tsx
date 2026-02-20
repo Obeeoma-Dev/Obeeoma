@@ -21,6 +21,7 @@ import {
 import { adminAPI } from "../../../api/apiConfig";
 import axios from "axios";
 import "./organisation.css";
+import OrganizationRegistrationPopup from "./OrganizationRegistrationPopup";
 
 // Database-based organization interface (matching API response)
 export interface DatabaseOrganization {
@@ -104,6 +105,9 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   // State for search input
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("All");
+
+  // State for registration popup
+  const [showRegistrationPopup, setShowRegistrationPopup] = useState(false);
 
   // Intersection Observer for endless scroll
   const observer = useRef<IntersectionObserver | null>(null);
@@ -208,6 +212,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         .toLowerCase()
         .includes(searchTerm.toLowerCase()),
     );
+
+  // Handle successful organization registration
+  const handleRegistrationSuccess = () => {
+    // Refresh the organizations list to show the newly registered organization
+    fetchOrganizations(1, searchTerm);
+  };
 
   // Render table rows
   const renderTable = (orgs: TableOrganization[]) => (
@@ -330,7 +340,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
           </h5>
         </Col>
         <Col className="text-end">
-          <Button className="btn-organization">+ Add Organization</Button>
+          <Button
+            className="btn-organization"
+            onClick={() => setShowRegistrationPopup(true)}
+          >
+            + Add Organization
+          </Button>
         </Col>
       </Row>
 
@@ -386,6 +401,13 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
           </Tab>
         ))}
       </Tabs>
+
+      {/* Organization Registration Popup */}
+      <OrganizationRegistrationPopup
+        show={showRegistrationPopup}
+        onHide={() => setShowRegistrationPopup(false)}
+        onRegistrationSuccess={handleRegistrationSuccess}
+      />
     </div>
   );
 };
