@@ -272,7 +272,7 @@ const Dashboard: React.FC = () => {
   }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
 
   return (
-    <SystemAdminLayout title="Dashboard">
+    <SystemAdminLayout title="Systemadmin Overview">
       {/* Toast container must be rendered once */}
       <ToastContainer
         position="top-right"
