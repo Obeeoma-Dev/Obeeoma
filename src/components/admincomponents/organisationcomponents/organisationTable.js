@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Table, Button, Tabs, Tab, Form, Row, Col, InputGroup, Spinner, } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaEye, FaCheckCircle, FaClock, FaTimesCircle, FaSearch, } from "react-icons/fa";
@@ -48,18 +48,18 @@ const OrganizationDashboard = ({ organizations: propOrganizations, conditionalAP
     const observer = useRef(null);
     const lastOrganizationElementRef = useRef(null);
     // Fetch organizations with pagination
-    const fetchOrganizations = async (pageNum = 1, search = "") => {
+    const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
         try {
             setLoading(true);
             console.log(`Fetching organizations: page=${pageNum}, search="${search}"`);
             // Use conditionalAPI if provided, otherwise use original adminAPI
             const apiInstance = conditionalAPI || adminAPI;
-            const response = await apiInstance.getOrganizationsList(pageNum, 5, search); // 5 per page
+            const response = await apiInstance.getOrganizationsList?.(pageNum, 5, search);
             console.log("Table API Response:", response);
-            // Handle different response structures
-            const results = response.data.results || response.data || [];
-            const totalCount = response.data.count || (Array.isArray(results) ? results.length : 0);
-            const hasNext = response.data.next !== undefined ? response.data.next !== null : false;
+            // Handle response with simple typing
+            const results = response?.data?.results || response?.data || [];
+            const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
+            const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
             // Convert to table format
             const formattedOrgs = results.map((org) => convertToTableFormat(org));
             if (pageNum === 1) {
@@ -81,13 +81,13 @@ const OrganizationDashboard = ({ organizations: propOrganizations, conditionalAP
         finally {
             setLoading(false);
         }
-    };
+    }, [conditionalAPI]);
     // Initial fetch and search
     useEffect(() => {
         setPage(1);
         setHasMore(true);
         fetchOrganizations(1, searchTerm);
-    }, [searchTerm, activeTab]);
+    }, [searchTerm, activeTab, fetchOrganizations]);
     // Infinite scroll observer
     useEffect(() => {
         if (loading)
@@ -108,7 +108,7 @@ const OrganizationDashboard = ({ organizations: propOrganizations, conditionalAP
             if (observer.current)
                 observer.current.disconnect();
         };
-    }, [loading, hasMore, page, searchTerm]);
+    }, [loading, hasMore, page, searchTerm, fetchOrganizations]);
     // Filter organizations by tab category
     const filterByTab = (orgs, tab) => {
         switch (tab) {

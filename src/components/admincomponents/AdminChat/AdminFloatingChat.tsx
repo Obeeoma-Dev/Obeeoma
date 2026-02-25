@@ -4,6 +4,13 @@ import { Send, X, MessageSquare, Trash2, Bot } from 'lucide-react';
 import { useAdminChat } from '../../../contexts/AdminChatContext';
 import './AdminFloatingChat.css';
 
+interface ChatMessage {
+  id?: number | string;
+  sender: 'admin' | 'ai';
+  message: string;
+  timestamp: string;
+}
+
 const AdminFloatingChat: React.FC = () => {
   const { state, toggleChat, sendMessage, clearHistory } = useAdminChat();
   const [input, setInput] = useState('');
@@ -28,7 +35,7 @@ const AdminFloatingChat: React.FC = () => {
 
     const messageToSend = input.trim();
     setInput('');
-    
+
     await sendMessage(messageToSend);
   };
 
@@ -47,9 +54,9 @@ const AdminFloatingChat: React.FC = () => {
     }
   };
 
-  const renderMessage = (message: any, index: number) => {
+  const renderMessage = (message: ChatMessage, index: number) => {
     const isUser = message.sender === 'admin';
-    
+
     return (
       <div
         key={message.id || index}
@@ -121,7 +128,7 @@ const AdminFloatingChat: React.FC = () => {
 
       <Card.Body className="admin-chat-body">
         {state.error && (
-          <Alert variant="danger" className="mb-3" dismissible onClose={() => {}}>
+          <Alert variant="danger" className="mb-3" dismissible onClose={() => { }}>
             {state.error}
           </Alert>
         )}

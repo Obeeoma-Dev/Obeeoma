@@ -3,23 +3,23 @@ import { Modal, Button } from "react-bootstrap";
 import { Eye, Edit, Trash2 } from "lucide-react";
 
 // Define the props
-interface ActionModalProps {
+interface ActionModalProps<T = unknown> {
   show: boolean;
-  item: any; // ContentItem type
-  onView: (item: any) => void;
-  onEdit: (item: any) => void;
-  onDelete: (item: any) => void;
+  item: T;
+  onView: (item: T) => void;
+  onEdit: (item: T) => void;
+  onDelete: (item: T) => void;
   onClose: () => void;
 }
 
-export function ActionModal({
+export function ActionModal<T = unknown>({
   show,
   item,
   onView,
   onEdit,
   onDelete,
   onClose,
-}: ActionModalProps) {
+}: ActionModalProps<T>) {
   return (
     <>
       <style>

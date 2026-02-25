@@ -352,14 +352,16 @@ export function ContentTable({ key }: { key?: number }) {
         </Card.Footer>
 
         {/* Action Modal */}
-        <ActionModal
-          show={showActionModal}
-          item={selectedItem}
-          onView={handleViewContent}
-          onEdit={handleEditContent}
-          onDelete={handleDeleteClick}
-          onClose={() => setShowActionModal(false)}
-        />
+        {selectedItem && (
+          <ActionModal<ContentItem>
+            show={showActionModal}
+            item={selectedItem}
+            onView={handleViewContent}
+            onEdit={handleEditContent}
+            onDelete={handleDeleteClick}
+            onClose={() => setShowActionModal(false)}
+          />
+        )}
 
         {/* Confirm Delete Modal */}
         <ConfirmModal

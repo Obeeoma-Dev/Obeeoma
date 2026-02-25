@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from "react";
 import axios from 'axios';
 
 // Types
@@ -32,6 +32,40 @@ export interface TableOrganization {
   icon: string;
 }
 
+// Specific API response interfaces
+export interface OrganizationsListResponse {
+  results?: DatabaseOrganization[];
+  count?: number;
+  next?: string | null;
+  data?: DatabaseOrganization[];
+}
+
+export interface GrowthChartResponse {
+  labels: string[];
+  data: number[];
+}
+
+export interface ClientDistributionResponse {
+  labels?: string[];
+  data?: number[];
+  // Or it could be an array of organization objects
+  [key: string]: unknown;
+}
+
+// Generic API response wrapper
+export interface APIResponse<T> {
+  data: T;
+}
+
+// Unified conditional API interface with specific types
+export interface ConditionalAPI {
+  get: (url: string) => Promise<APIResponse<unknown>>;
+  getOrganizationsList?: (page?: number, pageSize?: number, search?: string) => Promise<APIResponse<OrganizationsListResponse>>;
+  getOrganizationsGrowthChart?: () => Promise<APIResponse<GrowthChartResponse>>;
+  getOrganizationsClientDistribution?: () => Promise<APIResponse<ClientDistributionResponse>>;
+  [key: string]: unknown;
+}
+
 interface OrganizationContextType {
   organizations: TableOrganization[];
   loading: boolean;
@@ -45,7 +79,7 @@ interface OrganizationContextType {
   setSearchTerm: (term: string) => void;
   setActiveTab: (tab: string) => void;
   refreshOrganizations: () => Promise<void>;
-  conditionalAPI: any;
+  conditionalAPI: ConditionalAPI;
 }
 
 // Create context
@@ -55,7 +89,7 @@ const OrganizationContext = createContext<OrganizationContextType | undefined>(u
 export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Environment detection and API setup
   const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  const conditionalAPIBaseURL = isLocalhost 
+  const conditionalAPIBaseURL = isLocalhost
     ? 'http://127.0.0.1:8000/api/v1'  // Neon backend for localhost development
     : 'https://obeeoma-api.com/api/v1'; // Digital Ocean backend for production
 
@@ -77,8 +111,9 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
   });
 
   // Create conditional API methods without /v1/ prefix
-  const conditionalAPIWithMethods = {
+  const conditionalAPIWithMethods = useMemo(() => ({
     ...conditionalAPI,
+    get: conditionalAPI.get.bind(conditionalAPI),
     getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
       const params = new URLSearchParams({
         page: page.toString(),
@@ -100,7 +135,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
       const response = await conditionalAPI.get("/admin/organizations/client-distribution/");
       return response;
     },
-  };
+  }), [conditionalAPI]);
 
   // State
   const [organizations, setOrganizations] = useState<TableOrganization[]>([]);
@@ -113,7 +148,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [activeTab, setActiveTab] = useState("All");
 
   // Convert database organization to table format
-  const convertToTableFormat = (org: DatabaseOrganization): TableOrganization => ({
+  const convertToTableFormat = useCallback((org: DatabaseOrganization): TableOrganization => ({
     id: org.id.toString(),
     name: org.name,
     clients: org.client_count || 0,
@@ -123,10 +158,10 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
     address: org.Location || "Not specified",
     programs: 0,
     icon: "",
-  });
+  }), []);
 
   // Fetch organizations
-  const fetchOrganizations = async (pageNum = 1, search = "") => {
+  const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
     try {
       setLoading(true);
       setError(null);
@@ -161,7 +196,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
     } finally {
       setLoading(false);
     }
-  };
+  }, [conditionalAPIWithMethods, convertToTableFormat]);
 
   // Refresh organizations
   const refreshOrganizations = async () => {
@@ -173,7 +208,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
   // Initial fetch
   useEffect(() => {
     fetchOrganizations(1, searchTerm);
-  }, [searchTerm, activeTab]);
+  }, [searchTerm, activeTab, fetchOrganizations]);
 
   console.log('OrganizationContext - Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
   console.log('OrganizationContext - API Base URL:', conditionalAPIBaseURL);

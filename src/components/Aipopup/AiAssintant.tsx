@@ -113,7 +113,7 @@ export function AIAssistant() {
         if (isOpen && messages.length === 0) {
             loadMessages()
         }
-    }, [isOpen])
+    }, [isOpen, messages.length])
 
     const loadMessages = async () => {
         try {
@@ -142,10 +142,20 @@ export function AIAssistant() {
 
             // Add both user message and AI response
             setMessages(prev => [...prev, response.data.user_message, response.data.ai_response])
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error sending admin chat message:', error)
-            const errorMessage = error.response?.data?.error || 'Failed to send message'
-            setError(errorMessage)
+            const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
+            if (error && typeof error === 'object' && 'response' in error) {
+                const axiosError = error as { response?: { data?: { error?: string } } };
+                const axiosErrorMessage = axiosError.response?.data?.error;
+                if (axiosErrorMessage) {
+                    setError(axiosErrorMessage);
+                } else {
+                    setError(errorMessage);
+                }
+            } else {
+                setError(errorMessage);
+            }
 
             // Add error message as AI response
             setMessages(prev => [...prev, {

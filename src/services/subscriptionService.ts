@@ -88,7 +88,13 @@ export const subscriptionService = {
   },
 
   // Get billing history
-  async getBillingHistory(): Promise<any[]> {
+  async getBillingHistory(): Promise<Array<{
+    id: number;
+    amount: number;
+    date: string;
+    status: string;
+    description?: string;
+  }>> {
     const response = await apiClient.get('admin/billing/');
     return response.data;
   },

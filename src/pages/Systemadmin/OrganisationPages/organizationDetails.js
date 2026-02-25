@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Stack, Button, Spinner } from "react-bootstrap";
 import { ArrowLeft, CreditCard, Save } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ export function OrganizationDetails() {
         return config;
     });
     // Create conditional API methods without /v1/ prefix
-    const conditionalAPIWithMethods = {
+    const conditionalAPIWithMethods = useMemo(() => ({
         ...conditionalAPI,
         getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
             const params = new URLSearchParams({
@@ -51,7 +51,7 @@ export function OrganizationDetails() {
             const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
             return response;
         },
-    };
+    }), [conditionalAPI]);
     console.log('OrganizationDetails - Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
     console.log('OrganizationDetails - API Base URL:', conditionalAPIBaseURL);
     // State for organization data
@@ -90,7 +90,7 @@ export function OrganizationDetails() {
             }
         };
         fetchOrganizationDetails();
-    }, [id]);
+    }, [id, conditionalAPIWithMethods]);
     // Show loading state
     if (loading) {
         return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { className: "flex-grow-1 d-flex align-items-center justify-content-center", children: _jsxs("div", { className: "text-center", children: [_jsx(Spinner, { animation: "border", variant: "success" }), _jsx("div", { className: "mt-2", children: "Loading organization details..." })] }) })] })] }));

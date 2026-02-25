@@ -48,9 +48,9 @@ const adminChatReducer = (state: AdminChatState, action: AdminChatAction): Admin
     case 'ADD_MESSAGE':
       return { ...state, messages: [...state.messages, action.payload] };
     case 'ADD_MESSAGES':
-      return { 
-        ...state, 
-        messages: [...state.messages, action.payload.userMessage, action.payload.aiResponse] 
+      return {
+        ...state,
+        messages: [...state.messages, action.payload.userMessage, action.payload.aiResponse]
       };
     case 'SET_ERROR':
       return { ...state, error: action.payload };
@@ -87,7 +87,7 @@ export const AdminChatProvider: React.FC<AdminChatProviderProps> = ({ children }
     if (state.isOpen && state.messages.length === 0) {
       loadMessages();
     }
-  }, [state.isOpen]);
+  }, [state.isOpen, state.messages.length]);
 
   const toggleChat = () => {
     dispatch({ type: 'TOGGLE_CHAT' });
@@ -97,7 +97,7 @@ export const AdminChatProvider: React.FC<AdminChatProviderProps> = ({ children }
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
       dispatch({ type: 'SET_ERROR', payload: null });
-      
+
       const response = await adminAPI.getAdminChatMessages();
       dispatch({ type: 'SET_MESSAGES', payload: response.data.reverse() }); // Show oldest first
     } catch (error) {
@@ -116,18 +116,28 @@ export const AdminChatProvider: React.FC<AdminChatProviderProps> = ({ children }
       dispatch({ type: 'SET_ERROR', payload: null });
 
       const response = await adminAPI.sendAdminChatMessage({ message: message.trim() });
-      
-      dispatch({ 
-        type: 'ADD_MESSAGES', 
+
+      dispatch({
+        type: 'ADD_MESSAGES',
         payload: {
           userMessage: response.data.user_message,
           aiResponse: response.data.ai_response
-        } 
+        }
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to send admin chat message:', error);
-      const errorMessage = error.response?.data?.error || 'Failed to send message';
-      dispatch({ type: 'SET_ERROR', payload: errorMessage });
+      const errorMessage = error instanceof Error ? error.message : 'Failed to send message';
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { error?: string } } };
+        const axiosErrorMessage = axiosError.response?.data?.error;
+        if (axiosErrorMessage) {
+          dispatch({ type: 'SET_ERROR', payload: axiosErrorMessage });
+        } else {
+          dispatch({ type: 'SET_ERROR', payload: errorMessage });
+        }
+      } else {
+        dispatch({ type: 'SET_ERROR', payload: errorMessage });
+      }
     } finally {
       dispatch({ type: 'SET_SENDING', payload: false });
     }

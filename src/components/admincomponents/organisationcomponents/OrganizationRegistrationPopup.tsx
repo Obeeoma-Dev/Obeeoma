@@ -150,7 +150,7 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
 }) => {
   const [role] = useState<Role>("employer");
   const dispatch = useDispatch<AppDispatch>();
-  const { error, isLoading } = useSelector((state: any) => state.auth);
+  const { error, isLoading } = useSelector((state: { auth: { error: string | null; isLoading: boolean } }) => state.auth);
 
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -348,9 +348,10 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
         await dispatch(registerUser(credentials)).unwrap();
         setShowSuccessModal(true);
         setActiveStep((prev) => prev + 1);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Registration failed:", err);
-        setLocalError(err.message || "Registration failed. Please try again.");
+        const errorMessage = err instanceof Error ? err.message : "Registration failed. Please try again.";
+        setLocalError(errorMessage);
       }
     } else {
       setActiveStep((prev) => prev + 1);
@@ -363,7 +364,12 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
 
   const handleSubmit = async (
     values: RegisterFormValues,
-    { setSubmitting, setTouched, setErrors, validateForm }: any,
+    { setSubmitting, setTouched, setErrors, validateForm }: {
+      setSubmitting: (isSubmitting: boolean) => void;
+      setTouched: (touched: { [key: string]: boolean }) => void;
+      setErrors: (errors: { [key: string]: string }) => void;
+      validateForm: () => Promise<{ [key: string]: string }>;
+    },
   ) => {
     setSubmitting(true);
     await handleNext(values, setTouched, setErrors, validateForm);
@@ -372,9 +378,9 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
 
   const renderStepContent = (
     values: RegisterFormValues,
-    handleChange: (event: React.ChangeEvent<any>) => void,
-    touched: any,
-    errors: any,
+    handleChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
+    touched: { [key: string]: boolean },
+    errors: { [key: string]: string },
   ) => {
     switch (activeStep) {
       case 0:

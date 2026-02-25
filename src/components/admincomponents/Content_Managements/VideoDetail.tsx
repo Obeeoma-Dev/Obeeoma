@@ -68,7 +68,7 @@ export function VideoDetail({ item, onBack, useLayout = true }: VideoDetailProps
     } else if (item.public_url) {
       setVideoUrl(item.public_url);
     }
-  }, [item.s3_key, item.public_url]);
+  }, [item.s3_key, item.public_url, videoUrl]);
 
   const handleSave = () => {
     // TODO: Implement save functionality

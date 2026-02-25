@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Stack, Button, Spinner } from "react-bootstrap";
 import { ArrowLeft, CreditCard, Save } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -45,7 +45,7 @@ export function OrganizationDetails() {
   });
 
   // Create conditional API methods without /v1/ prefix
-  const conditionalAPIWithMethods = {
+  const conditionalAPIWithMethods = useMemo(() => ({
     ...conditionalAPI,
     getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
       const params = new URLSearchParams({
@@ -60,7 +60,7 @@ export function OrganizationDetails() {
       const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
       return response;
     },
-  };
+  }), [conditionalAPI]);
 
   console.log('OrganizationDetails - Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
   console.log('OrganizationDetails - API Base URL:', conditionalAPIBaseURL);
@@ -108,7 +108,7 @@ export function OrganizationDetails() {
     };
 
     fetchOrganizationDetails();
-  }, [id]);
+  }, [id, conditionalAPIWithMethods]);
 
   // Show loading state
   if (loading) {
