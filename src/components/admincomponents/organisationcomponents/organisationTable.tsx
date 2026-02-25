@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { ConditionalAPI } from "../../../contexts/OrganizationContext";
 import {
   Table,
   Button,
@@ -19,7 +20,9 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { adminAPI } from "../../../api/apiConfig";
+import axios from "axios";
 import "./organisation.css";
+import OrganizationRegistrationPopup from "./OrganizationRegistrationPopup";
 
 // Database-based organization interface (matching API response)
 export interface DatabaseOrganization {
@@ -71,6 +74,7 @@ const convertToTableFormat = (
 
 interface OrganizationDashboardProps {
   organizations?: DatabaseOrganization[];
+  conditionalAPI?: ConditionalAPI;
 }
 
 // Render status icon based on status
@@ -90,6 +94,7 @@ const renderStatusIcon = (status: string) => {
 // Main dashboard component
 const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   organizations: propOrganizations,
+  conditionalAPI,
 }) => {
   // State for organizations
   const [organizations, setOrganizations] = useState<TableOrganization[]>([]);
@@ -102,27 +107,30 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("All");
 
+  // State for registration popup
+  const [showRegistrationPopup, setShowRegistrationPopup] = useState(false);
+
   // Intersection Observer for endless scroll
   const observer = useRef<IntersectionObserver | null>(null);
   const lastOrganizationElementRef = useRef<HTMLTableRowElement>(null);
 
   // Fetch organizations with pagination
-  const fetchOrganizations = async (pageNum = 1, search = "") => {
+  const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
     try {
       setLoading(true);
       console.log(
         `Fetching organizations: page=${pageNum}, search="${search}"`,
       );
 
-      const response = await adminAPI.getOrganizationsList(pageNum, 5, search); // 5 per page
+      // Use conditionalAPI if provided, otherwise use original adminAPI
+      const apiInstance = conditionalAPI || adminAPI;
+      const response = await apiInstance.getOrganizationsList?.(pageNum, 5, search);
       console.log("Table API Response:", response);
 
-      // Handle different response structures
-      const results = response.data.results || response.data || [];
-      const totalCount =
-        response.data.count || (Array.isArray(results) ? results.length : 0);
-      const hasNext =
-        response.data.next !== undefined ? response.data.next !== null : false;
+      // Handle response with simple typing
+      const results = response?.data?.results || response?.data || [];
+      const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
+      const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
 
       // Convert to table format
       const formattedOrgs = results.map((org: DatabaseOrganization) =>
@@ -132,7 +140,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       if (pageNum === 1) {
         setOrganizations(formattedOrgs);
       } else {
-        setOrganizations((prev) => [...prev, ...formattedOrgs]);
+        setOrganizations((prev: TableOrganization[]) => [...prev, ...formattedOrgs]);
       }
 
       setHasMore(hasNext);
@@ -149,14 +157,14 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [conditionalAPI]);
 
   // Initial fetch and search
   useEffect(() => {
     setPage(1);
     setHasMore(true);
     fetchOrganizations(1, searchTerm);
-  }, [searchTerm, activeTab]);
+  }, [searchTerm, activeTab, fetchOrganizations]);
 
   // Infinite scroll observer
   useEffect(() => {
@@ -178,7 +186,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [loading, hasMore, page, searchTerm]);
+  }, [loading, hasMore, page, searchTerm, fetchOrganizations]);
 
   // Filter organizations by tab category
   const filterByTab = (orgs: TableOrganization[], tab: string) => {
@@ -203,6 +211,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         .toLowerCase()
         .includes(searchTerm.toLowerCase()),
     );
+
+  // Handle successful organization registration
+  const handleRegistrationSuccess = () => {
+    // Refresh the organizations list to show the newly registered organization
+    fetchOrganizations(1, searchTerm);
+  };
 
   // Render table rows
   const renderTable = (orgs: TableOrganization[]) => (
@@ -260,9 +274,8 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                   {/* Plan */}
                   <td>
                     <span
-                      className={`badge ${
-                        org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                      }`}
+                      className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                        }`}
                     >
                       {org.plan}
                     </span>
@@ -326,7 +339,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
           </h5>
         </Col>
         <Col className="text-end">
-          <Button className="btn-organization">+ Add Organization</Button>
+          <Button
+            className="btn-organization"
+            onClick={() => setShowRegistrationPopup(true)}
+          >
+            + Add Organization
+          </Button>
         </Col>
       </Row>
 
@@ -382,6 +400,13 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
           </Tab>
         ))}
       </Tabs>
+
+      {/* Organization Registration Popup */}
+      <OrganizationRegistrationPopup
+        show={showRegistrationPopup}
+        onHide={() => setShowRegistrationPopup(false)}
+        onRegistrationSuccess={handleRegistrationSuccess}
+      />
     </div>
   );
 };

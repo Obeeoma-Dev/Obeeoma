@@ -16,6 +16,7 @@ import DashboardStats from "../../components/admincomponents/Overviewcomponents/
 import PlatformUsageChart from "../../components/admincomponents/Overviewcomponents/platformusage";
 import RecentActivities from "../../components/admincomponents/Overviewcomponents/recentactivities";
 import SystemAdminLayout from "../../components/admincomponents/shared/SystemAdminLayout";
+import { AIAssistant } from "../../components/Aipopup/AiAssintant";
 // import BottomMetrics from "../../components/admincomponents/Overviewcomponents/buttonmetrics";
 import { BlogPost } from "../../components/admincomponents/Blogmanagement/BlogTable";
 import { BlogManager } from "../../components/admincomponents/Blogmanagement/BlogManager";
@@ -271,7 +272,7 @@ const Dashboard: React.FC = () => {
   }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
 
   return (
-    <SystemAdminLayout title="Dashboard">
+    <SystemAdminLayout title="Systemadmin Overview">
       {/* Toast container must be rendered once */}
       <ToastContainer
         position="top-right"
@@ -378,6 +379,9 @@ const Dashboard: React.FC = () => {
           <BottomMetrics metrics={bottomMetricData} />
         </Row> */}
       </div>
+
+      {/* AI Assistant Floating Chat */}
+      <AIAssistant />
     </SystemAdminLayout>
   );
 };

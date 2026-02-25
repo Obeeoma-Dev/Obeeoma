@@ -18,6 +18,7 @@ import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 import { getDashboardRoute } from "../../utils/routing";
 import { RootState } from "../store";
+import { clearContentState } from "./contentSlice";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -356,6 +357,8 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("refresh");
+      // Clear content state on logout
+      clearContentState();
     },
     clearError: (state) => {
       state.error = null;

@@ -1,4 +1,4 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
@@ -6,12 +6,12 @@ import OrganizationTable from "../../../components/admincomponents/organisationc
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { adminAPI } from "../../../api/apiConfig";
+import { OrganizationProvider, useOrganizationContext } from "../../../contexts/OrganizationContext";
 import { Building2, Users, CircleCheckBig } from "lucide-react";
 /**
- * Main admin page for managing organizations.
- * Combines sidebar, header, stats, table, and charts.
+ * Component that handles dashboard stats (uses original API)
  */
-const OrganizationPage = () => {
+const DashboardStatsSection = () => {
     const [dashboardStats, setDashboardStats] = useState([
         {
             id: "1",
@@ -77,6 +77,22 @@ const OrganizationPage = () => {
         };
         fetchDashboardData();
     }, []);
-    return (_jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(Row, { className: "gy-4 mb-4", children: _jsx(DashboardStats, { stats: dashboardStats }) }), _jsx(OrganizationTable, {}), _jsx(OrganizationCharts, {})] }) }));
+    return (_jsx(Row, { className: "gy-4 mb-4", children: _jsx(DashboardStats, { stats: dashboardStats }) }));
+};
+/**
+ * Component that handles table and charts (uses context with conditional API)
+ */
+const OrganizationContent = () => {
+    const { conditionalAPI } = useOrganizationContext();
+    return (_jsxs(_Fragment, { children: [_jsx(OrganizationTable, { conditionalAPI: conditionalAPI }), _jsx(OrganizationCharts, { conditionalAPI: conditionalAPI })] }));
+};
+/**
+ * Main admin page for managing organizations.
+ * Combines sidebar, header, stats, table, and charts.
+ * Supports switching between Digital Ocean (production) and Neon (development) databases.
+ * Uses context for state management to prevent unnecessary refreshing.
+ */
+const OrganizationPage = () => {
+    return (_jsx(OrganizationProvider, { children: _jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(DashboardStatsSection, {}), _jsx(OrganizationContent, {})] }) }) }));
 };
 export default OrganizationPage;

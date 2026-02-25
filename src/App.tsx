@@ -51,6 +51,7 @@ import { ContactPage } from "./pages/landingpage/Contacts/contactUs";
 import { Blog } from "./pages/landingpage/Blogpages/blog";
 import { PrivacyPolicy } from "./pages/landingpage/Policy";
 import { TermsAndConditions } from "./pages/landingpage/Terms";
+import { ContentDetail } from "./pages/Systemadmin/ContentManager/contentView";
 
 const queryClient = new QueryClient();
 
@@ -160,6 +161,12 @@ export default function App(): React.ReactElement {
                     path="/system-admin/reports"
                     element={<ReportPage />}
                   />
+                  <Route
+                    path="/system-admin/content-management/view/:id"
+                    element={<ContentDetail />}
+                  />
+
+                  {/* Admin Settings Routes */}
                   <Route
                     path="/system-admin/system-subscriptions"
                     element={<SubscriptionPage />}

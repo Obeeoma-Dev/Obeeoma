@@ -259,6 +259,19 @@ export const adminAPI = {
         const response = await api.get("/v1/employer/billing/view");
         return response;
     },
+    // Admin AI Chat APIs
+    getAdminChatMessages: async () => {
+        const response = await api.get("/admin/ai-chat/");
+        return response;
+    },
+    sendAdminChatMessage: async (payload) => {
+        const response = await api.post("/admin/ai-chat/", payload);
+        return response;
+    },
+    clearAdminChatHistory: async () => {
+        const response = await api.delete("/admin/ai-chat/clear-history/");
+        return response;
+    },
 };
 // employer endpoints
 // export const employerAPI = {
