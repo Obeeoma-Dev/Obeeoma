@@ -141,27 +141,24 @@ const ReceptionistFloatingChat: React.FC = () => {
   }
 
   return (
-    <div className="receptionist-chat-container">
+    <div className={`receptionist-chat-container${isOpen ? ' open' : ''}`}>
       <Card.Header className="receptionist-chat-header">
-        <div className="d-flex justify-content-between align-items-center ml-2">
-          <div className="d-flex align-items-center gap-2 ml-2px">
-            <Bot className="text-white" size={20} />
-            <div>
-              <h5 className="mb-0">Sana</h5>
-              <small>AI Receptionist</small>
-            </div>
-          </div>
-          <div className="d-flex gap-2">
-            <Button
-              variant="outline-light"
-              size="sm"
-              onClick={() => setIsOpen(false)}
-              title="Close"
-            >
-              <X size={16} />
-            </Button>
+        <div className="d-flex align-items-center gap-2">
+          <Bot className="text-white" size={20} />
+          <div>
+            <h5 className="mb-0">Sana</h5>
+            <small>AI Receptionist</small>
           </div>
         </div>
+        {/* custom close button positioned absolutely via CSS */}
+        <button
+          className="receptionist-close-btn"
+          onClick={() => setIsOpen(false)}
+          title="Close chat"
+          aria-label="Close chat"
+        >
+          <X size={16} />
+        </button>
       </Card.Header>
 
       <Card.Body className="receptionist-chat-body ml-2">

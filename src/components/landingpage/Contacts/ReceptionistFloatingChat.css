@@ -103,16 +103,24 @@
   position: fixed;
   bottom: 2rem;
   right: 2rem;
+  /* narrower and shorter for a more compact popup */
   width: 380px;
-  height: 600px;
+  height: 450px;
   background: white;
   border-radius: 1rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  /* make sure container sits above the WhatsApp button when open */
+  z-index: 1150;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: receptionist-slide-up 0.3s ease-out;
+}
+
+/* when the chat container is visible, raise it upward so the WhatsApp icon
+   remains visible underneath (same offset as float gap) */
+.receptionist-chat-container.open {
+  bottom: calc(2rem + 64px + 0.75rem);
 }
 
 @keyframes receptionist-slide-up {
@@ -130,11 +138,12 @@
 .receptionist-chat-header {
   background: linear-gradient(135deg, #00A859, #0B6E45);
   color: white;
-  padding: 1rem 1.25rem;
+  /* tighten header padding for shorter height */
+  padding: 0.75rem 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   border-radius: 1rem 1rem 0 0;
+  position: relative; /* for absolute close button */
 }
 
 .receptionist-chat-header h5 {
@@ -150,7 +159,8 @@
 
 .receptionist-chat-body {
   flex: 1;
-  padding: 1rem;
+  /* add horizontal padding so messages don't hit walls */
+  padding: 0.75rem 1rem;
   overflow-y: auto;
   background-color: #f8fafb;
 }
@@ -198,6 +208,25 @@
   margin-bottom: 0.5rem;
   font-size: 0.75rem;
   opacity: 0.8;
+}
+
+/* position close button inside header without affecting flex layout */
+.receptionist-close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.receptionist-close-btn:hover {
+  opacity: 0.85;
 }
 
 .receptionist-message-sender {
@@ -248,7 +277,7 @@
 }
 
 .receptionist-chat-footer {
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   background: white;
   border-top: 1px solid #e5e7eb;
 }
@@ -267,7 +296,7 @@
     width: calc(100vw - 2rem);
     right: 1rem;
     left: 1rem;
-    height: 500px;
+    height: 400px; /* shorter on mobile */
   }
 
   .receptionist-chat-float-button {
