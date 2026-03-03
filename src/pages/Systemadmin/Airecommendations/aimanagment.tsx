@@ -1,16 +1,19 @@
 // src/pages/adminpages/AIRecommendationsPage.tsx
 
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
+import './aiControls.css';
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
-import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
+// import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
+import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 
 /**
@@ -24,6 +27,14 @@ const AIRecommendationsPage: React.FC = () => {
     engagementRate: 72,
     averageTime: "5m 32s",
   };
+
+  // AI enabled state
+  const [aiEnabled, setAiEnabled] = useState(true);
+
+  // Individual AI toggle states
+  const [landingAI, setLandingAI] = useState(true);
+  const [adminAI, setAdminAI] = useState(true);
+  const [mobileAI, setMobileAI] = useState(true);
 
   // AI resource effectiveness table
   const resources: ResourceRow[] = [
@@ -105,6 +116,57 @@ const AIRecommendationsPage: React.FC = () => {
     <SystemAdminLayout title="AI Management">
       {/* Container ensures Bootstrap spacing and responsiveness */}
       <Container fluid className="py-4">
+
+        {/* AI Controls Section */}
+        <div className="ai-controls-section">
+          <div className="ai-controls-header">
+            <div>
+              <h2 className="ai-controls-title">AI Controls</h2>
+              <p className="ai-controls-subtitle">
+                Independently manage AI across each part of the platform
+              </p>
+            </div>
+            <div className="ai-controls-status">
+              <span className="ai-controls-indicator" />
+              {[landingAI, adminAI, mobileAI].filter(Boolean).length} of 3
+              active
+            </div>
+          </div>
+
+          <Row className="g-4">
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={landingAI}
+                onToggle={setLandingAI}
+                label="Landing Page AI"
+                description="Reception chatbot that talks about the app and directs visitors. Does not save conversations."
+                icon={<GlobeIcon size={20} />}
+                lastActive="Today at 1:12 PM"
+              />
+            </Col>
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={adminAI}
+                onToggle={setAdminAI}
+                label="Admin Dashboard AI"
+                description="Provides insights, growth recommendations, and analytics summaries to the system admin."
+                icon={<LayoutDashboardIcon size={20} />}
+                lastActive="Today at 2:34 PM"
+              />
+            </Col>
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={mobileAI}
+                onToggle={setMobileAI}
+                label="Mobile App AI"
+                description="Recommends hotline numbers and uploaded resources to users inside the mobile app."
+                icon={<SmartphoneIcon size={20} />}
+                lastActive="Today at 3:05 PM"
+              />
+            </Col>
+          </Row>
+        </div>
+
         {/* Top summary metrics */}
         <TopMetrics {...metrics} />
 
@@ -118,16 +180,13 @@ const AIRecommendationsPage: React.FC = () => {
           </Col>
         </Row>
 
-        {/* Table of AI resources */}
-        <AIResourcesTable resources={resources} />
-
-        <Row className="mb-4">
-          <Col md={6}>
-            <ModelPerformance performance={modelScores} />
-          </Col>
-          <Col md={6}>
+        <Row>
+          {/* <Col md={6}> */}
+            <ModelPerformance />
+          {/* </Col> */}
+          {/* <Col md={6}>
             <TopTriggers triggers={triggers} />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
 

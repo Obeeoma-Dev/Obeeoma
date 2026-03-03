@@ -24,9 +24,9 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         {/* Total Recommendations */}
         <Col xs={12} md={4}>
           <HoverStatCard
-            title="Total Recommendations"
+            title="Recommendations Today"
             value={totalRecommendations.toLocaleString()}
-            subtitle="Generated this month"
+            subtitle="Sent to users"
             trend="+16.5% this month"
             icon={BrainCircuit}
             color="emerald"
@@ -36,9 +36,9 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         {/* Average Engagement Rate */}
         <Col xs={12} md={4}>
           <HoverStatCard
-            title="Avg. Engagement Rate"
-            value={`${engagementRate}%`}
-            subtitle="User interaction with content"
+            title="Hotline Refferrals"
+            value={`${engagementRate}`}
+            subtitle="This week"
             trend="+5% this month"
             icon={Activity}
             color="emerald"
@@ -47,9 +47,9 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
 
         <Col xs={12} md={4}>
           <HoverStatCard
-            title="AI Accuracy Score"
-            value="89%"
-            subtitle="Based on user feedback"
+            title="Resources Shared"
+            value="89"
+            subtitle="This month"
             trend="+2% this month"
             icon={ThumbsUp}
             color="emerald"
