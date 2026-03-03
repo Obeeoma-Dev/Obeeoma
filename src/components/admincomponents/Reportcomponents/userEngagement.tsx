@@ -19,7 +19,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   Tooltip,
-  Legend
+  Legend,
 );
 
 /* ============================
@@ -44,27 +44,21 @@ interface ReturningUsersSummary {
 
 const UserEngagement: React.FC = () => {
   /* ---- New Users Query ---- */
-  const {
-    query: newUsersQuery,
-    result: newUsersResult,
-  } = useList<NewUserRecord>({
-    resource: "new-users",
-  });
+  const { query: newUsersQuery, result: newUsersResult } =
+    useList<NewUserRecord>({
+      resource: "new-users",
+    });
 
   /* ---- Returning Users Query ---- */
-  const {
-    query: returningQuery,
-    result: returningResult,
-  } = useOne<ReturningUsersSummary>({
-    resource: "returning-users",
-    id: "summary",
-  });
+  const { query: returningQuery, result: returningResult } =
+    useOne<ReturningUsersSummary>({
+      resource: "returning-users",
+      id: "summary",
+    });
 
-  const isLoading =
-    newUsersQuery.isLoading || returningQuery.isLoading;
+  const isLoading = newUsersQuery.isLoading || returningQuery.isLoading;
 
-  const isError =
-    newUsersQuery.isError || returningQuery.isError;
+  const isError = newUsersQuery.isError || returningQuery.isError;
 
   const newUsers = newUsersResult?.data ?? [];
   const returningUsers = returningResult;
@@ -123,8 +117,7 @@ const UserEngagement: React.FC = () => {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (context) =>
-            `${context.parsed.y?.toLocaleString()} sign-ups`,
+          label: (context) => `${context.parsed.y?.toLocaleString()} sign-ups`,
         },
       },
     },
@@ -132,8 +125,7 @@ const UserEngagement: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: (value) =>
-            Number(value).toLocaleString(),
+          callback: (value) => Number(value).toLocaleString(),
         },
         grid: { color: "#e9ecef" },
       },
@@ -189,15 +181,12 @@ const UserEngagement: React.FC = () => {
                 <div
                   style={{
                     fontSize: "0.9rem",
-                    color: isPositive
-                      ? "#28a745"
-                      : "#dc3545",
+                    color: isPositive ? "#28a745" : "#dc3545",
                     fontWeight: 500,
                   }}
                 >
-                  {isPositive ? "▲" : "▼"}{" "}
-                  {Math.abs(percentageChange)}%
-                  vs previous period
+                  {isPositive ? "▲" : "▼"} {Math.abs(percentageChange)}% vs
+                  previous period
                 </div>
               )}
             </Card.Body>

@@ -74,8 +74,7 @@ const PlatformUsageChart: React.FC = () => {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (context) =>
-            `${context.parsed.y?.toLocaleString()} users`,
+          label: (context) => `${context.parsed.y?.toLocaleString()} users`,
         },
       },
     },
@@ -83,8 +82,7 @@ const PlatformUsageChart: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: (value) =>
-            Number(value).toLocaleString(),
+          callback: (value) => Number(value).toLocaleString(),
         },
         grid: { color: "#e9ecef" },
       },
@@ -93,10 +91,7 @@ const PlatformUsageChart: React.FC = () => {
   };
 
   return (
-    <Card
-      className="shadow-sm border-0"
-      style={{ borderRadius: "12px" }}
-    >
+    <Card className="shadow-sm border-0" style={{ borderRadius: "12px" }}>
       <Card.Body style={{ padding: "1.5rem" }}>
         <h5
           style={{

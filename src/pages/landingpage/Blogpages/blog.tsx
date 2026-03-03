@@ -154,10 +154,10 @@ export function Blog() {
     return isNaN(date.getTime())
       ? "—"
       : date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
   };
 
   // Image URL resolver

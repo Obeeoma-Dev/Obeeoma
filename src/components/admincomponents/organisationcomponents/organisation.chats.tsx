@@ -62,7 +62,9 @@ ChartJS.register(
  * - Bar chart for client distribution across organizations (with category grouping)
  * Now uses real data from backend APIs with intelligent categorization.
  */
-const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI }) => {
+const OrganizationCharts: React.FC<OrganizationChartsProps> = ({
+  conditionalAPI,
+}) => {
   const [viewMode, setViewMode] = useState<"category" | "individual">(
     "category",
   );
@@ -300,19 +302,30 @@ const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI 
         const apiInstance = conditionalAPI || adminAPI;
 
         // Fetch growth chart data
-        const growthResponse = await (apiInstance as {
-          getOrganizationsGrowthChart?: () => Promise<{ data: { labels: string[]; data: number[] } }>;
-        }).getOrganizationsGrowthChart?.();
+        const growthResponse = await (
+          apiInstance as {
+            getOrganizationsGrowthChart?: () => Promise<{
+              data: { labels: string[]; data: number[] };
+            }>;
+          }
+        ).getOrganizationsGrowthChart?.();
 
-        if (growthResponse && growthResponse.data &&
+        if (
+          growthResponse &&
+          growthResponse.data &&
           growthResponse.data.labels &&
-          growthResponse.data.data) {
+          growthResponse.data.data
+        ) {
           setGrowthData({
-            labels: (growthResponse.data as { labels: string[]; data: number[] }).labels || [],
+            labels:
+              (growthResponse.data as { labels: string[]; data: number[] })
+                .labels || [],
             datasets: [
               {
                 label: "Organization Growth",
-                data: (growthResponse.data as { labels: string[]; data: number[] }).data || [],
+                data:
+                  (growthResponse.data as { labels: string[]; data: number[] })
+                    .data || [],
                 borderColor: "#00A859",
                 backgroundColor: "rgba(40,167,69,0.2)",
                 tension: 0.4,
@@ -322,10 +335,13 @@ const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI 
         }
 
         // Fetch client distribution data
-        const distributionResponse =
-          await (apiInstance as {
-            getOrganizationsClientDistribution?: () => Promise<{ data: OrganizationData[] | { labels: string[]; data: number[] } }>;
-          }).getOrganizationsClientDistribution?.();
+        const distributionResponse = await (
+          apiInstance as {
+            getOrganizationsClientDistribution?: () => Promise<{
+              data: OrganizationData[] | { labels: string[]; data: number[] };
+            }>;
+          }
+        ).getOrganizationsClientDistribution?.();
         console.log("Distribution API Response:", distributionResponse);
         console.log("Distribution data structure:", distributionResponse?.data);
 
@@ -333,7 +349,10 @@ const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI 
         let orgLabels: string[] = [];
         let orgData: number[] = [];
 
-        if (distributionResponse?.data && Array.isArray(distributionResponse.data)) {
+        if (
+          distributionResponse?.data &&
+          Array.isArray(distributionResponse.data)
+        ) {
           // API returns array of objects directly
           console.log("API returns array of organization objects");
           orgLabels = distributionResponse.data.map(
@@ -345,9 +364,9 @@ const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI 
           );
         } else if (
           distributionResponse?.data &&
-          typeof distributionResponse.data === 'object' &&
-          'labels' in distributionResponse.data &&
-          'data' in distributionResponse.data
+          typeof distributionResponse.data === "object" &&
+          "labels" in distributionResponse.data &&
+          "data" in distributionResponse.data
         ) {
           // API returns object with labels and data arrays
           console.log("API returns object with labels and data");
@@ -397,7 +416,6 @@ const OrganizationCharts: React.FC<OrganizationChartsProps> = ({ conditionalAPI 
           console.log("Setting categorized data:", newCategorizedData);
           setCategorizedDistributionData(newCategorizedData);
         }
-
       } catch (error) {
         console.error("Error fetching chart data:", error);
         // Keep using default data if API calls fail

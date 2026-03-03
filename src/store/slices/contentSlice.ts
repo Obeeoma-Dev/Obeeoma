@@ -29,7 +29,8 @@ export const fetchAllContent = createAsyncThunk<
     const data = await contentMediaAPI.getAllContent();
     return data;
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to fetch content";
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to fetch content";
     return rejectWithValue(errorMessage);
   }
 });
@@ -42,13 +43,14 @@ export const fetchContentById = createAsyncThunk<
 >("content/fetchById", async (id, { rejectWithValue }) => {
   try {
     const allContent = await contentMediaAPI.getAllContent();
-    const item = allContent.find(item => item.id === parseInt(id));
+    const item = allContent.find((item) => item.id === parseInt(id));
     if (!item) {
       return rejectWithValue("Content not found");
     }
     return item;
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to fetch content";
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to fetch content";
     return rejectWithValue(errorMessage);
   }
 });
@@ -62,7 +64,8 @@ export const deleteContent = createAsyncThunk<
   try {
     await contentMediaAPI.deleteContent(id);
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to delete content";
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to delete content";
     return rejectWithValue(errorMessage);
   }
 });
@@ -89,19 +92,27 @@ const contentSlice = createSlice({
       state.items.unshift(action.payload);
     },
     updateContentItem: (state, action) => {
-      const index = state.items.findIndex(item => item.id === action.payload.id);
+      const index = state.items.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (index !== -1) {
         state.items[index] = action.payload;
       }
       // Also update selectedContent if it's the same item
-      if (state.selectedContent && state.selectedContent.id === action.payload.id) {
+      if (
+        state.selectedContent &&
+        state.selectedContent.id === action.payload.id
+      ) {
         state.selectedContent = action.payload;
       }
     },
     removeContentItem: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      state.items = state.items.filter((item) => item.id !== action.payload);
       // Clear selectedContent if it was the deleted item
-      if (state.selectedContent && state.selectedContent.id === action.payload) {
+      if (
+        state.selectedContent &&
+        state.selectedContent.id === action.payload
+      ) {
         state.selectedContent = null;
       }
     },
@@ -112,12 +123,17 @@ const contentSlice = createSlice({
     },
     // Update item without full refresh
     updateContentOptimistically: (state, action) => {
-      const index = state.items.findIndex(item => item.id === action.payload.id);
+      const index = state.items.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (index !== -1) {
         state.items[index] = action.payload;
       }
       // Also update selectedContent if it's the same item
-      if (state.selectedContent && state.selectedContent.id === action.payload.id) {
+      if (
+        state.selectedContent &&
+        state.selectedContent.id === action.payload.id
+      ) {
         state.selectedContent = action.payload;
       }
     },
@@ -156,9 +172,12 @@ const contentSlice = createSlice({
         state.loading = true;
         state.error = null;
         // Optimistically remove item from state immediately
-        state.items = state.items.filter(item => item.id !== action.meta.arg);
+        state.items = state.items.filter((item) => item.id !== action.meta.arg);
         // Clear selectedContent if it was the deleted item
-        if (state.selectedContent && state.selectedContent.id === action.meta.arg) {
+        if (
+          state.selectedContent &&
+          state.selectedContent.id === action.meta.arg
+        ) {
           state.selectedContent = null;
         }
       })
@@ -184,14 +203,19 @@ export const {
   setSelectedContent,
   clearSelectedContent,
   addContentOptimistically,
-  updateContentOptimistically
+  updateContentOptimistically,
 } = contentSlice.actions;
 
 // Selectors
-export const selectContentItems = (state: { content: ContentState }) => state.content.items;
-export const selectSelectedContent = (state: { content: ContentState }) => state.content.selectedContent;
-export const selectContentLoading = (state: { content: ContentState }) => state.content.loading;
-export const selectContentError = (state: { content: ContentState }) => state.content.error;
-export const selectContentLastFetched = (state: { content: ContentState }) => state.content.lastFetched;
+export const selectContentItems = (state: { content: ContentState }) =>
+  state.content.items;
+export const selectSelectedContent = (state: { content: ContentState }) =>
+  state.content.selectedContent;
+export const selectContentLoading = (state: { content: ContentState }) =>
+  state.content.loading;
+export const selectContentError = (state: { content: ContentState }) =>
+  state.content.error;
+export const selectContentLastFetched = (state: { content: ContentState }) =>
+  state.content.lastFetched;
 
 export default contentSlice.reducer;

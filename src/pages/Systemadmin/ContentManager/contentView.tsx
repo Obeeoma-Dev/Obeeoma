@@ -12,7 +12,7 @@ import {
   selectContentLoading,
   selectContentError,
   fetchContentById,
-  setSelectedContent
+  setSelectedContent,
 } from "../../../store/slices/contentSlice";
 import { RootState, AppDispatch } from "../../../store/store";
 
@@ -48,7 +48,10 @@ export function ContentDetail() {
   if (loading) {
     return (
       <SystemAdminLayout title="Loading Content...">
-        <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "50vh" }}
+        >
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -60,14 +63,14 @@ export function ContentDetail() {
   if (error || !contentItem) {
     return (
       <SystemAdminLayout title="Error">
-        <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "50vh" }}
+        >
           <div className="text-center">
             <h3 className="text-danger mb-3">Error</h3>
             <p className="text-muted">{error || "Content not found"}</p>
-            <button
-              className="btn btn-primary"
-              onClick={handleBack}
-            >
+            <button className="btn btn-primary" onClick={handleBack}>
               Back to Content Management
             </button>
           </div>
@@ -77,10 +80,6 @@ export function ContentDetail() {
   }
 
   return (
-    <VideoDetail
-      item={contentItem}
-      onBack={handleBack}
-      useLayout={true}
-    />
+    <VideoDetail item={contentItem} onBack={handleBack} useLayout={true} />
   );
 }

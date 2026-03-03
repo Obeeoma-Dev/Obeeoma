@@ -28,7 +28,7 @@ import {
   selectContentLastFetched,
   fetchAllContent,
   setSelectedContent,
-  deleteContent
+  deleteContent,
 } from "../../../store/slices/contentSlice";
 import { RootState, AppDispatch } from "../../../store/store";
 // import { VideoDetail } from "./VideoDetail";
@@ -48,7 +48,9 @@ const TypeIcon = ({
 }) => {
   if (type === "image" && (public_url || s3_key)) {
     // Use public_url if available, otherwise construct from s3_key
-    const src = public_url || (s3_key ? `http://127.0.0.1:8000/media/${s3_key}` : undefined);
+    const src =
+      public_url ||
+      (s3_key ? `http://127.0.0.1:8000/media/${s3_key}` : undefined);
     if (src) {
       return (
         <Image
@@ -184,17 +186,19 @@ export function ContentTable({ key }: { key?: number }) {
 
         // Clear selection
         setSelectedItem(null);
-
       } catch (error) {
         console.error("Failed to delete content:", error);
 
         // Show error toast
-        toast.error(`Failed to delete "${selectedItem.title}". Please try again.`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-        });
+        toast.error(
+          `Failed to delete "${selectedItem.title}". Please try again.`,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+          },
+        );
 
         // Refetch data on error to restore correct state
         dispatch(fetchAllContent());
@@ -280,7 +284,11 @@ export function ContentTable({ key }: { key?: number }) {
                           justifyContent: "center",
                         }}
                       >
-                        <TypeIcon type={item.media_type} public_url={item.public_url} s3_key={item.s3_key} />
+                        <TypeIcon
+                          type={item.media_type}
+                          public_url={item.public_url}
+                          s3_key={item.s3_key}
+                        />
                       </div>
                       {/* Title and type */}
                       <div>
@@ -291,9 +299,7 @@ export function ContentTable({ key }: { key?: number }) {
                             textTransform: "capitalize",
                           }}
                         >
-                          <div>
-                            {item.media_type}
-                          </div>
+                          <div>{item.media_type}</div>
                         </div>
                       </div>
                     </Stack>
@@ -313,7 +319,9 @@ export function ContentTable({ key }: { key?: number }) {
                   </td>
 
                   {/* Size */}
-                  <td style={{ color: "#6c757d" }}>{item.file_size || "N/A"}</td>
+                  <td style={{ color: "#6c757d" }}>
+                    {item.file_size || "N/A"}
+                  </td>
 
                   {/* Actions */}
                   <td style={{ textAlign: "right" }}>

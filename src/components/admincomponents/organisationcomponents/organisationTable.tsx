@@ -115,49 +115,64 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   const lastOrganizationElementRef = useRef<HTMLTableRowElement>(null);
 
   // Fetch organizations with pagination
-  const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
-    try {
-      setLoading(true);
-      console.log(
-        `Fetching organizations: page=${pageNum}, search="${search}"`,
-      );
+  const fetchOrganizations = useCallback(
+    async (pageNum = 1, search = "") => {
+      try {
+        setLoading(true);
+        console.log(
+          `Fetching organizations: page=${pageNum}, search="${search}"`,
+        );
 
-      // Use conditionalAPI if provided, otherwise use original adminAPI
-      const apiInstance = conditionalAPI || adminAPI;
-      const response = await apiInstance.getOrganizationsList?.(pageNum, 5, search);
-      console.log("Table API Response:", response);
+        // Use conditionalAPI if provided, otherwise use original adminAPI
+        const apiInstance = conditionalAPI || adminAPI;
+        const response = await apiInstance.getOrganizationsList?.(
+          pageNum,
+          5,
+          search,
+        );
+        console.log("Table API Response:", response);
 
-      // Handle response with simple typing
-      const results = response?.data?.results || response?.data || [];
-      const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
-      const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
+        // Handle response with simple typing
+        const results = response?.data?.results || response?.data || [];
+        const totalCount =
+          response?.data?.count ||
+          (Array.isArray(results) ? results.length : 0);
+        const hasNext =
+          response?.data?.next !== undefined
+            ? response?.data?.next !== null
+            : false;
 
-      // Convert to table format
-      const formattedOrgs = results.map((org: DatabaseOrganization) =>
-        convertToTableFormat(org),
-      );
+        // Convert to table format
+        const formattedOrgs = results.map((org: DatabaseOrganization) =>
+          convertToTableFormat(org),
+        );
 
-      if (pageNum === 1) {
-        setOrganizations(formattedOrgs);
-      } else {
-        setOrganizations((prev: TableOrganization[]) => [...prev, ...formattedOrgs]);
+        if (pageNum === 1) {
+          setOrganizations(formattedOrgs);
+        } else {
+          setOrganizations((prev: TableOrganization[]) => [
+            ...prev,
+            ...formattedOrgs,
+          ]);
+        }
+
+        setHasMore(hasNext);
+        setTotalCount(totalCount);
+
+        console.log(
+          `Table: Processed ${formattedOrgs.length} organizations, total: ${totalCount}, hasMore: ${hasNext}`,
+        );
+      } catch (error) {
+        console.error("Error fetching organizations for table:", error);
+        setOrganizations([]);
+        setHasMore(false);
+        setTotalCount(0);
+      } finally {
+        setLoading(false);
       }
-
-      setHasMore(hasNext);
-      setTotalCount(totalCount);
-
-      console.log(
-        `Table: Processed ${formattedOrgs.length} organizations, total: ${totalCount}, hasMore: ${hasNext}`,
-      );
-    } catch (error) {
-      console.error("Error fetching organizations for table:", error);
-      setOrganizations([]);
-      setHasMore(false);
-      setTotalCount(0);
-    } finally {
-      setLoading(false);
-    }
-  }, [conditionalAPI]);
+    },
+    [conditionalAPI],
+  );
 
   // Initial fetch and search
   useEffect(() => {
@@ -274,8 +289,9 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                   {/* Plan */}
                   <td>
                     <span
-                      className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                        }`}
+                      className={`badge ${
+                        org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                      }`}
                     >
                       {org.plan}
                     </span>

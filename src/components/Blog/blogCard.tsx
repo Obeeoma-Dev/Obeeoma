@@ -37,24 +37,26 @@ export function BlogCard({
         border: "1px solid #e0e0e0",
         borderRadius: "8px",
         overflow: "hidden",
-        backgroundColor: "white"
+        backgroundColor: "white",
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Fixed Image Section */}
-      <div style={{
-        height: "350px",
-        position: "relative",
-        flexShrink: 0
-      }}>
+      <div
+        style={{
+          height: "350px",
+          position: "relative",
+          flexShrink: 0,
+        }}
+      >
         <img
           src={image}
           alt={title}
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover"
+            objectFit: "cover",
           }}
         />
         <div className="blog-card-overlay"></div>
@@ -70,12 +72,14 @@ export function BlogCard({
       </div>
 
       {/* Content Section */}
-      <div style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        padding: "1rem"
-      }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          padding: "1rem",
+        }}
+      >
         {/* Meta Info */}
         {/* Meta Info */}
         <div
@@ -88,17 +92,32 @@ export function BlogCard({
             marginBottom: "0.5rem",
           }}
         >
-          <span className="blog-card-meta-item" style={{ fontFamily: "body", display: "flex", alignItems: "center", gap: "0.25rem" }}>
+          <span
+            className="blog-card-meta-item"
+            style={{
+              fontFamily: "body",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.25rem",
+            }}
+          >
             <Calendar size={14} />
             {date}
           </span>
 
-          <span className="blog-card-meta-item" style={{ fontFamily: "body", display: "flex", alignItems: "center", gap: "0.25rem" }}>
+          <span
+            className="blog-card-meta-item"
+            style={{
+              fontFamily: "body",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.25rem",
+            }}
+          >
             <Clock size={14} />
             {readTime}
           </span>
         </div>
-
 
         {/* Title */}
         <h3
@@ -108,7 +127,7 @@ export function BlogCard({
             fontWeight: "600",
             margin: "0 0 0.5rem 0",
             lineHeight: "1.3",
-            flexShrink: 0
+            flexShrink: 0,
           }}
         >
           {title}
@@ -123,19 +142,21 @@ export function BlogCard({
             maxHeight: "120px",
             lineHeight: "1.4",
             fontSize: "0.9rem",
-            color: "#666"
+            color: "#666",
           }}
         >
           {excerpt}
         </div>
 
         {/* Fixed Footer */}
-        <div style={{
-          flexShrink: 0,
-          marginTop: "0.5rem",
-          paddingTop: "0.5rem",
-          borderTop: "1px solid #f0f0f0"
-        }}>
+        <div
+          style={{
+            flexShrink: 0,
+            marginTop: "0.5rem",
+            paddingTop: "0.5rem",
+            borderTop: "1px solid #f0f0f0",
+          }}
+        >
           <div className="blog-card-author">
             <User size={16} />
             <span>{author}</span>

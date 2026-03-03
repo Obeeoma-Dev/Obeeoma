@@ -143,14 +143,15 @@ interface OrganizationRegistrationPopupProps {
   onRegistrationSuccess?: () => void;
 }
 
-const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps> = ({
-  show,
-  onHide,
-  onRegistrationSuccess,
-}) => {
+const OrganizationRegistrationPopup: React.FC<
+  OrganizationRegistrationPopupProps
+> = ({ show, onHide, onRegistrationSuccess }) => {
   const [role] = useState<Role>("employer");
   const dispatch = useDispatch<AppDispatch>();
-  const { error, isLoading } = useSelector((state: { auth: { error: string | null; isLoading: boolean } }) => state.auth);
+  const { error, isLoading } = useSelector(
+    (state: { auth: { error: string | null; isLoading: boolean } }) =>
+      state.auth,
+  );
 
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -350,7 +351,10 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
         setActiveStep((prev) => prev + 1);
       } catch (err: unknown) {
         console.error("Registration failed:", err);
-        const errorMessage = err instanceof Error ? err.message : "Registration failed. Please try again.";
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : "Registration failed. Please try again.";
         setLocalError(errorMessage);
       }
     } else {
@@ -364,7 +368,12 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
 
   const handleSubmit = async (
     values: RegisterFormValues,
-    { setSubmitting, setTouched, setErrors, validateForm }: {
+    {
+      setSubmitting,
+      setTouched,
+      setErrors,
+      validateForm,
+    }: {
       setSubmitting: (isSubmitting: boolean) => void;
       setTouched: (touched: { [key: string]: boolean }) => void;
       setErrors: (errors: { [key: string]: string }) => void;
@@ -378,7 +387,11 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
 
   const renderStepContent = (
     values: RegisterFormValues,
-    handleChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
+    handleChange: (
+      event: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => void,
     touched: { [key: string]: boolean },
     errors: { [key: string]: string },
   ) => {
@@ -799,20 +812,27 @@ const OrganizationRegistrationPopup: React.FC<OrganizationRegistrationPopupProps
         backdrop="static"
         className="organization-registration-modal"
       >
-        <Modal.Body style={{
-          maxHeight: "80vh",
-          overflowY: "auto",
-          padding: "2rem"
-        }}>
+        <Modal.Body
+          style={{
+            maxHeight: "80vh",
+            overflowY: "auto",
+            padding: "2rem",
+          }}
+        >
           <Container>
             <div className="d-flex justify-content-center w-100">
-              <div style={{
-                maxWidth: activeStep === 2 ? "700px" : "800px",
-                width: "100%",
-                fontFamily: "body"
-              }}>
+              <div
+                style={{
+                  maxWidth: activeStep === 2 ? "700px" : "800px",
+                  width: "100%",
+                  fontFamily: "body",
+                }}
+              >
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4 className="mb-0 fw-semibold text-dark" style={{ fontFamily: "heading" }}>
+                  <h4
+                    className="mb-0 fw-semibold text-dark"
+                    style={{ fontFamily: "heading" }}
+                  >
                     Register New Organization
                   </h4>
                   <Button variant="light" size="sm" onClick={onHide}>

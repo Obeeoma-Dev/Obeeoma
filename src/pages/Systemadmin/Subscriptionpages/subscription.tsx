@@ -6,8 +6,19 @@ import RecentActivityFeed, {
   Activity,
 } from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import { Container, Row, Col, Card, Button, Alert, Spinner } from "react-bootstrap";
-import { useSubscriptionData, calculateMetrics } from "../../../hooks/useSubscriptionData";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
+import {
+  useSubscriptionData,
+  calculateMetrics,
+} from "../../../hooks/useSubscriptionData";
 import { useSimpleSubscriptionCount } from "../../../hooks/useSimpleSubscriptionCount";
 import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 
@@ -27,12 +38,12 @@ const SubscriptionPage: React.FC = () => {
     subscriptions,
     loading: countLoading,
     error: countError,
-    refetch: refetchCount
+    refetch: refetchCount,
   } = useSimpleSubscriptionCount();
 
   // Debug logging to see what data we're getting
-  console.log('Raw subscriptions data:', subscriptions);
-  console.log('First subscription structure:', subscriptions[0]);
+  console.log("Raw subscriptions data:", subscriptions);
+  console.log("First subscription structure:", subscriptions[0]);
 
   // Use placeholder data for other metrics for now
   const metrics = {
@@ -42,21 +53,36 @@ const SubscriptionPage: React.FC = () => {
     utilizationRate: utilizationRate,
   };
 
-  const transformedSubscriptions = subscriptions.slice(0, 8).map(sub => {
-    console.log('Processing subscription:', sub);
+  const transformedSubscriptions = subscriptions.slice(0, 8).map((sub) => {
+    console.log("Processing subscription:", sub);
     return {
       id: sub.id,
-      organization: sub.employer?.name || (typeof sub.employer === 'string' ? sub.employer : `Org ${sub.employer}`) || "Unknown Organization",
-      plan: sub.plan ? sub.plan.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) : "N/A",
+      organization:
+        sub.employer?.name ||
+        (typeof sub.employer === "string"
+          ? sub.employer
+          : `Org ${sub.employer}`) ||
+        "Unknown Organization",
+      plan: sub.plan
+        ? sub.plan.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase())
+        : "N/A",
       employees: sub.seats || 0,
       activeUsers: sub.used_seats || 0,
-      activeUsersPercentage: sub.seats > 0 ? Math.round((sub.used_seats / sub.seats) * 100) : 0,
-      status: sub.is_active !== undefined ? (sub.is_active ? "Active" as const : "Pending" as const) : "Pending" as const,
-      expiryDate: sub.end_date ? new Date(sub.end_date).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-      }) : "N/A",
+      activeUsersPercentage:
+        sub.seats > 0 ? Math.round((sub.used_seats / sub.seats) * 100) : 0,
+      status:
+        sub.is_active !== undefined
+          ? sub.is_active
+            ? ("Active" as const)
+            : ("Pending" as const)
+          : ("Pending" as const),
+      expiryDate: sub.end_date
+        ? new Date(sub.end_date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })
+        : "N/A",
     };
   });
 
@@ -110,7 +136,9 @@ const SubscriptionPage: React.FC = () => {
         {countLoading && (
           <div className="text-center py-4">
             <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading subscription count...</span>
+              <span className="visually-hidden">
+                Loading subscription count...
+              </span>
             </Spinner>
             <p className="mt-2 text-muted">Loading subscription data...</p>
           </div>
@@ -137,14 +165,18 @@ const SubscriptionPage: React.FC = () => {
             <Card className="shadow-sm border-0 mb-4">
               <Card.Header className="bg-white border-bottom d-flex justify-content-between align-items-center">
                 <div>
-                  <h5 className="mb-0 fw-bold" style={{ fontFamily: "heading" }}>
+                  <h5
+                    className="mb-0 fw-bold"
+                    style={{ fontFamily: "heading" }}
+                  >
                     Recent Subscriptions
                   </h5>
                   <p
                     className="text-muted mb-0 small mt-1"
                     style={{ fontFamily: "body" }}
                   >
-                    Overview of organization subscriptions to mental health services
+                    Overview of organization subscriptions to mental health
+                    services
                   </p>
                 </div>
                 <Button
@@ -158,7 +190,9 @@ const SubscriptionPage: React.FC = () => {
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}
-                <RecentSubscriptionsTable subscriptions={transformedSubscriptions} />
+                <RecentSubscriptionsTable
+                  subscriptions={transformedSubscriptions}
+                />
               </Card.Body>
             </Card>
 

@@ -1,25 +1,32 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Button, Card, InputGroup, Form, Spinner, Alert } from 'react-bootstrap';
-import { Send, X, MessageSquare, Trash2, Bot } from 'lucide-react';
-import { useAdminChat } from '../../../contexts/AdminChatContext';
-import './AdminFloatingChat.css';
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Button,
+  Card,
+  InputGroup,
+  Form,
+  Spinner,
+  Alert,
+} from "react-bootstrap";
+import { Send, X, MessageSquare, Trash2, Bot } from "lucide-react";
+import { useAdminChat } from "../../../contexts/AdminChatContext";
+import "./AdminFloatingChat.css";
 
 interface ChatMessage {
   id?: number | string;
-  sender: 'admin' | 'ai';
+  sender: "admin" | "ai";
   message: string;
   timestamp: string;
 }
 
 const AdminFloatingChat: React.FC = () => {
   const { state, toggleChat, sendMessage, clearHistory } = useAdminChat();
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [state.messages]);
 
   // Focus input when chat opens
@@ -34,13 +41,13 @@ const AdminFloatingChat: React.FC = () => {
     if (!input.trim() || state.isSending) return;
 
     const messageToSend = input.trim();
-    setInput('');
+    setInput("");
 
     await sendMessage(messageToSend);
   };
 
   const handleClearHistory = async () => {
-    if (window.confirm('Are you sure you want to clear all chat history?')) {
+    if (window.confirm("Are you sure you want to clear all chat history?")) {
       await clearHistory();
     }
   };
@@ -48,33 +55,34 @@ const AdminFloatingChat: React.FC = () => {
   const formatTimestamp = (timestamp: string) => {
     try {
       const date = new Date(timestamp);
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
     } catch {
-      return '';
+      return "";
     }
   };
 
   const renderMessage = (message: ChatMessage, index: number) => {
-    const isUser = message.sender === 'admin';
+    const isUser = message.sender === "admin";
 
     return (
       <div
         key={message.id || index}
-        className={`admin-chat-message ${isUser ? 'admin-message' : 'ai-message'}`}
+        className={`admin-chat-message ${isUser ? "admin-message" : "ai-message"}`}
       >
         <div className="message-content">
           <div className="message-header">
             <span className="message-sender">
               {isUser ? <MessageSquare size={14} /> : <Bot size={14} />}
-              {isUser ? 'You' : 'AI Assistant'}
+              {isUser ? "You" : "AI Assistant"}
             </span>
             <span className="message-time">
               {formatTimestamp(message.timestamp)}
             </span>
           </div>
-          <div className="message-text">
-            {message.message}
-          </div>
+          <div className="message-text">{message.message}</div>
         </div>
       </div>
     );
@@ -128,7 +136,12 @@ const AdminFloatingChat: React.FC = () => {
 
       <Card.Body className="admin-chat-body">
         {state.error && (
-          <Alert variant="danger" className="mb-3" dismissible onClose={() => { }}>
+          <Alert
+            variant="danger"
+            className="mb-3"
+            dismissible
+            onClose={() => {}}
+          >
             {state.error}
           </Alert>
         )}
@@ -144,7 +157,10 @@ const AdminFloatingChat: React.FC = () => {
               <div className="empty-state text-center text-muted">
                 <Bot size={48} className="mb-3" />
                 <p className="mb-2">Hello! I'm your AI assistant.</p>
-                <p className="small">Ask me about platform insights, resource consumption, or growth strategies.</p>
+                <p className="small">
+                  Ask me about platform insights, resource consumption, or
+                  growth strategies.
+                </p>
               </div>
             ) : (
               <>
@@ -198,7 +214,8 @@ const AdminFloatingChat: React.FC = () => {
           </InputGroup>
         </Form>
         <small className="text-muted mt-2 d-block">
-          Get insights on resource consumption, platform growth, and system optimization
+          Get insights on resource consumption, platform growth, and system
+          optimization
         </small>
       </Card.Footer>
     </Card>

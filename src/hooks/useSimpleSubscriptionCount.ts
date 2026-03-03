@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
-import { subscriptionService, Subscription  } from '../services/subscriptionService';
-
+import { useState, useEffect } from "react";
+import {
+  subscriptionService,
+  Subscription,
+} from "../services/subscriptionService";
 
 interface HookReturn {
   count: number;
@@ -37,16 +39,20 @@ export const useSimpleSubscriptionCount = (): HookReturn => {
       setCoveredEmployees(totalSeats);
 
       // NEW: Calculate utilization rate
-      const totalUsedSeats = subscriptions.reduce((sum, sub) => sum + sub.used_seats, 0);
-      const rate = totalSeats > 0 ? Math.round((totalUsedSeats / totalSeats) * 100) : 0;
+      const totalUsedSeats = subscriptions.reduce(
+        (sum, sub) => sum + sub.used_seats,
+        0,
+      );
+      const rate =
+        totalSeats > 0 ? Math.round((totalUsedSeats / totalSeats) * 100) : 0;
       setUtilizationRate(rate);
 
       setSubscriptions(subscriptions);
-      
+
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching subscription data:', error);
-      setError(error instanceof Error ? error.message : 'Failed to fetch data');
+      console.error("Error fetching subscription data:", error);
+      setError(error instanceof Error ? error.message : "Failed to fetch data");
       setLoading(false);
     }
   };
@@ -62,6 +68,6 @@ export const useSimpleSubscriptionCount = (): HookReturn => {
     subscriptions,
     loading,
     error,
-    refetch: fetchCount
+    refetch: fetchCount,
   };
 };

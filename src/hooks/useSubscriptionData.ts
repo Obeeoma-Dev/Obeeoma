@@ -1,5 +1,9 @@
-import { useState, useEffect } from 'react';
-import { subscriptionService, SubscriptionOverview, Subscription } from '../services/subscriptionService';
+import { useState, useEffect } from "react";
+import {
+  subscriptionService,
+  SubscriptionOverview,
+  Subscription,
+} from "../services/subscriptionService";
 
 interface SubscriptionData {
   overview: SubscriptionOverview | null;
@@ -22,7 +26,7 @@ export const useSubscriptionData = (): UseSubscriptionDataReturn => {
 
   const fetchData = async () => {
     try {
-      setData(prev => ({ ...prev, loading: true, error: null }));
+      setData((prev) => ({ ...prev, loading: true, error: null }));
 
       // Fetch both overview and subscriptions in parallel
       const [overviewResponse, subscriptionsResponse] = await Promise.all([
@@ -37,11 +41,11 @@ export const useSubscriptionData = (): UseSubscriptionDataReturn => {
         error: null,
       });
     } catch (error) {
-      console.error('Error fetching subscription data:', error);
-      setData(prev => ({
+      console.error("Error fetching subscription data:", error);
+      setData((prev) => ({
         ...prev,
         loading: false,
-        error: error instanceof Error ? error.message : 'Failed to fetch data',
+        error: error instanceof Error ? error.message : "Failed to fetch data",
       }));
     }
   };
@@ -62,11 +66,23 @@ export const useSubscriptionData = (): UseSubscriptionDataReturn => {
 };
 
 // Helper function to calculate metrics from raw data
-export const calculateMetrics = (overview: SubscriptionOverview, subscriptions: Subscription[]) => {
+export const calculateMetrics = (
+  overview: SubscriptionOverview,
+  subscriptions: Subscription[],
+) => {
   const totalSubscriptions = subscriptions.length;
-  const coveredEmployees = subscriptions.reduce((sum, sub) => sum + sub.seats, 0);
-  const usedEmployees = subscriptions.reduce((sum, sub) => sum + sub.used_seats, 0);
-  const utilizationRate = coveredEmployees > 0 ? Math.round((usedEmployees / coveredEmployees) * 100) : 0;
+  const coveredEmployees = subscriptions.reduce(
+    (sum, sub) => sum + sub.seats,
+    0,
+  );
+  const usedEmployees = subscriptions.reduce(
+    (sum, sub) => sum + sub.used_seats,
+    0,
+  );
+  const utilizationRate =
+    coveredEmployees > 0
+      ? Math.round((usedEmployees / coveredEmployees) * 100)
+      : 0;
 
   return {
     totalOrganizations: overview.total_organizations,
@@ -74,7 +90,13 @@ export const calculateMetrics = (overview: SubscriptionOverview, subscriptions: 
     coveredEmployees: coveredEmployees.toLocaleString(),
     utilizationRate,
     revenueGrowth: overview.revenue_growth_percentage,
-    organizationsGrowth: ((overview.organizations_this_month / Math.max(overview.total_organizations - overview.organizations_this_month, 1)) * 100),
+    organizationsGrowth:
+      (overview.organizations_this_month /
+        Math.max(
+          overview.total_organizations - overview.organizations_this_month,
+          1,
+        )) *
+      100,
   };
 };
 

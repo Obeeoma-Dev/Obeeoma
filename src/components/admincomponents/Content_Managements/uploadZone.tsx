@@ -85,8 +85,10 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
     const formData = new FormData();
     // Auto-capture file size and set duration for videos
-    const fileSize = file ? (file.size / 1024 / 1024).toFixed(2) + ' MB' : '0 MB';
-    const videoDuration = selectedType === 'video' ? duration : '';
+    const fileSize = file
+      ? (file.size / 1024 / 1024).toFixed(2) + " MB"
+      : "0 MB";
+    const videoDuration = selectedType === "video" ? duration : "";
 
     formData.append("title", title);
     formData.append("description", description);

@@ -8,15 +8,15 @@ import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
 
 // Placeholder data for subscription plans
-const subscriptionPlans = [  
+const subscriptionPlans = [
   {
     id: "1",
     name: "Freemium",
-    organization: "TechStart Inc",    
+    organization: "TechStart Inc",
     features: [
       "Access to basic resources",
       "Monthly check-ins",
-      "Email support",      
+      "Email support",
     ],
     isPopular: true,
   },
@@ -32,7 +32,7 @@ const subscriptionPlans = [
       "Monthly check-ins",
       "Email support",
       "Access to live webinars",
-      "Client engagement tools",      
+      "Client engagement tools",
       "Advanced analytics",
       "Custom integrations",
       "Priority support",

@@ -14,16 +14,21 @@ export interface SubscriptionPlan {
 }
 
 const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
-  const monthlySavings = plan.monthlyPrice && plan.annualPrice ? plan.monthlyPrice * 12 - plan.annualPrice : 0;
+  const monthlySavings =
+    plan.monthlyPrice && plan.annualPrice
+      ? plan.monthlyPrice * 12 - plan.annualPrice
+      : 0;
   const isFree = !plan.monthlyPrice || plan.monthlyPrice === 0;
 
   return (
     <Card
-      className={`position-relative bg-white rounded-xl shadow-lg border-2 transition-all h-100 ${plan.isPopular ? "border-success" : "border-secondary"
-        }`}
+      className={`position-relative bg-white rounded-xl shadow-lg border-2 transition-all h-100 ${
+        plan.isPopular ? "border-success" : "border-secondary"
+      }`}
       style={{
         transition: "all 0.3s ease",
-        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+        boxShadow:
+          "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
       }}
     >
       {/* Most Popular Badge */}
@@ -65,14 +70,14 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
         {/* Pricing */}
         <div className="mb-3">
           <div className="d-flex align-items-baseline mb-2">
-            <span
-              className="fw-bold text-dark"
-              style={{ fontSize: "1.75rem" }}
-            >
+            <span className="fw-bold text-dark" style={{ fontSize: "1.75rem" }}>
               {isFree ? "Free" : `$${(plan.monthlyPrice || 0).toFixed(2)}`}
             </span>
             {!isFree && (
-              <span className="ms-2 text-muted" style={{ fontSize: "0.875rem" }}>
+              <span
+                className="ms-2 text-muted"
+                style={{ fontSize: "0.875rem" }}
+              >
                 /month
               </span>
             )}
@@ -127,7 +132,7 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
             style={{
               padding: "8px 12px",
               fontSize: "0.875rem",
-              fontWeight: "500"
+              fontWeight: "500",
             }}
           >
             <span
@@ -136,7 +141,7 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
                 height: "16px",
                 display: "inline-flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
               }}
             >
               ✏️

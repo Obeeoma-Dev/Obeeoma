@@ -21,12 +21,12 @@ export interface SubscriptionPlan {
 
 // Default features for checkboxes
 const defaultFeatures = [
-  'Access to basic resources',
-  'Monthly check-ins',
-  'Email support',
-  'Access to live webinars',
-  'Client engagement tools',
-  'Dedicated support team',
+  "Access to basic resources",
+  "Monthly check-ins",
+  "Email support",
+  "Access to live webinars",
+  "Client engagement tools",
+  "Dedicated support team",
 ];
 
 // Default plan data (can be replaced with props or API response)
@@ -36,11 +36,7 @@ const defaultPlan: SubscriptionPlan = {
   monthlyPrice: 5.99,
   annualPrice: 59.99,
   employeeLimit: 10,
-  features: [
-    "Access to basic resources",
-    "Monthly check-ins",
-    "Email support",
-  ],
+  features: ["Access to basic resources", "Monthly check-ins", "Email support"],
   isPopular: false,
 };
 
@@ -57,7 +53,10 @@ const SubscriptionEditor: React.FC = () => {
     const { name, value } = e.target;
     setPlan((prev) => ({
       ...prev,
-      [name]: name.includes("Price") || name === "employeeLimit" ? parseFloat(value) || 0 : value,
+      [name]:
+        name.includes("Price") || name === "employeeLimit"
+          ? parseFloat(value) || 0
+          : value,
     }));
   };
 
@@ -124,13 +123,19 @@ const SubscriptionEditor: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-          <Button variant="outline-success" onClick={() => navigate(-1)} className="d-flex align-items-center gap-2 mb-4">
+          <Button
+            variant="outline-success"
+            onClick={() => navigate(-1)}
+            className="d-flex align-items-center gap-2 mb-4"
+          >
             <span style={{ fontSize: "1.2rem", lineHeight: 1 }}> ← </span>
             Go Back
           </Button>
           <Card className="p-4 shadow-sm">
             <h4 className="mb-4">
-              {plan.name ? `Edit Plan: ${plan.name}` : 'Add New Subscription Tier'}
+              {plan.name
+                ? `Edit Plan: ${plan.name}`
+                : "Add New Subscription Tier"}
             </h4>
 
             {/* Organization Dropdown */}
@@ -172,7 +177,7 @@ const SubscriptionEditor: React.FC = () => {
                   <Form.Control
                     type="number"
                     name="monthlyPrice"
-                    value={plan.monthlyPrice || ''}
+                    value={plan.monthlyPrice || ""}
                     onChange={handleChange}
                     min={0}
                     step={0.01}
@@ -186,7 +191,7 @@ const SubscriptionEditor: React.FC = () => {
                   <Form.Control
                     type="number"
                     name="annualPrice"
-                    value={plan.annualPrice || ''}
+                    value={plan.annualPrice || ""}
                     onChange={handleChange}
                     min={0}
                     step={0.01}
@@ -200,7 +205,7 @@ const SubscriptionEditor: React.FC = () => {
                   <Form.Control
                     type="number"
                     name="employeeLimit"
-                    value={plan.employeeLimit || ''}
+                    value={plan.employeeLimit || ""}
                     onChange={handleChange}
                     min={0}
                     placeholder="0 for unlimited"
@@ -240,9 +245,7 @@ const SubscriptionEditor: React.FC = () => {
 
             {/* Action buttons */}
             <div className="d-flex justify-content-end gap-2 mt-4">
-              <Button variant="secondary">
-                Cancel
-              </Button>
+              <Button variant="secondary">Cancel</Button>
               <Button variant="danger" onClick={handleDelete}>
                 Delete
               </Button>

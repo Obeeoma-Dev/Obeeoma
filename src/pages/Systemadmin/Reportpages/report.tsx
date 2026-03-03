@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import PlatformUsageChart from "../../../components/admincomponents/Reportcomponents/platformUsageChart";
-import  FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
+import FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
 import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
 import { Container } from "react-bootstrap";
@@ -14,11 +14,7 @@ import UserEngagement from "../../../components/admincomponents/Reportcomponents
 const ReportPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Platform Usage");
 
-  const tabs = [
-    "Platform Usage",
-    "User Engagement",
-    "Feedback & Testimonies",
-  ];
+  const tabs = ["Platform Usage", "User Engagement", "Feedback & Testimonies"];
 
   return (
     <SystemAdminLayout title="Reports">

@@ -36,31 +36,32 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
     icon: LucideIcon;
     color: MetricColor;
   }[] = [
-      {
-        title: "Total Subscriptions",
-        value: totalSubscriptions,
-        subtitle: "Active subscription plans",
-        trend: `${revenueGrowth >= 0 ? '+' : ''}${revenueGrowth.toFixed(1)}% from last month`,
-        icon: Calendar,
-        color: revenueGrowth >= 0 ? "emerald" : "rose",
-      },
-      {
-        title: "Covered Employees",
-        value: coveredEmployees,
-        subtitle: "Employees covered",
-        trend: `${organizationsGrowth >= 0 ? '+' : ''}${organizationsGrowth.toFixed(1)}% from last month`,
-        icon: Users,
-        color: organizationsGrowth >= 0 ? "emerald" : "rose",
-      },
-      {
-        title: "Utilization Rate",
-        value: `${utilizationRate}%`,
-        subtitle: "Platform usage",
-        trend: utilizationRate >= 70 ? "+3% from last month" : "-2% from last month",
-        icon: TrendingUp,
-        color: utilizationRate >= 70 ? "emerald" : "amber",
-      },
-    ];
+    {
+      title: "Total Subscriptions",
+      value: totalSubscriptions,
+      subtitle: "Active subscription plans",
+      trend: `${revenueGrowth >= 0 ? "+" : ""}${revenueGrowth.toFixed(1)}% from last month`,
+      icon: Calendar,
+      color: revenueGrowth >= 0 ? "emerald" : "rose",
+    },
+    {
+      title: "Covered Employees",
+      value: coveredEmployees,
+      subtitle: "Employees covered",
+      trend: `${organizationsGrowth >= 0 ? "+" : ""}${organizationsGrowth.toFixed(1)}% from last month`,
+      icon: Users,
+      color: organizationsGrowth >= 0 ? "emerald" : "rose",
+    },
+    {
+      title: "Utilization Rate",
+      value: `${utilizationRate}%`,
+      subtitle: "Platform usage",
+      trend:
+        utilizationRate >= 70 ? "+3% from last month" : "-2% from last month",
+      icon: TrendingUp,
+      color: utilizationRate >= 70 ? "emerald" : "amber",
+    },
+  ];
 
   return (
     <Row className="mb-4 g-3">

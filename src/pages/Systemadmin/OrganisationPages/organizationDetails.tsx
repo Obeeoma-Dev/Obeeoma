@@ -22,22 +22,24 @@ export function OrganizationDetails() {
   const navigate = useNavigate();
 
   // Environment detection and conditional API setup
-  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isLocalhost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
   const conditionalAPIBaseURL = isLocalhost
-    ? 'http://127.0.0.1:8000/api/v1'  // Neon backend for localhost development
-    : 'https://obeeoma-api.com/api/v1'; // Digital Ocean backend for production
+    ? "http://127.0.0.1:8000/api/v1" // Neon backend for localhost development
+    : "https://obeeoma-api.com/api/v1"; // Digital Ocean backend for production
 
   // Create conditional API instance
   const conditionalAPI = axios.create({
     baseURL: conditionalAPIBaseURL,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   // Add authorization interceptor to conditional API
   conditionalAPI.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -45,25 +47,33 @@ export function OrganizationDetails() {
   });
 
   // Create conditional API methods without /v1/ prefix
-  const conditionalAPIWithMethods = useMemo(() => ({
-    ...conditionalAPI,
-    getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
-      const params = new URLSearchParams({
-        page: page.toString(),
-        page_size: pageSize.toString(),
-      });
+  const conditionalAPIWithMethods = useMemo(
+    () => ({
+      ...conditionalAPI,
+      getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          page_size: pageSize.toString(),
+        });
 
-      if (search) {
-        params.append("search", search);
-      }
+        if (search) {
+          params.append("search", search);
+        }
 
-      const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
-      return response;
-    },
-  }), [conditionalAPI]);
+        const response = await conditionalAPI.get(
+          `/admin/organizations/?${params}`,
+        );
+        return response;
+      },
+    }),
+    [conditionalAPI],
+  );
 
-  console.log('OrganizationDetails - Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
-  console.log('OrganizationDetails - API Base URL:', conditionalAPIBaseURL);
+  console.log(
+    "OrganizationDetails - Environment:",
+    isLocalhost ? "Development (Neon)" : "Production (Digital Ocean)",
+  );
+  console.log("OrganizationDetails - API Base URL:", conditionalAPIBaseURL);
 
   // State for organization data
   const [organization, setOrganization] = useState<DatabaseOrganization | null>(
@@ -86,7 +96,11 @@ export function OrganizationDetails() {
         console.log(`Fetching organization details for ID: ${id}`);
 
         // Use conditional API to avoid /v1/ duplication
-        const response = await conditionalAPIWithMethods.getOrganizationsList(1, 100, ""); // Get all orgs
+        const response = await conditionalAPIWithMethods.getOrganizationsList(
+          1,
+          100,
+          "",
+        ); // Get all orgs
         const allOrgs = response.data.results || response.data || [];
 
         const foundOrg = allOrgs.find(
