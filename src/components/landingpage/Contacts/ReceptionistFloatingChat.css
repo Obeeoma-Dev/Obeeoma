@@ -1,0 +1,297 @@
+/* Receptionist Floating Chat Component - Specific Styles */
+/* These styles are specifically tailored for the receptionist chat component */
+
+.receptionist-chat-float-button {
+  position: fixed;
+  /* stack above the WhatsApp button by calculating gap from WhatsApp height
+     FloatingWhatsApp uses 64px height; keep a small gap (0.75rem) for separation */
+  bottom: calc(2rem + 64px + 0.75rem);
+  /* align horizontally with WhatsApp */
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00A859, #0B6E45);
+  border: none;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 168, 89, 0.3);
+  transition: all 0.3s ease;
+  /* ensure it appears above the WhatsApp button */
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Remove native button chrome inside the float wrapper so the gradient shows through */
+.receptionist-chat-float-button > button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.receptionist-chat-float-button > button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+/* Ensure lucide (SVG) icon uses currentColor for stroke and appears white */
+.receptionist-chat-float-button svg {
+  /* Prefer filled icon: remove stroke and fill paths with currentColor (white)
+     Use !important to override inline attributes from lucide-react SVGs */
+  stroke: none !important;
+  fill: currentColor !important;
+  width: 28px;
+  height: 28px;
+}
+
+/* Some lucide icons use nested <path> or <circle> elements with stroke attributes.
+   Ensure their fill is forced as well so the interior appears white. */
+.receptionist-chat-float-button svg path,
+.receptionist-chat-float-button svg circle,
+.receptionist-chat-float-button svg rect {
+  stroke: none !important;
+  fill: currentColor !important;
+}
+
+.receptionist-chat-float-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 168, 89, 0.4);
+  background: linear-gradient(135deg, #0B6E45, #00A859);
+}
+
+.receptionist-chat-float-button:active {
+  transform: translateY(0);
+}
+
+.receptionist-pulse-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: receptionist-pulse 2s infinite;
+}
+
+@keyframes receptionist-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.receptionist-chat-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 380px;
+  height: 600px;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: receptionist-slide-up 0.3s ease-out;
+}
+
+@keyframes receptionist-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.receptionist-chat-header {
+  background: linear-gradient(135deg, #00A859, #0B6E45);
+  color: white;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.receptionist-chat-header h5 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.receptionist-chat-header small {
+  opacity: 0.9;
+  font-size: 0.8rem;
+}
+
+.receptionist-chat-body {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: #f8fafb;
+}
+
+.receptionist-chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.receptionist-chat-message {
+  display: flex;
+  max-width: 85%;
+}
+
+.receptionist-chat-message.user-message {
+  align-self: flex-end;
+}
+
+.receptionist-chat-message.ai-message {
+  align-self: flex-start;
+}
+
+.receptionist-message-content {
+  background: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.receptionist-chat-message.user-message .receptionist-message-content {
+  background: linear-gradient(135deg, #00A859, #0B6E45);
+  color: white;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.receptionist-chat-message.ai-message .receptionist-message-content {
+  border-bottom-left-radius: 0.25rem;
+}
+
+.receptionist-message-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.receptionist-message-sender {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.receptionist-message-time {
+  margin-left: auto;
+}
+
+.receptionist-message-text {
+  line-height: 1.4;
+  font-size: 0.9rem;
+  word-wrap: break-word;
+}
+
+.receptionist-empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.receptionist-empty-state svg {
+  color: #00A859;
+  margin-bottom: 1rem;
+}
+
+.receptionist-empty-state h6 {
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.receptionist-empty-state p {
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.receptionist-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.receptionist-chat-footer {
+  padding: 1rem;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.receptionist-chat-footer small {
+  color: #6b7280;
+  font-size: 0.75rem;
+  text-align: center;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .receptionist-chat-container {
+    width: calc(100vw - 2rem);
+    right: 1rem;
+    left: 1rem;
+    height: 500px;
+  }
+
+  .receptionist-chat-float-button {
+    /* On narrow screens WhatsApp may sit at ~1rem bottom; keep gap using calc */
+    bottom: calc(1rem + 64px + 0.5rem);
+    right: 2rem;
+    /* Adjust for mobile to avoid WhatsApp overlap; increased bottom offset for stacking */
+  }
+}
+
+/* Scrollbar styling for chat body */
+.receptionist-chat-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.receptionist-chat-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.receptionist-chat-body::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.receptionist-chat-body::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}

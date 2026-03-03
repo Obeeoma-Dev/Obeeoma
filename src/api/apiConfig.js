@@ -272,6 +272,11 @@ export const adminAPI = {
         const response = await api.delete("/admin/ai-chat/clear-history/");
         return response;
     },
+    // Receptionist AI Chat APIs (Public - No authentication required)
+    sendReceptionistMessage: async (payload) => {
+        const response = await api.post("/receptionist/ai-chat/", payload);
+        return response;
+    },
 };
 // employer endpoints
 // export const employerAPI = {
