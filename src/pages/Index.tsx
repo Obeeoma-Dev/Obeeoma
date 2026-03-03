@@ -3,6 +3,7 @@ import Hero from "@/pages/landingpage/Hero";
 import Features from "@/pages/landingpage/Features";
 import Benefits from "@/pages/landingpage/Benefits";
 import Footer from "@/components/shared/Footer";
+import ReceptionistFloatingChat from "../../src/components/landingpage/Contacts/ReceptionistFloatingChat";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
         </section>
       </main>
       <Footer />
+      <ReceptionistFloatingChat />
     </div>
   );
 };

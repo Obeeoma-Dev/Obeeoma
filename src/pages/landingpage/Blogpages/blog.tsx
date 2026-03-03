@@ -4,6 +4,7 @@ import { BlogCard } from "../../../components/Blog/blogCard";
 import { BlogHero } from "../../../components/Blog/blogHero";
 // import { CategoryFilter } from '../../../components/Blog/categoryFilter';
 import { FloatingWhatsApp } from "../../../components/Contactus/floatingWhatsup";
+import ReceptionistFloatingChat from "../../../components/landingpage/Contacts/ReceptionistFloatingChat";
 import Navigation from "../../../components/shared/Navigation";
 
 // Importing images.
@@ -335,6 +336,9 @@ export function Blog() {
 
         {/* Socials Footer */}
         <Footer />
+
+        {/* Receptionist Floating Chat */}
+        <ReceptionistFloatingChat />
 
         {/* Floating WhatsApp Button */}
         <FloatingWhatsApp />
