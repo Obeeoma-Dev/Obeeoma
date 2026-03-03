@@ -1,5 +1,6 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { useList } from "@refinedev/core";
+import { Card, Spinner } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -8,36 +9,73 @@ import {
   LinearScale,
   Tooltip,
   Legend,
-  TooltipItem,
+  ChartOptions,
 } from "chart.js";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
+interface PlatformUsageRecord {
+  id: string;
+  date: string;
+  activeUsers: number;
+}
+
 const PlatformUsageChart: React.FC = () => {
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+  const { query, result } = useList<PlatformUsageRecord>({
+    resource: "platform-usage",
+  });
+
+  const { isLoading, isError } = query;
+  const records = result?.data ?? [];
+
+  if (isLoading) {
+    return (
+      <Card className="shadow-sm border-0 text-center p-5">
+        <Spinner animation="border" />
+      </Card>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Card className="shadow-sm border-0 text-center p-5 text-danger">
+        Start logging to load platform usage data.
+      </Card>
+    );
+  }
+
+  if (!records.length) {
+    return (
+      <Card className="shadow-sm border-0 text-center p-5">
+        No platform usage data available.
+      </Card>
+    );
+  }
+
+  const labels = records.map((item) => item.date);
+  const values = records.map((item) => item.activeUsers);
+
+  const chartData = {
+    labels,
     datasets: [
       {
         label: "Active Users",
-        data: [1200, 1800, 2400, 2900, 3200, 3500, 3800, 4100, 4500],
+        data: values,
         backgroundColor: "#3CB371",
-        borderRadius: 4,
+        borderRadius: 6,
       },
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltip: {
         callbacks: {
-          label: function (context: TooltipItem<"bar">) {
-            return `${(context.parsed.y ?? 0).toLocaleString()} users`;
-          },
+          label: (context) =>
+            `${context.parsed.y?.toLocaleString()} users`,
         },
       },
     },
@@ -45,34 +83,19 @@ const PlatformUsageChart: React.FC = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          callback: function (value: number | string) {
-            return value.toLocaleString();
-          },
+          callback: (value) =>
+            Number(value).toLocaleString(),
         },
-        grid: {
-          color: "#e9ecef",
-        },
+        grid: { color: "#e9ecef" },
       },
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          font: {
-            size: 12,
-          },
-        },
-      },
+      x: { grid: { display: false } },
     },
   };
 
   return (
     <Card
-      style={{
-        border: "none",
-        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-        borderRadius: "8px",
-      }}
+      className="shadow-sm border-0"
+      style={{ borderRadius: "12px" }}
     >
       <Card.Body style={{ padding: "1.5rem" }}>
         <h5
@@ -82,10 +105,11 @@ const PlatformUsageChart: React.FC = () => {
             marginBottom: "1.5rem",
           }}
         >
-          Monthly Platform Usage
+          Daily Platform Usage
         </h5>
+
         <div style={{ height: "400px" }}>
-          <Bar data={data} options={options} />
+          <Bar data={chartData} options={options} />
         </div>
       </Card.Body>
     </Card>

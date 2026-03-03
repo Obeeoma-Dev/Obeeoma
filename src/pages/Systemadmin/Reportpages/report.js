@@ -1,24 +1,22 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import MentalHealthChart from "../../../components/admincomponents/Reportcomponents/mentalHealthChart";
 import PlatformUsageChart from "../../../components/admincomponents/Reportcomponents/platformUsageChart";
-import TreatmentOutcomesChart from "../../../components/admincomponents/Reportcomponents/treatmentOutcomesChart";
-import OrganizationPerformanceChart from "../../../components/admincomponents/Reportcomponents/organizationPerformanceChart";
+import FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
 import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
 import { Container } from "react-bootstrap";
+import UserEngagement from "../../../components/admincomponents/Reportcomponents/userEngagement";
 /**
  * ReportPage component renders the system admin report dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
  */
 const ReportPage = () => {
-    const [activeTab, setActiveTab] = useState("Health Conditions");
+    const [activeTab, setActiveTab] = useState("Platform Usage");
     const tabs = [
         "Platform Usage",
-        "Health Conditions",
-        "Treatment Outcomes",
-        "Organization Performance",
+        "User Engagement",
+        "Feedback & Testimonies",
     ];
     return (_jsxs(SystemAdminLayout, { title: "Reports", children: [_jsx("div", { className: "d-flex justify-content-between align-items-center mb-4", children: _jsxs("div", { className: "d-flex gap-3", children: [_jsxs("button", { className: "btn", style: {
                                 border: "1px solid #dee2e6",
@@ -50,6 +48,6 @@ const ReportPage = () => {
                             : "2px solid transparent",
                         cursor: "pointer",
                         transition: "all 0.2s",
-                    }, children: tab }, tab))) }), _jsxs(Container, { fluid: true, className: "px-0", children: [activeTab === "Platform Usage" && (_jsx("div", { className: "mb-5", children: _jsx(PlatformUsageChart, {}) })), activeTab === "Health Conditions" && (_jsx("div", { className: "mb-5", children: _jsx(MentalHealthChart, {}) })), activeTab === "Treatment Outcomes" && (_jsx("div", { className: "mb-5", children: _jsx(TreatmentOutcomesChart, {}) })), activeTab === "Organization Performance" && (_jsx("div", { className: "mb-5", children: _jsx(OrganizationPerformanceChart, {}) })), _jsx("div", { className: "mb-5", children: _jsx(AvailableReports, {}) }), _jsx("div", { children: _jsx(CustomReportForm, {}) })] })] }));
+                    }, children: tab }, tab))) }), _jsxs(Container, { fluid: true, className: "px-0", children: [activeTab === "Platform Usage" && (_jsx("div", { className: "mb-5", children: _jsx(PlatformUsageChart, {}) })), activeTab === "User Engagement" && (_jsx("div", { className: "mb-5", children: _jsx(UserEngagement, {}) })), activeTab === "Feedback & Testimonies" && (_jsx("div", { className: "mb-5", children: _jsx(FeedbacknTestimonies, {}) })), _jsx("div", { className: "mb-5", children: _jsx(AvailableReports, {}) }), _jsx("div", { children: _jsx(CustomReportForm, {}) })] })] }));
 };
 export default ReportPage;
