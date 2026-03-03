@@ -99,7 +99,6 @@ const ReportPage: React.FC = () => {
 
       {/* Main Content */}
       <Container fluid className="px-0">
-        {/* Chart Section - Show based on active tab */}
         {activeTab === "Platform Usage" && (
           <div className="mb-5">
             <PlatformUsageChart />
@@ -121,7 +120,6 @@ const ReportPage: React.FC = () => {
           <AvailableReports />
         </div>
 
-        {/* Generate Custom Report Section */}
         <div>
           <CustomReportForm />
         </div>
