@@ -203,18 +203,18 @@ const AddEmployeeForm = ({
                   )}
                 </div>
               </div>
-{/*  */}
+              {/*  */}
               {/* <div className="mt-4 p-3 bg-light rounded-3 border"> */}
-                {/* <div className="d-flex align-items-center justify-content-between"> */}
-                  {/* <div className="d-flex align-items-center"> */}
-                    {/* <Upload */}
-                      {/* size={18}*/}
-                      {/*className="me-2"*/}
-                      {/*/style={{ color: "#22C55E" }}*/}
-                    {/* <span className="fw-medium text-dark">Bulk Import</span> */}
-                  {/* </div> */}
-                  {/* <button */}
-                    {/* // type="button"
+              {/* <div className="d-flex align-items-center justify-content-between"> */}
+              {/* <div className="d-flex align-items-center"> */}
+              {/* <Upload */}
+              {/* size={18}*/}
+              {/*className="me-2"*/}
+              {/*/style={{ color: "#22C55E" }}*/}
+              {/* <span className="fw-medium text-dark">Bulk Import</span> */}
+              {/* </div> */}
+              {/* <button */}
+              {/* // type="button"
                     // className="btn btn-sm"
                     // title="Upload an excel document"
                     {/*style={*
@@ -247,21 +247,21 @@ const AddEmployeeForm = ({
                     // }}
                   // >
                     {/* Choose File */}
-                  {/* </button> */}
-                {/* </div> */}
-                {/* <p className="text-muted small mt-2 mb-0"> */}
-                  {/* Upload a CSV or Excel file to invite multiple employees at */}
-                  {/* once */}
-                {/* </p> */}
-                {/* <input */}
-                {/*   // type="file"
+              {/* </button> */}
+              {/* </div> */}
+              {/* <p className="text-muted small mt-2 mb-0"> */}
+              {/* Upload a CSV or Excel file to invite multiple employees at */}
+              {/* once */}
+              {/* </p> */}
+              {/* <input */}
+              {/*   // type="file"
                   // className="d-none"
                   // id="upload-excel"
                   // accept=".xlsx,.xls,.csv"
               {/*  // />*/}
               {/* </div> */}
-          </form>
-        </div>
+            </form>
+          </div>
 
           <div className="modal-footer border-0 pt-0">
             <button
