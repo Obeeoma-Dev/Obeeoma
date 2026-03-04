@@ -12,7 +12,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
  * - Bar chart for client distribution across organizations (with category grouping)
  * Now uses real data from backend APIs with intelligent categorization.
  */
-const OrganizationCharts = ({ conditionalAPI }) => {
+const OrganizationCharts = ({ conditionalAPI, }) => {
     const [viewMode, setViewMode] = useState("category");
     const [showOrganizationPopup, setShowOrganizationPopup] = useState(false);
     const [growthData, setGrowthData] = useState({
@@ -229,15 +229,18 @@ const OrganizationCharts = ({ conditionalAPI }) => {
                 const apiInstance = conditionalAPI || adminAPI;
                 // Fetch growth chart data
                 const growthResponse = await apiInstance.getOrganizationsGrowthChart?.();
-                if (growthResponse && growthResponse.data &&
+                if (growthResponse &&
+                    growthResponse.data &&
                     growthResponse.data.labels &&
                     growthResponse.data.data) {
                     setGrowthData({
-                        labels: growthResponse.data.labels || [],
+                        labels: growthResponse.data
+                            .labels || [],
                         datasets: [
                             {
                                 label: "Organization Growth",
-                                data: growthResponse.data.data || [],
+                                data: growthResponse.data
+                                    .data || [],
                                 borderColor: "#00A859",
                                 backgroundColor: "rgba(40,167,69,0.2)",
                                 tension: 0.4,
@@ -252,16 +255,17 @@ const OrganizationCharts = ({ conditionalAPI }) => {
                 // Handle different response structures
                 let orgLabels = [];
                 let orgData = [];
-                if (distributionResponse?.data && Array.isArray(distributionResponse.data)) {
+                if (distributionResponse?.data &&
+                    Array.isArray(distributionResponse.data)) {
                     // API returns array of objects directly
                     console.log("API returns array of organization objects");
                     orgLabels = distributionResponse.data.map((org) => org.name || org.organizationName || "Unknown");
                     orgData = distributionResponse.data.map((org) => org.client_count || org.clients || 0);
                 }
                 else if (distributionResponse?.data &&
-                    typeof distributionResponse.data === 'object' &&
-                    'labels' in distributionResponse.data &&
-                    'data' in distributionResponse.data) {
+                    typeof distributionResponse.data === "object" &&
+                    "labels" in distributionResponse.data &&
+                    "data" in distributionResponse.data) {
                     // API returns object with labels and data arrays
                     console.log("API returns object with labels and data");
                     orgLabels = distributionResponse.data.labels || [];

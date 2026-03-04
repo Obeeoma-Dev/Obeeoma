@@ -6,7 +6,7 @@ import OrganizationTable from "../../../components/admincomponents/organisationc
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { adminAPI } from "../../../api/apiConfig";
-import { OrganizationProvider, useOrganizationContext } from "../../../contexts/OrganizationContext";
+import { OrganizationProvider, useOrganizationContext, } from "../../../contexts/OrganizationContext";
 import { Building2, Users, CircleCheckBig } from "lucide-react";
 /**
  * Component that handles dashboard stats (uses original API)

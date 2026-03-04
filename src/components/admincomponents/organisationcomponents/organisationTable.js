@@ -58,15 +58,21 @@ const OrganizationDashboard = ({ organizations: propOrganizations, conditionalAP
             console.log("Table API Response:", response);
             // Handle response with simple typing
             const results = response?.data?.results || response?.data || [];
-            const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
-            const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
+            const totalCount = response?.data?.count ||
+                (Array.isArray(results) ? results.length : 0);
+            const hasNext = response?.data?.next !== undefined
+                ? response?.data?.next !== null
+                : false;
             // Convert to table format
             const formattedOrgs = results.map((org) => convertToTableFormat(org));
             if (pageNum === 1) {
                 setOrganizations(formattedOrgs);
             }
             else {
-                setOrganizations((prev) => [...prev, ...formattedOrgs]);
+                setOrganizations((prev) => [
+                    ...prev,
+                    ...formattedOrgs,
+                ]);
             }
             setHasMore(hasNext);
             setTotalCount(totalCount);

@@ -18,20 +18,21 @@ export function OrganizationDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
     // Environment detection and conditional API setup
-    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isLocalhost = window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
     const conditionalAPIBaseURL = isLocalhost
-        ? 'http://127.0.0.1:8000/api/v1' // Neon backend for localhost development
-        : 'https://obeeoma-api.com/api/v1'; // Digital Ocean backend for production
+        ? "http://127.0.0.1:8000/api/v1" // Neon backend for localhost development
+        : "https://obeeoma-api.com/api/v1"; // Digital Ocean backend for production
     // Create conditional API instance
     const conditionalAPI = axios.create({
         baseURL: conditionalAPIBaseURL,
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
         },
     });
     // Add authorization interceptor to conditional API
     conditionalAPI.interceptors.request.use((config) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -52,8 +53,8 @@ export function OrganizationDetails() {
             return response;
         },
     }), [conditionalAPI]);
-    console.log('OrganizationDetails - Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
-    console.log('OrganizationDetails - API Base URL:', conditionalAPIBaseURL);
+    console.log("OrganizationDetails - Environment:", isLocalhost ? "Development (Neon)" : "Production (Digital Ocean)");
+    console.log("OrganizationDetails - API Base URL:", conditionalAPIBaseURL);
     // State for organization data
     const [organization, setOrganization] = useState(null);
     const [loading, setLoading] = useState(true);

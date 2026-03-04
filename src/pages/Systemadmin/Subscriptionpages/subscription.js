@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import MetricsPanel from "../../../components/admincomponents/Subscriptioncomponents/subMetricPannel";
 import RecentSubscriptionsTable from "../../../components/admincomponents/Subscriptioncomponents/recentSubscriptionTable";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import { Container, Card, Button, Alert, Spinner } from "react-bootstrap";
+import { Container, Card, Button, Alert, Spinner, } from "react-bootstrap";
 import { useSimpleSubscriptionCount } from "../../../hooks/useSimpleSubscriptionCount";
 import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 /**
@@ -14,10 +14,10 @@ import SubscriptionSettingsComp from "../../../components/admincomponents/Settin
  */
 const SubscriptionPage = () => {
     // Start simple - just get subscription count first
-    const { count: totalSubscriptions, coveredEmployees, utilizationRate, subscriptions, loading: countLoading, error: countError, refetch: refetchCount } = useSimpleSubscriptionCount();
+    const { count: totalSubscriptions, coveredEmployees, utilizationRate, subscriptions, loading: countLoading, error: countError, refetch: refetchCount, } = useSimpleSubscriptionCount();
     // Debug logging to see what data we're getting
-    console.log('Raw subscriptions data:', subscriptions);
-    console.log('First subscription structure:', subscriptions[0]);
+    console.log("Raw subscriptions data:", subscriptions);
+    console.log("First subscription structure:", subscriptions[0]);
     // Use placeholder data for other metrics for now
     const metrics = {
         totalOrganizations: 42, // Placeholder
@@ -25,21 +25,33 @@ const SubscriptionPage = () => {
         coveredEmployees: coveredEmployees.toLocaleString(), // Real data with formatting
         utilizationRate: utilizationRate,
     };
-    const transformedSubscriptions = subscriptions.slice(0, 8).map(sub => {
-        console.log('Processing subscription:', sub);
+    const transformedSubscriptions = subscriptions.slice(0, 8).map((sub) => {
+        console.log("Processing subscription:", sub);
         return {
             id: sub.id,
-            organization: sub.employer?.name || (typeof sub.employer === 'string' ? sub.employer : `Org ${sub.employer}`) || "Unknown Organization",
-            plan: sub.plan ? sub.plan.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()) : "N/A",
+            organization: sub.employer?.name ||
+                (typeof sub.employer === "string"
+                    ? sub.employer
+                    : `Org ${sub.employer}`) ||
+                "Unknown Organization",
+            plan: sub.plan
+                ? sub.plan.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase())
+                : "N/A",
             employees: sub.seats || 0,
             activeUsers: sub.used_seats || 0,
             activeUsersPercentage: sub.seats > 0 ? Math.round((sub.used_seats / sub.seats) * 100) : 0,
-            status: sub.is_active !== undefined ? (sub.is_active ? "Active" : "Pending") : "Pending",
-            expiryDate: sub.end_date ? new Date(sub.end_date).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            }) : "N/A",
+            status: sub.is_active !== undefined
+                ? sub.is_active
+                    ? "Active"
+                    : "Pending"
+                : "Pending",
+            expiryDate: sub.end_date
+                ? new Date(sub.end_date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                })
+                : "N/A",
         };
     });
     // Service utilization percentages - maintaining existing structure

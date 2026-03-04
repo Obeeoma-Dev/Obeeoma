@@ -13,11 +13,7 @@ import UserEngagement from "../../../components/admincomponents/Reportcomponents
  */
 const ReportPage = () => {
     const [activeTab, setActiveTab] = useState("Platform Usage");
-    const tabs = [
-        "Platform Usage",
-        "User Engagement",
-        "Feedback & Testimonies",
-    ];
+    const tabs = ["Platform Usage", "User Engagement", "Feedback & Testimonies"];
     return (_jsxs(SystemAdminLayout, { title: "Reports", children: [_jsx("div", { className: "d-flex justify-content-between align-items-center mb-4", children: _jsxs("div", { className: "d-flex gap-3", children: [_jsxs("button", { className: "btn", style: {
                                 border: "1px solid #dee2e6",
                                 backgroundColor: "#ffffff",

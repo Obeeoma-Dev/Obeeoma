@@ -180,10 +180,6 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
               </label> */}
             </div>
             <div>
-              <p className="text-muted mb-1">
-                <User size={14} className="me-2" />
-                {localData.username || "Corporate Admin User"}
-              </p>
               <p className="text-muted mb-0">
                 <Mail size={14} className="me-2" />
                 {localData.email || "contact@company.com"}
@@ -194,53 +190,11 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
           <div className="row g-4">
             {/* Company Information Section */}
             <div className="col-12">
-              <h5 className="h6 fw-semibold text-muted mb-3">
-                COMPANY INFORMATION
+              <h5 className="h6 fw-semibold text-muted mb-3">ADMIN ACCOUNT
               </h5>
-
-              <div className="row g-3">
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <Building
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">
-                        Organization Name
-                      </span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.organizationName)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <Mail
-                        size={16}
-                        className=" me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">
-                        Contact Email Address
-                      </span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.email)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Admin Account Section */}
             <div className="col-12">
-              <h5 className="h6 fw-semibold text-muted mb-3">ADMIN ACCOUNT</h5>
-
               <div className="row g-3">
                 <div className="col-12 col-md-6">
                   <div className="bg-light rounded p-3 h-100">
@@ -356,6 +310,7 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
             </div>
           </div>
         </div>
+      </div>
       </div>
     );
   },

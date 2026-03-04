@@ -135,7 +135,7 @@ export const authAPI = {
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/v1/organization-signup/", {
+    const response = await api.post("/organization-signup/", {
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,
@@ -214,7 +214,7 @@ export const adminAPI = {
   },
 
   getAllUsers: async () => {
-    const response = await api.get("/v1/admin/users/");
+    const response = await api.get("/admin/users/");
     return response;
   },
 
