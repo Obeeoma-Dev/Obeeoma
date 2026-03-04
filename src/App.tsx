@@ -165,7 +165,7 @@ export default function App(): React.ReactElement {
         <Toaster />
         <Provider store={store}>
           <BrowserRouter>
-            <AnalyticsTracker />
+            <AnalyticsTracker/>
             <HistoryGuard>
               <AppRoutes />
             </HistoryGuard>
