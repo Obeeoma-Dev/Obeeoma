@@ -1,6 +1,6 @@
 // src/pages/adminpages/AIRecommendationsPage.tsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
 import './aiControls.css';
@@ -15,6 +15,7 @@ import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
+import { adminAPI } from "../../../api/apiConfig";
 
 /**
  * AIRecommendationsPage renders the AI management dashboard.
@@ -35,6 +36,69 @@ const AIRecommendationsPage: React.FC = () => {
   const [landingAI, setLandingAI] = useState(true);
   const [adminAI, setAdminAI] = useState(true);
   const [mobileAI, setMobileAI] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Load AI status on component mount
+  useEffect(() => {
+    loadAIStatus();
+  }, []);
+
+  const loadAIStatus = async () => {
+    try {
+      const response = await adminAPI.getAIStatus();
+      const statusData = response.data;
+      if (statusData) {
+        setLandingAI(statusData.landing_ai ?? true);
+        setAdminAI(statusData.admin_ai ?? true);
+        setMobileAI(statusData.mobile_ai ?? true);
+      }
+    } catch (error) {
+      console.error('Failed to load AI status:', error);
+      // Keep default values if API fails
+    }
+  };
+
+  const handleAdminAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleAdminAI({ enabled });
+      setAdminAI(enabled);
+    } catch (error) {
+      console.error('Failed to toggle Admin AI:', error);
+      // Revert the state on error
+      setAdminAI(!enabled);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLandingAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleLandingAI({ enabled });
+      setLandingAI(enabled);
+    } catch (error) {
+      console.error('Failed to toggle Landing AI:', error);
+      // Revert the state on error
+      setLandingAI(!enabled);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleMobileAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleMobileAI({ enabled });
+      setMobileAI(enabled);
+    } catch (error) {
+      console.error('Failed to toggle Mobile AI:', error);
+      // Revert the state on error
+      setMobileAI(!enabled);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // AI resource effectiveness table
   const resources: ResourceRow[] = [
@@ -137,7 +201,7 @@ const AIRecommendationsPage: React.FC = () => {
             <Col xs={12} md={4}>
               <AIStatusToggle
                 isActive={landingAI}
-                onToggle={setLandingAI}
+                onToggle={handleLandingAIToggle}
                 label="Landing Page AI"
                 description="Reception chatbot that talks about the app and directs visitors. Does not save conversations."
                 icon={<GlobeIcon size={20} />}
@@ -147,7 +211,7 @@ const AIRecommendationsPage: React.FC = () => {
             <Col xs={12} md={4}>
               <AIStatusToggle
                 isActive={adminAI}
-                onToggle={setAdminAI}
+                onToggle={handleAdminAIToggle}
                 label="Admin Dashboard AI"
                 description="Provides insights, growth recommendations, and analytics summaries to the system admin."
                 icon={<LayoutDashboardIcon size={20} />}
@@ -157,7 +221,7 @@ const AIRecommendationsPage: React.FC = () => {
             <Col xs={12} md={4}>
               <AIStatusToggle
                 isActive={mobileAI}
-                onToggle={setMobileAI}
+                onToggle={handleMobileAIToggle}
                 label="Mobile App AI"
                 description="Recommends hotline numbers and uploaded resources to users inside the mobile app."
                 icon={<SmartphoneIcon size={20} />}
@@ -182,7 +246,7 @@ const AIRecommendationsPage: React.FC = () => {
 
         <Row>
           {/* <Col md={6}> */}
-            <ModelPerformance />
+          <ModelPerformance />
           {/* </Col> */}
           {/* <Col md={6}>
             <TopTriggers triggers={triggers} />
@@ -191,7 +255,7 @@ const AIRecommendationsPage: React.FC = () => {
       </Container>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant />
+      <AIAssistant isEnabled={adminAI} />
     </SystemAdminLayout>
   );
 };

@@ -100,7 +100,7 @@ function SmokeIcon({ particle }: { particle: SmokeParticle }) {
 
 /* -------------------- Main Component -------------------- */
 
-export function AIAssistant() {
+export function AIAssistant({ isEnabled = true }: { isEnabled?: boolean }) {
     const [isOpen, setIsOpen] = useState(false)
     const [particles, setParticles] = useState<SmokeParticle[]>([])
     const [messages, setMessages] = useState<AdminChatMessage[]>([])
@@ -116,6 +116,8 @@ export function AIAssistant() {
     }, [isOpen, messages.length])
 
     const loadMessages = async () => {
+        if (!isEnabled) return;
+
         try {
             setIsLoading(true)
             setError(null)
@@ -130,7 +132,7 @@ export function AIAssistant() {
     }
 
     const sendMessage = async () => {
-        if (!inputMessage.trim() || isLoading) return
+        if (!inputMessage.trim() || isLoading || !isEnabled) return
 
         const userMessage = inputMessage.trim()
         setInputMessage('')
@@ -208,13 +210,13 @@ export function AIAssistant() {
             {/* Floating Button */}
             <div className="ai-fab-container">
                 <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    animate={!isOpen ? {
+                    whileHover={isEnabled ? { scale: 1.1 } : {}}
+                    whileTap={isEnabled ? { scale: 0.9 } : {}}
+                    animate={!isOpen && isEnabled ? {
                         y: [0, -3, 0],
                         scale: [1, 1.05, 1],
                     } : {}}
-                    transition={!isOpen ? {
+                    transition={!isOpen && isEnabled ? {
                         duration: 2,
                         repeat: Infinity,
                         ease: "easeInOut",
@@ -222,8 +224,10 @@ export function AIAssistant() {
                     } : {}}
                 >
                     <button
-                        className="ai-fab"
-                        onClick={() => setIsOpen(prev => !prev)}
+                        className={`ai-fab ${!isEnabled ? 'ai-fab-disabled' : ''}`}
+                        onClick={() => isEnabled && setIsOpen(prev => !prev)}
+                        disabled={!isEnabled}
+                        title={isEnabled ? "AI Assistant" : "AI Assistant is disabled"}
                     >
                         {isOpen ? <X size={22} /> : <Sparkles size={22} />}
                     </button>
@@ -255,41 +259,49 @@ export function AIAssistant() {
 
                             {/* Messages */}
                             <Card.Body className="ai-chat-body">
-                                {error && (
-                                    <div className="ai-message assistant-message" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
-                                        {error}
-                                    </div>
-                                )}
-
-                                {messages.length === 0 && !isLoading ? (
-                                    <div className="ai-message assistant-message" style={{ textAlign: 'center', fontStyle: 'italic' }}>
-                                        Hello! I'm your AI assistant for platform insights. Ask me about resource consumption, platform growth, or system optimization.
+                                {!isEnabled ? (
+                                    <div className="ai-message assistant-message" style={{ textAlign: 'center', fontStyle: 'italic', backgroundColor: '#f8d7da', color: '#721c24' }}>
+                                        AI Assistant is currently disabled. Please enable it from the AI Management dashboard to use this feature.
                                     </div>
                                 ) : (
-                                    messages.map((message, index) => (
-                                        <div key={message.id || index} className={`ai-message ${message.sender === 'admin' ? 'user-message' : 'assistant-message'}`}>
-                                            <div className="message-content">
-                                                <div className="message-sender">
-                                                    {message.sender === 'admin' ? 'You' : <><Bot size={12} /> AI Assistant</>}
-                                                </div>
-                                                <div className="message-text">{message.message}</div>
-                                                <div className="message-time">{formatTimestamp(message.timestamp)}</div>
+                                    <>
+                                        {error && (
+                                            <div className="ai-message assistant-message" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
+                                                {error}
                                             </div>
-                                        </div>
-                                    ))
-                                )}
+                                        )}
 
-                                {isLoading && (
-                                    <div className="ai-message assistant-message">
-                                        <em>Thinking...</em>
-                                    </div>
+                                        {messages.length === 0 && !isLoading ? (
+                                            <div className="ai-message assistant-message" style={{ textAlign: 'center', fontStyle: 'italic' }}>
+                                                Hello! I'm your AI assistant for platform insights. Ask me about resource consumption, platform growth, or system optimization.
+                                            </div>
+                                        ) : (
+                                            messages.map((message, index) => (
+                                                <div key={message.id || index} className={`ai-message ${message.sender === 'admin' ? 'user-message' : 'assistant-message'}`}>
+                                                    <div className="message-content">
+                                                        <div className="message-sender">
+                                                            {message.sender === 'admin' ? 'You' : <><Bot size={12} /> AI Assistant</>}
+                                                        </div>
+                                                        <div className="message-text">{message.message}</div>
+                                                        <div className="message-time">{formatTimestamp(message.timestamp)}</div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
+
+                                        {isLoading && (
+                                            <div className="ai-message assistant-message">
+                                                <em>Thinking...</em>
+                                            </div>
+                                        )}
+                                    </>
                                 )}
                             </Card.Body>
 
                             {/* Input */}
                             <Card.Footer className="ai-chat-footer">
                                 <Form.Control
-                                    placeholder="Ask about platform insights..."
+                                    placeholder={isEnabled ? "Ask about platform insights..." : "AI Assistant is disabled"}
                                     className="ai-input"
                                     value={inputMessage}
                                     onChange={(e) => setInputMessage(e.target.value)}
@@ -299,12 +311,12 @@ export function AIAssistant() {
                                             sendMessage()
                                         }
                                     }}
-                                    disabled={isLoading}
+                                    disabled={isLoading || !isEnabled}
                                 />
                                 <Button
                                     className="ai-send-btn"
                                     onClick={sendMessage}
-                                    disabled={isLoading || !inputMessage.trim()}
+                                    disabled={isLoading || !inputMessage.trim() || !isEnabled}
                                 >
                                     {isLoading ? <div className="spinner-border spinner-border-sm" /> : <Send size={16} />}
                                 </Button>

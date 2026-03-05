@@ -12,7 +12,7 @@ interface ChatMessage {
   timestamp: string;
 }
 
-const ReceptionistFloatingChat: React.FC = () => {
+const ReceptionistFloatingChat: React.FC<{ isEnabled?: boolean }> = ({ isEnabled = true }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -47,7 +47,7 @@ const ReceptionistFloatingChat: React.FC = () => {
   }, [isOpen, isLoading]);
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!inputMessage.trim() || isLoading || !isEnabled) return;
 
     const userMessage = inputMessage.trim();
     setInputMessage('');
@@ -128,9 +128,11 @@ const ReceptionistFloatingChat: React.FC = () => {
     return (
       <div className="receptionist-chat-float-button">
         <button
-          onClick={() => setIsOpen(true)}
-          title="AI Receptionist - Ask about Obeeoma"
+          onClick={() => isEnabled && setIsOpen(true)}
+          title={isEnabled ? "AI Receptionist - Ask about Obeeoma" : "AI Receptionist is disabled"}
           aria-label="Open AI receptionist chat"
+          disabled={!isEnabled}
+          className={!isEnabled ? 'receptionist-disabled' : ''}
         >
           {/* use upgraded chat icon */}
           <ChatIcon size={24} />
@@ -196,10 +198,10 @@ const ReceptionistFloatingChat: React.FC = () => {
             <Form.Control
               ref={inputRef}
               type="text"
-              placeholder="Ask about Obeeoma's services..."
+              placeholder={isEnabled ? "Ask about Obeeoma's services..." : "AI Receptionist is disabled"}
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              disabled={isLoading}
+              disabled={isLoading || !isEnabled}
               maxLength={500}
               onKeyPress={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -211,7 +213,7 @@ const ReceptionistFloatingChat: React.FC = () => {
             <Button
               type="submit"
               variant="success"
-              disabled={!inputMessage.trim() || isLoading}
+              disabled={!inputMessage.trim() || isLoading || !isEnabled}
             >
               {isLoading ? (
                 <Spinner size="sm" animation="border" />

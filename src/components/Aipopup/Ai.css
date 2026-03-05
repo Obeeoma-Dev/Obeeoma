@@ -203,3 +203,19 @@
 .ai-chat-body::-webkit-scrollbar-thumb:hover {
     background: #adb5bd;
 }
+
+
+/* Disabled AI Assistant Button */
+.ai-fab-disabled {
+    background-color: #6c757d !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(108, 117, 125, 0.3) !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+.ai-fab-disabled:hover {
+    background-color: #6c757d !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(108, 117, 125, 0.3) !important;
+}
