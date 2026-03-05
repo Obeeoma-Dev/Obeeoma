@@ -4,12 +4,14 @@ import DashboardStats from "../../../components/admincomponents/Overviewcomponen
 import OrganizationTable from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
+import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { adminAPI } from "../../../api/apiConfig";
 import { OrganizationProvider, useOrganizationContext } from "../../../contexts/OrganizationContext";
 
 // Import shared type definitions
 import { StatCardData } from "../../../components/admincomponents/Overviewcomponents/admindashboard";
 import { Building2, Users, Map, CircleCheckBig } from "lucide-react";
+import { useAIStatus } from "../../../hooks/useAIStatus";
 
 /**
  * Component that handles dashboard stats (uses original API)
@@ -41,6 +43,11 @@ const DashboardStatsSection: React.FC = () => {
       color: "emerald",
     },
   ]);
+
+  // Use reusable AI status hook
+  const aiStatus = useAIStatus();
+  const [showAddModal, setShowAddModal] = React.useState(false);
+  const [showEditModal, setShowEditModal] = React.useState(false);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -114,6 +121,8 @@ const OrganizationContent: React.FC = () => {
  * Uses context for state management to prevent unnecessary refreshing.
  */
 const OrganizationPage: React.FC = () => {
+  const aiStatus = useAIStatus();
+
   return (
     <OrganizationProvider>
       <SystemAdminLayout title="Organizations">
@@ -124,6 +133,9 @@ const OrganizationPage: React.FC = () => {
 
           {/* Table and charts with context-based state management */}
           <OrganizationContent />
+
+          {/* AI Assistant Floating Chat */}
+          <AIAssistant isEnabled={aiStatus.admin_ai} />
         </div>
       </SystemAdminLayout>
     </OrganizationProvider>

@@ -41,9 +41,10 @@ const AIRecommendationsPage = () => {
             const response = await adminAPI.getAIStatus();
             const statusData = response.data;
             if (statusData) {
-                setLandingAI(statusData.landing_ai ?? true);
-                setAdminAI(statusData.admin_ai ?? true);
-                setMobileAI(statusData.mobile_ai ?? true);
+                // Only use defaults if the feature doesn't exist at all
+                setLandingAI(statusData.landing_ai?.is_enabled ?? true);
+                setAdminAI(statusData.admin_ai?.is_enabled ?? true);
+                setMobileAI(statusData.mobile_ai?.is_enabled ?? true);
             }
         }
         catch (error) {

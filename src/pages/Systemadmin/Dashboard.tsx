@@ -30,6 +30,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Building2, Users, CreditCard, PhoneCall } from "lucide-react";
 import { adminAPI } from "../../api/apiConfig";
+import { useAIStatus } from "../../hooks/useAIStatus";
 
 /**
  * Static placeholder data for recent activities
@@ -125,6 +126,9 @@ const Dashboard: React.FC = () => {
   /* The blog state + handlers */
   const [blogs, setBlogs] = React.useState<BlogPost[]>([]);
   const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
+
+  // Use reusable AI status hook
+  const aiStatus = useAIStatus();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
 
@@ -381,7 +385,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant />
+      <AIAssistant isEnabled={aiStatus.admin_ai} />
     </SystemAdminLayout>
   );
 };

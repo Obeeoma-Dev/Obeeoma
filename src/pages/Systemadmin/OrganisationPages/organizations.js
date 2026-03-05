@@ -1,13 +1,15 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import DashboardStats from "../../../components/admincomponents/Overviewcomponents/dashboardstats";
 import OrganizationTable from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
+import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { adminAPI } from "../../../api/apiConfig";
 import { OrganizationProvider, useOrganizationContext } from "../../../contexts/OrganizationContext";
 import { Building2, Users, CircleCheckBig } from "lucide-react";
+import { useAIStatus } from "../../../hooks/useAIStatus";
 /**
  * Component that handles dashboard stats (uses original API)
  */
@@ -38,6 +40,10 @@ const DashboardStatsSection = () => {
             color: "emerald",
         },
     ]);
+    // Use reusable AI status hook
+    const aiStatus = useAIStatus();
+    const [showAddModal, setShowAddModal] = React.useState(false);
+    const [showEditModal, setShowEditModal] = React.useState(false);
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
@@ -93,6 +99,7 @@ const OrganizationContent = () => {
  * Uses context for state management to prevent unnecessary refreshing.
  */
 const OrganizationPage = () => {
-    return (_jsx(OrganizationProvider, { children: _jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(DashboardStatsSection, {}), _jsx(OrganizationContent, {})] }) }) }));
+    const aiStatus = useAIStatus();
+    return (_jsx(OrganizationProvider, { children: _jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(DashboardStatsSection, {}), _jsx(OrganizationContent, {}), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }) }) }));
 };
 export default OrganizationPage;

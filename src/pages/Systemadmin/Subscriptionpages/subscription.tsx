@@ -11,6 +11,9 @@ import { useSubscriptionData, calculateMetrics } from "../../../hooks/useSubscri
 import { useSimpleSubscriptionCount } from "../../../hooks/useSimpleSubscriptionCount";
 import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 
+import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
+import { useAIStatus } from "../../../hooks/useAIStatus";
+
 /**
  * SubscriptionPage component displays subscription metrics,
  * recent subscriptions, service utilization, and activity feed.
@@ -103,6 +106,11 @@ const SubscriptionPage: React.FC = () => {
     },
   ];
 
+  // Use reusable AI status hook
+  const aiStatus = useAIStatus();
+  const [showAddModal, setShowAddModal] = React.useState(false);
+  const [showEditModal, setShowEditModal] = React.useState(false);
+
   return (
     <SystemAdminLayout title="Subscription Management">
       <Container fluid>
@@ -164,6 +172,9 @@ const SubscriptionPage: React.FC = () => {
 
             {/* Subscription cards grid */}
             <SubscriptionSettingsComp plans={subscriptionPlans} />
+
+            {/* AI Assistant Floating Chat */}
+            <AIAssistant isEnabled={aiStatus.admin_ai} />
           </>
         )}
       </Container>
