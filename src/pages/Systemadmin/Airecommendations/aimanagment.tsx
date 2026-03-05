@@ -16,6 +16,7 @@ import type { ResourceRow } from "../../../components/admincomponents/Aicomponen
 import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 import { adminAPI } from "../../../api/apiConfig";
+import { useAIStatus } from "../../../hooks/useAIStatus";
 
 /**
  * AIRecommendationsPage renders the AI management dashboard.
@@ -29,45 +30,19 @@ const AIRecommendationsPage: React.FC = () => {
     averageTime: "5m 32s",
   };
 
-  // AI enabled state
-  const [aiEnabled, setAiEnabled] = useState(true);
-
-  // Individual AI toggle states
-  const [landingAI, setLandingAI] = useState(true);
-  const [adminAI, setAdminAI] = useState(true);
-  const [mobileAI, setMobileAI] = useState(true);
+  // Use enhanced AI status hook with caching
+  const { aiStatus, updateAIStatus } = useAIStatus();
   const [isLoading, setIsLoading] = useState(false);
-
-  // Load AI status on component mount
-  useEffect(() => {
-    loadAIStatus();
-  }, []);
-
-  const loadAIStatus = async () => {
-    try {
-      const response = await adminAPI.getAIStatus();
-      const statusData = response.data;
-      if (statusData) {
-        // Only use defaults if the feature doesn't exist at all
-        setLandingAI(statusData.landing_ai?.is_enabled ?? true);
-        setAdminAI(statusData.admin_ai?.is_enabled ?? true);
-        setMobileAI(statusData.mobile_ai?.is_enabled ?? true);
-      }
-    } catch (error) {
-      console.error('Failed to load AI status:', error);
-      // Keep default values if API fails
-    }
-  };
 
   const handleAdminAIToggle = async (enabled: boolean) => {
     setIsLoading(true);
     try {
       await adminAPI.toggleAdminAI({ enabled });
-      setAdminAI(enabled);
+      updateAIStatus({ admin_ai: enabled });
     } catch (error) {
       console.error('Failed to toggle Admin AI:', error);
       // Revert the state on error
-      setAdminAI(!enabled);
+      updateAIStatus({ admin_ai: !enabled });
     } finally {
       setIsLoading(false);
     }
@@ -77,11 +52,11 @@ const AIRecommendationsPage: React.FC = () => {
     setIsLoading(true);
     try {
       await adminAPI.toggleLandingAI({ enabled });
-      setLandingAI(enabled);
+      updateAIStatus({ landing_ai: enabled });
     } catch (error) {
       console.error('Failed to toggle Landing AI:', error);
       // Revert the state on error
-      setLandingAI(!enabled);
+      updateAIStatus({ landing_ai: !enabled });
     } finally {
       setIsLoading(false);
     }
@@ -91,11 +66,11 @@ const AIRecommendationsPage: React.FC = () => {
     setIsLoading(true);
     try {
       await adminAPI.toggleMobileAI({ enabled });
-      setMobileAI(enabled);
+      updateAIStatus({ mobile_ai: enabled });
     } catch (error) {
       console.error('Failed to toggle Mobile AI:', error);
       // Revert the state on error
-      setMobileAI(!enabled);
+      updateAIStatus({ mobile_ai: !enabled });
     } finally {
       setIsLoading(false);
     }
@@ -193,7 +168,7 @@ const AIRecommendationsPage: React.FC = () => {
             </div>
             <div className="ai-controls-status">
               <span className="ai-controls-indicator" />
-              {[landingAI, adminAI, mobileAI].filter(Boolean).length} of 3
+              {[aiStatus.landing_ai, aiStatus.admin_ai, aiStatus.mobile_ai].filter(Boolean).length} of 3
               active
             </div>
           </div>
@@ -201,7 +176,7 @@ const AIRecommendationsPage: React.FC = () => {
           <Row className="g-4">
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={landingAI}
+                isActive={aiStatus.landing_ai}
                 onToggle={handleLandingAIToggle}
                 label="Landing Page AI"
                 description="Reception chatbot that talks about the app and directs visitors. Does not save conversations."
@@ -211,7 +186,7 @@ const AIRecommendationsPage: React.FC = () => {
             </Col>
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={adminAI}
+                isActive={aiStatus.admin_ai}
                 onToggle={handleAdminAIToggle}
                 label="Admin Dashboard AI"
                 description="Provides insights, growth recommendations, and analytics summaries to the system admin."
@@ -221,7 +196,7 @@ const AIRecommendationsPage: React.FC = () => {
             </Col>
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={mobileAI}
+                isActive={aiStatus.mobile_ai}
                 onToggle={handleMobileAIToggle}
                 label="Mobile App AI"
                 description="Recommends hotline numbers and uploaded resources to users inside the mobile app."
@@ -256,7 +231,7 @@ const AIRecommendationsPage: React.FC = () => {
       </Container>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant isEnabled={adminAI} />
+      <AIAssistant isEnabled={aiStatus.admin_ai} />
     </SystemAdminLayout>
   );
 };

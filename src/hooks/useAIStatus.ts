@@ -7,38 +7,77 @@ interface AIStatus {
   mobile_ai: boolean;
 }
 
+interface UseAIStatusReturn {
+  aiStatus: AIStatus;
+  updateAIStatus: (newStatus: Partial<AIStatus>) => void;
+}
+
 /**
  * Custom hook to manage AI status across admin pages
- * Fetches AI status from API and provides state setters
+ * Uses localStorage caching to avoid repeated API calls
  */
-export const useAIStatus = () => {
-  const [aiStatus, setAiStatus] = useState<AIStatus>({
-    landing_ai: true,
-    admin_ai: true,
-    mobile_ai: true,
-  });
-
-  // Load AI status on component mount
-  useEffect(() => {
-    const loadAIStatus = async () => {
-      try {
-        const response = await adminAPI.getAIStatus();
-        const statusData = response.data;
-        if (statusData) {
-          setAiStatus({
-            landing_ai: statusData.landing_ai?.is_enabled ?? true,
-            admin_ai: statusData.admin_ai?.is_enabled ?? true,
-            mobile_ai: statusData.mobile_ai?.is_enabled ?? true,
-          });
-        }
-      } catch (error) {
-        console.error('Failed to load AI status:', error);
-        // Keep default values if API fails
+export const useAIStatus = (): UseAIStatusReturn => {
+  // Initialize state from localStorage or defaults
+  const getInitialAIStatus = (): AIStatus => {
+    try {
+      const cached = localStorage.getItem('aiStatus');
+      if (cached) {
+        return JSON.parse(cached);
       }
-    };
+    } catch (error) {
+      console.error('Failed to parse cached AI status:', error);
+    }
 
-    loadAIStatus();
+    // Default values if no cache or parse error
+    return {
+      landing_ai: true,
+      admin_ai: true,
+      mobile_ai: true,
+    };
+  };
+
+  const [aiStatus, setAiStatus] = useState<AIStatus>(getInitialAIStatus());
+
+  // Function to update AI status and cache it
+  const updateAIStatus = (newStatus: Partial<AIStatus>) => {
+    const updatedStatus = { ...aiStatus, ...newStatus };
+    setAiStatus(updatedStatus);
+
+    // Cache to localStorage
+    try {
+      localStorage.setItem('aiStatus', JSON.stringify(updatedStatus));
+    } catch (error) {
+      console.error('Failed to cache AI status:', error);
+    }
+  };
+
+  // Load AI status on component mount (only if no cache)
+  useEffect(() => {
+    const cached = localStorage.getItem('aiStatus');
+
+    // Only fetch from API if we don't have cached data
+    if (!cached) {
+      const loadAIStatus = async () => {
+        try {
+          const response = await adminAPI.getAIStatus();
+          const statusData = response.data;
+          if (statusData) {
+            const apiStatus = {
+              landing_ai: statusData.landing_ai?.is_enabled ?? true,
+              admin_ai: statusData.admin_ai?.is_enabled ?? true,
+              mobile_ai: statusData.mobile_ai?.is_enabled ?? true,
+            };
+            updateAIStatus(apiStatus);
+          }
+        } catch (error) {
+          console.error('Failed to load AI status:', error);
+          // Keep default values if API fails
+        }
+      };
+
+      loadAIStatus();
+    }
   }, []);
 
-  return aiStatus;
+  return { aiStatus, updateAIStatus };
 };

@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/adminpages/AIRecommendationsPage.tsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
 import './aiControls.css';
@@ -14,6 +14,7 @@ import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 import { adminAPI } from "../../../api/apiConfig";
+import { useAIStatus } from "../../../hooks/useAIStatus";
 /**
  * AIRecommendationsPage renders the AI management dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
@@ -25,43 +26,19 @@ const AIRecommendationsPage = () => {
         engagementRate: 72,
         averageTime: "5m 32s",
     };
-    // AI enabled state
-    const [aiEnabled, setAiEnabled] = useState(true);
-    // Individual AI toggle states
-    const [landingAI, setLandingAI] = useState(true);
-    const [adminAI, setAdminAI] = useState(true);
-    const [mobileAI, setMobileAI] = useState(true);
+    // Use enhanced AI status hook with caching
+    const { aiStatus, updateAIStatus } = useAIStatus();
     const [isLoading, setIsLoading] = useState(false);
-    // Load AI status on component mount
-    useEffect(() => {
-        loadAIStatus();
-    }, []);
-    const loadAIStatus = async () => {
-        try {
-            const response = await adminAPI.getAIStatus();
-            const statusData = response.data;
-            if (statusData) {
-                // Only use defaults if the feature doesn't exist at all
-                setLandingAI(statusData.landing_ai?.is_enabled ?? true);
-                setAdminAI(statusData.admin_ai?.is_enabled ?? true);
-                setMobileAI(statusData.mobile_ai?.is_enabled ?? true);
-            }
-        }
-        catch (error) {
-            console.error('Failed to load AI status:', error);
-            // Keep default values if API fails
-        }
-    };
     const handleAdminAIToggle = async (enabled) => {
         setIsLoading(true);
         try {
             await adminAPI.toggleAdminAI({ enabled });
-            setAdminAI(enabled);
+            updateAIStatus({ admin_ai: enabled });
         }
         catch (error) {
             console.error('Failed to toggle Admin AI:', error);
             // Revert the state on error
-            setAdminAI(!enabled);
+            updateAIStatus({ admin_ai: !enabled });
         }
         finally {
             setIsLoading(false);
@@ -71,12 +48,12 @@ const AIRecommendationsPage = () => {
         setIsLoading(true);
         try {
             await adminAPI.toggleLandingAI({ enabled });
-            setLandingAI(enabled);
+            updateAIStatus({ landing_ai: enabled });
         }
         catch (error) {
             console.error('Failed to toggle Landing AI:', error);
             // Revert the state on error
-            setLandingAI(!enabled);
+            updateAIStatus({ landing_ai: !enabled });
         }
         finally {
             setIsLoading(false);
@@ -86,12 +63,12 @@ const AIRecommendationsPage = () => {
         setIsLoading(true);
         try {
             await adminAPI.toggleMobileAI({ enabled });
-            setMobileAI(enabled);
+            updateAIStatus({ mobile_ai: enabled });
         }
         catch (error) {
             console.error('Failed to toggle Mobile AI:', error);
             // Revert the state on error
-            setMobileAI(!enabled);
+            updateAIStatus({ mobile_ai: !enabled });
         }
         finally {
             setIsLoading(false);
@@ -170,6 +147,6 @@ const AIRecommendationsPage = () => {
         { name: "Peer pressure", score: 65 },
         { name: "Family relationships", score: 61 },
     ];
-    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsxs("div", { className: "ai-controls-section", children: [_jsxs("div", { className: "ai-controls-header", children: [_jsxs("div", { children: [_jsx("h2", { className: "ai-controls-title", children: "AI Controls" }), _jsx("p", { className: "ai-controls-subtitle", children: "Independently manage AI across each part of the platform" })] }), _jsxs("div", { className: "ai-controls-status", children: [_jsx("span", { className: "ai-controls-indicator" }), [landingAI, adminAI, mobileAI].filter(Boolean).length, " of 3 active"] })] }), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: landingAI, onToggle: handleLandingAIToggle, label: "Landing Page AI", description: "Reception chatbot that talks about the app and directs visitors. Does not save conversations.", icon: _jsx(GlobeIcon, { size: 20 }), lastActive: "Today at 1:12 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: adminAI, onToggle: handleAdminAIToggle, label: "Admin Dashboard AI", description: "Provides insights, growth recommendations, and analytics summaries to the system admin.", icon: _jsx(LayoutDashboardIcon, { size: 20 }), lastActive: "Today at 2:34 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: mobileAI, onToggle: handleMobileAIToggle, label: "Mobile App AI", description: "Recommends hotline numbers and uploaded resources to users inside the mobile app.", icon: _jsx(SmartphoneIcon, { size: 20 }), lastActive: "Today at 3:05 PM" }) })] })] }), _jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(Row, { children: _jsx(ModelPerformance, {}) })] }), _jsx(AIAssistant, { isEnabled: adminAI })] }));
+    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsxs("div", { className: "ai-controls-section", children: [_jsxs("div", { className: "ai-controls-header", children: [_jsxs("div", { children: [_jsx("h2", { className: "ai-controls-title", children: "AI Controls" }), _jsx("p", { className: "ai-controls-subtitle", children: "Independently manage AI across each part of the platform" })] }), _jsxs("div", { className: "ai-controls-status", children: [_jsx("span", { className: "ai-controls-indicator" }), [aiStatus.landing_ai, aiStatus.admin_ai, aiStatus.mobile_ai].filter(Boolean).length, " of 3 active"] })] }), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.landing_ai, onToggle: handleLandingAIToggle, label: "Landing Page AI", description: "Reception chatbot that talks about the app and directs visitors. Does not save conversations.", icon: _jsx(GlobeIcon, { size: 20 }), lastActive: "Today at 1:12 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.admin_ai, onToggle: handleAdminAIToggle, label: "Admin Dashboard AI", description: "Provides insights, growth recommendations, and analytics summaries to the system admin.", icon: _jsx(LayoutDashboardIcon, { size: 20 }), lastActive: "Today at 2:34 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.mobile_ai, onToggle: handleMobileAIToggle, label: "Mobile App AI", description: "Recommends hotline numbers and uploaded resources to users inside the mobile app.", icon: _jsx(SmartphoneIcon, { size: 20 }), lastActive: "Today at 3:05 PM" }) })] })] }), _jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(Row, { children: _jsx(ModelPerformance, {}) })] }), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }));
 };
 export default AIRecommendationsPage;

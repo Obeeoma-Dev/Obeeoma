@@ -106,8 +106,8 @@ const Dashboard = () => {
     /* The blog state + handlers */
     const [blogs, setBlogs] = React.useState([]);
     const [selectedBlog, setSelectedBlog] = React.useState(null);
-    // Use reusable AI status hook
-    const aiStatus = useAIStatus();
+    // Use enhanced AI status hook with caching
+    const { aiStatus } = useAIStatus();
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
     /* Dashboard stats state */

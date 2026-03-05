@@ -121,7 +121,8 @@ const OrganizationContent: React.FC = () => {
  * Uses context for state management to prevent unnecessary refreshing.
  */
 const OrganizationPage: React.FC = () => {
-  const aiStatus = useAIStatus();
+  // Use enhanced AI status hook with caching
+  const { aiStatus } = useAIStatus();
 
   return (
     <OrganizationProvider>

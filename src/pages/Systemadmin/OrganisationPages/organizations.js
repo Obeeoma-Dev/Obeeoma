@@ -99,7 +99,8 @@ const OrganizationContent = () => {
  * Uses context for state management to prevent unnecessary refreshing.
  */
 const OrganizationPage = () => {
-    const aiStatus = useAIStatus();
+    // Use enhanced AI status hook with caching
+    const { aiStatus } = useAIStatus();
     return (_jsx(OrganizationProvider, { children: _jsx(SystemAdminLayout, { title: "Organizations", children: _jsxs("div", { className: "p-4", children: [_jsx(DashboardStatsSection, {}), _jsx(OrganizationContent, {}), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }) }) }));
 };
 export default OrganizationPage;

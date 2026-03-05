@@ -86,8 +86,8 @@ const SubscriptionPage = () => {
             isPopular: true,
         },
     ];
-    // Use reusable AI status hook
-    const aiStatus = useAIStatus();
+    // Use reusable AI status hook with caching
+    const { aiStatus } = useAIStatus();
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
     return (_jsx(SystemAdminLayout, { title: "Subscription Management", children: _jsxs(Container, { fluid: true, children: [countLoading && (_jsxs("div", { className: "text-center py-4", children: [_jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading subscription count..." }) }), _jsx("p", { className: "mt-2 text-muted", children: "Loading subscription data..." })] })), countError && (_jsxs(Alert, { variant: "danger", className: "mb-4", children: [_jsx(Alert.Heading, { children: "Error Loading Subscription Count" }), _jsx("p", { children: countError }), _jsx(Button, { variant: "outline-danger", onClick: refetchCount, children: "Try Again" })] })), !countLoading && !countError && (_jsxs(_Fragment, { children: [_jsx(MetricsPanel, { ...metrics }), _jsxs(Card, { className: "shadow-sm border-0 mb-4", children: [_jsxs(Card.Header, { className: "bg-white border-bottom d-flex justify-content-between align-items-center", children: [_jsxs("div", { children: [_jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: "heading" }, children: "Recent Subscriptions" }), _jsx("p", { className: "text-muted mb-0 small mt-1", style: { fontFamily: "body" }, children: "Overview of organization subscriptions to mental health services" })] }), _jsx(Button, { variant: "success", className: "ms-auto", style: { fontFamily: "body" }, onClick: refetchCount, children: "Add Subscription" })] }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: transformedSubscriptions }) })] }), _jsx(SubscriptionSettingsComp, { plans: subscriptionPlans }), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }))] }) }));

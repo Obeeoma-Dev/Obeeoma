@@ -106,8 +106,8 @@ const SubscriptionPage: React.FC = () => {
     },
   ];
 
-  // Use reusable AI status hook
-  const aiStatus = useAIStatus();
+  // Use reusable AI status hook with caching
+  const { aiStatus } = useAIStatus();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
 

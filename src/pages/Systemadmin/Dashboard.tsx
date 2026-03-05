@@ -127,8 +127,8 @@ const Dashboard: React.FC = () => {
   const [blogs, setBlogs] = React.useState<BlogPost[]>([]);
   const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
 
-  // Use reusable AI status hook
-  const aiStatus = useAIStatus();
+  // Use enhanced AI status hook with caching
+  const { aiStatus } = useAIStatus();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
 
