@@ -1,85 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BlogTable } from "./BlogTable";
 import { BlogForm } from "./BlogForm";
 import { BlogPost } from "./BlogTable";
 import { ConfirmModal } from "./../Reusedcomponents/ConfirmModal";
+import { useBlogData } from "../../../hooks/useBlogData";
 
 import { toast } from "react-toastify";
 
 export function BlogManager() {
-  const [blogs, setBlogs] = React.useState<BlogPost[]>([
-    {
-      id: "1",
-      title: "The Future of AI in Healthcare",
-      category: "Health",
-      date: "2025-12-01",
-      status: "published",
-      excerpt: "Exploring how AI is transforming patient care and diagnostics.",
-      imageUrl: "https://via.placeholder.com/150",
-      author: "Dr. Jane Doe",
-      content: "Full article content goes here...",
-      featured: true,
-      views: 245,
-      confirmedReads: 89,
-    },
-    {
-      id: "2",
-      title: "Top 10 Web Development Trends",
-      category: "Tech",
-      date: "2025-11-28",
-      status: "draft",
-      excerpt: "A look at the latest frameworks and tools shaping web dev.",
-      imageUrl: "https://via.placeholder.com/150",
-      author: "ORENA",
-      content: "Full article content goes here...",
-      featured: false,
-      views: 156,
-      confirmedReads: 45,
-    },
-  ]);
-
-  // Defining an image type.
-  type BackendBlog = {
-    id: string;
-    title: string;
-    category: string;
-    published_date: string;
-    status: "published" | "draft";
-    excerpt: string | null;
-    featured_image: string | null;
-    author: string | null;
-    content: string;
-    featured: boolean;
-    views?: number;
-    confirmed_reads?: number;
-  };
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_BASE_URL}articles/`)
-      .then((res) => res.json())
-      .then((data: BackendBlog[]) => {
-        console.log("Raw API data:", data);
-        const mapped: BlogPost[] = data.map((item) => ({
-          id: item.id,
-          title: item.title,
-          category: item.category || "Uncategorized",
-          date: item.published_date,
-          status: item.status,
-          excerpt: item.excerpt || "",
-          imageUrl: item.featured_image || "",
-          author: item.author || "Anonymous",
-          content: item.content,
-          featured: item.featured,
-          views: item.views || 0,
-          confirmedReads: item.confirmed_reads || 0,
-        }));
-        console.log("Mapped data:", mapped);
-        setBlogs(mapped);
-      })
-      .catch((err) => {
-        console.error("Failed to load blogs", err);
-      });
-  }, []);
+  // Use the enhanced blog data hook with caching
+  const { blogs, loading, error, refreshBlogs, addBlog, updateBlog, deleteBlog } = useBlogData();
 
   const [showForm, setShowForm] = useState(false);
   const [formMode, setFormMode] = useState<"add" | "edit">("add");
@@ -109,16 +39,22 @@ export function BlogManager() {
   async function confirmDelete() {
     if (!deleteConfirm) return;
 
-    await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}articles/${deleteConfirm}/`,
-      {
-        method: "DELETE",
-      },
-    );
+    try {
+      await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}articles/${deleteConfirm}/`,
+        {
+          method: "DELETE",
+        },
+      );
 
-    setBlogs((prev) => prev.filter((b) => b.id !== deleteConfirm));
-    setDeleteConfirm(null);
-    toast.error("Article deleted!");
+      // Use the hook's delete function to update state and cache
+      deleteBlog(deleteConfirm);
+      setDeleteConfirm(null);
+      toast.error("Article deleted!");
+    } catch (error) {
+      console.error("Failed to delete article:", error);
+      toast.error("Failed to delete article. Please try again.");
+    }
   }
 
   // Handle add & edit submit (CONNECTED TO BACKEND)
@@ -172,8 +108,8 @@ export function BlogManager() {
           confirmedReads: savedBlogRaw.confirmed_reads || 0,
         };
 
-        // Update UI immediately
-        setBlogs((prev) => [savedBlog, ...prev]);
+        // Use the hook's add function to update state and cache
+        addBlog(savedBlog);
         toast.success("Article added successfully!");
       }
       // EDIT MODE → UPDATE BLOG
@@ -208,9 +144,8 @@ export function BlogManager() {
           confirmedReads: updatedBlogRaw.confirmed_reads || 0,
         };
 
-        setBlogs((prev) =>
-          prev.map((b) => (b.id === updatedBlog.id ? updatedBlog : b)),
-        );
+        // Use the hook's update function to update state and cache
+        updateBlog(updatedBlog);
         toast.info("Article updated successfully!");
       }
 
@@ -229,6 +164,8 @@ export function BlogManager() {
         onEdit={handleEdit}
         onDelete={handleDelete}
         onAdd={handleAdd}
+        loading={loading}
+        error={error}
       />
 
       <BlogForm
