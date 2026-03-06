@@ -73,7 +73,17 @@ const convertToTableFormat = (
 });
 
 interface OrganizationDashboardProps {
-  organizations?: DatabaseOrganization[];
+  organizations?: TableOrganization[];
+  loading?: boolean;
+  error?: string | null;
+  hasMore?: boolean;
+  totalCount?: number;
+  onRefresh?: () => void;
+  onFetchMore?: (search?: string) => void;
+  onSearch?: (search: string) => void;
+  onAdd?: (org: TableOrganization) => void;
+  onUpdate?: (org: TableOrganization) => void;
+  onDelete?: (id: string) => void;
   conditionalAPI?: ConditionalAPI;
 }
 
@@ -93,15 +103,27 @@ const renderStatusIcon = (status: string) => {
 
 // Main dashboard component
 const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
-  organizations: propOrganizations,
+  organizations: propOrganizations = [],
+  loading: propLoading = false,
+  error: propError = null,
+  hasMore: propHasMore = true,
+  totalCount: propTotalCount = 0,
+  onRefresh,
+  onFetchMore,
+  onSearch,
+  onAdd,
+  onUpdate,
+  onDelete,
   conditionalAPI,
 }) => {
-  // State for organizations
-  const [organizations, setOrganizations] = useState<TableOrganization[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  // State for organizations (use prop data if provided, otherwise fallback to internal state)
+  const [organizations, setOrganizations] = useState<TableOrganization[]>(
+    propOrganizations,
+  );
+  const [loading, setLoading] = useState(propLoading);
+  const [hasMore, setHasMore] = useState(propHasMore);
   const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(propTotalCount);
 
   // State for search input
   const [searchTerm, setSearchTerm] = useState("");
@@ -114,57 +136,97 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   const observer = useRef<IntersectionObserver | null>(null);
   const lastOrganizationElementRef = useRef<HTMLTableRowElement>(null);
 
-  // Fetch organizations with pagination
-  const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
-    try {
-      setLoading(true);
-      console.log(
-        `Fetching organizations: page=${pageNum}, search="${search}"`,
-      );
+  // Update internal state when props change
+  useEffect(() => {
+    setOrganizations(propOrganizations);
+    setLoading(propLoading);
+    setHasMore(propHasMore);
+    setTotalCount(propTotalCount);
+  }, [
+    propOrganizations,
+    propLoading,
+    propHasMore,
+    propTotalCount,
+  ]);
 
-      // Use conditionalAPI if provided, otherwise use original adminAPI
-      const apiInstance = conditionalAPI || adminAPI;
-      const response = await apiInstance.getOrganizationsList?.(pageNum, 5, search);
-      console.log("Table API Response:", response);
-
-      // Handle response with simple typing
-      const results = response?.data?.results || response?.data || [];
-      const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
-      const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
-
-      // Convert to table format
-      const formattedOrgs = results.map((org: DatabaseOrganization) =>
-        convertToTableFormat(org),
-      );
-
-      if (pageNum === 1) {
-        setOrganizations(formattedOrgs);
-      } else {
-        setOrganizations((prev: TableOrganization[]) => [...prev, ...formattedOrgs]);
+  // Fetch organizations with pagination (fallback if no onFetchMore provided)
+  const fetchOrganizations = useCallback(
+    async (pageNum = 1, search = "") => {
+      if (onFetchMore) {
+        onFetchMore(search);
+        return;
       }
 
-      setHasMore(hasNext);
-      setTotalCount(totalCount);
+      // Fallback to original logic if no hook provided
+      try {
+        setLoading(true);
+        console.log(
+          `Fetching organizations: page=${pageNum}, search="${search}"`,
+        );
 
-      console.log(
-        `Table: Processed ${formattedOrgs.length} organizations, total: ${totalCount}, hasMore: ${hasNext}`,
-      );
-    } catch (error) {
-      console.error("Error fetching organizations for table:", error);
-      setOrganizations([]);
-      setHasMore(false);
-      setTotalCount(0);
-    } finally {
-      setLoading(false);
-    }
-  }, [conditionalAPI]);
+        // Use conditionalAPI if provided, otherwise use original adminAPI
+        const apiInstance = conditionalAPI || adminAPI;
+        const response = await apiInstance.getOrganizationsList?.(
+          pageNum,
+          5,
+          search,
+        );
+        console.log("Table API Response:", response);
+
+        // Handle response with simple typing
+        const results = response?.data?.results || response?.data || [];
+        const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
+        const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
+
+        // Convert to table format
+        const formattedOrgs = results.map((org: DatabaseOrganization) =>
+          convertToTableFormat(org),
+        );
+
+        if (pageNum === 1) {
+          setOrganizations(formattedOrgs);
+        } else {
+          setOrganizations((prev: TableOrganization[]) => [
+            ...prev,
+            ...formattedOrgs,
+          ]);
+        }
+
+        setHasMore(hasNext);
+        setTotalCount(totalCount);
+
+        console.log(
+          `Table: Processed ${formattedOrgs.length} organizations, total: ${totalCount}, hasMore: ${hasNext}`,
+        );
+      } catch (error) {
+        console.error("Error fetching organizations for table:", error);
+        setOrganizations([]);
+        setHasMore(false);
+        setTotalCount(0);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [conditionalAPI, onFetchMore],
+  );
 
   // Initial fetch and search
   useEffect(() => {
-    setPage(1);
-    setHasMore(true);
-    fetchOrganizations(1, searchTerm);
-  }, [searchTerm, activeTab, fetchOrganizations]);
+    if (onSearch && searchTerm !== undefined) {
+      onSearch(searchTerm);
+      setPage(1);
+      setHasMore(true);
+    } else {
+      setPage(1);
+      setHasMore(true);
+      fetchOrganizations(1, searchTerm);
+    }
+  }, [
+    searchTerm,
+    activeTab,
+    fetchOrganizations,
+    onSearch,
+  ]);
 
   // Infinite scroll observer
   useEffect(() => {
@@ -175,7 +237,11 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       if (entries[0].isIntersecting && hasMore) {
         const nextPage = page + 1;
         setPage(nextPage);
-        fetchOrganizations(nextPage, searchTerm);
+        if (onFetchMore) {
+          onFetchMore(searchTerm);
+        } else {
+          fetchOrganizations(nextPage, searchTerm);
+        }
       }
     });
 
@@ -186,7 +252,14 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [loading, hasMore, page, searchTerm, fetchOrganizations]);
+  }, [
+    loading,
+    hasMore,
+    page,
+    searchTerm,
+    fetchOrganizations,
+    onFetchMore,
+  ]);
 
   // Filter organizations by tab category
   const filterByTab = (orgs: TableOrganization[], tab: string) => {
@@ -213,14 +286,30 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     );
 
   // Handle successful organization registration
-  const handleRegistrationSuccess = () => {
-    // Refresh the organizations list to show the newly registered organization
-    fetchOrganizations(1, searchTerm);
+  const handleRegistrationSuccess = (newOrg?: TableOrganization) => {
+    if (newOrg && onAdd) {
+      onAdd(newOrg);
+    } else {
+      // Refresh organizations list to show newly registered organization
+      fetchOrganizations(1, searchTerm);
+    }
   };
 
   // Render table rows
   const renderTable = (orgs: TableOrganization[]) => (
     <div>
+      {/* Error display */}
+      {propError && (
+        <div className="alert alert-danger mb-3">
+          <p className="mb-2">Error loading organizations: {propError}</p>
+          {onRefresh && (
+            <Button variant="outline-danger" size="sm" onClick={onRefresh}>
+              Retry
+            </Button>
+          )}
+        </div>
+      )}
+
       <div className="mb-2 text-muted">
         Showing {orgs.length} of {totalCount} organizations
       </div>
