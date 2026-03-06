@@ -19,6 +19,8 @@ export function BlogManager() {
       author: "Dr. Jane Doe",
       content: "Full article content goes here...",
       featured: true,
+      views: 245,
+      confirmedReads: 89,
     },
     {
       id: "2",
@@ -31,6 +33,8 @@ export function BlogManager() {
       author: "ORENA",
       content: "Full article content goes here...",
       featured: false,
+      views: 156,
+      confirmedReads: 45,
     },
   ]);
 
@@ -46,6 +50,8 @@ export function BlogManager() {
     author: string | null;
     content: string;
     featured: boolean;
+    views?: number;
+    confirmed_reads?: number;
   };
 
   useEffect(() => {
@@ -64,6 +70,8 @@ export function BlogManager() {
           author: item.author || "Anonymous",
           content: item.content,
           featured: item.featured,
+          views: item.views || 0,
+          confirmedReads: item.confirmed_reads || 0,
         }));
         console.log("Mapped data:", mapped);
         setBlogs(mapped);
@@ -160,6 +168,8 @@ export function BlogManager() {
           author: savedBlogRaw.author || "Anonymous",
           content: savedBlogRaw.content,
           featured: savedBlogRaw.featured,
+          views: savedBlogRaw.views || 0,
+          confirmedReads: savedBlogRaw.confirmed_reads || 0,
         };
 
         // Update UI immediately
@@ -194,6 +204,8 @@ export function BlogManager() {
           author: updatedBlogRaw.author || "Anonymous",
           content: updatedBlogRaw.content,
           featured: updatedBlogRaw.featured,
+          views: updatedBlogRaw.views || 0,
+          confirmedReads: updatedBlogRaw.confirmed_reads || 0,
         };
 
         setBlogs((prev) =>
