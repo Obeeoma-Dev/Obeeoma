@@ -144,6 +144,9 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
 
     return result;
   }, [blogs, searchQuery, selectedCategory, sortBy]);
+
+  // All filtered and sorted blogs will be displayed, with CSS controlling the scrollable area
+
   return (
     <Card className="blogtable-table-card">
       {/* Header section */}
@@ -217,139 +220,141 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
         </Row>
       </div>
 
-      {/* Table wrapper */}
-      <div className="table-responsive">
-        <Table hover className="mb-0">
-          <thead className="blogtable-thead">
-            <tr>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th className="text-end">Actions</th>
-            </tr>
-          </thead>
+      {/* Scrollable Table wrapper */}
+      <div className="blogtable-scrollable-wrapper">
+        <div className="blogtable-table-container">
+          <Table hover className="blogtable-main-table mb-0">
+            <thead className="blogtable-thead blogtable-sticky-header">
+              <tr>
+                <th className="blogtable-header-title">Title</th>
+                <th className="blogtable-header-category">Category</th>
+                <th className="blogtable-header-date">Date</th>
+                <th className="blogtable-header-status">Status</th>
+                <th className="blogtable-header-actions text-end">Actions</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {filteredAndSortedBlogs.length > 0 ? (
-              filteredAndSortedBlogs.map((blog) => (
-                <tr key={blog.id} className="blog-row">
-                  {/* TITLE + IMAGE */}
-                  <td>
-                    <div className="d-flex align-items-center gap-3">
-                      {(() => {
-                        const imageSrc = resolveImageSrc(blog.imageUrl);
-                        if (imageSrc) {
-                          return (
-                            <Image
-                              src={imageSrc}
-                              rounded
-                              className="blogtable-thumb"
-                              style={{
-                                width: "40px",
-                                height: "40px",
-                                objectFit: "cover",
-                              }}
-                              onError={(e) => {
-                                // Replace with fallback when image fails
-                                const target = e.target as HTMLImageElement;
-                                const parent = target.parentElement;
-                                if (parent) {
-                                  target.style.display = "none";
-                                  const fallback = parent.querySelector(
-                                    ".fallback-icon",
-                                  ) as HTMLElement;
-                                  if (fallback) {
-                                    fallback.style.display = "flex";
+            <tbody className="blogtable-tbody">
+              {filteredAndSortedBlogs.length > 0 ? (
+                filteredAndSortedBlogs.map((blog) => (
+                  <tr key={blog.id} className="blog-row">
+                    {/* TITLE + IMAGE */}
+                    <td>
+                      <div className="d-flex align-items-center gap-3">
+                        {(() => {
+                          const imageSrc = resolveImageSrc(blog.imageUrl);
+                          if (imageSrc) {
+                            return (
+                              <Image
+                                src={imageSrc}
+                                rounded
+                                className="blogtable-thumb"
+                                style={{
+                                  width: "40px",
+                                  height: "40px",
+                                  objectFit: "cover",
+                                }}
+                                onError={(e) => {
+                                  // Replace with fallback when image fails
+                                  const target = e.target as HTMLImageElement;
+                                  const parent = target.parentElement;
+                                  if (parent) {
+                                    target.style.display = "none";
+                                    const fallback = parent.querySelector(
+                                      ".fallback-icon",
+                                    ) as HTMLElement;
+                                    if (fallback) {
+                                      fallback.style.display = "flex";
+                                    }
                                   }
-                                }
-                              }}
-                            />
-                          );
-                        } else {
-                          return (
-                            <div
-                              className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
-                              style={{
-                                width: "40px",
-                                height: "40px",
-                                fontSize: "18px",
-                                color: "#6c757d",
-                              }}
-                            >
-                              📄
-                            </div>
-                          );
+                                }}
+                              />
+                            );
+                          } else {
+                            return (
+                              <div
+                                className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
+                                style={{
+                                  width: "40px",
+                                  height: "40px",
+                                  fontSize: "18px",
+                                  color: "#6c757d",
+                                }}
+                              >
+                                📄
+                              </div>
+                            );
+                          }
+                        })()}
+
+                        <span className="blogtable-title-text">{blog.title}</span>
+                      </div>
+                    </td>
+
+                    {/* CATEGORY */}
+                    <td className="text-muted" style={{ fontFamily: "body" }}>
+                      {blog.category}
+                    </td>
+
+                    {/* DATE */}
+                    <td className="text-muted" style={{ fontFamily: "body" }}>
+                      {blog.date ? formatDate(blog.date) : "—"}
+                    </td>
+
+                    {/* STATUS */}
+                    <td>
+                      <Badge
+                        className={
+                          blog.status === "published"
+                            ? "blogtable-status-published"
+                            : "blogtable-status-draft"
                         }
-                      })()}
-
-                      <span className="blogtable-title-text">{blog.title}</span>
-                    </div>
-                  </td>
-
-                  {/* CATEGORY */}
-                  <td className="text-muted" style={{ fontFamily: "body" }}>
-                    {blog.category}
-                  </td>
-
-                  {/* DATE */}
-                  <td className="text-muted" style={{ fontFamily: "body" }}>
-                    {blog.date ? formatDate(blog.date) : "—"}
-                  </td>
-
-                  {/* STATUS */}
-                  <td>
-                    <Badge
-                      className={
-                        blog.status === "published"
-                          ? "blogtable-status-published"
-                          : "blogtable-status-draft"
-                      }
-                    >
-                      {blog.status.charAt(0).toUpperCase() + blog.status.slice(1)}
-                    </Badge>
-                  </td>
-
-                  {/* ACTION BUTTONS */}
-                  <td className="text-end">
-                    <div className="d-flex justify-content-end gap-2 align-items-center">
-                      {/* View Count */}
-                      <div className="blogtable-view-count d-flex align-items-center gap-1">
-                        <EyeIcon size={14} className="text-primary" />
-                        <span className="blogtable-count-text">{blog.views || 0}</span>
-                      </div>
-
-                      {/* Read Count */}
-                      <div className="blogtable-read-count d-flex align-items-center gap-1">
-                        <CheckCircleIcon size={14} className="text-success" />
-                        <span className="blogtable-count-text">{blog.confirmedReads || 0}</span>
-                      </div>
-
-                      {/* Edit Button */}
-                      <Button
-                        variant="light"
-                        className="blogtable-action-btn blogtable-edit-btn"
-                        onClick={() => onEdit(blog)}
-                        title="Edit article"
                       >
-                        <PencilIcon size={16} />
-                      </Button>
+                        {blog.status.charAt(0).toUpperCase() + blog.status.slice(1)}
+                      </Badge>
+                    </td>
 
-                      {/* Delete Button */}
-                      <Button
-                        variant="light"
-                        className="blogtable-action-btn blogtable-delete-btn"
-                        onClick={() => onDelete(blog.id)}
-                        title="Delete article"
-                      >
-                        <TrashIcon size={16} />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))) : null}
-          </tbody>
-        </Table>
+                    {/* ACTION BUTTONS */}
+                    <td className="text-end">
+                      <div className="d-flex justify-content-end gap-2 align-items-center">
+                        {/* View Count */}
+                        <div className="blogtable-view-count d-flex align-items-center gap-1">
+                          <EyeIcon size={14} className="text-primary" />
+                          <span className="blogtable-count-text">{blog.views || 0}</span>
+                        </div>
+
+                        {/* Read Count */}
+                        <div className="blogtable-read-count d-flex align-items-center gap-1">
+                          <CheckCircleIcon size={14} className="text-success" />
+                          <span className="blogtable-count-text">{blog.confirmedReads || 0}</span>
+                        </div>
+
+                        {/* Edit Button */}
+                        <Button
+                          variant="light"
+                          className="blogtable-action-btn blogtable-edit-btn"
+                          onClick={() => onEdit(blog)}
+                          title="Edit article"
+                        >
+                          <PencilIcon size={16} />
+                        </Button>
+
+                        {/* Delete Button */}
+                        <Button
+                          variant="light"
+                          className="blogtable-action-btn blogtable-delete-btn"
+                          onClick={() => onDelete(blog.id)}
+                          title="Delete article"
+                        >
+                          <TrashIcon size={16} />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))) : null}
+            </tbody>
+          </Table>
+        </div>
       </div>
 
       {/* IF NO BLOGS */}
@@ -375,8 +380,8 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd }: BlogTableProps) {
       {filteredAndSortedBlogs.length > 0 && (
         <div className="blogtable-results-count px-3 py-2 border-top bg-light">
           <small className="text-muted">
-            Showing <span className="fw-semibold">{filteredAndSortedBlogs.length}</span> of{' '}
-            <span className="fw-semibold">{blogs.length}</span> articles
+            Showing <span className="fw-semibold">{Math.min(filteredAndSortedBlogs.length, 6)}</span> of{' '}
+            <span className="fw-semibold">{filteredAndSortedBlogs.length}</span> articles
           </small>
         </div>
       )}
