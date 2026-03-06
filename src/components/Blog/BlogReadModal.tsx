@@ -108,12 +108,12 @@ export function BlogReadModal({
           onClick={onClose}
           aria-label="Close modal"
         >
-          <X size={16} />
+          <X size={14} />
         </Button>
       </Modal.Header>
 
       <Modal.Body className="blog-read-modal-body" onScroll={handleScroll}>
-        {/* Hero image */}
+        {/* Hero image - moved outside container to touch edges */}
         <div className="blog-read-modal-hero">
           <img
             src={post.image}
@@ -133,18 +133,18 @@ export function BlogReadModal({
         <Container className="blog-read-modal-content-container">
           {/* Meta */}
           <Row className="blog-read-modal-meta">
-            <Col>
+            <Col className="blog-read-modal-meta-col">
               <div className="blog-read-modal-meta-item">
-                <Calendar size={14} />
-                {post.date}
+                <Calendar size={12} className="blog-read-modal-meta-icon" />
+                <span className="blog-read-modal-meta-text">{post.date}</span>
               </div>
               <div className="blog-read-modal-meta-item">
-                <Clock size={14} />
-                {post.readTime}
+                <Clock size={12} className="blog-read-modal-meta-icon" />
+                <span className="blog-read-modal-meta-text">{post.readTime}</span>
               </div>
               <div className="blog-read-modal-meta-item">
-                <User size={14} />
-                {post.author}
+                <User size={12} className="blog-read-modal-meta-icon" />
+                <span className="blog-read-modal-meta-text">{post.author}</span>
               </div>
             </Col>
           </Row>
