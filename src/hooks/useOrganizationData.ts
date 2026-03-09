@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { adminAPI } from '../api/apiConfig';
 import { ConditionalAPI } from '../contexts/OrganizationContext';
 
@@ -21,6 +21,19 @@ export interface DatabaseOrganization {
   };
 }
 
+type DashboardOverviewResponse = {
+  total_organizations?: number;
+  organizations_this_month?: number;
+  total_clients?: number;
+  clients_this_month?: number;
+};
+
+type OrganizationsListResponse = {
+  results?: DatabaseOrganization[];
+  count?: number;
+  next?: string | null;
+};
+
 export interface TableOrganization {
   id: string;
   name: string;
@@ -36,6 +49,8 @@ export interface TableOrganization {
 // Types for dashboard stats
 import { StatCardData } from '../components/admincomponents/Overviewcomponents/admindashboard';
 import { Building2, Users, CircleCheckBig } from 'lucide-react';
+
+type CachedStatCardData = Omit<StatCardData, 'icon'>;
 
 interface UseOrganizationDataReturn {
   // Stats data
@@ -85,7 +100,7 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
   const [organizationsRefreshTrigger, setOrganizationsRefreshTrigger] = useState(0);
 
   // Initialize stats from cache
-  const getInitialStats = (): StatCardData[] => {
+  const getInitialStats = useCallback((): StatCardData[] => {
     try {
       const cached = localStorage.getItem('organizationStats');
       if (cached) {
@@ -97,7 +112,7 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
           if (cacheAge < 5 * 60 * 1000) {
             const parsedStats = JSON.parse(cached);
             // Re-add icons since they can't be serialized
-            return parsedStats.map((stat: any) => {
+            return parsedStats.map((stat: CachedStatCardData) => {
               let icon;
               switch (stat.title) {
                 case "Total Organizations":
@@ -121,10 +136,10 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
       console.error('Failed to parse cached stats:', error);
     }
     return [];
-  };
+  }, []);
 
   // Initialize organizations from cache
-  const getInitialOrganizations = (): TableOrganization[] => {
+  const getInitialOrganizations = useCallback((): TableOrganization[] => {
     try {
       const cached = localStorage.getItem('organizationData');
       if (cached) {
@@ -142,10 +157,10 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
       console.error('Failed to parse cached organizations:', error);
     }
     return [];
-  };
+  }, []);
 
   // Cache functions
-  const cacheStats = (data: StatCardData[]) => {
+  const cacheStats = useCallback((data: StatCardData[]) => {
     try {
       const dataToCache = data.map(({ icon, ...rest }) => rest);
       localStorage.setItem('organizationStats', JSON.stringify(dataToCache));
@@ -153,19 +168,19 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
     } catch (error) {
       console.error('Failed to cache stats:', error);
     }
-  };
+  }, []);
 
-  const cacheOrganizations = (data: TableOrganization[]) => {
+  const cacheOrganizations = useCallback((data: TableOrganization[]) => {
     try {
       localStorage.setItem('organizationData', JSON.stringify(data));
       localStorage.setItem('organizationDataTimestamp', Date.now().toString());
     } catch (error) {
       console.error('Failed to cache organizations:', error);
     }
-  };
+  }, []);
 
   // Convert database organization to table format
-  const convertToTableFormat = (org: DatabaseOrganization): TableOrganization => ({
+  const convertToTableFormat = useCallback((org: DatabaseOrganization): TableOrganization => ({
     id: org.id.toString(),
     name: org.name,
     clients: org.client_count || 0,
@@ -175,10 +190,10 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
     address: org.Location || "Not specified",
     programs: 0,
     icon: "",
-  });
+  }), []);
 
   // Fetch stats
-  const fetchStats = async (forceRefresh = false) => {
+  const fetchStats = useCallback(async (forceRefresh = false) => {
     try {
       setStatsLoading(true);
       setStatsError(null);
@@ -198,8 +213,10 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
 
       try {
         if (conditionalAPI && 'getDashboardOverview' in conditionalAPI) {
-          // Type assertion to tell TypeScript this method exists
-          const conditionalApiWithOverview = conditionalAPI as any;
+          // Use a typed interface so we avoid @typescript-eslint/no-explicit-any
+          const conditionalApiWithOverview = conditionalAPI as {
+            getDashboardOverview?: () => Promise<{ data: DashboardOverviewResponse }>;
+          };
           if (conditionalApiWithOverview.getDashboardOverview) {
             response = await conditionalApiWithOverview.getDashboardOverview();
           } else {
@@ -213,7 +230,7 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
         // Fallback to adminAPI if conditionalAPI fails
         response = await adminAPI.getDashboardOverview();
       }
-      const data = response.data;
+      const data = response.data as DashboardOverviewResponse;
 
       const newStats: StatCardData[] = [
         {
@@ -250,10 +267,10 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
     } finally {
       setStatsLoading(false);
     }
-  };
+  }, [conditionalAPI, cacheStats, getInitialStats]);
 
   // Fetch organizations
-  const fetchOrganizations = async (page = 1, search = '', append = false) => {
+  const fetchOrganizations = useCallback(async (page = 1, search = '', append = false) => {
     try {
       setOrganizationsLoading(true);
       setOrganizationsError(null);
@@ -285,9 +302,16 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
         response = await adminAPI.getOrganizationsList?.(page, 5, search);
       }
 
-      const results = response?.data?.results || response?.data || [];
-      const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
-      const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
+      const apiData = response?.data as OrganizationsListResponse | DatabaseOrganization[];
+      const results: DatabaseOrganization[] = Array.isArray(apiData)
+        ? apiData
+        : apiData.results || [];
+      const totalCount = Array.isArray(apiData)
+        ? results.length
+        : apiData.count ?? results.length;
+      const hasNext = Array.isArray(apiData)
+        ? false
+        : apiData.next !== undefined && apiData.next !== null;
 
       const formattedOrgs = results.map((org: DatabaseOrganization) => convertToTableFormat(org));
 
@@ -309,16 +333,16 @@ export const useOrganizationData = (conditionalAPI?: ConditionalAPI): UseOrganiz
     } finally {
       setOrganizationsLoading(false);
     }
-  };
+  }, [conditionalAPI, cacheOrganizations, getInitialOrganizations, convertToTableFormat]);
 
   // Effects for initial data loading
   useEffect(() => {
     fetchStats();
-  }, [statsRefreshTrigger]);
+  }, [statsRefreshTrigger, fetchStats]);
 
   useEffect(() => {
     fetchOrganizations(1, currentSearch);
-  }, [organizationsRefreshTrigger, currentSearch]);
+  }, [organizationsRefreshTrigger, currentSearch, fetchOrganizations]);
 
   // Action functions
   const refreshStats = () => {

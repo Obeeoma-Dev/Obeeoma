@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { adminAPI } from '../api/apiConfig';
 
 interface AIStatus {
@@ -39,17 +39,20 @@ export const useAIStatus = (): UseAIStatusReturn => {
   const [aiStatus, setAiStatus] = useState<AIStatus>(getInitialAIStatus());
 
   // Function to update AI status and cache it
-  const updateAIStatus = (newStatus: Partial<AIStatus>) => {
-    const updatedStatus = { ...aiStatus, ...newStatus };
-    setAiStatus(updatedStatus);
+  const updateAIStatus = useCallback((newStatus: Partial<AIStatus>) => {
+    setAiStatus(prev => {
+      const updatedStatus = { ...prev, ...newStatus };
 
-    // Cache to localStorage
-    try {
-      localStorage.setItem('aiStatus', JSON.stringify(updatedStatus));
-    } catch (error) {
-      console.error('Failed to cache AI status:', error);
-    }
-  };
+      // Cache to localStorage
+      try {
+        localStorage.setItem('aiStatus', JSON.stringify(updatedStatus));
+      } catch (error) {
+        console.error('Failed to cache AI status:', error);
+      }
+
+      return updatedStatus;
+    });
+  }, []);
 
   // Load AI status on component mount (only if no cache)
   useEffect(() => {
@@ -77,7 +80,7 @@ export const useAIStatus = (): UseAIStatusReturn => {
 
       loadAIStatus();
     }
-  }, []);
+  }, [updateAIStatus]);
 
   return { aiStatus, updateAIStatus };
 };

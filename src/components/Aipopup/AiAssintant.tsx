@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button, Card, Form } from 'react-bootstrap'
 import { Sparkles, X, Send, Bot } from 'lucide-react'
@@ -108,14 +108,7 @@ export function AIAssistant({ isEnabled = true }: { isEnabled?: boolean }) {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    // Load messages when chat opens
-    useEffect(() => {
-        if (isOpen && messages.length === 0) {
-            loadMessages()
-        }
-    }, [isOpen, messages.length])
-
-    const loadMessages = async () => {
+    const loadMessages = useCallback(async () => {
         if (!isEnabled) return;
 
         try {
@@ -129,7 +122,14 @@ export function AIAssistant({ isEnabled = true }: { isEnabled?: boolean }) {
         } finally {
             setIsLoading(false)
         }
-    }
+    }, [isEnabled])
+
+    // Load messages when chat opens
+    useEffect(() => {
+        if (isOpen && messages.length === 0) {
+            loadMessages()
+        }
+    }, [isOpen, messages.length, loadMessages])
 
     const sendMessage = async () => {
         if (!inputMessage.trim() || isLoading || !isEnabled) return

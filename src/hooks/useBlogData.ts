@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { BlogPost } from '../components/admincomponents/Blogmanagement/BlogTable';
 
 interface UseBlogDataReturn {
@@ -11,6 +11,21 @@ interface UseBlogDataReturn {
   deleteBlog: (id: string) => void;
 }
 
+interface RawBlogData {
+  id: string;
+  title: string;
+  category?: string;
+  published_date?: string;
+  status?: string;
+  excerpt?: string;
+  featured_image?: string;
+  author?: string;
+  content?: string;
+  featured?: boolean;
+  views?: number;
+  confirmed_reads?: number;
+}
+
 /**
  * Custom hook to manage blog data across admin pages
  * Uses localStorage caching to avoid repeated API calls
@@ -18,7 +33,7 @@ interface UseBlogDataReturn {
  */
 export const useBlogData = (): UseBlogDataReturn => {
   // Initialize state from localStorage or empty array
-  const getInitialBlogs = (): BlogPost[] => {
+  const getInitialBlogs = useCallback((): BlogPost[] => {
     try {
       const cached = localStorage.getItem('blogData');
       if (cached) {
@@ -38,7 +53,7 @@ export const useBlogData = (): UseBlogDataReturn => {
       console.error('Failed to parse cached blog data:', error);
     }
     return [];
-  };
+  }, []);
 
   const [blogs, setBlogs] = useState<BlogPost[]>(getInitialBlogs());
   const [loading, setLoading] = useState(false);
@@ -62,7 +77,7 @@ export const useBlogData = (): UseBlogDataReturn => {
   };
 
   // Fetch blogs from API
-  const fetchBlogs = async (forceRefresh = false) => {
+  const fetchBlogs = useCallback(async (forceRefresh = false) => {
     try {
       setLoading(true);
       setError(null);
@@ -82,7 +97,7 @@ export const useBlogData = (): UseBlogDataReturn => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data: any[] = await response.json();
+      const data = (await response.json()) as RawBlogData[];
       console.log("Raw API data:", data);
 
       // Transform backend data to frontend format
@@ -90,13 +105,13 @@ export const useBlogData = (): UseBlogDataReturn => {
         id: item.id,
         title: item.title,
         category: item.category || "Uncategorized",
-        date: item.published_date,
-        status: item.status,
+        date: item.published_date ?? "",
+        status: (item.status === "published" ? "published" : "draft"),
         excerpt: item.excerpt || "",
         imageUrl: item.featured_image || "",
         author: item.author || "Anonymous",
-        content: item.content,
-        featured: item.featured,
+        content: item.content || "",
+        featured: item.featured ?? false,
         views: item.views || 0,
         confirmedReads: item.confirmed_reads || 0,
       }));
@@ -111,12 +126,12 @@ export const useBlogData = (): UseBlogDataReturn => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [getInitialBlogs]);
 
   // Load blogs on component mount
   useEffect(() => {
     fetchBlogs();
-  }, [refreshTrigger]);
+  }, [refreshTrigger, fetchBlogs]);
 
   // Refresh blogs function
   const refreshBlogs = () => {
