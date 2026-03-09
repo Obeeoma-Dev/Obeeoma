@@ -1,0 +1,289 @@
+/* Hotline Recommendations Component Styles - Specific naming to avoid conflicts */
+
+.hotline-recommendations-card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+  height: 100%;
+}
+
+.hotline-recommendations-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+}
+
+.hotline-recommendations-header {
+  margin-bottom: 1rem;
+}
+
+.hotline-recommendations-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.125rem;
+}
+
+.hotline-recommendations-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.125rem;
+  margin-bottom: 0;
+}
+
+.hotline-recommendations-content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Grid Header */
+.hotline-recommendations-grid-header {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.hotline-recommendations-header-cell {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hotline-recommendations-header-name {
+  grid-column: span 5;
+}
+
+.hotline-recommendations-header-category {
+  grid-column: span 2;
+}
+
+.hotline-recommendations-header-times {
+  grid-column: span 2;
+  text-align: center;
+}
+
+.hotline-recommendations-header-status {
+  grid-column: span 3;
+  text-align: right;
+}
+
+/* List Container */
+.hotline-recommendations-list {
+  border-top: none;
+}
+
+/* Rows */
+.hotline-recommendations-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  align-items: center;
+  border-bottom: 1px solid #f9fafb;
+}
+
+.hotline-recommendations-row:last-child {
+  border-bottom: none;
+}
+
+/* Cells */
+.hotline-recommendations-cell {
+  display: flex;
+  align-items: center;
+}
+
+.hotline-recommendations-cell-name {
+  grid-column: span 5;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hotline-recommendations-cell-category {
+  grid-column: span 2;
+}
+
+.hotline-recommendations-cell-times {
+  grid-column: span 2;
+  justify-content: center;
+}
+
+.hotline-recommendations-cell-status {
+  grid-column: span 3;
+  justify-content: flex-end;
+}
+
+/* Name and Number */
+.hotline-recommendations-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.hotline-recommendations-number-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.125rem;
+}
+
+.hotline-recommendations-phone-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.hotline-recommendations-number {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Category Badges */
+.hotline-recommendations-category {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.hotline-category-crisis {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.hotline-category-anxiety {
+  background-color: #fffbeb;
+  color: #b45309;
+}
+
+.hotline-category-youth {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.hotline-category-general {
+  background-color: #f9fafb;
+  color: #5b6c7a;
+}
+
+/* Times Count */
+.hotline-recommendations-times-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.hotline-recommendations-times-multiply {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-left: 0.125rem;
+}
+
+/* Status Badges */
+.hotline-recommendations-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.hotline-recommendations-status-active {
+  background-color: #f0fdf4;
+  color: #15803d;
+}
+
+.hotline-recommendations-status-paused {
+  background-color: #f9fafb;
+  color: #6b7280;
+}
+
+.hotline-recommendations-status-indicator {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+}
+
+.hotline-recommendations-indicator-active {
+  background-color: #10b981;
+}
+
+.hotline-recommendations-indicator-paused {
+  background-color: #9ca3af;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hotline-recommendations-grid-header {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .hotline-recommendations-header-cell {
+    font-size: 0.625rem;
+    padding: 0.25rem;
+  }
+  
+  .hotline-recommendations-header-name,
+  .hotline-recommendations-header-category,
+  .hotline-recommendations-header-times,
+  .hotline-recommendations-header-status {
+    grid-column: span 1;
+    text-align: left;
+  }
+  
+  .hotline-recommendations-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .hotline-recommendations-cell-name,
+  .hotline-recommendations-cell-category,
+  .hotline-recommendations-cell-times,
+  .hotline-recommendations-cell-status {
+    grid-column: span 1;
+    justify-content: flex-start;
+  }
+  
+  .hotline-recommendations-name {
+    font-size: 0.8rem;
+  }
+  
+  .hotline-recommendations-category,
+  .hotline-recommendations-status {
+    font-size: 0.7rem;
+  }
+}
+
+/* Scrollbar Styling */
+.hotline-recommendations-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.hotline-recommendations-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.hotline-recommendations-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.hotline-recommendations-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

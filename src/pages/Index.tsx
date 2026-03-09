@@ -3,8 +3,28 @@ import Hero from "@/pages/landingpage/Hero";
 import Features from "@/pages/landingpage/Features";
 import Benefits from "@/pages/landingpage/Benefits";
 import Footer from "@/components/shared/Footer";
+import ReceptionistFloatingChat from "../../src/components/landingpage/Contacts/ReceptionistFloatingChat";
+import { useState, useEffect } from 'react';
+import { adminAPI } from '../api/apiConfig';
 
 const Index = () => {
+  const [landingAIEnabled, setLandingAIEnabled] = useState(true);
+
+  useEffect(() => {
+    const fetchAIStatus = async () => {
+      try {
+        const response = await adminAPI.getAIStatus();
+        setLandingAIEnabled(response.data.landing_ai?.is_enabled ?? true);
+      } catch (error) {
+        console.error('Failed to fetch AI status:', error);
+        // Default to enabled if API fails
+        setLandingAIEnabled(true);
+      }
+    };
+
+    fetchAIStatus();
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -20,6 +40,7 @@ const Index = () => {
         </section>
       </main>
       <Footer />
+      <ReceptionistFloatingChat isEnabled={landingAIEnabled} />
     </div>
   );
 };

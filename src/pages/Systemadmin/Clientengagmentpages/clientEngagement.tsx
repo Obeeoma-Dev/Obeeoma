@@ -9,7 +9,7 @@ import SystemAdminLayout from "../../../components/admincomponents/shared/System
 import EngagementSummary from "../../../components/admincomponents/Clientcomponents/engagementsummary";
 import EngagementCharts from "../../../components/admincomponents/Clientcomponents/engagementCharts";
 import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
-import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
+// import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
 
 // Define TypeScript interface for expected backend structure
@@ -140,10 +140,10 @@ const ClientEngagement: React.FC = () => {
           <EngagementCharts />
 
           {/* Search and filter controls */}
-          <PatientSearchFilter />
+          {/* <PatientSearchFilter /> */}
 
           {/* Table of patient engagement */}
-          <PatientEngagementTable />
+          {/* <PatientEngagementTable /> */}
 
           {/* Bottom panel with trends and streaks */}
           <EngagementStatsPanel

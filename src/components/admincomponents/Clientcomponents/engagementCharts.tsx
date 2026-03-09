@@ -3,6 +3,7 @@ import { Line, Bar } from "react-chartjs-2";
 import { Row, Col, Card } from "react-bootstrap";
 import {
   Chart as ChartJS,
+  ChartOptions,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -39,6 +40,18 @@ const weeklyEngagementData = {
   ],
 };
 
+// Chart options to control sizing and appearance
+const lineChartOptions: ChartOptions<"line"> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: true,
+      position: "top",
+    },
+  },
+};
+
 // Bar chart data for reward redemptions
 const rewardRedemptionData = {
   labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
@@ -58,7 +71,7 @@ const EngagementCharts: React.FC = () => {
       {/* Responsive row with two columns for charts */}
       <Row className="g-4">
         {/* Line Chart Column */}
-        <Col md={6}>
+        <Col md={12}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
               <h5
@@ -67,12 +80,14 @@ const EngagementCharts: React.FC = () => {
               >
                 Weekly Engagement Rate (%)
               </h5>
-              <Line data={weeklyEngagementData} />
+              <div style={{ height: 320, minHeight: 240 }}>
+                <Line data={weeklyEngagementData} options={lineChartOptions} />
+              </div>
             </Card.Body>
           </Card>
         </Col>
 
-        {/* Bar Chart Column */}
+        {/* Bar Chart Column
         <Col md={6}>
           <Card className="shadow-sm border-0 h-100">
             <Card.Body>
@@ -85,7 +100,7 @@ const EngagementCharts: React.FC = () => {
               <Bar data={rewardRedemptionData} />
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

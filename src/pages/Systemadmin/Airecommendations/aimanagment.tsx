@@ -1,17 +1,22 @@
 // src/pages/adminpages/AIRecommendationsPage.tsx
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
+import './aiControls.css';
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
-import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
+// import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
+import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
+import { adminAPI } from "../../../api/apiConfig";
+import { useAIStatus } from "../../../hooks/useAIStatus";
 
 /**
  * AIRecommendationsPage renders the AI management dashboard.
@@ -23,6 +28,52 @@ const AIRecommendationsPage: React.FC = () => {
     totalRecommendations: 1245,
     engagementRate: 72,
     averageTime: "5m 32s",
+  };
+
+  // Use enhanced AI status hook with caching
+  const { aiStatus, updateAIStatus } = useAIStatus();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleAdminAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleAdminAI({ enabled });
+      updateAIStatus({ admin_ai: enabled });
+    } catch (error) {
+      console.error('Failed to toggle Admin AI:', error);
+      // Revert the state on error
+      updateAIStatus({ admin_ai: !enabled });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleLandingAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleLandingAI({ enabled });
+      updateAIStatus({ landing_ai: enabled });
+    } catch (error) {
+      console.error('Failed to toggle Landing AI:', error);
+      // Revert the state on error
+      updateAIStatus({ landing_ai: !enabled });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleMobileAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleMobileAI({ enabled });
+      updateAIStatus({ mobile_ai: enabled });
+    } catch (error) {
+      console.error('Failed to toggle Mobile AI:', error);
+      // Revert the state on error
+      updateAIStatus({ mobile_ai: !enabled });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // AI resource effectiveness table
@@ -105,6 +156,57 @@ const AIRecommendationsPage: React.FC = () => {
     <SystemAdminLayout title="AI Management">
       {/* Container ensures Bootstrap spacing and responsiveness */}
       <Container fluid className="py-4">
+
+        {/* AI Controls Section */}
+        <div className="ai-controls-section">
+          <div className="ai-controls-header">
+            <div>
+              <h2 className="ai-controls-title">AI Controls</h2>
+              <p className="ai-controls-subtitle">
+                Independently manage AI across each part of the platform
+              </p>
+            </div>
+            <div className="ai-controls-status">
+              <span className="ai-controls-indicator" />
+              {[aiStatus.landing_ai, aiStatus.admin_ai, aiStatus.mobile_ai].filter(Boolean).length} of 3
+              active
+            </div>
+          </div>
+
+          <Row className="g-4">
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={aiStatus.landing_ai}
+                onToggle={handleLandingAIToggle}
+                label="Landing Page AI"
+                description="Reception chatbot that talks about the app and directs visitors. Does not save conversations."
+                icon={<GlobeIcon size={20} />}
+                lastActive="Today at 1:12 PM"
+              />
+            </Col>
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={aiStatus.admin_ai}
+                onToggle={handleAdminAIToggle}
+                label="Admin Dashboard AI"
+                description="Provides insights, growth recommendations, and analytics summaries to the system admin."
+                icon={<LayoutDashboardIcon size={20} />}
+                lastActive="Today at 2:34 PM"
+              />
+            </Col>
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={aiStatus.mobile_ai}
+                onToggle={handleMobileAIToggle}
+                label="Mobile App AI"
+                description="Recommends hotline numbers and uploaded resources to users inside the mobile app."
+                icon={<SmartphoneIcon size={20} />}
+                lastActive="Today at 3:05 PM"
+              />
+            </Col>
+          </Row>
+        </div>
+
         {/* Top summary metrics */}
         <TopMetrics {...metrics} />
 
@@ -118,21 +220,18 @@ const AIRecommendationsPage: React.FC = () => {
           </Col>
         </Row>
 
-        {/* Table of AI resources */}
-        <AIResourcesTable resources={resources} />
-
-        <Row className="mb-4">
-          <Col md={6}>
-            <ModelPerformance performance={modelScores} />
-          </Col>
-          <Col md={6}>
+        <Row>
+          {/* <Col md={6}> */}
+          <ModelPerformance />
+          {/* </Col> */}
+          {/* <Col md={6}>
             <TopTriggers triggers={triggers} />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant />
+      <AIAssistant isEnabled={aiStatus.admin_ai} />
     </SystemAdminLayout>
   );
 };

@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Building2, Users, PhoneCall } from "lucide-react";
 import { adminAPI } from "../../api/apiConfig";
+import { useAIStatus } from "../../hooks/useAIStatus";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -105,6 +106,8 @@ const Dashboard = () => {
     /* The blog state + handlers */
     const [blogs, setBlogs] = React.useState([]);
     const [selectedBlog, setSelectedBlog] = React.useState(null);
+    // Use enhanced AI status hook with caching
+    const { aiStatus } = useAIStatus();
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
     /* Dashboard stats state */
@@ -236,6 +239,6 @@ const Dashboard = () => {
         };
         fetchDashboardStats();
     }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
-    return (_jsxs(SystemAdminLayout, { title: "Systemadmin Overview", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsxs("div", { className: "p-4", children: [_jsx("div", { className: "mb-4 d-flex justify-content-between align-items-center", children: _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" }) }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] }), _jsx(AIAssistant, {})] }));
+    return (_jsxs(SystemAdminLayout, { title: "Systemadmin Overview", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsxs("div", { className: "p-4", children: [_jsx("div", { className: "mb-4 d-flex justify-content-between align-items-center", children: _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" }) }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] }), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }));
 };
 export default Dashboard;

@@ -1,57 +1,138 @@
-import React from "react";
-import { Card, Row, Col, ProgressBar } from "react-bootstrap";
-import "./aicomponent.css";
+import React from 'react'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts'
+import './modelPerformance.css'
 
-interface ScoreItem {
-  name: string;
-  score: number;
+const data = [
+  {
+    week: 'Week 1',
+    value: 250,
+  },
+  {
+    week: 'Week 2',
+    value: 310,
+  },
+  {
+    week: 'Week 3',
+    value: 290,
+  },
+  {
+    week: 'Week 4',
+    value: 340,
+  },
+  {
+    week: 'Week 5',
+    value: 300,
+  },
+  {
+    week: 'Week 6',
+    value: 360,
+  },
+]
+
+type CustomTooltipProps = {
+  active?: boolean
+  payload?: Array<{
+    value: number
+  }>
+  label?: string
 }
 
-interface ModelPerformanceProps {
-  performance: ScoreItem[];
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="weekly-activity-tooltip">
+        <p className="weekly-activity-tooltip-label">{label}</p>
+        <p className="weekly-activity-tooltip-value">
+          {payload[0].value} recommendations
+        </p>
+      </div>
+    )
+  }
+  return null
 }
 
-const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
+export function WeeklyActivityChart() {
   return (
-    <Card className="mb-4 shadow-sm">
-      <Card.Body>
-        <div className="mb-4" style={{ fontFamily: "heading" }}>
-          <Card.Title>AI Model Performance</Card.Title>
-          <Card.Subtitle className="text-muted" style={{ fontFamily: "body" }}>
-            Key metrics for evaluating model effectiveness
-          </Card.Subtitle>
-        </div>
+    <div className="weekly-activity-chart-container">
+      <div className="weekly-activity-header">
+        <h3 className="weekly-activity-title">
+          Weekly AI Activity
+        </h3>
+        <p className="weekly-activity-subtitle">
+          Volume of AI recommendations over the last 6 weeks
+        </p>
+      </div>
 
-        {performance.map((item) => (
-          <div key={item.name} className="mb-4">
-            <Row className="align-items-center mb-2">
-              <Col>
-                <div className="fw-semibold" style={{ fontFamily: "body" }}>
-                  {item.name}
-                </div>
-              </Col>
-              <Col xs="auto">
-                <div className="fw-bold text-dark">{item.score}%</div>
-              </Col>
-            </Row>
-            <ProgressBar
-              now={item.score}
-              className="thin-progress"
-              style={{ backgroundColor: "#e9ecef" }} // background track
-            >
-              <div
-                className="progress-bar"
-                style={{
-                  width: `${item.score}%`,
-                  backgroundColor: "#00A859",
-                }}
-              />
-            </ProgressBar>
-          </div>
-        ))}
-      </Card.Body>
-    </Card>
-  );
-};
+      <ResponsiveContainer width="100%" height={220}>
+        <LineChart
+          data={data}
+          margin={{
+            top: 5,
+            right: 10,
+            left: -10,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="#f0f0f0"
+            vertical={false}
+          />
+          <XAxis
+            dataKey="week"
+            tick={{
+              fontSize: 12,
+              fill: '#9ca3af',
+            }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            tick={{
+              fontSize: 12,
+              fill: '#9ca3af',
+            }}
+            axisLine={false}
+            tickLine={false}
+            domain={[0, 400]}
+          />
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{
+              stroke: '#e5e7eb',
+              strokeWidth: 1,
+            }}
+          />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke="#16a34a"
+            strokeWidth={2.5}
+            dot={{
+              fill: '#ffffff',
+              stroke: '#16a34a',
+              strokeWidth: 2.5,
+              r: 4,
+            }}
+            activeDot={{
+              fill: '#16a34a',
+              stroke: '#ffffff',
+              strokeWidth: 2,
+              r: 6,
+            }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
 
-export default ModelPerformance;
+export default WeeklyActivityChart
