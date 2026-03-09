@@ -1,6 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Navbar, Container, Form, FormControl, Button, Badge, Row, Col, } from "react-bootstrap";
-// Import icons from lucide-react
 import { Search, Bell, User } from "lucide-react";
 /**
  * Header component displays the top navigation bar

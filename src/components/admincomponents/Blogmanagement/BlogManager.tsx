@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BlogTable } from "./BlogTable";
-import { BlogForm } from "./BlogForm"; // the Offcanvas form
-import { BlogPost } from "./BlogTable"; // import the type
+import { BlogForm } from "./BlogForm";
+import { BlogPost } from "./BlogTable";
 import { ConfirmModal } from "./../Reusedcomponents/ConfirmModal";
+
+import { toast } from "react-toastify";
 
 export function BlogManager() {
   const [blogs, setBlogs] = React.useState<BlogPost[]>([
@@ -32,11 +34,43 @@ export function BlogManager() {
     },
   ]);
 
+  // Defining an image type.
+  type BackendBlog = {
+    id: string;
+    title: string;
+    category: string;
+    published_date: string;
+    status: "published" | "draft";
+    excerpt: string | null;
+    featured_image: string | null;
+    author: string | null;
+    content: string;
+    featured: boolean;
+  };
+
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/v1/articles/")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}articles/`)
       .then((res) => res.json())
-      .then((data) => setBlogs(data))
-      .catch((err) => console.error("Failed to load blogs", err));
+      .then((data: BackendBlog[]) => {
+        console.log("Raw API data:", data);
+        const mapped: BlogPost[] = data.map((item) => ({
+          id: item.id,
+          title: item.title,
+          category: item.category || "Uncategorized",
+          date: item.published_date,
+          status: item.status,
+          excerpt: item.excerpt || "",
+          imageUrl: item.featured_image || "",
+          author: item.author || "Anonymous",
+          content: item.content,
+          featured: item.featured,
+        }));
+        console.log("Mapped data:", mapped);
+        setBlogs(mapped);
+      })
+      .catch((err) => {
+        console.error("Failed to load blogs", err);
+      });
   }, []);
 
   const [showForm, setShowForm] = useState(false);
@@ -48,7 +82,7 @@ export function BlogManager() {
   function handleAdd() {
     setFormMode("add");
     setSelectedBlog(null);
-    setShowForm(true); // opens the Offcanvas
+    setShowForm(true);
   }
 
   // Edit existing article
@@ -60,19 +94,23 @@ export function BlogManager() {
 
   // Delete article
   function handleDelete(id: string) {
-    setDeleteConfirm(id); // open the confirm modal
+    setDeleteConfirm(id); // opens the confirm modal
   }
 
   // Confirmation handler delete.
   async function confirmDelete() {
     if (!deleteConfirm) return;
 
-    await fetch(`http://127.0.0.1:8000/api/blogs/${deleteConfirm}/`, {
-      method: "DELETE",
-    });
+    await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}articles/${deleteConfirm}/`,
+      {
+        method: "DELETE",
+      },
+    );
 
     setBlogs((prev) => prev.filter((b) => b.id !== deleteConfirm));
     setDeleteConfirm(null);
+    toast.error("Article deleted!");
   }
 
   // Handle add & edit submit (CONNECTED TO BACKEND)
@@ -80,10 +118,9 @@ export function BlogManager() {
     try {
       const formData = new FormData();
 
-      // Append all fields to FormData
+      // Append all fields to FormData with correct backend field names
       formData.append("title", newBlog.title);
       formData.append("category", newBlog.category);
-      formData.append("date", newBlog.date);
       formData.append("status", newBlog.status);
       formData.append("excerpt", newBlog.excerpt);
       formData.append("author", newBlog.author);
@@ -92,46 +129,84 @@ export function BlogManager() {
 
       // Handle image
       if (newBlog.imageUrl instanceof File) {
-        formData.append("image", newBlog.imageUrl);
-      } else if (typeof newBlog.imageUrl === "string") {
-        // If it's a URL, you might need to handle differently, but for now assume file
-        formData.append("image_url", newBlog.imageUrl);
+        formData.append("featured_image", newBlog.imageUrl);
       }
 
       // ADD MODE → CREATE BLOG
       if (formMode === "add") {
-        const res = await fetch("http://127.0.0.1:8000/api/v1/articles/", {
-          method: "POST",
-          body: formData,
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}articles/`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
 
-        const savedBlog: BlogPost = await res.json();
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const savedBlogRaw = await res.json();
+
+        // Map the response back to frontend format
+        const savedBlog: BlogPost = {
+          id: savedBlogRaw.id,
+          title: savedBlogRaw.title,
+          category: savedBlogRaw.category,
+          date: savedBlogRaw.published_date,
+          status: savedBlogRaw.status,
+          excerpt: savedBlogRaw.excerpt || "",
+          imageUrl: savedBlogRaw.featured_image || "",
+          author: savedBlogRaw.author || "Anonymous",
+          content: savedBlogRaw.content,
+          featured: savedBlogRaw.featured,
+        };
 
         // Update UI immediately
         setBlogs((prev) => [savedBlog, ...prev]);
+        toast.success("Article added successfully!");
       }
       // EDIT MODE → UPDATE BLOG
       else {
-        formData.append("id", newBlog.id);
         const res = await fetch(
-          `http://127.0.0.1:8000/api/v1/articles/${newBlog.id}/`,
+          `${import.meta.env.VITE_API_BASE_URL}articles/${newBlog.id}/`,
           {
             method: "PUT",
             body: formData,
           },
         );
 
-        const updatedBlog: BlogPost = await res.json();
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const updatedBlogRaw = await res.json();
+
+        // Map the response back to frontend format
+        const updatedBlog: BlogPost = {
+          id: updatedBlogRaw.id,
+          title: updatedBlogRaw.title,
+          category: updatedBlogRaw.category,
+          date: updatedBlogRaw.published_date,
+          status: updatedBlogRaw.status,
+          excerpt: updatedBlogRaw.excerpt || "",
+          imageUrl: updatedBlogRaw.featured_image || "",
+          author: updatedBlogRaw.author || "Anonymous",
+          content: updatedBlogRaw.content,
+          featured: updatedBlogRaw.featured,
+        };
 
         setBlogs((prev) =>
           prev.map((b) => (b.id === updatedBlog.id ? updatedBlog : b)),
         );
+        toast.info("Article updated successfully!");
       }
 
       // Close form after success
       setShowForm(false);
     } catch (error) {
       console.error("Failed to save blog:", error);
+      toast.error("Failed to save article. Please try again.");
     }
   }
 

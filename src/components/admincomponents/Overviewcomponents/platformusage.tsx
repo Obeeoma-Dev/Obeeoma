@@ -1,8 +1,6 @@
-// Import React and required Bootstrap components
 import React, { useState } from "react";
 import { Card, ButtonGroup, Button } from "react-bootstrap";
 
-// Import chart components from Recharts
 import {
   LineChart,
   Line,
@@ -15,13 +13,8 @@ import {
   Area,
 } from "recharts";
 
-// Import the chart data type
 import { EmployeeDataPoint } from "./admindashboard";
 
-/**
- * PlatformUsageChart component renders a responsive line chart
- * Includes tab navigation for future expansion (organization growth, subscription revenue)
- */
 const PlatformUsageChart: React.FC = () => {
   // Track which tab is currently active
   const [activeTab, setActiveTab] = useState<string>("platform");
@@ -44,9 +37,7 @@ const PlatformUsageChart: React.FC = () => {
   ];
 
   return (
-    // Bootstrap Card container for chart section
     <Card className="mb-4 shadow-sm border-0">
-      {/* Card body contains tab navigation and chart */}
       <Card.Body>
         {/* Tab navigation using ButtonGroup */}
         <ButtonGroup className="mb-4 w-100 justify-content-between">
@@ -70,6 +61,7 @@ const PlatformUsageChart: React.FC = () => {
                 borderRadius: 0,
                 transition: "border-bottom 0.2s ease",
                 boxShadow: activeTab === tab.id ? "0 2px 0 #19875466" : "none",
+                fontFamily: "heading",
               }}
             >
               {tab.label}
@@ -78,7 +70,10 @@ const PlatformUsageChart: React.FC = () => {
         </ButtonGroup>
 
         {/* Dynamic section header with green underline */}
-        <h5 className="fw-semibold text-dark mb-4 md-4 position-relative ms-5">
+        <h5
+          className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
+          style={{ fontFamily: "body" }}
+        >
           {activeTab === "platform" && "Weekly Platform Usage"}
           {activeTab === "organization" && "Monthly Organization Growth"}
           {activeTab === "subscription" && "Monthly Subscription Revenue"}
@@ -86,7 +81,11 @@ const PlatformUsageChart: React.FC = () => {
 
         {/* Render chart only when 'platform' tab is active */}
         {activeTab === "platform" && (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer
+            width="100%"
+            height={300}
+            style={{ fontFamily: "body" }}
+          >
             <AreaChart
               data={employeeData}
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
@@ -144,7 +143,11 @@ const PlatformUsageChart: React.FC = () => {
         )}
 
         {activeTab === "organization" && (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer
+            width="100%"
+            height={300}
+            style={{ fontFamily: "body" }}
+          >
             <LineChart
               data={[
                 { week: "Week 1", value: 1200 },
@@ -192,7 +195,7 @@ const PlatformUsageChart: React.FC = () => {
               <Line
                 type="natural"
                 dataKey="value"
-                stroke="#198754" // Bootstrap blue
+                stroke="#198754"
                 strokeWidth={3}
                 dot={{
                   r: 3,
@@ -254,7 +257,7 @@ const PlatformUsageChart: React.FC = () => {
               <Area
                 type="natural"
                 dataKey="value"
-                stroke="#198754" // Bootstrap green
+                stroke="#198754"
                 strokeWidth={3}
                 fill="#198754"
                 fillOpacity={0.1}
@@ -274,5 +277,4 @@ const PlatformUsageChart: React.FC = () => {
   );
 };
 
-// Export the component for use in the dashboard layout
 export default PlatformUsageChart;

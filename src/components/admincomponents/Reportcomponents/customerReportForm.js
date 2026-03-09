@@ -1,5 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-// src/components/admincomponents/reportcomponents/CustomReportForm.tsx
 import { useState } from "react";
 import { Card } from "react-bootstrap";
 const CustomReportForm = () => {
@@ -17,8 +16,7 @@ const CustomReportForm = () => {
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
             borderRadius: "8px",
         }, children: _jsxs(Card.Body, { style: { padding: "1.5rem" }, children: [_jsx("h5", { style: {
-                        fontSize: "1.25rem",
-                        fontWeight: "600",
+                        fontFamily: "heading",
                         color: "#1a1a1a",
                         marginBottom: "1.5rem",
                     }, children: "Generate Custom Report" }), _jsx("form", { onSubmit: handleSubmit, children: _jsxs("div", { style: {
@@ -26,10 +24,8 @@ const CustomReportForm = () => {
                             gap: "1rem",
                             alignItems: "flex-end",
                             flexWrap: "wrap",
-                        }, children: [_jsxs("div", { style: { flex: 1, minWidth: "200px" }, children: [_jsx("label", { style: {
+                        }, children: [_jsxs("div", { style: { flex: 1, minWidth: "200px", fontFamily: "body" }, children: [_jsx("label", { style: {
                                             display: "block",
-                                            fontSize: "0.875rem",
-                                            fontWeight: "500",
                                             color: "#495057",
                                             marginBottom: "0.5rem",
                                         }, children: "Report Type" }), _jsxs("select", { value: reportType, onChange: (e) => setReportType(e.target.value), style: {
@@ -41,7 +37,7 @@ const CustomReportForm = () => {
                                             color: "#495057",
                                             backgroundColor: "#ffffff",
                                             cursor: "pointer",
-                                        }, children: [_jsx("option", { children: "Platform Usage" }), _jsx("option", { children: "Health Conditions" }), _jsx("option", { children: "Treatment Outcomes" }), _jsx("option", { children: "Organization Performance" })] })] }), _jsxs("div", { style: { flex: 1, minWidth: "200px" }, children: [_jsx("label", { style: {
+                                        }, children: [_jsx("option", { children: "Platform Usage" }), _jsx("option", { children: "Health Conditions" }), _jsx("option", { children: "Treatment Outcomes" }), _jsx("option", { children: "Organization Performance" })] })] }), _jsxs("div", { style: { flex: 1, minWidth: "200px", fontFamily: "body" }, children: [_jsx("label", { style: {
                                             display: "block",
                                             fontSize: "0.875rem",
                                             fontWeight: "500",
@@ -56,7 +52,7 @@ const CustomReportForm = () => {
                                             color: "#495057",
                                             backgroundColor: "#ffffff",
                                             cursor: "pointer",
-                                        }, children: [_jsx("option", { children: "Last 7 Days" }), _jsx("option", { children: "Last 30 Days" }), _jsx("option", { children: "Last 90 Days" }), _jsx("option", { children: "Last 6 Months" }), _jsx("option", { children: "Last Year" }), _jsx("option", { children: "Custom Range" })] })] }), _jsxs("div", { style: { flex: 1, minWidth: "200px" }, children: [_jsx("label", { style: {
+                                        }, children: [_jsx("option", { children: "Last 7 Days" }), _jsx("option", { children: "Last 30 Days" }), _jsx("option", { children: "Last 90 Days" }), _jsx("option", { children: "Last 6 Months" }), _jsx("option", { children: "Last Year" }), _jsx("option", { children: "Custom Range" })] })] }), _jsxs("div", { style: { flex: 1, minWidth: "200px", fontFamily: "body" }, children: [_jsx("label", { style: {
                                             display: "block",
                                             fontSize: "0.875rem",
                                             fontWeight: "500",
@@ -77,8 +73,7 @@ const CustomReportForm = () => {
                                     padding: "0.625rem 1.5rem",
                                     borderRadius: "6px",
                                     border: "none",
-                                    fontWeight: "500",
-                                    fontSize: "0.9375rem",
+                                    fontFamily: "body",
                                     cursor: "pointer",
                                     whiteSpace: "nowrap",
                                     height: "fit-content",

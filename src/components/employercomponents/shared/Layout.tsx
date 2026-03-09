@@ -1,7 +1,6 @@
 import { useState, ReactNode } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-// import Modal from 'react-bootstrap/Modal';
 import {
   Home as HomeIcon,
   Users as UsersIcon,
@@ -19,6 +18,7 @@ import { useScrollAnimation } from "../../../hooks/useScrollAnimtion";
 
 import { logoutUserThunk } from "../../../store/slices/authSlice";
 import { EmployerUser } from "../../../../src/types/employer";
+import React from "react";
 
 // Removed formatEmployerName as it's replaced by inline logic
 
@@ -27,6 +27,7 @@ interface LayoutProps {
   title: string;
   showSearch?: boolean;
   additionalHeaderContent?: ReactNode;
+  accountEmail?: ReactNode;
 }
 
 const PRIMARY_COLOR = "#22C55E";
@@ -43,14 +44,6 @@ const Layout = ({ children, title }: LayoutProps) => {
 
   // Try to get employer data from localStorage if available
   let localEmployer = null;
-  // try {
-  //   const stored = localStorage.getItem("employerAccountData");
-  //   if (stored) {
-  //     localEmployer = JSON.parse(stored);
-  //   }
-  // } catch {
-
-  // }
 
   try {
     const stored = localStorage.getItem("employerAccountData");
@@ -68,9 +61,9 @@ const Layout = ({ children, title }: LayoutProps) => {
     ? localEmployer?.email
     : employer?.email
       ? employer?.email || employer?.email
-      : "User";
+      : "Employer";
 
-  // Prefer backend for companyJoinDate, fallback to localStorage, then now
+
   const companyJoinDate = employer?.company?.createdAt
     ? new Date(employer.company.createdAt)
     : localEmployer?.dateJoined
@@ -119,7 +112,6 @@ const Layout = ({ children, title }: LayoutProps) => {
       year: "numeric",
     });
   };
-
   const handleLogout = async () => {
     try {
       const resultAction = await dispatch(logoutUserThunk());
@@ -224,20 +216,23 @@ const Layout = ({ children, title }: LayoutProps) => {
                   >
                     {/* 1. Organization Name/Fallback */}
                     <span
-                      className="fw-medium text-dark d-block"
+                      className="fw-medium text-dark d-block mb-3"
                       style={{ fontFamily: "body" }}
                       aria-label={`Organization name: ${organizationNameOrDefault}`}
                     >
                       {organizationNameOrDefault}
                     </span>
 
-                    {/* 2. Member Since Date - Moved up to line 2 */}
+                    {/* 2. Contact link*/}
                     <small
                       className="text-muted fw-medium d-block"
                       style={{ fontFamily: "body", fontSize: "0.7rem" }}
                     >
                       Member since {formatDate(companyJoinDate)}
                     </small>
+
+                    
+                    
                   </div>
 
                   {/* 3. User Icon or Uploaded Logo */}

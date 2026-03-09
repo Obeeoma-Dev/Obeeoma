@@ -36,7 +36,7 @@ const ResetPasswordSignIn: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const API_URL = "http://64.225.122.101/api/v1/auth/reset-password/";
+      const API_URL = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/reset-password/`;
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -265,13 +265,13 @@ const ResetPasswordSignIn: React.FC = () => {
               className="text-muted text-decoration-none me-3"
               style={{ fontFamily: "body" }}
               role="button"
-              to="/system-admin"
+              to="/privacy-policy"
             >
               Privacy Policy
             </Link>
 
             <a
-              href="#"
+              href="/terms"
               className="text-muted text-decoration-none me-3"
               style={{ fontFamily: "body" }}
             >
@@ -279,7 +279,7 @@ const ResetPasswordSignIn: React.FC = () => {
             </a>
 
             <a
-              href="#"
+              href="/contact-us"
               className="text-muted text-decoration-none"
               style={{ fontFamily: "body" }}
             >

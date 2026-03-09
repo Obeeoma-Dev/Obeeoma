@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import authReducer from "./slices/authSlice";
 import adminReducer from "./slices/adminSlice";
 import employerReducer from "./slices/EmployerSlice";
@@ -7,6 +8,7 @@ import subscriptionSlice from "./slices/adminpaystackSlice";
 import { setupApiInterceptors } from "../api/apiConfig";
 import billingReducer from "./slices/billingSlice";
 
+import contentReducer from "./slices/contentSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -15,11 +17,14 @@ export const store = configureStore({
     billing: billingReducer,
     employee: employeeReducer,
     subscriptionSlice: subscriptionSlice,
+    content: contentReducer,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 // calling the setup function
 setupApiInterceptors(store);

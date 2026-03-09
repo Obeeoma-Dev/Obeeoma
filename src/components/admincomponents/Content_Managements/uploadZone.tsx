@@ -1,5 +1,5 @@
 // components/UploadZone.tsx
-// This component implements the "Upload New Content" card from the Media Library.
+// This component implements the "Upload New Content" card from your Media Library.
 
 import React, { useState, useCallback } from "react";
 import {
@@ -17,11 +17,10 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Stack from "react-bootstrap/Stack";
-
-// Import the API
 import { contentMediaAPI } from "../../../services/contentService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Define media types with labels and icons; colors are omitted (Tailwind removed)
 const MEDIA_TYPES = [
   { id: "video", label: "Video", icon: FileVideo },
   { id: "audio", label: "Audio", icon: FileAudio },
@@ -35,16 +34,19 @@ interface UploadZoneProps {
 }
 
 export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
-  // Track the selected media type
+  // Track the selected media type (default "other" like your original)
   const [selectedType, setSelectedType] =
     useState<(typeof MEDIA_TYPES)[number]["id"]>("other");
   // Track whether the drag area is active (dragenter/dragover) to adjust visual feedback
   const [dragActive, setDragActive] = useState(false);
   // Track the selected file (from drop or file input)
   const [file, setFile] = useState<File | null>(null);
-  // Track title and description
+  // Track title, description, category, and status
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [status, setStatus] = useState<"published" | "draft">("published");
+  const [duration, setDuration] = useState("");
 
   // Handle drag events to toggle the "active" state and prevent default browser behavior
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -59,8 +61,8 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
   // Handle drop event: store the first file dropped and reset active state
   const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault(); // Prevent default file-open behavior
+    e.stopPropagation(); // Stop propagation
     setDragActive(false); // Remove highlight on drop
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       setFile(e.dataTransfer.files[0]); // Save the dropped file to state
@@ -69,9 +71,9 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
   // Handle file input change: store the first selected file from the input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form submission (defensive)
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
+      setFile(e.target.files[0]); // Save the chosen file to state
     }
   };
 
@@ -82,38 +84,57 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
     }
 
     const formData = new FormData();
+    // Auto-capture file size and set duration for videos
+    const fileSize = file
+      ? (file.size / 1024 / 1024).toFixed(2) + " MB"
+      : "0 MB";
+    const videoDuration = selectedType === "video" ? duration : "";
+
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("media_type", selectedType);
-    formData.append("file", file);
+    formData.append("category", category);
+    formData.append("status", status);
+    formData.append("duration", videoDuration);
+    formData.append("file_size", fileSize);
+    formData.append("media_type", selectedType); // 'video' | 'audio' | 'image' | 'other'
+    formData.append("file", file); // actual file object
 
     try {
       const response = await contentMediaAPI.createMedia(formData);
       console.log("Upload successful:", response);
 
-      // Call success callback
-      onUploadSuccess?.();
+      // Call success callback with the uploaded content data
+      console.log("Upload successful:", response);
 
-      setFile(null);
-      setTitle("");
+      // Simple success toast
+      toast.success("Content uploaded successfully!");
+
+      // Simple approach: just trigger refresh
+      onUploadSuccess?.();
       setDescription("");
+      setCategory("");
+      setStatus("published");
+      setDuration("");
     } catch (err) {
       console.error("Upload failed:", err);
+
+      // Simple error toast
+      toast.error("Upload failed. Please try again.");
     }
   };
 
   return (
     <Card style={{ borderRadius: 12 }}>
-      {/* Card header: "Upload New Content" */}
       <Card.Header
         as="h2"
         style={{ fontSize: "1rem", fontWeight: 600, fontFamily: "body" }}
       >
-        Upload New Content
+        Upload Mobile Resources
       </Card.Header>
 
-      {/* Card body */}
+      {/* Card body: everything else (tabs, drop zone, form, button) */}
       <Card.Body>
+        {/* Media type selection as pill-style nav (scrollable horizontally if needed) */}
         <div
           className="content-type-pills"
           style={{ overflowX: "auto", paddingBottom: 8, marginBottom: 16 }}
@@ -131,6 +152,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                 <Nav.Item key={type.id}>
                   <Nav.Link
                     eventKey={type.id} // Link key used by Nav to track active
+                    // Add some horizontal spacing between pills
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -160,6 +182,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
         {/* Drag-and-drop upload area; styled with dashed border and hover/active feedback */}
         <div
+          // Relative container to host the invisible file input overlay
           style={{
             position: "relative",
             border: "2px dashed",
@@ -173,15 +196,16 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
               : "transparent",
             cursor: "pointer",
           }}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
+          onDragEnter={handleDrag} // Activate on drag enter
+          onDragLeave={handleDrag} // Deactivate on drag leave
+          onDragOver={handleDrag} // Keep active while over
+          onDrop={handleDrop} // Handle file drop
         >
           {/* Invisible file input covering the whole drop zone to support click-to-upload */}
           <Form.Control
             type="file" // File input
             onChange={handleChange} // Store selected file
+            // Overlay the input so clicks anywhere open the file picker
             style={{
               position: "absolute",
               inset: 0,
@@ -207,7 +231,8 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                   borderRadius: 999,
                 }}
               >
-                <FileIcon size={24} color="#198754" /> {/* Green file icon */}
+                {/* Green file icon */}
+                <FileIcon size={24} color="#198754" />
               </div>
 
               {/* File name and size */}
@@ -232,8 +257,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                     fontFamily: "body",
                   }}
                 >
-                  {(file.size / 1024 / 1024).toFixed(2)} MB{" "}
-                  {/* Human-readable size */}
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
 
@@ -248,7 +272,8 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                 style={{ borderRadius: 999 }}
                 aria-label="Remove selected file"
               >
-                <X size={16} color="#6c757d" /> {/* Gray 'X' icon */}
+                {/* Gray 'X' icon */}
+                <X size={16} color="#6c757d" />
               </Button>
             </Stack>
           ) : (
@@ -267,8 +292,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
                   justifyContent: "center",
                 }}
               >
-                <UploadCloud size={24} color="#00A859" />{" "}
-                {/* Green upload icon */}
+                <UploadCloud size={24} color="#00A859" />
               </div>
 
               {/* Instruction line: click or drag-and-drop */}
@@ -286,24 +310,17 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
               </div>
 
               {/* Supported file types and size note */}
-              <p
-                style={{
-                  marginTop: 4,
-                  fontSize: 12,
-                  color: "#6c757d",
-                  fontFamily: "body",
-                }}
-              >
+              <p style={{ marginTop: 4, color: "#6c757d", fontFamily: "body" }}>
                 MP4, MP3, PNG, JPG up to 50MB
               </p>
             </div>
           )}
         </div>
 
-        {/* Metadata form for Title and Description, laid out responsively using Bootstrap grid */}
+        {/* Metadata form for Title, Description, Category, and Duration */}
         <Row style={{ marginTop: 24 }} xs={1} md={2}>
           {/* Title input */}
-          <Col>
+          <Col style={{ fontFamily: "body" }}>
             <Form.Label
               style={{
                 fontSize: 13,
@@ -324,7 +341,7 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
           </Col>
 
           {/* Description input */}
-          <Col>
+          <Col style={{ fontFamily: "body" }}>
             <Form.Label
               style={{
                 fontSize: 13,
@@ -345,9 +362,99 @@ export function UploadZone({ onUploadSuccess }: UploadZoneProps) {
           </Col>
         </Row>
 
+        <Row style={{ marginTop: 16 }} xs={1} md={2}>
+          {/* Category input */}
+          <Col style={{ fontFamily: "body" }}>
+            <Form.Label
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#495057",
+                marginBottom: 4,
+                fontFamily: "body",
+              }}
+            >
+              Category
+            </Form.Label>
+            <Form.Select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">Select category</option>
+              <option value="meditation">Meditation</option>
+              <option value="sleep">Sleep</option>
+              <option value="anxiety">Anxiety Relief</option>
+              <option value="stress">Stress Management</option>
+              <option value="mindfulness">Mindfulness</option>
+              <option value="general">General Wellness</option>
+            </Form.Select>
+          </Col>
+
+          {/* Duration input (only for videos) */}
+          {selectedType === "video" && (
+            <Col style={{ fontFamily: "body" }}>
+              <Form.Label
+                style={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: "#495057",
+                  marginBottom: 4,
+                  fontFamily: "body",
+                }}
+              >
+                Duration (e.g., 3:00)
+              </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="3:00"
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+              />
+            </Col>
+          )}
+        </Row>
+
+        {/* Status toggle */}
+        <Row style={{ marginTop: 16 }}>
+          <Col style={{ fontFamily: "body" }}>
+            <Form.Label
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: "#495057",
+                marginBottom: 8,
+                fontFamily: "body",
+              }}
+            >
+              Status
+            </Form.Label>
+            <Stack direction="horizontal" gap={3}>
+              <Form.Check
+                type="radio"
+                id="status-published"
+                label="Published"
+                checked={status === "published"}
+                onChange={() => setStatus("published")}
+              />
+              <Form.Check
+                type="radio"
+                id="status-draft"
+                label="Draft"
+                checked={status === "draft"}
+                onChange={() => setStatus("draft")}
+              />
+            </Stack>
+          </Col>
+        </Row>
+
         {/* Right-aligned upload button */}
         <div
-          style={{ marginTop: 24, display: "flex", justifyContent: "flex-end" }}
+          style={{
+            marginTop: 24,
+            display: "flex",
+            justifyContent: "flex-end",
+            fontFamily: "body",
+          }}
         >
           <Button variant="success" onClick={handleUpload}>
             Upload Content

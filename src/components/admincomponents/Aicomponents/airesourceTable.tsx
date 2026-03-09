@@ -30,7 +30,10 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
       <Card.Body className="p-0">
         <Table responsive hover borderless className="mb-0">
           {/* Preserve all original headers */}
-          <thead className="table-light text-uppercase small text-muted">
+          <thead
+            className="table-light text-uppercase small text-muted"
+            style={{ fontFamily: "heading" }}
+          >
             <tr>
               <th className="pl-2">Resource</th>
               <th>Recommended</th>
@@ -61,18 +64,18 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                           size={18}
                           color={
                             resource.type === "Article"
-                              ? "#0d6efd"
+                              ? "#3CB371"
                               : resource.type === "Video"
-                                ? "#dc3545"
+                                ? "#3CB371"
                                 : resource.type === "Audio"
-                                  ? "#198754"
+                                  ? "#3CB371"
                                   : resource.type === "Interactive"
-                                    ? "#fd7e14"
+                                    ? "#3CB371"
                                     : "#6c757d"
                           }
                         />
                       </div>
-                      <div>
+                      <div style={{ fontFamily: "body" }}>
                         <div className="fw-medium">{resource.name}</div>
                         <div className="text-muted small">{resource.type}</div>
                       </div>
@@ -80,41 +83,60 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                   </td>
 
                   {/* Recommended */}
-                  <td className="align-middle text-muted">
+                  <td
+                    className="align-middle text-muted"
+                    style={{ fontFamily: "body" }}
+                  >
                     {resource.recommended}
                   </td>
 
                   {/* Engagement */}
                   <td className="align-middle">
                     <div className="d-flex align-items-center gap-2">
-                      <span className="small fw-medium" style={{ width: 30 }}>
+                      <span
+                        className="small fw-medium"
+                        style={{ width: 30, fontFamily: "body" }}
+                      >
                         {resource.engagement}%
                       </span>
                       <ProgressBar
                         now={resource.engagement}
-                        variant={
-                          resource.engagement > 75
-                            ? "success"
-                            : resource.engagement > 60
-                              ? "warning"
-                              : "danger"
-                        }
-                        style={{ height: 6, flex: 1 }}
-                      />
+                        style={{
+                          height: 6,
+                          flex: 1,
+                          backgroundColor: "#e9ecef", // background track
+                        }}
+                      >
+                        <div
+                          className="progress-bar"
+                          style={{
+                            width: `${resource.engagement}%`,
+                            backgroundColor:
+                              resource.engagement > 75
+                                ? "#00A859"
+                                : resource.engagement > 60
+                                  ? "#3CB371"
+                                  : "#0B6E45",
+                          }}
+                        />
+                      </ProgressBar>
                     </div>
                   </td>
 
                   {/* Effectiveness */}
-                  <td className="align-middle">
-                    <Badge
-                      bg={
-                        resource.effectiveness === "High"
-                          ? "success"
-                          : resource.effectiveness === "Medium"
-                            ? "warning"
-                            : "danger"
-                      }
-                      className="d-inline-flex align-items-center gap-2 px-3 py-2"
+                  <td className="align-middle" style={{ fontFamily: "body" }}>
+                    <span
+                      className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded"
+                      style={{
+                        backgroundColor:
+                          resource.effectiveness === "High"
+                            ? "#00A859"
+                            : resource.effectiveness === "Medium"
+                              ? "#3CB371"
+                              : "#0B6E45",
+                        color: "white",
+                        fontWeight: 500,
+                      }}
                     >
                       {resource.effectiveness === "High" ? (
                         <CheckCircleFill size={14} />
@@ -122,11 +144,14 @@ const ResourcesTable: React.FC<ResourcesTableProps> = ({ resources }) => {
                         <ExclamationTriangleFill size={14} />
                       )}
                       {resource.effectiveness}
-                    </Badge>
+                    </span>
                   </td>
 
                   {/* Last Updated */}
-                  <td className="align-middle text-muted">
+                  <td
+                    className="align-middle text-muted"
+                    style={{ fontFamily: "body" }}
+                  >
                     {resource.lastUpdated}
                   </td>
 

@@ -3,9 +3,13 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.styles.tsx", 
-    "src/**/*.js", 
-    "src/**/*.jsx"
+    "src/**/*.styles.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "vite.config.ts",
+    "jest.config.ts",
+    "tailwind.config.ts",
+    "__mocks__/**/*"
   ],
   "exclude": [
     "node_modules",

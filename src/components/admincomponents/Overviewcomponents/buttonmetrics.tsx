@@ -1,19 +1,12 @@
-// Import React and required Bootstrap components
 import React from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import * as Icons from "lucide-react";
 
-// Import the BottomMetricCard type from your shared dashboard types
 import { BottomMetricCard } from "./admindashboard";
 
-/**
- * Props interface for BottomMetrics component
- * Accepts an array of BottomMetricCard objects
- */
 const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
   metrics,
 }) => {
-  // Define color palette for icons
   const colorMap: Record<string, string> = {
     emerald: "#3CB371",
     blue: "#3CB371",
@@ -23,7 +16,6 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
 
   return (
     <section className="mb-4">
-      {/* Bootstrap grid layout with vertical spacing between rows */}
       <Row className="g-4">
         {metrics.map((metric) => {
           // Dynamically select icon from lucide-react
@@ -33,7 +25,6 @@ const BottomMetrics: React.FC<{ metrics: BottomMetricCard[] }> = ({
             color?: string;
           }>;
 
-          // Resolve icon color from palette
           const iconColor = colorMap[metric.color] || colorMap.emerald;
 
           return (

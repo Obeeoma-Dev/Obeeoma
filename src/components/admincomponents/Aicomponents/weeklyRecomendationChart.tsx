@@ -1,15 +1,7 @@
-// src/components/admincomponents/aimanagementcomponents/WeeklyRecommendationsChart.tsx
-
-// React import required for JSX
 import React from "react";
-
-// React-Bootstrap Card for layout consistency across the app
 import { Card } from "react-bootstrap";
-
-// Line chart component from react-chartjs-2
 import { Line } from "react-chartjs-2";
 
-// Core Chart.js modules that must be registered manually
 import {
   Chart as ChartJS,
   LineElement,
@@ -20,7 +12,6 @@ import {
   Legend,
 } from "chart.js";
 
-// Import component-specific CSS (no Tailwind)
 import "./aicomponent.css";
 
 // Register Chart.js components once
@@ -40,13 +31,13 @@ const chartData = {
     {
       label: "Recommendations Sent",
       data: [245, 312, 289, 340, 298, 360],
-      borderColor: "#0d9488", // refined green (matches previous chart)
+      borderColor: "#3CB371",
       backgroundColor: "rgba(13,148,136,0.15)",
       tension: 0.35,
       pointRadius: 4,
       pointHoverRadius: 6,
       pointBackgroundColor: "#ffffff",
-      pointBorderColor: "#0d9488",
+      pointBorderColor: "#3CB371",
       pointBorderWidth: 2,
     },
   ],

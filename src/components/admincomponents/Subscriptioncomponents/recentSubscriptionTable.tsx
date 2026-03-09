@@ -1,5 +1,3 @@
-// src/components/admincomponents/subscriptioncomponents/RecentSubscriptionsTable.tsx
-
 import React from "react";
 import { Table } from "react-bootstrap";
 import { CheckCircle2, Clock } from "lucide-react";
@@ -22,183 +20,68 @@ interface Props {
 
 const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions }) => {
   return (
-    <div style={{ overflowX: "auto" }}>
-      <Table hover style={{ marginBottom: 0 }}>
-        <thead style={{ backgroundColor: "#f8f9fa" }}>
-          <tr>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Organization
-            </th>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Plan
-            </th>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Employees
-            </th>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Active Users
-            </th>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Status
-            </th>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Expiry Date
-            </th>
-            <th
-              style={{ padding: "1rem", fontWeight: "600", color: "#495057" }}
-            >
-              Actions
-            </th>
+    <Table responsive className="mb-0">
+      <thead className="bg-light" style={{ fontFamily: "heading" }}>
+        <tr>
+          <th className="px-4 py-3 text-muted small fw-semibold">
+            Organization
+          </th>
+          <th className="px-4 py-3 text-muted small fw-semibold">Plan</th>
+          <th className="px-4 py-3 text-muted small fw-semibold">Employees</th>
+          <th className="px-4 py-3 text-muted small fw-semibold">
+            Active Users
+          </th>
+          <th className="px-4 py-3 text-muted small fw-semibold">Status</th>
+          <th className="px-4 py-3 text-muted small fw-semibold">
+            Expiry Date
+          </th>
+          <th className="px-4 py-3 text-muted small fw-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {subscriptions.map((sub, index) => (
+          <tr
+            key={index}
+            className="border-bottom"
+            style={{ fontFamily: "body" }}
+          >
+            <td className="px-4 py-3">{sub.organization}</td>
+            <td className="px-4 py-3">{sub.plan}</td>
+            <td className="px-4 py-3">{sub.employees}</td>
+            <td className="px-4 py-3">
+              {sub.activeUsers} ({sub.activeUsersPercentage}%)
+            </td>
+            <td className="px-4 py-3">
+              {sub.status === "Active" ? (
+                <span className="d-flex align-items-center text-success">
+                  <CheckCircle2 size={16} className="me-1" />
+                  Active
+                </span>
+              ) : (
+                <span className="d-flex align-items-center text-warning">
+                  <Clock size={16} className="me-1" />
+                  Pending
+                </span>
+              )}
+            </td>
+            <td className="px-4 py-3">{sub.expiryDate}</td>
+            <td className="px-4 py-3">
+              <div className="d-flex gap-2">
+                <a href="#" className="text-success text-decoration-none small">
+                  View
+                </a>
+                <a href="#" className="text-success text-decoration-none small">
+                  Edit
+                </a>
+                <a href="#" className="text-danger text-decoration-none small">
+                  Deactivate
+                </a>
+              </div>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {subscriptions.map((sub, index) => (
-            <tr key={index} style={{ borderBottom: "1px solid #e9ecef" }}>
-              <td style={{ padding: "1rem", color: "#1a1a1a" }}>
-                {sub.organization}
-              </td>
-              <td style={{ padding: "1rem", color: "#6c757d" }}>{sub.plan}</td>
-              <td style={{ padding: "1rem", color: "#1a1a1a" }}>
-                {sub.employees.toLocaleString()}
-              </td>
-              <td style={{ padding: "1rem", color: "#1a1a1a" }}>
-                {sub.activeUsers.toLocaleString()} ({sub.activeUsersPercentage}
-                %)
-              </td>
-              <td style={{ padding: "1rem" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.5rem",
-                  }}
-                >
-                  {sub.status === "Active" ? (
-                    <>
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="8"
-                          cy="8"
-                          r="6"
-                          stroke="#3CB371"
-                          strokeWidth="1.5"
-                          fill="none"
-                        />
-                        <path
-                          d="M5 8l2 2 4-4"
-                          stroke="#3CB371"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span style={{ color: "#3CB371", fontWeight: "500" }}>
-                        Active
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle
-                          cx="8"
-                          cy="8"
-                          r="6"
-                          stroke="#ff9800"
-                          strokeWidth="1.5"
-                          fill="none"
-                        />
-                        <path
-                          d="M8 4v4l3 2"
-                          stroke="#ff9800"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      <span style={{ color: "#ff9800", fontWeight: "500" }}>
-                        Pending
-                      </span>
-                    </>
-                  )}
-                </div>
-              </td>
-              <td style={{ padding: "1rem", color: "#6c757d" }}>
-                {sub.expiryDate}
-              </td>
-              <td style={{ padding: "1rem" }}>
-                <div style={{ display: "flex", gap: "0.75rem" }}>
-                  <a
-                    href="#"
-                    style={{
-                      color: "#3CB371",
-                      textDecoration: "none",
-                      fontSize: "0.875rem",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      console.log(`View ${sub.organization}`);
-                    }}
-                  >
-                    View
-                  </a>
-                  <a
-                    href="#"
-                    style={{
-                      color: "#3CB371",
-                      textDecoration: "none",
-                      fontSize: "0.875rem",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      console.log(`Edit ${sub.organization}`);
-                    }}
-                  >
-                    Edit
-                  </a>
-                  <a
-                    href="#"
-                    style={{
-                      color: "#dc3545",
-                      textDecoration: "none",
-                      fontSize: "0.875rem",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      console.log(`Deactivate ${sub.organization}`);
-                    }}
-                  >
-                    Deactivate
-                  </a>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 

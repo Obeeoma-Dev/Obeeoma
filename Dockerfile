@@ -18,7 +18,6 @@ COPY . .
 # Build the application (runs the 'build' script defined in package.json)
 RUN npm run build
 
-
 # Stage 2: Serve the static files with a lightweight web server (Nginx)
 FROM nginx:stable-alpine
 
@@ -28,8 +27,11 @@ COPY --from=build /obeeoma/dist /usr/share/nginx/html
 #  Copy a custom Nginx configuration file (see Step 1.3)
 #  COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose the default Nginx HTTP port
-EXPOSE 80
+# Expose port 3000 to match docker-compose.yml
+EXPOSE 3000
+
+# Create custom Nginx config for port 3000
+RUN echo 'server { listen 3000; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
 
 # The default Nginx CMD will start the server
 CMD ["nginx", "-g", "daemon off;"]

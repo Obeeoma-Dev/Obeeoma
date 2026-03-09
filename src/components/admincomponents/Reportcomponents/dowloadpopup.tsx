@@ -12,9 +12,6 @@ interface DownloadPopupProps {
   reportSize: string;
 }
 
-/**
- * DownloadPopup Component
- */
 export function DownloadPopup({
   isOpen,
   onClose,
@@ -23,33 +20,25 @@ export function DownloadPopup({
   reportDate,
   reportSize,
 }: DownloadPopupProps) {
-  /**
-   * Handles the download action
-   */
   const handleDownload = () => {
     console.log("Downloading:", reportTitle);
     onClose();
   };
 
   return (
-    /**
-     * Bootstrap Modal replaces your Popup component
-     * show      -> controls visibility
-     * onHide    -> handles close events
-     * centered  -> vertically centers modal
-     */
     <Modal show={isOpen} onHide={onClose} centered>
       {/* Modal Header */}
       <Modal.Header closeButton>
-        <Modal.Title>Download Report</Modal.Title>
+        <Modal.Title style={{ fontFamily: "heading" }}>
+          Download Report
+        </Modal.Title>
       </Modal.Header>
 
       {/* Modal Body */}
       <Modal.Body>
-        {/* Stack replaces Tailwind flex + spacing */}
         <Stack gap={4}>
           {/* Report Info Card */}
-          <div className="report-card">
+          <div className="report-card" style={{ fontFamily: "body" }}>
             <div className="report-icon">
               <FileText size={24} />
             </div>
@@ -64,10 +53,12 @@ export function DownloadPopup({
 
           {/* Download Options */}
           <div>
-            <p className="fw-medium mb-2">Download Options</p>
+            <p className="fw-medium mb-2" style={{ fontFamily: "body" }}>
+              Download Options
+            </p>
 
             {/* Radio Group */}
-            <Form>
+            <Form style={{ fontFamily: "body" }}>
               <Stack gap={2}>
                 <Form.Check
                   type="radio"
@@ -97,7 +88,7 @@ export function DownloadPopup({
       </Modal.Body>
 
       {/* Modal Footer */}
-      <Modal.Footer>
+      <Modal.Footer style={{ fontFamily: "body" }}>
         <Button variant="outline-secondary" onClick={onClose}>
           Cancel
         </Button>

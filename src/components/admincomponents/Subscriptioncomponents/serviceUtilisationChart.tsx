@@ -1,5 +1,3 @@
-// src/components/admincomponents/subscriptioncomponents/ServiceUtilizationChart.tsx
-
 import React from "react";
 
 // Define props for each service usage

@@ -33,7 +33,7 @@ const options = {
     scales: {
         x: {
             grid: {
-                display: false, // remove vertical grid lines
+                display: false,
             },
         },
         y: {

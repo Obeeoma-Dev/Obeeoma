@@ -27,7 +27,9 @@ describe("Hero Component", () => {
     renderHero();
 
     // Look for heading text that contains "Start Your journey"
-    expect(screen.getByText(/Start Your journey/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Your Workplace Mental Health Companion/i),
+    ).toBeInTheDocument();
   });
 
   // Test 2: check that both buttons render with correct text

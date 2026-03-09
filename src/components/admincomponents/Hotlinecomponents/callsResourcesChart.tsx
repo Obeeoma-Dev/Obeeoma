@@ -1,15 +1,8 @@
-// src/components/admincomponents/Hotline-activity/CallReasonsChart.tsx
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Card } from "react-bootstrap";
 
-const BAR_COLORS = [
-  "#0d6efd", // Anxiety - Bootstrap primary (blue)
-  "#198754", // Depression - Bootstrap success (green)
-  "#ffc107", // Other - Bootstrap warning (amber)
-  "#dc3545", // Abuse - Bootstrap danger (red)
-  "#6f42c1", // Grief - Bootstrap purple
-];
+const BAR_COLORS = ["#3CB371", "#198754", "#9DD3AF", "#0B6E45", "#00A859"];
 
 const data = {
   labels: ["Anxiety", "Depression", "Other", "Abuse", "Grief"],
@@ -29,7 +22,7 @@ const options = {
   scales: {
     x: {
       grid: {
-        display: false, // remove vertical grid lines
+        display: false,
       },
     },
     y: {

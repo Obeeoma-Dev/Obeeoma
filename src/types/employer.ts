@@ -261,7 +261,6 @@ export interface EmployerUser {
 
   company?: {
     id: string | number;
-    companySize: number;
     createdAt: string;
   };
   address?: string;

@@ -1,13 +1,8 @@
-// Import React and the useState hook for managing component state
 import React, { useState } from "react";
-
-// Import Tabs and Tab components from React-Bootstrap
 import { Tabs, Tab } from "react-bootstrap";
-
-// Import the AccountForm component to be rendered inside the "Account" tab
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
-import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
+// import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
 import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
 import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
@@ -15,47 +10,35 @@ import SecuritySettings from "./securitySettings";
 // Placeholder data for subscription plans
 const subscriptionPlans = [
   {
-    name: "Basic",
-    price: "$5.99/month",
-    billingNote: "Billed annually (save $12)",
+    id: "1",
+    name: "Freemium",
+    organization: "TechStart Inc",
     features: [
       "Access to basic resources",
       "Monthly check-ins",
-      "Up to 10 employees",
       "Email support",
-    ],
-  },
-  {
-    name: "Professional",
-    price: "$12.99/month",
-    billingNote: "Billed annually (save $24)",
-    features: [
-      "All Basic features",
-      "Weekly check-ins",
-      "Dedicated support team",
-      "Up to 50 employees",
-      "Chat support",
     ],
     isPopular: true,
   },
   {
+    id: "2",
     name: "Premium",
-    price: "$24.99/month",
-    billingNote: "Billed annually (save $48)",
+    organization: "Global Enterprise",
+    monthlyPrice: 24.99,
+    annualPrice: 251.99,
+    employeeLimit: 0,
     features: [
-      "All Professional features",
-      "Daily check-ins",
-      "24/7 crisis support",
-      "Custom solutions",
-      "Unlimited employees",
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+      "Access to live webinars",
+      "Client engagement tools",
+      "Advanced analytics",
+      "Custom integrations",
+      "Priority support",
     ],
   },
 ];
-
-/*
- * SettingsTabs component renders a tabbed interface for different settings sections.
- * It uses React-Bootstrap's Tabs and Tab components to organize content.
- */
 
 const SettingsTabs: React.FC = () => {
   // State to track which tab is currently active; default is "account"
@@ -65,10 +48,10 @@ const SettingsTabs: React.FC = () => {
     <div className="p-3 settings-main-container">
       {/* Tabs components with controlled activeKey to manage selected tab */}
       <Tabs
-        id="settings-tabs" // Unique ID for accessibility
+        id="settings-tabs"
         activeKey={key}
-        onSelect={(k) => k && setKey(k)} // Updates active tab when a new one is selected
-        className="settings-nav mb-3 border-bottom" // Bottom margin for spacing and custom styles
+        onSelect={(k) => k && setKey(k)}
+        className="settings-nav mb-3 border-bottom"
       >
         {/* Tab for Account settings */}
         <Tab eventKey="account" title="Account">
@@ -99,11 +82,11 @@ const SettingsTabs: React.FC = () => {
         </Tab>
 
         {/* Tab for Subscription details */}
-        <Tab eventKey="subscription" title="Subscription">
+        {/* <Tab eventKey="subscription" title="Subscription">
           <div style={{ paddingTop: 10 }}>
             <SubscriptionSettingsComp plans={subscriptionPlans} />
           </div>
-        </Tab>
+        </Tab> */}
 
         {/* Tab for Feature flags */}
         <Tab eventKey="feature-flags" title="Feature Flags">

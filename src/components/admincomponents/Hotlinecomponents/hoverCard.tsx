@@ -1,42 +1,24 @@
-// Import React (required for JSX)
 import React from "react";
-
-// Import Card and Badge components from React-Bootstrap
 import { Card, Badge } from "react-bootstrap";
-
-// Import the Lucide icon type for type safety
 import { LucideIcon } from "lucide-react";
 import "./hotline.css";
 
-/**
- * Props interface for the StatCard component
- * This defines what data the component expects
- */
 interface StatCardProps {
   title: string;
   value: string | number;
   subtitle: string;
   trend?: string;
-  icon: LucideIcon;
+  icon: LucideIcon; // Reverted back to LucideIcon
   color: "emerald" | "blue" | "amber" | "rose";
 }
 
-/**
- * StatCard component
- * Displays a statistic with an icon, value, title, subtitle, and optional trend
- */
 export function HoverStatCard({
   title,
   value,
   subtitle,
-  trend,
   icon: Icon,
   color,
 }: StatCardProps) {
-  /**
-   * Color mapping for Bootstrap-compatible styles
-   * These map semantic colors to Bootstrap utility classes
-   */
   const colorStyles = {
     emerald: {
       bg: "bg-success bg-opacity-10",
@@ -60,47 +42,31 @@ export function HoverStatCard({
     },
   } as const;
 
-  // Select the correct color style based on the color prop
   const styles = colorStyles[color];
 
   return (
-    /**
-     * Bootstrap Card component
-     * - h-100 ensures equal height in grid layouts
-     * - shadow-sm gives a subtle professional shadow
-     */
-    <Card className="h-100 shadow-sm stat-card">
+    <Card className="shadow-sm stat-card w-100 h-100">
       {/* Card body wraps all main content */}
       <Card.Body className="d-flex flex-column justify-content-between">
-        {/* Top row: icon on the left, trend badge on the right */}
-        <div className="d-flex justify-content-between align-items-start mb-3">
+        {/* Top row: icon on the left, value and title on the right */}
+        <div className="d-flex align-items-center mb-3">
           {/* Icon container */}
           <div
             className={`d-flex align-items-center justify-content-center rounded-circle ${styles.bg} ${styles.text}`}
             style={{ width: 48, height: 48 }}
           >
-            {/* Lucide icon */}
             <Icon size={24} />
           </div>
 
-          {/* Optional trend badge (only shown if trend exists) */}
-          {trend && (
-            <Badge bg={styles.badge} pill>
-              {trend}
-            </Badge>
-          )}
-        </div>
+          {/* Spacer */}
+          <div style={{ width: 16 }} />
 
-        {/* Bottom section: value, title, and subtitle */}
-        <div>
-          {/* Main statistic value */}
-          <h3 className="fw-bold mb-1">{value}</h3>
-
-          {/* Title text */}
-          <div className="fw-semibold text-dark mb-1">{title}</div>
-
-          {/* Subtitle / helper text */}
-          <small className="text-muted">{subtitle}</small>
+          {/* Value and title stacked vertically */}
+          <div className="d-flex flex-column" style={{ fontFamily: "body" }}>
+            <div className="fw-semibold text-dark">{title}</div>
+            <small className="text-muted">{subtitle}</small>
+            <h3 className="fw-bold mb-1">{value}</h3>
+          </div>
         </div>
       </Card.Body>
     </Card>

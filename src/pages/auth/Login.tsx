@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { loginUser, clearError } from "../../store/slices/authSlice";
+import { loginUser, clearError, setupMfa } from "../../store/slices/authSlice";
 
 import { useNavigate, Link } from "react-router-dom";
 import { loginValidationSchema } from "./../../validation/authValidation";
@@ -54,6 +54,7 @@ const LoginPage = () => {
     const normalizedRole = role?.toLowerCase().trim();
 
     switch (normalizedRole) {
+      case "system_admin":
       case "systemadmin":
         return "/system-admin";
       case "employer":
@@ -75,11 +76,19 @@ const LoginPage = () => {
       ).unwrap();
 
       if (resultAction.mfa_required && resultAction.temp_token) {
+        // Check if MFA setup data is included in the login response
+        if (resultAction.mfa_setup_data) {
+          // MFA setup data is already included, no need to fetch it
+          console.log("MFA setup data included in login response");
+        } else {
+          // Fetch MFA setup data if not included
+          dispatch(setupMfa());
+        }
         navigate("/mfa-setup", { replace: false });
         return;
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const userRole = (resultAction as any)?.role || user?.role;
+      const userRole = (resultAction as any)?.user?.role || user?.role;
       console.log("Final Role Determined:", userRole);
 
       const destinationPath: DashboardPath = getDashboardRoute(userRole);
@@ -280,19 +289,19 @@ const LoginPage = () => {
               className="text-muted text-decoration-none me-3"
               style={{ fontFamily: "body" }}
               role="button"
-              to="/system-admin"
+              to="/privacy-policy"
             >
               Privacy Policy
             </Link>
             <a
-              href="#"
+              href="terms"
               className="text-muted text-decoration-none me-3"
               style={{ fontFamily: "body" }}
             >
               Terms of Service
             </a>
             <a
-              href="#"
+              href="contact-us"
               className="text-muted text-decoration-none"
               style={{ fontFamily: "body" }}
             >

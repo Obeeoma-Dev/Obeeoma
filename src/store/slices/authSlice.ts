@@ -18,6 +18,7 @@ import api from "../../api/apiConfig";
 import axios, { AxiosError } from "axios";
 import { getDashboardRoute } from "../../utils/routing";
 import { RootState } from "../store";
+import { clearContentState } from "./contentSlice";
 
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -145,11 +146,57 @@ export const logoutUserThunk = createAsyncThunk<void, void>(
     try {
       await authAPI.logout();
     } catch (error: unknown) {
-      console.error(
-        "Server logout failed, but client session clearing.",
-        getErrorMessage(error),
-      );
+      console.error(getErrorMessage(error));
     } finally {
+      // Clear all authentication data
+      dispatch(logout());
+      delete api.defaults.headers.common["Authorization"];
+
+      // AGGRESSIVE CACHE CLEARING ON LOGOUT
+      console.log(" Clearing browser cache on logout...");
+
+      // Clear all localStorage data
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // Clear IndexedDB (if used)
+      if ("caches" in window) {
+        caches.keys().then((names) => {
+          names.forEach((name) => {
+            caches.delete(name);
+          });
+        });
+      }
+
+      // Force cache busting with timestamp
+      const timestamp = Date.now();
+
+      // Replace current history to prevent back navigation
+      window.history.replaceState(
+        { loggedOut: true, timestamp },
+        "",
+        `/login?t=${timestamp}`,
+      );
+      window.history.pushState(
+        { loggedOut: true, timestamp },
+        "",
+        `/login?t=${timestamp}`,
+      );
+
+      // Prevent back button from accessing cached pages
+      const preventBack = (event: PopStateEvent) => {
+        console.log(" Preventing back navigation after logout");
+        event.preventDefault();
+        window.history.pushState({ loggedOut: true }, "", "/login");
+      };
+
+      window.addEventListener("popstate", preventBack);
+
+      // Clean up the listener after a short delay
+      setTimeout(() => {
+        window.removeEventListener("popstate", preventBack);
+      }, 100);
+
       dispatch(logout());
       delete api.defaults.headers.common["Authorization"];
     }
@@ -196,27 +243,51 @@ export const setupMfa = createAsyncThunk<
     rejectValue: string;
     state: RootState;
   }
->("auth/setupMfa", async (_, { rejectWithValue }) => {
+>("auth/setupMfa", async (_, { rejectWithValue, getState }) => {
   try {
-    // required by authAPI.fetchMfaSetupData
+    const state = getState() as RootState;
+
+    // Check if we have a temp_token from login (state or localStorage)
+    let tempToken = state.auth.tempToken;
+
+    if (!tempToken) {
+      tempToken = localStorage.getItem("temp_token");
+    }
+
+    if (!tempToken) {
+      // Wait a bit and try again (timing fix)
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      tempToken = localStorage.getItem("temp_token");
+    }
+
+    if (!tempToken) {
+      return rejectWithValue("No temporary token found. Please login first.");
+    }
+
+    console.log("setupMfa - using tempToken:", tempToken);
+
+    // Use authAPI to ensure proper interceptor handling
     const response = await authAPI.fetchMfaSetupData({});
+    console.log("setupMfa - response:", response);
 
     // Return the data from the Axios response
     return response.data as MfaSetupData;
   } catch (err: unknown) {
+    console.error("setupMfa error:", err);
     return rejectWithValue(getErrorMessage(err));
   }
 });
 
 export const confirmMfa = createAsyncThunk<
-  void, // Typically returns nothing or a success message
+  LoginSuccessPayload, // Return the login success payload from backend
   { temp_token: string; code: string }, // Argument is the payload { temp_token: string, code: string }
   {
     rejectValue: string;
   }
 >("auth/confirmMfa", async (payload, { rejectWithValue }) => {
   try {
-    await authAPI.confirmMfaSetup(payload);
+    const response = await authAPI.confirmMfaSetup(payload);
+    return response.data as LoginSuccessPayload;
   } catch (err: unknown) {
     return rejectWithValue(getErrorMessage(err));
   }
@@ -237,6 +308,7 @@ const getUserFromStorage = () => {
 const initialState: AuthState = {
   user: getUserFromStorage(),
   token: localStorage.getItem("token"),
+  tempToken: null, // Add temp token
   isLoading: false,
   error: null,
   is_verified: false,
@@ -255,9 +327,14 @@ function saveAuthValue(
   key: "refresh" | "token" | "user" | "temp_token",
   value = "",
 ) {
+  console.log(
+    `saveAuthValue called: key=${key}, value=${value}, type=${typeof value}`,
+  );
   if (!value) {
+    console.log(`Removing ${key} from localStorage`);
     localStorage.removeItem(key);
   } else {
+    console.log(`Setting ${key} in localStorage:`, value);
     localStorage.setItem(key, value);
   }
 }
@@ -280,6 +357,8 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("refresh");
+      // Clear content state on logout
+      clearContentState();
     },
     clearError: (state) => {
       state.error = null;
@@ -293,18 +372,33 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        console.log("loginUser.fulfilled - action.payload:", action.payload);
         state.isLoading = false;
         state.user = action.payload.user || action.payload;
         state.token = action.payload.access || action.payload.token;
         // Since `token` is updated, also update `accessToken` if it's used elsewhere
         state.accessToken = action.payload.access || action.payload.token;
+        state.tempToken = action.payload.temp_token || null; // Save temp token
         state.error = null;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        state.mfaSetupData = action.payload as any;
+
+        // Handle MFA setup data if included in login response
+        if (action.payload.mfa_setup_data) {
+          console.log(
+            "Setting MFA setup data from login response:",
+            action.payload.mfa_setup_data,
+          );
+          state.mfaSetupData = action.payload.mfa_setup_data;
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          state.mfaSetupData = action.payload as any;
+        }
+
+        console.log("About to save auth values...");
         saveAuthValue("token", action.payload?.access || action.payload?.token);
         saveAuthValue("refresh", action.payload.refresh);
         saveAuthValue("user", JSON.stringify(action.payload.user));
         saveAuthValue("temp_token", action.payload.temp_token);
+        console.log("Auth values saved");
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -436,14 +530,27 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(confirmMfa.fulfilled, (state) => {
+      .addCase(confirmMfa.fulfilled, (state, action) => {
         state.isLoading = false;
         state.mfaSetupData = null;
         state.isMfaSetupConfirmed = true; // Set status to confirmed
         state.error = null;
+
+        // Handle the response from backend with tokens and user data
+        if (action.payload) {
+          // Update tokens
+          state.token = action.payload.access;
+          state.accessToken = action.payload.access;
+          state.user = action.payload.user;
+
+          // Save to localStorage
+          localStorage.setItem("token", action.payload.access);
+          localStorage.setItem("refresh", action.payload.refresh);
+          localStorage.setItem("user", JSON.stringify(action.payload.user));
+        }
+
         if (state.user) {
           state.user.mfa_enabled = true;
-          localStorage.setItem("user", JSON.stringify(state.user));
         }
       })
       .addCase(confirmMfa.rejected, (state, action) => {

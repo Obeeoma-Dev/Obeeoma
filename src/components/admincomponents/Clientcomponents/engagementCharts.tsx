@@ -1,6 +1,3 @@
-// EngagementCharts.tsx
-// Displays line and bar charts for engagement and reward redemption in a responsive layout
-
 import React from "react";
 import { Line, Bar } from "react-chartjs-2";
 import { Row, Col, Card } from "react-bootstrap";
@@ -35,7 +32,7 @@ const weeklyEngagementData = {
     {
       label: "Engagement Rate (%)",
       data: [75, 78, 80, 77, 79, 81, 78],
-      borderColor: "#0B6E45",
+      borderColor: "#3CB371",
       backgroundColor: "rgba(11, 110, 69, 0.2)",
       fill: true,
     },
@@ -49,7 +46,7 @@ const rewardRedemptionData = {
     {
       label: "Points Redeemed",
       data: [42000, 38000, 45000, 47000, 43000, 50000],
-      backgroundColor: "#0B6E45",
+      backgroundColor: "#3CB371",
     },
   ],
 };

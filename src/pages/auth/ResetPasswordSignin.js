@@ -23,7 +23,7 @@ const ResetPasswordSignIn = () => {
         }
         setIsLoading(true);
         try {
-            const API_URL = "http://64.225.122.101/api/v1/auth/reset-password/";
+            const API_URL = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/reset-password/`;
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: {
@@ -115,6 +115,6 @@ const ResetPasswordSignIn = () => {
                     fontSize: "0.8rem",
                     zIndex: 1000,
                     fontFamily: "body",
-                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsx("div", { className: "footer-copyright", children: "\u00A9 2025 Obeeoma. All rights reserved." }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/system-admin", children: "Privacy Policy" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "#", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
+                }, children: _jsxs("div", { className: "d-flex justify-content-between align-items-center container", children: [_jsx("div", { className: "footer-copyright", children: "\u00A9 2025 Obeeoma. All rights reserved." }), _jsxs("div", { className: "d-flex align-items-center", children: [_jsx(Link, { className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, role: "button", to: "/privacy-policy", children: "Privacy Policy" }), _jsx("a", { href: "/terms", className: "text-muted text-decoration-none me-3", style: { fontFamily: "body" }, children: "Terms of Service" }), _jsx("a", { href: "/contact-us", className: "text-muted text-decoration-none", style: { fontFamily: "body" }, children: "Contact Us" })] })] }) })] }));
 };
 export default ResetPasswordSignIn;

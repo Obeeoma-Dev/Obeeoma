@@ -36,17 +36,17 @@ const ModelPerformance: React.FC<ModelPerformanceProps> = ({ performance }) => {
             </Row>
             <ProgressBar
               now={item.score}
-              variant={
-                item.score >= 85
-                  ? "success"
-                  : item.score >= 70
-                    ? "primary"
-                    : item.score >= 60
-                      ? "warning"
-                      : "danger"
-              }
               className="thin-progress"
-            />
+              style={{ backgroundColor: "#e9ecef" }} // background track
+            >
+              <div
+                className="progress-bar"
+                style={{
+                  width: `${item.score}%`,
+                  backgroundColor: "#00A859",
+                }}
+              />
+            </ProgressBar>
           </div>
         ))}
       </Card.Body>

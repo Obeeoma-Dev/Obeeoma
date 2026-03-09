@@ -1,17 +1,8 @@
-// Import React (required for JSX)
 import React from "react";
-
-// Import Card and Badge components from React-Bootstrap
 import { Card, Badge } from "react-bootstrap";
-
-// Import the Lucide icon type for type safety
 import { LucideIcon } from "lucide-react";
 import "./hotline.css";
 
-/**
- * Props interface for the StatCard component
- * This defines what data the component expects
- */
 interface StatCardProps {
   title: string;
   value: string;
@@ -21,10 +12,6 @@ interface StatCardProps {
   color: "emerald" | "blue" | "amber" | "rose";
 }
 
-/**
- * StatCard component
- * Displays a statistic with an icon, value, title, subtitle, and optional trend
- */
 export function StatCard({
   title,
   value,
@@ -33,10 +20,6 @@ export function StatCard({
   icon: Icon,
   color,
 }: StatCardProps) {
-  /**
-   * Color mapping for Bootstrap-compatible styles
-   * These map semantic colors to Bootstrap utility classes
-   */
   const colorStyles = {
     emerald: {
       bg: "bg-success bg-opacity-10",
@@ -60,15 +43,9 @@ export function StatCard({
     },
   } as const;
 
-  // Select the correct color style based on the color prop
   const styles = colorStyles[color];
 
   return (
-    /**
-     * Bootstrap Card component
-     * - h-100 ensures equal height in grid layouts
-     * - shadow-sm gives a subtle professional shadow
-     */
     <Card className="h-100 shadow-sm stat-card">
       {/* Card body wraps all main content */}
       <Card.Body className="d-flex flex-column justify-content-between">

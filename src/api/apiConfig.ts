@@ -10,17 +10,12 @@ import {
   changePasswordData,
   OtpVerificationPayload,
   ChangePassword,
-  // MfaSetupData,
-  // MfaVerifyPayload,
   MfaSetupRequestPayload,
 } from "../types/auth";
 import { Employee } from "../types/TData";
 
-// import { PaymentUpdatePayload, InvoiceItem } from "@/types/employer";
-// declare const authApiClient: any;
-
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1";
 console.log("API Base URL:", API_BASE_URL);
 
 export const INVITE_EMPLOYEE_URL = "/v1/employers/invite-employee/";
@@ -36,20 +31,20 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
     (config) => {
       const requestPath = config.url || "";
       const publicEndpoints = [
-        "/v1/auth/login/",
-        "/v1/auth/signup/",
-        "/v1/auth/reset-password/",
-        "/v1/auth/reset-password/complete/",
-        "/v1/organization-signup/",
-        " v1/auth/verify-invitation-otp/",
-        // "/v1/auth/logout/",
-        "/v1/auth/mfa/setup/",
-        "/v1/auth/mfa/verify/",
+        "auth/login/",
+        "auth/signup/",
+        "auth/reset-password/",
+        "auth/reset-password/complete/",
+        "organization-signup/",
+        "auth/verify-invitation-otp/",
+        "auth/mfa/setup/",
+        "auth/mfa/verify/",
       ];
 
-      const isPublicEndpoint = publicEndpoints.some((path) =>
-        requestPath.endsWith(path),
+      const isPublicEndpoint = publicEndpoints.some(
+        (path) => requestPath.includes(path) || requestPath.endsWith(path),
       );
+
       //check local storage first (more reliable)
       const persistedToken = localStorage.getItem("token");
 
@@ -59,18 +54,32 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 
       const activeToken = persistedToken || token;
 
-      if (activeToken && !isPublicEndpoint) {
+      // Special handling for MFA setup - use temp_token
+      if (requestPath.includes("auth/mfa/setup/")) {
+        const tempToken =
+          localStorage.getItem("temp_token") || state.auth.tempToken;
+        if (tempToken) {
+          config.headers.Authorization = `Bearer ${tempToken}`;
+          console.log("Using temp_token for MFA setup:", tempToken);
+        }
+      } else if (activeToken && !isPublicEndpoint) {
         //  "inject the authorization"
         config.headers.Authorization = `Bearer ${activeToken}`;
       } else if (isPublicEndpoint) {
-        // to remove the token header
+        // to remove the token header for public endpoints
         delete config.headers.Authorization;
+        // Also remove any existing Authorization header
+        if (config.headers.Authorization) {
+          delete config.headers.Authorization;
+        }
       }
       console.log(" Making API Request:", {
         method: config.method,
         url: config.url,
         data: config.data,
-        token_injected: !!(activeToken && !isPublicEndpoint),
+        token_injected:
+          !!(activeToken && !isPublicEndpoint) ||
+          !!localStorage.getItem("temp_token"),
         token_source: persistedToken
           ? "localStorage"
           : token
@@ -121,12 +130,12 @@ export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
     const response = await api.post("v1/auth/login/", credentials);
-    return response;`1`
+    return response;
   },
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/v1/organization-signup/", {
+    const response = await api.post("/organization-signup/", {
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,
@@ -184,13 +193,14 @@ export const authAPI = {
   },
 
   fetchMfaSetupData: async (payload: MfaSetupRequestPayload) => {
-    const response = await api.post("/v1/auth/mfa/setup/", payload);
+    // For MFA setup, we need to use the temp_token from login response
+    const response = await api.post("auth/mfa/setup/", payload);
     return response;
   },
 
   confirmMfaSetup: async (payload: { temp_token: string; code: string }) => {
     // The payload is expected to be an object: { temp_token: string, code: string }
-    const response = await api.post("/v1/auth/mfa/verify/", payload);
+    const response = await api.post("auth/mfa/verify/", payload);
     return response;
   },
 };
@@ -199,12 +209,12 @@ export const authAPI = {
 
 export const adminAPI = {
   getDashboardStats: async () => {
-    const response = await api.get("/v1/admin/statistics/");
+    const response = await api.get("admin/statistics/");
     return response;
   },
 
   getAllUsers: async () => {
-    const response = await api.get("/v1/admin/users/");
+    const response = await api.get("/admin/users/");
     return response;
   },
 
@@ -213,7 +223,40 @@ export const adminAPI = {
     return response;
   },
   getDashboardSummary: async () => {
-    const response = await api.get("/v1/admin/overview");
+    const response = await api.get("admin/overview");
+    return response;
+  },
+
+  getDashboardOverview: async () => {
+    const response = await api.get("admin/overview/");
+    return response;
+  },
+
+  // Organization management APIs
+  getOrganizationsGrowthChart: async () => {
+    const response = await api.get("/v1/admin/organizations/growth-chart/");
+    return response;
+  },
+
+  getOrganizationsClientDistribution: async () => {
+    const response = await api.get(
+      "/v1/admin/organizations/client-distribution/",
+    );
+    return response;
+  },
+
+  // Get organizations list with pagination and search
+  getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      page_size: pageSize.toString(),
+    });
+
+    if (search) {
+      params.append("search", search);
+    }
+
+    const response = await api.get(`/v1/admin/organizations/?${params}`);
     return response;
   },
 
@@ -250,7 +293,7 @@ export const adminAPI = {
   //   return response;
   // },
 
-    getFeatureUsage: async () => {
+  getFeatureUsage: async () => {
     const response = await api.get("/v1/feature-usage");
     return response;
   },
@@ -282,6 +325,22 @@ export const adminAPI = {
 
   viewBilling: async () => {
     const response = await api.get("/v1/employer/billing/view");
+    return response;
+  },
+
+  // Admin AI Chat APIs
+  getAdminChatMessages: async () => {
+    const response = await api.get("/admin/ai-chat/");
+    return response;
+  },
+
+  sendAdminChatMessage: async (payload: { message: string }) => {
+    const response = await api.post("/admin/ai-chat/", payload);
+    return response;
+  },
+
+  clearAdminChatHistory: async () => {
+    const response = await api.delete("/admin/ai-chat/clear-history/");
     return response;
   },
 };
@@ -411,8 +470,6 @@ export const employerAPI = {
   getbreakdownusage: async () => {
     const response = await api.get("/v1/feature-usage/");
     return response;
-
-
   },
 
   // Dashboard Settings
@@ -421,13 +478,13 @@ export const employerAPI = {
     return response;
   },
 
-  deleteEmployee: async (id: string) => {
-    const response = await api.delete(`/v1/dashboard/employees/${id}`);
+  deleteEmployee: async (id: string | number) => {
+    const response = await api.delete(`/v1/auth/invitations/${id}/`);
     return response;
   },
 
   updateEmployee: async (id: number | string, data: Partial<Employee>) => {
-    const response = await api.patch(`/v1/dashboard/employees/${id}`, data);
+    const response = await api.patch(`/v1/auth/invitation/${id}/`, data);
     return response.data;
   },
 
@@ -516,8 +573,16 @@ export const employerAPI = {
     return response;
   },
 
+  getWellnessMoodTrends: async (companyId?: string) => {
+    const url = companyId
+      ? `/v1/company-mood/${companyId}/`
+      : "/v1/company-mood/";
+    const response = await api.get(url);
+    return response;
+  },
+
   getDepartmentDistribution: async () => {
-    const response = await api.get("/v1/dashboard/departments");
+    const response = await api.get("/v1/dashboard/departments/");
     return response;
   },
 
@@ -963,7 +1028,7 @@ export const employerAPI = {
 // Blog submission API
 export const submitArticle = async (formData: FormData) => {
   try {
-    const response = await api.post("/v1/articles/", formData, {
+    const response = await api.post("articles/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

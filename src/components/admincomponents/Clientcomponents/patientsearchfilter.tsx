@@ -3,8 +3,8 @@
 
 import React, { useState } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
+import "./engagement.css";
 
-// Define the component using React.FC
 const PatientSearchFilter: React.FC = () => {
   // Local state to hold search input value
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -33,7 +33,7 @@ const PatientSearchFilter: React.FC = () => {
         />
 
         {/* Search button */}
-        <Button variant="primary" onClick={handleSearch}>
+        <Button className="btn-search" onClick={handleSearch}>
           Search
         </Button>
       </InputGroup>

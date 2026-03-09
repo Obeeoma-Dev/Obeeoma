@@ -1,0 +1,37 @@
+services:
+  frontend:
+    build: .
+    container_name: obeeoma_frontend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  backend:
+    build: ./api
+    container_name: obeeoma_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api/staticfiles:/app/staticfiles
+      - ./api/media:/app/media
+    restart: unless-stopped
+    command: gunicorn --bind 0.0.0.0:8000 --workers 3 api.wsgi:application
+
+  nginx:
+    image: nginx:alpine
+    container_name: obeeoma_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./api/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./api/staticfiles:/app/staticfiles:ro
+      - ./api/media:/app/media:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped

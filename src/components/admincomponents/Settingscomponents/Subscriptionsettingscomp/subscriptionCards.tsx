@@ -2,94 +2,150 @@ import React from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-// Define the shape of a subscription plan using TypeScript interface
 export interface SubscriptionPlan {
+  id: string;
   name: string;
-  price: string;
-  billingNote: string;
+  organization: string;
+  monthlyPrice?: number;
+  annualPrice?: number;
+  employeeLimit?: number;
   features: string[];
   isPopular?: boolean;
 }
 
-// This component renders a single subscription card
 const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
+  const monthlySavings =
+    plan.monthlyPrice && plan.annualPrice
+      ? plan.monthlyPrice * 12 - plan.annualPrice
+      : 0;
+  const isFree = !plan.monthlyPrice || plan.monthlyPrice === 0;
+
   return (
     <Card
-      className="h-100 shadow-sm border-0 overflow-hidden transition"
-      style={{ boxShadow: "0 1px 6px rgba(0,0,0,0.05)", minHeight: 220 }}
+      className={`position-relative bg-white rounded-xl shadow-lg border-2 transition-all h-100 ${
+        plan.isPopular ? "border-success" : "border-secondary"
+      }`}
+      style={{
+        transition: "all 0.3s ease",
+        boxShadow:
+          "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      }}
     >
-      {/* Popular badge positioned at top */}
+      {/* Most Popular Badge */}
       {plan.isPopular && (
-        <div className="bg-success text-white py-1 px-2 text-center fw-semibold small">
-          Most Popular
+        <div
+          className="position-absolute start-50 translate-middle-x"
+          style={{ top: "-16px", zIndex: 1 }}
+        >
+          <Badge
+            bg="success"
+            className="px-3 py-2 text-sm fw-semibold text-white rounded-pill shadow"
+            style={{ fontSize: "0.875rem" }}
+          >
+            Most Popular
+          </Badge>
         </div>
       )}
 
-      <Card.Body className="d-flex flex-column p-2">
-        {/* Title */}
+      <Card.Body className="p-3 d-flex flex-column">
+        {/* Organization Badge */}
+        <div className="mb-2">
+          <Badge
+            bg="success"
+            className="px-2 py-1 text-xs fw-medium text-white rounded-pill"
+            style={{ fontSize: "0.7rem" }}
+          >
+            {plan.organization}
+          </Badge>
+        </div>
+
+        {/* Tier Name */}
         <Card.Title
-          className="mb-1 fw-bold text-dark"
-          style={{ fontSize: "0.95rem" }}
+          className="text-xl fw-bold text-dark mb-2"
+          style={{ fontSize: "1.25rem" }}
         >
           {plan.name}
         </Card.Title>
 
-        {/* Price and billing note */}
-        <div className="mb-2">
-          <div
-            className="fw-bold text-success mb-1"
-            style={{ fontSize: "1rem" }}
-          >
-            {plan.price}
-          </div>
-          <Card.Text
-            className="text-muted small mb-0"
-            style={{ fontSize: "0.78rem" }}
-          >
-            {plan.billingNote}
-          </Card.Text>
-        </div>
-
-        {/* Divider */}
-        <hr className="my-1" />
-
-        {/* List of features (allow full content to be visible) */}
-        <div className="mb-2 flex-grow-1">
-          <ul
-            className="list-unstyled mb-0"
-            style={{ fontSize: "0.9rem", margin: 0 }}
-          >
-            {plan.features.map((feature, i) => (
-              <li
-                key={i}
-                className="d-flex align-items-start"
-                style={{ padding: "4px 0" }}
+        {/* Pricing */}
+        <div className="mb-3">
+          <div className="d-flex align-items-baseline mb-2">
+            <span className="fw-bold text-dark" style={{ fontSize: "1.75rem" }}>
+              {isFree ? "Free" : `$${(plan.monthlyPrice || 0).toFixed(2)}`}
+            </span>
+            {!isFree && (
+              <span
+                className="ms-2 text-muted"
+                style={{ fontSize: "0.875rem" }}
               >
-                <span
-                  className="text-success me-2"
-                  style={{ fontSize: "0.95rem", lineHeight: 1 }}
-                >
-                  ✓
-                </span>
-                <span style={{ fontSize: "0.9rem", lineHeight: 1.1 }}>
-                  {feature}
-                </span>
-              </li>
-            ))}
-          </ul>
+                /month
+              </span>
+            )}
+          </div>
+          {!isFree && monthlySavings > 0 && (
+            <p className="text-muted mb-0" style={{ fontSize: "0.75rem" }}>
+              Billed annually{" "}
+              <span className="fw-medium text-success">
+                (save ${monthlySavings.toFixed(0)})
+              </span>
+            </p>
+          )}
         </div>
 
-        {/* Edit button wrapped in a link (keeps button at bottom) */}
+        {/* Employee Limit */}
+        <div className="mb-3 pb-2 border-bottom border-secondary">
+          <p
+            className="text-sm fw-medium text-dark mb-0"
+            style={{ fontSize: "0.75rem" }}
+          >
+            {!plan.employeeLimit || plan.employeeLimit === 0
+              ? "Unlimited employees"
+              : `Up to ${plan.employeeLimit} employees`}
+          </p>
+        </div>
+
+        {/* Features */}
+        <ul className="list-unstyled mb-3 flex-grow-1" role="list">
+          {plan.features.map((feature, index) => (
+            <li key={index} className="d-flex align-items-start mb-2">
+              <span
+                className="text-success me-2 flex-shrink-0"
+                style={{ fontSize: "1rem", marginTop: "2px" }}
+              >
+                ✓
+              </span>
+              <span className="text-dark" style={{ fontSize: "0.75rem" }}>
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Edit Button */}
         <Link
           to="/settings-overview/subscription-editor"
           className="text-decoration-none mt-auto"
         >
           <Button
-            variant="primary"
-            size="sm"
-            className="w-100"
-            style={{ padding: "6px 10px", fontSize: "0.9rem" }}
+            variant="success"
+            className="w-100 d-flex align-items-center justify-content-center gap-2"
+            style={{
+              padding: "8px 12px",
+              fontSize: "0.875rem",
+              fontWeight: "500",
+            }}
           >
+            <span
+              style={{
+                width: "16px",
+                height: "16px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              ✏️
+            </span>
             Edit Plan
           </Button>
         </Link>

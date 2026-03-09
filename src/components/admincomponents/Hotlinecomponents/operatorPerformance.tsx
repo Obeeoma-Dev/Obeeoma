@@ -1,20 +1,12 @@
-// src/components/admincomponents/Hotline-activity/OperatorPerformance.tsx
 import React from "react";
 import { Card, Row, Col, ProgressBar } from "react-bootstrap";
-import "./hotline.css"; // Optional CSS for custom spacing/progress height
+import "./hotline.css";
 
-/**
- * Operator type definition
- */
 interface Operator {
   name: string;
   performance: number;
 }
 
-/**
- * Static operator data
- * You can replace with API data later
- */
 const operators: Operator[] = [
   { name: "John Smith", performance: 92 },
   { name: "Emily Brown", performance: 85 },
@@ -22,10 +14,6 @@ const operators: Operator[] = [
   { name: "Sarah Doe", performance: 65 },
 ];
 
-/**
- * OperatorPerformance Component
- * Displays call volume / resolution performance for each operator
- */
 const OperatorPerformance: React.FC = () => {
   return (
     <Card className="h-100 operator-performance-card mb-4">
@@ -53,11 +41,7 @@ const OperatorPerformance: React.FC = () => {
               </Col>
 
               <Col className="text-end">
-                <div
-                  className={`fw-bold ${
-                    operator.performance >= 90 ? "text-success" : "text-warning"
-                  }`}
-                >
+                <div className="fw-bold" style={{ color: "#00A859" }}>
                   {operator.performance}%
                 </div>
                 <small
@@ -72,7 +56,6 @@ const OperatorPerformance: React.FC = () => {
             {/* Progress bar */}
             <ProgressBar
               now={operator.performance}
-              variant={operator.performance >= 90 ? "success" : "warning"}
               className="operator-progress"
             />
           </div>

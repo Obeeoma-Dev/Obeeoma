@@ -9,7 +9,7 @@ const Footer = () => {
             title: "Services",
             items: [
                 { text: "For Organizations", link: "/signup" },
-                { text: "For Employees", link: "/login" },
+                { text: "For Employees", link: "/employee-downloadapp" },
             ],
         },
         company: {
@@ -24,7 +24,7 @@ const Footer = () => {
             title: "Legal",
             items: [
                 { text: "Privacy Policy", link: "/privacy-policy" },
-                { text: "Terms of Service", link: "/terms & conditions" },
+                { text: "Terms of Service", link: "/terms" },
             ],
         },
     };

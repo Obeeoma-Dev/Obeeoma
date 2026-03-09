@@ -80,8 +80,6 @@ const AboutHeader: React.FC = () => {
           left: 0,
           width: "100%",
           height: "150px",
-          background:
-            "linear-gradient(to bottom, rgba(60,179,113,0) 0%, rgba(60,179,113,1) 100%)",
           zIndex: 1,
         }}
       />

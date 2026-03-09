@@ -1,5 +1,3 @@
-// src/components/admincomponents/reportcomponents/MonthlyUsageChart.tsx
-
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
@@ -12,7 +10,6 @@ import {
   Legend,
 } from "chart.js";
 
-// Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const MonthlyUsageChart: React.FC = () => {
@@ -29,7 +26,7 @@ const MonthlyUsageChart: React.FC = () => {
   };
 
   return (
-    <Card className="mb-4">
+    <Card className="mb-4" style={{ fontFamily: "heading" }}>
       <Card.Header>Monthly Platform Usage</Card.Header>
       <Card.Body>
         <Bar data={data} />

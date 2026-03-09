@@ -166,37 +166,6 @@ const AddEmployeeForm = ({
 
                 <div className="col-12">
                   <label
-                    htmlFor="phone"
-                    className="form-label fw-semibold text-dark mb-2"
-                  >
-                    <Phone
-                      size={16}
-                      className="me-2"
-                      style={{ color: "#22C55E" }}
-                    />
-                    Phone Number <span className="text-muted">(Optional)</span>
-                  </label>
-                  <RHFPhoneInput
-                    name="phone"
-                    control={control as unknown as Control<EmployeeFormData>}
-                    inputStyle={{
-                      height: "2.5rem",
-                      fontSize: "1rem",
-                      borderRadius: "8px",
-                      border: "2px solid #e9ecef",
-                      transition: "all 0.2s ease",
-                    }}
-                    placeholder="+1 (555) 123-4567"
-                  />
-                  {errors.phone && (
-                    <div className="invalid-feedback d-block mt-2">
-                      {errors.phone.message}
-                    </div>
-                  )}
-                </div>
-
-                <div className="col-12">
-                  <label
                     htmlFor="department"
                     className="form-label fw-semibold text-dark mb-2"
                   >
@@ -224,9 +193,7 @@ const AddEmployeeForm = ({
                     <option value="Engineering"> Engineering</option>
                     <option value="Operations"> Operations</option>
                     <option value="Sales"> Sales</option>
-                    <option value="Customer Service">
-                       Customer Service
-                    </option>
+                    <option value="Customer Service">Customer Service</option>
                     <option value="Other"> Other</option>
                   </select>
                   {errors.department && (

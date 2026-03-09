@@ -81,17 +81,34 @@ export const toggleEmployeeStatus = createAsyncThunk<
   }
 });
 
-export const deleteEmployee = createAsyncThunk<Employee[], string, { rejectValue: string }>(
-  "employer/deleteEmployee",
-  async (employeeId, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.deleteEmployee(employeeId);
-      return response.data as Employee[];
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+// export const deleteEmployee = createAsyncThunk<Employee[], string, { rejectValue: string }>(
+//   "employer/deleteEmployee",
+//   async (employeeId, { rejectWithValue }) => {
+//     try {
+//       const response = await employerAPI.deleteEmployee(employeeId);
+//       return response.data as Employee[];
+//     } catch (error) {
+//       return rejectWithValue(getErrorMessage(error));
+//     }
+//   }
+// );
+
+export const deleteEmployee = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>("employer/deleteEmployee", async (employeeId, { rejectWithValue }) => {
+  try {
+    console.log("Calling deleteEmployee API with ID:", employeeId);
+    const response = await employerAPI.deleteEmployee(employeeId);
+    console.log("Delete API response:", response);
+    return employeeId;
+  } catch (error: unknown) {
+    console.error("Delete API error:", error);
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
+
 
 export const fetchEmployeeInvites = createAsyncThunk<EmployeeInvite[], void, { rejectValue: string }>(
   "employer/fetchInvites",
@@ -307,48 +324,7 @@ export const fetchEmployeeMoodDistribution = createAsyncThunk<
   }
 });
 
-/**
- * FETCH GENERAL MOOD: Gets the general mood for the MoodgaugeChart
- * Computes the dominant mood from mood distribution data
- */
-// export const fetchGeneralMood = createAsyncThunk<
-//   string,
-//   void,
-//   { rejectValue: string }
-// >("employer/fetchGeneralMood", async (_, { rejectWithValue }) => {
-//   try {
-//     const response = await employerAPI.getGeneralMood();
-//     const rawData = response.data?.results || response.data;
-//     const moodData = Array.isArray(rawData) ? rawData : [];
-    
-//     // Compute the dominant mood from the distribution
-//     if (moodData.length === 0) {
-//       return "Ecstatic"; // Default
-//     }
-    
-//     // Sort by count to find the most common mood
-//     const sorted = [...moodData].sort((a, b) => b.count - a.count);
-//     const dominantMood = sorted[0]?.mood || "Ecstatic";
-    
-//     // Map the backend mood string to our gauge format
-//     const moodMap: Record<string, string> = {
-//       "Ecstatic": "Ecstatic",
-//       "Happy": "Happy",
-//       "Neutral": "Neutral",
-//       "Frustrated": "Frustrated",
-//       "Angry": "Angry",
-//       "Excellent": "Ecstatic",
-//       "Good": "Happy",
-//       "Fair": "Neutral",
-//       "Poor": "Frustrated",
-//       "Needs Attention": "Angry",
-//     };
-    
-//     return moodMap[dominantMood] || "Ecstatic";
-//   } catch (error: any) {
-//     return rejectWithValue(getErrorMessage(error));
-//   }
-// });
+
 export const fetchGeneralMood = createAsyncThunk<
   GaugeData, // Changed return type to the full object
   void,
@@ -369,24 +345,40 @@ export const fetchGeneralMood = createAsyncThunk<
     return rejectWithValue(error.response?.data?.error || "Failed to fetch mood");
   }
 });
-
-export const updateEmployee = createAsyncThunk<Employee, Partial<Employee> & { id: number | string }, { rejectValue: string }>(
-  "employer/updateEmployee",
-  async (updatedData, { rejectWithValue }) => {
-    try {
-      const djangoPayload: Record<string, any> = {};
-      if (updatedData.emailAddress !== undefined) djangoPayload.empemail = updatedData.emailAddress;
-      if (updatedData.employeedepartment !== undefined) djangoPayload.empdepartment = updatedData.employeedepartment;
-      if (updatedData.status !== undefined) djangoPayload.empstatus = updatedData.status;
-      if (updatedData.phoneNumber !== undefined) djangoPayload.phoneNumber = updatedData.phoneNumber;
-
-      const response = await employerAPI.updateEmployee(`/employees/${updatedData.id}/`, djangoPayload);
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const updateEmployee = createAsyncThunk<
+  Employee,
+  Partial<Employee> & { id: number | string },
+  { rejectValue: string }
+>("employer/updateEmployee", async (updatedData, { rejectWithValue }) => {
+  try {
+    const id = updatedData.id;
+    const payload = { ...updatedData };
+    delete (payload as Record<string, unknown>).id;
+    const response = await employerAPI.updateEmployee(id, payload);
+    return response as Employee;
+  } catch (error: unknown) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
+
+// export const updateEmployee = createAsyncThunk<Employee, Partial<Employee> & { id: number | string }, { rejectValue: string }>(
+//   "employer/updateEmployee",
+//   async (updatedData, { rejectWithValue }) => {
+//     try {
+//       const djangoPayload: Record<string, any> = {};
+//       if (updatedData.emailAddress !== undefined) djangoPayload.empemail = updatedData.emailAddress;
+//       if (updatedData.employeedepartment !== undefined) djangoPayload.empdepartment = updatedData.employeedepartment;
+//       if (updatedData.status !== undefined) djangoPayload.empstatus = updatedData.status;
+//       if (updatedData.phoneNumber !== undefined) djangoPayload.phoneNumber = updatedData.phoneNumber;
+
+//       const response = await employerAPI.updateEmployee(`/employees/${updatedData.id}/`, djangoPayload);
+//       return response.data;
+//     } catch (error: any) {
+//       return rejectWithValue(getErrorMessage(error));
+//     }
+//   }
+// )
+
 
 // --- INITIAL STATE ---
 const initialState: EmployerState = {
@@ -450,7 +442,7 @@ const employerSlice = createSlice({
       state.generalMood = action.payload;
     },
     /**
-     * WEBSOCKET UPDATE: Updates specific mood count in real-time
+     * Updates specific mood count in real-time
      */
     updateMoodCount: (state, action: PayloadAction<{ mood: string; count: number }>) => {
       const { mood, count } = action.payload;
@@ -466,6 +458,27 @@ const employerSlice = createSlice({
       } else {
         state.employeeMoodDistribution.push({ mood, count });
       }
+    },
+
+       updateEmployeeLocal: (
+      state,
+      action: PayloadAction<Partial<Employee> & { id: number }>,
+    ) => {
+      const idx = state.employees.findIndex((e) => e.id === action.payload.id);
+      if (idx >= 0) {
+        state.employees[idx] = {
+          ...state.employees[idx],
+          ...(action.payload as Record<string, unknown>),
+        };
+      } else {
+        // push as new if not found
+        state.employees.push(action.payload as Employee);
+      }
+    },
+    deleteEmployeeLocal: (state, action: PayloadAction<number | string>) => {
+      state.employees = state.employees.filter(
+        (e) => e.id !== Number(action.payload),
+      );
     },
   },
   extraReducers: (builder) => {
@@ -515,13 +528,13 @@ const employerSlice = createSlice({
       .addCase(fetchEmployeeMoodDistribution.pending, (state) => {
         state.status = 'loading';
       })
-      // .addCase(fetchEmployeeMoodDistribution.fulfilled, (state, action) => {
-      //   state.status = 'succeeded';
-      //   // Match the keys from your Django 'return Response({...})'
-      //   state.employeeMoodDistribution = action.payload.mood_distribution;
-      //   state.totalEntries = action.payload.total_entries;
-      //   state.categoryData = action.payload.category_distribution;
-      // })
+      .addCase(fetchEmployeeMoodDistribution.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // Match the keys from your Django 'return Response({...})'
+        state.employeeMoodDistribution = action.payload.mood_distribution;
+        state.totalEntries = action.payload.total_entries;
+        state.categoryData = action.payload.category_distribution;
+      })
       .addCase(fetchEmployeeMoodDistribution.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || "Sync Error";
@@ -543,22 +556,6 @@ const employerSlice = createSlice({
       //   state.error = action.payload || "Failed to fetch general mood";
       // })
 
-    //   .addCase(fetchGeneralMood.pending, (state) => {
-    //   state.isLoading = true;
-    //   state.error = null;
-    // })
-    // .addCase(fetchGeneralMood.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.generalMood = action.payload.moodLabel;
-    //   state.gaugeDetails = action.payload;
-    // })
-    // .addCase(fetchGeneralMood.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   // Note: action.payload is used for custom errors via rejectWithValue
-    //   // action.error.message is used for generic exceptions
-    //   state.error = (action.payload as string) || action.error.message || "Failed to fetch";
-    // })
-
       // Delete Employee
       .addCase(deleteEmployee.fulfilled, (state, action) => {
         state.isActionLoading = false;
@@ -579,6 +576,17 @@ const employerSlice = createSlice({
 
   },
 });
+
+export const {
+  updateEmployeeLocal: updateEmployeeLocalAction,
+  deleteEmployeeLocal: deleteEmployeeLocalAction,
+} = employerSlice.actions;
+
+export {
+  updateEmployeeLocalAction as updateEmployeeLocal,
+  deleteEmployeeLocalAction as deleteEmployeeLocal,
+};
+
 
 export const { clearEmployerError, clearEmployerStatus, updateMoodCount, setGeneralMood } = employerSlice.actions;
 export default employerSlice.reducer;

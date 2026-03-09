@@ -1,5 +1,10 @@
-import { ReactNode } from "react";
-import { Search, Bell, Menu } from "lucide-react";
+import { ReactNode, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Search, Bell, Menu, User } from "lucide-react";
+import { RootState } from "../../../store/store";
+import { AppDispatch } from "../../../store/store";
+import { fetchCurrentEmployer } from "../../../store/slices/EmployerSlice";
+import { Badge } from "react-bootstrap";
 
 interface HeaderProps {
   title: string;
@@ -15,6 +20,15 @@ const Header = ({
   onMenuToggle,
   additionalContent,
 }: HeaderProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { currentEmployer, isLoading } = useSelector(
+    (state: RootState) => state.employer,
+  );
+
+  useEffect(() => {
+    dispatch(fetchCurrentEmployer());
+  }, [dispatch]);
+
   return (
     <header className="bg-white border-bottom sticky-top z-30">
       <div className="container-fluid">
@@ -60,12 +74,50 @@ const Header = ({
                 </div>
               )}
 
-              <button className="btn btn-link position-relative p-2 text-dark">
+              <div className="d-flex align-items-center gap-3">
+                <div className="text-end d-none d-md-block">
+                  <div
+                    className="text-muted small"
+                    style={{ fontSize: "0.8rem" }}
+                  >
+                    {isLoading ? "Loading..." : "Employer"}
+                  </div>
+                  <div
+                    className="fw-600 text-dark"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    {currentEmployer?.organizationName ||
+                      currentEmployer?.firstName ||
+                      "Employer Dashboard"}
+                  </div>
+                </div>
+
+                <div
+                  className="bg-success rounded-circle d-flex align-items-center justify-content-center"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: PRIMARY_COLOR,
+                  }}
+                >
+                  <User size={22} color="#fff" />
+                </div>
+              </div>
+
+              <button className="btn btn-link position-relative p-2 text-dark ms-2">
                 <Bell size={20} />
-                <span
-                  className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-primary p-1"
-                  style={{ backgroundColor: PRIMARY_COLOR, color: "3CB371" }}
-                ></span>
+                <Badge
+                  bg="danger"
+                  pill
+                  className="position-absolute top-0 start-100 translate-middle text-white"
+                  style={{
+                    fontSize: "0.65rem",
+                    width: "1.2rem",
+                    height: "1.2rem",
+                  }}
+                >
+                  2
+                </Badge>
               </button>
             </div>
           </div>

@@ -1,13 +1,14 @@
 import Layout from "../../components/employercomponents/shared/Layout";
 import WellnessTrends from "../../components/employercomponents/reports/WellnessTrends";
-import DepartmentMetrics from "../../components/employercomponents/reports/DepartmentMetrics";
-import AvailableReports from "../../components/employercomponents/reports/AvailableReports";
-import KeyMetrics from "../../components/employercomponents/reports/KeyMetrics";
+import AvailableReports, {
+  ReportType,
+} from "../../components/employercomponents/reports/AvailableReports";
 import { Download, Filter, Calendar } from "lucide-react";
 
 const CompanyReports = () => {
-  // TODO: Replace with API call to fetch reports data
-  // Example: const { data: reportsData, loading } = useReportsData();
+  // Assuming we might get companyId from params or context in the future
+  const companyId = undefined;
+  const { data: reportsData } = useReportsData(companyId);
 
   const additionalHeader = (
     <div className="d-flex gap-2">
@@ -35,15 +36,44 @@ const CompanyReports = () => {
       <div className="container-fluid py-4">
         <div>
           <h3 className="mb-4">Wellness Trends</h3>
-          <div className="mb-4"></div>
-          <WellnessTrends />
+          <WellnessTrends companyId={companyId} />
         </div>
-        <DepartmentMetrics />
-        <AvailableReports />
-        <KeyMetrics />
+        {/* <DepartmentMetrics /> */}
+        <AvailableReports reports={reportsData} />
       </div>
     </Layout>
   );
 };
 
 export default CompanyReports;
+
+function useReportsData(companyId?: string) {
+  const reports: ReportType[] = [
+    {
+      name: "Wellness Summary",
+      description: "Overall employee wellness metrics",
+      defaultFrequency: "Monthly",
+      url: companyId ? `/v1/company-mood/${companyId}/` : "/v1/company-mood/",
+    },
+    {
+      name: "Department Analysis",
+      description: "Detailed department-wise breakdown",
+      defaultFrequency: "Quarterly",
+      url: "/v1/download/department-analysis/",
+    },
+    {
+      name: "Risk Assessment",
+      description: "Identified risk factors and trends",
+      defaultFrequency: "Weekly",
+      url: "/v1/download/risk-assessment/",
+    },
+    {
+      name: "Engagement Report",
+      description: "Employee engagement and participation",
+      defaultFrequency: "Monthly",
+      url: "/v1/download/engagement/",
+    },
+  ];
+
+  return { data: reports, loading: false };
+}

@@ -5,8 +5,7 @@ import * as z from "zod";
 import { employerAPI } from "../../../api/apiConfig";
 import { useToast } from "../../../hooks/use-toast";
 import { useState } from "react";
-import { UserPlus, Mail, Phone, Building } from "lucide-react";
-import RHFPhoneInput from "../../RHPhoneInput";
+import { UserPlus, Mail, Building } from "lucide-react";
 const employeeSchema = z.object({
     email: z.email("Please enter a valid email address").trim(),
     phone: z
@@ -70,13 +69,7 @@ const AddEmployeeForm = ({ showModal, onClose, onEmployeeAdded, }) => {
                                                     borderRadius: "8px",
                                                     border: "2px solid #e9ecef",
                                                     transition: "all 0.2s ease",
-                                                }, ...register("email") }), errors.email && (_jsx("div", { className: "invalid-feedback d-block mt-2", children: errors.email.message }))] }), _jsxs("div", { className: "col-12", children: [_jsxs("label", { htmlFor: "phone", className: "form-label fw-semibold text-dark mb-2", children: [_jsx(Phone, { size: 16, className: "me-2", style: { color: "#22C55E" } }), "Phone Number ", _jsx("span", { className: "text-muted", children: "(Optional)" })] }), _jsx(RHFPhoneInput, { name: "phone", control: control, inputStyle: {
-                                                    height: "2.5rem",
-                                                    fontSize: "1rem",
-                                                    borderRadius: "8px",
-                                                    border: "2px solid #e9ecef",
-                                                    transition: "all 0.2s ease",
-                                                }, placeholder: "+1 (555) 123-4567" }), errors.phone && (_jsx("div", { className: "invalid-feedback d-block mt-2", children: errors.phone.message }))] }), _jsxs("div", { className: "col-12", children: [_jsxs("label", { htmlFor: "department", className: "form-label fw-semibold text-dark mb-2", children: [_jsx(Building, { size: 16, className: "me-2", style: { color: "#22C55E" } }), "Department ", _jsx("span", { className: "text-danger", children: "*" })] }), _jsxs("select", { className: `form-select form-select-lg ${errors.department ? "is-invalid" : ""}`, id: "department", style: {
+                                                }, ...register("email") }), errors.email && (_jsx("div", { className: "invalid-feedback d-block mt-2", children: errors.email.message }))] }), _jsxs("div", { className: "col-12", children: [_jsxs("label", { htmlFor: "department", className: "form-label fw-semibold text-dark mb-2", children: [_jsx(Building, { size: 16, className: "me-2", style: { color: "#22C55E" } }), "Department ", _jsx("span", { className: "text-danger", children: "*" })] }), _jsxs("select", { className: `form-select form-select-lg ${errors.department ? "is-invalid" : ""}`, id: "department", style: {
                                                     borderRadius: "8px",
                                                     border: "2px solid #e9ecef",
                                                     transition: "all 0.2s ease",

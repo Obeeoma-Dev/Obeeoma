@@ -2,7 +2,6 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-// import Modal from 'react-bootstrap/Modal';
 import { Home as HomeIcon, Users as UsersIcon, User as UserIcon, CreditCard, FileText, Bell, Menu, X, } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,13 +16,6 @@ const Layout = ({ children, title }) => {
     const employer = useSelector((state) => state.employer.currentEmployer);
     // Try to get employer data from localStorage if available
     let localEmployer = null;
-    // try {
-    //   const stored = localStorage.getItem("employerAccountData");
-    //   if (stored) {
-    //     localEmployer = JSON.parse(stored);
-    //   }
-    // } catch {
-    // }
     try {
         const stored = localStorage.getItem("employerAccountData");
         localEmployer = stored ? JSON.parse(stored) : null;
@@ -39,8 +31,7 @@ const Layout = ({ children, title }) => {
         ? localEmployer?.email
         : employer?.email
             ? employer?.email || employer?.email
-            : "User";
-    // Prefer backend for companyJoinDate, fallback to localStorage, then now
+            : "Employer";
     const companyJoinDate = employer?.company?.createdAt
         ? new Date(employer.company.createdAt)
         : localEmployer?.dateJoined
@@ -114,7 +105,7 @@ const Layout = ({ children, title }) => {
                     marginLeft: "240px",
                     width: "calc(100% - 240px) ",
                     fontFamily: "body",
-                }, children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsx("div", { className: "d-flex flex-column", children: _jsx("h1", { className: "h4 fw-bold mb-0", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: title }) }) }), _jsxs("div", { className: "col-auto d-flex align-items-center gap-3", children: [_jsxs("button", { className: "btn btn-link position-relative p-2", style: { color: PRIMARY_COLOR, fontFamily: "body" }, onClick: () => navigate("/employer-notifications"), children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle p-1", style: { backgroundColor: PRIMARY_COLOR } })] }), _jsxs(Dropdown, { align: "end", children: [_jsxs(Dropdown.Toggle, { as: "div", id: "dropdown-profile-avatar", className: "d-flex align-items-center gap-2", style: { cursor: "pointer" }, "aria-expanded": "false", children: [_jsxs("div", { className: "text-end d-none d-md-block", style: { lineHeight: 1 }, children: [_jsx("span", { className: "fw-medium text-dark d-block", style: { fontFamily: "body" }, "aria-label": `Organization name: ${organizationNameOrDefault}`, children: organizationNameOrDefault }), _jsxs("small", { className: "text-muted fw-medium d-block", style: { fontFamily: "body", fontSize: "0.7rem" }, children: ["Member since ", formatDate(companyJoinDate)] })] }), _jsx("div", { className: "rounded-circle d-flex align-items-center justify-content-center overflow-hidden", style: {
+                }, children: _jsx("div", { className: "container-fluid", children: _jsxs("div", { className: "row align-items-center py-3", children: [_jsx("div", { className: "col-auto d-lg-none", children: _jsx("button", { onClick: () => setIsSidebarOpen(true), className: "btn btn-link p-2", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: _jsx(Menu, { size: 24 }) }) }), _jsx("div", { className: "col", children: _jsx("div", { className: "d-flex flex-column", children: _jsx("h1", { className: "h4 fw-bold mb-0", style: { fontFamily: "heading", color: PRIMARY_COLOR }, children: title }) }) }), _jsxs("div", { className: "col-auto d-flex align-items-center gap-3", children: [_jsxs("button", { className: "btn btn-link position-relative p-2", style: { color: PRIMARY_COLOR, fontFamily: "body" }, onClick: () => navigate("/employer-notifications"), children: [_jsx(Bell, { size: 20 }), _jsx("span", { className: "position-absolute top-0 start-100 translate-middle badge rounded-circle p-1", style: { backgroundColor: PRIMARY_COLOR } })] }), _jsxs(Dropdown, { align: "end", children: [_jsxs(Dropdown.Toggle, { as: "div", id: "dropdown-profile-avatar", className: "d-flex align-items-center gap-2", style: { cursor: "pointer" }, "aria-expanded": "false", children: [_jsxs("div", { className: "text-end d-none d-md-block", style: { lineHeight: 1 }, children: [_jsx("span", { className: "fw-medium text-dark d-block mb-3", style: { fontFamily: "body" }, "aria-label": `Organization name: ${organizationNameOrDefault}`, children: organizationNameOrDefault }), _jsxs("small", { className: "text-muted fw-medium d-block", style: { fontFamily: "body", fontSize: "0.7rem" }, children: ["Member since ", formatDate(companyJoinDate)] })] }), _jsx("div", { className: "rounded-circle d-flex align-items-center justify-content-center overflow-hidden", style: {
                                                             width: "40px",
                                                             height: "40px",
                                                             backgroundColor: `${PRIMARY_COLOR}15`,

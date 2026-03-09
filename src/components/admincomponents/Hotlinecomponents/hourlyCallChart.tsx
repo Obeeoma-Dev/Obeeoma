@@ -1,4 +1,3 @@
-// src/components/admincomponents/Hotline-activity/HourlyCallChart.tsx
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Card } from "react-bootstrap";
@@ -42,7 +41,7 @@ const options = {
   scales: {
     x: {
       grid: {
-        display: false, // remove vertical grid lines
+        display: false,
       },
     },
     y: {

@@ -1,9 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-// Import React and necessary hooks
 import { useState, useEffect } from "react";
-// Import Bootstrap components
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
-// Define the AccountForm component
 const AccountForm = () => {
     // State to hold form input values
     const [formData, setFormData] = useState({

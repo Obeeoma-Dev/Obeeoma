@@ -6,40 +6,34 @@ import SubscriptionSettingsComp from "../../../components/admincomponents/Settin
 // Placeholder data for subscription plans
 const subscriptionPlans = [
   {
-    name: "Basic",
-    price: "$5.99/month",
-    billingNote: "Billed annually (save $12)",
+    id: "1",
+    name: "Freemium",
+    organization: "Acme Corp",
+    monthlyPrice: 0,
+    annualPrice: 0,
+    employeeLimit: 10,
     features: [
       "Access to basic resources",
       "Monthly check-ins",
-      "Up to 10 employees",
       "Email support",
     ],
   },
   {
-    name: "Professional",
-    price: "$12.99/month",
-    billingNote: "Billed annually (save $24)",
+    id: "2",
+    name: "Premium",
+    organization: "TechStart Inc",
+    monthlyPrice: 24.99,
+    annualPrice: 251.99,
+    employeeLimit: 0,
     features: [
-      "All Basic features",
-      "Weekly check-ins",
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+      "Access to live webinars",
+      "Client engagement tools",
       "Dedicated support team",
-      "Up to 50 employees",
-      "Chat support",
     ],
     isPopular: true,
-  },
-  {
-    name: "Premium",
-    price: "$24.99/month",
-    billingNote: "Billed annually (save $48)",
-    features: [
-      "All Professional features",
-      "Daily check-ins",
-      "24/7 crisis support",
-      "Custom solutions",
-      "Unlimited employees",
-    ],
   },
 ];
 
@@ -52,6 +46,13 @@ const SubscriptionSettingsPage: React.FC = () => {
         backgroundColor: "#f8f9fa",
       }}
     >
+      {/* Page title */}
+      <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
+        <h2 style={{ margin: 0, fontFamily: "heading" }}>
+          Subscription Settings
+        </h2>
+      </div>
+
       {/* Sidebar stays fixed on the left */}
       <div style={{ width: "250px", flexShrink: 0 }}>
         <AdminSidebar />
@@ -70,11 +71,6 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-          {/* Page title */}
-          <div style={{ padding: "1.5rem", borderBottom: "1px solid #dee2e6" }}>
-            <h2 style={{ margin: 0 }}>Subscription Settings</h2>
-          </div>
-
           {/* Subscription cards grid */}
           <SubscriptionSettingsComp plans={subscriptionPlans} />
         </div>

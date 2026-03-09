@@ -1,31 +1,7 @@
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import { Card, Col } from "react-bootstrap";
-import * as Icons from "lucide-react";
-/**
- * DashboardStats renders a responsive row of stat cards
- * Each card displays an icon, title, value, and change indicator
- * Styled to match modern dashboard layout
- */
+import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
+import { Col } from "react-bootstrap";
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard"; // adjust path if needed
 const DashboardStats = ({ stats }) => {
-    return (_jsx(_Fragment, { children: stats.map((stat) => {
-            const IconComponent = Icons[stat.icon];
-            // Split the stat.change string into numeric value and rest of the text
-            // Example: "+8% vs yesterday" => value = "+8%", restText = "vs yesterday"
-            const [value, ...rest] = stat.change.split(" ");
-            const restText = rest.join(" ");
-            return (_jsx(Col, { xs: 12, sm: 6, md: 3, className: "mb-0", children: _jsx(Card, { className: "shadow-sm border-0 h-100", style: { transition: "all 0.3s ease", backgroundColor: "#fff" }, children: _jsxs(Card.Body, { className: "d-flex flex-column justify-content-between p-4", children: [_jsxs("div", { className: "d-flex align-items-start justify-content-between mb-4", children: [_jsx("div", { className: `d-flex align-items-center justify-content-center rounded-circle p-3 ${stat.iconColor}`, style: { width: "56px", height: "56px" }, children: _jsx(IconComponent, { size: 28, className: "icon-color" }) }), _jsx("span", { className: "fw-semibold px-3 py-2 rounded-2", style: {
-                                            fontSize: "0.75rem",
-                                            color: stat.change.startsWith("+")
-                                                ? "#3CB371"
-                                                : "#dc3545",
-                                            backgroundColor: "transparent",
-                                            fontWeight: 600,
-                                            display: "inline-block",
-                                        }, children: stat.id === "4" ? (
-                                        // Make whole change text red
-                                        _jsx("span", { style: { color: "#dc3545" }, children: stat.change })) : (
-                                        // Default for all other cards
-                                        _jsx(_Fragment, { children: stat.change })) })] }), _jsxs("div", { children: [_jsx("div", { className: "h4 fw-bold text-dark mb-2", children: stat.value }), _jsx("div", { className: "text-muted small fw-500", children: stat.title })] })] }) }) }, stat.id));
-        }) }));
+    return (_jsx(_Fragment, { children: stats.map((stat) => (_jsx(Col, { xs: 12, sm: 6, md: 4, children: _jsx(HoverStatCard, { title: stat.title, value: stat.value, subtitle: stat.subtitle ?? "", trend: stat.trend, icon: stat.icon, color: stat.color }) }, stat.id))) }));
 };
 export default DashboardStats;

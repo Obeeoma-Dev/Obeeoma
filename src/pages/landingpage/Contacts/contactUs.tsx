@@ -51,7 +51,7 @@ export const ContactPage: React.FC = () => {
             className="position-absolute top-0 start-0 w-100 h-100"
             style={{
               background:
-                "linear-gradient(to right, rgba(11,110,69,0.9), rgba(0,168,89,0.9))",
+                "linear-gradient(to right, rgba(11,110,69,0.1), rgba(0,168,89,0.3))",
               zIndex: 1,
             }}
           ></div>
@@ -70,7 +70,7 @@ export const ContactPage: React.FC = () => {
               >
                 Contact Us
               </h1>
-              <p className="lead text-white-50" style={{ fontFamily: "body" }}>
+              <p className="blog-hero-subtitle" style={{ fontFamily: "body" }}>
                 We're here to listen and support you on your journey to a
                 happier mind
               </p>
