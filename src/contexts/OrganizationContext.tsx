@@ -93,49 +93,59 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
     ? 'http://127.0.0.1:8000/api/v1'  // Neon backend for localhost development
     : 'https://obeeoma-api.com/api/v1'; // Digital Ocean backend for production
 
-  // Create conditional API instance
-  const conditionalAPI = axios.create({
-    baseURL: conditionalAPIBaseURL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  // Create a stable API instance (so it doesn't change every render)
+  const conditionalAPI = useMemo(() => {
+    const instance = axios.create({
+      baseURL: conditionalAPIBaseURL,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  // Add authorization interceptor to conditional API
-  conditionalAPI.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
+    instance.interceptors.request.use((config) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+
+    return instance;
+  }, [conditionalAPIBaseURL]);
 
   // Create conditional API methods without /v1/ prefix
-  const conditionalAPIWithMethods = useMemo(() => ({
-    ...conditionalAPI,
-    get: conditionalAPI.get.bind(conditionalAPI),
-    getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
-      const params = new URLSearchParams({
-        page: page.toString(),
-        page_size: pageSize.toString(),
-      });
+  const conditionalAPIWithMethods = useMemo(
+    () => ({
+      ...conditionalAPI,
+      get: conditionalAPI.get.bind(conditionalAPI),
+      getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          page_size: pageSize.toString(),
+        });
 
-      if (search) {
-        params.append("search", search);
-      }
+        if (search) {
+          params.append("search", search);
+        }
 
-      const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
-      return response;
-    },
-    getOrganizationsGrowthChart: async () => {
-      const response = await conditionalAPI.get("/admin/organizations/growth-chart/");
-      return response;
-    },
-    getOrganizationsClientDistribution: async () => {
-      const response = await conditionalAPI.get("/admin/organizations/client-distribution/");
-      return response;
-    },
-  }), [conditionalAPI]);
+        const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
+        return response;
+      },
+      getOrganizationsGrowthChart: async () => {
+        const response = await conditionalAPI.get(
+          "/admin/organizations/growth-chart/",
+        );
+        return response;
+      },
+      getOrganizationsClientDistribution: async () => {
+        const response = await conditionalAPI.get(
+          "/admin/organizations/client-distribution/",
+        );
+        return response;
+      },
+    }),
+    [conditionalAPI],
+  );
 
   // State
   const [organizations, setOrganizations] = useState<TableOrganization[]>([]);
