@@ -9,7 +9,7 @@ import SystemAdminLayout from "../../../components/admincomponents/shared/System
 import { Container, Row, Col, Card, Button, Alert, Spinner } from "react-bootstrap";
 import { useSubscriptionData, calculateMetrics } from "../../../hooks/useSubscriptionData";
 import { useSimpleSubscriptionCount } from "../../../hooks/useSimpleSubscriptionCount";
-import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
+// import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { useAIStatus } from "../../../hooks/useAIStatus";
@@ -171,7 +171,7 @@ const SubscriptionPage: React.FC = () => {
             </Card>
 
             {/* Subscription cards grid */}
-            <SubscriptionSettingsComp plans={subscriptionPlans} />
+            {/* <SubscriptionSettingsComp plans={subscriptionPlans} /> */}
 
             {/* AI Assistant Floating Chat */}
             <AIAssistant isEnabled={aiStatus.admin_ai} />

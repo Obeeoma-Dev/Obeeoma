@@ -7,8 +7,7 @@ import { Container, Alert } from "react-bootstrap";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import EngagementSummary from "../../../components/admincomponents/Clientcomponents/engagementsummary";
 import EngagementCharts from "../../../components/admincomponents/Clientcomponents/engagementCharts";
-import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
-import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
+// import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
 // Placeholder data to simulate backend response
 const placeholderData = {
@@ -85,7 +84,7 @@ const ClientEngagement = () => {
         return (_jsx(SystemAdminLayout, { title: "Client Engagement", children: _jsx(Container, { className: "mt-5", children: _jsxs(Alert, { variant: "danger", children: ["Error: ", error] }) }) }));
     }
     // Render dashboard layout
-    return (_jsx(SystemAdminLayout, { title: "Client Engagement", children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, { engagementRate: data?.engagementRate ?? 0, activePrograms: data?.activePrograms ?? 0, totalPoints: data?.totalPoints ?? 0 }), _jsx(EngagementCharts, {}), _jsx(PatientSearchFilter, {}), _jsx(PatientEngagementTable, {}), _jsx(EngagementStatsPanel, { topRewards: data?.patients
+    return (_jsx(SystemAdminLayout, { title: "Client Engagement", children: _jsx("div", { className: "flex-grow-1 overflow-auto", children: _jsxs(Container, { className: "py-4", children: [_jsx(EngagementSummary, { engagementRate: data?.engagementRate ?? 0, activePrograms: data?.activePrograms ?? 0, totalPoints: data?.totalPoints ?? 0 }), _jsx(EngagementCharts, {}), _jsx(EngagementStatsPanel, { topRewards: data?.patients
                             .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
                             .slice(0, 3)
                             .map((patient) => ({
