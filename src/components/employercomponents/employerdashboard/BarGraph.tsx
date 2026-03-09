@@ -48,9 +48,9 @@ const BarGraph: React.FC = () => {
   const chartData: ChartData<"bar"> = useMemo(() => {
     // Fallback to default data if undefined or empty to prevent the chart from falling off
     const defaultData: MoodItem[] = [
-      { mood: "Ecstatic", count: 20 },
-      { mood: "Happy", count: 35 },
-      { mood: "Neutral", count: 15},
+      { mood: "Ecstatic", count: 5 },
+      { mood: "Happy", count: 10 },
+      { mood: "Neutral", count: 8 },
       { mood: "Sad", count: 3 },
       { mood: "Angry", count: 2 },
     ];
@@ -92,8 +92,7 @@ const BarGraph: React.FC = () => {
     scales: {
       y: {
         beginAtZero: true,
-        max: 50,
-        ticks: { stepSize: 5 },
+        ticks: { stepSize: 1 },
         title: { display: true, text: "Employee Count" },
       },
       x: {
