@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from "react";
-import axios from 'axios';
+import axios from "axios";
+import { API_BASE_URL } from "../api/apiConfig";
 
 // Types
 export interface DatabaseOrganization {
@@ -87,11 +88,8 @@ const OrganizationContext = createContext<OrganizationContextType | undefined>(u
 
 // Provider component
 export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Environment detection and API setup
-  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  const conditionalAPIBaseURL = isLocalhost
-    ? 'http://127.0.0.1:8000/api/v1'  // Neon backend for localhost development
-    : 'https://obeeoma-api.com/api/v1'; // Digital Ocean backend for production
+  // Use the same base URL as the rest of the app so we always hit the correct backend
+  const conditionalAPIBaseURL = API_BASE_URL;
 
   // Create conditional API instance
   const conditionalAPI = axios.create({
@@ -210,8 +208,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({ childr
     fetchOrganizations(1, searchTerm);
   }, [searchTerm, activeTab, fetchOrganizations]);
 
-  console.log('OrganizationContext - Environment:', isLocalhost ? 'Development (Neon)' : 'Production (Digital Ocean)');
-  console.log('OrganizationContext - API Base URL:', conditionalAPIBaseURL);
+  console.log("OrganizationContext - API Base URL:", conditionalAPIBaseURL);
 
   const value: OrganizationContextType = {
     organizations,

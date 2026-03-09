@@ -182,6 +182,18 @@ export const adminAPI = {
         const response = await api.get("admin/overview/");
         return response;
     },
+    getClientEngagement: async () => {
+        const response = await api.get("admin/client-engagement/");
+        return response;
+    },
+    getAIManagement: async () => {
+        const response = await api.get("admin/ai-management/");
+        return response;
+    },
+    getHotlineActivity: async () => {
+        const response = await api.get("admin/hotline-activity/");
+        return response;
+    },
     // Organization management APIs
     getOrganizationsGrowthChart: async () => {
         const response = await api.get("/v1/admin/organizations/growth-chart/");
