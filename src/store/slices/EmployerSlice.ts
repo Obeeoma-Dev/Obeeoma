@@ -21,41 +21,53 @@ import {
 
 interface MoodDistributionResponse {
   mood_distribution: Array<{ mood: string; count: number; percentage: number }>;
-  category_distribution: { Positive: number; Neutral: number; Negative: number };
+  category_distribution: {
+    Positive: number;
+    Neutral: number;
+    Negative: number;
+  };
   total_entries: number;
   total_employees: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mood_categories: any;
 }
 const getErrorMessage = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
     return (
-      (axiosError.response?.data as { detail?: string; error?: string })?.detail ||
-      (axiosError.response?.data as { detail?: string; error?: string })?.error ||
+      (axiosError.response?.data as { detail?: string; error?: string })
+        ?.detail ||
+      (axiosError.response?.data as { detail?: string; error?: string })
+        ?.error ||
       axiosError.message ||
       "An unknown error occurred"
     );
   }
-  return error instanceof Error ? error.message : "An unexpected error occurred";
+  return error instanceof Error
+    ? error.message
+    : "An unexpected error occurred";
 };
 
 // === ASYNC THUNKS ===
 
-export const fetchCurrentEmployer = createAsyncThunk<EmployerUser, void, { rejectValue: string }>(
-  "employer/fetchCurrentEmployer",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getCurrentEmployer();
-      return response.data as EmployerUser;
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchCurrentEmployer = createAsyncThunk<
+  EmployerUser,
+  void,
+  { rejectValue: string }
+>("employer/fetchCurrentEmployer", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getCurrentEmployer();
+    return response.data as EmployerUser;
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
 export const inviteEmployee = createAsyncThunk<
   EmployeeInvite,
-  { email: string; phone?: string; department: string } & { onSuccess?: () => void },
+  { email: string; phone?: string; department: string } & {
+    onSuccess?: () => void;
+  },
   { rejectValue: string }
 >("employer/inviteEmployee", async (employeeData, { rejectWithValue }) => {
   try {
@@ -71,15 +83,21 @@ export const toggleEmployeeStatus = createAsyncThunk<
   { id: string; status: string },
   { id: string; currentStatus: string },
   { rejectValue: string }
->("employer/toggleEmployeeStatus", async ({ id, currentStatus }, { rejectWithValue }) => {
-  try {
-    const newStatus = currentStatus === "active" ? "inactive" : "active";
-    await employerAPI.updateEmployeeStatus(`/v1/employees/${id}/status`, newStatus);
-    return { id, status: newStatus };
-  } catch (error) {
-    return rejectWithValue(getErrorMessage(error));
-  }
-});
+>(
+  "employer/toggleEmployeeStatus",
+  async ({ id, currentStatus }, { rejectWithValue }) => {
+    try {
+      const newStatus = currentStatus === "active" ? "inactive" : "active";
+      await employerAPI.updateEmployeeStatus(
+        `/v1/employees/${id}/status`,
+        newStatus,
+      );
+      return { id, status: newStatus };
+    } catch (error) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
 
 // export const deleteEmployee = createAsyncThunk<Employee[], string, { rejectValue: string }>(
 //   "employer/deleteEmployee",
@@ -109,116 +127,127 @@ export const deleteEmployee = createAsyncThunk<
   }
 });
 
-
-export const fetchEmployeeInvites = createAsyncThunk<EmployeeInvite[], void, { rejectValue: string }>(
-  "employer/fetchInvites",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.viewInviteEmployee();
-      return response.data as EmployeeInvite[];
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchEmployeeInvites = createAsyncThunk<
+  EmployeeInvite[],
+  void,
+  { rejectValue: string }
+>("employer/fetchInvites", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.viewInviteEmployee();
+    return response.data as EmployeeInvite[];
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const fetchEmployees = createAsyncThunk<Employee[], void, { rejectValue: string }>(
-  "employer/fetchEmployees",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getEmployees();
-      const backendData = (response.data.employees || response.data) as any[];
-      return backendData.map((employee: any) => ({
-        id: employee.id,
-        emailAddress: employee.email || employee.empemail || "N/A",
-        employeedepartment: employee.employeedepartment || "N/A",
-        phoneNumber: employee.employeephone || "",
-        status: employee.empstatus ? (employee.empstatus.toLowerCase() as Employee["status"]) : "active",
-      }));
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchEmployees = createAsyncThunk<
+  Employee[],
+  void,
+  { rejectValue: string }
+>("employer/fetchEmployees", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getEmployees();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const backendData = (response.data.employees || response.data) as any[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return backendData.map((employee: any) => ({
+      id: employee.id,
+      emailAddress: employee.email || employee.empemail || "N/A",
+      employeedepartment: employee.employeedepartment || "N/A",
+      phoneNumber: employee.employeephone || "",
+      status: employee.empstatus
+        ? (employee.empstatus.toLowerCase() as Employee["status"])
+        : "active",
+    }));
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const addSubscription = createAsyncThunk<BillingDetails, void, { rejectValue: string }>(
-  "employer/addSubscription",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.viewSubscription();
-      return response.data as BillingDetails;
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const addSubscription = createAsyncThunk<
+  BillingDetails,
+  void,
+  { rejectValue: string }
+>("employer/addSubscription", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.viewSubscription();
+    return response.data as BillingDetails;
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const fetchBillingDetails = createAsyncThunk<BillingDetails, void, { rejectValue: string }>(
-  "employer/fetchBilling",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.viewBilling();
-      return response.data as BillingDetails;
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchBillingDetails = createAsyncThunk<
+  BillingDetails,
+  void,
+  { rejectValue: string }
+>("employer/fetchBilling", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.viewBilling();
+    return response.data as BillingDetails;
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const fetchEmployerEngagement = createAsyncThunk<EmployerEngagementData, void, { rejectValue: string }>(
-  "employer/fetchEngagement",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getEngagement?.();
-      return response?.data as EmployerEngagementData;
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchEmployerEngagement = createAsyncThunk<
+  EmployerEngagementData,
+  void,
+  { rejectValue: string }
+>("employer/fetchEngagement", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getEngagement?.();
+    return response?.data as EmployerEngagementData;
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const downloadReport = createAsyncThunk<void, { url: string; fileName: string }, { rejectValue: string }>(
-  "employer/downloadReport",
-  async ({ url, fileName }, { rejectWithValue }) => {
-    try {
-      const blob = await employerAPI.getReportBlob(url);
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(downloadUrl);
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const downloadReport = createAsyncThunk<
+  void,
+  { url: string; fileName: string },
+  { rejectValue: string }
+>("employer/downloadReport", async ({ url, fileName }, { rejectWithValue }) => {
+  try {
+    const blob = await employerAPI.getReportBlob(url);
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const fetchEmployerReports = createAsyncThunk<Report[], void, { rejectValue: string }>(
-  "employer/fetchReports",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getReports();
-      return response.data as Report[];
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchEmployerReports = createAsyncThunk<
+  Report[],
+  void,
+  { rejectValue: string }
+>("employer/fetchReports", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getReports();
+    return response.data as Report[];
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
-export const fetchEmployerDashboardSummary = createAsyncThunk<DashboardSummary, void, { rejectValue: string }>(
-  "employer/fetchSummary",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getemployerdashboardSummary();
-      return response.data as DashboardSummary;
-    } catch (error) {
-      return rejectWithValue(getErrorMessage(error));
-    }
+export const fetchEmployerDashboardSummary = createAsyncThunk<
+  DashboardSummary,
+  void,
+  { rejectValue: string }
+>("employer/fetchSummary", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getemployerdashboardSummary();
+    return response.data as DashboardSummary;
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
   }
-);
+});
 
 export const fetchDepartmentDistribution = createAsyncThunk<
   Array<{ departmentName: string; workerPercentage: number; color: string }>,
@@ -234,12 +263,17 @@ export const fetchDepartmentDistribution = createAsyncThunk<
 });
 
 export const fetchWellnessTrend = createAsyncThunk<
-  Array<{ date: string; avg_score: number; mood_counts: Record<string, number> }>,
+  Array<{
+    date: string;
+    avg_score: number;
+    mood_counts: Record<string, number>;
+  }>,
   void,
   { rejectValue: string }
 >("employer/fetchWellnessTrend", async (_, { rejectWithValue }) => {
   try {
     const response = await employerAPI.getWellnessTrend();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (response.data || []).map((item: any) => ({
       date: item.date || "",
       avg_score: item.score ?? item.avg_score ?? 0,
@@ -250,50 +284,54 @@ export const fetchWellnessTrend = createAsyncThunk<
   }
 });
 
-export const fetchMoodTrends = createAsyncThunk<MoodTrend[], void, { rejectValue: string }>(
-  "employer/fetchMoodTrends",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getMoodTrends();
-      return (response.data || []).map((pt: any) => ({
-        id: pt.id ?? 0,
-        employeeId: pt.employeeId ?? 0,
-        employeeName: pt.employeeName ?? "",
-        employeeDepartment: pt.employeeDepartment ?? "",
-        moodLevel: pt.moodLevel ?? 0,
-        mood: pt.mood ?? "",
-        count: pt.count ?? 0,
-        date: pt.date ?? "",
-        timestamp: pt.timestamp ?? "",
-      }));
-    } catch (err: any) {
-      return rejectWithValue(getErrorMessage(err));
-    }
+export const fetchMoodTrends = createAsyncThunk<
+  MoodTrend[],
+  void,
+  { rejectValue: string }
+>("employer/fetchMoodTrends", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getMoodTrends();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (response.data || []).map((pt: any) => ({
+      id: pt.id ?? 0,
+      employeeId: pt.employeeId ?? 0,
+      employeeName: pt.employeeName ?? "",
+      employeeDepartment: pt.employeeDepartment ?? "",
+      moodLevel: pt.moodLevel ?? 0,
+      mood: pt.mood ?? "",
+      count: pt.count ?? 0,
+      date: pt.date ?? "",
+      timestamp: pt.timestamp ?? "",
+    }));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    return rejectWithValue(getErrorMessage(err));
   }
-);
+});
 
-export const fetchEmployeeStatus = createAsyncThunk<EmployeeStatusData, void, { rejectValue: string }>(
-  "employer/fetchEmployeeStatus",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await employerAPI.getEmployeeStatus();
-      const data = response.data;
-      const active = parseInt(data.activeEmployees) || 0;
-      const inactive = parseInt(data.inactiveEmployees) || 0;
-      const total = active + inactive;
-      return {
-        ...data,
-        activeEmployees: active,
-        inactiveEmployees: inactive,
-        totalEmployees: total,
-        activePercentage: total > 0 ? Math.round((active / total) * 100) : 0,
-        inactivePercentage: total > 0 ? Math.round((inactive / total) * 100) : 0,
-      };
-    } catch (error) {
-      return rejectWithValue("Failed to fetch status");
-    }
+export const fetchEmployeeStatus = createAsyncThunk<
+  EmployeeStatusData,
+  void,
+  { rejectValue: string }
+>("employer/fetchEmployeeStatus", async (_, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.getEmployeeStatus();
+    const data = response.data;
+    const active = parseInt(data.activeEmployees) || 0;
+    const inactive = parseInt(data.inactiveEmployees) || 0;
+    const total = active + inactive;
+    return {
+      ...data,
+      activeEmployees: active,
+      inactiveEmployees: inactive,
+      totalEmployees: total,
+      activePercentage: total > 0 ? Math.round((active / total) * 100) : 0,
+      inactivePercentage: total > 0 ? Math.round((inactive / total) * 100) : 0,
+    };
+  } catch (error) {
+    return rejectWithValue("Failed to fetch status");
   }
-);
+});
 
 /**
  * MOOD DISTRIBUTION FETCH: Integrated backend call
@@ -313,17 +351,17 @@ export const fetchEmployeeStatus = createAsyncThunk<EmployeeStatusData, void, { 
 // });
 export const fetchEmployeeMoodDistribution = createAsyncThunk<
   MoodDistributionResponse, // The return type
-  void,                     // Arguments
-  { rejectValue: string }   // Error type
+  void, // Arguments
+  { rejectValue: string } // Error type
 >("employer/fetchEmployeeMoodDistribution", async (_, { rejectWithValue }) => {
   try {
     const response = await employerAPI.getEmployeeMoodDistribution();
-    return response.data; 
+    return response.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return rejectWithValue(getErrorMessage(error));
   }
 });
-
 
 export const fetchGeneralMood = createAsyncThunk<
   GaugeData, // Changed return type to the full object
@@ -332,17 +370,20 @@ export const fetchGeneralMood = createAsyncThunk<
 >("employer/fetchGeneralMood", async (_, { rejectWithValue }) => {
   try {
     // Calling the new /api/company-mood/gauge-chart/ endpoint
-    const response = await employerAPI.getGaugeChart(); 
+    const response = await employerAPI.getGaugeChart();
     const data = response.data;
 
     return {
       moodLabel: data.mood_label || "Ecstatic", // Calculated by Django
       needleAngle: data.needle_angle, // Calculated by Django
       totalEntries: data.total_entries,
-      score: data.score
+      score: data.score,
     };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    return rejectWithValue(error.response?.data?.error || "Failed to fetch mood");
+    return rejectWithValue(
+      error.response?.data?.error || "Failed to fetch mood",
+    );
   }
 });
 export const updateEmployee = createAsyncThunk<
@@ -379,7 +420,6 @@ export const updateEmployee = createAsyncThunk<
 //   }
 // )
 
-
 // --- INITIAL STATE ---
 const initialState: EmployerState = {
   currentEmployer: null,
@@ -393,14 +433,14 @@ const initialState: EmployerState = {
   // Add these so you can show total counts on the dashboard!
   totalEntries: 0,
   categoryData: { Positive: 0, Neutral: 0, Negative: 0 },
-  status: 'idle',
+  status: "idle",
   error: null,
   generalMood: "Ecstatic",
   gaugeDetails: {
     moodLabel: "Ecstatic",
     needleAngle: 168,
     totalEntries: 0,
-    score: 900
+    score: 900,
   } as GaugeData,
   subscription: null,
   engagement: null,
@@ -419,7 +459,7 @@ const initialState: EmployerState = {
     activePercentage: 0,
     inactivePercentage: 0,
   },
-};    
+};
 
 // === SLICE ===
 const employerSlice = createSlice({
@@ -433,7 +473,7 @@ const employerSlice = createSlice({
       state.isLoading = false;
       state.isActionLoading = false;
       state.error = null;
-      state.status = 'idle';
+      state.status = "idle";
     },
     /**
      * Set the general mood directly
@@ -444,10 +484,13 @@ const employerSlice = createSlice({
     /**
      * Updates specific mood count in real-time
      */
-    updateMoodCount: (state, action: PayloadAction<{ mood: string; count: number }>) => {
+    updateMoodCount: (
+      state,
+      action: PayloadAction<{ mood: string; count: number }>,
+    ) => {
       const { mood, count } = action.payload;
       const index = state.employeeMoodDistribution.findIndex(
-        (item) => item.mood.toLowerCase() === mood.toLowerCase()
+        (item) => item.mood.toLowerCase() === mood.toLowerCase(),
       );
 
       if (index !== -1) {
@@ -460,7 +503,7 @@ const employerSlice = createSlice({
       }
     },
 
-       updateEmployeeLocal: (
+    updateEmployeeLocal: (
       state,
       action: PayloadAction<Partial<Employee> & { id: number }>,
     ) => {
@@ -523,25 +566,25 @@ const employerSlice = createSlice({
         state.isLoading = false;
         state.EmployeeStatusData = action.payload;
       })
-      
+
       // --- MOOD DISTRIBUTION FETCH HANDLERS ---
       .addCase(fetchEmployeeMoodDistribution.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchEmployeeMoodDistribution.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         // Match the keys from your Django 'return Response({...})'
         state.employeeMoodDistribution = action.payload.mood_distribution;
         state.totalEntries = action.payload.total_entries;
         state.categoryData = action.payload.category_distribution;
       })
       .addCase(fetchEmployeeMoodDistribution.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload || "Sync Error";
       })
-      
+
       // --- GENERAL MOOD FETCH HANDLERS ---
-      
+
       .addCase(fetchGeneralMood.fulfilled, (state, action) => {
         state.isLoading = false;
         state.generalMood = action.payload.moodLabel;
@@ -559,21 +602,27 @@ const employerSlice = createSlice({
       // Delete Employee
       .addCase(deleteEmployee.fulfilled, (state, action) => {
         state.isActionLoading = false;
-        state.employees = Array.isArray(action.payload) ? action.payload : state.employees;
+        state.employees = Array.isArray(action.payload)
+          ? action.payload
+          : state.employees;
       })
       // Update Employee
       .addCase(updateEmployee.fulfilled, (state, action) => {
         state.isActionLoading = false;
-        const index = state.employees.findIndex((emp) => emp.id === action.payload.id);
+        const index = state.employees.findIndex(
+          (emp) => emp.id === action.payload.id,
+        );
         if (index !== -1) state.employees[index] = action.payload;
       })
       // Toggle Employee Status
       .addCase(toggleEmployeeStatus.fulfilled, (state, action) => {
         state.isActionLoading = false;
-        const employee = state.employees.find((emp) => emp.id === Number(action.payload.id));
-        if (employee) employee.status = action.payload.status as Employee["status"];
-      })
-
+        const employee = state.employees.find(
+          (emp) => emp.id === Number(action.payload.id),
+        );
+        if (employee)
+          employee.status = action.payload.status as Employee["status"];
+      });
   },
 });
 
@@ -587,6 +636,10 @@ export {
   deleteEmployeeLocalAction as deleteEmployeeLocal,
 };
 
-
-export const { clearEmployerError, clearEmployerStatus, updateMoodCount, setGeneralMood } = employerSlice.actions;
+export const {
+  clearEmployerError,
+  clearEmployerStatus,
+  updateMoodCount,
+  setGeneralMood,
+} = employerSlice.actions;
 export default employerSlice.reducer;

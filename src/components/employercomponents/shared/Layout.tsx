@@ -63,7 +63,6 @@ const Layout = ({ children, title }: LayoutProps) => {
       ? employer?.email || employer?.email
       : "Employer";
 
-
   const companyJoinDate = employer?.company?.createdAt
     ? new Date(employer.company.createdAt)
     : localEmployer?.dateJoined
@@ -230,9 +229,6 @@ const Layout = ({ children, title }: LayoutProps) => {
                     >
                       Member since {formatDate(companyJoinDate)}
                     </small>
-
-                    
-                    
                   </div>
 
                   {/* 3. User Icon or Uploaded Logo */}

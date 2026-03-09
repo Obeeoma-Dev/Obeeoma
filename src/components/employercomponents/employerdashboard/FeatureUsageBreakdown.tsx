@@ -216,8 +216,8 @@ export default FeatureUsageBreakdown;
 
 // interface FeatureDisplayData {
 //   feature: string;
-//   usage: number; 
-//   displayCount: number; 
+//   usage: number;
+//   displayCount: number;
 //   icon: React.ReactNode;
 //   color: string;
 // }
@@ -293,8 +293,8 @@ export default FeatureUsageBreakdown;
 
 //   if (loading) return <div className="p-4 text-center">Loading Usage Data...</div>;
 
-//   const overallUsage = features.length 
-//     ? Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length) 
+//   const overallUsage = features.length
+//     ? Math.round(features.reduce((acc, f) => acc + f.usage, 0) / features.length)
 //     : 0;
 //   return (
 //     <div className="feature-usage-breakdown">
@@ -371,4 +371,3 @@ export default FeatureUsageBreakdown;
 // };
 
 // export default FeatureUsageBreakdown;
-

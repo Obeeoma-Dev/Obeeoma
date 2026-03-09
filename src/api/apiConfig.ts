@@ -601,12 +601,10 @@ export const employerAPI = {
     return response;
   },
 
-    getGaugeChart: async () => {
+  getGaugeChart: async () => {
     const response = await api.get("/v1/company-mood/gauge-chart/");
     return response;
   },
-
-  
 
   getRecentActivities: async () => {
     const response = await api.get("/v1/dashboard/recent-activities/");
@@ -631,7 +629,6 @@ export const employerAPI = {
   viewBillingHistory: async () => {
     return api.get("/v1/dashboard/subscriptions/billing-history/");
   },
-
 
   // Data Export & Deletion
   exportAllData: async () => {

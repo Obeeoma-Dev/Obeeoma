@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { fetchSubscribers } from '../../../store/slices/adminpaystackSlice';
-import type { RootState } from '../../../store/store';
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux-hooks";
+import { fetchSubscribers } from "../../../store/slices/adminpaystackSlice";
+import type { RootState } from "../../../store/store";
 
 interface Subscriber {
   id: number;
@@ -17,7 +17,9 @@ interface Subscriber {
 
 const SubscriberList: React.FC = () => {
   const dispatch = useAppDispatch();
-  const subscriptionState = useAppSelector((state: RootState) => state.subscriptionSlice);
+  const subscriptionState = useAppSelector(
+    (state: RootState) => state.subscriptionSlice,
+  );
   const { items, loading, error } = subscriptionState;
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const SubscriberList: React.FC = () => {
   }, [dispatch]);
 
   if (loading) return <p>Fetching payment data...</p>;
-  if (error) return <p style={{ color: 'red' }}>Error: {error}</p>;
+  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
     <div className="admin-table">

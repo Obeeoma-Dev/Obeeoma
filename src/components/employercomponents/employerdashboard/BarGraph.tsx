@@ -10,14 +10,21 @@ import {
   Tooltip,
   Legend,
   ChartOptions,
-  ChartData
+  ChartData,
 } from "chart.js";
 
 import { fetchEmployeeMoodDistribution } from "../../../store/slices/EmployerSlice";
 import type { AppDispatch, RootState } from "../../../store/store";
 
 // Register ChartJS components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 // Define the shape of your mood data
 interface MoodItem {
@@ -27,10 +34,10 @@ interface MoodItem {
 
 const BarGraph: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  
+
   // Destructure state with types from RootState
   const { employeeMoodDistribution, status, error } = useSelector(
-    (state: RootState) => state.employer
+    (state: RootState) => state.employer,
   );
 
   // 1. AJAX Polling (The Heartbeat)
@@ -54,10 +61,11 @@ const BarGraph: React.FC = () => {
       { mood: "Sad", count: 3 },
       { mood: "Angry", count: 2 },
     ];
-    
-    const dataArray: MoodItem[] = (employeeMoodDistribution && employeeMoodDistribution.length > 0) 
-      ? employeeMoodDistribution 
-      : defaultData;
+
+    const dataArray: MoodItem[] =
+      employeeMoodDistribution && employeeMoodDistribution.length > 0
+        ? employeeMoodDistribution
+        : defaultData;
 
     return {
       labels: dataArray.map((item) => item.mood),
@@ -67,8 +75,10 @@ const BarGraph: React.FC = () => {
           data: dataArray.map((item) => item.count),
           backgroundColor: dataArray.map((item) => {
             const mood = item.mood?.toLowerCase() || "";
-            if (["angry", "sad", "stressed", "frustrated"].includes(mood)) return "#7a7474";
-            if (["ecstatic", "happy", "excited"].includes(mood)) return "#22C55E";
+            if (["angry", "sad", "stressed", "frustrated"].includes(mood))
+              return "#7a7474";
+            if (["ecstatic", "happy", "excited"].includes(mood))
+              return "#22C55E";
             return "#bdbfc2";
           }),
           borderRadius: 4,
@@ -103,7 +113,9 @@ const BarGraph: React.FC = () => {
 
   // Error State Handling
   if (status === "failed") {
-    return <div className="alert alert-danger">{error || "Failed to load data"}</div>;
+    return (
+      <div className="alert alert-danger">{error || "Failed to load data"}</div>
+    );
   }
 
   return (
@@ -120,8 +132,6 @@ const BarGraph: React.FC = () => {
 };
 
 export default BarGraph;
-
-
 
 // // import React, { useEffect, useRef, useState } from "react";
 // // import { useDispatch, useSelector } from "react-redux";
@@ -146,7 +156,7 @@ export default BarGraph;
 // //   const { employeeMoodDistribution } = useSelector(
 // //     (state: RootState) => state.employer
 // //   );
-  
+
 // //   // Start loading as false if we already have data in Redux to prevent flickering
 // //   const [localLoading, setLocalLoading] = useState(!employeeMoodDistribution?.length);
 // //   const [localError, setLocalError] = useState<string | null>(null);
@@ -174,15 +184,15 @@ export default BarGraph;
 // //   // 2. WEBSOCKET EFFECT
 // //   // Separated so that UI state changes (loading/error) don't restart the socket
 // //   useEffect(() => {
-// //     const socketUrl = 'ws://127.0.0.1:8000/ws/mood_updates/'; 
+// //     const socketUrl = 'ws://127.0.0.1:8000/ws/mood_updates/';
 // //     socket.current = new WebSocket(socketUrl);
 
 // //     socket.current.onopen = () => console.log("[WS] Connected");
-    
+
 // //     socket.current.onmessage = (event) => {
 // //       try {
 // //         const data = JSON.parse(event.data);
-// //         dispatch(updateMoodCount(data)); 
+// //         dispatch(updateMoodCount(data));
 // //       } catch (e) {
 // //         console.error("[WS] Parse error:", e);
 // //       }
@@ -308,7 +318,7 @@ export default BarGraph;
 //       },
 //     },
 //     scales: {
-//       y: { 
+//       y: {
 //         beginAtZero: true,
 //         ticks: { stepSize: 1 },
 //         title: { display: true, text: "Employee Count" }

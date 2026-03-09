@@ -160,7 +160,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           <div className="col-lg-6">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body d-flex justify-content-center align-items-center">
-                <MoodgaugeChart  />
+                <MoodgaugeChart />
               </div>
             </div>
           </div>
@@ -235,7 +235,6 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           </div>
 
           {/* Employee Mood Distribution Bar Graph */}
-          
         </div>
 
         {/* Modal for adding employees */}

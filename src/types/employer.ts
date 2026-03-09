@@ -9,8 +9,6 @@
 //   role: "admin" | "employer" | "employee" | string;
 //   dateJoined: string; // ISO date string
 
-  
-
 //   company?: {
 //     id: string | number;
 //     companySize: number;
@@ -305,7 +303,7 @@ export interface CrisisInsight {
 
 export interface EmployeeEngagementData {
   engagementScore: number;
-  sentimentTrend: number[]; 
+  sentimentTrend: number[];
 }
 
 export interface Report {
@@ -324,7 +322,7 @@ export interface EmployeeInvite {
   id: string | number;
   email: string;
   status: "pending" | "accepted" | "expired" | "active";
-  sentDate: string; 
+  sentDate: string;
 }
 
 export interface InviteData {
@@ -374,7 +372,7 @@ export interface EmployerEngagementData {
   }[];
 }
 
-/** * UPDATED: Mood Distribution Interface 
+/** * UPDATED: Mood Distribution Interface
  */
 export interface EmployeeMoodDistribution {
   mood: string;
@@ -382,7 +380,7 @@ export interface EmployeeMoodDistribution {
   percentage?: number;
 }
 
-/** * UPDATED: EmployerState 
+/** * UPDATED: EmployerState
  * Added 'status' to track the specific loading state of the Bar Graph
  */
 export interface EmployerState {
@@ -413,10 +411,10 @@ export interface EmployerState {
   totalEntries: number;
   categoryData: { Positive: number; Neutral: number; Negative: number };
   gaugeDetails: GaugeData;
-  
+
   // --- ADDED FIELD ---
-  status: 'idle' | 'loading' | 'succeeded' | 'failed'; 
-  
+  status: "idle" | "loading" | "succeeded" | "failed";
+
   currentEmployer: EmployerUser | null;
   subscription: SubscriptionData | null;
   employees: Employee[];
@@ -426,7 +424,7 @@ export interface EmployerState {
   reports: Report[];
   summary: DashboardSummary | null;
   isLoading: boolean;
-  isActionLoading: boolean; 
+  isActionLoading: boolean;
   error: string | null;
 }
 
@@ -495,14 +493,14 @@ export interface UsageData {
 }
 
 export interface PaymentUpdatePayload {
-  token_id?: string; 
-  authorization_code?: string; 
-  email: string; 
+  token_id?: string;
+  authorization_code?: string;
+  email: string;
 }
 
 export interface InvoiceItem {
   invoice_number: string;
-  date: string; 
+  date: string;
   amount: number;
   currency: string;
   description: string;

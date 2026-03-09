@@ -5,35 +5,38 @@ import { RootState, AppDispatch } from "../../../store/store";
 
 const MoodGaugeChart: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  
-  const { gaugeDetails, isLoading } = useSelector((state: RootState) => state.employer);
+
+  const { gaugeDetails, isLoading } = useSelector(
+    (state: RootState) => state.employer,
+  );
   const { moodLabel, totalEntries } = gaugeDetails;
 
   useEffect(() => {
-    dispatch(fetchGeneralMood()); 
+    dispatch(fetchGeneralMood());
     const interval = setInterval(() => {
       dispatch(fetchGeneralMood());
-    }, 15000); 
+    }, 15000);
 
     return () => clearInterval(interval);
   }, [dispatch]);
 
   const colors = ["#dcfce7", "#bbf7d0", "#86efac", "#4ade80", "#22c55e"];
   const emojis = ["😞", "😊", "😐", "😕", "😀"];
-  
+
   // Clean label for display
-  const cleanedMoodLabel = moodLabel.replace("Needs Attention", "").trim() || "Ecstatic";
+  const cleanedMoodLabel =
+    moodLabel.replace("Needs Attention", "").trim() || "Ecstatic";
 
   // Logic to find which index the current mood belongs to
   // Matches "Needs Attention", "Neutral", etc., to the 0-4 index
   const moodIndexMap: { [key: string]: number } = {
     "Very Sad": 0,
-    "Sad": 1,
-    "Neutral": 2,
-    "Happy": 3,
-    "Ecstatic": 4,
+    Sad: 1,
+    Neutral: 2,
+    Happy: 3,
+    Ecstatic: 4,
   };
-  
+
   // Default to middle (index 2) if no match found
   const activeIndex = moodIndexMap[cleanedMoodLabel] ?? 2;
 
@@ -72,7 +75,7 @@ const MoodGaugeChart: React.FC = () => {
 
   // Calculate the tip of the needle based on the active index
   // Each segment is 36 degrees. We point to the middle of the segment (+ 18)
-  const needleAngle = (activeIndex * 36) + 18;
+  const needleAngle = activeIndex * 36 + 18;
   const tip = polarToCartesian(centerX, centerY, chartRadius - 15, needleAngle);
   const baseLeft = polarToCartesian(centerX, centerY, 8, needleAngle - 90);
   const baseRight = polarToCartesian(centerX, centerY, 8, needleAngle + 90);
@@ -80,10 +83,15 @@ const MoodGaugeChart: React.FC = () => {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center w-100 p-3 bg-white rounded shadow-sm">
       <div className="d-flex justify-content-between w-100 mb-2">
-        <h6 className="fw-bold m-0" style={{ fontSize: "0.9rem", color: "#000" }}>
+        <h6
+          className="fw-bold m-0"
+          style={{ fontSize: "0.9rem", color: "#000" }}
+        >
           General Company Mood Tracker
         </h6>
-        {isLoading && <span className="spinner-border spinner-border-sm text-muted"></span>}
+        {isLoading && (
+          <span className="spinner-border spinner-border-sm text-muted"></span>
+        )}
       </div>
 
       <div style={{ width: "100%", maxWidth: "500px", position: "relative" }}>
@@ -158,7 +166,10 @@ const MoodGaugeChart: React.FC = () => {
       </div>
 
       <div className="text-center mt-3">
-        <div className="fw-bold text-uppercase" style={{ fontSize: "1.2rem", color: "#374151" }}>
+        <div
+          className="fw-bold text-uppercase"
+          style={{ fontSize: "1.2rem", color: "#374151" }}
+        >
           {cleanedMoodLabel}
         </div>
       </div>
@@ -167,4 +178,3 @@ const MoodGaugeChart: React.FC = () => {
 };
 
 export default MoodGaugeChart;
-

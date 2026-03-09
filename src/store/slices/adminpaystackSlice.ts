@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Define the shape of the data for TypeScript
 interface Subscriber {
@@ -28,32 +28,35 @@ const initialState: SubscriptionState = {
 
 // The Async Thunk
 export const fetchSubscribers = createAsyncThunk(
-  'subscriptions/fetch',
+  "subscriptions/fetch",
   async (_, { rejectWithValue }) => {
     try {
       // Note: For production, this should go through your backend API
       // to avoid exposing secret keys on the client side
       const paystackSecret = import.meta.env.VITE_PAYSTACK_SECRET;
       if (!paystackSecret) {
-        return rejectWithValue('Paystack secret key not configured');
+        return rejectWithValue("Paystack secret key not configured");
       }
-      
-      const response = await axios.get('https://api.paystack.co/subscription', {
+
+      const response = await axios.get("https://api.paystack.co/subscription", {
         headers: {
           Authorization: `Bearer ${paystackSecret}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       // Paystack returns { status: true, message: "...", data: [...] }
-      return response.data.data; 
+      return response.data.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || 'Check your API Key or Network');
+      return rejectWithValue(
+        err.response?.data?.message || "Check your API Key or Network",
+      );
     }
-  }
+  },
 );
 
 const subscriptionSlice = createSlice({
-  name: 'subscriptions',
+  name: "subscriptions",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -62,10 +65,13 @@ const subscriptionSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchSubscribers.fulfilled, (state, action: PayloadAction<Subscriber[]>) => {
-        state.loading = false;
-        state.items = action.payload;
-      })
+      .addCase(
+        fetchSubscribers.fulfilled,
+        (state, action: PayloadAction<Subscriber[]>) => {
+          state.loading = false;
+          state.items = action.payload;
+        },
+      )
       .addCase(fetchSubscribers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
