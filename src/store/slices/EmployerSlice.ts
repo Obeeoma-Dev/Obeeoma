@@ -307,48 +307,7 @@ export const fetchEmployeeMoodDistribution = createAsyncThunk<
   }
 });
 
-/**
- * FETCH GENERAL MOOD: Gets the general mood for the MoodgaugeChart
- * Computes the dominant mood from mood distribution data
- */
-// export const fetchGeneralMood = createAsyncThunk<
-//   string,
-//   void,
-//   { rejectValue: string }
-// >("employer/fetchGeneralMood", async (_, { rejectWithValue }) => {
-//   try {
-//     const response = await employerAPI.getGeneralMood();
-//     const rawData = response.data?.results || response.data;
-//     const moodData = Array.isArray(rawData) ? rawData : [];
-    
-//     // Compute the dominant mood from the distribution
-//     if (moodData.length === 0) {
-//       return "Ecstatic"; // Default
-//     }
-    
-//     // Sort by count to find the most common mood
-//     const sorted = [...moodData].sort((a, b) => b.count - a.count);
-//     const dominantMood = sorted[0]?.mood || "Ecstatic";
-    
-//     // Map the backend mood string to our gauge format
-//     const moodMap: Record<string, string> = {
-//       "Ecstatic": "Ecstatic",
-//       "Happy": "Happy",
-//       "Neutral": "Neutral",
-//       "Frustrated": "Frustrated",
-//       "Angry": "Angry",
-//       "Excellent": "Ecstatic",
-//       "Good": "Happy",
-//       "Fair": "Neutral",
-//       "Poor": "Frustrated",
-//       "Needs Attention": "Angry",
-//     };
-    
-//     return moodMap[dominantMood] || "Ecstatic";
-//   } catch (error: any) {
-//     return rejectWithValue(getErrorMessage(error));
-//   }
-// });
+
 export const fetchGeneralMood = createAsyncThunk<
   GaugeData, // Changed return type to the full object
   void,
@@ -450,7 +409,7 @@ const employerSlice = createSlice({
       state.generalMood = action.payload;
     },
     /**
-     * WEBSOCKET UPDATE: Updates specific mood count in real-time
+     * Updates specific mood count in real-time
      */
     updateMoodCount: (state, action: PayloadAction<{ mood: string; count: number }>) => {
       const { mood, count } = action.payload;
@@ -542,22 +501,6 @@ const employerSlice = createSlice({
       //   state.isLoading = false;
       //   state.error = action.payload || "Failed to fetch general mood";
       // })
-
-    //   .addCase(fetchGeneralMood.pending, (state) => {
-    //   state.isLoading = true;
-    //   state.error = null;
-    // })
-    // .addCase(fetchGeneralMood.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.generalMood = action.payload.moodLabel;
-    //   state.gaugeDetails = action.payload;
-    // })
-    // .addCase(fetchGeneralMood.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   // Note: action.payload is used for custom errors via rejectWithValue
-    //   // action.error.message is used for generic exceptions
-    //   state.error = (action.payload as string) || action.error.message || "Failed to fetch";
-    // })
 
       // Delete Employee
       .addCase(deleteEmployee.fulfilled, (state, action) => {
