@@ -91,6 +91,7 @@ export const authAPI = {
     login: async (credentials) => {
         const response = await api.post("v1/auth/login/", credentials);
         return response;
+        `1`;
     },
     // Register endpoint
     register: async (credentials) => {
@@ -419,6 +420,14 @@ export const employerAPI = {
     },
     getWellnessTrend: async () => {
         const response = await api.get("/v1/auth/invitations/");
+        return response;
+    },
+    getEmployeeMoodDistribution: async () => {
+        const response = await api.get("/v1/mood-bar-graph/");
+        return response;
+    },
+    getGaugeChart: async () => {
+        const response = await api.get("/v1/company-mood/gauge-chart/");
         return response;
     },
     getRecentActivities: async () => {

@@ -121,7 +121,7 @@ export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
     const response = await api.post("v1/auth/login/", credentials);
-    return response;
+    return response;`1`
   },
 
   // Register endpoint
@@ -531,6 +531,18 @@ export const employerAPI = {
     return response;
   },
 
+  getEmployeeMoodDistribution: async () => {
+    const response = await api.get("/v1/mood-bar-graph/");
+    return response;
+  },
+
+    getGaugeChart: async () => {
+    const response = await api.get("/v1/company-mood/gauge-chart/");
+    return response;
+  },
+
+  
+
   getRecentActivities: async () => {
     const response = await api.get("/v1/dashboard/recent-activities/");
     return response;
@@ -554,6 +566,7 @@ export const employerAPI = {
   viewBillingHistory: async () => {
     return api.get("/v1/dashboard/subscriptions/billing-history/");
   },
+
 
   // Data Export & Deletion
   exportAllData: async () => {
