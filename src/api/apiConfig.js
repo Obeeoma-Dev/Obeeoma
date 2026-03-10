@@ -244,7 +244,7 @@ export const adminAPI = {
         return response;
     },
     getTrends: async () => {
-        const response = await api.get("/v1/admin/trends");
+        const response = await api.get("/dashboard/trends");
         return response;
     },
     viewInviteEmployee: async () => {

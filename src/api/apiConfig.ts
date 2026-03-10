@@ -309,7 +309,7 @@ export const adminAPI = {
   },
 
   getTrends: async () => {
-    const response = await api.get("/v1/admin/trends");
+    const response = await api.get("/dashboard/trends");
     return response;
   },
 
@@ -575,8 +575,8 @@ export const employerAPI = {
 
   getWellnessMoodTrends: async (companyId?: string) => {
     const url = companyId
-      ? `/v1/company-mood/${companyId}/`
-      : "/v1/company-mood/";
+      ? `/v1/dashboard/trends/${companyId}/`
+      : "/v1/dashboard/trends/";
     const response = await api.get(url);
     return response;
   },
