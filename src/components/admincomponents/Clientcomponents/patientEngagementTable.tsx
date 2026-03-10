@@ -5,46 +5,15 @@ import React from "react";
 import { Table, Badge, Card } from "react-bootstrap";
 import { FaFire, FaExclamationTriangle, FaSnowflake } from "react-icons/fa";
 
-// Define a type for patient data
-interface Patient {
+// Define a type for patient data (from API or parent)
+export interface Patient {
   name: string;
   organization: string;
   engagementRate: number;
-  pointsRedeemed: number;
   lastActivity: string;
 }
 
-// Sample patient data (can be replaced with props or API)
-const patients: Patient[] = [
-  {
-    name: "Madison Carano",
-    organization: "HealthOne",
-    engagementRate: 92,
-    pointsRedeemed: 1200,
-    lastActivity: "2h ago",
-  },
-  {
-    name: "William Johnson",
-    organization: "MediCare",
-    engagementRate: 88,
-    pointsRedeemed: 980,
-    lastActivity: "3h ago",
-  },
-  {
-    name: "Vanessa Jefferson",
-    organization: "HealthOne",
-    engagementRate: 45,
-    pointsRedeemed: 1100,
-    lastActivity: "1h ago",
-  },
-  {
-    name: "Preston Corbett",
-    organization: "WellnessCo",
-    engagementRate: 67,
-    pointsRedeemed: 870,
-    lastActivity: "5h ago",
-  },
-];
+const defaultPatients: Patient[] = [];
 
 // Helper function to determine engagement level icon
 const getEngagementIcon = (rate: number): React.ReactNode => {
@@ -82,8 +51,14 @@ const getInitials = (fullName: string) => {
     .toUpperCase();
 };
 
-// Main component
-const PatientEngagementTable: React.FC = () => {
+interface PatientEngagementTableProps {
+  patients?: Patient[];
+}
+
+// Main component (uses live API data when patients prop is provided)
+const PatientEngagementTable: React.FC<PatientEngagementTableProps> = ({
+  patients = defaultPatients,
+}) => {
   return (
     <Card className="mb-4 shadow-sm">
       {/* Card header for table title and hierarchy */}
@@ -113,7 +88,6 @@ const PatientEngagementTable: React.FC = () => {
               <th>Organization</th>
               <th>Engagement</th>
               <th>Engagement Rate (%)</th>
-              <th>Points Redeemed</th>
               <th>Last Activity</th>
               <th>Status</th>
             </tr>
@@ -153,11 +127,6 @@ const PatientEngagementTable: React.FC = () => {
 
                 {/* Engagement percentage emphasized for readability */}
                 <td className="fw-semibold">{patient.engagementRate}%</td>
-
-                {/* Points formatted and emphasized */}
-                <td style={{ fontFamily: "body" }}>
-                  {patient.pointsRedeemed.toLocaleString()}
-                </td>
 
                 {/* Last activity timestamp */}
                 <td>{patient.lastActivity}</td>
