@@ -232,6 +232,21 @@ export const adminAPI = {
     return response;
   },
 
+  getClientEngagement: async () => {
+    const response = await api.get("admin/client-engagement/");
+    return response;
+  },
+
+  getAIManagement: async () => {
+    const response = await api.get("admin/ai-management/");
+    return response;
+  },
+
+  getHotlineActivity: async () => {
+    const response = await api.get("admin/hotline-activity/");
+    return response;
+  },
+
   // Organization management APIs
   getOrganizationsGrowthChart: async () => {
     const response = await api.get("/v1/admin/organizations/growth-chart/");
@@ -309,7 +324,7 @@ export const adminAPI = {
   },
 
   getTrends: async () => {
-    const response = await api.get("/v1/admin/trends");
+    const response = await api.get("/dashboard/trends");
     return response;
   },
 
@@ -575,8 +590,8 @@ export const employerAPI = {
 
   getWellnessMoodTrends: async (companyId?: string) => {
     const url = companyId
-      ? `/v1/company-mood/${companyId}/`
-      : "/v1/company-mood/";
+      ? `/v1/dashboard/trends/${companyId}/`
+      : "/v1/dashboard/trends/";
     const response = await api.get(url);
     return response;
   },

@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Card, Badge, Button, Form, InputGroup } from "react-bootstrap";
 import { Search, Filter, MoreVertical } from "lucide-react";
 
-interface CallLog {
+export interface CallLog {
   time: string;
   date: string;
   reason: string;
@@ -10,50 +10,30 @@ interface CallLog {
   status: string;
 }
 
-/* Placeholder call logs */
-const callLogs: CallLog[] = [
-  {
-    time: "11:00 AM",
-    date: "12/04/2023",
-    reason: "Anxiety",
-    operator: "John Smith",
-    status: "Missed",
-  },
-  {
-    time: "12:30 PM",
-    date: "12/04/2023",
-    reason: "Depression",
-    operator: "Emily Brown",
-    status: "Completed",
-  },
-  {
-    time: "2:00 PM",
-    date: "12/04/2023",
-    reason: "Grief",
-    operator: "Michael Jones",
-    status: "Ongoing",
-  },
+const defaultCallLogs: CallLog[] = [
+  { time: "11:00 AM", date: "12/04/2023", reason: "Anxiety", operator: "John Smith", status: "Missed" },
+  { time: "12:30 PM", date: "12/04/2023", reason: "Depression", operator: "Emily Brown", status: "Completed" },
+  { time: "2:00 PM", date: "12/04/2023", reason: "Grief", operator: "Michael Jones", status: "Ongoing" },
 ];
 
-/* CallLogTable component */
-const CallLogTable: React.FC = () => {
+interface CallLogTableProps {
+  logs?: CallLog[];
+}
+
+const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
+  const callLogs = Array.isArray(logs) && logs.length > 0 ? logs : defaultCallLogs;
   return (
     <Card className="p-4 mb-4">
-      {/* ===== Header Section ===== */}
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">
-        {/* Search input (visual only) */}
         <InputGroup style={{ maxWidth: "320px" }}>
           <InputGroup.Text>
             <Search size={16} />
           </InputGroup.Text>
-
           <Form.Control
             type="text"
             placeholder="Search by reason or operator..."
           />
         </InputGroup>
-
-        {/* Filter button (visual only) */}
         <Button
           variant="outline-secondary"
           size="sm"
@@ -64,10 +44,8 @@ const CallLogTable: React.FC = () => {
         </Button>
       </div>
 
-      {/* ====  Table Section ==== */}
       <div className="table-responsive">
         <Table hover borderless className="align-middle">
-          {/* Table Head */}
           <thead className="text-uppercase text-muted small">
             <tr>
               <th>Time</th>
@@ -79,7 +57,6 @@ const CallLogTable: React.FC = () => {
             </tr>
           </thead>
 
-          {/* Table Body */}
           <tbody>
             {callLogs.map((log, index) => (
               <tr key={index}>

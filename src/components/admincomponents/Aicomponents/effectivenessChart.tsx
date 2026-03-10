@@ -15,12 +15,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 const BAR_COLORS = ["#9DD3AF", "#00A859", "#3CB371", "#0B6E45"];
 
-const data = {
+const defaultData = {
   labels: ["Videos", "Articles", "Audio", "Interactive"],
   datasets: [
     {
       label: "Effectiveness (%)",
-      data: [85, 70, 60, 50, 40],
+      data: [85, 70, 60, 50],
       backgroundColor: BAR_COLORS,
       borderRadius: 6,
       maxBarThickness: 30,
@@ -43,7 +43,29 @@ const options = {
   },
 };
 
-const EffectivenessChart: React.FC = () => {
+interface EffectivenessChartProps {
+  effectivenessByType?: Array<{ resource_type?: string; avg_effectiveness?: number }>;
+}
+
+const EffectivenessChart: React.FC<EffectivenessChartProps> = ({ effectivenessByType }) => {
+  const labels = effectivenessByType?.length
+    ? effectivenessByType.map((t) => (t.resource_type || "").replace(/_/g, " ")).map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    : defaultData.labels;
+  const values = effectivenessByType?.length
+    ? effectivenessByType.map((t) => Number(t.avg_effectiveness) || 0)
+    : defaultData.datasets[0].data;
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Effectiveness (%)",
+        data: values,
+        backgroundColor: values.map((_, i) => BAR_COLORS[i % BAR_COLORS.length]),
+        borderRadius: 6,
+        maxBarThickness: 30,
+      },
+    ],
+  };
   return (
     <Card className="mb-4 shadow-sm h-100">
       <Card.Body>
