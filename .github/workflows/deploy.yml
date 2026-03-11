@@ -36,11 +36,11 @@ jobs:
             fi
 
             echo "--- STEP 1: BACKUP CUSTOM FOLDERS ---"
-            mkdir -p ../obeeoma_permanent_backups
+            mkdir -p ../backups
             # Copy api, Backend, and nginx so they are safe
-            [ -d "api" ] && cp -r api ../obeeoma_permanent_backups/
-            [ -d "Backend" ] && cp -r Backend ../obeeoma_permanent_backups/
-            [ -d "nginx" ] && cp -r nginx ../obeeoma_permanent_backups/
+            [ -d "api" ] && cp -r api ../backups/
+            [ -d "Backend" ] && cp -r Backend ../backups/
+            [ -d "nginx" ] && cp -r nginx ../ackups/
 
             echo "--- STEP 2: DELETE OLD FRONTEND & SYNC ---"
             # Delete the Obeeoma folder entirely to ensure no 2-byte ghosts remain
