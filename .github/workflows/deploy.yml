@@ -56,42 +56,40 @@ jobs:
           script: |
             set -euo pipefail
             
-            # Ensure the base directory exists
-            mkdir -p "${{ env.DEPLOY_DIR }}"
             cd "${{ env.DEPLOY_DIR }}"
 
-            # Setup Git SSH Identity for the Droplet
+            # Setup Git SSH
             DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
             if [ -f "$DEPLOY_KEY" ]; then
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "--- Synchronizing Code ---"
-            if [ ! -d ".git" ]; then
-               echo "Target directory is not a git repo. Cloning now..."
-               git clone ${{ env.DEPLOY_REPO_SSH }} .
-            else
-               echo "Git repo detected. Fetching latest changes..."
-            fi
+            echo "--- STEP 1: Backup Custom Folders ---"
+            mkdir -p ../obeeoma_backups
+            # Use rsync to avoid permission issues with .git files
+            [ -d "api" ] && rsync -av --exclude='.git' api/ ../obeeoma_backups/api/
+            [ -d "Backend" ] && rsync -av --exclude='.git' Backend/ ../obeeoma_backups/Backend/
+
+            echo "--- STEP 2: Force Clean Sync ---"
+            # Delete Obeeoma folder so Git recreates the Dockerfile properly
+            rm -rf Obeeoma
             
             git fetch --all
             git reset --hard origin/main
+            git clean -fd
 
-            echo "--- Injecting Secrets ---"
-            # Ensure the nested path exists inside the project
+            echo "--- STEP 3: Inject Secrets ---"
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "--- Resources Cleanup ---"
-            docker system prune -f
-
-            echo "--- Docker Build & Up ---"
-            # Setting timeout for slow Droplet disks/RAM
+            echo "--- STEP 4: Docker Rebuild ---"
+            # Builder prune fixes the 'EOF' / Registry connection errors
+            docker builder prune -f
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
-            echo "--- Final Image Cleanup ---"
+            echo "--- STEP 5: Cleanup ---"
             docker image prune -f
-            echo "Deployment completed successfully"
+            echo "Deployment successful!"
 # name: Obeeoma CI/CD
 # name: Obeeoma CI/CD
 
