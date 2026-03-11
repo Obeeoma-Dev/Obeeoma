@@ -52,8 +52,8 @@ jobs:
           username: obeeoma
           key: ${{ secrets.DROPLET_SSH_KEY }}
           port: ${{ secrets.DROPLET_SSH_PORT }}
-          timeout: 60m          # Increased total session timeout
-          command_timeout: 60m  # Increased command execution timeout
+          timeout: 60m
+          command_timeout: 60m
           script: |
             set -euo pipefail
             
@@ -71,20 +71,118 @@ jobs:
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "Cleaning up old Docker data to free up RAM..."
-            docker system prune -f
-
             echo "Pulling latest code..."
+            # Ensure we are in a git repo or clone it if empty
+            if [ ! -d ".git" ]; then
+               git clone ${{ env.DEPLOY_REPO_SSH }} .
+            fi
             git fetch --all
             git reset --hard origin/main
 
+            echo "Injecting Environment Variables..."
+            # This creates the .env file that Docker Compose was complaining about
+            echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
+
+            echo "Cleaning up old Docker data to free up RAM..."
+            docker system prune -f
+
             echo "Starting Docker build (this may take a while)..."
-            # Build and up with a longer internal docker timeout
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
             echo "Cleaning up dangling images..."
             docker image prune -f
             echo "Deployment completed successfully"
+
+
+
+
+# name: Obeeoma CI/CD
+
+# on:
+#   push:
+#     branches: [main, develop]
+#   pull_request:
+#     branches: [main, develop]
+
+# env:
+#   NODE_VERSION: 20
+#   DEPLOY_REPO_SSH: git@github.com:Obeeoma-Dev/Obeeoma.git
+#   DEPLOY_BRANCH: main
+#   DEPLOY_DIR: /home/obeeoma/obeeoma_project/Obeeoma
+
+# jobs:
+#   lint:
+#     name: Lint & Type Check
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: ${{ env.NODE_VERSION }}
+#           cache: npm
+#       - run: npm ci
+#       - run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
+#       - run: npx tsc --noEmit
+
+#   test:
+#     name: Tests
+#     runs-on: ubuntu-latest
+#     needs: lint
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: ${{ env.NODE_VERSION }}
+#           cache: npm
+#       - run: npm ci
+#       - run: npm test -- --coverage --watchAll=false
+
+#   deploy:
+#     name: Deploy to DigitalOcean
+#     runs-on: ubuntu-latest
+#     needs: test
+#     if: github.ref == 'refs/heads/main'
+#     steps:
+#       - name: Deploy via SSH
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ secrets.DROPLET_IP }}
+#           username: obeeoma
+#           key: ${{ secrets.DROPLET_SSH_KEY }}
+#           port: ${{ secrets.DROPLET_SSH_PORT }}
+#           timeout: 60m          # Increased total session timeout
+#           command_timeout: 60m  # Increased command execution timeout
+#           script: |
+#             set -euo pipefail
+            
+#             DEPLOY_DIR="${{ env.DEPLOY_DIR }}"
+#             DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
+
+#             if [ ! -d "$DEPLOY_DIR" ]; then
+#               mkdir -p "$DEPLOY_DIR"
+#             fi
+
+#             cd "$DEPLOY_DIR"
+
+#             # Setup Git SSH
+#             if [ -f "$DEPLOY_KEY" ]; then
+#               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
+#             fi
+
+#             echo "Cleaning up old Docker data to free up RAM..."
+#             docker system prune -f
+
+#             echo "Pulling latest code..."
+#             git fetch --all
+#             git reset --hard origin/main
+
+#             echo "Starting Docker build (this may take a while)..."
+#             # Build and up with a longer internal docker timeout
+#             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
+
+#             echo "Cleaning up dangling images..."
+#             docker image prune -f
+#             echo "Deployment completed successfully"
 
 # name: Obeeoma CI/CD
 
