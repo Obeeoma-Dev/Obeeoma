@@ -1,4 +1,3 @@
-name: Obeeoma CI/CD
 
 on:
   push:
