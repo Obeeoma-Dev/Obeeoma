@@ -129,7 +129,6 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
-<<<<<<< HEAD
     const response = await api.post("auth/login/", credentials);
     if (response.data.access) {
     localStorage.setItem("token", response.data.access);
@@ -139,10 +138,6 @@ export const authAPI = {
     localStorage.setItem("refresh", response.data.refresh);
   }
     return response.data;
-=======
-    const response = await api.post("v1/auth/login/", credentials);
-    return response;
->>>>>>> refs/remotes/origin/main
   },
 
   // Register endpoint

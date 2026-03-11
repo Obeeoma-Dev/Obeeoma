@@ -99,13 +99,7 @@ export const setupApiInterceptors = (store) => {
 export const authAPI = {
     // Login endpoint
     login: async (credentials) => {
-        const response = await api.post("auth/login/", credentials);
-        if (response.data.access) {
-            localStorage.setItem("token", response.data.access);
-        }
-        if (response.data.refresh) {
-            localStorage.setItem("refresh", response.data.refresh);
-        }
+        const response = await api.post("v1/auth/login/", credentials);
         return response;
     },
     // Register endpoint
@@ -478,8 +472,8 @@ export const employerAPI = {
     },
     getWellnessMoodTrends: async (companyId) => {
         const url = companyId
-            ? `/company-mood/dashboard-summary/${companyId}/`
-            : "/company-mood/dashboard-summary/";
+            ? `/v1/dashboard/trends/${companyId}/`
+            : "/v1/dashboard/trends/";
         const response = await api.get(url);
         return response;
     },
@@ -492,7 +486,15 @@ export const employerAPI = {
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/auth/invitations/");
+        const response = await api.get("/v1/auth/invitations/");
+        return response;
+    },
+    getEmployeeMoodDistribution: async () => {
+        const response = await api.get("/v1/mood-bar-graph/");
+        return response;
+    },
+    getGaugeChart: async () => {
+        const response = await api.get("/v1/company-mood/gauge-chart/");
         return response;
     },
     getRecentActivities: async () => {

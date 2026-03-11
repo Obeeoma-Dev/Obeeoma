@@ -43,7 +43,9 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         <Col xs={12} md={4}>
           <HoverStatCard
             title="AI Accuracy Score"
-            value={typeof aiAccuracyScore === "number" ? `${aiAccuracyScore}%` : "—"}
+            value={
+              typeof aiAccuracyScore === "number" ? `${aiAccuracyScore}%` : "—"
+            }
             subtitle="Based on user feedback"
             trend="+2% this month"
             icon={ThumbsUp}

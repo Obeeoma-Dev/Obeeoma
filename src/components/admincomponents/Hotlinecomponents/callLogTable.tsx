@@ -11,9 +11,27 @@ export interface CallLog {
 }
 
 const defaultCallLogs: CallLog[] = [
-  { time: "11:00 AM", date: "12/04/2023", reason: "Anxiety", operator: "John Smith", status: "Missed" },
-  { time: "12:30 PM", date: "12/04/2023", reason: "Depression", operator: "Emily Brown", status: "Completed" },
-  { time: "2:00 PM", date: "12/04/2023", reason: "Grief", operator: "Michael Jones", status: "Ongoing" },
+  {
+    time: "11:00 AM",
+    date: "12/04/2023",
+    reason: "Anxiety",
+    operator: "John Smith",
+    status: "Missed",
+  },
+  {
+    time: "12:30 PM",
+    date: "12/04/2023",
+    reason: "Depression",
+    operator: "Emily Brown",
+    status: "Completed",
+  },
+  {
+    time: "2:00 PM",
+    date: "12/04/2023",
+    reason: "Grief",
+    operator: "Michael Jones",
+    status: "Ongoing",
+  },
 ];
 
 interface CallLogTableProps {
@@ -21,7 +39,8 @@ interface CallLogTableProps {
 }
 
 const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
-  const callLogs = Array.isArray(logs) && logs.length > 0 ? logs : defaultCallLogs;
+  const callLogs =
+    Array.isArray(logs) && logs.length > 0 ? logs : defaultCallLogs;
   return (
     <Card className="p-4 mb-4">
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">

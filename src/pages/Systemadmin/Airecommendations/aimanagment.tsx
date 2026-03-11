@@ -21,7 +21,9 @@ const typeToIcon: Record<string, typeof FileText> = {
   interactive: MousePointerClick,
 };
 
-function normalizeEffectiveness(s: string | undefined): "High" | "Medium" | "Low" {
+function normalizeEffectiveness(
+  s: string | undefined,
+): "High" | "Medium" | "Low" {
   if (!s) return "Medium";
   const t = s.toLowerCase();
   if (t === "high") return "High";
@@ -33,7 +35,10 @@ interface AIManagementResponse {
   total_recommendations?: number;
   average_engagement_rate?: number;
   ai_accuracy_score?: number;
-  effectiveness_by_type?: Array<{ resource_type?: string; avg_effectiveness?: number }>;
+  effectiveness_by_type?: Array<{
+    resource_type?: string;
+    avg_effectiveness?: number;
+  }>;
   weekly_recommendations?: number[];
   resources?: Array<{
     id?: number;
@@ -62,17 +67,29 @@ const AIRecommendationsPage: React.FC = () => {
         const res = await adminAPI.getAIManagement();
         if (!cancelled) setData(res?.data ?? res ?? null);
       } catch (e: unknown) {
-        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load AI management data");
+        if (!cancelled)
+          setError(
+            e instanceof Error
+              ? e.message
+              : "Failed to load AI management data",
+          );
       } finally {
         if (!cancelled) setLoading(false);
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const totalRecommendations = data?.total_recommendations ?? 0;
+  // eslint-disable-next-line no-constant-binary-expression
   const engagementRate = Number(data?.average_engagement_rate) ?? 0;
-  const aiAccuracyScore = data?.ai_accuracy_score != null ? Number(data.ai_accuracy_score) : undefined;
+
+  const aiAccuracyScore =
+    data?.ai_accuracy_score != null
+      ? Number(data.ai_accuracy_score)
+      : undefined;
 
   const resources: ResourceRow[] = (data?.resources ?? []).map((r, i) => {
     const typeStr = (r.resource_type ?? "article").toLowerCase();
@@ -81,10 +98,14 @@ const AIRecommendationsPage: React.FC = () => {
       id: r.id ?? i + 1,
       name: r.title ?? "Untitled",
       type: typeLabel,
+
       icon: typeToIcon[typeStr] ?? FileText,
+
       recommended: `${r.recommended_count ?? 0} times`,
+      // eslint-disable-next-line no-constant-binary-expression
       engagement: Number(r.engagement_rate) ?? 0,
       effectiveness: normalizeEffectiveness(r.effectiveness_display),
+
       lastUpdated: r.last_updated ?? "—",
       status: r.is_active ? "Active" : "Inactive",
     };
@@ -94,7 +115,9 @@ const AIRecommendationsPage: React.FC = () => {
   const weeklyRecommendations = data?.weekly_recommendations;
   const modelScores = effectivenessByType.length
     ? effectivenessByType.map((t) => ({
-        name: (t.resource_type ?? "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+        name: (t.resource_type ?? "")
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase()),
         score: Number(t.avg_effectiveness) || 0,
       }))
     : [
@@ -102,10 +125,12 @@ const AIRecommendationsPage: React.FC = () => {
         { name: "Social Connection Prompts", score: 89 },
         { name: "Personalized Coping Strategies", score: 85 },
       ];
-  const triggers = (data?.top_anxiety_triggers ?? []).map((t) => ({
-    name: t.trigger ?? "—",
-    score: Number(t.percentage) || 0,
-  })).filter((t) => t.name !== "—");
+  const triggers = (data?.top_anxiety_triggers ?? [])
+    .map((t) => ({
+      name: t.trigger ?? "—",
+      score: Number(t.percentage) || 0,
+    }))
+    .filter((t) => t.name !== "—");
   const defaultTriggers = [
     { name: "Social situations", score: 76 },
     { name: "Academic pressure", score: 68 },
@@ -116,7 +141,10 @@ const AIRecommendationsPage: React.FC = () => {
   if (loading) {
     return (
       <SystemAdminLayout title="AI Management">
-        <Container fluid className="py-4 d-flex justify-content-center align-items-center min-vh-50">
+        <Container
+          fluid
+          className="py-4 d-flex justify-content-center align-items-center min-vh-50"
+        >
           <Spinner animation="border" />
         </Container>
       </SystemAdminLayout>
@@ -128,15 +156,27 @@ const AIRecommendationsPage: React.FC = () => {
       <SystemAdminLayout title="AI Management">
         <Container fluid className="py-4">
           <Alert variant="danger">{error}</Alert>
-          <TopMetrics totalRecommendations={0} engagementRate={0} aiAccuracyScore={0} />
+          <TopMetrics
+            totalRecommendations={0}
+            engagementRate={0}
+            aiAccuracyScore={0}
+          />
           <Row className="mb-4">
-            <Col md={6}><EffectivenessChart /></Col>
-            <Col md={6}><WeeklyRecommendationsChart /></Col>
+            <Col md={6}>
+              <EffectivenessChart />
+            </Col>
+            <Col md={6}>
+              <WeeklyRecommendationsChart />
+            </Col>
           </Row>
           <AIResourcesTable resources={[]} />
           <Row className="mb-4">
-            <Col md={6}><ModelPerformance performance={modelScores} /></Col>
-            <Col md={6}><TopTriggers triggers={defaultTriggers} /></Col>
+            <Col md={6}>
+              <ModelPerformance performance={modelScores} />
+            </Col>
+            <Col md={6}>
+              <TopTriggers triggers={defaultTriggers} />
+            </Col>
           </Row>
         </Container>
       </SystemAdminLayout>
@@ -154,10 +194,16 @@ const AIRecommendationsPage: React.FC = () => {
 
         <Row className="mb-4">
           <Col md={6}>
-            <EffectivenessChart effectivenessByType={effectivenessByType.length ? effectivenessByType : undefined} />
+            <EffectivenessChart
+              effectivenessByType={
+                effectivenessByType.length ? effectivenessByType : undefined
+              }
+            />
           </Col>
           <Col md={6}>
-            <WeeklyRecommendationsChart weeklyRecommendations={weeklyRecommendations} />
+            <WeeklyRecommendationsChart
+              weeklyRecommendations={weeklyRecommendations}
+            />
           </Col>
         </Row>
 

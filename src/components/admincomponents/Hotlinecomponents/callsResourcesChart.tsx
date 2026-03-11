@@ -21,10 +21,14 @@ interface CallReasonsChartProps {
 
 const CallReasonsChart: React.FC<CallReasonsChartProps> = ({ callReasons }) => {
   const labels = callReasons?.length
-    ? callReasons.map((r) => (r.reason ?? "").charAt(0).toUpperCase() + (r.reason ?? "").slice(1))
+    ? callReasons.map(
+        (r) =>
+          (r.reason ?? "").charAt(0).toUpperCase() + (r.reason ?? "").slice(1),
+      )
     : defaultLabels;
   const values = callReasons?.length
-    ? callReasons.map((r) => Number(r.count) ?? 0)
+    ? // eslint-disable-next-line no-constant-binary-expression
+      callReasons.map((r) => Number(r.count) ?? 0)
     : defaultValues;
   const data = {
     labels,
@@ -32,7 +36,9 @@ const CallReasonsChart: React.FC<CallReasonsChartProps> = ({ callReasons }) => {
       {
         label: "Call Reasons",
         data: values,
-        backgroundColor: values.map((_, i) => BAR_COLORS[i % BAR_COLORS.length]),
+        backgroundColor: values.map(
+          (_, i) => BAR_COLORS[i % BAR_COLORS.length],
+        ),
         borderRadius: 6,
         maxBarThickness: 40,
       },

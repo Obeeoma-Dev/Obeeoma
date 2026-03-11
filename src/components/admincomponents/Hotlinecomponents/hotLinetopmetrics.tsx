@@ -44,7 +44,9 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
           <HoverStatCard
             title={useActiveOps ? "Active Operators" : "Missed Calls"}
             value={String(useActiveOps ? activeOperators : missedCalls)}
-            subtitle={useActiveOps ? "Operators on duty today" : "Calls not answered"}
+            subtitle={
+              useActiveOps ? "Operators on duty today" : "Calls not answered"
+            }
             trend={useActiveOps ? "Currently active" : "+1 vs yesterday"}
             icon={useActiveOps ? Phone : XCircle}
             color="emerald"
