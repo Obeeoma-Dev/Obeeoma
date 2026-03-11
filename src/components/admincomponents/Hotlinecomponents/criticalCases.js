@@ -1,22 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Card, Badge } from "react-bootstrap";
 import { AlertTriangle, Clock } from "lucide-react";
-// Sample data
-const cases = [
-    {
-        id: "04567",
-        reason: "Abuse",
-        status: "Pending",
-        assignedTo: "John Smith",
-        type: "critical",
-    },
-    {
-        id: "04568",
-        reason: "Urgent Referral",
-        status: "Referred",
-        assignedTo: "Emily Johnson",
-        type: "warning",
-    },
+const defaultCases = [
+    { id: "04567", reason: "Abuse", status: "Pending", assignedTo: "John Smith", type: "critical" },
+    { id: "04568", reason: "Urgent Referral", status: "Referred", assignedTo: "Emily Johnson", type: "warning" },
 ];
 // Styles for the card and cases
 const styles = {
@@ -47,8 +34,8 @@ const styles = {
     },
     metaWrapper: { display: "flex", alignItems: "center", gap: "0.25rem" },
 };
-// Main component
-const CriticalCases = () => {
+const CriticalCases = ({ cases: casesProp }) => {
+    const cases = Array.isArray(casesProp) && casesProp.length > 0 ? casesProp : defaultCases;
     return (_jsxs(Card, { style: styles.card, className: "mb-4", children: [_jsxs("div", { style: styles.header, children: [_jsx(AlertTriangle, { size: 20, color: "#0B6E45" }), _jsx("h5", { style: { margin: 0, fontWeight: 600, fontFamily: "heading" }, children: "Critical Cases" })] }), _jsx("div", { children: cases.map((c) => (_jsx("div", { style: styles.caseContainer(c.type), children: _jsxs("div", { style: {
                             display: "flex",
                             justifyContent: "space-between",

@@ -10,8 +10,8 @@ const employeeSchema = z.object({
     email: z.email("Please enter a valid email address").trim(),
     phone: z
         .string()
-        .min(10, "Phone number must be at least 10 digits")
-        .max(15, "Phone number too long")
+        .min(8, "Phone number must be at least 8 digits")
+        .max(9, "Phone number too long")
         .optional(),
     department: z.string().min(1, "Please select a department"),
 });

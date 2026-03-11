@@ -11,8 +11,8 @@ const employeeSchema = z.object({
   email: z.email("Please enter a valid email address").trim(),
   phone: z
     .string()
-    .min(10, "Phone number must be at least 10 digits")
-    .max(15, "Phone number too long")
+    .min(8, "Phone number must be at least 8 digits")
+    .max(9, "Phone number too long")
     .optional(),
   department: z.string().min(1, "Please select a department"),
 });
@@ -203,63 +203,6 @@ const AddEmployeeForm = ({
                   )}
                 </div>
               </div>
-              {/*  */}
-              {/* <div className="mt-4 p-3 bg-light rounded-3 border"> */}
-              {/* <div className="d-flex align-items-center justify-content-between"> */}
-              {/* <div className="d-flex align-items-center"> */}
-              {/* <Upload */}
-              {/* size={18}*/}
-              {/*className="me-2"*/}
-              {/*/style={{ color: "#22C55E" }}*/}
-              {/* <span className="fw-medium text-dark">Bulk Import</span> */}
-              {/* </div> */}
-              {/* <button */}
-              {/* // type="button"
-                    // className="btn btn-sm"
-                    // title="Upload an excel document"
-                    {/*style={*
-                      // backgroundColor: "#22C55E",
-                      // borderColor: "#22C55E",
-                      // color: "white",
-                      // borderRadius: "8px",
-                      // fontWeight: "600",
-                      // minWidth: "140px",
-                    // }}
-                    // onClick={(e) => {
-                      // e.preventDefault();
-                      // const input = document.getElementById(
-                        // "upload-excel",
-                      // ) as HTMLInputElement | null;
-                      // if (!input) return;
-                      // const onChange = () => {
-                        // const file = input.files?.[0];
-                        // if (!file) return;
-                        // toast({
-                          // title: "File selected",
-                          // description: file.name,
-                          // message: file.name,
-                        // });
-                        // input.removeEventListener("change", onChange);
-                        TODO: process or upload the file here (e.g. send to API or parse client-side)
-                      // };
-                      // input.addEventListener("change", onChange);
-                      // input.click();
-                    // }}
-                  // >
-                    {/* Choose File */}
-              {/* </button> */}
-              {/* </div> */}
-              {/* <p className="text-muted small mt-2 mb-0"> */}
-              {/* Upload a CSV or Excel file to invite multiple employees at */}
-              {/* once */}
-              {/* </p> */}
-              {/* <input */}
-              {/*   // type="file"
-                  // className="d-none"
-                  // id="upload-excel"
-                  // accept=".xlsx,.xls,.csv"
-              {/*  // />*/}
-              {/* </div> */}
             </form>
           </div>
 

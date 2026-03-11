@@ -25,7 +25,14 @@ ChartJS.register(
 );
 
 const defaultWeeklyData = [245, 312, 289, 340, 298, 360];
-const defaultLabels = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"];
+const defaultLabels = [
+  "Week 1",
+  "Week 2",
+  "Week 3",
+  "Week 4",
+  "Week 5",
+  "Week 6",
+];
 
 // Chart display options (no functional changes)
 const chartOptions = {
@@ -80,12 +87,14 @@ interface WeeklyRecommendationsChartProps {
 const WeeklyRecommendationsChart: React.FC<WeeklyRecommendationsChartProps> = ({
   weeklyRecommendations,
 }) => {
-  const values = Array.isArray(weeklyRecommendations) && weeklyRecommendations.length
-    ? weeklyRecommendations
-    : defaultWeeklyData;
-  const labels = values.length <= defaultLabels.length
-    ? defaultLabels.slice(0, values.length)
-    : values.map((_, i) => `Week ${i + 1}`);
+  const values =
+    Array.isArray(weeklyRecommendations) && weeklyRecommendations.length
+      ? weeklyRecommendations
+      : defaultWeeklyData;
+  const labels =
+    values.length <= defaultLabels.length
+      ? defaultLabels.slice(0, values.length)
+      : values.map((_, i) => `Week ${i + 1}`);
   const chartData = {
     labels,
     datasets: [

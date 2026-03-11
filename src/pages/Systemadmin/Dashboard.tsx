@@ -130,9 +130,14 @@ const Dashboard: React.FC = () => {
   /* Dashboard stats state */
   const [dashboardStats, setDashboardStats] =
     useState<StatCardData[]>(defaultStatsData);
-  const [platformUsage, setPlatformUsage] = useState<Array<{ week: string; value: number }>>([]);
-  const [subscriptionRevenue, setSubscriptionRevenue] = useState<Array<{ week: string; value: number }>>([]);
-  const [recentActivities, setRecentActivities] = useState<ActivityItem[]>(recentActivityData);
+  const [platformUsage, setPlatformUsage] = useState<
+    Array<{ week: string; value: number }>
+  >([]);
+  const [subscriptionRevenue, setSubscriptionRevenue] = useState<
+    Array<{ week: string; value: number }>
+  >([]);
+  const [recentActivities, setRecentActivities] =
+    useState<ActivityItem[]>(recentActivityData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -262,7 +267,7 @@ const Dashboard: React.FC = () => {
             usage.map((u: { week_number: number; usage_count: number }) => ({
               week: `Week ${u.week_number}`,
               value: u.usage_count,
-            }))
+            })),
           );
 
           // Live subscription revenue (API returns month, revenue, year)
@@ -271,7 +276,7 @@ const Dashboard: React.FC = () => {
             rev.map((r: { month: string; revenue: number }) => ({
               week: r.month,
               value: Number(r.revenue),
-            }))
+            })),
           );
 
           // Live recent activities (API returns activity_type, details, organization_name, created_at)
@@ -283,25 +288,37 @@ const Dashboard: React.FC = () => {
             subscription: "CreditCard",
           };
           const activities: ActivityItem[] = (data.recent_activities ?? []).map(
-            (a: { id: number; activity_type: string; details: string; organization_name?: string; created_at: string }) => {
+            (a: {
+              id: number;
+              activity_type: string;
+              details: string;
+              organization_name?: string;
+              created_at: string;
+            }) => {
               const created = new Date(a.created_at);
               const now = new Date();
-              const diffMins = Math.floor((now.getTime() - created.getTime()) / 60000);
+              const diffMins = Math.floor(
+                (now.getTime() - created.getTime()) / 60000,
+              );
               const diffHours = Math.floor(diffMins / 60);
               const diffDays = Math.floor(diffHours / 24);
               let time = "Just now";
               if (diffMins >= 60) time = `${diffHours}h ago`;
               if (diffHours >= 24) time = `${diffDays}d ago`;
-              const typeLabel = (a.activity_type || "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+              const typeLabel = (a.activity_type || "")
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase());
               return {
                 id: String(a.id),
                 type: typeLabel,
-                details: a.details || (a.organization_name ? `${a.organization_name}` : ""),
+                details:
+                  a.details ||
+                  (a.organization_name ? `${a.organization_name}` : ""),
                 time,
                 icon: activityTypeToIcon[a.activity_type] || "Activity",
                 iconColor: "text-success",
               };
-            }
+            },
           );
           if (activities.length > 0) setRecentActivities(activities);
         } catch (apiError) {

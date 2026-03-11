@@ -50,8 +50,10 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
     { id: "subscription", label: "Subscription Revenue" },
   ];
 
-  const employeeData = platformData.length > 0 ? platformData : defaultPlatformData;
-  const revenueData = subscriptionData.length > 0 ? subscriptionData : defaultSubscriptionData;
+  const employeeData =
+    platformData.length > 0 ? platformData : defaultPlatformData;
+  const revenueData =
+    subscriptionData.length > 0 ? subscriptionData : defaultSubscriptionData;
 
   return (
     <Card className="mb-4 shadow-sm border-0">

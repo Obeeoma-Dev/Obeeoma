@@ -19,8 +19,13 @@ interface OperatorPerformanceProps {
   operators?: Operator[];
 }
 
-const OperatorPerformance: React.FC<OperatorPerformanceProps> = ({ operators: operatorsProp }) => {
-  const operators = Array.isArray(operatorsProp) && operatorsProp.length > 0 ? operatorsProp : defaultOperators;
+const OperatorPerformance: React.FC<OperatorPerformanceProps> = ({
+  operators: operatorsProp,
+}) => {
+  const operators =
+    Array.isArray(operatorsProp) && operatorsProp.length > 0
+      ? operatorsProp
+      : defaultOperators;
   return (
     <Card className="h-100 operator-performance-card mb-4">
       <Card.Body>
@@ -38,19 +43,27 @@ const OperatorPerformance: React.FC<OperatorPerformanceProps> = ({ operators: op
                   {operator.name}
                 </div>
                 <small className="text-muted" style={{ fontFamily: "body" }}>
-                  {operator.calls != null ? `${operator.calls} calls today` : `${operator.performance} calls today`}
+                  {operator.calls != null
+                    ? `${operator.calls} calls today`
+                    : `${operator.performance} calls today`}
                 </small>
               </Col>
               <Col className="text-end">
                 <div className="fw-bold" style={{ color: "#00A859" }}>
                   {operator.performance}%
                 </div>
-                <small className="text-muted text-uppercase" style={{ fontFamily: "body" }}>
+                <small
+                  className="text-muted text-uppercase"
+                  style={{ fontFamily: "body" }}
+                >
                   Resolution Rate
                 </small>
               </Col>
             </Row>
-            <ProgressBar now={operator.performance} className="operator-progress" />
+            <ProgressBar
+              now={operator.performance}
+              className="operator-progress"
+            />
           </div>
         ))}
       </Card.Body>

@@ -44,12 +44,19 @@ const options = {
 };
 
 interface EffectivenessChartProps {
-  effectivenessByType?: Array<{ resource_type?: string; avg_effectiveness?: number }>;
+  effectivenessByType?: Array<{
+    resource_type?: string;
+    avg_effectiveness?: number;
+  }>;
 }
 
-const EffectivenessChart: React.FC<EffectivenessChartProps> = ({ effectivenessByType }) => {
+const EffectivenessChart: React.FC<EffectivenessChartProps> = ({
+  effectivenessByType,
+}) => {
   const labels = effectivenessByType?.length
-    ? effectivenessByType.map((t) => (t.resource_type || "").replace(/_/g, " ")).map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    ? effectivenessByType
+        .map((t) => (t.resource_type || "").replace(/_/g, " "))
+        .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
     : defaultData.labels;
   const values = effectivenessByType?.length
     ? effectivenessByType.map((t) => Number(t.avg_effectiveness) || 0)
@@ -60,7 +67,9 @@ const EffectivenessChart: React.FC<EffectivenessChartProps> = ({ effectivenessBy
       {
         label: "Effectiveness (%)",
         data: values,
-        backgroundColor: values.map((_, i) => BAR_COLORS[i % BAR_COLORS.length]),
+        backgroundColor: values.map(
+          (_, i) => BAR_COLORS[i % BAR_COLORS.length],
+        ),
         borderRadius: 6,
         maxBarThickness: 30,
       },
