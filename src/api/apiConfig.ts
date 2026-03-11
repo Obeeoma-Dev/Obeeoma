@@ -131,12 +131,12 @@ export const authAPI = {
   login: async (credentials: LoginCredentials) => {
     const response = await api.post("auth/login/", credentials);
     if (response.data.access) {
-    localStorage.setItem("token", response.data.access);
-  }
+      localStorage.setItem("token", response.data.access);
+    }
 
-  if (response.data.refresh) {
-    localStorage.setItem("refresh", response.data.refresh);
-  }
+    if (response.data.refresh) {
+      localStorage.setItem("refresh", response.data.refresh);
+    }
     return response.data;
   },
 
@@ -261,9 +261,7 @@ export const adminAPI = {
   },
 
   getOrganizationsClientDistribution: async () => {
-    const response = await api.get(
-      "/admin/organizations/client-distribution/",
-    );
+    const response = await api.get("/admin/organizations/client-distribution/");
     return response;
   },
 
