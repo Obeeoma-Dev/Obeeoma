@@ -472,8 +472,8 @@ export const employerAPI = {
     },
     getWellnessMoodTrends: async (companyId) => {
         const url = companyId
-            ? `/v1/company-mood/${companyId}/`
-            : "/v1/company-mood/";
+            ? `/v1/dashboard/trends/${companyId}/`
+            : "/v1/dashboard/trends/";
         const response = await api.get(url);
         return response;
     },
