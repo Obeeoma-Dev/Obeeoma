@@ -56,8 +56,6 @@ jobs:
           script: |
             set -euo pipefail
             
-            # Ensure we are in the project root
-            mkdir -p "${{ env.DEPLOY_DIR }}"
             cd "${{ env.DEPLOY_DIR }}"
 
             # Setup Git SSH Identity
@@ -72,36 +70,43 @@ jobs:
                git remote add origin ${{ env.DEPLOY_REPO_SSH }} || git remote set-url origin ${{ env.DEPLOY_REPO_SSH }}
             fi
 
-            # Enable sparse checkout so Backend/ stays untouched
+            # Reset sparse checkout to be sure
             git config core.sparseCheckout true
-
-            # Patterns: Pull EVERYTHING in Obeeoma folder and the compose file in root
-            echo "Obeeoma/*" > .git/info/sparse-checkout
+            
+            # Simplified patterns: Directory name and specific root file
+            # Note: No asterisk here, just the directory name
+            echo "Obeeoma/" > .git/info/sparse-checkout
             echo "docker-compose.yml" >> .git/info/sparse-checkout
 
-            echo "--- Synchronizing Code (Frontend Only) ---"
+            echo "--- Synchronizing Code ---"
             git fetch origin main
-            git reset --hard origin/main
             
-            # This forces the files (like Dockerfile) to actually appear in the folder
-            git read-tree -mu HEAD
+            # This is the "Magic" sequence to force files to appear
+            git checkout main
+            git reset --hard origin/main
+            git sparse-checkout reapply
 
-            # Debug check to confirm files exist before Docker starts
-            echo "Verifying files in Obeeoma:"
-            ls -la ./Obeeoma
+            # VERIFICATION STEP: If this shows 0 or 2 bytes, the sync is still failing
+            echo "Verifying Dockerfile size:"
+            du -h ./Obeeoma/Dockerfile || echo "Dockerfile MISSING"
 
             echo "--- Injecting Backend Secrets ---"
-            # We ensure the .env is written to your existing Backend folder
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "--- Docker Build & Restart ---"
+            echo "--- Docker Build & Up ---"
             docker system prune -f
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
-            echo "--- Final Cleanup ---"
+            echo "--- Final Image Cleanup ---"
             docker image prune -f
-            echo "Deployment finished! Frontend updated, Backend preserved."
+            echo "Deployment finished!"
+
+
+
+
+
+
 # name: Obeeoma CI/CD
 
 # on:
