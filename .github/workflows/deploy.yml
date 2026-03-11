@@ -56,46 +56,52 @@ jobs:
           script: |
             set -euo pipefail
             
-            # 1. Enter the root directory
+            # Ensure we are in the project root
             mkdir -p "${{ env.DEPLOY_DIR }}"
             cd "${{ env.DEPLOY_DIR }}"
 
-            # 2. Setup Git SSH Identity
+            # Setup Git SSH Identity
             DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
             if [ -f "$DEPLOY_KEY" ]; then
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "--- Configuring Targeted Sync (Sparse Checkout) ---"
+            echo "--- Configuring Targeted Sync ---"
             if [ ! -d ".git" ]; then
                git init
                git remote add origin ${{ env.DEPLOY_REPO_SSH }} || git remote set-url origin ${{ env.DEPLOY_REPO_SSH }}
             fi
 
-            # Using the modern sparse-checkout command to ensure files are materialized
-            git sparse-checkout init --cone
-            git sparse-checkout set Obeeoma docker-compose.yml
+            # Enable sparse checkout so Backend/ stays untouched
+            git config core.sparseCheckout true
 
-            echo "--- Synchronizing Frontend ---"
+            # Patterns: Pull EVERYTHING in Obeeoma folder and the compose file in root
+            echo "Obeeoma/*" > .git/info/sparse-checkout
+            echo "docker-compose.yml" >> .git/info/sparse-checkout
+
+            echo "--- Synchronizing Code (Frontend Only) ---"
             git fetch origin main
             git reset --hard origin/main
             
-            # Verify the Dockerfile is actually there before proceeding
-            echo "Checking for Dockerfile location..."
-            ls -la ./Obeeoma/Dockerfile || echo "WARNING: Dockerfile not found in ./Obeeoma/"
+            # This forces the files (like Dockerfile) to actually appear in the folder
+            git read-tree -mu HEAD
+
+            # Debug check to confirm files exist before Docker starts
+            echo "Verifying files in Obeeoma:"
+            ls -la ./Obeeoma
 
             echo "--- Injecting Backend Secrets ---"
-            # Protects existing Backend folder while ensuring .env is present
+            # We ensure the .env is written to your existing Backend folder
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "--- Docker Build & Up ---"
+            echo "--- Docker Build & Restart ---"
             docker system prune -f
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
-            echo "--- Final Image Cleanup ---"
+            echo "--- Final Cleanup ---"
             docker image prune -f
-            echo "Deployment completed successfully!"
+            echo "Deployment finished! Frontend updated, Backend preserved."
 # name: Obeeoma CI/CD
 
 # on:
