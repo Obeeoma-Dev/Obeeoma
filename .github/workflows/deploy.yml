@@ -1,4 +1,3 @@
-
 name: Obeeoma CI/CD
 
 on:
@@ -68,37 +67,35 @@ jobs:
             fi
 
             echo "--- Configuring Targeted Sync (Sparse Checkout) ---"
-            # If not a repo, initialize it so we don't have to 'clone' into a non-empty folder
             if [ ! -d ".git" ]; then
                git init
                git remote add origin ${{ env.DEPLOY_REPO_SSH }} || git remote set-url origin ${{ env.DEPLOY_REPO_SSH }}
             fi
 
-            # Enable sparse checkout to protect the Backend folder
-            git config core.sparseCheckout true
+            # Using the modern sparse-checkout command to ensure files are materialized
+            git sparse-checkout init --cone
+            git sparse-checkout set Obeeoma docker-compose.yml
 
-            # List ONLY what Git should manage. Backend is NOT listed, so it stays untouched.
-            echo "Obeeoma/" > .git/info/sparse-checkout
-            echo "docker-compose.yml" >> .git/info/sparse-checkout
-
-            echo "--- Synchronizing Frontend & Compose File ---"
+            echo "--- Synchronizing Frontend ---"
             git fetch origin main
             git reset --hard origin/main
+            
+            # Verify the Dockerfile is actually there before proceeding
+            echo "Checking for Dockerfile location..."
+            ls -la ./Obeeoma/Dockerfile || echo "WARNING: Dockerfile not found in ./Obeeoma/"
 
-            echo "--- Injecting Secrets ---"
-            # We still ensure the path exists for Docker, but Git won't overwrite these
+            echo "--- Injecting Backend Secrets ---"
+            # Protects existing Backend folder while ensuring .env is present
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "--- Resources Cleanup ---"
-            docker system prune -f
-
             echo "--- Docker Build & Up ---"
+            docker system prune -f
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
             echo "--- Final Image Cleanup ---"
             docker image prune -f
-            echo "Deployment completed successfully! Frontend updated, Backend preserved."
+            echo "Deployment completed successfully!"
 # name: Obeeoma CI/CD
 
 # on:
