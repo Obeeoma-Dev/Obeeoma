@@ -64,43 +64,51 @@ jobs:
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "--- Configuring Targeted Sync ---"
+            echo "--- Safety Step: Moving custom folders to temporary backup ---"
+            # Create a backup directory one level up
+            mkdir -p ../obeeoma_backups_tmp
+            
+            # Move specific folders if they exist to protect them from Git Reset
+            [ -d "Backend" ] && mv Backend ../obeeoma_backups_tmp/
+            [ -d "api" ] && mv api ../obeeoma_backups_tmp/
+            [ -d "nginx" ] && mv nginx ../obeeoma_backups_tmp/
+
+            echo "--- Clean Sync of Frontend and Config ---"
             if [ ! -d ".git" ]; then
-               git init
-               git remote add origin ${{ env.DEPLOY_REPO_SSH }} || git remote set-url origin ${{ env.DEPLOY_REPO_SSH }}
+               echo "Initializing fresh repository..."
+               # Remove old Obeeoma folder to ensure clean clone
+               rm -rf Obeeoma docker-compose.yml
+               git clone ${{ env.DEPLOY_REPO_SSH }} .
+            else
+               echo "Updating existing repository..."
+               git fetch origin main
+               git reset --hard origin/main
             fi
 
-            # Reset sparse checkout to be sure
-            git config core.sparseCheckout true
+            echo "--- Restoring Backend, API, and Nginx folders ---"
+            # If Git pulled empty versions of these folders, remove them
+            rm -rf Backend api nginx
             
-            # Simplified patterns: Directory name and specific root file
-            # Note: No asterisk here, just the directory name
-            echo "Obeeoma/" > .git/info/sparse-checkout
-            echo "docker-compose.yml" >> .git/info/sparse-checkout
-
-            echo "--- Synchronizing Code ---"
-            git fetch origin main
-            
-            # This is the "Magic" sequence to force files to appear
-            git checkout main
-            git reset --hard origin/main
-            git sparse-checkout reapply
-
-            # VERIFICATION STEP: If this shows 0 or 2 bytes, the sync is still failing
-            echo "Verifying Dockerfile size:"
-            du -h ./Obeeoma/Dockerfile || echo "Dockerfile MISSING"
+            # Move your original folders back from backup
+            [ -d "../obeeoma_backups_tmp/Backend" ] && mv ../obeeoma_backups_tmp/Backend ./
+            [ -d "../obeeoma_backups_tmp/api" ] && mv ../obeeoma_backups_tmp/api ./
+            [ -d "../obeeoma_backups_tmp/nginx" ] && mv ../obeeoma_backups_tmp/nginx ./
 
             echo "--- Injecting Backend Secrets ---"
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
             echo "--- Docker Build & Up ---"
+            # Clear build cache to fix the '2B Dockerfile' error once and for all
+            docker builder prune -f
             docker system prune -f
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
-            echo "--- Final Image Cleanup ---"
+            echo "--- Final Cleanup ---"
             docker image prune -f
-            echo "Deployment finished!"
+            # Remove the empty backup directory
+            rm -rf ../obeeoma_backups_tmp
+            echo "Deployment finished successfully!"
 
 
 
