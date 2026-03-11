@@ -56,31 +56,40 @@ jobs:
           script: |
             set -euo pipefail
             
+            # Ensure the base directory exists
+            mkdir -p "${{ env.DEPLOY_DIR }}"
             cd "${{ env.DEPLOY_DIR }}"
 
-            # Setup Git SSH Key for the server to pull from GitHub
+            # Setup Git SSH Identity for the Droplet
             DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
             if [ -f "$DEPLOY_KEY" ]; then
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "Updating code from GitHub..."
+            echo "--- Synchronizing Code ---"
+            if [ ! -d ".git" ]; then
+               echo "Target directory is not a git repo. Cloning now..."
+               git clone ${{ env.DEPLOY_REPO_SSH }} .
+            else
+               echo "Git repo detected. Fetching latest changes..."
+            fi
+            
             git fetch --all
             git reset --hard origin/main
 
-            echo "Injecting Environment Variables..."
-            # This ensures the directory exists before writing the file
+            echo "--- Injecting Secrets ---"
+            # Ensure the nested path exists inside the project
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "Cleaning up old Docker data..."
+            echo "--- Resources Cleanup ---"
             docker system prune -f
 
-            echo "Starting Docker build..."
-            # Using the new 'docker compose' command
+            echo "--- Docker Build & Up ---"
+            # Setting timeout for slow Droplet disks/RAM
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
-            echo "Cleaning up dangling images..."
+            echo "--- Final Image Cleanup ---"
             docker image prune -f
             echo "Deployment completed successfully"
 # name: Obeeoma CI/CD
