@@ -9,66 +9,40 @@ on:
 env:
   NODE_VERSION: 20
   DEPLOY_REPO_SSH: git@github.com:Obeeoma-Dev/Obeeoma.git
-  DEPLOY_BRANCH: main
-  DEPLOY_DIR: /home/obeeoma/obeeoma_project/Obeeoma
+  DEPLOY_DIR: /home/obeeoma/obeeoma_project
 
 jobs:
   lint:
     name: Lint & Type Check
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: ESLint
-        run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
-
-      - name: Auto-fix Prettier formatting
-        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}"
-
-      - name: Prettier Check
-        run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
-
-      - name: TypeScript Check
-        run: npx tsc --noEmit
+      - run: npm ci
+      - run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
+      - run: npx tsc --noEmit
 
   test:
     name: Tests
     runs-on: ubuntu-latest
     needs: lint
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test -- --coverage --watchAll=false
+      - run: npm ci
+      - run: npm test -- --coverage --watchAll=false
 
   deploy:
     name: Deploy to DigitalOcean
     runs-on: ubuntu-latest
     needs: test
     if: github.ref == 'refs/heads/main'
-
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -77,58 +51,47 @@ jobs:
           username: obeeoma
           key: ${{ secrets.DROPLET_SSH_KEY }}
           port: ${{ secrets.DROPLET_SSH_PORT }}
-          timeout: 30m
-          command_timeout: 30m
+          timeout: 60m
+          command_timeout: 60m
           script: |
             set -euo pipefail
+            
+            # Ensure the base directory exists
+            mkdir -p "${{ env.DEPLOY_DIR }}"
+            cd "${{ env.DEPLOY_DIR }}"
 
-            REPO_SSH="${{ env.DEPLOY_REPO_SSH }}"
-            BRANCH="${{ env.DEPLOY_BRANCH }}"
-            DEPLOY_DIR="${{ env.DEPLOY_DIR }}"
+            # Setup Git SSH Identity for the Droplet
             DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
-
-            echo "Deploy: ensure directory exists"
-            if [ ! -d "$DEPLOY_DIR" ]; then
-              mkdir -p "$DEPLOY_DIR"
-              chown "$(whoami)":"$(whoami)" "$DEPLOY_DIR" || true
-            fi
-
-            cd "$DEPLOY_DIR"
-
-            # Ensure we have a git repo; if not, clone afresh
-            if [ ! -d ".git" ]; then
-              echo ".git not found — cloning repository into $DEPLOY_DIR"
-              rm -rf "$DEPLOY_DIR"/*
-              git clone "$REPO_SSH" .
-              git checkout "$BRANCH"
-            fi
-
-            # Use the deploy key on the server; adjust path if different
             if [ -f "$DEPLOY_KEY" ]; then
-              export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
+              export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "Fetching latest from origin/$BRANCH..."
-            git fetch --all --prune
-
-            echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
-            cd /home/obeeoma/obeeoma_project/
+            echo "--- Synchronizing Code ---"
+            if [ ! -d ".git" ]; then
+               echo "Target directory is not a git repo. Cloning now..."
+               git clone ${{ env.DEPLOY_REPO_SSH }} .
+            else
+               echo "Git repo detected. Fetching latest changes..."
+            fi
             
-            echo "Stopping existing containers..."
-            docker compose down || true
-            
-            echo "Building and starting all services..."
-            docker compose up -d --build --force-recreate --remove-orphans
+            git fetch --all
+            git reset --hard origin/main
 
-            # echo "Restarting containers..."
-            # docker compose up -d frontend --remove-orphans
+            echo "--- Injecting Secrets ---"
+            # Ensure the nested path exists inside the project
+            mkdir -p ./Backend/api
+            echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "Cleaning up dangling Docker images..."
+            echo "--- Resources Cleanup ---"
+            docker system prune -f
+
+            echo "--- Docker Build & Up ---"
+            # Setting timeout for slow Droplet disks/RAM
+            COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
+
+            echo "--- Final Image Cleanup ---"
             docker image prune -f
-
             echo "Deployment completed successfully"
-
-
 # name: Obeeoma CI/CD
 
 # on:
