@@ -64,52 +64,61 @@ jobs:
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "--- Safety Step: Moving custom folders to temporary backup ---"
-            # Create a backup directory one level up
-            mkdir -p ../obeeoma_backups_tmp
+            echo "--- 1. Backup and Clear Root ---"
+            # Create a permanent backup directory outside the project
+            mkdir -p ../obeeoma_permanent_backups
             
-            # Move specific folders if they exist to protect them from Git Reset
-            [ -d "Backend" ] && mv Backend ../obeeoma_backups_tmp/
-            [ -d "api" ] && mv api ../obeeoma_backups_tmp/
-            [ -d "nginx" ] && mv nginx ../obeeoma_backups_tmp/
+            # Copy specific folders to permanent backup (Leaves them there)
+            [ -d "Backend" ] && cp -r Backend ../obeeoma_permanent_backups/
+            [ -d "api" ] && cp -r api ../obeeoma_permanent_backups/
+            [ -d "nginx" ] && cp -r nginx ../obeeoma_permanent_backups/
 
-            echo "--- Clean Sync of Frontend and Config ---"
+            # Move them to a temporary sync folder to clear the project root
+            mkdir -p ../obeeoma_sync_tmp
+            [ -d "Backend" ] && mv Backend ../obeeoma_sync_tmp/
+            [ -d "api" ] && mv api ../obeeoma_sync_tmp/
+            [ -d "nginx" ] && mv nginx ../obeeoma_sync_tmp/
+
+            echo "--- 2. Clean Git Sync (Full Pull) ---"
+            # Disable sparse checkout if it was enabled, it's causing the 2B error
+            if [ -d ".git" ]; then
+                git config core.sparseCheckout false || true
+            fi
+
             if [ ! -d ".git" ]; then
-               echo "Initializing fresh repository..."
-               # Remove old Obeeoma folder to ensure clean clone
+               echo "No Git detected. Performing fresh clone..."
+               # Remove everything except the hidden .git if it exists
                rm -rf Obeeoma docker-compose.yml
                git clone ${{ env.DEPLOY_REPO_SSH }} .
             else
-               echo "Updating existing repository..."
+               echo "Git detected. Force resetting to main..."
                git fetch origin main
                git reset --hard origin/main
             fi
 
-            echo "--- Restoring Backend, API, and Nginx folders ---"
-            # If Git pulled empty versions of these folders, remove them
+            echo "--- 3. Restore Folders ---"
+            # Delete any empty/stub folders Git might have pulled for these names
             rm -rf Backend api nginx
             
-            # Move your original folders back from backup
-            [ -d "../obeeoma_backups_tmp/Backend" ] && mv ../obeeoma_backups_tmp/Backend ./
-            [ -d "../obeeoma_backups_tmp/api" ] && mv ../obeeoma_backups_tmp/api ./
-            [ -d "../obeeoma_backups_tmp/nginx" ] && mv ../obeeoma_backups_tmp/nginx ./
+            # Move your original folders back from the temp sync area
+            mv ../obeeoma_sync_tmp/Backend ./ 2>/dev/null || true
+            mv ../obeeoma_sync_tmp/api ./ 2>/dev/null || true
+            mv ../obeeoma_sync_tmp/nginx ./ 2>/dev/null || true
+            rm -rf ../obeeoma_sync_tmp
 
-            echo "--- Injecting Backend Secrets ---"
+            echo "--- 4. Injecting Backend Secrets ---"
             mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "--- Docker Build & Up ---"
-            # Clear build cache to fix the '2B Dockerfile' error once and for all
+            echo "--- 5. Docker Build & Up ---"
+            # Force Docker to ignore its broken 2-byte cache
             docker builder prune -f
             docker system prune -f
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
-            echo "--- Final Cleanup ---"
-            docker image prune -f
-            # Remove the empty backup directory
-            rm -rf ../obeeoma_backups_tmp
-            echo "Deployment finished successfully!"
-
+            echo "--- Final Status ---"
+            docker ps
+            echo "Deployment finished! Backups are safe in ../obeeoma_permanent_backups"
 
 
 
