@@ -129,6 +129,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 export const authAPI = {
   // Login endpoint
   login: async (credentials: LoginCredentials) => {
+<<<<<<< HEAD
     const response = await api.post("auth/login/", credentials);
     if (response.data.access) {
     localStorage.setItem("token", response.data.access);
@@ -138,11 +139,15 @@ export const authAPI = {
     localStorage.setItem("refresh", response.data.refresh);
   }
     return response.data;
+=======
+    const response = await api.post("v1/auth/login/", credentials);
+    return response;
+>>>>>>> refs/remotes/origin/main
   },
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/organization-signup/", {
+    const response = await api.post("/v1/organization-signup/", {
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,
@@ -615,6 +620,16 @@ export const employerAPI = {
 
   getWellnessTrend: async () => {
     const response = await api.get("/auth/invitations/");
+    return response;
+  },
+
+  getEmployeeMoodDistribution: async () => {
+    const response = await api.get("/v1/mood-bar-graph/");
+    return response;
+  },
+
+  getGaugeChart: async () => {
+    const response = await api.get("/v1/company-mood/gauge-chart/");
     return response;
   },
 
