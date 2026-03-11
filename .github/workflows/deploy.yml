@@ -9,8 +9,7 @@ on:
 env:
   NODE_VERSION: 20
   DEPLOY_REPO_SSH: git@github.com:Obeeoma-Dev/Obeeoma.git
-  DEPLOY_BRANCH: main
-  DEPLOY_DIR: /home/obeeoma/obeeoma_project/Obeeoma
+  DEPLOY_DIR: /home/obeeoma/obeeoma_project
 
 jobs:
   lint:
@@ -57,45 +56,33 @@ jobs:
           script: |
             set -euo pipefail
             
-            DEPLOY_DIR="${{ env.DEPLOY_DIR }}"
+            cd "${{ env.DEPLOY_DIR }}"
+
+            # Setup Git SSH Key for the server to pull from GitHub
             DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
-
-            if [ ! -d "$DEPLOY_DIR" ]; then
-              mkdir -p "$DEPLOY_DIR"
-            fi
-
-            cd "$DEPLOY_DIR"
-
-            # Setup Git SSH
             if [ -f "$DEPLOY_KEY" ]; then
               export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
             fi
 
-            echo "Pulling latest code..."
-            # Ensure we are in a git repo or clone it if empty
-            if [ ! -d ".git" ]; then
-               git clone ${{ env.DEPLOY_REPO_SSH }} .
-            fi
+            echo "Updating code from GitHub..."
             git fetch --all
             git reset --hard origin/main
 
             echo "Injecting Environment Variables..."
-            # This creates the .env file that Docker Compose was complaining about
+            # This ensures the directory exists before writing the file
+            mkdir -p ./Backend/api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
-            echo "Cleaning up old Docker data to free up RAM..."
+            echo "Cleaning up old Docker data..."
             docker system prune -f
 
-            echo "Starting Docker build (this may take a while)..."
+            echo "Starting Docker build..."
+            # Using the new 'docker compose' command
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
 
             echo "Cleaning up dangling images..."
             docker image prune -f
             echo "Deployment completed successfully"
-
-
-
-
 # name: Obeeoma CI/CD
 
 # on:
