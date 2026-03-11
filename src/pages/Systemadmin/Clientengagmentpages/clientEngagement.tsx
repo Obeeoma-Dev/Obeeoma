@@ -102,17 +102,22 @@ const ClientEngagement: React.FC = () => {
 
   const trends = (data?.engagement_trends ?? []).reduce(
     (acc, t) => {
-      if (t.trend.toLowerCase().includes("morning")) acc.courseCompletion = t.percentage;
-      else if (t.trend.toLowerCase().includes("weekend")) acc.memberActivity = t.percentage;
+      if (t.trend.toLowerCase().includes("morning"))
+        acc.courseCompletion = t.percentage;
+      else if (t.trend.toLowerCase().includes("weekend"))
+        acc.memberActivity = t.percentage;
       return acc;
     },
-    { courseCompletion: 0, memberActivity: 0 }
+    { courseCompletion: 0, memberActivity: 0 },
   );
 
   const streakList = data?.streak_statistics ?? [];
-  const sevenDay = streakList.find((s) => s.streak.includes("7"))?.active_users ?? 0;
-  const thirtyDay = streakList.find((s) => s.streak.includes("14"))?.active_users ?? 0;
-  const sixtyDay = streakList.find((s) => s.streak.includes("30"))?.active_users ?? 0;
+  const sevenDay =
+    streakList.find((s) => s.streak.includes("7"))?.active_users ?? 0;
+  const thirtyDay =
+    streakList.find((s) => s.streak.includes("14"))?.active_users ?? 0;
+  const sixtyDay =
+    streakList.find((s) => s.streak.includes("30"))?.active_users ?? 0;
   const streaks = { sevenDay, thirtyDay, sixtyDay };
 
   const tablePatients = (data?.clients ?? []).map((c) => ({
@@ -128,9 +133,7 @@ const ClientEngagement: React.FC = () => {
         <Container className="py-4">
           <EngagementSummary engagementRate={engagementRate} />
 
-          <EngagementCharts
-            weeklyEngagement={data?.weekly_engagement ?? []}
-          />
+          <EngagementCharts weeklyEngagement={data?.weekly_engagement ?? []} />
 
           <PatientSearchFilter />
 

@@ -31,7 +31,8 @@ interface EngagementChartsProps {
 const EngagementCharts: React.FC<EngagementChartsProps> = ({
   weeklyEngagement = [],
 }) => {
-  const weeklyData = weeklyEngagement.length === 7 ? weeklyEngagement : [0, 0, 0, 0, 0, 0, 0];
+  const weeklyData =
+    weeklyEngagement.length === 7 ? weeklyEngagement : [0, 0, 0, 0, 0, 0, 0];
 
   const weeklyEngagementChart = {
     labels: DAY_LABELS,

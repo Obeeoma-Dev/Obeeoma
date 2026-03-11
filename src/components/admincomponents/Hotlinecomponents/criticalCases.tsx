@@ -11,8 +11,20 @@ export interface Case {
 }
 
 const defaultCases: Case[] = [
-  { id: "04567", reason: "Abuse", status: "Pending", assignedTo: "John Smith", type: "critical" },
-  { id: "04568", reason: "Urgent Referral", status: "Referred", assignedTo: "Emily Johnson", type: "warning" },
+  {
+    id: "04567",
+    reason: "Abuse",
+    status: "Pending",
+    assignedTo: "John Smith",
+    type: "critical",
+  },
+  {
+    id: "04568",
+    reason: "Urgent Referral",
+    status: "Referred",
+    assignedTo: "Emily Johnson",
+    type: "warning",
+  },
 ];
 
 interface CriticalCasesProps {
@@ -50,7 +62,8 @@ const styles = {
 };
 
 const CriticalCases: React.FC<CriticalCasesProps> = ({ cases: casesProp }) => {
-  const cases = Array.isArray(casesProp) && casesProp.length > 0 ? casesProp : defaultCases;
+  const cases =
+    Array.isArray(casesProp) && casesProp.length > 0 ? casesProp : defaultCases;
   return (
     <Card style={styles.card} className="mb-4">
       <div style={styles.header}>
