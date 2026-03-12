@@ -106,13 +106,8 @@ const OrganizationContext = createContext<OrganizationContextType | undefined>(
 export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  // Environment detection and API setup
-  const isLocalhost =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1";
-  const conditionalAPIBaseURL = isLocalhost
-    ? "http://127.0.0.1:8000/api/v1" // Neon backend for localhost development
-    : "https://obeeoma-api.com/api/v1"; // Digital Ocean backend for production
+  // Use same API base URL as rest of app (from .env VITE_API_BASE_URL)
+  const conditionalAPIBaseURL = API_BASE_URL;
 
   // Create conditional API instance
   const conditionalAPI = axios.create({
@@ -260,10 +255,6 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
     fetchOrganizations(1, searchTerm);
   }, [searchTerm, activeTab, fetchOrganizations]);
 
-  console.log(
-    "OrganizationContext - Environment:",
-    isLocalhost ? "Development (Neon)" : "Production (Digital Ocean)",
-  );
   console.log("OrganizationContext - API Base URL:", conditionalAPIBaseURL);
 
   const value: OrganizationContextType = {
