@@ -12,68 +12,41 @@ import { OrganizationStats } from "../../../components/admincomponents/organisat
 import { PlatformUsageChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse";
 import { ProgramEngagementChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart";
 import { RecentActivity } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity";
-import { adminAPI } from "../../../api/apiConfig";
+import { API_BASE_URL } from "../../../api/apiConfig";
 import { DatabaseOrganization } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import "./orgpage.css";
 
 export function OrganizationDetails() {
-  // Get organization ID from URL params
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // Environment detection and conditional API setup
-  const isLocalhost =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1";
-  const conditionalAPIBaseURL = isLocalhost
-    ? "http://127.0.0.1:8000/api/v1" // Neon backend for localhost development
-    : "https://obeeoma-api.com/api/v1"; // Digital Ocean backend for production
+  // Use same API base URL as rest of app (from .env VITE_API_BASE_URL)
+  const conditionalAPI = useMemo(() => {
+    const instance = axios.create({
+      baseURL: API_BASE_URL,
+      headers: { "Content-Type": "application/json" },
+    });
+    instance.interceptors.request.use((config) => {
+      const token = localStorage.getItem("token");
+      if (token) config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    });
+    return instance;
+  }, []);
 
-  // Create conditional API instance
-  const conditionalAPI = axios.create({
-    baseURL: conditionalAPIBaseURL,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  // Add authorization interceptor to conditional API
-  conditionalAPI.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
-
-  // Create conditional API methods without /v1/ prefix
   const conditionalAPIWithMethods = useMemo(
     () => ({
-      ...conditionalAPI,
       getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
         const params = new URLSearchParams({
           page: page.toString(),
           page_size: pageSize.toString(),
         });
-
-        if (search) {
-          params.append("search", search);
-        }
-
-        const response = await conditionalAPI.get(
-          `/admin/organizations/?${params}`,
-        );
-        return response;
+        if (search) params.append("search", search);
+        return conditionalAPI.get(`/admin/organizations/?${params}`);
       },
     }),
     [conditionalAPI],
   );
-
-  console.log(
-    "OrganizationDetails - Environment:",
-    isLocalhost ? "Development (Neon)" : "Production (Digital Ocean)",
-  );
-  console.log("OrganizationDetails - API Base URL:", conditionalAPIBaseURL);
 
   // State for organization data
   const [organization, setOrganization] = useState<DatabaseOrganization | null>(
