@@ -129,13 +129,14 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 export const authAPI = {
   // Login endpoint — return full axios response so authSlice thunk can use response.data
   login: async (credentials: LoginCredentials) => {
-    const response = await api.post("auth/login/", credentials);
+    // const response = await api.post("auth/login/", credentials);
+     const response = await api.post("/auth/login/", credentials);
     return response;
   },
 
   // Register endpoint
   register: async (credentials: RegisterCredentials) => {
-    const response = await api.post("/v1/organization-signup/", {
+    const response = await api.post("/organization-signup/", {
       organizationName: credentials.organizationName,
       phoneNumber: credentials.phoneNumber,
       organisationSize: credentials.organisationSize,
@@ -610,12 +611,14 @@ export const employerAPI = {
   },
 
   getEmployeeMoodDistribution: async () => {
-    const response = await api.get("/v1/mood-bar-graph/");
+    // const response = await api.get("/mood-bar-graph/");
+    const response = await api.get("/auth/invitations/");
     return response;
   },
 
   getGaugeChart: async () => {
-    const response = await api.get("/v1/company-mood/gauge-chart/");
+    // const response = await api.get("/company-mood/gauge-chart/");
+    const response = await api.get("/auth/invitations/");
     return response;
   },
 
