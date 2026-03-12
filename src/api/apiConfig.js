@@ -97,9 +97,9 @@ export const setupApiInterceptors = (store) => {
     });
 };
 export const authAPI = {
-    // Login endpoint
+    // Login endpoint (baseURL already includes /api/v1, so path must not add v1 again)
     login: async (credentials) => {
-        const response = await api.post("v1/auth/login/", credentials);
+        const response = await api.post("auth/login/", credentials);
         return response;
     },
     // Register endpoint
