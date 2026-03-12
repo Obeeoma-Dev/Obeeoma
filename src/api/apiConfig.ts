@@ -130,7 +130,7 @@ export const authAPI = {
   // Login endpoint — return full axios response so authSlice thunk can use response.data
   login: async (credentials: LoginCredentials) => {
     // const response = await api.post("auth/login/", credentials);
-     const response = await api.post("/auth/login/", credentials);
+    const response = await api.post("/auth/login/", credentials);
     return response;
   },
 
