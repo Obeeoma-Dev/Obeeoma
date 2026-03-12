@@ -2,8 +2,20 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Card, Badge } from "react-bootstrap";
 import { AlertTriangle, Clock } from "lucide-react";
 const defaultCases = [
-    { id: "04567", reason: "Abuse", status: "Pending", assignedTo: "John Smith", type: "critical" },
-    { id: "04568", reason: "Urgent Referral", status: "Referred", assignedTo: "Emily Johnson", type: "warning" },
+    {
+        id: "04567",
+        reason: "Abuse",
+        status: "Pending",
+        assignedTo: "John Smith",
+        type: "critical",
+    },
+    {
+        id: "04568",
+        reason: "Urgent Referral",
+        status: "Referred",
+        assignedTo: "Emily Johnson",
+        type: "warning",
+    },
 ];
 // Styles for the card and cases
 const styles = {

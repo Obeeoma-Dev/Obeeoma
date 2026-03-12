@@ -99,12 +99,18 @@ export const setupApiInterceptors = (store) => {
 export const authAPI = {
     // Login endpoint
     login: async (credentials) => {
-        const response = await api.post("v1/auth/login/", credentials);
-        return response;
+        const response = await api.post("/v1/auth/login/", credentials);
+        if (response.data.access) {
+            localStorage.setItem("token", response.data.access);
+        }
+        if (response.data.refresh) {
+            localStorage.setItem("refresh", response.data.refresh);
+        }
+        return response.data;
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/organization-signup/", {
+        const response = await api.post("/v1/organization-signup/", {
             organizationName: credentials.organizationName,
             phoneNumber: credentials.phoneNumber,
             organisationSize: credentials.organisationSize,
@@ -472,8 +478,8 @@ export const employerAPI = {
     },
     getWellnessMoodTrends: async (companyId) => {
         const url = companyId
-            ? `/v1/dashboard/trends/${companyId}/`
-            : "/v1/dashboard/trends/";
+            ? `/company-mood/dashboard-summary/${companyId}/`
+            : "/company-mood/dashboard-summary/";
         const response = await api.get(url);
         return response;
     },
@@ -486,7 +492,7 @@ export const employerAPI = {
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/v1/auth/invitations/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getEmployeeMoodDistribution: async () => {
