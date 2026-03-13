@@ -15,7 +15,7 @@ import {
 import { Employee } from "../types/TData";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1";
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1/";
 console.log("API Base URL:", API_BASE_URL);
 
 export const INVITE_EMPLOYEE_URL = "/employers/invite-employee/";
@@ -129,7 +129,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
 export const authAPI = {
   // Login endpoint — return full axios response so authSlice thunk can use response.data
   login: async (credentials: LoginCredentials) => {
-    const response = await api.post("auth/login/", credentials);
+    const response = await api.post("/auth/login/", credentials);
     return response;
   },
 

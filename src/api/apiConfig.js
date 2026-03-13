@@ -3,7 +3,7 @@ export const LOGO_UPLOAD_URL = "/api/company/logo-upload";
 export const LOGO_FETCH_URL = "/api/company/logo";
 import axios from "axios";
 import { store } from "../store/store";
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1/";
 console.log("API Base URL:", API_BASE_URL);
 export const INVITE_EMPLOYEE_URL = "/employers/invite-employee/";
 const api = axios.create({
@@ -97,14 +97,14 @@ export const setupApiInterceptors = (store) => {
     });
 };
 export const authAPI = {
-    // Login endpoint (baseURL already includes /api/v1, so path must not add v1 again)
+    // Login endpoint — return full axios response so authSlice thunk can use response.data
     login: async (credentials) => {
-        const response = await api.post("auth/login/", credentials);
+        const response = await api.post("/auth/login/", credentials);
         return response;
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/organization-signup/", {
+        const response = await api.post("/v1/organization-signup/", {
             organizationName: credentials.organizationName,
             phoneNumber: credentials.phoneNumber,
             organisationSize: credentials.organisationSize,
@@ -472,8 +472,8 @@ export const employerAPI = {
     },
     getWellnessMoodTrends: async (companyId) => {
         const url = companyId
-            ? `/v1/dashboard/trends/${companyId}/`
-            : "/v1/dashboard/trends/";
+            ? `/company-mood/dashboard-summary/${companyId}/`
+            : "/company-mood/dashboard-summary/";
         const response = await api.get(url);
         return response;
     },
@@ -486,7 +486,7 @@ export const employerAPI = {
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/v1/auth/invitations/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getEmployeeMoodDistribution: async () => {

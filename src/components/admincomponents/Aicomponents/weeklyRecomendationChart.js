@@ -6,7 +6,14 @@ import "./aicomponent.css";
 // Register Chart.js components once
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 const defaultWeeklyData = [245, 312, 289, 340, 298, 360];
-const defaultLabels = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"];
+const defaultLabels = [
+    "Week 1",
+    "Week 2",
+    "Week 3",
+    "Week 4",
+    "Week 5",
+    "Week 6",
+];
 // Chart display options (no functional changes)
 const chartOptions = {
     responsive: true,

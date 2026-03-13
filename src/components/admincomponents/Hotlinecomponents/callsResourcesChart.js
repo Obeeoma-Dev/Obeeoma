@@ -16,7 +16,8 @@ const CallReasonsChart = ({ callReasons }) => {
         ? callReasons.map((r) => (r.reason ?? "").charAt(0).toUpperCase() + (r.reason ?? "").slice(1))
         : defaultLabels;
     const values = callReasons?.length
-        ? callReasons.map((r) => Number(r.count) ?? 0)
+        ? // eslint-disable-next-line no-constant-binary-expression
+            callReasons.map((r) => Number(r.count) ?? 0)
         : defaultValues;
     const data = {
         labels,
