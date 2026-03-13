@@ -114,10 +114,10 @@ const AppRoutes: React.FC = () => (
       {/* SYSTEM ADMIN */}
       <Route path="/system-admin" element={<SysAdminDashboard />} />
       <Route path="/system-admin/organizations" element={<Organisation />} />
-      <Route
+      {/* <Route
         path="/systemadmin/organizations/:id"
         element={<OrganizationDetails />}
-      />
+      /> */}
       <Route
         path="/system-admin/client-engagement"
         element={<ClientEngagement />}

@@ -99,6 +99,7 @@ export const setupApiInterceptors = (store) => {
 export const authAPI = {
     // Login endpoint — return full axios response so authSlice thunk can use response.data
     login: async (credentials) => {
+        // const response = await api.post("auth/login/", credentials);
         const response = await api.post("/auth/login/", credentials);
         return response;
     },
@@ -490,11 +491,13 @@ export const employerAPI = {
         return response;
     },
     getEmployeeMoodDistribution: async () => {
-        const response = await api.get("/v1/mood-bar-graph/");
+        // const response = await api.get("/mood-bar-graph/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getGaugeChart: async () => {
-        const response = await api.get("/v1/company-mood/gauge-chart/");
+        // const response = await api.get("/company-mood/gauge-chart/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getRecentActivities: async () => {
