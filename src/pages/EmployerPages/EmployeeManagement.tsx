@@ -321,13 +321,14 @@ const EmployeeManagement = () => {
   return (
     <Layout title="Employee Management Portal">
       <div className="container-fluid py-4 px-3">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h2 className="h4 mb-0 fw-bold">
+            Corporate Employee List
+          </h2>
+        </div>
         <div className="card border-0 shadow-sm">
           <div className="card-body">
             {/* HEADER */}
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <h5 className="fw-semibold mb-0" style={{ color: "#22C55E" }}>
-                Corporate Employee List
-              </h5>
 
               <div className="d-flex gap-3 align-items-center">
                 <input
@@ -501,7 +502,6 @@ const EmployeeManagement = () => {
             )}
           </div>
         </div>
-      </div>
 
       {/* =======================
           VIEW MODAL

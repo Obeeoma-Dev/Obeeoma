@@ -9,6 +9,7 @@ import {
   FileText,
   Bell,
   Menu,
+  ChevronRight,
   X,
 } from "lucide-react";
 import logo from "../../../assets/Images/obeeomalogoword1.png";
@@ -57,11 +58,7 @@ const Layout = ({ children, title }: LayoutProps) => {
   console.log("local-employer", localEmployer);
 
   // Prefer localStorage for organizationName, fallback to Redux, then default
-  const organizationNameOrDefault = localEmployer?.email
-    ? localEmployer?.email
-    : employer?.email
-      ? employer?.email || employer?.email
-      : "Employer";
+  const organizationNameOrDefault = localEmployer?.organizationName || employer?.organizationName || "Employer Profile";
 
   const companyJoinDate = employer?.company?.createdAt
     ? new Date(employer.company.createdAt)
@@ -215,11 +212,11 @@ const Layout = ({ children, title }: LayoutProps) => {
                   >
                     {/* 1. Organization Name/Fallback */}
                     <span
-                      className="fw-medium text-dark d-block mb-3"
+                      className="fw-medium text-dark d-flex align-items-center mb-1"
                       style={{ fontFamily: "body" }}
                       aria-label={`Organization name: ${organizationNameOrDefault}`}
                     >
-                      {organizationNameOrDefault}
+                      {organizationNameOrDefault} <ChevronRight size={16} className="ms-1" />
                     </span>
 
                     {/* 2. Contact link*/}
@@ -227,7 +224,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                       className="text-muted fw-medium d-block"
                       style={{ fontFamily: "body", fontSize: "0.7rem" }}
                     >
-                      Member since {formatDate(companyJoinDate)}
+                      Product of RhipFactory Nigeria ®
                     </small>
                   </div>
 

@@ -43,10 +43,10 @@ const WellnessTrends: React.FC<{ companyId?: string }> = ({ companyId }) => {
         const data = response.data;
         if (Array.isArray(data)) {
           const transformedData = data.map(
-            (item: { date: string; moodScore: number }) => ({
+            (item: { date: string; average_mood_score: number }) => ({
               date: item.date,
-              score: item.moodScore,
-              emoji: getEmojiFromScore(item.moodScore),
+              score: item.average_mood_score,
+              emoji: getEmojiFromScore(item.average_mood_score),
             }),
           );
           setMoodData(transformedData);

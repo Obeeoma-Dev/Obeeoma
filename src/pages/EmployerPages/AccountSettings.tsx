@@ -80,7 +80,7 @@ const EmployerAccountProfile = () => {
         id: authUser.id,
         role: authUser.role || "employer",
         dateJoined: new Date().toISOString(),
-        organizationName: authUser.username || "Your Company",
+        organizationName: authUser.organizationName || authUser.username || "Your Company",
         firstName: "", // AuthUser might not have this
         lastName: "",
         username: authUser.username || "Admin User",
@@ -116,7 +116,7 @@ const EmployerAccountProfile = () => {
           id: parsedUser.id || "",
           role: parsedUser.role || "employer",
           dateJoined: new Date().toISOString(),
-          organizationName: parsedUser.username || "Your Company",
+          organizationName: parsedUser.organizationName || parsedUser.username || "Your Company",
           firstName: "",
           lastName: "",
           username: parsedUser.username || "Admin User",

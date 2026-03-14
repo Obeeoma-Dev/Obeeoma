@@ -99,13 +99,12 @@ export const setupApiInterceptors = (store) => {
 export const authAPI = {
     // Login endpoint — return full axios response so authSlice thunk can use response.data
     login: async (credentials) => {
-        // const response = await api.post("auth/login/", credentials);
         const response = await api.post("/auth/login/", credentials);
         return response;
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/v1/organization-signup/", {
+        const response = await api.post("/organization-signup/", {
             organizationName: credentials.organizationName,
             phoneNumber: credentials.phoneNumber,
             organisationSize: credentials.organisationSize,

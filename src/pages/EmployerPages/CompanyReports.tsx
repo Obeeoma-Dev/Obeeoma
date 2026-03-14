@@ -4,11 +4,15 @@ import AvailableReports, {
   ReportType,
 } from "../../components/employercomponents/reports/AvailableReports";
 import { Download, Filter, Calendar } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 const CompanyReports = () => {
-  // Assuming we might get companyId from params or context in the future
-  const companyId = undefined;
-  const { data: reportsData } = useReportsData(companyId);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const employer = useSelector((state: RootState) => state.employer.currentEmployer);
+  const companyIdValue = employer?.company?.id || user?.company_id || employer?.organizationName || user?.organizationName;
+  const companyIdStr = companyIdValue ? String(companyIdValue) : undefined;
+  const { data: reportsData } = useReportsData(companyIdStr);
 
   const additionalHeader = (
     <div className="d-flex gap-2">
@@ -36,7 +40,7 @@ const CompanyReports = () => {
       <div className="container-fluid py-4">
         <div>
           <h3 className="mb-4">Wellness Trends</h3>
-          <WellnessTrends companyId={companyId} />
+          <WellnessTrends companyId={companyIdStr} />
         </div>
         {/* <DepartmentMetrics /> */}
         <AvailableReports reports={reportsData} />
@@ -53,25 +57,25 @@ function useReportsData(companyId?: string) {
       name: "Wellness Summary",
       description: "Overall employee wellness metrics",
       defaultFrequency: "Monthly",
-      url: companyId ? `/v1/company-mood/${companyId}/` : "/v1/company-mood/",
+      url: companyId ? `/company-mood/${companyId}/` : "/company-mood/",
     },
     {
       name: "Department Analysis",
       description: "Detailed department-wise breakdown",
       defaultFrequency: "Quarterly",
-      url: "/v1/download/department-analysis/",
+      url: "/download/department-analysis/",
     },
     {
       name: "Risk Assessment",
       description: "Identified risk factors and trends",
       defaultFrequency: "Weekly",
-      url: "/v1/download/risk-assessment/",
+      url: "/download/risk-assessment/",
     },
     {
       name: "Engagement Report",
       description: "Employee engagement and participation",
       defaultFrequency: "Monthly",
-      url: "/v1/download/engagement/",
+      url: "/download/engagement/",
     },
   ];
 
