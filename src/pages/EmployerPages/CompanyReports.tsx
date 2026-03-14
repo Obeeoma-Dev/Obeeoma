@@ -9,8 +9,14 @@ import { RootState } from "../../store/store";
 
 const CompanyReports = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  const employer = useSelector((state: RootState) => state.employer.currentEmployer);
-  const companyIdValue = employer?.company?.id || user?.company_id || employer?.organizationName || user?.organizationName;
+  const employer = useSelector(
+    (state: RootState) => state.employer.currentEmployer,
+  );
+  const companyIdValue =
+    employer?.company?.id ||
+    user?.company_id ||
+    employer?.organizationName ||
+    user?.organizationName;
   const companyIdStr = companyIdValue ? String(companyIdValue) : undefined;
   const { data: reportsData } = useReportsData(companyIdStr);
 

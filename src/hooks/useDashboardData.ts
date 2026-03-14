@@ -248,7 +248,9 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     // Fill with default activities until we have at least 6
     const defaultActivities = [
       {
-        text: "New account created for "+ (localStorage.getItem("organizationName") || "your organization"),
+        text:
+          "New account created for " +
+          (localStorage.getItem("organizationName") || "your organization"),
         department: "",
         time: "3s ago",
       },

@@ -58,7 +58,10 @@ const Layout = ({ children, title }: LayoutProps) => {
   console.log("local-employer", localEmployer);
 
   // Prefer localStorage for organizationName, fallback to Redux, then default
-  const organizationNameOrDefault = localEmployer?.organizationName || employer?.organizationName || "Employer Profile";
+  const organizationNameOrDefault =
+    localEmployer?.organizationName ||
+    employer?.organizationName ||
+    "Employer Profile";
 
   const companyJoinDate = employer?.company?.createdAt
     ? new Date(employer.company.createdAt)
@@ -216,7 +219,8 @@ const Layout = ({ children, title }: LayoutProps) => {
                       style={{ fontFamily: "body" }}
                       aria-label={`Organization name: ${organizationNameOrDefault}`}
                     >
-                      {organizationNameOrDefault} <ChevronRight size={16} className="ms-1" />
+                      {organizationNameOrDefault}{" "}
+                      <ChevronRight size={16} className="ms-1" />
                     </span>
 
                     {/* 2. Contact link*/}

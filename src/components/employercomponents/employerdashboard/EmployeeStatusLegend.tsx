@@ -35,11 +35,7 @@ const EmployeeStatusLegend: React.FC = () => {
   // Ensure data exists before destructuring
   if (!summary) return null;
 
-  const {
-    activeEmployees,
-    inactiveEmployees,
-    totalEmployees,
-  } = summary;
+  const { activeEmployees, inactiveEmployees, totalEmployees } = summary;
 
   // Increase each number after the entry
   const displayActive = activeEmployees + 1;
