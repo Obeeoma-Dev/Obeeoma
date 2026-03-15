@@ -71,12 +71,13 @@ jobs:
             [ -d "Backend" ] && rsync -av --exclude='.git' Backend/ ../obeeoma_backups/Backend/
 
             echo "--- STEP 2: Force Clean Sync ---"
-            # Delete Obeeoma folder so Git recreates the Dockerfile properly
-            rm -rf Obeeoma
-            
+            # We REMOVED 'rm -rf Obeeoma' to prevent deleting your manually cloned folder
+
             git fetch --all
             git reset --hard origin/main
-            git clean -fd
+
+            # The '-e' flag EXCLUDES Obeeoma from being deleted by the clean command
+            git clean -fd -e Obeeoma/
 
             echo "--- STEP 3: Inject Secrets ---"
             mkdir -p ./Backend/api
