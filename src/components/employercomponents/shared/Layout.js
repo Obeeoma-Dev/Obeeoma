@@ -27,7 +27,9 @@ const Layout = ({ children, title }) => {
     console.log("employer", employer);
     console.log("local-employer", localEmployer);
     // Prefer localStorage for organizationName, fallback to Redux, then default
-    const organizationNameOrDefault = localEmployer?.organizationName || employer?.organizationName || "Employer Profile";
+    const organizationNameOrDefault = localEmployer?.organizationName ||
+        employer?.organizationName ||
+        "Employer Profile";
     const companyJoinDate = employer?.company?.createdAt
         ? new Date(employer.company.createdAt)
         : localEmployer?.dateJoined

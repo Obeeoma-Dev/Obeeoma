@@ -84,9 +84,17 @@ jobs:
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
             echo "--- STEP 4: Docker Rebuild ---"
-            # Builder prune fixes the 'EOF' / Registry connection errors
+
+            # 1. Stop and remove old containers to force-release Port 8000
+            # This prevents the "Address already in use" error.
+            docker compose down --remove-orphans
+
+            # 2. Clean up the builder cache
             docker builder prune -f
-            COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build --remove-orphans
+
+            # 3. Build and start the new containers
+            # Using --build ensures your latest code changes are included.
+            COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build
 
             echo "--- STEP 5: Cleanup ---"
             docker image prune -f
