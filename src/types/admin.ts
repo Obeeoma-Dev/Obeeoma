@@ -152,3 +152,22 @@ export interface BlogPost {
   status: "published" | "draft";
   featured?: boolean;
 }
+
+// types/paystack.ts
+export interface PaystackSubscription {
+  id: number;
+  status: string; // "active", "non-renewing", "attention", "completed", "cancelled"
+  subscription_code: string;
+  amount: number;
+  next_payment_date: string;
+  customer: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    customer_code: string;
+  };
+  plan: {
+    name: string;
+    plan_code: string;
+  };
+}
