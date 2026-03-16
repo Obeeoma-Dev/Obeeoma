@@ -26,32 +26,55 @@ const initialState: SubscriptionState = {
 };
 
 // Async Thunk to fetch data
+
 export const fetchSubscriptions = createAsyncThunk(
   'subscriptions/fetchAll',
   async (_, thunkAPI) => {
+    console.log("Fetch started..."); // Check if this triggers
     try {
-      // Note: In production, replace this URL with your Backend API endpoint
+      const key = process.env.VITE_PAYSTACK_PUBLIC_KEY;
+      console.log("Using Key:", key ? "Key exists" : "Key is MISSING");
+
       const response = await axios.get('https://api.paystack.co/subscription', {
         headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_PAYSTACK_SECRET_KEY}`,
+          Authorization: `Bearer ${key}`,
         },
       });
 
-      // Transform Paystack API data to match your UI 'Subscription' interface
-      return response.data.data.map((item: any) => ({
-        organization: item.customer.email,
-        plan: item.plan.name,
-        employees: 0, // Paystack doesn't provide this; set default or map from metadata
-        activeUsers: 0,
-        activeUsersPercentage: 0,
-        status: item.status === 'active' ? 'Active' : 'Pending',
-        expiryDate: new Date(item.next_payment_date).toLocaleDateString(),
-      }));
+      console.log("Paystack Response:", response.data); // Check the raw data
+      return response.data.data; 
     } catch (error: any) {
+      console.error("Axios Error:", error.response || error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+// export const fetchSubscriptions = createAsyncThunk(
+//   'subscriptions/fetchAll',
+//   async (_, thunkAPI) => {
+//     try {
+//       // Note: In production, replace this URL with your Backend API endpoint
+//       const response = await axios.get('https://dashboard.paystack.com/#/subscribers', {
+//         headers: {
+//           Authorization: `Bearer ${process.env.REACT_APP_PAYSTACK_SECRET_KEY}`,
+//         },
+//       });
+
+      // Transform Paystack API data to match your UI 'Subscription' interface
+//       return response.data.data.map((item: any) => ({
+//         organization: item.customer.email,
+//         plan: item.plan.name,
+//         employees: 0, // Paystack doesn't provide this; set default or map from metadata
+//         activeUsers: 0,
+//         activeUsersPercentage: 0,
+//         status: item.status === 'active' ? 'Active' : 'Pending',
+//         expiryDate: new Date(item.next_payment_date).toLocaleDateString(),
+//       }));
+//     } catch (error: any) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 const SubscriptionSlice = createSlice({
   name: 'subscriptions',
