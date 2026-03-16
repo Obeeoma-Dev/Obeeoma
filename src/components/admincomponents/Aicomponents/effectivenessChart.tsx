@@ -1,73 +1,121 @@
-import React from 'react'
-import { PhoneIcon } from 'lucide-react'
-import { Card } from 'react-bootstrap'
-import './HotlineRecommendations.css'
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import { Card } from "react-bootstrap";
+import { Phone } from "lucide-react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+} from "chart.js";
 
-type Hotline = {
-  name: string
-  number: string
-  category: 'Crisis' | 'Anxiety' | 'Youth' | 'General'
-  timesRecommended: number
-  status: 'Active' | 'Paused'
+// Register Chart components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
+
+const BAR_COLORS = ["#9DD3AF", "#00A859", "#3CB371", "#0B6E45"];
+
+const PhoneIcon = Phone;
+
+const categoryStyles = {
+  "Crisis": "hotline-recommendations-category-crisis",
+  "Support": "hotline-recommendations-category-support",
+  "Information": "hotline-recommendations-category-information",
+  "Emergency": "hotline-recommendations-category-emergency"
+};
+
+const hotlines = [
+  {
+    name: "National Suicide Prevention Lifeline",
+    number: "988",
+    category: "Crisis",
+    timesRecommended: 245,
+    status: "Active"
+  },
+  {
+    name: "Crisis Text Line",
+    number: "741741",
+    category: "Crisis",
+    timesRecommended: 189,
+    status: "Active"
+  },
+  {
+    name: "SAMHSA National Helpline",
+    number: "1-800-662-4357",
+    category: "Support",
+    timesRecommended: 156,
+    status: "Active"
+  },
+  {
+    name: "National Domestic Violence Hotline",
+    number: "1-800-799-7233",
+    category: "Emergency",
+    timesRecommended: 134,
+    status: "Active"
+  }
+];
+
+const defaultData = {
+  labels: ["Videos", "Articles", "Audio", "Interactive"],
+  datasets: [
+    {
+      label: "Effectiveness (%)",
+      data: [85, 70, 60, 50],
+      backgroundColor: BAR_COLORS,
+      borderRadius: 6,
+      maxBarThickness: 30,
+    },
+  ],
+};
+
+// Horizontal bars
+const options = {
+  indexAxis: "y" as const,
+  responsive: true,
+  scales: {
+    x: {
+      beginAtZero: true,
+      grid: { display: false },
+    },
+    y: {
+      grid: { display: false },
+    },
+  },
+};
+
+interface EffectivenessChartProps {
+  effectivenessByType?: Array<{
+    resource_type?: string;
+    avg_effectiveness?: number;
+  }>;
 }
 
-type HotlineRecommendationsProps = {
-  hotlines?: Hotline[]
-}
-
-const categoryStyles: Record<Hotline['category'], string> = {
-  Crisis: 'hotline-category-crisis',
-  Anxiety: 'hotline-category-anxiety',
-  Youth: 'hotline-category-youth',
-  General: 'hotline-category-general',
-}
-
-const defaultHotlines: Hotline[] = [
-  {
-    name: 'National Suicide Prevention Lifeline',
-    number: '988',
-    category: 'Crisis',
-    timesRecommended: 34,
-    status: 'Active',
-  },
-  {
-    name: 'Crisis Text Line',
-    number: 'Text HOME to 741741',
-    category: 'Crisis',
-    timesRecommended: 28,
-    status: 'Active',
-  },
-  {
-    name: 'Anxiety & Depression Helpline',
-    number: '1-800-950-6264',
-    category: 'Anxiety',
-    timesRecommended: 19,
-    status: 'Active',
-  },
-  {
-    name: 'Teen Line',
-    number: '1-800-852-8336',
-    category: 'Youth',
-    timesRecommended: 15,
-    status: 'Active',
-  },
-  {
-    name: 'SAMHSA Helpline',
-    number: '1-800-662-4357',
-    category: 'General',
-    timesRecommended: 11,
-    status: 'Active',
-  },
-  {
-    name: 'Domestic Violence Hotline',
-    number: '1-800-799-7233',
-    category: 'Crisis',
-    timesRecommended: 8,
-    status: 'Paused',
-  },
-]
-
-export function HotlineRecommendations({ hotlines = defaultHotlines }: HotlineRecommendationsProps) {
+const EffectivenessChart: React.FC<EffectivenessChartProps> = ({
+  effectivenessByType,
+}) => {
+  const labels = effectivenessByType?.length
+    ? effectivenessByType
+      .map((t) => (t.resource_type || "").replace(/_/g, " "))
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    : defaultData.labels;
+  const values = effectivenessByType?.length
+    ? effectivenessByType.map((t) => Number(t.avg_effectiveness) || 0)
+    : defaultData.datasets[0].data;
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Effectiveness (%)",
+        data: values,
+        backgroundColor: values.map(
+          (_, i) => BAR_COLORS[i % BAR_COLORS.length],
+        ),
+        borderRadius: 6,
+        maxBarThickness: 30,
+      },
+    ],
+  };
   return (
     <Card className="hotline-recommendations-card">
       <Card.Body className="hotline-recommendations-body">
@@ -122,7 +170,7 @@ export function HotlineRecommendations({ hotlines = defaultHotlines }: HotlineRe
                 {/* Category */}
                 <div className="hotline-recommendations-cell hotline-recommendations-cell-category">
                   <span
-                    className={`hotline-recommendations-category ${categoryStyles[hotline.category]}`}
+                    className={`hotline-recommendations-category ${categoryStyles[hotline.category as keyof typeof categoryStyles]}`}
                   >
                     {hotline.category}
                   </span>
@@ -158,4 +206,4 @@ export function HotlineRecommendations({ hotlines = defaultHotlines }: HotlineRe
   )
 }
 
-export default HotlineRecommendations
+export default EffectivenessChart;

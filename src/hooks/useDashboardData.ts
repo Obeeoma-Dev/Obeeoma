@@ -23,23 +23,6 @@ interface WellnessTrendPoint {
   avg_score: number;
 }
 
-// interface EmployerSummary {
-//   totalEmployees?: number;
-//   wellnessIndex?: number;
-//   inactiveEmployees?: number;
-//   activeEmployees?:number;
-//   atRisk?: number;
-//   activePercentage: number;
-//   inactivePercentage: number;
-// }
-
-// interface Invite {
-//   id?: string;
-//   email?: string;
-//   invitedAt?: string;
-//   // extend as needed
-// }
-
 interface DashboardStats {
   activeEmployees: number;
   inactiveEmployees: number;
@@ -265,39 +248,41 @@ export const useDashboardData = (): UseDashboardDataReturn => {
     // Fill with default activities until we have at least 6
     const defaultActivities = [
       {
-        text: "New wellness resources added to the platform",
+        text:
+          "New account created for " +
+          (localStorage.getItem("organizationName") || "your organization"),
         department: "",
-        time: "1 hour ago",
+        time: "3s ago",
       },
       {
-        text: "Department completed monthly assessments",
+        text: "Department distribution helps you understand the composition of your workforce across different departments.",
         department: "Engineering",
-        time: "3 hours ago",
+        time: "3s ago",
       },
       {
-        text: "A new invitee has joined the platform",
+        text: "A new invitee who has just joined the platform is able to complete their profile and start engaging with the app.",
         department: "Marketing",
-        time: "1 day ago",
+        time: "2s ago",
       },
       {
-        text: "System maintenance completed successfully",
+        text: "Speak to us in the chat if you need any help setting up your dashboard or understanding the data insights.",
         department: "IT",
-        time: "2 days ago",
+        time: "2s ago",
       },
       {
-        text: "New educational resources have been added",
+        text: "New educational resources that have been added can be viewed on the resources tab.",
         department: "",
-        time: "3 days ago",
+        time: "1s ago",
       },
       {
-        text: "Monthly wellness report is now available",
+        text: "System maintenance completed successfully.",
         department: "HR",
-        time: "4 days ago",
+        time: "1s ago",
       },
       {
-        text: "Employee engagement survey results are now available",
+        text: "Employee engagement results are available at the end of every month.",
         department: "HR",
-        time: "3 days ago",
+        time: "1s ago",
       },
     ];
 

@@ -2,25 +2,15 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { fetchEmployeeStatus } from "../../../store/slices/EmployerSlice";
-import { EmployeeStatusData } from "../../../types/employer";
-import type { AppDispatch, RootState } from "../../../store/store";
+import { useDashboardData } from "../../../hooks/useDashboardData";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const EmployeeStatusLegend: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const {
-    EmployeeStatusData: employeeStatus,
-    isLoading,
-    error,
-  } = useSelector((state: RootState) => state.employer);
+  const { stats, loading, error } = useDashboardData();
+  const summary = stats;
 
-  useEffect(() => {
-    dispatch(fetchEmployeeStatus());
-  }, [dispatch]);
-
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="department-legend-container text-center py-4">
         <div className="spinner-border text-success" role="status">
@@ -31,7 +21,7 @@ const EmployeeStatusLegend: React.FC = () => {
     );
   }
 
-  if (error) {
+  if (error && !summary) {
     return (
       <div className="department-legend-container text-center py-4">
         <div className="alert alert-danger" role="alert">
@@ -43,15 +33,9 @@ const EmployeeStatusLegend: React.FC = () => {
   }
 
   // Ensure data exists before destructuring
-  if (!employeeStatus) return null;
+  if (!summary) return null;
 
-  const {
-    activeEmployees,
-    inactiveEmployees,
-    totalEmployees,
-    activePercentage,
-    inactivePercentage,
-  } = employeeStatus;
+  const { activeEmployees, inactiveEmployees, totalEmployees } = summary;
 
   // Increase each number after the entry
   const displayActive = activeEmployees + 1;

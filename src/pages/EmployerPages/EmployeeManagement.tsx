@@ -321,185 +321,183 @@ const EmployeeManagement = () => {
   return (
     <Layout title="Employee Management Portal">
       <div className="container-fluid py-4 px-3">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h2 className="h4 mb-0 fw-bold">Corporate Employee List</h2>
+        </div>
         <div className="card border-0 shadow-sm">
           <div className="card-body">
             {/* HEADER */}
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <h5 className="fw-semibold mb-0" style={{ color: "#22C55E" }}>
-                Corporate Employee List
-              </h5>
 
-              <div className="d-flex gap-3 align-items-center">
-                <input
-                  type="text"
-                  className="form-control"
-                  style={{ width: "300px" }}
-                  placeholder="Search employees..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
+            <div className="d-flex gap-3 align-items-center">
+              <input
+                type="text"
+                className="form-control"
+                style={{ width: "300px" }}
+                placeholder="Search employees..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
 
-                <Button
-                  size="sm"
-                  onClick={handleAddEmployee}
-                  className="d-flex align-items-center gap-2"
-                  style={{
-                    backgroundColor: "#22C55E",
-                    borderColor: "#22C55E",
-                    color: "white",
-                  }}
+              <Button
+                size="sm"
+                onClick={handleAddEmployee}
+                className="d-flex align-items-center gap-2"
+                style={{
+                  backgroundColor: "#22C55E",
+                  borderColor: "#22C55E",
+                  color: "white",
+                }}
+              >
+                <PersonPlus size={16} />
+                Add Employee
+              </Button>
+
+              <DropdownButton
+                id="bulk-actions-dropdown"
+                title="Actions"
+                variant="outline-secondary"
+                size="sm"
+              >
+                <Dropdown.Item onClick={handleBulkActivateAll}>
+                  Activate All
+                </Dropdown.Item>
+                <Dropdown.Item onClick={handleBulkDeactivateAll}>
+                  Deactivate All
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item
+                  onClick={handleBulkDeleteAll}
+                  className="text-secondary"
                 >
-                  <PersonPlus size={16} />
-                  Add Employee
-                </Button>
-
-                <DropdownButton
-                  id="bulk-actions-dropdown"
-                  title="Actions"
-                  variant="outline-secondary"
-                  size="sm"
-                >
-                  <Dropdown.Item onClick={handleBulkActivateAll}>
-                    Activate All
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={handleBulkDeactivateAll}>
-                    Deactivate All
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item
-                    onClick={handleBulkDeleteAll}
-                    className="text-secondary"
-                  >
-                    Delete All
-                  </Dropdown.Item>
-                </DropdownButton>
-              </div>
+                  Delete All
+                </Dropdown.Item>
+              </DropdownButton>
             </div>
+          </div>
 
-            {/* TABLE */}
-            <Table hover responsive className="align-middle">
-              <thead className="table-light">
-                <tr>
-                  <th style={{ color: "#22C55E" }}>Email</th>
-                  <th style={{ color: "#22C55E" }}>Department</th>
-                  <th style={{ color: "#22C55E" }}>Status</th>
-                  <th className="text-center" style={{ color: "#22C55E" }}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
+          {/* TABLE */}
+          <Table hover responsive className="align-middle">
+            <thead className="table-light">
+              <tr>
+                <th style={{ color: "#22C55E" }}>Email</th>
+                <th style={{ color: "#22C55E" }}>Department</th>
+                <th style={{ color: "#22C55E" }}>Status</th>
+                <th className="text-center" style={{ color: "#22C55E" }}>
+                  Actions
+                </th>
+              </tr>
+            </thead>
 
-              <tbody>
-                {paginatedEmployees.length > 0 ? (
-                  paginatedEmployees.map((emp, idx) => (
-                    <tr key={emp.id ?? `emp-${idx}`}>
-                      <td>{emp.emailAddress}</td>
-                      <td>{emp.employeedepartment}</td>
+            <tbody>
+              {paginatedEmployees.length > 0 ? (
+                paginatedEmployees.map((emp, idx) => (
+                  <tr key={emp.id ?? `emp-${idx}`}>
+                    <td>{emp.emailAddress}</td>
+                    <td>{emp.employeedepartment}</td>
 
-                      <td>
-                        <Badge
-                          bg={emp.status === "active" ? "success" : "secondary"}
-                        >
-                          {emp.status}
-                        </Badge>
-                      </td>
+                    <td>
+                      <Badge
+                        bg={emp.status === "active" ? "success" : "secondary"}
+                      >
+                        {emp.status}
+                      </Badge>
+                    </td>
 
-                      <td className="text-center">
+                    <td className="text-center">
+                      <Button
+                        variant="outline-success"
+                        size="sm"
+                        className="me-2"
+                        onClick={() => handleView(emp.id)}
+                        title="View Details"
+                      >
+                        <Eye size={16} />
+                      </Button>
+
+                      <Button
+                        variant="outline-success"
+                        size="sm"
+                        className="me-2"
+                        onClick={() => handleEdit(emp.id)}
+                        title="Edit Employee"
+                      >
+                        <PencilSquare size={16} />
+                      </Button>
+
+                      {emp.status === "inactive" ? (
                         <Button
                           variant="outline-success"
                           size="sm"
                           className="me-2"
-                          onClick={() => handleView(emp.id)}
-                          title="View Details"
+                          onClick={() => handleActivate(emp.id)}
+                          title="Activate Employee"
                         >
-                          <Eye size={16} />
+                          Activate
                         </Button>
-
-                        <Button
-                          variant="outline-success"
-                          size="sm"
-                          className="me-2"
-                          onClick={() => handleEdit(emp.id)}
-                          title="Edit Employee"
-                        >
-                          <PencilSquare size={16} />
-                        </Button>
-
-                        {emp.status === "inactive" ? (
-                          <Button
-                            variant="outline-success"
-                            size="sm"
-                            className="me-2"
-                            onClick={() => handleActivate(emp.id)}
-                            title="Activate Employee"
-                          >
-                            Activate
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outline-secondary"
-                            size="sm"
-                            className="me-2"
-                            onClick={() => handleDeactivate(emp.id)}
-                            title="Deactivate Employee"
-                          >
-                            Deactivate
-                          </Button>
-                        )}
-
+                      ) : (
                         <Button
                           variant="outline-secondary"
                           size="sm"
-                          onClick={() => handleDelete(emp.id)}
-                          title="Delete Employee"
+                          className="me-2"
+                          onClick={() => handleDeactivate(emp.id)}
+                          title="Deactivate Employee"
                         >
-                          <Trash size={16} />
+                          Deactivate
                         </Button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={4} className="text-center text-muted py-4">
-                      No employees found
+                      )}
+
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        onClick={() => handleDelete(emp.id)}
+                        title="Delete Employee"
+                      >
+                        <Trash size={16} />
+                      </Button>
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </Table>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4} className="text-center text-muted py-4">
+                    No employees found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
 
-            {/* PAGINATION */}
-            <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
-              <div className="text-muted">
-                Showing {startIndex + 1}-
-                {Math.min(endIndex, filteredEmployees.length)} of{" "}
-                {filteredEmployees.length} employees
-              </div>
-              <div className="d-flex gap-2">
-                <button
-                  className="btn btn-sm btn-outline-secondary"
-                  onClick={handlePreviousPage}
-                  disabled={currentPage === 0}
-                >
-                  Previous
-                </button>
-                <span className="align-self-center mx-2">
-                  Page {currentPage + 1} of {totalPages || 1}
-                </span>
-                <button
-                  className="btn btn-sm btn-outline-secondary"
-                  onClick={handleNextPage}
-                  disabled={currentPage >= totalPages - 1}
-                >
-                  Next
-                </button>
-              </div>
+          {/* PAGINATION */}
+          <div className="d-flex justify-content-between align-items-center mt-3 pb-4 px-3">
+            <div className="text-muted">
+              Showing {startIndex + 1}-
+              {Math.min(endIndex, filteredEmployees.length)} of{" "}
+              {filteredEmployees.length} employees
             </div>
-
-            {isLoading && (
-              <div className="text-center text-muted">Loading employees...</div>
-            )}
+            <div className="d-flex gap-2">
+              <button
+                className="btn btn-sm btn-outline-secondary"
+                onClick={handlePreviousPage}
+                disabled={currentPage === 0}
+              >
+                Previous
+              </button>
+              <span className="align-self-center mx-2">
+                Page {currentPage + 1} of {totalPages || 1}
+              </span>
+              <button
+                className="btn btn-sm btn-outline-secondary"
+                onClick={handleNextPage}
+                disabled={currentPage >= totalPages - 1}
+              >
+                Next
+              </button>
+            </div>
           </div>
+
+          {isLoading && (
+            <div className="text-center text-muted">Loading employees...</div>
+          )}
         </div>
       </div>
 

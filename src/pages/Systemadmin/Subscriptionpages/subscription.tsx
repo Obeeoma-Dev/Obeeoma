@@ -176,14 +176,6 @@ const SubscriptionPage: React.FC = () => {
                     services
                   </p>
                 </div>
-                <Button
-                  variant="success"
-                  className="ms-auto"
-                  style={{ fontFamily: "body" }}
-                  onClick={refetchCount} // Refresh button
-                >
-                  Add Subscription
-                </Button>
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}

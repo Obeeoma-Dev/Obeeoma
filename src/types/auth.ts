@@ -6,6 +6,8 @@ export interface User {
   role: "system_admin" | "systemadmin" | "employer" | "employee";
   is_verified: boolean;
   mfa_enabled?: boolean;
+  organizationName?: string;
+  company_id?: string | number;
 }
 
 export interface LoginCredentials {

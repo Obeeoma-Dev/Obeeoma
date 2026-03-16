@@ -89,7 +89,7 @@ export const toggleEmployeeStatus = createAsyncThunk<
     try {
       const newStatus = currentStatus === "active" ? "inactive" : "active";
       await employerAPI.updateEmployeeStatus(
-        `/v1/employees/${id}/status`,
+        `/employees/${id}/status`,
         newStatus,
       );
       return { id, status: newStatus };
