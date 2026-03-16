@@ -179,7 +179,6 @@ const SubscriptionPage: React.FC = () => {
                     services
                   </p>
                 </div>
-                
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}

@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Define the shape of Paystack data based on your UI
 export interface Subscription {
@@ -28,27 +28,27 @@ const initialState: SubscriptionState = {
 // Async Thunk to fetch data
 
 export const fetchSubscriptions = createAsyncThunk(
-  'subscriptions/fetchAll',
+  "subscriptions/fetchAll",
   async (_, thunkAPI) => {
     console.log("Fetch started..."); // Check if this triggers
     try {
       const key = process.env.VITE_PAYSTACK_PUBLIC_KEY;
       console.log("Using Key:", key ? "Key exists" : "Key is MISSING");
 
-      const response = await axios.get('https://api.paystack.co/subscription', {
+      const response = await axios.get("https://api.paystack.co/subscription", {
         headers: {
           Authorization: `Bearer ${key}`,
         },
       });
 
       console.log("Paystack Response:", response.data); // Check the raw data
-      return response.data.data; 
+      return response.data.data;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Axios Error:", error.response || error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
 );
 // export const fetchSubscriptions = createAsyncThunk(
 //   'subscriptions/fetchAll',
@@ -61,7 +61,7 @@ export const fetchSubscriptions = createAsyncThunk(
 //         },
 //       });
 
-      // Transform Paystack API data to match your UI 'Subscription' interface
+// Transform Paystack API data to match your UI 'Subscription' interface
 //       return response.data.data.map((item: any) => ({
 //         organization: item.customer.email,
 //         plan: item.plan.name,
@@ -78,7 +78,7 @@ export const fetchSubscriptions = createAsyncThunk(
 // );
 
 const SubscriptionSlice = createSlice({
-  name: 'subscriptions',
+  name: "subscriptions",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -86,10 +86,13 @@ const SubscriptionSlice = createSlice({
       .addCase(fetchSubscriptions.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchSubscriptions.fulfilled, (state, action: PayloadAction<Subscription[]>) => {
-        state.loading = false;
-        state.items = action.payload;
-      })
+      .addCase(
+        fetchSubscriptions.fulfilled,
+        (state, action: PayloadAction<Subscription[]>) => {
+          state.loading = false;
+          state.items = action.payload;
+        },
+      )
       .addCase(fetchSubscriptions.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;

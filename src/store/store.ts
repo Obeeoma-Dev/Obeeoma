@@ -1,5 +1,5 @@
-import { Subscription } from './../services/subscriptionService';
-import { SubscriptionPlan } from './../../.history/src/components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptionCards_20251204145502';
+import { Subscription } from "./../services/subscriptionService";
+import { SubscriptionPlan } from "./../../.history/src/components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptionCards_20251204145502";
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import authReducer from "./slices/authSlice";
@@ -9,7 +9,7 @@ import employeeReducer from "./slices/employeeSlice";
 import subscriptionSlice from "./slices/adminpaystackSlice";
 import { setupApiInterceptors } from "../api/apiConfig";
 import billingReducer from "./slices/billingSlice";
-import  SubscriptionSlice  from "./slices/subscriptionSlice";
+import SubscriptionSlice from "./slices/subscriptionSlice";
 
 import contentReducer from "./slices/contentSlice";
 export const store = configureStore({

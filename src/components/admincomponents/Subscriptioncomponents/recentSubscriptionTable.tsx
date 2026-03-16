@@ -1,23 +1,29 @@
-
 import React, { useEffect } from "react";
 import { Table, Spinner, Alert } from "react-bootstrap";
 import { CheckCircle2, Clock } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "./../../../store/store";
-import { fetchSubscriptions, Subscription } from "./../../../store/slices/subscriptionSlice";
+import {
+  fetchSubscriptions,
+  Subscription,
+} from "./../../../store/slices/subscriptionSlice";
 
 // Props interface for optional subscriptions prop
 interface Props {
   subscriptions?: Subscription[];
 }
 
-const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions: propSubscriptions }) => {
+const RecentSubscriptionsTable: React.FC<Props> = ({
+  subscriptions: propSubscriptions,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
-  
+
   // Connect to Redux state
-  const { items: reduxItems, loading, error } = useSelector(
-    (state: RootState) => state.Subscription
-  );
+  const {
+    items: reduxItems,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.Subscription);
 
   // Fetch data on component mount if no prop is provided
   useEffect(() => {
@@ -39,28 +45,46 @@ const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions: propSubscrip
   }
 
   if (error && !propSubscriptions) {
-    return <Alert variant="danger" className="m-4">Error: {error}</Alert>;
+    return (
+      <Alert variant="danger" className="m-4">
+        Error: {error}
+      </Alert>
+    );
   }
 
   return (
     <Table responsive className="mb-0">
       <thead className="bg-light" style={{ fontFamily: "heading" }}>
         <tr>
-          <th className="px-4 py-3 text-muted small fw-semibold">Organization</th>
+          <th className="px-4 py-3 text-muted small fw-semibold">
+            Organization
+          </th>
           <th className="px-4 py-3 text-muted small fw-semibold">Plan</th>
           <th className="px-4 py-3 text-muted small fw-semibold">Employees</th>
-          <th className="px-4 py-3 text-muted small fw-semibold">Active Users</th>
+          <th className="px-4 py-3 text-muted small fw-semibold">
+            Active Users
+          </th>
           <th className="px-4 py-3 text-muted small fw-semibold">Status</th>
-          <th className="px-4 py-3 text-muted small fw-semibold">Expiry Date</th>
+          <th className="px-4 py-3 text-muted small fw-semibold">
+            Expiry Date
+          </th>
           <th className="px-4 py-3 text-muted small fw-semibold">Actions</th>
         </tr>
       </thead>
       <tbody>
         {items.length === 0 ? (
-            <tr><td colSpan={7} className="text-center py-4">No subscribers found.</td></tr>
+          <tr>
+            <td colSpan={7} className="text-center py-4">
+              No subscribers found.
+            </td>
+          </tr>
         ) : (
           items.map((sub: Subscription, index) => (
-            <tr key={index} className="border-bottom" style={{ fontFamily: "body" }}>
+            <tr
+              key={index}
+              className="border-bottom"
+              style={{ fontFamily: "body" }}
+            >
               <td className="px-4 py-3">{sub.organization}</td>
               <td className="px-4 py-3">{sub.plan}</td>
               <td className="px-4 py-3">{sub.employees}</td>
@@ -81,9 +105,15 @@ const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions: propSubscrip
               <td className="px-4 py-3">{sub.expiryDate}</td>
               <td className="px-4 py-3">
                 <div className="d-flex gap-2">
-                  <button className="btn btn-link p-0 text-success text-decoration-none small">View</button>
-                  <button className="btn btn-link p-0 text-success text-decoration-none small">Edit</button>
-                  <button className="btn btn-link p-0 text-danger text-decoration-none small">Deactivate</button>
+                  <button className="btn btn-link p-0 text-success text-decoration-none small">
+                    View
+                  </button>
+                  <button className="btn btn-link p-0 text-success text-decoration-none small">
+                    Edit
+                  </button>
+                  <button className="btn btn-link p-0 text-danger text-decoration-none small">
+                    Deactivate
+                  </button>
                 </div>
               </td>
             </tr>
@@ -95,9 +125,6 @@ const RecentSubscriptionsTable: React.FC<Props> = ({ subscriptions: propSubscrip
 };
 
 export default RecentSubscriptionsTable;
-
-
-
 
 // import React from "react";
 // import { Table } from "react-bootstrap";
@@ -187,4 +214,3 @@ export default RecentSubscriptionsTable;
 // };
 
 // export default RecentSubscriptionsTable;
-
