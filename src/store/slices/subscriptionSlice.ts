@@ -43,6 +43,7 @@ export const fetchSubscriptions = createAsyncThunk(
 
       console.log("Paystack Response:", response.data); // Check the raw data
       return response.data.data; 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Axios Error:", error.response || error.message);
       return thunkAPI.rejectWithValue(error.message);
