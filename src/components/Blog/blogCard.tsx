@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
-import { Calendar, Clock, User } from "lucide-react";
+import { Calendar, Clock, User, Eye } from "lucide-react";
+import { BlogReadModal } from "./BlogReadModal";
 interface BlogCardProps {
   id: number;
   title: string;
@@ -12,8 +13,12 @@ interface BlogCardProps {
   author: string;
   featured?: boolean;
   animationDelay?: number;
+  fullContent?: string;
+  views?: number;
+  confirmedReads?: number;
 }
 export function BlogCard({
+  id,
   title,
   excerpt,
   image,
@@ -23,8 +28,45 @@ export function BlogCard({
   author,
   featured = false,
   animationDelay = 0,
+  fullContent = "This is the full content of the blog post. In a real application, this would contain the complete article text with multiple paragraphs, detailed information, and comprehensive coverage of the topic.",
+  views = 0,
+  confirmedReads = 0,
 }: BlogCardProps) {
   const [, setIsHovered] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleEyeClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmRead = (postId: string) => {
+    console.log(`Confirmed read for post: ${postId}`);
+    // Here you would typically make an API call to update the read count
+  };
+
+  const handleSkipRead = (postId: string) => {
+    console.log(`Skipped read for post: ${postId}`);
+    // Here you would typically record that the user skipped reading
+  };
+
+  const blogPostData = {
+    id: id.toString(),
+    title,
+    excerpt,
+    image,
+    category,
+    date,
+    readTime,
+    author,
+    featured,
+    fullContent,
+    views,
+    confirmedReads,
+  };
   return (
     <div
       className={`blog-card ${featured ? "blog-card-featured" : ""}`}
@@ -161,8 +203,35 @@ export function BlogCard({
             <User size={16} />
             <span>{author}</span>
           </div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "1rem",
+              right: "1rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              cursor: "pointer",
+              color: "#666",
+              fontSize: "0.85rem",
+              fontFamily: "body"
+            }}
+            onClick={handleEyeClick}
+          >
+            <Eye size={16} />
+            <span>View</span>
+          </div>
         </div>
       </div>
+
+      {/* Blog Read Modal */}
+      <BlogReadModal
+        post={blogPostData}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirmRead={handleConfirmRead}
+        onSkipRead={handleSkipRead}
+      />
     </div>
   );
 }

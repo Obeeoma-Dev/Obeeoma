@@ -23,12 +23,23 @@ import { BlogManager } from "../../components/admincomponents/Blogmanagement/Blo
 // Import shared type definitions
 import {
   ActivityItem,
+  // BottomMetricCard,
   StatCardData,
+  PlatformUsageData,
+  SubscriptionRevenueData,
 } from "../../components/admincomponents/Overviewcomponents/admindashboard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// Interface for overview data
+interface OverviewData {
+  platform_usage?: PlatformUsageData[];
+  subscription_revenue?: SubscriptionRevenueData[];
+  [key: string]: unknown;
+}
 import { Building2, Users, CreditCard, PhoneCall } from "lucide-react";
-import { adminAPI } from "../../api/apiConfig";
+import { adminDashboardAPI } from "../../api/adminapiConfig";
+import { useAIStatus } from "../../hooks/useAIStatus";
 
 /**
  * Static placeholder data for recent activities
@@ -124,20 +135,16 @@ const Dashboard: React.FC = () => {
   /* The blog state + handlers */
   const [blogs, setBlogs] = React.useState<BlogPost[]>([]);
   const [selectedBlog, setSelectedBlog] = React.useState<BlogPost | null>(null);
+
+  // Use enhanced AI status hook with caching
+  const { aiStatus } = useAIStatus();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
 
   /* Dashboard stats state */
   const [dashboardStats, setDashboardStats] =
     useState<StatCardData[]>(defaultStatsData);
-  const [platformUsage, setPlatformUsage] = useState<
-    Array<{ week: string; value: number }>
-  >([]);
-  const [subscriptionRevenue, setSubscriptionRevenue] = useState<
-    Array<{ week: string; value: number }>
-  >([]);
-  const [recentActivities, setRecentActivities] =
-    useState<ActivityItem[]>(recentActivityData);
+  const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -217,8 +224,11 @@ const Dashboard: React.FC = () => {
 
         // Try API call but fallback to default if it fails
         try {
-          const response = await adminAPI.getDashboardSummary();
+          const response = await adminDashboardAPI.getDashboardSummary();
           const data = response.data;
+
+          // Store overview data for PlatformUsageChart
+          setOverviewData(data);
 
           // Transform API data to match StatCardData format
           const transformedStats: StatCardData[] = [
@@ -260,67 +270,6 @@ const Dashboard: React.FC = () => {
           const dataToCache = transformedStats.map(({ icon, ...rest }) => rest);
           localStorage.setItem("dashboardStats", JSON.stringify(dataToCache));
           setDashboardStats(transformedStats);
-
-          // Live platform usage chart (API returns week_number, usage_count)
-          const usage = data.platform_usage ?? [];
-          setPlatformUsage(
-            usage.map((u: { week_number: number; usage_count: number }) => ({
-              week: `Week ${u.week_number}`,
-              value: u.usage_count,
-            })),
-          );
-
-          // Live subscription revenue (API returns month, revenue, year)
-          const rev = data.subscription_revenue ?? [];
-          setSubscriptionRevenue(
-            rev.map((r: { month: string; revenue: number }) => ({
-              week: r.month,
-              value: Number(r.revenue),
-            })),
-          );
-
-          // Live recent activities (API returns activity_type, details, organization_name, created_at)
-          const activityTypeToIcon: Record<string, string> = {
-            new_organization: "Building2",
-            ai_recommendation: "Brain",
-            hotline_activity: "PhoneCall",
-            patient_engagement: "UserPlus",
-            subscription: "CreditCard",
-          };
-          const activities: ActivityItem[] = (data.recent_activities ?? []).map(
-            (a: {
-              id: number;
-              activity_type: string;
-              details: string;
-              organization_name?: string;
-              created_at: string;
-            }) => {
-              const created = new Date(a.created_at);
-              const now = new Date();
-              const diffMins = Math.floor(
-                (now.getTime() - created.getTime()) / 60000,
-              );
-              const diffHours = Math.floor(diffMins / 60);
-              const diffDays = Math.floor(diffHours / 24);
-              let time = "Just now";
-              if (diffMins >= 60) time = `${diffHours}h ago`;
-              if (diffHours >= 24) time = `${diffDays}d ago`;
-              const typeLabel = (a.activity_type || "")
-                .replace(/_/g, " ")
-                .replace(/\b\w/g, (c) => c.toUpperCase());
-              return {
-                id: String(a.id),
-                type: typeLabel,
-                details:
-                  a.details ||
-                  (a.organization_name ? `${a.organization_name}` : ""),
-                time,
-                icon: activityTypeToIcon[a.activity_type] || "Activity",
-                iconColor: "text-success",
-              };
-            },
-          );
-          if (activities.length > 0) setRecentActivities(activities);
         } catch (apiError) {
           console.error("API call failed, using default data:", apiError);
           // Use default data if API fails
@@ -388,20 +337,21 @@ const Dashboard: React.FC = () => {
           )}
         </Row>
 
-        {/* Platform usage chart (live from API when available) */}
+        {/* Platform usage chart */}
         <Row className="g-4 mb-5">
           <Col>
             <PlatformUsageChart
-              platformData={platformUsage}
-              subscriptionData={subscriptionRevenue}
+              platformUsageData={overviewData?.platform_usage}
+              subscriptionRevenueData={overviewData?.subscription_revenue}
             />
           </Col>
         </Row>
 
-        {/* Recent activity feed (live from API when available) */}
+        {/* Recent activity feed and Bottom metrics in a 2-column layout */}
         <Row className="g-4 mb-5">
+          {/* Left column: Recent Activities */}
           <Col>
-            <RecentActivities activities={recentActivities} />
+            <RecentActivities activities={recentActivityData} />
           </Col>
 
           {/* Right column: Quick Stats
@@ -451,7 +401,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant />
+      <AIAssistant isEnabled={aiStatus.admin_ai} />
     </SystemAdminLayout>
   );
 };

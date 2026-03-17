@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Card, ButtonGroup, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Card, ButtonGroup, Button, Spinner } from "react-bootstrap";
 
 import {
   LineChart,
@@ -13,47 +13,108 @@ import {
   Area,
 } from "recharts";
 
-import { EmployeeDataPoint } from "./admindashboard";
-
-const defaultPlatformData: EmployeeDataPoint[] = [
-  { week: "Week 1", value: 1800 },
-  { week: "Week 2", value: 2100 },
-  { week: "Week 3", value: 2600 },
-  { week: "Week 4", value: 2900 },
-  { week: "Week 5", value: 3200 },
-  { week: "Week 6", value: 3500 },
-];
-
-const defaultSubscriptionData: EmployeeDataPoint[] = [
-  { week: "Month 1", value: 3200 },
-  { week: "Month 2", value: 3500 },
-  { week: "Month 3", value: 3900 },
-  { week: "Month 4", value: 4200 },
-  { week: "Month 5", value: 4600 },
-  { week: "Month 6", value: 5000 },
-];
+import {
+  EmployeeDataPoint,
+  PlatformUsageData,
+  SubscriptionRevenueData,
+  MonthlyDataPoint
+} from "./admindashboard";
+import { adminDashboardAPI } from "../../../api/adminapiConfig";
 
 interface PlatformUsageChartProps {
-  platformData?: EmployeeDataPoint[];
-  subscriptionData?: EmployeeDataPoint[];
+  platformUsageData?: PlatformUsageData[];
+  subscriptionRevenueData?: SubscriptionRevenueData[];
 }
 
 const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
-  platformData = defaultPlatformData,
-  subscriptionData = defaultSubscriptionData,
+  platformUsageData,
+  subscriptionRevenueData
 }) => {
+  // Track which tab is currently active
   const [activeTab, setActiveTab] = useState<string>("platform");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
+  // State for API data
+  const [apiPlatformUsage, setApiPlatformUsage] = useState<PlatformUsageData[]>([]);
+  const [apiSubscriptionRevenue, setApiSubscriptionRevenue] = useState<SubscriptionRevenueData[]>([]);
+
+  // Define tab options for chart navigation
   const tabs = [
     { id: "platform", label: "Platform Usage" },
     { id: "organization", label: "Organization Growth" },
     { id: "subscription", label: "Subscription Revenue" },
   ];
 
-  const employeeData =
-    platformData.length > 0 ? platformData : defaultPlatformData;
-  const revenueData =
-    subscriptionData.length > 0 ? subscriptionData : defaultSubscriptionData;
+  // Fetch dashboard overview data on component mount
+  useEffect(() => {
+    const fetchOverviewData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await adminDashboardAPI.getDashboardOverview();
+        const data = response.data;
+
+        setApiPlatformUsage(data.platform_usage || []);
+        setApiSubscriptionRevenue(data.subscription_revenue || []);
+      } catch (err) {
+        console.error("Failed to fetch overview data:", err);
+        setError("Failed to load chart data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOverviewData();
+  }, []);
+
+  // Transform API data for charts
+  const transformPlatformUsage = (data: PlatformUsageData[]): EmployeeDataPoint[] => {
+    return data.map(item => ({
+      week: `Week ${item.week_number}`,
+      value: item.usage_count
+    }));
+  };
+
+  const transformSubscriptionRevenue = (data: SubscriptionRevenueData[]): MonthlyDataPoint[] => {
+    return data.map(item => ({
+      month: `${item.month} ${item.year}`,
+      value: parseFloat(item.revenue)
+    }));
+  };
+
+  // Use props data if provided, otherwise use API data
+  const platformChartData = platformUsageData
+    ? transformPlatformUsage(platformUsageData)
+    : transformPlatformUsage(apiPlatformUsage);
+
+  const subscriptionChartData = subscriptionRevenueData
+    ? transformSubscriptionRevenue(subscriptionRevenueData)
+    : transformSubscriptionRevenue(apiSubscriptionRevenue);
+
+  // Fallback data for platform usage over 6 weeks
+  const employeeData: EmployeeDataPoint[] = platformChartData.length > 0
+    ? platformChartData
+    : [
+      { week: "Week 1", value: 1800 },
+      { week: "Week 2", value: 2100 },
+      { week: "Week 3", value: 2600 },
+      { week: "Week 4", value: 2900 },
+      { week: "Week 5", value: 3200 },
+      { week: "Week 6", value: 3500 },
+    ];
+
+  // Fallback data for subscription revenue
+  const revenueData: MonthlyDataPoint[] = subscriptionChartData.length > 0
+    ? subscriptionChartData
+    : [
+      { month: "Jan 2024", value: 3200 },
+      { month: "Feb 2024", value: 3500 },
+      { month: "Mar 2024", value: 3900 },
+      { month: "Apr 2024", value: 4200 },
+      { month: "May 2024", value: 4600 },
+      { month: "Jun 2024", value: 5000 },
+    ];
 
   return (
     <Card className="mb-4 shadow-sm border-0">
@@ -66,11 +127,10 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
               variant="light"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`px-3 py-2 border-0 position-relative ${
-                activeTab === tab.id
-                  ? "fw-semibold text-success"
-                  : "text-secondary"
-              }`}
+              className={`px-3 py-2 border-0 position-relative ${activeTab === tab.id
+                ? "fw-semibold text-success"
+                : "text-secondary"
+                }`}
               style={{
                 backgroundColor: "transparent",
                 borderBottom:
@@ -88,18 +148,36 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
           ))}
         </ButtonGroup>
 
-        {/* Dynamic section header with green underline */}
-        <h5
-          className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
-          style={{ fontFamily: "body" }}
-        >
-          {activeTab === "platform" && "Weekly Platform Usage"}
-          {activeTab === "organization" && "Monthly Organization Growth"}
-          {activeTab === "subscription" && "Monthly Subscription Revenue"}
-        </h5>
+        {/* Loading state */}
+        {loading && (
+          <div className="text-center py-4">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading chart data...</span>
+            </Spinner>
+          </div>
+        )}
 
-        {/* Render chart only when 'platform' tab is active */}
-        {activeTab === "platform" && (
+        {/* Error state */}
+        {error && (
+          <div className="text-center py-4">
+            <div className="alert alert-warning">{error}</div>
+          </div>
+        )}
+
+        {/* Dynamic section header with green underline */}
+        {!loading && !error && (
+          <h5
+            className="fw-semibold text-dark mb-4 md-4 position-relative ms-5"
+            style={{ fontFamily: "body" }}
+          >
+            {activeTab === "platform" && "Weekly Platform Usage"}
+            {activeTab === "organization" && "Monthly Organization Growth"}
+            {activeTab === "subscription" && "Monthly Subscription Revenue"}
+          </h5>
+        )}
+
+        {/* Render chart only when 'platform' tab is active and not loading */}
+        {!loading && !error && activeTab === "platform" && (
           <ResponsiveContainer
             width="100%"
             height={300}
@@ -161,7 +239,7 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
           </ResponsiveContainer>
         )}
 
-        {activeTab === "organization" && (
+        {!loading && !error && activeTab === "organization" && (
           <ResponsiveContainer
             width="100%"
             height={300}
@@ -227,7 +305,7 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
             </LineChart>
           </ResponsiveContainer>
         )}
-        {activeTab === "subscription" && (
+        {!loading && !error && activeTab === "subscription" && (
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart
               data={revenueData}
@@ -240,9 +318,9 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
                 vertical={false}
               />
 
-              {/* X-axis: week labels */}
+              {/* X-axis: month labels */}
               <XAxis
-                dataKey="week"
+                dataKey="month"
                 tick={{ fontSize: 12, fill: "#6c757d" }}
                 axisLine={false}
                 tickLine={false}

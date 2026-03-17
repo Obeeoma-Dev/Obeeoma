@@ -109,22 +109,25 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
   // Use same API base URL as rest of app (from .env VITE_API_BASE_URL)
   const conditionalAPIBaseURL = API_BASE_URL;
 
-  // Create conditional API instance
-  const conditionalAPI = axios.create({
-    baseURL: conditionalAPIBaseURL,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  // Create a stable API instance (so it doesn't change every render)
+  const conditionalAPI = useMemo(() => {
+    const instance = axios.create({
+      baseURL: conditionalAPIBaseURL,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  // Add authorization interceptor to conditional API
-  conditionalAPI.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
+    instance.interceptors.request.use((config) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+
+    return instance;
+  }, [conditionalAPIBaseURL]);
 
   // Create conditional API methods without /v1/ prefix
   const conditionalAPIWithMethods = useMemo(
@@ -141,9 +144,7 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
           params.append("search", search);
         }
 
-        const response = await conditionalAPI.get(
-          `/admin/organizations/?${params}`,
-        );
+        const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
         return response;
       },
       getOrganizationsGrowthChart: async () => {

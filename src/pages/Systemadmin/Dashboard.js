@@ -12,7 +12,8 @@ import { BlogManager } from "../../components/admincomponents/Blogmanagement/Blo
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Building2, Users, PhoneCall } from "lucide-react";
-import { adminAPI } from "../../api/apiConfig";
+import { adminDashboardAPI } from "../../api/adminapiConfig";
+import { useAIStatus } from "../../hooks/useAIStatus";
 /**
  * Static placeholder data for recent activities
  * Replace with API data when backend is ready
@@ -105,13 +106,13 @@ const Dashboard = () => {
     /* The blog state + handlers */
     const [blogs, setBlogs] = React.useState([]);
     const [selectedBlog, setSelectedBlog] = React.useState(null);
+    // Use enhanced AI status hook with caching
+    const { aiStatus } = useAIStatus();
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
     /* Dashboard stats state */
     const [dashboardStats, setDashboardStats] = useState(defaultStatsData);
-    const [platformUsage, setPlatformUsage] = useState([]);
-    const [subscriptionRevenue, setSubscriptionRevenue] = useState([]);
-    const [recentActivities, setRecentActivities] = useState(recentActivityData);
+    const [overviewData, setOverviewData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -179,8 +180,10 @@ const Dashboard = () => {
                 setError(null);
                 // Try API call but fallback to default if it fails
                 try {
-                    const response = await adminAPI.getDashboardSummary();
+                    const response = await adminDashboardAPI.getDashboardSummary();
                     const data = response.data;
+                    // Store overview data for PlatformUsageChart
+                    setOverviewData(data);
                     // Transform API data to match StatCardData format
                     const transformedStats = [
                         {
@@ -220,52 +223,6 @@ const Dashboard = () => {
                     const dataToCache = transformedStats.map(({ icon, ...rest }) => rest);
                     localStorage.setItem("dashboardStats", JSON.stringify(dataToCache));
                     setDashboardStats(transformedStats);
-                    // Live platform usage chart (API returns week_number, usage_count)
-                    const usage = data.platform_usage ?? [];
-                    setPlatformUsage(usage.map((u) => ({
-                        week: `Week ${u.week_number}`,
-                        value: u.usage_count,
-                    })));
-                    // Live subscription revenue (API returns month, revenue, year)
-                    const rev = data.subscription_revenue ?? [];
-                    setSubscriptionRevenue(rev.map((r) => ({
-                        week: r.month,
-                        value: Number(r.revenue),
-                    })));
-                    // Live recent activities (API returns activity_type, details, organization_name, created_at)
-                    const activityTypeToIcon = {
-                        new_organization: "Building2",
-                        ai_recommendation: "Brain",
-                        hotline_activity: "PhoneCall",
-                        patient_engagement: "UserPlus",
-                        subscription: "CreditCard",
-                    };
-                    const activities = (data.recent_activities ?? []).map((a) => {
-                        const created = new Date(a.created_at);
-                        const now = new Date();
-                        const diffMins = Math.floor((now.getTime() - created.getTime()) / 60000);
-                        const diffHours = Math.floor(diffMins / 60);
-                        const diffDays = Math.floor(diffHours / 24);
-                        let time = "Just now";
-                        if (diffMins >= 60)
-                            time = `${diffHours}h ago`;
-                        if (diffHours >= 24)
-                            time = `${diffDays}d ago`;
-                        const typeLabel = (a.activity_type || "")
-                            .replace(/_/g, " ")
-                            .replace(/\b\w/g, (c) => c.toUpperCase());
-                        return {
-                            id: String(a.id),
-                            type: typeLabel,
-                            details: a.details ||
-                                (a.organization_name ? `${a.organization_name}` : ""),
-                            time,
-                            icon: activityTypeToIcon[a.activity_type] || "Activity",
-                            iconColor: "text-success",
-                        };
-                    });
-                    if (activities.length > 0)
-                        setRecentActivities(activities);
                 }
                 catch (apiError) {
                     console.error("API call failed, using default data:", apiError);
@@ -285,6 +242,6 @@ const Dashboard = () => {
         };
         fetchDashboardStats();
     }, [refreshTrigger]); // Run on mount and when refreshTrigger changes
-    return (_jsxs(SystemAdminLayout, { title: "Systemadmin Overview", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsxs("div", { className: "p-4", children: [_jsx("div", { className: "mb-4 d-flex justify-content-between align-items-center", children: _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" }) }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, { platformData: platformUsage, subscriptionData: subscriptionRevenue }) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivities }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] }), _jsx(AIAssistant, {})] }));
+    return (_jsxs(SystemAdminLayout, { title: "Systemadmin Overview", children: [_jsx(ToastContainer, { position: "top-right", autoClose: 3000, hideProgressBar: false, newestOnTop: false, closeOnClick: true, rtl: false, pauseOnFocusLoss: true, draggable: true, pauseOnHover: true }), _jsxs("div", { className: "p-4", children: [_jsx("div", { className: "mb-4 d-flex justify-content-between align-items-center", children: _jsx(Button, { variant: "outline-secondary", size: "sm", onClick: handleRefresh, className: "d-flex align-items-center gap-2", children: "\u21BB Refresh" }) }), _jsx(Row, { className: "g-4 mb-5", children: loading ? (_jsx(Col, { className: "text-center py-4", children: _jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading dashboard stats..." }) }) })) : error ? (_jsxs(Col, { className: "py-2", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(DashboardStats, { stats: dashboardStats })] })) : (_jsx(DashboardStats, { stats: dashboardStats })) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(PlatformUsageChart, { platformUsageData: overviewData?.platform_usage, subscriptionRevenueData: overviewData?.subscription_revenue }) }) }), _jsx(Row, { className: "g-4 mb-5", children: _jsx(Col, { children: _jsx(RecentActivities, { activities: recentActivityData }) }) }), _jsx(Row, { className: "gy-4 mb-5", children: _jsx(Col, { children: _jsx(BlogManager, {}) }) })] }), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }));
 };
 export default Dashboard;

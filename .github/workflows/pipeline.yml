@@ -19,6 +19,8 @@ jobs:
       - run: npm ci
       - name: Run ESLint
         run: npx eslint "src/**/*.{js,jsx,ts,tsx}" --max-warnings=0
+      - name: Format with Prettier
+        run: npx prettier --write "src/**/*.{js,jsx,ts,tsx}"
       - name: Check Prettier
         run: npx prettier --check "src/**/*.{js,jsx,ts,tsx}"
       - name: TypeScript Check

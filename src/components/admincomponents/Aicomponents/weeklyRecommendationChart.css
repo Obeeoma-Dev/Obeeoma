@@ -1,0 +1,158 @@
+/* Weekly Recommendation Chart Component - Specific Styles */
+/* These styles are specifically tailored for the weekly recommendation chart component */
+
+.weekly-recommendations-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekly-recommendations-header {
+  margin-bottom: 1rem;
+}
+
+.weekly-recommendations-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.weekly-recommendations-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.weekly-recommendations-chart {
+  flex: 1;
+  position: relative;
+  min-height: 300px;
+}
+
+/* Resource Recommendations Styles */
+.resource-recommendations-container {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.resource-recommendations-header {
+  margin-bottom: 1rem;
+}
+
+.resource-recommendations-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.resource-recommendations-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.125rem;
+}
+
+.resource-recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background-color: #f9fafb;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.resource-item:hover {
+  background-color: #f3f4f6;
+}
+
+.resource-icon-container {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+.resource-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.resource-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resource-type-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  margin-top: 0.125rem;
+}
+
+.resource-type-badge.article {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.resource-type-badge.video {
+  background-color: #f3e8ff;
+  color: #7c3aed;
+}
+
+.resource-type-badge.audio {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.resource-type-badge.interactive {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.resource-stats {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.resource-count {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #374151;
+  display: block;
+}
+
+.resource-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0;
+}

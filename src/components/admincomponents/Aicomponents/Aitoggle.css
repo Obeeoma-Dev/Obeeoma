@@ -1,0 +1,213 @@
+/* Enhanced AI Toggle Component Styles - Specific naming to avoid conflicts */
+
+/* Main toggle container */
+.ai-toggle-enhanced {
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 1px solid;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ai-toggle-enhanced-active {
+  background: linear-gradient(to bottom right, #d4f4dd, #dcfce7);
+  border-color: #6ee7b7;
+}
+
+.ai-toggle-enhanced-inactive {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+/* Header section with icon and toggle */
+.ai-toggle-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Icon wrapper */
+.ai-toggle-icon-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
+}
+
+.ai-toggle-icon-wrapper-active {
+  background-color: #bbf7d0;
+}
+
+.ai-toggle-icon-wrapper-inactive {
+  background-color: #e5e7eb;
+}
+
+/* Icon colors */
+.ai-toggle-icon-active {
+  color: #16a34a;
+}
+
+.ai-toggle-icon-inactive {
+  color: #9ca3af;
+}
+
+/* Toggle switch wrapper */
+.ai-toggle-switch-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* Toggle switch button */
+.ai-toggle-switch {
+  position: relative;
+  width: 3.5rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.ai-toggle-switch:focus {
+  box-shadow: 0 0 0 2px #34d399, 0 0 0 4px rgba(52, 211, 153, 0.2);
+}
+
+.ai-toggle-switch-active {
+  background-color: #10b981;
+}
+
+.ai-toggle-switch-inactive {
+  background-color: #d1d5db;
+}
+
+/* Toggle switch thumb */
+.ai-toggle-switch-thumb {
+  position: absolute;
+  top: 0.125rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Toggle switch label */
+.ai-toggle-switch-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ai-toggle-switch-label-active {
+  color: #059669;
+}
+
+.ai-toggle-switch-label-inactive {
+  color: #9ca3af;
+}
+
+/* Toggle label and description */
+.ai-toggle-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.ai-toggle-description {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Status row */
+.ai-toggle-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Status indicator */
+.ai-toggle-status-indicator {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.ai-toggle-status-indicator-active {
+  background-color: #10b981;
+  animation: ai-toggle-enhanced-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.ai-toggle-status-indicator-inactive {
+  background-color: #9ca3af;
+}
+
+/* Status text */
+.ai-toggle-status-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ai-toggle-status-text-active {
+  color: #047857;
+}
+
+.ai-toggle-status-text-inactive {
+  color: #9ca3af;
+}
+
+/* Last active text */
+.ai-toggle-last-active {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-left: auto;
+}
+
+/* Pulse animation for active indicator */
+@keyframes ai-toggle-enhanced-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ai-toggle-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ai-toggle-switch-wrapper {
+    align-self: flex-end;
+  }
+
+  .ai-toggle-description {
+    font-size: 0.7rem;
+  }
+
+  .ai-toggle-label {
+    font-size: 0.8rem;
+  }
+}

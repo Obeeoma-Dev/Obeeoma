@@ -1,26 +1,18 @@
 import React, { useEffect } from "react";
 import MetricsPanel from "../../../components/admincomponents/Subscriptioncomponents/subMetricPannel";
 import RecentSubscriptionsTable from "../../../components/admincomponents/Subscriptioncomponents/recentSubscriptionTable";
-import ServiceUtilizationChart from "../../../components/admincomponents/Subscriptioncomponents/serviceUtilisationChart";
+// import ServiceUtilizationChart from "../../../components/admincomponents/Subscriptioncomponents/serviceUtilisationChart";
 import RecentActivityFeed, {
   Activity,
 } from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Alert,
-  Spinner,
-} from "react-bootstrap";
-import {
-  useSubscriptionData,
-  calculateMetrics,
-} from "../../../hooks/useSubscriptionData";
+import { Container, Row, Col, Card, Button, Alert, Spinner } from "react-bootstrap";
+// import { useSubscriptionData, calculateMetrics } from "../../../hooks/useSubscriptionData";
 import { useSimpleSubscriptionCount } from "../../../hooks/useSimpleSubscriptionCount";
-import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
+// import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
+
+import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
+import { useAIStatus } from "../../../hooks/useAIStatus";
 
 /**
  * SubscriptionPage component displays subscription metrics,
@@ -129,6 +121,11 @@ const SubscriptionPage: React.FC = () => {
     },
   ];
 
+  // Use reusable AI status hook with caching
+  const { aiStatus } = useAIStatus();
+  const [showAddModal, setShowAddModal] = React.useState(false);
+  const [showEditModal, setShowEditModal] = React.useState(false);
+
   return (
     <SystemAdminLayout title="Subscription Management">
       <Container fluid>
@@ -179,14 +176,14 @@ const SubscriptionPage: React.FC = () => {
                     services
                   </p>
                 </div>
-                <Button
+                {/* <Button
                   variant="success"
                   className="ms-auto"
                   style={{ fontFamily: "body" }}
                   onClick={refetchCount} // Refresh button
                 >
                   Add Subscription
-                </Button>
+                </Button> */}
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}
@@ -197,7 +194,10 @@ const SubscriptionPage: React.FC = () => {
             </Card>
 
             {/* Subscription cards grid */}
-            <SubscriptionSettingsComp plans={subscriptionPlans} />
+            {/* <SubscriptionSettingsComp plans={subscriptionPlans} /> */}
+
+            {/* AI Assistant Floating Chat */}
+            <AIAssistant isEnabled={aiStatus.admin_ai} />
           </>
         )}
       </Container>

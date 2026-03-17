@@ -6,19 +6,17 @@ import { HoverStatCard } from "./hoverCard";
 interface TopMetricsProps {
   totalCalls: number;
   avgCallTime: string;
-  missedCalls?: number;
-  activeOperators?: number;
+  missedCalls: number;
 }
 
 const TopMetrics: React.FC<TopMetricsProps> = ({
   totalCalls,
   avgCallTime,
-  missedCalls = 0,
-  activeOperators,
+  missedCalls,
 }) => {
-  const useActiveOps = activeOperators != null;
   return (
     <>
+      {/* Top Stats Row */}
       <Row className="mb-4" style={{ fontFamily: "body", fontWeight: "600px" }}>
         <Col xs={12} md={4} className="mb-3 mb-md-0">
           <HoverStatCard
@@ -42,14 +40,12 @@ const TopMetrics: React.FC<TopMetricsProps> = ({
         </Col>
         <Col xs={12} md={4}>
           <HoverStatCard
-            title={useActiveOps ? "Active Operators" : "Missed Calls"}
-            value={String(useActiveOps ? activeOperators : missedCalls)}
-            subtitle={
-              useActiveOps ? "Operators on duty today" : "Calls not answered"
-            }
-            trend={useActiveOps ? "Currently active" : "+1 vs yesterday"}
-            icon={useActiveOps ? Phone : XCircle}
-            color="emerald"
+            title="Missed Calls"
+            value={String(missedCalls)}
+            subtitle="Calls not answered"
+            trend="+1 vs yesterday"
+            icon={XCircle}
+            color="rose"
           />
         </Col>
       </Row>

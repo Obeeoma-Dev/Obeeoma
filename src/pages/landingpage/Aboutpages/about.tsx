@@ -6,6 +6,7 @@ import { OurStorySection } from "../../../components/About/storysection";
 import { WhyChooseSection } from "../../../components/About/whyChooseArea";
 import { CTASection } from "@/components/About/CTAsection";
 import { FloatingWhatsApp } from "../../../components/Contactus/floatingWhatsup";
+import ReceptionistFloatingChat from "../../../components/landingpage/Contacts/ReceptionistFloatingChat";
 const About: React.FC = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const About: React.FC = () => {
         <WhyChooseSection />
         <CTASection />
         <FloatingWhatsApp />
+        <ReceptionistFloatingChat />
       </main>
     </>
   );
