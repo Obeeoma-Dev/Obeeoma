@@ -2,7 +2,8 @@ import React from "react";
 import { Card, Badge } from "react-bootstrap";
 import { AlertTriangle, Clock } from "lucide-react";
 
-export interface Case {
+// Define the Case interface
+interface Case {
   id: string;
   reason: string;
   status: string;
@@ -10,7 +11,8 @@ export interface Case {
   type?: "critical" | "warning";
 }
 
-const defaultCases: Case[] = [
+// Sample data
+const cases: Case[] = [
   {
     id: "04567",
     reason: "Abuse",
@@ -26,10 +28,6 @@ const defaultCases: Case[] = [
     type: "warning",
   },
 ];
-
-interface CriticalCasesProps {
-  cases?: Case[];
-}
 
 // Styles for the card and cases
 const styles = {
@@ -61,17 +59,19 @@ const styles = {
   metaWrapper: { display: "flex", alignItems: "center", gap: "0.25rem" },
 };
 
-const CriticalCases: React.FC<CriticalCasesProps> = ({ cases: casesProp }) => {
-  const cases =
-    Array.isArray(casesProp) && casesProp.length > 0 ? casesProp : defaultCases;
+// Main component
+const CriticalCases: React.FC = () => {
   return (
     <Card style={styles.card} className="mb-4">
+      {/* Card Header */}
       <div style={styles.header}>
         <AlertTriangle size={20} color="#0B6E45" />
         <h5 style={{ margin: 0, fontWeight: 600, fontFamily: "heading" }}>
           Critical Cases
         </h5>
       </div>
+
+      {/* Cases list */}
       <div>
         {cases.map((c) => (
           <div key={c.id} style={styles.caseContainer(c.type)}>

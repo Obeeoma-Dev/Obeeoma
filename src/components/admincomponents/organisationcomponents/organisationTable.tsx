@@ -168,7 +168,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         const apiInstance = conditionalAPI || adminAPI;
         const response = await apiInstance.getOrganizationsList?.(
           pageNum,
-          5,
+          20, // Increased page size to show more organizations
           search,
         );
         console.log("Table API Response:", response);
@@ -186,10 +186,19 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         if (pageNum === 1) {
           setOrganizations(formattedOrgs);
         } else {
-          setOrganizations((prev: TableOrganization[]) => [
-            ...prev,
-            ...formattedOrgs,
-          ]);
+          setOrganizations((prev: TableOrganization[]) => {
+            // Create a Map to ensure uniqueness by ID
+            const orgMap = new Map();
+
+            // Add existing organizations
+            prev.forEach(org => orgMap.set(org.id, org));
+
+            // Add new organizations (this will overwrite duplicates with newer data)
+            formattedOrgs.forEach((org: TableOrganization) => orgMap.set(org.id, org));
+
+            // Convert back to array
+            return Array.from(orgMap.values());
+          });
         }
 
         setHasMore(hasNext);
@@ -340,7 +349,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
             ) : (
               orgs.map((org, index) => (
                 <tr
-                  key={org.id}
+                  key={`${org.id}-${index}`}
                   ref={
                     index === orgs.length - 1
                       ? lastOrganizationElementRef
@@ -363,9 +372,8 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                   {/* Plan */}
                   <td>
                     <span
-                      className={`badge ${
-                        org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                      }`}
+                      className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                        }`}
                     >
                       {org.plan}
                     </span>
@@ -496,6 +504,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
         show={showRegistrationPopup}
         onHide={() => setShowRegistrationPopup(false)}
         onRegistrationSuccess={handleRegistrationSuccess}
+        conditionalAPI={conditionalAPI}
       />
     </div>
   );

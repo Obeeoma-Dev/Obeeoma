@@ -1,82 +1,118 @@
 // clientEngagement.tsx
 // Main page for displaying client engagement dashboard with sidebar layout
-// Data loaded from backend API (admin/client-engagement/)
 
 import React, { useEffect, useState } from "react";
-import { Container, Alert, Spinner } from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
 
+// Import sidebar and dashboard components
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import EngagementSummary from "../../../components/admincomponents/Clientcomponents/engagementsummary";
 import EngagementCharts from "../../../components/admincomponents/Clientcomponents/engagementCharts";
 import PatientSearchFilter from "../../../components/admincomponents/Clientcomponents/patientsearchfilter";
 // import PatientEngagementTable from "../../../components/admincomponents/Clientcomponents/patientEngagementTable";
 import EngagementStatsPanel from "../../../components/admincomponents/Clientcomponents/engagemntStartsPanel";
-import { adminAPI } from "../../../api/apiConfig";
 
-// API response shape (from backend ClientEngagementView)
-interface ClientEngagementApiResponse {
-  average_daily_engagement: number;
-  active_reward_programs: number;
-  total_points_awarded: number;
-  weekly_engagement: number[];
-  reward_redemptions: number[];
-  clients: Array<{
-    id: number;
-    client_name: string;
-    organization_name: string;
-    sessions_completed: number;
-    current_streak: number;
-    total_points: number;
-    engagement_level: string;
-    engagement_display: string;
-    last_active: string;
-    avatar_icon?: string;
+// Define TypeScript interface for expected backend structure
+interface EngagementData {
+  engagementRate: number;
+  activePrograms: number;
+  totalPoints: number;
+  patients: Array<{
+    name: string;
+    organization: string;
+    engagementRate: number;
+    pointsRedeemed: number;
+    lastActivity: string;
   }>;
-  engagement_trends: Array<{ trend: string; percentage: number }>;
-  streak_statistics: Array<{ streak: string; active_users: number }>;
+  trends: {
+    weekly: number;
+    monthly: number;
+    rewardActivity: number;
+  };
+  streaks: {
+    sevenDay: number;
+    thirtyDay: number;
+    sixtyDay: number;
+  };
 }
 
-const engagementLevelToRate: Record<string, number> = {
-  high: 85,
-  medium: 60,
-  low: 35,
+// Placeholder data to simulate backend response
+const placeholderData: EngagementData = {
+  engagementRate: 78,
+  activePrograms: 12,
+  totalPoints: 285432,
+  patients: [
+    {
+      name: "Madison Carano",
+      organization: "HealthOne",
+      engagementRate: 92,
+      pointsRedeemed: 1200,
+      lastActivity: "2h ago",
+    },
+    {
+      name: "William Johnson",
+      organization: "MediCare",
+      engagementRate: 88,
+      pointsRedeemed: 980,
+      lastActivity: "3h ago",
+    },
+    {
+      name: "Vanessa Jefferson",
+      organization: "HealthOne",
+      engagementRate: 85,
+      pointsRedeemed: 1100,
+      lastActivity: "1h ago",
+    },
+  ],
+  trends: {
+    weekly: 5,
+    monthly: 12,
+    rewardActivity: 8,
+  },
+  streaks: {
+    sevenDay: 65,
+    thirtyDay: 45,
+    sixtyDay: 30,
+  },
 };
 
-function formatLastActive(isoDate: string): string {
-  if (!isoDate) return "—";
-  const d = new Date(isoDate);
-  const now = new Date();
-  const diffMs = now.getTime() - d.getTime();
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays < 7) return `${diffDays}d ago`;
-  return d.toLocaleDateString();
-}
-
+// Main component
 const ClientEngagement: React.FC = () => {
-  const [data, setData] = useState<ClientEngagementApiResponse | null>(null);
+  // State to hold engagement data
+  const [data, setData] = useState<EngagementData | null>(null);
+
+  // State to track loading status
   const [loading, setLoading] = useState<boolean>(true);
+
+  // State to track any errors
   const [error, setError] = useState<string | null>(null);
 
+  // Simulate backend fetch using placeholder data
   useEffect(() => {
-    const fetchData = async () => {
+    const simulateFetch = async (): Promise<void> => {
       try {
-        setLoading(true);
-        setError(null);
-        const response = await adminAPI.getClientEngagement();
-        setData(response.data);
+        // Simulate network delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Set placeholder data as if it came from backend
+        setData(placeholderData);
       } catch (err) {
-        setError((err as Error).message ?? "Failed to load engagement data");
+        // Catch any unexpected errors
+        setError((err as Error).message);
       } finally {
+        // Stop loading spinner
         setLoading(false);
       }
     };
-    fetchData();
+
+    simulateFetch();
   }, []);
 
+  // Temporary usage to satisfy ESLint (remove once real props are passed)
+  console.log("Simulated data:", data);
+  console.log("Loading state:", loading);
+
+  // Show error message if something goes wrong
   if (error) {
     return (
       <SystemAdminLayout title="Client Engagement">
@@ -87,59 +123,50 @@ const ClientEngagement: React.FC = () => {
     );
   }
 
-  if (loading) {
-    return (
-      <SystemAdminLayout title="Client Engagement">
-        <Container className="py-5 text-center">
-          <Spinner animation="border" />
-          <p className="mt-2">Loading engagement data...</p>
-        </Container>
-      </SystemAdminLayout>
-    );
-  }
-
-  const engagementRate = data ? Number(data.average_daily_engagement) : 0;
-
-  const trends = (data?.engagement_trends ?? []).reduce(
-    (acc, t) => {
-      if (t.trend.toLowerCase().includes("morning"))
-        acc.courseCompletion = t.percentage;
-      else if (t.trend.toLowerCase().includes("weekend"))
-        acc.memberActivity = t.percentage;
-      return acc;
-    },
-    { courseCompletion: 0, memberActivity: 0 },
-  );
-
-  const streakList = data?.streak_statistics ?? [];
-  const sevenDay =
-    streakList.find((s) => s.streak.includes("7"))?.active_users ?? 0;
-  const thirtyDay =
-    streakList.find((s) => s.streak.includes("14"))?.active_users ?? 0;
-  const sixtyDay =
-    streakList.find((s) => s.streak.includes("30"))?.active_users ?? 0;
-  const streaks = { sevenDay, thirtyDay, sixtyDay };
-
-  const tablePatients = (data?.clients ?? []).map((c) => ({
-    name: c.client_name,
-    organization: c.organization_name,
-    engagementRate: engagementLevelToRate[c.engagement_level] ?? 50,
-    lastActivity: formatLastActive(c.last_active),
-  }));
-
+  // Render dashboard layout
   return (
     <SystemAdminLayout title="Client Engagement">
+      {/* Main dashboard content on the right */}
       <div className="flex-grow-1 overflow-auto">
         <Container className="py-4">
-          <EngagementSummary engagementRate={engagementRate} />
+          {/* Top summary metrics */}
+          <EngagementSummary
+            engagementRate={data?.engagementRate ?? 0}
+            activePrograms={data?.activePrograms ?? 0}
+            totalPoints={data?.totalPoints ?? 0}
+          />
 
-          <EngagementCharts weeklyEngagement={data?.weekly_engagement ?? []} />
+          {/* Charts for engagement and redemptions */}
+          <EngagementCharts />
 
-          <PatientSearchFilter />
+          {/* Search and filter controls */}
+          {/* <PatientSearchFilter /> */}
 
-          {/* <PatientEngagementTable patients={tablePatients} /> */}
+          {/* Table of patient engagement */}
+          {/* <PatientEngagementTable /> */}
 
-          <EngagementStatsPanel trends={trends} streaks={streaks} />
+          {/* Bottom panel with trends and streaks */}
+          <EngagementStatsPanel
+            topRewards={
+              data?.patients
+                .sort((a, b) => b.pointsRedeemed - a.pointsRedeemed)
+                .slice(0, 3)
+                .map((patient) => ({
+                  name: patient.name,
+                  points: patient.pointsRedeemed,
+                })) ?? []
+            }
+            trends={{
+              courseCompletion: data?.trends.weekly ?? 0,
+              rewardRedemption: data?.trends.rewardActivity ?? 0,
+              memberActivity: data?.trends.monthly ?? 0,
+            }}
+            streaks={{
+              sevenDay: data?.streaks.sevenDay ?? 0,
+              thirtyDay: data?.streaks.thirtyDay ?? 0,
+              sixtyDay: data?.streaks.sixtyDay ?? 0,
+            }}
+          />
         </Container>
       </div>
     </SystemAdminLayout>

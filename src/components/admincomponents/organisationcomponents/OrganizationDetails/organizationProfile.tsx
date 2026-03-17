@@ -21,36 +21,8 @@ export function OrganizationProfile({
   location,
   lastActive,
 }: OrganizationProfileProps) {
-  // Debug: Log props to console
-  console.log("OrganizationProfile Props:", {
-    name,
-    id,
-    subscriptionPlan,
-    status,
-    location,
-    lastActive,
-  });
-
   return (
     <div className="organization-profile">
-      {/* Debug info */}
-      <div className="mb-2 p-2 bg-danger text-white">
-        <small>
-          Component Props Debug:
-          <br />
-          Name: {name}
-          <br />
-          ID: {id}
-          <br />
-          Plan: {subscriptionPlan}
-          <br />
-          Status: {status}
-          <br />
-          Location: {location}
-          <br />
-          LastActive: {lastActive}
-        </small>
-      </div>
 
       {/* Main organization information card */}
       <Card className="mb-3">

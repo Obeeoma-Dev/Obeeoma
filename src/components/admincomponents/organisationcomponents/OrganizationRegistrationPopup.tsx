@@ -34,8 +34,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
 import CustomStepper from "../../../components/stepper";
-import SuccessModal from "../../../components/SuccessModal";
-import { registerUser } from "../../../store/slices/authSlice";
+import { useToast } from "../../../hooks/use-toast";
+import { authAPI } from "../../../api/apiConfig";
+import { useOrganizationData } from "../../../hooks/useOrganizationData";
+import { ConditionalAPI } from "../../../contexts/OrganizationContext";
 
 const customStyles = {
   primaryColor: "#22C55E",
@@ -141,22 +143,24 @@ interface OrganizationRegistrationPopupProps {
   show: boolean;
   onHide: () => void;
   onRegistrationSuccess?: () => void;
+  conditionalAPI?: ConditionalAPI;
 }
 
 const OrganizationRegistrationPopup: React.FC<
   OrganizationRegistrationPopupProps
-> = ({ show, onHide, onRegistrationSuccess }) => {
+> = ({ show, onHide, onRegistrationSuccess, conditionalAPI }) => {
   const [role] = useState<Role>("employer");
   const dispatch = useDispatch<AppDispatch>();
   const { error, isLoading } = useSelector(
     (state: { auth: { error: string | null; isLoading: boolean } }) =>
       state.auth,
   );
+  const { toast } = useToast();
+  const { addOrganization } = useOrganizationData(conditionalAPI);
 
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
 
   const togglePasswordVisibility = () => {
@@ -167,21 +171,6 @@ const OrganizationRegistrationPopup: React.FC<
     setShowConfirmPassword((prev) => !prev);
   };
 
-  const handleCloseSuccessModal = () => {
-    setShowSuccessModal(false);
-    onHide();
-    if (onRegistrationSuccess) {
-      onRegistrationSuccess();
-    }
-  };
-
-  const handleContinueToDashboard = () => {
-    setShowSuccessModal(false);
-    onHide();
-    if (onRegistrationSuccess) {
-      onRegistrationSuccess();
-    }
-  };
 
   const initialValues: RegisterFormValues = {
     organizationName: "",
@@ -346,11 +335,83 @@ const OrganizationRegistrationPopup: React.FC<
       };
 
       try {
-        await dispatch(registerUser(credentials)).unwrap();
-        setShowSuccessModal(true);
+        console.log("Submitting registration credentials:", credentials);
+        const response = await authAPI.register(credentials);
+        console.log("Registration response:", response);
+
+        // Show success toast
+        toast({
+          message: "Organization created successfully. You can now login with these credentials.",
+        });
+
+        // Add the new organization to the table (convert response to table format)
+        const newOrg = {
+          id: response.organization?.id?.toString() || response.id?.toString() || Date.now().toString(),
+          name: values.organizationName,
+          clients: 0,
+          plan: "Freemium",
+          status: "Active",
+          lastActive: new Date().toLocaleDateString(),
+          address: finalLocation,
+          programs: 0,
+          icon: "",
+        };
+
+        console.log("Adding new organization to table:", newOrg);
+
+        try {
+          addOrganization(newOrg);
+          console.log("Successfully added organization to table");
+        } catch (tableError) {
+          console.error("Error adding organization to table:", tableError);
+          // Don't fail the whole registration if table update fails
+          toast({
+            message: "Organization created successfully, but there was an issue updating the table. Please refresh the page.",
+          });
+        }
+
+        // Close modal and call success callback
+        onHide();
+        if (onRegistrationSuccess) {
+          onRegistrationSuccess();
+        }
+
         setActiveStep((prev) => prev + 1);
       } catch (err: unknown) {
         console.error("Registration failed:", err);
+
+        // Handle different types of errors
+        if (err && typeof err === 'object' && 'response' in err) {
+          const axiosError = err as { response?: { data?: unknown } };
+          if (axiosError.response?.data) {
+            const errorData = axiosError.response.data;
+
+            // Handle field-specific errors
+            if (typeof errorData === 'object' && errorData !== null) {
+              const errorDataObj = errorData as { [key: string]: unknown };
+              const errorMessages: string[] = [];
+
+              // Check for non_field_errors (like password too common)
+              if (Array.isArray(errorDataObj.non_field_errors)) {
+                errorMessages.push(...(errorDataObj.non_field_errors as string[]));
+              }
+
+              // Check for field-specific errors
+              Object.keys(errorDataObj).forEach(field => {
+                if (field !== 'non_field_errors' && Array.isArray(errorDataObj[field])) {
+                  errorMessages.push(`${field}: ${(errorDataObj[field] as string[]).join(', ')}`);
+                }
+              });
+
+              if (errorMessages.length > 0) {
+                setLocalError(errorMessages.join('; '));
+                return;
+              }
+            }
+          }
+        }
+
+        // Fallback error handling
         const errorMessage =
           err instanceof Error
             ? err.message
@@ -774,14 +835,13 @@ const OrganizationRegistrationPopup: React.FC<
               className="fw-semibold text-dark"
               style={{ fontFamily: "body" }}
             >
-              Registration Successful!
+              Organization Created Successfully!
             </h4>
             <p className="text-muted mb-4" style={{ fontFamily: "body" }}>
-              Your account has been registered and an email has been sent to
-              your email.
+              You can now login using the organization credentials.
             </p>
             <Button
-              onClick={handleContinueToDashboard}
+              onClick={onHide}
               className="w-100 py-3 fw-semibold"
               style={{
                 backgroundColor: customStyles.primaryColor,
@@ -792,7 +852,7 @@ const OrganizationRegistrationPopup: React.FC<
                 fontFamily: "body",
               }}
             >
-              Continue to Dashboard
+              Close
             </Button>
           </div>
         );
@@ -969,12 +1029,6 @@ const OrganizationRegistrationPopup: React.FC<
         </Modal.Body>
       </Modal>
 
-      <SuccessModal
-        show={showSuccessModal}
-        onHide={handleCloseSuccessModal}
-        primaryColor={customStyles.primaryColor}
-        handleClose={handleCloseSuccessModal}
-      />
     </>
   );
 };

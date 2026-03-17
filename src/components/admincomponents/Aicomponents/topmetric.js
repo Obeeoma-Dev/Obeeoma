@@ -2,8 +2,10 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { Row, Col } from "react-bootstrap";
 import { BrainCircuit, Activity, ThumbsUp } from "lucide-react";
 import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
-const TopMetrics = ({ totalRecommendations, engagementRate, averageTime = "—", aiAccuracyScore = 0, }) => {
-    return (_jsx(_Fragment, { children: _jsxs(Row, { className: "g-4 mb-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Recommendations Today", value: totalRecommendations.toLocaleString(), subtitle: "Sent to users", trend: "+16.5% this month", icon: BrainCircuit, color: "emerald" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Hotline Refferrals", value: `${engagementRate}`, subtitle: "This week", trend: "+5% this month", icon: Activity, color: "emerald" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "AI Accuracy Score", value: typeof aiAccuracyScore === "number" ? `${aiAccuracyScore}%` : "—", subtitle: "Based on user feedback", trend: "+2% this month", icon: ThumbsUp, color: "emerald" }) })] }) }));
+// TopMetrics component
+// Renders the top summary cards using the shared StatCard component
+const TopMetrics = ({ totalRecommendations, engagementRate, averageTime, }) => {
+    return (_jsx(_Fragment, { children: _jsxs(Row, { className: "g-4 mb-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Recommendations Today", value: totalRecommendations.toLocaleString(), subtitle: "Sent to users", trend: "+16.5% this month", icon: BrainCircuit, color: "emerald" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Hotline Refferrals", value: `${engagementRate}`, subtitle: "This week", trend: "+5% this month", icon: Activity, color: "emerald" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(HoverStatCard, { title: "Resources Shared", value: "89", subtitle: "This month", trend: "+2% this month", icon: ThumbsUp, color: "emerald" }) })] }) }));
 };
 // Export component
 export default TopMetrics;
