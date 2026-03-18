@@ -96,17 +96,11 @@ export function OrganizationDetails() {
         return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { className: "flex-grow-1 d-flex align-items-center justify-content-center", children: _jsxs("div", { className: "text-center", children: [_jsx("div", { className: "text-danger mb-3", children: error || "Organization not found" }), _jsx(Button, { variant: "outline-success", onClick: () => navigate(-1), children: "Go Back" })] }) })] })] }));
     }
     return (
-        // Root layout: sidebar + main content
-        _jsxs("div", {
-            className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", {
-                className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", {
-                    style: {
-                        flex: 1,
-                        overflowY: "auto",
-                        padding: "1rem",
-                        backgroundColor: "#f8f9fa",
-                    }, children: _jsxs(Container, { fluid: "xl", children: [_jsxs(Row, { className: "align-items-center mb-4", children: [_jsx(Col, { children: _jsx(Stack, { direction: "horizontal", gap: 3, children: _jsx(Button, { variant: "light", onClick: () => navigate(-1), "aria-label": "Go back", children: _jsx(ArrowLeft, { size: 20 }) }) }) }), _jsx(Col, { xs: "auto", children: _jsxs(Stack, { direction: "horizontal", gap: 2, children: [_jsxs(Button, { variant: "outline-success", children: [_jsx(CreditCard, { size: 16 }), "Manage Subscription"] }), _jsxs(Button, { variant: "success", children: [_jsx(Save, { size: 16 }), "Save Changes"] })] }) })] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationProfile, { name: organization.name, id: `ORG-${organization.id}`, subscriptionPlan: organization.current_plan || "Freemium", status: organization.is_active ? "Active" : "Inactive", location: organization.Location || "Not specified", lastActive: new Date(organization.joined_date).toLocaleDateString() }) }), _jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationStats, { organization: organization }) })] }), _jsxs(Col, { lg: 12, children: [_jsx("div", { className: "chart-row-wrapper", children: _jsx(Row, { className: "align-items-stretch mb-4 mb-lg-0", children: _jsx(Col, { lg: 12, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(PlatformUsageChart, {}) }) }) }) }), _jsx("div", { className: "mt-4", children: _jsx(RecentActivity, {}) })] })] })
-                })]
-            })]
-        }));
+    // Root layout: sidebar + main content
+    _jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { style: {
+                            flex: 1,
+                            overflowY: "auto",
+                            padding: "1rem",
+                            backgroundColor: "#f8f9fa",
+                        }, children: _jsxs(Container, { fluid: "xl", children: [_jsxs(Row, { className: "align-items-center mb-4", children: [_jsx(Col, { children: _jsx(Stack, { direction: "horizontal", gap: 3, children: _jsx(Button, { variant: "light", onClick: () => navigate(-1), "aria-label": "Go back", children: _jsx(ArrowLeft, { size: 20 }) }) }) }), _jsx(Col, { xs: "auto", children: _jsxs(Stack, { direction: "horizontal", gap: 2, children: [_jsxs(Button, { variant: "outline-success", children: [_jsx(CreditCard, { size: 16 }), "Manage Subscription"] }), _jsxs(Button, { variant: "success", children: [_jsx(Save, { size: 16 }), "Save Changes"] })] }) })] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationProfile, { name: organization.name, id: `ORG-${organization.id}`, subscriptionPlan: organization.current_plan || "Freemium", status: organization.is_active ? "Active" : "Inactive", location: organization.Location || "Not specified", lastActive: new Date(organization.joined_date).toLocaleDateString() }) }), _jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationStats, { organization: organization }) })] }), _jsxs(Col, { lg: 12, children: [_jsx("div", { className: "chart-row-wrapper", children: _jsx(Row, { className: "align-items-stretch mb-4 mb-lg-0", children: _jsx(Col, { lg: 12, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(PlatformUsageChart, {}) }) }) }) }), _jsx("div", { className: "mt-4", children: _jsx(RecentActivity, {}) })] })] }) })] })] }));
 }

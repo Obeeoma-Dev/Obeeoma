@@ -36,9 +36,10 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "auth/reset-password/",
         "auth/reset-password/complete/",
         "organization-signup/",
-        "auth/verify-invitation-otp/",
+        // "auth/verify-invitation-otp/",
         "auth/mfa/setup/",
         "auth/mfa/verify/",
+        "auth/verify-password-reset-otp/"
       ];
 
       const isPublicEndpoint = publicEndpoints.some(
