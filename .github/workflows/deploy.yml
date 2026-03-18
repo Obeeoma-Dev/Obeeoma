@@ -76,8 +76,8 @@ jobs:
             git fetch --all
             git reset --hard origin/main
 
-            # The '-e' flag EXCLUDES Obeeoma from being deleted by the clean command
-            git clean -fd -e Obeeoma/
+            # The '-e' flag EXCLUDES Obeeoma and api from being deleted by the clean command
+            git clean -fd -e Obeeoma/ -e api/
 
             echo "--- STEP 3: Inject Secrets ---"
             mkdir -p ./api
