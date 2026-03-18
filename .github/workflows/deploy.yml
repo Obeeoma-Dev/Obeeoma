@@ -76,12 +76,12 @@ jobs:
             git fetch --all
             git reset --hard origin/main
 
-            # The '-e' flag EXCLUDES Obeeoma and api from being deleted by the clean command
-            git clean -fd -e Obeeoma/ -e api/
+            # The '-e' flag EXCLUDES Obeeoma, api, and Backend from being deleted by the clean command
+            git clean -fd -e Obeeoma/ -e api/ -e Backend/
 
             echo "--- STEP 3: Inject Secrets ---"
-            mkdir -p ./api
-            echo "${{ secrets.BACKEND_ENV_FILE }}" > ./api/.env
+            mkdir -p ./Backend/api
+            echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
 
             echo "--- STEP 4: Docker Rebuild ---"
 
