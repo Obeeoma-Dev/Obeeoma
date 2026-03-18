@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: ./Obeeoma
+      context: .
       dockerfile: Dockerfile
     container_name: obeeoma_frontend
     ports:
