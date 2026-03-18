@@ -80,8 +80,8 @@ jobs:
             git clean -fd -e Obeeoma/
 
             echo "--- STEP 3: Inject Secrets ---"
-            mkdir -p ./Backend/api
-            echo "${{ secrets.BACKEND_ENV_FILE }}" > ./Backend/api/.env
+            mkdir -p ./api
+            echo "${{ secrets.BACKEND_ENV_FILE }}" > ./api/.env
 
             echo "--- STEP 4: Docker Rebuild ---"
 
