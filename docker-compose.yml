@@ -1,6 +1,8 @@
 services:
   frontend:
-    build: ./Obeeoma
+    build:
+      context: ./Obeeoma
+      dockerfile: Dockerfile
     container_name: obeeoma_frontend
     ports:
       - "3000:3000"
