@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Stack, Button, Spinner } from "react-bootstrap";
 import { ArrowLeft, CreditCard, Save } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -10,38 +10,48 @@ import Header from "../../../components/admincomponents/adminheader";
 import { OrganizationProfile } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationProfile";
 import { OrganizationStats } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationStats";
 import { PlatformUsageChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse";
-import { ProgramEngagementChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart";
+// import { ProgramEngagementChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart";
 import { RecentActivity } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity";
-import { API_BASE_URL } from "../../../api/apiConfig";
 import "./orgpage.css";
 export function OrganizationDetails() {
+    // Get organization ID from URL params
     const { id } = useParams();
     const navigate = useNavigate();
-    // Use same API base URL as rest of app (from .env VITE_API_BASE_URL)
+    // Environment detection and conditional API setup
+    const isLocalhost = window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
+    const conditionalAPIBaseURL = isLocalhost
+        ? "http://127.0.0.1:8000/api/v1" // Neon backend for localhost development
+        : "http://64.225.122.101:8000/api/v1"; // Digital Ocean backend for production
+    // Create a stable API instance (so it doesn't change every render)
     const conditionalAPI = useMemo(() => {
         const instance = axios.create({
-            baseURL: API_BASE_URL,
-            headers: { "Content-Type": "application/json" },
+            baseURL: conditionalAPIBaseURL,
+            headers: {
+                "Content-Type": "application/json",
+            },
         });
         instance.interceptors.request.use((config) => {
             const token = localStorage.getItem("token");
-            if (token)
+            if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
+            }
             return config;
         });
         return instance;
-    }, []);
-    const conditionalAPIWithMethods = useMemo(() => ({
-        getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
-            const params = new URLSearchParams({
-                page: page.toString(),
-                page_size: pageSize.toString(),
-            });
-            if (search)
-                params.append("search", search);
-            return conditionalAPI.get(`/admin/organizations/?${params}`);
-        },
-    }), [conditionalAPI]);
+    }, [conditionalAPIBaseURL]);
+    // Use the stable instance for requests
+    const getOrganizationsList = React.useCallback(async (page = 1, pageSize = 10, search = "") => {
+        const params = new URLSearchParams({
+            page: page.toString(),
+            page_size: pageSize.toString(),
+        });
+        if (search) {
+            params.append("search", search);
+        }
+        const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
+        return response;
+    }, [conditionalAPI]);
     // State for organization data
     const [organization, setOrganization] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -56,14 +66,12 @@ export function OrganizationDetails() {
             }
             try {
                 setLoading(true);
-                console.log(`Fetching organization details for ID: ${id}`);
                 // Use conditional API to avoid /v1/ duplication
-                const response = await conditionalAPIWithMethods.getOrganizationsList(1, 100, ""); // Get all orgs
+                const response = await getOrganizationsList(1, 100, ""); // Get all orgs
                 const allOrgs = response.data.results || response.data || [];
                 const foundOrg = allOrgs.find((org) => org.id.toString() === id);
                 if (foundOrg) {
                     setOrganization(foundOrg);
-                    console.log("Found organization:", foundOrg);
                 }
                 else {
                     setError("Organization not found");
@@ -78,7 +86,7 @@ export function OrganizationDetails() {
             }
         };
         fetchOrganizationDetails();
-    }, [id, conditionalAPIWithMethods]);
+    }, [id, getOrganizationsList]);
     // Show loading state
     if (loading) {
         return (_jsxs("div", { className: "d-flex vh-100", children: [_jsx(Sidebar, {}), _jsxs("div", { className: "flex-grow-1 d-flex flex-column overflow-hidden", children: [_jsx(Header, {}), _jsx("div", { className: "flex-grow-1 d-flex align-items-center justify-content-center", children: _jsxs("div", { className: "text-center", children: [_jsx(Spinner, { animation: "border", variant: "success" }), _jsx("div", { className: "mt-2", children: "Loading organization details..." })] }) })] })] }));
@@ -94,9 +102,5 @@ export function OrganizationDetails() {
                             overflowY: "auto",
                             padding: "1rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsxs(Container, { fluid: "xl", children: [_jsxs(Row, { className: "align-items-center mb-4", children: [_jsx(Col, { children: _jsx(Stack, { direction: "horizontal", gap: 3, children: _jsx(Button, { variant: "light", onClick: () => navigate(-1), "aria-label": "Go back", children: _jsx(ArrowLeft, { size: 20 }) }) }) }), _jsx(Col, { xs: "auto", children: _jsxs(Stack, { direction: "horizontal", gap: 2, children: [_jsxs(Button, { variant: "outline-success", children: [_jsx(CreditCard, { size: 16 }), "Manage Subscription"] }), _jsxs(Button, { variant: "success", children: [_jsx(Save, { size: 16 }), "Save Changes"] })] }) })] }), _jsx("div", { className: "mb-3 p-2 bg-light", children: _jsxs("small", { className: "text-muted", children: ["Debug: Organization ID = ", id, " | Org Name = ", organization?.name, " ", "| Plan = ", organization?.current_plan, " | Status =", " ", organization?.is_active ? "Active" : "Inactive", " | Location =", " ", organization?.Location || "No Location field", " | Location Type = ", typeof organization?.Location, " | Location Value =", " ", JSON.stringify(organization?.Location), " | Clients =", " ", organization?.client_count || "No client_count field", " | Available Keys:", " ", organization
-                                                ? Object.keys(organization).join(", ")
-                                                : "No org data"] }) }), _jsx("div", { className: "mb-3 p-2 bg-warning", children: _jsxs("small", { className: "text-muted", children: ["Props being passed to OrganizationProfile: Name =", " ", organization?.name, " | ID = ", `ORG-${organization?.id}`, " | Plan =", " ", organization?.current_plan || "Freemium", " | Status =", " ", organization?.is_active ? "Active" : "Inactive", " | Location =", " ", organization?.Location || "Not specified", " | LastActive =", " ", organization
-                                                ? new Date(organization.joined_date).toLocaleDateString()
-                                                : "N/A"] }) }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationProfile, { name: organization.name, id: `ORG-${organization.id}`, subscriptionPlan: organization.current_plan || "Freemium", status: organization.is_active ? "Active" : "Inactive", location: organization.Location || "Not specified", lastActive: new Date(organization.joined_date).toLocaleDateString() }) }), _jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationStats, {}) })] }), _jsxs(Col, { lg: 12, children: [_jsx("div", { className: "chart-row-wrapper", children: _jsxs(Row, { className: "align-items-stretch mb-4 mb-lg-0", children: [_jsx(Col, { lg: 6, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(PlatformUsageChart, {}) }) }), _jsx(Col, { lg: 6, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(ProgramEngagementChart, {}) }) })] }) }), _jsx("div", { className: "mt-4", children: _jsx(RecentActivity, {}) })] })] }) })] })] }));
+                        }, children: _jsxs(Container, { fluid: "xl", children: [_jsxs(Row, { className: "align-items-center mb-4", children: [_jsx(Col, { children: _jsx(Stack, { direction: "horizontal", gap: 3, children: _jsx(Button, { variant: "light", onClick: () => navigate(-1), "aria-label": "Go back", children: _jsx(ArrowLeft, { size: 20 }) }) }) }), _jsx(Col, { xs: "auto", children: _jsxs(Stack, { direction: "horizontal", gap: 2, children: [_jsxs(Button, { variant: "outline-success", children: [_jsx(CreditCard, { size: 16 }), "Manage Subscription"] }), _jsxs(Button, { variant: "success", children: [_jsx(Save, { size: 16 }), "Save Changes"] })] }) })] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationProfile, { name: organization.name, id: `ORG-${organization.id}`, subscriptionPlan: organization.current_plan || "Freemium", status: organization.is_active ? "Active" : "Inactive", location: organization.Location || "Not specified", lastActive: new Date(organization.joined_date).toLocaleDateString() }) }), _jsx(Col, { lg: 6, className: "mb-4", children: _jsx(OrganizationStats, { organization: organization }) })] }), _jsxs(Col, { lg: 12, children: [_jsx("div", { className: "chart-row-wrapper", children: _jsx(Row, { className: "align-items-stretch mb-4 mb-lg-0", children: _jsx(Col, { lg: 12, className: "d-flex flex-column", children: _jsx("div", { className: "flex-grow-1", children: _jsx(PlatformUsageChart, {}) }) }) }) }), _jsx("div", { className: "mt-4", children: _jsx(RecentActivity, {}) })] })] }) })] })] }));
 }

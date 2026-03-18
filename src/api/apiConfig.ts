@@ -357,6 +357,33 @@ export const adminAPI = {
     const response = await api.delete("/admin/ai-chat/clear-history/");
     return response;
   },
+
+  // AI Status Management APIs
+  toggleAdminAI: async (payload: { enabled: boolean }) => {
+    const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "admin_ai" });
+    return response;
+  },
+
+  toggleLandingAI: async (payload: { enabled: boolean }) => {
+    const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "landing_ai" });
+    return response;
+  },
+
+  toggleMobileAI: async (payload: { enabled: boolean }) => {
+    const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "mobile_ai" });
+    return response;
+  },
+
+  getAIStatus: async () => {
+    const response = await api.get("/admin/ai-status/");
+    return response;
+  },
+
+  // Receptionist AI Chat APIs (Public - No authentication required)
+  sendReceptionistMessage: async (payload: { message: string; session_id?: string }) => {
+    const response = await api.post("/receptionist/ai-chat/", payload);
+    return response;
+  },
 };
 
 // employer endpoints

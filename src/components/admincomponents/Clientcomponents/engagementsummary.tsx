@@ -1,40 +1,73 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { TrendingUp, LucideIcon } from "lucide-react";
-import { HoverStatCard } from "../Hotlinecomponents/hoverCard";
+import { TrendingUp, Award, Gift, LucideIcon } from "lucide-react";
+import { HoverStatCard } from "../Hotlinecomponents/hoverCard"; // adjust path
 import "./engagement.css";
 
 type MetricColor = "emerald" | "blue" | "amber" | "rose";
 
 interface EngagementSummaryProps {
   engagementRate: number;
+  activePrograms: number;
+  totalPoints: number;
 }
 
 const EngagementSummary: React.FC<EngagementSummaryProps> = ({
-  engagementRate = 0,
+  engagementRate,
+  activePrograms,
+  totalPoints,
 }) => {
-  const metric = {
-    title: "Engagement Rate",
-    value: `${engagementRate != null ? Number(engagementRate) : 0}%`,
-    subtitle: "Client activity this week",
-    trend: "+5% this week",
-    icon: TrendingUp as LucideIcon,
-    color: "emerald" as MetricColor,
-  };
+  const metrics: {
+    title: string;
+    value: string | number;
+    subtitle: string;
+    trend: string;
+    icon: LucideIcon;
+    color: MetricColor;
+  }[] = [
+    {
+      title: "Engagement Rate",
+      value: `${engagementRate}%`,
+      subtitle: "Client activity this week",
+      trend: "+5% this week",
+      icon: TrendingUp,
+      color: "emerald",
+    },
+    {
+      title: "Active Reward Programs",
+      value: activePrograms,
+      subtitle: "Programs currently running",
+      trend: "+2 this month",
+      icon: Award,
+      color: "emerald",
+    },
+    {
+      title: "Rewards Assisted",
+      value: totalPoints.toLocaleString(),
+      subtitle: "Total points distributed",
+      trend: "+15% this month",
+      icon: Gift,
+      color: "emerald",
+    },
+  ];
 
   return (
-    <Row className="mb-4">
-      <Col md={12} lg={4}>
-        <HoverStatCard
-          title={metric.title}
-          value={metric.value}
-          subtitle={metric.subtitle}
-          trend={metric.trend}
-          icon={metric.icon}
-          color={metric.color}
-        />
-      </Col>
-    </Row>
+    <>
+      <Row className="mb-4">
+        {metrics.map((metric, index) => (
+          <Col key={index} md={4}>
+            <HoverStatCard
+              title={metric.title}
+              value={metric.value}
+              subtitle={metric.subtitle}
+              trend={metric.trend}
+              icon={metric.icon}
+              color={metric.color}
+            />
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 };
 

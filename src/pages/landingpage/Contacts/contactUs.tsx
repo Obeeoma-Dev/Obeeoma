@@ -6,6 +6,7 @@ import { Phone, Mail } from "lucide-react";
 import { ContactCard } from "../../../components/Contactus/contactCard";
 import { ContactForm } from "../../../components/Contactus/contactForm";
 import { FloatingWhatsApp } from "../../../components/Contactus/floatingWhatsup";
+import ReceptionistFloatingChat from "../../../components/landingpage/Contacts/ReceptionistFloatingChat";
 // Importing React-Bootstrap components
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 
@@ -17,12 +18,12 @@ import ContactBG from "../../../assets/Images/contacts.jpg";
 // Importing the social handle footer.
 import Footer from "../../../components/shared/socialhandlesfooter";
 
-// Define the functional component using TypeScript
+// Define functional component using TypeScript
 export const ContactPage: React.FC = () => {
   // State to handle animation visibility
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  // useEffect runs after the component mounts
+  // useEffect runs after component mounts
   useEffect(() => {
     // Trigger animations after component loads
     setIsVisible(true);
@@ -101,8 +102,8 @@ export const ContactPage: React.FC = () => {
               />
             </Col>
             {/* <Col md={4}>
-                        <ContactCard icon={MapPin} title="Visit Us" content="Lagos, Nigeria" />
-                    </Col> */}
+                          <ContactCard icon={MapPin} title="Visit Us" content="Lagos, Nigeria" />
+                      </Col> */}
           </Row>
         </Container>
 
@@ -279,7 +280,12 @@ export const ContactPage: React.FC = () => {
         <Footer />
 
         {/* Floating WhatsApp Button */}
-        <FloatingWhatsApp />
+        <div className="mb-4">
+          <FloatingWhatsApp />
+        </div>        
+
+        {/* AI Receptionist Chat */}
+        <ReceptionistFloatingChat />
       </main>
     </div>
   );

@@ -215,12 +215,16 @@ const Layout = ({ children, title }: LayoutProps) => {
                   >
                     {/* 1. Organization Name/Fallback */}
                     <span
-                      className="fw-medium text-dark d-flex align-items-center mb-1"
+                      className="fw-medium text-dark d-flex align-items-center mb-2"
                       style={{ fontFamily: "body" }}
                       aria-label={`Organization name: ${organizationNameOrDefault}`}
                     >
                       {organizationNameOrDefault}{" "}
-                      <ChevronRight size={16} className="ms-1" />
+                      <ChevronRight
+                        size={16}
+                        color="#117134"
+                        className="ms-1"
+                      />
                     </span>
 
                     {/* 2. Contact link*/}

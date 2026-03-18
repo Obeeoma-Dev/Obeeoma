@@ -30,7 +30,7 @@ export function PlatformUsageChart() {
       <Card.Body>
         {/* Chart title */}
         <Card.Title className="platform-usage-title">
-          Platform Usage (Last 6 Weeks)
+          Platform Usage (per 6 Weeks)
         </Card.Title>
 
         {/* Fixed-height container to control chart size */}

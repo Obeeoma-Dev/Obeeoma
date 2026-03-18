@@ -1,0 +1,403 @@
+/* Blog Table Specific Styles - Scoped to avoid conflicts */
+/* Using specific naming convention: blogtable-* */
+
+/* Main table card */
+.blogtable-table-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Header section */
+.blogtable-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 2px solid #dee2e6;
+  padding: 1.5rem;
+}
+
+.blogtable-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 0.25rem 0;
+  font-family: "heading", system-ui, -apple-system, sans-serif;
+}
+
+.blogtable-subtitle {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin: 0;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+/* Stats badges */
+.blogtable-stats {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.blogtable-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+.blogtable-views-badge {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+}
+
+.blogtable-reads-badge {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+/* Add button */
+.blogtable-add-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 0.625rem 1.25rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.blogtable-add-button:hover {
+  background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* Toolbar */
+.blogtable-toolbar {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.blogtable-search-group {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.blogtable-search-icon {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-right: none;
+  color: #6c757d;
+}
+
+.blogtable-search-input {
+  border-left: none;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+.blogtable-search-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.blogtable-category-select,
+.blogtable-sort-select {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.blogtable-category-select:focus,
+.blogtable-sort-select:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Scrollable Table Container */
+.blogtable-scrollable-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.blogtable-table-container {
+  max-height: 420px;
+  /* Approximately 6 rows * 70px per row */
+  overflow-y: auto;
+  overflow-x: auto;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Custom scrollbar styling */
+.blogtable-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.blogtable-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.blogtable-table-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.blogtable-table-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Table styles */
+.blogtable-main-table {
+  margin-bottom: 0 !important;
+  min-width: 640px;
+}
+
+.blogtable-thead {
+  background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+}
+
+.blogtable-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.blogtable-thead th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  color: white;
+  border: none;
+  padding: 1rem 0.75rem;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+.blogtable-header-title {
+  min-width: 250px;
+}
+
+.blogtable-header-category {
+  min-width: 120px;
+}
+
+.blogtable-header-date {
+  min-width: 100px;
+}
+
+.blogtable-header-status {
+  min-width: 120px;
+}
+
+.blogtable-header-actions {
+  min-width: 200px;
+}
+
+/* Blog rows */
+.blog-row {
+  transition: background-color 0.15s ease;
+  height: 70px;
+  /* Fixed height for consistent scrolling */
+}
+
+.blog-row:hover {
+  background-color: #f8f9fa !important;
+}
+
+.blogtable-tbody {
+  /* Ensure tbody takes full height for proper scrolling */
+  display: table-row-group;
+}
+
+/* Thumbnail images */
+.blogtable-thumb {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease;
+}
+
+.blog-row:hover .blogtable-thumb {
+  transform: scale(1.05);
+}
+
+.blogtable-title-text {
+  font-weight: 500;
+  color: #2c3e50;
+  font-family: "heading", system-ui, -apple-system, sans-serif;
+  line-height: 1.4;
+}
+
+/* Status badges */
+.blogtable-status-published {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+.blogtable-status-draft {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+/* Action buttons */
+.blogtable-action-btn {
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0.375rem;
+  transition: all 0.15s ease;
+  background-color: white;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blogtable-edit-btn:hover {
+  background-color: #e8f5e8;
+  border-color: #28a745;
+  color: #28a745;
+  transform: translateY(-1px);
+}
+
+.blogtable-delete-btn:hover {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  color: #dc3545;
+  transform: translateY(-1px);
+}
+
+/* View and read counts */
+.blogtable-view-count,
+.blogtable-read-count {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 50px;
+  justify-content: center;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+.blogtable-view-count {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+}
+
+.blogtable-read-count {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.blogtable-count-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Empty state */
+.blogtable-empty-state {
+  padding: 3rem 1.5rem;
+  color: #6c757d;
+}
+
+.blogtable-clear-filters {
+  color: #28a745;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.blogtable-clear-filters:hover {
+  background-color: #e8f5e8;
+  color: #218838;
+  text-decoration: none;
+}
+
+/* Results count */
+.blogtable-results-count {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  font-family: "body", system-ui, -apple-system, sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .blogtable-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  .blogtable-add-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .blogtable-stats {
+    flex-wrap: wrap;
+  }
+
+  .blogtable-view-count,
+  .blogtable-read-count {
+    min-width: 45px;
+    font-size: 0.7rem;
+  }
+
+  .blogtable-action-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .blogtable-table-container {
+    max-height: 350px;
+    /* Smaller height for mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  .blogtable-toolbar .row {
+    flex-direction: column;
+    gap: 0.75rem !important;
+  }
+
+  .blogtable-title {
+    font-size: 1.25rem;
+  }
+
+  .blogtable-thead th {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  .blogtable-row {
+    height: 80px;
+    /* Slightly taller for mobile */
+  }
+
+  .blogtable-table-container {
+    max-height: 300px;
+    /* Even smaller for small screens */
+  }
+}

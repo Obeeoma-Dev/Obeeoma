@@ -27,6 +27,29 @@ export interface EmployeeDataPoint {
   value: number;
 }
 
+/* Represents platform usage data from API */
+export interface PlatformUsageData {
+  id: number;
+  week_number: number;
+  usage_count: number;
+  recorded_date: string;
+}
+
+/* Represents subscription revenue data from API */
+export interface SubscriptionRevenueData {
+  id: number;
+  month: string;
+  revenue: string;
+  year: number;
+  recorded_date: string;
+}
+
+/* Represents monthly data point for charts */
+export interface MonthlyDataPoint {
+  month: string;
+  value: number;
+}
+
 /* Represents a bottom metric card with navigation capability */
 export interface BottomMetricCard {
   id: string;
