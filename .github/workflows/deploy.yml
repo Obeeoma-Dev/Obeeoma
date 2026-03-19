@@ -73,14 +73,14 @@ jobs:
               cd api && git fetch origin main && git reset --hard origin/main && cd ..
             fi
 
-            echo "--- STEP 3: Fix Path Nesting ---"
-            # This fixes the "Obeeoma/Obeeoma not found" error by flattening the folder structure
-            if [ -d "Obeeoma/Obeeoma" ]; then
-              echo "Flattening nested Obeeoma folder..."
-              mv Obeeoma/Obeeoma/* Obeeoma/ 2>/dev/null || true
-              mv Obeeoma/Obeeoma/.* Obeeoma/ 2>/dev/null || true
-              rm -rf Obeeoma/Obeeoma
-            fi
+            # echo "--- STEP 3: Fix Path Nesting ---"
+            # # This fixes the "Obeeoma/Obeeoma not found" error by flattening the folder structure
+            # if [ -d "Obeeoma/Obeeoma" ]; then
+            #   echo "Flattening nested Obeeoma folder..."
+            #   mv Obeeoma/Obeeoma/* Obeeoma/ 2>/dev/null || true
+            #   mv Obeeoma/Obeeoma/.* Obeeoma/ 2>/dev/null || true
+            #   rm -rf Obeeoma/Obeeoma
+            # fi
 
             echo "--- STEP 4: Inject Secrets ---"
             # Ensure the api directory exists before writing the .env
