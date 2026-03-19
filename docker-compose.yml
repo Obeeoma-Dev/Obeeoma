@@ -2,7 +2,7 @@ services:
   frontend:
     build:
       # This tells Docker: "Go into the Obeeoma folder and look for the Dockerfile"
-      context: ./Obeeoma
+      context: .
       dockerfile: Dockerfile
     container_name: obeeoma_frontend
     ports:
