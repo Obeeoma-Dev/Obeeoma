@@ -2,9 +2,7 @@ name: Obeeoma CI/CD
 
 on:
   push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 env:
   NODE_VERSION: 20
@@ -51,56 +49,55 @@ jobs:
           key: ${{ secrets.DROPLET_SSH_KEY }}
           port: ${{ secrets.DROPLET_SSH_PORT }}
           timeout: 60m
-          command_timeout: 60m
           script: |
             set -euo pipefail
-            
             cd "${{ env.DEPLOY_DIR }}"
 
-            # Setup Git SSH for sub-repositories (Frontend/Obeeoma)
-            DEPLOY_KEY="$HOME/.ssh/github_deploy_ed25519"
-            if [ -f "$DEPLOY_KEY" ]; then
-              export GIT_SSH_COMMAND="ssh -i ${DEPLOY_KEY} -o StrictHostKeyChecking=no"
-            fi
-
             echo "--- STEP 1: Sync Main Repository ---"
-            git fetch --all
+            # Fetch and Force Reset to kill "Divergent Branch" errors
+            git fetch origin main
             git reset --hard origin/main
             
-            # The '-e' flag protects these folders from being deleted by Git
+            # Protect Obeeoma/ and api/ from being wiped during cleanup
             git clean -fd -e Obeeoma/ -e api/
 
-            echo "--- STEP 2: Update Sub-Repositories ---"
-            # Pull latest changes for the Frontend repo
+            echo "--- STEP 2: Force Sync Sub-Repositories ---"
+            # Using 'reset --hard' instead of 'pull' ensures the server matches GitHub exactly
             if [ -d "Obeeoma/.git" ]; then
-              echo "Updating Frontend (Obeeoma)..."
-              cd Obeeoma && git pull origin main && cd ..
-            else
-              echo "SKIP: Obeeoma folder is missing or not a git repo."
+              echo "Resetting Frontend (Obeeoma)..."
+              cd Obeeoma && git fetch origin main && git reset --hard origin/main && cd ..
             fi
 
-            # Pull latest changes for the Backend (api) repo
             if [ -d "api/.git" ]; then
-              echo "Updating Backend (api)..."
-              cd api && git pull origin main && cd ..
+              echo "Resetting Backend (api)..."
+              cd api && git fetch origin main && git reset --hard origin/main && cd ..
             fi
 
-            echo "--- STEP 3: Inject Secrets ---"
+            echo "--- STEP 3: Fix Path Nesting ---"
+            # This fixes the "Obeeoma/Obeeoma not found" error by flattening the folder structure
+            if [ -d "Obeeoma/Obeeoma" ]; then
+              echo "Flattening nested Obeeoma folder..."
+              mv Obeeoma/Obeeoma/* Obeeoma/ 2>/dev/null || true
+              mv Obeeoma/Obeeoma/.* Obeeoma/ 2>/dev/null || true
+              rm -rf Obeeoma/Obeeoma
+            fi
+
+            echo "--- STEP 4: Inject Secrets ---"
             # Ensure the api directory exists before writing the .env
             mkdir -p ./api
             echo "${{ secrets.BACKEND_ENV_FILE }}" > ./api/.env
 
-            echo "--- STEP 4: Docker Rebuild ---"
-            # Force stop all containers to release Port 80 and Port 8000
+            echo "--- STEP 5: Docker Rebuild ---"
+            # 1. Stop containers to release Ports 80 and 8000
             docker compose down --remove-orphans
+            
+            # 2. Clear builder cache (Fixes the EOF/Registry connection errors)
+            docker builder prune -a -f 
 
-            # Clear builder cache to prevent 'EOF' registry errors
-            docker builder prune -f
-
-            # Build and restart the entire stack
+            # 3. Build and Start the stack
             COMPOSE_HTTP_TIMEOUT=240 docker compose up -d --build
 
-            echo "--- STEP 5: Cleanup ---"
-            # Remove old unused images to save disk space
+            echo "--- STEP 6: Cleanup ---"
             docker image prune -f
             echo "Deployment successful!"
+
