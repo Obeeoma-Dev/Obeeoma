@@ -1076,7 +1076,7 @@ const Register: React.FC = () => {
       >
         <Container className="d-flex justify-content-between align-items-center">
           <div className="footer-copyright">
-            &copy; 2025 {customStyles.logoText}. All rights reserved.
+            &copy; 2026 {customStyles.logoText}. All rights reserved.
           </div>
         </Container>
       </footer>

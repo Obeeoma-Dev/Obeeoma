@@ -257,7 +257,7 @@ const ResetPasswordSignIn: React.FC = () => {
       >
         <div className="d-flex justify-content-between align-items-center container">
           <div className="footer-copyright">
-            &copy; 2025 Obeeoma. All rights reserved.
+            &copy; 2026 Obeeoma. All rights reserved.
           </div>
 
           <div className="d-flex align-items-center">
