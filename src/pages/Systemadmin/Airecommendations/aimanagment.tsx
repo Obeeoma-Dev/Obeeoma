@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
-import './aiControls.css';
+import "./aiControls.css";
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
@@ -40,7 +40,7 @@ const AIRecommendationsPage: React.FC = () => {
       await adminAPI.toggleAdminAI({ enabled });
       updateAIStatus({ admin_ai: enabled });
     } catch (error) {
-      console.error('Failed to toggle Admin AI:', error);
+      console.error("Failed to toggle Admin AI:", error);
       // Revert the state on error
       updateAIStatus({ admin_ai: !enabled });
     } finally {
@@ -54,7 +54,7 @@ const AIRecommendationsPage: React.FC = () => {
       await adminAPI.toggleLandingAI({ enabled });
       updateAIStatus({ landing_ai: enabled });
     } catch (error) {
-      console.error('Failed to toggle Landing AI:', error);
+      console.error("Failed to toggle Landing AI:", error);
       // Revert the state on error
       updateAIStatus({ landing_ai: !enabled });
     } finally {
@@ -68,7 +68,7 @@ const AIRecommendationsPage: React.FC = () => {
       await adminAPI.toggleMobileAI({ enabled });
       updateAIStatus({ mobile_ai: enabled });
     } catch (error) {
-      console.error('Failed to toggle Mobile AI:', error);
+      console.error("Failed to toggle Mobile AI:", error);
       // Revert the state on error
       updateAIStatus({ mobile_ai: !enabled });
     } finally {
@@ -156,7 +156,6 @@ const AIRecommendationsPage: React.FC = () => {
     <SystemAdminLayout title="AI Management">
       {/* Container ensures Bootstrap spacing and responsiveness */}
       <Container fluid className="py-4">
-
         {/* AI Controls Section */}
         <div className="ai-controls-section">
           <div className="ai-controls-header">
@@ -168,8 +167,14 @@ const AIRecommendationsPage: React.FC = () => {
             </div>
             <div className="ai-controls-status">
               <span className="ai-controls-indicator" />
-              {[aiStatus.landing_ai, aiStatus.admin_ai, aiStatus.mobile_ai].filter(Boolean).length} of 3
-              active
+              {
+                [
+                  aiStatus.landing_ai,
+                  aiStatus.admin_ai,
+                  aiStatus.mobile_ai,
+                ].filter(Boolean).length
+              }{" "}
+              of 3 active
             </div>
           </div>
 

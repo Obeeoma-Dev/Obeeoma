@@ -45,7 +45,9 @@ const CompanyReports = () => {
     >
       <div className="container-fluid py-4">
         <div>
-          <h3 className="mb-4">Wellness Trends</h3>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="h4 mb-0 fw-bold">Wellness Trends</h2>
+          </div>
           <WellnessTrends companyId={companyIdStr} />
         </div>
         {/* <DepartmentMetrics /> */}

@@ -63,6 +63,19 @@ export const fetchCurrentEmployer = createAsyncThunk<
   }
 });
 
+export const updateCurrentEmployer = createAsyncThunk<
+  EmployerUser,
+  Record<string, unknown>,
+  { rejectValue: string }
+>("employer/updateCurrentEmployer", async (data, { rejectWithValue }) => {
+  try {
+    const response = await employerAPI.updateCurrentEmployer(data);
+    return response.data as EmployerUser;
+  } catch (error) {
+    return rejectWithValue(getErrorMessage(error));
+  }
+});
+
 export const inviteEmployee = createAsyncThunk<
   EmployeeInvite,
   { email: string; phone?: string; department: string } & {
@@ -88,10 +101,10 @@ export const toggleEmployeeStatus = createAsyncThunk<
   async ({ id, currentStatus }, { rejectWithValue }) => {
     try {
       const newStatus = currentStatus === "active" ? "inactive" : "active";
-      await employerAPI.updateEmployeeStatus(
-        `/employees/${id}/status`,
-        newStatus,
-      );
+      await employerAPI.updateEmployee(id, {
+        empstatus: newStatus,
+        status: newStatus,
+      } as Partial<Employee>);
       return { id, status: newStatus };
     } catch (error) {
       return rejectWithValue(getErrorMessage(error));
@@ -154,7 +167,7 @@ export const fetchEmployees = createAsyncThunk<
       id: employee.id,
       emailAddress: employee.email || employee.empemail || "N/A",
       employeedepartment: employee.employeedepartment || "N/A",
-      phoneNumber: employee.employeephone || "",
+      phoneNumber: employee.phone || "",
       status: employee.empstatus
         ? (employee.empstatus.toLowerCase() as Employee["status"])
         : "active",
@@ -393,10 +406,35 @@ export const updateEmployee = createAsyncThunk<
 >("employer/updateEmployee", async (updatedData, { rejectWithValue }) => {
   try {
     const id = updatedData.id;
-    const payload = { ...updatedData };
-    delete (payload as Record<string, unknown>).id;
+    // Map fields to match Django backend expectations
+    const payload: Record<string, unknown> = {};
+    if (updatedData.emailAddress !== undefined) payload.email = updatedData.emailAddress;
+    if (updatedData.employeedepartment !== undefined) payload.department = updatedData.employeedepartment;
+    if (updatedData.status !== undefined) payload.status = updatedData.status;
+    if (updatedData.phoneNumber !== undefined) payload.phone = updatedData.phoneNumber;
+
+    // Let's provide BOTH standard and `emp`-prefixed keys to be safe with Django serialization
+    if (updatedData.emailAddress !== undefined) payload.empemail = updatedData.emailAddress;
+    if (updatedData.employeedepartment !== undefined) payload.empdepartment = updatedData.employeedepartment;
+    if (updatedData.employeedepartment !== undefined) payload.employeedepartment = updatedData.employeedepartment;
+    if (updatedData.status !== undefined) payload.empstatus = updatedData.status;
+
+    // Call the API
     const response = await employerAPI.updateEmployee(id, payload);
-    return response as Employee;
+
+    // Ensure we send back an object matching the internal Employee shape
+    // so the Redux .fulfilled handler can seamlessly update the table.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const responseData = response as any;
+    const finalEmployee: Employee = {
+      id: Number(id),
+      emailAddress: responseData.email || payload.email || updatedData.emailAddress || "",
+      employeedepartment: responseData.department || payload.department || updatedData.employeedepartment || "",
+      phoneNumber: responseData.phone || payload.phone || updatedData.phoneNumber || "",
+      status: responseData.status || payload.status || updatedData.status || "active",
+    };
+
+    return finalEmployee;
   } catch (error: unknown) {
     return rejectWithValue(getErrorMessage(error));
   }
@@ -528,6 +566,10 @@ const employerSlice = createSlice({
     builder
       // Current Employer
       .addCase(fetchCurrentEmployer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.currentEmployer = action.payload;
+      })
+      .addCase(updateCurrentEmployer.fulfilled, (state, action) => {
         state.isLoading = false;
         state.currentEmployer = action.payload;
       })

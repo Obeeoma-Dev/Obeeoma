@@ -17,7 +17,7 @@ import {
   EmployeeDataPoint,
   PlatformUsageData,
   SubscriptionRevenueData,
-  MonthlyDataPoint
+  MonthlyDataPoint,
 } from "./admindashboard";
 import { adminDashboardAPI } from "../../../api/adminapiConfig";
 
@@ -28,7 +28,7 @@ interface PlatformUsageChartProps {
 
 const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
   platformUsageData,
-  subscriptionRevenueData
+  subscriptionRevenueData,
 }) => {
   // Track which tab is currently active
   const [activeTab, setActiveTab] = useState<string>("platform");
@@ -36,8 +36,12 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   // State for API data
-  const [apiPlatformUsage, setApiPlatformUsage] = useState<PlatformUsageData[]>([]);
-  const [apiSubscriptionRevenue, setApiSubscriptionRevenue] = useState<SubscriptionRevenueData[]>([]);
+  const [apiPlatformUsage, setApiPlatformUsage] = useState<PlatformUsageData[]>(
+    [],
+  );
+  const [apiSubscriptionRevenue, setApiSubscriptionRevenue] = useState<
+    SubscriptionRevenueData[]
+  >([]);
 
   // Define tab options for chart navigation
   const tabs = [
@@ -69,17 +73,21 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
   }, []);
 
   // Transform API data for charts
-  const transformPlatformUsage = (data: PlatformUsageData[]): EmployeeDataPoint[] => {
-    return data.map(item => ({
+  const transformPlatformUsage = (
+    data: PlatformUsageData[],
+  ): EmployeeDataPoint[] => {
+    return data.map((item) => ({
       week: `Week ${item.week_number}`,
-      value: item.usage_count
+      value: item.usage_count,
     }));
   };
 
-  const transformSubscriptionRevenue = (data: SubscriptionRevenueData[]): MonthlyDataPoint[] => {
-    return data.map(item => ({
+  const transformSubscriptionRevenue = (
+    data: SubscriptionRevenueData[],
+  ): MonthlyDataPoint[] => {
+    return data.map((item) => ({
       month: `${item.month} ${item.year}`,
-      value: parseFloat(item.revenue)
+      value: parseFloat(item.revenue),
     }));
   };
 
@@ -93,28 +101,30 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
     : transformSubscriptionRevenue(apiSubscriptionRevenue);
 
   // Fallback data for platform usage over 6 weeks
-  const employeeData: EmployeeDataPoint[] = platformChartData.length > 0
-    ? platformChartData
-    : [
-      { week: "Week 1", value: 1800 },
-      { week: "Week 2", value: 2100 },
-      { week: "Week 3", value: 2600 },
-      { week: "Week 4", value: 2900 },
-      { week: "Week 5", value: 3200 },
-      { week: "Week 6", value: 3500 },
-    ];
+  const employeeData: EmployeeDataPoint[] =
+    platformChartData.length > 0
+      ? platformChartData
+      : [
+          { week: "Week 1", value: 1800 },
+          { week: "Week 2", value: 2100 },
+          { week: "Week 3", value: 2600 },
+          { week: "Week 4", value: 2900 },
+          { week: "Week 5", value: 3200 },
+          { week: "Week 6", value: 3500 },
+        ];
 
   // Fallback data for subscription revenue
-  const revenueData: MonthlyDataPoint[] = subscriptionChartData.length > 0
-    ? subscriptionChartData
-    : [
-      { month: "Jan 2024", value: 3200 },
-      { month: "Feb 2024", value: 3500 },
-      { month: "Mar 2024", value: 3900 },
-      { month: "Apr 2024", value: 4200 },
-      { month: "May 2024", value: 4600 },
-      { month: "Jun 2024", value: 5000 },
-    ];
+  const revenueData: MonthlyDataPoint[] =
+    subscriptionChartData.length > 0
+      ? subscriptionChartData
+      : [
+          { month: "Jan 2024", value: 3200 },
+          { month: "Feb 2024", value: 3500 },
+          { month: "Mar 2024", value: 3900 },
+          { month: "Apr 2024", value: 4200 },
+          { month: "May 2024", value: 4600 },
+          { month: "Jun 2024", value: 5000 },
+        ];
 
   return (
     <Card className="mb-4 shadow-sm border-0">
@@ -127,10 +137,11 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
               variant="light"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`px-3 py-2 border-0 position-relative ${activeTab === tab.id
-                ? "fw-semibold text-success"
-                : "text-secondary"
-                }`}
+              className={`px-3 py-2 border-0 position-relative ${
+                activeTab === tab.id
+                  ? "fw-semibold text-success"
+                  : "text-secondary"
+              }`}
               style={{
                 backgroundColor: "transparent",
                 borderBottom:

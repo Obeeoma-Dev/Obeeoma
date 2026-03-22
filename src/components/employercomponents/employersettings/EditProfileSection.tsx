@@ -305,13 +305,54 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
                   )}
                 </div>
               </div>
-
               <div className="col-12 col-md-6">
-                <label htmlFor="company-size" className="form-label fw-medium">
-                  Company Size
+                <label htmlFor="username" className="form-label fw-medium">
+                  Admin Username *
                 </label>
+                <div className="position-relative">
+                  <User
+                    size={16}
+                    className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                  />
+                  <input
+                    id="username"
+                    type="text"
+                    className={`form-control ps-5 ${errors.username ? "is-invalid" : ""}`}
+                    value={localData.username || ""}
+                    onChange={(e) =>
+                      handleInputChange("username", e.target.value)
+                    }
+                    placeholder="Enter admin username"
+                  />
+                  {errors.username && (
+                    <div className="invalid-feedback">{errors.username}</div>
+                  )}
+                </div>
               </div>
-
+              <div className="row g-3">
+                <div className="col-12 col-md-6">
+                <label htmlFor="email" className="form-label fw-medium">
+                 Email Address *
+                </label>
+                <div className="position-relative">
+                  <Mail
+                    size={16}
+                    className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                  />
+                  <input
+                    id="email"
+                    type="email"
+                    className={`form-control ps-5 ${errors.email ? "is-invalid" : ""}`}
+                    value={localData.email || ""}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    placeholder="Enter email address"
+                  />
+                  {errors.email && (
+                    <div className="invalid-feedback">{errors.email}</div>
+                  )}
+                  </div>
+                </div>
+              </div>
               <div className="col-12 col-md-6">
                 <label
                   htmlFor="contact-person"
@@ -338,61 +379,6 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
                     <div className="invalid-feedback">
                       {errors.contactPerson}
                     </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Admin Account */}
-          <div className="col-12 mt-4">
-            <h5 className="h6 fw-semibold mb-3">Admin Account</h5>
-
-            <div className="row g-3">
-              <div className="col-12 col-md-6">
-                <label htmlFor="username" className="form-label fw-medium">
-                  Admin Username *
-                </label>
-                <div className="position-relative">
-                  <User
-                    size={16}
-                    className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-                  />
-                  <input
-                    id="username"
-                    type="text"
-                    className={`form-control ps-5 ${errors.username ? "is-invalid" : ""}`}
-                    value={localData.username || ""}
-                    onChange={(e) =>
-                      handleInputChange("username", e.target.value)
-                    }
-                    placeholder="Enter admin username"
-                  />
-                  {errors.username && (
-                    <div className="invalid-feedback">{errors.username}</div>
-                  )}
-                </div>
-              </div>
-
-              <div className="col-12 col-md-6">
-                <label htmlFor="email" className="form-label fw-medium">
-                  Email Address *
-                </label>
-                <div className="position-relative">
-                  <Mail
-                    size={16}
-                    className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-                  />
-                  <input
-                    id="email"
-                    type="email"
-                    className={`form-control ps-5 ${errors.email ? "is-invalid" : ""}`}
-                    value={localData.email || ""}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder="Enter email address"
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
                   )}
                 </div>
               </div>

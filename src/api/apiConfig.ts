@@ -359,17 +359,26 @@ export const adminAPI = {
 
   // AI Status Management APIs
   toggleAdminAI: async (payload: { enabled: boolean }) => {
-    const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "admin_ai" });
+    const response = await api.post("/admin/ai-status/toggle/", {
+      ...payload,
+      feature_name: "admin_ai",
+    });
     return response;
   },
 
   toggleLandingAI: async (payload: { enabled: boolean }) => {
-    const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "landing_ai" });
+    const response = await api.post("/admin/ai-status/toggle/", {
+      ...payload,
+      feature_name: "landing_ai",
+    });
     return response;
   },
 
   toggleMobileAI: async (payload: { enabled: boolean }) => {
-    const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "mobile_ai" });
+    const response = await api.post("/admin/ai-status/toggle/", {
+      ...payload,
+      feature_name: "mobile_ai",
+    });
     return response;
   },
 
@@ -379,7 +388,10 @@ export const adminAPI = {
   },
 
   // Receptionist AI Chat APIs (Public - No authentication required)
-  sendReceptionistMessage: async (payload: { message: string; session_id?: string }) => {
+  sendReceptionistMessage: async (payload: {
+    message: string;
+    session_id?: string;
+  }) => {
     const response = await api.post("/receptionist/ai-chat/", payload);
     return response;
   },
@@ -507,6 +519,11 @@ export const employerAPI = {
     return response;
   },
 
+  updateCurrentEmployer: async (data: Record<string, unknown>) => {
+    const response = await api.patch("/users/", data);
+    return response;
+  },
+
   getbreakdownusage: async () => {
     const response = await api.get("/feature-usage/");
     return response;
@@ -524,7 +541,7 @@ export const employerAPI = {
   },
 
   updateEmployee: async (id: number | string, data: Partial<Employee>) => {
-    const response = await api.patch(`/auth/invitation/${id}/`, data);
+    const response = await api.patch(`/auth/invitations/${id}/`, data);
     return response.data;
   },
 

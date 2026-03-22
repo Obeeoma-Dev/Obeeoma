@@ -144,7 +144,9 @@ export const OrganizationProvider: React.FC<{ children: ReactNode }> = ({
           params.append("search", search);
         }
 
-        const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
+        const response = await conditionalAPI.get(
+          `/admin/organizations/?${params}`,
+        );
         return response;
       },
       getOrganizationsGrowthChart: async () => {

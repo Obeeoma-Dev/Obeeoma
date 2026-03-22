@@ -282,7 +282,7 @@ export const ContactPage: React.FC = () => {
         {/* Floating WhatsApp Button */}
         <div className="mb-4">
           <FloatingWhatsApp />
-        </div>        
+        </div>
 
         {/* AI Receptionist Chat */}
         <ReceptionistFloatingChat />

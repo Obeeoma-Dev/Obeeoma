@@ -60,7 +60,9 @@ export function OrganizationDetails() {
         params.append("search", search);
       }
 
-      const response = await conditionalAPI.get(`/admin/organizations/?${params}`);
+      const response = await conditionalAPI.get(
+        `/admin/organizations/?${params}`,
+      );
       return response;
     },
     [conditionalAPI],
@@ -89,8 +91,8 @@ export function OrganizationDetails() {
         const response = await getOrganizationsList(1, 100, ""); // Get all orgs
         const allOrgs = response.data.results || response.data || [];
 
-        const foundOrg = allOrgs.find((org: DatabaseOrganization) =>
-          org.id.toString() === id,
+        const foundOrg = allOrgs.find(
+          (org: DatabaseOrganization) => org.id.toString() === id,
         );
 
         if (foundOrg) {

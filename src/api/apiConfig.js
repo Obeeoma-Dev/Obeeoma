@@ -286,15 +286,24 @@ export const adminAPI = {
     },
     // AI Status Management APIs
     toggleAdminAI: async (payload) => {
-        const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "admin_ai" });
+        const response = await api.post("/admin/ai-status/toggle/", {
+            ...payload,
+            feature_name: "admin_ai",
+        });
         return response;
     },
     toggleLandingAI: async (payload) => {
-        const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "landing_ai" });
+        const response = await api.post("/admin/ai-status/toggle/", {
+            ...payload,
+            feature_name: "landing_ai",
+        });
         return response;
     },
     toggleMobileAI: async (payload) => {
-        const response = await api.post("/admin/ai-status/toggle/", { ...payload, feature_name: "mobile_ai" });
+        const response = await api.post("/admin/ai-status/toggle/", {
+            ...payload,
+            feature_name: "mobile_ai",
+        });
         return response;
     },
     getAIStatus: async () => {
@@ -407,6 +416,10 @@ export const employerAPI = {
         const response = await api.get("/users/");
         return response;
     },
+    updateCurrentEmployer: async (data) => {
+        const response = await api.patch("/users/", data);
+        return response;
+    },
     getbreakdownusage: async () => {
         const response = await api.get("/feature-usage/");
         return response;
@@ -421,7 +434,7 @@ export const employerAPI = {
         return response;
     },
     updateEmployee: async (id, data) => {
-        const response = await api.patch(`/auth/invitation/${id}/`, data);
+        const response = await api.patch(`/auth/invitations/${id}/`, data);
         return response.data;
     },
     updateEmployeeStatus: async (url, status) => {

@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { adminAPI } from '../api/apiConfig';
+import { useState, useEffect, useCallback } from "react";
+import { adminAPI } from "../api/apiConfig";
 
 interface AIStatus {
   landing_ai: boolean;
@@ -20,12 +20,12 @@ export const useAIStatus = (): UseAIStatusReturn => {
   // Initialize state from localStorage or defaults
   const getInitialAIStatus = (): AIStatus => {
     try {
-      const cached = localStorage.getItem('aiStatus');
+      const cached = localStorage.getItem("aiStatus");
       if (cached) {
         return JSON.parse(cached);
       }
     } catch (error) {
-      console.error('Failed to parse cached AI status:', error);
+      console.error("Failed to parse cached AI status:", error);
     }
 
     // Default values if no cache or parse error
@@ -40,14 +40,14 @@ export const useAIStatus = (): UseAIStatusReturn => {
 
   // Function to update AI status and cache it
   const updateAIStatus = useCallback((newStatus: Partial<AIStatus>) => {
-    setAiStatus(prev => {
+    setAiStatus((prev) => {
       const updatedStatus = { ...prev, ...newStatus };
 
       // Cache to localStorage
       try {
-        localStorage.setItem('aiStatus', JSON.stringify(updatedStatus));
+        localStorage.setItem("aiStatus", JSON.stringify(updatedStatus));
       } catch (error) {
-        console.error('Failed to cache AI status:', error);
+        console.error("Failed to cache AI status:", error);
       }
 
       return updatedStatus;
@@ -56,7 +56,7 @@ export const useAIStatus = (): UseAIStatusReturn => {
 
   // Load AI status on component mount (only if no cache)
   useEffect(() => {
-    const cached = localStorage.getItem('aiStatus');
+    const cached = localStorage.getItem("aiStatus");
 
     // Only fetch from API if we don't have cached data
     if (!cached) {
@@ -73,7 +73,7 @@ export const useAIStatus = (): UseAIStatusReturn => {
             updateAIStatus(apiStatus);
           }
         } catch (error) {
-          console.error('Failed to load AI status:', error);
+          console.error("Failed to load AI status:", error);
           // Keep default values if API fails
         }
       };

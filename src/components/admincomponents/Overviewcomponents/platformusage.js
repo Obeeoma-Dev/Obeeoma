@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, ButtonGroup, Button, Spinner } from "react-bootstrap";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, } from "recharts";
 import { adminDashboardAPI } from "../../../api/adminapiConfig";
-const PlatformUsageChart = ({ platformUsageData, subscriptionRevenueData }) => {
+const PlatformUsageChart = ({ platformUsageData, subscriptionRevenueData, }) => {
     // Track which tab is currently active
     const [activeTab, setActiveTab] = useState("platform");
     const [loading, setLoading] = useState(false);
@@ -40,15 +40,15 @@ const PlatformUsageChart = ({ platformUsageData, subscriptionRevenueData }) => {
     }, []);
     // Transform API data for charts
     const transformPlatformUsage = (data) => {
-        return data.map(item => ({
+        return data.map((item) => ({
             week: `Week ${item.week_number}`,
-            value: item.usage_count
+            value: item.usage_count,
         }));
     };
     const transformSubscriptionRevenue = (data) => {
-        return data.map(item => ({
+        return data.map((item) => ({
             month: `${item.month} ${item.year}`,
-            value: parseFloat(item.revenue)
+            value: parseFloat(item.revenue),
         }));
     };
     // Use props data if provided, otherwise use API data

@@ -84,13 +84,16 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
       });
       setValidationErrors({});
 
+      // Connect the text in that form to localStorage as localData
+      const localData = { ...selectedEmployee, ...formData };
+      localStorage.setItem("localData", JSON.stringify(localData));
+
       // 2. DISPATCH: Explicitly pass the ID and the form data
       await dispatch(
         updateEmployee({
           id: selectedEmployee.id,
           emailAddress: formData.emailAddress,
           employeedepartment: formData.employeedepartment,
-          phoneNumber: formData.phoneNumber,
           status: formData.status,
         }),
       ).unwrap();

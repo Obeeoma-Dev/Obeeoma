@@ -1,29 +1,29 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from 'recharts';
-import './modelPerformance.css';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from "recharts";
+import "./modelPerformance.css";
 const data = [
     {
-        week: 'Week 1',
+        week: "Week 1",
         value: 250,
     },
     {
-        week: 'Week 2',
+        week: "Week 2",
         value: 310,
     },
     {
-        week: 'Week 3',
+        week: "Week 3",
         value: 290,
     },
     {
-        week: 'Week 4',
+        week: "Week 4",
         value: 340,
     },
     {
-        week: 'Week 5',
+        week: "Week 5",
         value: 300,
     },
     {
-        week: 'Week 6',
+        week: "Week 6",
         value: 360,
     },
 ];
@@ -41,21 +41,21 @@ export function WeeklyActivityChart() {
                         bottom: 5,
                     }, children: [_jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: "#f0f0f0", vertical: false }), _jsx(XAxis, { dataKey: "week", tick: {
                                 fontSize: 12,
-                                fill: '#9ca3af',
+                                fill: "#9ca3af",
                             }, axisLine: false, tickLine: false }), _jsx(YAxis, { tick: {
                                 fontSize: 12,
-                                fill: '#9ca3af',
+                                fill: "#9ca3af",
                             }, axisLine: false, tickLine: false, domain: [0, 400] }), _jsx(Tooltip, { content: _jsx(CustomTooltip, {}), cursor: {
-                                stroke: '#e5e7eb',
+                                stroke: "#e5e7eb",
                                 strokeWidth: 1,
                             } }), _jsx(Line, { type: "monotone", dataKey: "value", stroke: "#16a34a", strokeWidth: 2.5, dot: {
-                                fill: '#ffffff',
-                                stroke: '#16a34a',
+                                fill: "#ffffff",
+                                stroke: "#16a34a",
                                 strokeWidth: 2.5,
                                 r: 4,
                             }, activeDot: {
-                                fill: '#16a34a',
-                                stroke: '#ffffff',
+                                fill: "#16a34a",
+                                stroke: "#ffffff",
                                 strokeWidth: 2,
                                 r: 6,
                             } })] }) })] }));

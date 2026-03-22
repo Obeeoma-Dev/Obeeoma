@@ -53,12 +53,7 @@ const OrganizationDashboard = ({ organizations: propOrganizations = [], loading:
         setLoading(propLoading);
         setHasMore(propHasMore);
         setTotalCount(propTotalCount);
-    }, [
-        propOrganizations,
-        propLoading,
-        propHasMore,
-        propTotalCount,
-    ]);
+    }, [propOrganizations, propLoading, propHasMore, propTotalCount]);
     // Fetch organizations with pagination (fallback if no onFetchMore provided)
     const fetchOrganizations = useCallback(async (pageNum = 1, search = "") => {
         if (onFetchMore) {
@@ -76,8 +71,11 @@ const OrganizationDashboard = ({ organizations: propOrganizations = [], loading:
             console.log("Table API Response:", response);
             // Handle response with simple typing
             const results = response?.data?.results || response?.data || [];
-            const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
-            const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
+            const totalCount = response?.data?.count ||
+                (Array.isArray(results) ? results.length : 0);
+            const hasNext = response?.data?.next !== undefined
+                ? response?.data?.next !== null
+                : false;
             // Convert to table format
             const formattedOrgs = results.map((org) => convertToTableFormat(org));
             if (pageNum === 1) {
@@ -88,7 +86,7 @@ const OrganizationDashboard = ({ organizations: propOrganizations = [], loading:
                     // Create a Map to ensure uniqueness by ID
                     const orgMap = new Map();
                     // Add existing organizations
-                    prev.forEach(org => orgMap.set(org.id, org));
+                    prev.forEach((org) => orgMap.set(org.id, org));
                     // Add new organizations (this will overwrite duplicates with newer data)
                     formattedOrgs.forEach((org) => orgMap.set(org.id, org));
                     // Convert back to array
@@ -121,12 +119,7 @@ const OrganizationDashboard = ({ organizations: propOrganizations = [], loading:
             setHasMore(true);
             fetchOrganizations(1, searchTerm);
         }
-    }, [
-        searchTerm,
-        activeTab,
-        fetchOrganizations,
-        onSearch,
-    ]);
+    }, [searchTerm, activeTab, fetchOrganizations, onSearch]);
     // Infinite scroll observer
     useEffect(() => {
         if (loading)
@@ -152,14 +145,7 @@ const OrganizationDashboard = ({ organizations: propOrganizations = [], loading:
             if (observer.current)
                 observer.current.disconnect();
         };
-    }, [
-        loading,
-        hasMore,
-        page,
-        searchTerm,
-        fetchOrganizations,
-        onFetchMore,
-    ]);
+    }, [loading, hasMore, page, searchTerm, fetchOrganizations, onFetchMore]);
     // Filter organizations by tab category
     const filterByTab = (orgs, tab) => {
         switch (tab) {
