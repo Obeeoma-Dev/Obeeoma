@@ -393,6 +393,6 @@ const Register = () => {
                     backgroundColor: "#f5f5f5",
                     fontSize: "0.8rem",
                     fontFamily: "body",
-                }, children: _jsx(Container, { className: "d-flex justify-content-between align-items-center", children: _jsxs("div", { className: "footer-copyright", children: ["\u00A9 2025 ", customStyles.logoText, ". All rights reserved."] }) }) })] }));
+                }, children: _jsx(Container, { className: "d-flex justify-content-between align-items-center", children: _jsxs("div", { className: "footer-copyright", children: ["\u00A9 2026 ", customStyles.logoText, ". All rights reserved."] }) }) })] }));
 };
 export default Register;
