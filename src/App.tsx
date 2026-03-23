@@ -9,6 +9,7 @@ import { analytics } from "./services/analytics";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+// Commenting out the HistoryGuard
 // import HistoryGuard from "./components/HistoryGuard";
 
 // Pages
