@@ -15,13 +15,13 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 //     const sandboxUrl: string = "https://paystack.shop/pay/m17b0i5sie";
 //     //  "https://sandbox.flutterwave.com/pay/pxv1ofyo5e5l";
 //     if (planName === "Free") {
-//       // For Basic (free) plan, redirect immediately.
+//       // For Premium (free) plan, redirect immediately.
 //       console.log("Redirecting to /success-message for free plan.");
-//       // **REDIRECTION LOGIC FOR BASIC (FREE) PLAN**
+//       // **REDIRECTION LOGIC FOR Premium (FREE) PLAN**
 //       window.location.href = "/success-message";
 //     } else {
 //       // Redirect to payment gateway for other plans (like Premium).
-//       console.log("Redirecting to payment gateway for Basic plan.");
+//       console.log("Redirecting to payment gateway for Premium plan.");
 //       // **REDIRECTION LOGIC FOR PREMIUM (PAID) PLAN**
 //       window.location.href = sandboxUrl;
 //     }
@@ -33,8 +33,8 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 //       period: "",
 //       recommended: true,
 //     },
-//     {
-//       name: "Basic Plan",
+//         {
+//       name: "Premium Plan",
 //       price: "₦9",
 //       period: "per month",
 //       recommended: false,
@@ -184,15 +184,15 @@ const PricingPlans = () => {
         if (planName === "Free Plan") {
             window.location.href = "/success-message";
         }
-        else if (planName === "Basic Plan") {
+        else if (planName === "Premium Plan") {
             window.location.href = sandboxUrl;
         }
     };
     const plans = [
-        { name: "Free Plan", price: "₦0", period: "", recommended: true },
+        { name: "Free Plan", price: "$0", period: "", recommended: true },
         {
-            name: "Basic Plan",
-            price: "₦9",
+            name: "Premium Plan",
+            price: "$10",
             period: "per month",
             recommended: false,
         },

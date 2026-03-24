@@ -6,6 +6,7 @@ import AvailableReports, {
 import { Download, Filter, Calendar } from "lucide-react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { employerAPI } from "../../api/apiConfig";
 
 const CompanyReports = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -65,25 +66,25 @@ function useReportsData(companyId?: string) {
       name: "Wellness Summary",
       description: "Overall employee wellness metrics",
       defaultFrequency: "Monthly",
-      url: companyId ? `/company-mood/${companyId}/` : "/company-mood/",
+      fetchBlob: () => employerAPI.downloadWellnessSummaryReport(),
     },
     {
       name: "Department Analysis",
       description: "Detailed department-wise breakdown",
       defaultFrequency: "Quarterly",
-      url: "/download/department-analysis/",
+      fetchBlob: () => employerAPI.downloadDepartmentAnalysisReport(),
     },
     {
       name: "Risk Assessment",
       description: "Identified risk factors and trends",
       defaultFrequency: "Weekly",
-      url: "/download/risk-assessment/",
+      fetchBlob: () => employerAPI.downloadRiskAssessmentReport(),
     },
     {
       name: "Engagement Report",
       description: "Employee engagement and participation",
       defaultFrequency: "Monthly",
-      url: "/download/engagement/",
+      fetchBlob: () => employerAPI.downloadEngagementReport(),
     },
   ];
 

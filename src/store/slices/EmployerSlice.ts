@@ -218,11 +218,11 @@ export const fetchEmployerEngagement = createAsyncThunk<
 
 export const downloadReport = createAsyncThunk<
   void,
-  { url: string; fileName: string },
+  { url: string; fileName: string; method?: 'GET' | 'POST' },
   { rejectValue: string }
->("employer/downloadReport", async ({ url, fileName }, { rejectWithValue }) => {
+>("employer/downloadReport", async ({ url, fileName, method = 'GET' }, { rejectWithValue }) => {
   try {
-    const blob = await employerAPI.getReportBlob(url);
+    const blob = await employerAPI.getReportBlob(url, method);
     const downloadUrl = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = downloadUrl;

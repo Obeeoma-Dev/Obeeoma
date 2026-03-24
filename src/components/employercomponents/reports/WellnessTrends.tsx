@@ -19,8 +19,26 @@ const EMOJI_MAPPING = [
   { score: 100, emoji: "😄", label: "Excellent" },
 ];
 
+// Types
+interface MoodTrendRaw {
+  date: string;
+  average_mood_score?: number | null;
+  [key: string]: unknown;
+}
+
+interface WellnessMoodApiResponse {
+  last_10_days_trends?: MoodTrendRaw[];
+  [key: string]: unknown;
+}
+
+interface MoodPoint {
+  date: string;
+  score: number;
+  emoji: string;
+}
+
 // Dummy data - replace with actual API call later
-const dummyMoodData = [
+const dummyMoodData: MoodPoint[] = [
   { date: "Mon", score: 85, emoji: "😄" },
   { date: "Tue", score: 65, emoji: "🙂" },
   { date: "Wed", score: 45, emoji: "😐" },
@@ -34,32 +52,65 @@ const dummyMoodData = [
 ];
 
 const WellnessTrends: React.FC<{ companyId?: string }> = ({ companyId }) => {
-  const [moodData, setMoodData] = useState(dummyMoodData);
+  const [moodData, setMoodData] = useState<MoodPoint[]>(dummyMoodData);
 
   useEffect(() => {
     const fetchMoodData = async () => {
       try {
-        const response = await employerAPI.getWellnessMoodTrends(companyId);
+        const response = await employerAPI.getMoodTrends(companyId);
         const data = response.data;
-        if (Array.isArray(data)) {
-          const transformedData = data.map(
-            (item: { date: string; average_mood_score: number }) => ({
-              date: item.date,
-              score: item.average_mood_score,
-              emoji: getEmojiFromScore(item.average_mood_score),
-            }),
-          );
-          setMoodData(transformedData);
-        }
+
+        // Use last_10_days_trends if available, else fallback to empty array
+        const trends: MoodTrendRaw[] = Array.isArray(data?.last_10_days_trends)
+          ? (data.last_10_days_trends as MoodTrendRaw[])
+          : [];
+
+        // Generate last 10 days up to today
+        const today = new Date();
+        const last10Days = Array.from({ length: 10 }, (_, i) => {
+          const d = new Date(today);
+          d.setDate(today.getDate() - (9 - i));
+          return d;
+        });
+
+        const transformedData: MoodPoint[] = last10Days.map((dateObj, index) => {
+          // Format date as YYYY-MM-DD to match backend
+          const dateString = dateObj.toISOString().split('T')[0];
+
+          // Format display date as Day 1 to Day 10
+          const displayDate = `Day ${index + 1}`;
+
+          // Find the corresponding mood record for this date
+          const record = trends.find((item) => {
+            if (typeof item.date !== "string") return false;
+            const recordDate = new Date(item.date).toISOString().split("T")[0];
+            return recordDate === dateString;
+          });
+
+          const rawScore = typeof record?.average_mood_score === "number" ? record.average_mood_score : undefined;
+          const score = rawScore !== undefined && rawScore >= 0 && rawScore <= 5 ? (rawScore / 5) * 100 : 50;
+
+          if (!record) {
+            console.debug(`WellnessTrends: no matching trend for ${dateString}`);
+          } 
+
+          return {
+            date: displayDate,
+            score: Math.round(score),
+            emoji: getEmojiFromScore(score),
+          };
+        });
+
+        setMoodData(transformedData);
+        
       } catch (error) {
         console.error("Failed to fetch the mood data:", error);
         // Keep using dummy data if API fails
-        // This prevents the component from crashing
       }
     };
 
     fetchMoodData();
-  }, [companyId]); // Remove setMoodData from dependencies to prevent infinite loops
+  }, [companyId]);
 
   // Helper function to get emoji based on score
   const getEmojiFromScore = (score: number): string => {
