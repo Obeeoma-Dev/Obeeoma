@@ -24,24 +24,15 @@ ChartJS.register(
   Legend,
 );
 
-// Chart data (visuals only — backend can replace this later)
-const chartData = {
-  labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
-  datasets: [
-    {
-      label: "Recommendations Sent",
-      data: [245, 312, 289, 340, 298, 360],
-      borderColor: "#3CB371",
-      backgroundColor: "rgba(13,148,136,0.15)",
-      tension: 0.35,
-      pointRadius: 4,
-      pointHoverRadius: 6,
-      pointBackgroundColor: "#ffffff",
-      pointBorderColor: "#3CB371",
-      pointBorderWidth: 2,
-    },
-  ],
-};
+const defaultWeeklyData = [245, 312, 289, 340, 298, 360];
+const defaultLabels = [
+  "Week 1",
+  "Week 2",
+  "Week 3",
+  "Week 4",
+  "Week 5",
+  "Week 6",
+];
 
 // Chart display options (no functional changes)
 const chartOptions = {
@@ -89,12 +80,41 @@ const chartOptions = {
   },
 };
 
-// Functional component definition
-const WeeklyRecommendationsChart: React.FC = () => {
+interface WeeklyRecommendationsChartProps {
+  weeklyRecommendations?: number[];
+}
+
+const WeeklyRecommendationsChart: React.FC<WeeklyRecommendationsChartProps> = ({
+  weeklyRecommendations,
+}) => {
+  const values =
+    Array.isArray(weeklyRecommendations) && weeklyRecommendations.length
+      ? weeklyRecommendations
+      : defaultWeeklyData;
+  const labels =
+    values.length <= defaultLabels.length
+      ? defaultLabels.slice(0, values.length)
+      : values.map((_, i) => `Week ${i + 1}`);
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: "Recommendations Sent",
+        data: values,
+        borderColor: "#3CB371",
+        backgroundColor: "rgba(13,148,136,0.15)",
+        tension: 0.35,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: "#ffffff",
+        pointBorderColor: "#3CB371",
+        pointBorderWidth: 2,
+      },
+    ],
+  };
   return (
     <Card className="weekly-recommendations-card">
       <Card.Body>
-        {/* Header section */}
         <div className="weekly-recommendations-header">
           <h3 className="weekly-recommendations-title">
             Weekly Recommendations
@@ -103,8 +123,6 @@ const WeeklyRecommendationsChart: React.FC = () => {
             Volume of AI suggestions over the last 6 weeks
           </p>
         </div>
-
-        {/* Chart container with fixed height */}
         <div className="weekly-recommendations-chart">
           <Line data={chartData} options={chartOptions} />
         </div>

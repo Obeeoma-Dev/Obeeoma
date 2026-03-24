@@ -4,8 +4,11 @@ import authReducer from "./slices/authSlice";
 import adminReducer from "./slices/adminSlice";
 import employerReducer from "./slices/EmployerSlice";
 import employeeReducer from "./slices/employeeSlice";
+import subscriptionSlice from "./slices/adminpaystackSlice";
 import { setupApiInterceptors } from "../api/apiConfig";
 import billingReducer from "./slices/billingSlice";
+
+import contentReducer from "./slices/contentSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -13,6 +16,8 @@ export const store = configureStore({
     employer: employerReducer,
     billing: billingReducer,
     employee: employeeReducer,
+    subscriptionSlice: subscriptionSlice,
+    content: contentReducer,
   },
 });
 

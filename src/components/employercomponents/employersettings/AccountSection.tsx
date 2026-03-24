@@ -180,10 +180,6 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
               </label> */}
             </div>
             <div>
-              <p className="text-muted mb-1">
-                <User size={14} className="me-2" />
-                {localData.username || "Corporate Admin User"}
-              </p>
               <p className="text-muted mb-0">
                 <Mail size={14} className="me-2" />
                 {localData.email || "contact@company.com"}
@@ -194,163 +190,121 @@ const AccountSection: React.FC<AccountSectionProps> = React.memo(
           <div className="row g-4">
             {/* Company Information Section */}
             <div className="col-12">
-              <h5 className="h6 fw-semibold text-muted mb-3">
-                COMPANY INFORMATION
-              </h5>
-
-              <div className="row g-3">
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <Building
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">
-                        Organization Name
-                      </span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.organizationName)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <Mail
-                        size={16}
-                        className=" me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">
-                        Contact Email Address
-                      </span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.email)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Admin Account Section */}
-            <div className="col-12">
               <h5 className="h6 fw-semibold text-muted mb-3">ADMIN ACCOUNT</h5>
 
-              <div className="row g-3">
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <User
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">Admin User</span>
+              {/* Admin Account Section */}
+              <div className="col-12">
+                <div className="row g-3">
+                  <div className="col-12 col-md-6">
+                    <div className="bg-light rounded p-3 h-100">
+                      <div className="d-flex align-items-center mb-2">
+                        <User
+                          size={16}
+                          className="me-2"
+                          style={{ color: "#22C55E" }}
+                        />
+                        <span className="small text-muted">Admin User</span>
+                      </div>
+                      <p className="fw-medium mb-0">
+                        {formatDisplayValue(localData.username)}
+                      </p>
                     </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.username)}
-                    </p>
+                  </div>
+
+                  <div className="col-12 col-md-6">
+                    <div className="bg-light rounded p-3 h-100">
+                      <div className="d-flex align-items-center mb-2 justify-content-between">
+                        <Lock
+                          size={16}
+                          className="me-2"
+                          style={{ color: "#22C55E" }}
+                        />
+                        <Link
+                          to="/change-password"
+                          className="text-decoration-none small"
+                          style={{ color: "#22C55E" }}
+                        >
+                          Change Password
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="col-12 col-md-6">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2 justify-content-between">
-                      <Lock
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <Link
-                        to="/change-password"
-                        className="text-decoration-none small"
-                        style={{ color: "#22C55E" }}
-                      >
-                        Change Password
-                      </Link>
+              {/* Preferences Section */}
+              <div className="col-12">
+                <h5 className="h6 fw-semibold text-muted mb-3">PREFERENCES</h5>
+
+                <div className="row g-3">
+                  <div className="col-12 col-md-6 col-lg-4">
+                    <div className="bg-light rounded p-3 h-100">
+                      <div className="d-flex align-items-center mb-2">
+                        <Globe
+                          size={16}
+                          className="me-2"
+                          style={{ color: "#22C55E" }}
+                        />
+                        <span className="small text-muted">Time Zone</span>
+                      </div>
+                      <p className="fw-medium mb-0">
+                        {formatDisplayValue(localData.timeZone)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="col-12 col-md-6 col-lg-4">
+                    <div className="bg-light rounded p-3 h-100">
+                      <div className="d-flex align-items-center mb-2">
+                        <FileText
+                          size={16}
+                          className="me-2"
+                          style={{ color: "#22C55E" }}
+                        />
+                        <span className="small text-muted">Language</span>
+                      </div>
+                      <p className="fw-medium mb-0">
+                        {formatDisplayValue(localData.language)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="col-12 col-md-6 col-lg-4">
+                    <div className="bg-light rounded p-3 h-100">
+                      <div className="d-flex align-items-center mb-2">
+                        <Calendar
+                          size={16}
+                          className="me-2"
+                          style={{ color: "#22C55E" }}
+                        />
+                        <span className="small text-muted">Date Format</span>
+                      </div>
+                      <p className="fw-medium mb-0">
+                        {formatDisplayValue(localData.dateFormat)}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Preferences Section */}
-            <div className="col-12">
-              <h5 className="h6 fw-semibold text-muted mb-3">PREFERENCES</h5>
-
-              <div className="row g-3">
-                <div className="col-12 col-md-6 col-lg-4">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <Globe
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">Time Zone</span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.timeZone)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-6 col-lg-4">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <FileText
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">Language</span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.language)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-6 col-lg-4">
-                  <div className="bg-light rounded p-3 h-100">
-                    <div className="d-flex align-items-center mb-2">
-                      <Calendar
-                        size={16}
-                        className="me-2"
-                        style={{ color: "#22C55E" }}
-                      />
-                      <span className="small text-muted">Date Format</span>
-                    </div>
-                    <p className="fw-medium mb-0">
-                      {formatDisplayValue(localData.dateFormat)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="col-12 mt-4">
-              <div className="border-top pt-4">
-                <h5 className="h6 fw-semibold text-muted mb-3">
-                  QUICK ACTIONS
-                </h5>
-                <div className="d-flex gap-3">
-                  {/* <Link to="edit-profile" className="btn btn-outline-success">
+              {/* Quick Actions */}
+              <div className="col-12 mt-4">
+                <div className="border-top pt-4">
+                  <h5 className="h6 fw-semibold text-muted mb-3">
+                    QUICK ACTIONS
+                  </h5>
+                  <div className="d-flex gap-3">
+                    {/* <Link to="edit-profile" className="btn btn-outline-success">
                   <Edit size={16} className="me-2" />
                   Edit Profile Information
                 </Link> */}
-                  <Link
-                    to="/change-password"
-                    className="btn btn-outline-secondary"
-                  >
-                    Change Password
-                  </Link>
+                    <Link
+                      to="/change-password"
+                      className="btn btn-outline-secondary"
+                    >
+                      Change Password
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

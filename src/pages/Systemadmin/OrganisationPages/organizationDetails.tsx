@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Stack, Button, Spinner } from "react-bootstrap";
 import { ArrowLeft, CreditCard, Save } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Page components
 import Sidebar from "../../../components/admincomponents/adminsidebar";
@@ -11,14 +12,41 @@ import { OrganizationStats } from "../../../components/admincomponents/organisat
 import { PlatformUsageChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/organizationPlatformUse";
 import { ProgramEngagementChart } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/programEngagementChart";
 import { RecentActivity } from "../../../components/admincomponents/organisationcomponents/OrganizationDetails/recentActivity";
-import { adminAPI } from "../../../api/apiConfig";
+import { API_BASE_URL } from "../../../api/apiConfig";
 import { DatabaseOrganization } from "../../../components/admincomponents/organisationcomponents/organisationTable";
 import "./orgpage.css";
 
 export function OrganizationDetails() {
-  // Get organization ID from URL params
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
+  // Use same API base URL as rest of app (from .env VITE_API_BASE_URL)
+  const conditionalAPI = useMemo(() => {
+    const instance = axios.create({
+      baseURL: API_BASE_URL,
+      headers: { "Content-Type": "application/json" },
+    });
+    instance.interceptors.request.use((config) => {
+      const token = localStorage.getItem("token");
+      if (token) config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    });
+    return instance;
+  }, []);
+
+  const conditionalAPIWithMethods = useMemo(
+    () => ({
+      getOrganizationsList: async (page = 1, pageSize = 10, search = "") => {
+        const params = new URLSearchParams({
+          page: page.toString(),
+          page_size: pageSize.toString(),
+        });
+        if (search) params.append("search", search);
+        return conditionalAPI.get(`/admin/organizations/?${params}`);
+      },
+    }),
+    [conditionalAPI],
+  );
 
   // State for organization data
   const [organization, setOrganization] = useState<DatabaseOrganization | null>(
@@ -40,9 +68,12 @@ export function OrganizationDetails() {
         setLoading(true);
         console.log(`Fetching organization details for ID: ${id}`);
 
-        // Fetch all organizations and find the specific one
-        // Note: You might want to create a specific API endpoint for single organization
-        const response = await adminAPI.getOrganizationsList(1, 100, ""); // Get all orgs
+        // Use conditional API to avoid /v1/ duplication
+        const response = await conditionalAPIWithMethods.getOrganizationsList(
+          1,
+          100,
+          "",
+        ); // Get all orgs
         const allOrgs = response.data.results || response.data || [];
 
         const foundOrg = allOrgs.find(
@@ -64,7 +95,7 @@ export function OrganizationDetails() {
     };
 
     fetchOrganizationDetails();
-  }, [id]);
+  }, [id, conditionalAPIWithMethods]);
 
   // Show loading state
   if (loading) {

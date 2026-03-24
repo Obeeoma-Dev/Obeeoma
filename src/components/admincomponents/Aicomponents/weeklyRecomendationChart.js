@@ -5,24 +5,8 @@ import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement
 import "./aicomponent.css";
 // Register Chart.js components once
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
-// Chart data (visuals only — backend can replace this later)
-const chartData = {
-    labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"],
-    datasets: [
-        {
-            label: "Recommendations Sent",
-            data: [245, 312, 289, 340, 298, 360],
-            borderColor: "#3CB371",
-            backgroundColor: "rgba(13,148,136,0.15)",
-            tension: 0.35,
-            pointRadius: 4,
-            pointHoverRadius: 6,
-            pointBackgroundColor: "#ffffff",
-            pointBorderColor: "#3CB371",
-            pointBorderWidth: 2,
-        },
-    ],
-};
+const defaultWeeklyData = [245, 312, 289, 340, 298, 360];
+const defaultLabels = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6"];
 // Chart display options (no functional changes)
 const chartOptions = {
     responsive: true,
@@ -68,8 +52,30 @@ const chartOptions = {
         },
     },
 };
-// Functional component definition
-const WeeklyRecommendationsChart = () => {
+const WeeklyRecommendationsChart = ({ weeklyRecommendations, }) => {
+    const values = Array.isArray(weeklyRecommendations) && weeklyRecommendations.length
+        ? weeklyRecommendations
+        : defaultWeeklyData;
+    const labels = values.length <= defaultLabels.length
+        ? defaultLabels.slice(0, values.length)
+        : values.map((_, i) => `Week ${i + 1}`);
+    const chartData = {
+        labels,
+        datasets: [
+            {
+                label: "Recommendations Sent",
+                data: values,
+                borderColor: "#3CB371",
+                backgroundColor: "rgba(13,148,136,0.15)",
+                tension: 0.35,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: "#ffffff",
+                pointBorderColor: "#3CB371",
+                pointBorderWidth: 2,
+            },
+        ],
+    };
     return (_jsx(Card, { className: "weekly-recommendations-card", children: _jsxs(Card.Body, { children: [_jsxs("div", { className: "weekly-recommendations-header", children: [_jsx("h3", { className: "weekly-recommendations-title", children: "Weekly Recommendations" }), _jsx("p", { className: "weekly-recommendations-subtitle", children: "Volume of AI suggestions over the last 6 weeks" })] }), _jsx("div", { className: "weekly-recommendations-chart", children: _jsx(Line, { data: chartData, options: chartOptions }) })] }) }));
 };
 export default WeeklyRecommendationsChart;

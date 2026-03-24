@@ -1,26 +1,20 @@
 import React, { useState } from "react";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import MentalHealthChart from "../../../components/admincomponents/Reportcomponents/mentalHealthChart";
 import PlatformUsageChart from "../../../components/admincomponents/Reportcomponents/platformUsageChart";
-import TreatmentOutcomesChart from "../../../components/admincomponents/Reportcomponents/treatmentOutcomesChart";
-import OrganizationPerformanceChart from "../../../components/admincomponents/Reportcomponents/organizationPerformanceChart";
+import FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
 import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
 import { Container } from "react-bootstrap";
+import UserEngagement from "../../../components/admincomponents/Reportcomponents/userEngagement";
 
 /**
  * ReportPage component renders the system admin report dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
  */
 const ReportPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("Health Conditions");
+  const [activeTab, setActiveTab] = useState("Platform Usage");
 
-  const tabs = [
-    "Platform Usage",
-    "Health Conditions",
-    "Treatment Outcomes",
-    "Organization Performance",
-  ];
+  const tabs = ["Platform Usage", "User Engagement", "Feedback & Testimonies"];
 
   return (
     <SystemAdminLayout title="Reports">
@@ -105,25 +99,19 @@ const ReportPage: React.FC = () => {
 
       {/* Main Content */}
       <Container fluid className="px-0">
-        {/* Chart Section - Show based on active tab */}
         {activeTab === "Platform Usage" && (
           <div className="mb-5">
             <PlatformUsageChart />
           </div>
         )}
-        {activeTab === "Health Conditions" && (
+        {activeTab === "User Engagement" && (
           <div className="mb-5">
-            <MentalHealthChart />
+            <UserEngagement />
           </div>
         )}
-        {activeTab === "Treatment Outcomes" && (
+        {activeTab === "Feedback & Testimonies" && (
           <div className="mb-5">
-            <TreatmentOutcomesChart />
-          </div>
-        )}
-        {activeTab === "Organization Performance" && (
-          <div className="mb-5">
-            <OrganizationPerformanceChart />
+            <FeedbacknTestimonies />
           </div>
         )}
 
@@ -132,7 +120,6 @@ const ReportPage: React.FC = () => {
           <AvailableReports />
         </div>
 
-        {/* Generate Custom Report Section */}
         <div>
           <CustomReportForm />
         </div>

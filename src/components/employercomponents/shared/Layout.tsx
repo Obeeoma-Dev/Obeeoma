@@ -63,6 +63,12 @@ const Layout = ({ children, title }: LayoutProps) => {
       ? employer?.email || employer?.email
       : "Employer";
 
+  const companyJoinDate = employer?.company?.createdAt
+    ? new Date(employer.company.createdAt)
+    : localEmployer?.dateJoined
+      ? new Date(localEmployer.dateJoined)
+      : new Date();
+
   const menuItems = [
     {
       icon: HomeIcon,
@@ -98,6 +104,13 @@ const Layout = ({ children, title }: LayoutProps) => {
     rootMargin: "0px 0px -100px 0px",
   });
 
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
   const handleLogout = async () => {
     try {
       const resultAction = await dispatch(logoutUserThunk());
@@ -210,13 +223,12 @@ const Layout = ({ children, title }: LayoutProps) => {
                     </span>
 
                     {/* 2. Contact link*/}
-                    <Link
-                      to="/privacy-policy"
-                      className="text-muted fw-small d-block"
+                    <small
+                      className="text-muted fw-medium d-block"
                       style={{ fontFamily: "body", fontSize: "0.7rem" }}
                     >
-                      Privacy Policy
-                    </Link>
+                      Member since {formatDate(companyJoinDate)}
+                    </small>
                   </div>
 
                   {/* 3. User Icon or Uploaded Logo */}

@@ -7,17 +7,24 @@ import axios from "axios";
 export interface ContentItem {
   id: number;
   title: string;
-  type: "video" | "audio" | "image" | "document";
+  media_type: "video" | "audio" | "image" | "other";
   status: "published" | "draft" | "processing";
   category?: string;
-  date: string;
-  size: string;
-  file_url?: string;
+  created_at: string;
+  file_size: string;
+  public_url?: string;
+  s3_key?: string;
   description?: string;
+  duration?: string;
+  uploaded: boolean;
+  processed: boolean;
+  owner: string;
+  views: number;
 }
 
 // API base URL - Use environment variable for production
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api/v1";
 // const API_BASE_URL = "https://api-0904.onrender.com/api/v1";
 
 // Create axios instance with interceptors

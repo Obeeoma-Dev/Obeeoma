@@ -15,26 +15,45 @@ import {
 
 import { EmployeeDataPoint } from "./admindashboard";
 
-const PlatformUsageChart: React.FC = () => {
-  // Track which tab is currently active
+const defaultPlatformData: EmployeeDataPoint[] = [
+  { week: "Week 1", value: 1800 },
+  { week: "Week 2", value: 2100 },
+  { week: "Week 3", value: 2600 },
+  { week: "Week 4", value: 2900 },
+  { week: "Week 5", value: 3200 },
+  { week: "Week 6", value: 3500 },
+];
+
+const defaultSubscriptionData: EmployeeDataPoint[] = [
+  { week: "Month 1", value: 3200 },
+  { week: "Month 2", value: 3500 },
+  { week: "Month 3", value: 3900 },
+  { week: "Month 4", value: 4200 },
+  { week: "Month 5", value: 4600 },
+  { week: "Month 6", value: 5000 },
+];
+
+interface PlatformUsageChartProps {
+  platformData?: EmployeeDataPoint[];
+  subscriptionData?: EmployeeDataPoint[];
+}
+
+const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
+  platformData = defaultPlatformData,
+  subscriptionData = defaultSubscriptionData,
+}) => {
   const [activeTab, setActiveTab] = useState<string>("platform");
 
-  // Define tab options for chart navigation
   const tabs = [
     { id: "platform", label: "Platform Usage" },
     { id: "organization", label: "Organization Growth" },
     { id: "subscription", label: "Subscription Revenue" },
   ];
 
-  // Sample data for platform usage over 6 weeks
-  const employeeData: EmployeeDataPoint[] = [
-    { week: "Week 1", value: 1800 },
-    { week: "Week 2", value: 2100 },
-    { week: "Week 3", value: 2600 },
-    { week: "Week 4", value: 2900 },
-    { week: "Week 5", value: 3200 },
-    { week: "Week 6", value: 3500 },
-  ];
+  const employeeData =
+    platformData.length > 0 ? platformData : defaultPlatformData;
+  const revenueData =
+    subscriptionData.length > 0 ? subscriptionData : defaultSubscriptionData;
 
   return (
     <Card className="mb-4 shadow-sm border-0">
@@ -211,14 +230,7 @@ const PlatformUsageChart: React.FC = () => {
         {activeTab === "subscription" && (
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart
-              data={[
-                { week: "Week 1", value: 3200 },
-                { week: "Week 2", value: 3500 },
-                { week: "Week 3", value: 3900 },
-                { week: "Week 4", value: 4200 },
-                { week: "Week 5", value: 4600 },
-                { week: "Week 6", value: 5000 },
-              ]}
+              data={revenueData}
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               {/* Horizontal grid only */}

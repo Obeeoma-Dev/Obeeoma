@@ -11,6 +11,7 @@ import MoodgaugeChart from "../../components/employercomponents/employerdashboar
 import WellnessTrends from "../../components/employercomponents/reports/WellnessTrends";
 import RecentActivity from "../../components/employercomponents/employerdashboard/RecentActivity";
 import AddEmployeeForm from "../../components/employercomponents/companyemployees/AddEmployeeForm";
+import BarGraph from "../../components/employercomponents/employerdashboard/BarGraph";
 
 // Hooks & Types
 import { useDashboardData } from "../../hooks/useDashboardData";
@@ -159,7 +160,7 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
           <div className="col-lg-6">
             <div className="card border-0 shadow-sm h-100">
               <div className="card-body d-flex justify-content-center align-items-center">
-                <MoodgaugeChart moodLabel={stats?.generalMood || "Neutral"} />
+                <MoodgaugeChart />
               </div>
             </div>
           </div>
@@ -200,9 +201,22 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
             </div>
           </div>
 
-          {/* Recent Activity */}
+          {/* Recent Activity
           <div className="col-lg-6">
             <RecentActivity activities={activities} />
+          </div> */}
+          <div className="col-lg-6">
+            <div className="card border-0 shadow-sm h-100">
+              <div className="card-body">
+                <h5
+                  className="card-title fw-bold mb-4"
+                  style={{ fontSize: "1.1rem" }}
+                >
+                  Employee Mood Distribution
+                </h5>
+                <BarGraph />
+              </div>
+            </div>
           </div>
 
           {/* Wellness Trends History */}
@@ -219,14 +233,16 @@ const EmployerDashboard: React.FC<DashboardProps> = ({}) => {
               </div>
             </div>
           </div>
+
+          {/* Employee Mood Distribution Bar Graph */}
         </div>
+
         {/* Modal for adding employees */}
         <AddEmployeeForm
           onEmployeeAdded={refreshDashboardData}
           showModal={showAddEmployeeModal}
           onClose={() => setShowAddEmployeeModal(false)}
         />
-        s
       </div>
     </Layout>
   );

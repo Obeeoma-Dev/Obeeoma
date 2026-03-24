@@ -16,12 +16,17 @@ interface MetricsPanelProps {
   totalSubscriptions: number;
   coveredEmployees: string;
   utilizationRate: number;
+  // Add optional trend data
+  revenueGrowth?: number;
+  organizationsGrowth?: number;
 }
 
 const MetricsPanel: React.FC<MetricsPanelProps> = ({
   totalSubscriptions,
   coveredEmployees,
   utilizationRate,
+  revenueGrowth = 0,
+  organizationsGrowth = 0,
 }) => {
   const metrics: {
     title: string;
@@ -35,25 +40,26 @@ const MetricsPanel: React.FC<MetricsPanelProps> = ({
       title: "Total Subscriptions",
       value: totalSubscriptions,
       subtitle: "Active subscription plans",
-      trend: "+8% from last month",
+      trend: `${revenueGrowth >= 0 ? "+" : ""}${revenueGrowth.toFixed(1)}% from last month`,
       icon: Calendar,
-      color: "emerald",
+      color: revenueGrowth >= 0 ? "emerald" : "rose",
     },
     {
       title: "Covered Employees",
       value: coveredEmployees,
       subtitle: "Employees covered",
-      trend: "+5% from last month",
+      trend: `${organizationsGrowth >= 0 ? "+" : ""}${organizationsGrowth.toFixed(1)}% from last month`,
       icon: Users,
-      color: "emerald",
+      color: organizationsGrowth >= 0 ? "emerald" : "rose",
     },
     {
       title: "Utilization Rate",
       value: `${utilizationRate}%`,
       subtitle: "Platform usage",
-      trend: "+3% from last month",
+      trend:
+        utilizationRate >= 70 ? "+3% from last month" : "-2% from last month",
       icon: TrendingUp,
-      color: "emerald",
+      color: utilizationRate >= 70 ? "emerald" : "amber",
     },
   ];
 
