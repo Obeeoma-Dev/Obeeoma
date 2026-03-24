@@ -5,7 +5,7 @@ import { Form, Button, Card, Alert, InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
-import { Shield, KeyRound, Check, RotateCcw } from "lucide-react";
+import { Shield, KeyRound, Check, RotateCcw, } from "lucide-react";
 // Password validation rules matching authValidation.ts
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 const SecuritySettings = () => {
@@ -29,7 +29,7 @@ const SecuritySettings = () => {
     // Track if form has changes
     const [hasChanges, setHasChanges] = useState(false);
     // Track original 2FA state
-    const [originalTwoFactorEnabled, setOriginalTwoFactorEnabled] = useState(false);
+    const [originalTwoFactorEnabled, setOriginalTwoFactorEnabled] = useState(settings.twoFactorEnabled);
     // Track changes
     useEffect(() => {
         const hasUnsavedChanges = settings.twoFactorEnabled !== originalTwoFactorEnabled ||
@@ -38,10 +38,6 @@ const SecuritySettings = () => {
             settings.confirmPassword !== "";
         setHasChanges(hasUnsavedChanges);
     }, [settings, originalTwoFactorEnabled]);
-    // Update original 2FA state after first render
-    useEffect(() => {
-        setOriginalTwoFactorEnabled(settings.twoFactorEnabled);
-    }, []);
     // Handle input changes for password fields
     const handleChange = (e) => {
         const { name, value } = e.target;

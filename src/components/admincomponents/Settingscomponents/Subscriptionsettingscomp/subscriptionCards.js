@@ -10,7 +10,7 @@ const SubscriptionCard = ({ plan }) => {
     const formatPrice = (price) => {
         if (price === 0)
             return "Free";
-        return `₦${price.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        return `₦${price.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     };
     return (_jsxs(Card, { className: `position-relative bg-white rounded-xl shadow-lg border-2 transition-all h-100 ${plan.isPopular ? "border-success" : "border-secondary"}`, style: {
             transition: "all 0.3s ease",

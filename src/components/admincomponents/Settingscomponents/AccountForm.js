@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState, useEffect, useCallback } from "react";
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
-import { Upload, X, User, Mail, FileText, Check, RotateCcw } from "lucide-react";
+import { Upload, X, User, Mail, FileText, Check, RotateCcw, } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 // Role options matching the register.tsx
@@ -72,7 +72,8 @@ const AccountForm = () => {
             email: localStorage.getItem("email") || "patricia.kuluweeza@obeema.com",
             role: localStorage.getItem("role") || "System Administrator",
             phone: localStorage.getItem("phone") || "2348030000000",
-            bio: localStorage.getItem("bio") || "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
+            bio: localStorage.getItem("bio") ||
+                "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
         };
         const hasUnsavedChanges = currentData.fullName !== originalData.fullName ||
             currentData.email !== originalData.email ||
@@ -99,7 +100,8 @@ const AccountForm = () => {
             email: localStorage.getItem("email") || "patricia.kuluweeza@obeema.com",
             role: localStorage.getItem("role") || "System Administrator",
             phone: localStorage.getItem("phone") || "2348030000000",
-            bio: localStorage.getItem("bio") || "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
+            bio: localStorage.getItem("bio") ||
+                "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
         };
         setFormData(defaultValues);
         setProfileImage(originalProfileImage);
