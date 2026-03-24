@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
-import { Upload, X, User, Mail, Phone, FileText, Check, RotateCcw } from "lucide-react";
+import {
+  Upload,
+  X,
+  User,
+  Mail,
+  Phone,
+  FileText,
+  Check,
+  RotateCcw,
+} from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 
@@ -43,7 +52,9 @@ const AccountForm: React.FC = () => {
 
   // State for profile image
   const [profileImage, setProfileImage] = useState<string | null>(null);
-  const [originalProfileImage, setOriginalProfileImage] = useState<string | null>(null);
+  const [originalProfileImage, setOriginalProfileImage] = useState<
+    string | null
+  >(null);
   const [isUploading, setIsUploading] = useState(false);
 
   // State for tracking if form has unsaved changes
@@ -93,23 +104,27 @@ const AccountForm: React.FC = () => {
       email: localStorage.getItem("email") || "patricia.kuluweeza@obeema.com",
       role: localStorage.getItem("role") || "System Administrator",
       phone: localStorage.getItem("phone") || "2348030000000",
-      bio: localStorage.getItem("bio") || "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
+      bio:
+        localStorage.getItem("bio") ||
+        "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
     };
-    
-    const hasUnsavedChanges = 
+
+    const hasUnsavedChanges =
       currentData.fullName !== originalData.fullName ||
       currentData.email !== originalData.email ||
       currentData.role !== originalData.role ||
       currentData.phone !== originalData.phone ||
       currentData.bio !== originalData.bio ||
       profileImage !== originalProfileImage;
-    
+
     setHasChanges(hasUnsavedChanges);
   }, [formData, profileImage, originalProfileImage]);
 
   // Handle input changes for all fields
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ): void => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -128,9 +143,11 @@ const AccountForm: React.FC = () => {
       email: localStorage.getItem("email") || "patricia.kuluweeza@obeema.com",
       role: localStorage.getItem("role") || "System Administrator",
       phone: localStorage.getItem("phone") || "2348030000000",
-      bio: localStorage.getItem("bio") || "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
+      bio:
+        localStorage.getItem("bio") ||
+        "Dr. Patricia is a system administrator with over 10 years of experience in mental health care.",
     };
-    
+
     setFormData(defaultValues);
     setProfileImage(originalProfileImage);
     setErrors({});
@@ -232,10 +249,10 @@ const AccountForm: React.FC = () => {
       setOriginalProfileImage(profileImage);
       setHasChanges(false);
       setSaveSuccess(true);
-      
+
       // Hide success message after 3 seconds
       setTimeout(() => setSaveSuccess(false), 3000);
-      
+
       console.log("Form submitted:", formData);
     },
     [formData, profileImage, validateForm],
@@ -469,7 +486,10 @@ const AccountForm: React.FC = () => {
 
           {/* Success message */}
           {saveSuccess && (
-            <Alert variant="success" className="d-flex align-items-center py-2 px-3 mb-3">
+            <Alert
+              variant="success"
+              className="d-flex align-items-center py-2 px-3 mb-3"
+            >
               <Check size={16} className="me-2" />
               Changes saved successfully!
             </Alert>
@@ -478,8 +498,8 @@ const AccountForm: React.FC = () => {
           {/* Submit and Cancel buttons */}
           <div className="d-flex justify-content-end gap-2 mt-2">
             {hasChanges && (
-              <Button 
-                variant="outline-secondary" 
+              <Button
+                variant="outline-secondary"
                 onClick={handleCancel}
                 type="button"
               >
@@ -487,8 +507,8 @@ const AccountForm: React.FC = () => {
                 Cancel
               </Button>
             )}
-            <Button 
-              className="settings-save-btn" 
+            <Button
+              className="settings-save-btn"
               type="submit"
               disabled={!hasChanges}
             >

@@ -4,7 +4,14 @@ import { Form, Button, Card, Alert, InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faEye as faEyeRegular } from "@fortawesome/free-regular-svg-icons";
-import { Shield, Monitor, Smartphone, KeyRound, Check, RotateCcw } from "lucide-react";
+import {
+  Shield,
+  Monitor,
+  Smartphone,
+  KeyRound,
+  Check,
+  RotateCcw,
+} from "lucide-react";
 
 // Password validation rules matching authValidation.ts
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
@@ -38,27 +45,24 @@ const SecuritySettings: React.FC = () => {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-  
+
   // Track if form has changes
   const [hasChanges, setHasChanges] = useState(false);
-  
+
   // Track original 2FA state
-  const [originalTwoFactorEnabled, setOriginalTwoFactorEnabled] = useState(false);
+  const [originalTwoFactorEnabled, setOriginalTwoFactorEnabled] = useState(
+    settings.twoFactorEnabled,
+  );
 
   // Track changes
   useEffect(() => {
-    const hasUnsavedChanges = 
+    const hasUnsavedChanges =
       settings.twoFactorEnabled !== originalTwoFactorEnabled ||
       settings.currentPassword !== "" ||
       settings.newPassword !== "" ||
       settings.confirmPassword !== "";
     setHasChanges(hasUnsavedChanges);
   }, [settings, originalTwoFactorEnabled]);
-
-  // Update original 2FA state after first render
-  useEffect(() => {
-    setOriginalTwoFactorEnabled(settings.twoFactorEnabled);
-  }, []);
 
   // Handle input changes for password fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,12 +139,12 @@ const SecuritySettings: React.FC = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
+
       console.log("Saving security settings:", {
         twoFactorEnabled: settings.twoFactorEnabled,
         passwordChanged: !!settings.newPassword,
       });
-      
+
       // Clear password fields after successful save
       setSettings((prev) => ({
         ...prev,
@@ -148,12 +152,12 @@ const SecuritySettings: React.FC = () => {
         newPassword: "",
         confirmPassword: "",
       }));
-      
+
       // Update original 2FA state
       setOriginalTwoFactorEnabled(settings.twoFactorEnabled);
       setHasChanges(false);
       setSaveSuccess(true);
-      
+
       // Hide success message after 3 seconds
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch {
@@ -315,7 +319,7 @@ const SecuritySettings: React.FC = () => {
           <h6 className="fw-semibold mb-3">Login Sessions</h6>
 
           {/* Current Session */}
-          {/* <div className="mb-3">
+        {/* <div className="mb-3">
             <div className="small text-muted mb-2 fw-semibold">
               CURRENT SESSION
             </div>
@@ -356,11 +360,11 @@ const SecuritySettings: React.FC = () => {
                 Current
               </Button>
             </div> */}
-          {/* </div> */} 
+        {/* </div> */}
 
-          {/* Previous Sessions */}
-          {/* <div> */}
-            {/* <div className="small text-muted mb-2 fw-semibold">
+        {/* Previous Sessions */}
+        {/* <div> */}
+        {/* <div className="small text-muted mb-2 fw-semibold">
               PREVIOUS SESSIONS
             </div>
             <div className="p-3 border rounded-2 d-flex align-items-center justify-content-between">
@@ -386,7 +390,7 @@ const SecuritySettings: React.FC = () => {
                   </div>
                 </div>
               </div> */}
-              {/* <Button
+        {/* <Button
                 variant="danger"
                 size="sm"
                 style={{
@@ -396,8 +400,8 @@ const SecuritySettings: React.FC = () => {
               >
                 Revoke
               </Button> */}
-            {/* </div> */}
-          {/* </div> */}
+        {/* </div> */}
+        {/* </div> */}
         {/* </div> */}
 
         {/* Save and Cancel Buttons */}
@@ -429,7 +433,11 @@ const SecuritySettings: React.FC = () => {
           >
             {isSaving ? (
               <>
-                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" />
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                />
                 Saving...
               </>
             ) : (

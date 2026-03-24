@@ -52,7 +52,20 @@ interface ReturningUsersSummary {
 const UserEngagement: React.FC<{ data?: UserEngagementData }> = ({ data }) => {
   // Generate chart data from backend data
   const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     datasets: [
       {
         label: "New Signups",
@@ -100,8 +113,12 @@ const UserEngagement: React.FC<{ data?: UserEngagementData }> = ({ data }) => {
     },
   };
 
-  const engagementPercentage = data?.engagement_rate ? (data.engagement_rate * 100).toFixed(1) : "0.0";
-  const retentionPercentage = data?.retention_rate ? (data.retention_rate * 100).toFixed(1) : "0.0";
+  const engagementPercentage = data?.engagement_rate
+    ? (data.engagement_rate * 100).toFixed(1)
+    : "0.0";
+  const retentionPercentage = data?.retention_rate
+    ? (data.retention_rate * 100).toFixed(1)
+    : "0.0";
 
   return (
     <div>

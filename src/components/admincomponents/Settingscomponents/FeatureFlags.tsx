@@ -55,30 +55,32 @@ const FeatureFlags: React.FC = () => {
     <>
       <style>{switchStyles}</style>
       <Card className="settings-card-compact shadow-sm border-0">
-      <Card.Header className="fw-semibold mb-2 ps-0">Feature Flags</Card.Header>
+        <Card.Header className="fw-semibold mb-2 ps-0">
+          Feature Flags
+        </Card.Header>
 
-      <Form>
-        <Container fluid>
-          <Row className="g-2">
-            {/* Loop through each flag and render a toggle switch */}
-            {flags.map((flag) => (
-              <Col md={6} lg={5} key={flag.id}>
-                <div className="p-2 border rounded-2 bg-light-hover transition settings-section-compact">
-                  <Form.Check
-                    type="switch"
-                    id={`switch-${flag.id}`}
-                    label={flag.label}
-                    checked={flag.enabled}
-                    onChange={() => handleToggle(flag.id)}
-                    className={flag.enabled ? "fw-500" : "text-muted"}
-                  />
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </Form>
-    </Card>
+        <Form>
+          <Container fluid>
+            <Row className="g-2">
+              {/* Loop through each flag and render a toggle switch */}
+              {flags.map((flag) => (
+                <Col md={6} lg={5} key={flag.id}>
+                  <div className="p-2 border rounded-2 bg-light-hover transition settings-section-compact">
+                    <Form.Check
+                      type="switch"
+                      id={`switch-${flag.id}`}
+                      label={flag.label}
+                      checked={flag.enabled}
+                      onChange={() => handleToggle(flag.id)}
+                      className={flag.enabled ? "fw-500" : "text-muted"}
+                    />
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          </Container>
+        </Form>
+      </Card>
     </>
   );
 };

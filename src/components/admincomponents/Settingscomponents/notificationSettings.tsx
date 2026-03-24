@@ -36,11 +36,16 @@ const NotificationSettings: React.FC = () => {
           const data = res?.data ?? res ?? {};
           // Handle system settings response structure
           if (Array.isArray(data)) {
-            const notificationData = data.find((setting: any) => setting.key === 'notifications') || {};
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const notificationData =
+              data.find((setting: any) => setting.key === "notifications") ||
+              {};
             setPreferences({
               systemAlerts: notificationData.systemAlerts ?? true,
-              organizationActivity: notificationData.organizationActivity ?? true,
-              criticalHotlineAlerts: notificationData.criticalHotlineAlerts ?? false,
+              organizationActivity:
+                notificationData.organizationActivity ?? true,
+              criticalHotlineAlerts:
+                notificationData.criticalHotlineAlerts ?? false,
               reportGeneration: notificationData.reportGeneration ?? true,
             });
           } else {
@@ -56,7 +61,9 @@ const NotificationSettings: React.FC = () => {
       } catch (e: unknown) {
         if (!cancelled)
           setLoadError(
-            e instanceof Error ? e.message : "Failed to load notification settings",
+            e instanceof Error
+              ? e.message
+              : "Failed to load notification settings",
           );
       } finally {
         if (!cancelled) setLoading(false);
@@ -83,12 +90,16 @@ const NotificationSettings: React.FC = () => {
 
     try {
       await adminAPI.updateSystemSettings({
-        key: 'notifications',
-        ...preferences
+        key: "notifications",
+        ...preferences,
       });
       setSaveSuccess(true);
     } catch (e: unknown) {
-      setSaveError(e instanceof Error ? e.message : "Failed to save preferences. Please try again.");
+      setSaveError(
+        e instanceof Error
+          ? e.message
+          : "Failed to save preferences. Please try again.",
+      );
     } finally {
       setIsSaving(false);
     }
@@ -97,7 +108,10 @@ const NotificationSettings: React.FC = () => {
   if (loading) {
     return (
       <Card className="settings-card-compact shadow-sm border-0">
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: 200 }}>
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ minHeight: 200 }}
+        >
           <Spinner animation="border" />
         </div>
       </Card>

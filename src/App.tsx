@@ -167,7 +167,7 @@ export default function App(): React.ReactElement {
           <BrowserRouter>
             <AnalyticsTracker />
             {/* <HistoryGuard> */}
-              <AppRoutes />
+            <AppRoutes />
             {/* </HistoryGuard> */}
           </BrowserRouter>
         </Provider>

@@ -33,10 +33,7 @@ const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
           <InputGroup.Text>
             <Search size={16} />
           </InputGroup.Text>
-          <Form.Control
-            type="text"
-            placeholder="Search by operator..."
-          />
+          <Form.Control type="text" placeholder="Search by operator..." />
         </InputGroup>
         <Button
           variant="outline-secondary"

@@ -363,6 +363,7 @@ export const adminAPI = {
     return response;
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateSystemSettings: async (settings: any) => {
     const response = await api.post("admin/system-settings/", settings);
     return response;
@@ -372,12 +373,13 @@ export const adminAPI = {
     const response = await api.get(`admin/system-settings/${id}/`);
     return response;
   },
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateSystemSettingById: async (id: string | number, settings: any) => {
     const response = await api.put(`admin/system-settings/${id}/`, settings);
     return response;
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   patchSystemSettingById: async (id: string | number, settings: any) => {
     const response = await api.patch(`admin/system-settings/${id}/`, settings);
     return response;

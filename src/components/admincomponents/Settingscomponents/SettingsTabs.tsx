@@ -48,7 +48,7 @@ const SettingsTabs: React.FC = () => {
     <div className="p-3 settings-main-container">
       {/* Settings Heading */}
       <h1 className="h3 mb-4">Settings</h1>
-      
+
       {/* Tabs components with controlled activeKey to manage selected tab */}
       <Tabs
         id="settings-tabs"
@@ -78,7 +78,6 @@ const SettingsTabs: React.FC = () => {
         </Tab>
 
         {/* Tab for Appearance customization */}
-        
 
         {/* Tab for Subscription details */}
         <Tab eventKey="subscription" title="Subscription">

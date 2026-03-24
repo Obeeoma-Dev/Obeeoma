@@ -19,11 +19,11 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
       ? plan.monthlyPrice * 12 - plan.annualPrice
       : 0;
   const isFree = !plan.monthlyPrice || plan.monthlyPrice === 0;
-  
+
   // Format price in Naira
   const formatPrice = (price: number): string => {
     if (price === 0) return "Free";
-    return `₦${price.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return `₦${price.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   return (

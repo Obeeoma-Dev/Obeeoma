@@ -17,7 +17,7 @@ export interface SubscriptionPlan {
 // Format price in Naira
 const formatPrice = (price: number): string => {
   if (price === 0) return "Free";
-  return `₦${price.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return `₦${price.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 };
 
 const defaultPlans: SubscriptionPlan[] = [
@@ -132,13 +132,22 @@ const SubscriptionSettingsComp: React.FC = () => {
   };
 
   // Handle form input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
-    
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : type === "number" ? parseFloat(value) || 0 : value,
+      [name]:
+        type === "checkbox"
+          ? checked
+          : type === "number"
+            ? parseFloat(value) || 0
+            : value,
     }));
   };
 
@@ -195,14 +204,20 @@ const SubscriptionSettingsComp: React.FC = () => {
 
         {/* Success messages */}
         {saveSuccess && (
-          <Alert variant="success" className="d-flex align-items-center py-2 px-3 mb-3">
+          <Alert
+            variant="success"
+            className="d-flex align-items-center py-2 px-3 mb-3"
+          >
             <Save size={16} className="me-2" />
             Plan saved successfully!
           </Alert>
         )}
 
         {deleteSuccess && (
-          <Alert variant="danger" className="d-flex align-items-center py-2 px-3 mb-3">
+          <Alert
+            variant="danger"
+            className="d-flex align-items-center py-2 px-3 mb-3"
+          >
             <Trash2 size={16} className="me-2" />
             Plan deleted successfully!
           </Alert>
@@ -249,7 +264,10 @@ const SubscriptionSettingsComp: React.FC = () => {
 
                 {/* Pricing */}
                 <div className="mb-3">
-                  <span className="fw-bold text-dark" style={{ fontSize: "1.5rem" }}>
+                  <span
+                    className="fw-bold text-dark"
+                    style={{ fontSize: "1.5rem" }}
+                  >
                     {formatPrice(plan.monthlyPrice || 0)}
                   </span>
                   {plan.monthlyPrice !== 0 && (
@@ -275,7 +293,9 @@ const SubscriptionSettingsComp: React.FC = () => {
                     </li>
                   ))}
                   {plan.features.length > 4 && (
-                    <li className="text-muted small">+{plan.features.length - 4} more</li>
+                    <li className="text-muted small">
+                      +{plan.features.length - 4} more
+                    </li>
                   )}
                 </ul>
 
@@ -318,9 +338,16 @@ const SubscriptionSettingsComp: React.FC = () => {
       </div>
 
       {/* Edit/Create Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        size="lg"
+        centered
+      >
         <Modal.Header closeButton>
-          <Modal.Title>{editingPlan ? "Edit Plan" : "Add New Plan"}</Modal.Title>
+          <Modal.Title>
+            {editingPlan ? "Edit Plan" : "Add New Plan"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -415,7 +442,10 @@ const SubscriptionSettingsComp: React.FC = () => {
                   value={featureInput}
                   onChange={(e) => setFeatureInput(e.target.value)}
                   placeholder="Add a feature"
-                  onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), handleAddFeature())}
+                  onKeyPress={(e) =>
+                    e.key === "Enter" &&
+                    (e.preventDefault(), handleAddFeature())
+                  }
                 />
                 <Button variant="outline-success" onClick={handleAddFeature}>
                   <Plus size={18} />
