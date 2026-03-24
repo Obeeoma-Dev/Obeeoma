@@ -1,20 +1,20 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/adminpages/AIRecommendationsPage.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
+import { GlobeIcon, LayoutDashboardIcon } from "lucide-react";
 import "./aiControls.css";
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
 // import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
+import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
-import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
+import { FileText } from "lucide-react";
 import { adminAPI } from "../../../api/apiConfig";
-import { useAIStatus } from "../../../hooks/useAIStatus";
 /**
  * AIRecommendationsPage renders the AI management dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
@@ -86,12 +86,10 @@ const AIRecommendationsPage = () => {
         score: Number(t.percentage) || 0,
     }))
         .filter((t) => t.name !== "");
-    if (loading) {
-        return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsx(Container, { fluid: true, className: "py-4 d-flex justify-content-center align-items-center min-vh-50", children: _jsx(Spinner, { animation: "border" }) }) }));
-    }
-    if (error) {
-        return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalRecommendations: 0, engagementRate: 0, aiAccuracyScore: 0 }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: [] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }));
-    }
-    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { totalRecommendations: totalRecommendations, engagementRate: engagementRate, aiAccuracyScore: aiAccuracyScore }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, { effectivenessByType: effectivenessByType.length ? effectivenessByType : undefined }) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, { weeklyRecommendations: weeklyRecommendations }) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(AIAssistant, {})] }));
+    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsxs("div", { className: "ai-controls-section", children: [_jsxs("div", { className: "ai-controls-header", children: [_jsxs("div", { children: [_jsx("h2", { className: "ai-controls-title", children: "AI Controls" }), _jsx("p", { className: "ai-controls-subtitle", children: "Independently manage AI across each part of the platform" })] }), _jsxs("div", { className: "ai-controls-status", children: [_jsx("span", { className: "ai-controls-indicator" }), [
+                                                aiStatus.landing_ai,
+                                                aiStatus.admin_ai,
+                                                aiStatus.mobile_ai,
+                                            ].filter(Boolean).length, " ", "of 3 active"] })] }), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.landing_ai, onToggle: handleLandingAIToggle, label: "Landing Page AI", description: "Reception chatbot that talks about the app and directs visitors. Does not save conversations.", icon: _jsx(GlobeIcon, { size: 20 }), lastActive: "Today at 1:12 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.admin_ai, onToggle: handleAdminAIToggle, label: "Admin Dashboard AI", description: "Provides insights, growth recommendations, and analytics summaries to the system admin.", icon: _jsx(LayoutDashboardIcon, { size: 20 }), lastActive: "Today at 2:34 PM" }) })] }), _jsx(AIResourcesTable, { resources: [] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }));
 };
 export default AIRecommendationsPage;

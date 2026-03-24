@@ -12,7 +12,6 @@ import { BlogManager } from "../../components/admincomponents/Blogmanagement/Blo
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Building2, Users, PhoneCall } from "lucide-react";
-import { adminAPI } from "../../api/apiConfig";
 /**
  * Default fallback data for dashboard stats
  * Used when API call fails or during loading

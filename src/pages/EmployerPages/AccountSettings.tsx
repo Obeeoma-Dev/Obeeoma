@@ -175,12 +175,16 @@ const EmployerAccountProfile = () => {
       try {
         // Also send to backend
         // Try to update Employer mapping properties to match DB fields if needed
-        const backendPayload: any = {
+        const backendPayload: {
+          first_name: string;
+          last_name: string;
+          organization_name: string;
+          email: string;
+        } = {
           first_name: accountData.firstName,
           last_name: accountData.lastName,
           organization_name: accountData.organizationName,
           email: accountData.email,
-          phone: accountData.phone,
         };
         await dispatch(updateCurrentEmployer(backendPayload)).unwrap();
         alert("Settings saved to database successfully!");
