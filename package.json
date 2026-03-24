@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "test": "jest --watchAll=false",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\""
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
+    "env:local": "node switch-env.js local",
+    "env:prod": "node switch-env.js prod"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
