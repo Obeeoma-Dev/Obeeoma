@@ -39,6 +39,7 @@ const subscriptionPlans = [
 ];
 
 const SubscriptionSettingsPage: React.FC = () => {
+  // Subscription plans will be fetched by the SubscriptionSettingsComp component
   return (
     <div
       style={{
@@ -72,7 +73,7 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-          {/* Subscription cards grid */}
+{/* Subscription cards grid */}
           <SubscriptionSettingsComp />
         </div>
       </div>

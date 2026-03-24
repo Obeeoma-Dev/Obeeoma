@@ -37,6 +37,7 @@ const subscriptionPlans = [
     },
 ];
 const SubscriptionSettingsPage = () => {
+    // Subscription plans will be fetched by the SubscriptionSettingsComp component
     return (_jsxs("div", { style: {
             display: "flex",
             minHeight: "100vh",

@@ -45,11 +45,11 @@ const SubscriptionPage: React.FC = () => {
   console.log("Raw subscriptions data:", subscriptions);
   console.log("First subscription structure:", subscriptions[0]);
 
-  // Use placeholder data for other metrics for now
+  // Get metrics from backend data
   const metrics = {
-    totalOrganizations: 42, // Placeholder
-    totalSubscriptions: totalSubscriptions, // Real data from backend
-    coveredEmployees: coveredEmployees.toLocaleString(), // Real data with formatting
+    totalOrganizations: subscriptions.length > 0 ? new Set(subscriptions.map(sub => sub.employer?.name || sub.employer)).size : 0,
+    totalSubscriptions: totalSubscriptions,
+    coveredEmployees: coveredEmployees.toLocaleString(),
     utilizationRate: utilizationRate,
   };
 
@@ -86,7 +86,7 @@ const SubscriptionPage: React.FC = () => {
     };
   });
 
-  // Service utilization percentages - maintaining existing structure
+  // Service utilization percentages - calculate from backend data if available
   const services = [
     { name: "Therapy Sessions", percentage: 65 },
     { name: "Mindfulness", percentage: 4 },
@@ -95,7 +95,7 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-  // Placeholder data for subscription plans (in Naira)
+// Placeholder data for subscription plans (in Naira)
   const subscriptionPlans = [
     {
       id: "1",

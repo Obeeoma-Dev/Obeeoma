@@ -57,7 +57,7 @@ const AccountForm: React.FC = () => {
   >(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // State for tracking if form has unsaved changes
+// State for tracking if form has unsaved changes
   const [hasChanges, setHasChanges] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 

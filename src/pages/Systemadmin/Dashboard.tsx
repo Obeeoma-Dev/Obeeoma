@@ -38,55 +38,7 @@ interface OverviewData {
   [key: string]: unknown;
 }
 import { Building2, Users, CreditCard, PhoneCall } from "lucide-react";
-import { adminDashboardAPI } from "../../api/adminapiConfig";
-import { useAIStatus } from "../../hooks/useAIStatus";
-
-/**
- * Static placeholder data for recent activities
- * Replace with API data when backend is ready
- */
-const recentActivityData: ActivityItem[] = [
-  {
-    id: "1",
-    type: "New Organization",
-    details: "Wellness Centre Inc. joined the platform",
-    time: "2 hours ago",
-    icon: "Building2", // Icon representing an organization or building
-    iconColor: "text-success", // Bootstrap background color class
-  },
-  {
-    id: "2",
-    type: "AI Recommendation",
-    details: "New AI recommendation available for review",
-    time: "1 hour ago",
-    icon: "Brain", // Icon representing AI or intelligence
-    iconColor: "text-success",
-  },
-  {
-    id: "3",
-    type: "Hotline Activity",
-    details: "12 hotline calls were received",
-    time: "45 minutes ago",
-    icon: "PhoneCall", // Icon representing phone or hotline
-    iconColor: "text-success",
-  },
-  {
-    id: "4",
-    type: "Patient Engagement",
-    details: "45 patients were engaged today",
-    time: "30 minutes ago",
-    icon: "UserPlus", // Icon representing user engagement or addition
-    iconColor: "text-success",
-  },
-  {
-    id: "5",
-    type: "Subscription",
-    details: "University Counseling Center subscribed to the platform",
-    time: "25 minutes ago",
-    icon: "CreditCard", // Icon representing financial or subscription activity
-    iconColor: "text-success",
-  },
-];
+import { adminAPI } from "../../api/apiConfig";
 
 /**
  * Default fallback data for dashboard stats
@@ -144,7 +96,14 @@ const Dashboard: React.FC = () => {
   /* Dashboard stats state */
   const [dashboardStats, setDashboardStats] =
     useState<StatCardData[]>(defaultStatsData);
-  const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
+  const [platformUsage, setPlatformUsage] = useState<
+    Array<{ week: string; value: number }>
+  >([]);
+  const [subscriptionRevenue, setSubscriptionRevenue] = useState<
+    Array<{ week: string; value: number }>
+  >([]);
+  const [recentActivities, setRecentActivities] =
+    useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
