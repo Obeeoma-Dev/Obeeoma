@@ -5,7 +5,6 @@ import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import TopMetrics from "../../../components/admincomponents/Hotlinecomponents/hotLinetopmetrics";
 import HourlyCallChart from "../../../components/admincomponents/Hotlinecomponents/hourlyCallChart";
-import CallReasonsChart from "../../../components/admincomponents/Hotlinecomponents/callsResourcesChart";
 import CallLogTable from "../../../components/admincomponents/Hotlinecomponents/callLogTable";
 import { adminAPI } from "../../../api/apiConfig";
 function formatCallDate(isoDate) {
@@ -55,7 +54,6 @@ const HotlineActivity = () => {
     const avgCallTime = data?.average_duration ?? "0:00";
     const activeOperators = data?.active_operators;
     const hourlyVolume = data?.hourly_volume;
-    const callReasons = data?.call_reasons;
     const logs = (data?.recent_calls ?? []).map((c) => {
         const { time, date } = formatCallDate(c.call_date ?? "");
         return {
@@ -69,8 +67,8 @@ const HotlineActivity = () => {
         return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsx(Container, { fluid: true, className: "py-4 d-flex justify-content-center align-items-center min-vh-50", children: _jsx(Spinner, { animation: "border" }) }) }));
     }
     if (error) {
-        return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalCalls: 0, avgCallTime: "0:00" }), _jsxs(Row, { children: [_jsx(Col, { md: 6, children: _jsx(HourlyCallChart, {}) }), _jsx(Col, { md: 6, children: _jsx(CallReasonsChart, {}) })] }), _jsx(CallLogTable, {})] }) }));
+        return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalCalls: 0, avgCallTime: "0:00" }), _jsx(Row, { children: _jsx(Col, { md: 12, children: _jsx(HourlyCallChart, {}) }) }), _jsx(CallLogTable, {})] }) }));
     }
-    return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, children: [_jsx(TopMetrics, { totalCalls: totalCalls, avgCallTime: avgCallTime, activeOperators: activeOperators }), _jsxs(Row, { children: [_jsx(Col, { md: 6, children: _jsx(HourlyCallChart, { hourlyVolume: hourlyVolume }) }), _jsx(Col, { md: 6, children: _jsx(CallReasonsChart, { callReasons: callReasons }) })] }), _jsx(CallLogTable, { logs: logs.length ? logs : undefined })] }) }));
+    return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, children: [_jsx(TopMetrics, { totalCalls: totalCalls, avgCallTime: avgCallTime, activeOperators: activeOperators }), _jsx(Row, { children: _jsx(Col, { md: 12, children: _jsx(HourlyCallChart, { hourlyVolume: hourlyVolume }) }) }), _jsx(CallLogTable, { logs: logs.length ? logs : undefined })] }) }));
 };
 export default HotlineActivity;
