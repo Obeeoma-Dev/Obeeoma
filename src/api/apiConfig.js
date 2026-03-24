@@ -14,7 +14,19 @@ const api = axios.create({
 });
 export const setupApiInterceptors = (store) => {
     api.interceptors.request.use((config) => {
+        // Normalize duplicate version prefix when baseURL already contains '/v1'
         const requestPath = config.url || "";
+        try {
+            const normalizedBase = (API_BASE_URL || "").replace(/\/+$|^\s+|\s+$/g, "");
+            const baseHasV1 = /\/v1(\/)?$/.test(normalizedBase);
+            if (baseHasV1 && requestPath) {
+                // remove leading '/v1' or 'v1' from the request path to avoid double '/v1/v1'
+                config.url = config.url.replace(/^\/?v1\/?/, "");
+            }
+        }
+        catch (e) {
+            // ignore normalization errors and continue
+        }
         const publicEndpoints = [
             "auth/login/",
             "auth/signup/",
