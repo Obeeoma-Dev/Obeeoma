@@ -26,7 +26,7 @@ export function OrganizationDetails() {
     window.location.hostname === "127.0.0.1";
   const conditionalAPIBaseURL = isLocalhost
     ? "http://127.0.0.1:8000/api/v1" // Neon backend for localhost development
-    : "http://64.225.122.101:8000/api/v1"; // Digital Ocean backend for production
+    : "http://64.225.122.101/api/v1"; // Digital Ocean backend for production
 
   // Create a stable API instance (so it doesn't change every render)
   const conditionalAPI = useMemo(() => {
