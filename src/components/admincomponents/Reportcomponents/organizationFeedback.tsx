@@ -10,14 +10,18 @@ interface FeedbackItem {
   organization?: string;
 }
 
-const FeedbacknTestimonies: React.FC<{ feedbackData?: FeedbackItem[] }> = ({ feedbackData }) => {
+const FeedbacknTestimonies: React.FC<{ feedbackData?: FeedbackItem[] }> = ({
+  feedbackData,
+}) => {
   const records = feedbackData || [];
 
   if (!records.length) {
     return (
       <Card className="shadow-sm border-0 text-center p-5">
         <h5>No feedback available.</h5>
-        <p className="text-muted">Feedback will appear here once users start providing testimonials.</p>
+        <p className="text-muted">
+          Feedback will appear here once users start providing testimonials.
+        </p>
       </Card>
     );
   }
@@ -33,18 +37,21 @@ const FeedbacknTestimonies: React.FC<{ feedbackData?: FeedbackItem[] }> = ({ fee
       >
         User Feedback & Testimonials
       </h5>
-      
+
       {records.map((item) => (
-        <Card key={item.id || Math.random().toString()} className="mb-3 shadow-sm border-0">
+        <Card
+          key={item.id || Math.random().toString()}
+          className="mb-3 shadow-sm border-0"
+        >
           <Card.Body>
             <Row className="align-items-start">
               <Col md={8}>
                 <h6 className="mb-2">{item.user_name || "Anonymous User"}</h6>
-                <p className="text-muted mb-2">{item.feedback || "No feedback provided"}</p>
+                <p className="text-muted mb-2">
+                  {item.feedback || "No feedback provided"}
+                </p>
                 {item.organization && (
-                  <small className="text-muted">
-                    from {item.organization}
-                  </small>
+                  <small className="text-muted">from {item.organization}</small>
                 )}
               </Col>
               <Col md={4} className="text-end">

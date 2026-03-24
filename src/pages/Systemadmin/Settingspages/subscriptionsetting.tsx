@@ -3,6 +3,41 @@ import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 
+// Note: SubscriptionSettingsComp now manages its own state from localStorage
+// This placeholder data is kept for reference but not used
+const subscriptionPlans = [
+  {
+    id: "1",
+    name: "Freemium",
+    organization: "Obeema",
+    monthlyPrice: 0,
+    annualPrice: 0,
+    employeeLimit: 10,
+    features: [
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+    ],
+  },
+  {
+    id: "2",
+    name: "Premium",
+    organization: "Obeema",
+    monthlyPrice: 24990,
+    annualPrice: 249900,
+    employeeLimit: 0,
+    features: [
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+      "Access to live webinars",
+      "Client engagement tools",
+      "Dedicated support team",
+    ],
+    isPopular: true,
+  },
+];
+
 const SubscriptionSettingsPage: React.FC = () => {
   // Subscription plans will be fetched by the SubscriptionSettingsComp component
   return (
@@ -38,8 +73,8 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-          {/* Subscription cards grid - will fetch data from backend */}
-          <SubscriptionSettingsComp plans={[]} />
+{/* Subscription cards grid */}
+          <SubscriptionSettingsComp />
         </div>
       </div>
     </div>

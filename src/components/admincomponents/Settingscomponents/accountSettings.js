@@ -27,7 +27,9 @@ const AccountForm = () => {
                     const data = res?.data ?? res ?? {};
                     // Handle system settings response structure
                     if (Array.isArray(data)) {
-                        const accountData = data.find((setting) => setting.key === 'account') || {};
+                        const accountData = 
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any --- IGNORE ---
+                        data.find((setting) => setting.key === "account") || {};
                         setAccount({
                             name: accountData.name || "",
                             title: accountData.title || "",
@@ -76,8 +78,8 @@ const AccountForm = () => {
             setError(null);
             setSuccess(null);
             await adminAPI.updateSystemSettings({
-                key: 'account',
-                ...account
+                key: "account",
+                ...account,
             });
             setSuccess("Account settings saved successfully!");
         }

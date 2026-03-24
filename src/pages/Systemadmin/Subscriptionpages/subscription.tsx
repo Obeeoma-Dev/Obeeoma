@@ -95,22 +95,39 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-  // Get subscription plans from backend data
-  const subscriptionPlans = subscriptions.slice(0, 5).map((sub, index) => ({
-    id: sub.id.toString(),
-    name: sub.plan
-      ? sub.plan.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase())
-      : `Plan ${index + 1}`,
-    organization: sub.employer?.name || "Unknown Organization",
-    monthlyPrice: parseFloat(sub.amount) || 0,
-    annualPrice: parseFloat(sub.amount) * 12 || 0,
-    employeeLimit: sub.seats || 0,
-    features: [
-      "Access to basic resources",
-      "Monthly check-ins",
-      "Email support",
-    ],
-  }));
+// Placeholder data for subscription plans (in Naira)
+  const subscriptionPlans = [
+    {
+      id: "1",
+      name: "Freemium",
+      organization: "Obeema",
+      monthlyPrice: 0,
+      annualPrice: 0,
+      employeeLimit: 10,
+      features: [
+        "Access to basic resources",
+        "Monthly check-ins",
+        "Email support",
+      ],
+    },
+    {
+      id: "2",
+      name: "Premium",
+      organization: "Obeema",
+      monthlyPrice: 24990,
+      annualPrice: 249900,
+      employeeLimit: 0,
+      features: [
+        "Access to basic resources",
+        "Monthly check-ins",
+        "Email support",
+        "Access to live webinars",
+        "Client engagement tools",
+        "Dedicated support team",
+      ],
+      isPopular: true,
+    },
+  ];
 
   return (
     <SystemAdminLayout title="Subscription Management">
@@ -162,14 +179,6 @@ const SubscriptionPage: React.FC = () => {
                     services
                   </p>
                 </div>
-                <Button
-                  variant="success"
-                  className="ms-auto"
-                  style={{ fontFamily: "body" }}
-                  onClick={refetchCount} // Refresh button
-                >
-                  Add Subscription
-                </Button>
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}
@@ -180,7 +189,7 @@ const SubscriptionPage: React.FC = () => {
             </Card>
 
             {/* Subscription cards grid */}
-            <SubscriptionSettingsComp plans={subscriptionPlans} />
+            <SubscriptionSettingsComp />
           </>
         )}
       </Container>

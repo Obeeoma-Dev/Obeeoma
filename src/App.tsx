@@ -9,7 +9,7 @@ import { analytics } from "./services/analytics";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import ProtectedRoute from "./components/ProtectedRoute";
-import HistoryGuard from "./components/HistoryGuard";
+// import HistoryGuard from "./components/HistoryGuard";
 
 // Pages
 import Index from "./pages/Index";
@@ -168,9 +168,9 @@ export default function App(): React.ReactElement {
         <Provider store={store}>
           <BrowserRouter>
             <AnalyticsTracker />
-            <HistoryGuard>
-              <AppRoutes />
-            </HistoryGuard>
+            {/* <HistoryGuard> */}
+            <AppRoutes />
+            {/* </HistoryGuard> */}
           </BrowserRouter>
         </Provider>
       </TooltipProvider>

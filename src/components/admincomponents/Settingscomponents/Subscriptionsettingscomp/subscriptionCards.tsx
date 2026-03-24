@@ -20,6 +20,12 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
       : 0;
   const isFree = !plan.monthlyPrice || plan.monthlyPrice === 0;
 
+  // Format price in Naira
+  const formatPrice = (price: number): string => {
+    if (price === 0) return "Free";
+    return `₦${price.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  };
+
   return (
     <Card
       className={`position-relative bg-white rounded-xl shadow-lg border-2 transition-all h-100 ${
@@ -71,7 +77,7 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
         <div className="mb-3">
           <div className="d-flex align-items-baseline mb-2">
             <span className="fw-bold text-dark" style={{ fontSize: "1.75rem" }}>
-              {isFree ? "Free" : `$${(plan.monthlyPrice || 0).toFixed(2)}`}
+              {formatPrice(plan.monthlyPrice || 0)}
             </span>
             {!isFree && (
               <span
@@ -86,7 +92,7 @@ const SubscriptionCard: React.FC<{ plan: SubscriptionPlan }> = ({ plan }) => {
             <p className="text-muted mb-0" style={{ fontSize: "0.75rem" }}>
               Billed annually{" "}
               <span className="fw-medium text-success">
-                (save ${monthlySavings.toFixed(0)})
+                (save {formatPrice(monthlySavings)})
               </span>
             </p>
           )}

@@ -27,10 +27,17 @@ interface PlatformUsageRecord {
   activeUsers: number;
 }
 
-const PlatformUsageChart: React.FC<{ data?: PlatformUsageData }> = ({ data }) => {
+const PlatformUsageChart: React.FC<{ data?: PlatformUsageData }> = ({
+  data,
+}) => {
   // Generate chart data from backend data
   const chartData = {
-    labels: ["Daily Active", "Weekly Active", "Monthly Active", "Total Sessions"],
+    labels: [
+      "Daily Active",
+      "Weekly Active",
+      "Monthly Active",
+      "Total Sessions",
+    ],
     datasets: [
       {
         label: "Platform Usage Metrics",
@@ -50,9 +57,9 @@ const PlatformUsageChart: React.FC<{ data?: PlatformUsageData }> = ({ data }) =>
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { 
+      legend: {
         display: true,
-        position: 'top' as const,
+        position: "top" as const,
       },
       tooltip: {
         callbacks: {
@@ -88,7 +95,7 @@ const PlatformUsageChart: React.FC<{ data?: PlatformUsageData }> = ({ data }) =>
         <div style={{ height: "400px" }}>
           <Bar data={chartData} options={options} />
         </div>
-        
+
         {data?.average_session_duration && (
           <div className="mt-3 text-center">
             <small className="text-muted">

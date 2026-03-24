@@ -90,8 +90,7 @@ const LoginPage = () => {
       // Support both payload shapes: { user: { role } } and { role } (employer vs admin backends)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const payload = resultAction as any;
-      const userRole =
-        payload?.user?.role ?? payload?.role ?? user?.role ?? "";
+      const userRole = payload?.user?.role ?? payload?.role ?? user?.role ?? "";
       console.log("Final Role Determined:", userRole);
 
       const destinationPath: DashboardPath = getDashboardRoute(userRole);

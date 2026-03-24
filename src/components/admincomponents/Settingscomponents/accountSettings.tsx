@@ -36,7 +36,10 @@ const AccountForm: React.FC = () => {
           const data = res?.data ?? res ?? {};
           // Handle system settings response structure
           if (Array.isArray(data)) {
-            const accountData = data.find((setting: any) => setting.key === 'account') || {};
+             
+            const accountData =
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any --- IGNORE ---
+              data.find((setting: any) => setting.key === "account") || {};
             setAccount({
               name: accountData.name || "",
               title: accountData.title || "",
@@ -87,12 +90,14 @@ const AccountForm: React.FC = () => {
       setError(null);
       setSuccess(null);
       await adminAPI.updateSystemSettings({
-        key: 'account',
-        ...account
+        key: "account",
+        ...account,
       });
       setSuccess("Account settings saved successfully!");
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Failed to save account settings");
+      setError(
+        e instanceof Error ? e.message : "Failed to save account settings",
+      );
     } finally {
       setSaving(false);
     }
@@ -101,7 +106,10 @@ const AccountForm: React.FC = () => {
   if (loading) {
     return (
       <Card className="p-4 shadow-sm">
-        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: 200 }}>
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ minHeight: 200 }}
+        >
           <Spinner animation="border" />
         </div>
       </Card>
@@ -191,11 +199,7 @@ const AccountForm: React.FC = () => {
 
       {/* Save button */}
       <div className="d-flex justify-content-end">
-        <Button 
-          variant="success" 
-          onClick={handleSave}
-          disabled={saving}
-        >
+        <Button variant="success" onClick={handleSave} disabled={saving}>
           {saving ? (
             <>
               <Spinner

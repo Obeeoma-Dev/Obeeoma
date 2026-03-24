@@ -1,11 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
-// import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
-import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
+import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
+// import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
 import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
+
+// Default subscription plans
+const defaultSubscriptionPlans = [
+  {
+    id: "1",
+    name: "Freemium",
+    organization: "TechStart Inc",
+    features: [
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+    ],
+    isPopular: true,
+  },
+  {
+    id: "2",
+    name: "Premium",
+    organization: "Global Enterprise",
+    monthlyPrice: 24.99,
+    annualPrice: 251.99,
+    employeeLimit: 0,
+    features: [
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+      "Access to live webinars",
+      "Client engagement tools",
+      "Advanced analytics",
+      "Custom integrations",
+      "Priority support",
+    ],
+  },
+];
 
 const SettingsTabs: React.FC = () => {
   // State to track which tab is currently active; default is "account"
@@ -13,6 +46,9 @@ const SettingsTabs: React.FC = () => {
 
   return (
     <div className="p-3 settings-main-container">
+      {/* Settings Heading */}
+      <h1 className="h3 mb-4">Settings</h1>
+
       {/* Tabs components with controlled activeKey to manage selected tab */}
       <Tabs
         id="settings-tabs"
@@ -42,18 +78,13 @@ const SettingsTabs: React.FC = () => {
         </Tab>
 
         {/* Tab for Appearance customization */}
-        <Tab eventKey="appearance" title="Appearance">
-          <div style={{ paddingTop: 10 }}>
-            <AppearenceSettings />
-          </div>
-        </Tab>
 
         {/* Tab for Subscription details */}
-        {/* <Tab eventKey="subscription" title="Subscription">
+        <Tab eventKey="subscription" title="Subscription">
           <div style={{ paddingTop: 10 }}>
-            <SubscriptionSettingsComp plans={[]} />
+            <SubscriptionSettingsComp />
           </div>
-        </Tab> */}
+        </Tab>
 
         {/* Tab for Feature flags */}
         <Tab eventKey="feature-flags" title="Feature Flags">
