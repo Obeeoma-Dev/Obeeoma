@@ -13,7 +13,7 @@ import {
   Area,
 } from "recharts";
 
-import { EmployeeDataPoint } from "./admindashboard";
+import { EmployeeDataPoint, PlatformUsageData, SubscriptionRevenueData } from "./admindashboard";
 
 interface PlatformUsageChartProps {
   platformUsageData?: PlatformUsageData[];
@@ -21,8 +21,8 @@ interface PlatformUsageChartProps {
 }
 
 const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
-  platformData = [],
-  subscriptionData = [],
+  platformUsageData = [],
+  subscriptionRevenueData = [],
 }) => {
   // Track which tab is currently active
   const [activeTab, setActiveTab] = useState<string>("platform");
@@ -45,8 +45,8 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
   ];
 
   // Use backend data or show empty state
-  const employeeData = platformData;
-  const revenueData = subscriptionData;
+  const employeeData = platformUsageData;
+  const revenueData = subscriptionRevenueData;
 
   return (
     <Card className="mb-4 shadow-sm border-0">

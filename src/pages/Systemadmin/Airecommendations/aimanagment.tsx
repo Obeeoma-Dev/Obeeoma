@@ -7,7 +7,7 @@ import "./aiControls.css";
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
-// import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
+import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
@@ -18,14 +18,71 @@ import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 import { adminAPI } from "../../../api/apiConfig";
 import { useAIStatus } from "../../../hooks/useAIStatus";
 
+// Helper functions
+const typeToIcon: Record<string, any> = {
+  video: Video,
+  audio: Headphones,
+  article: FileText,
+  interactive: MousePointerClick,
+};
+
+const normalizeEffectiveness = (value: any): "High" | "Medium" | "Low" => {
+  if (typeof value === 'string') {
+    const normalized = value.toLowerCase();
+    if (normalized.includes('high') || normalized.includes('h')) return "High";
+    if (normalized.includes('medium') || normalized.includes('m')) return "Medium";
+    if (normalized.includes('low') || normalized.includes('l')) return "Low";
+  }
+  if (typeof value === 'number') {
+    if (value >= 70) return "High";
+    if (value >= 40) return "Medium";
+    return "Low";
+  }
+  return "Medium";
+};
+
 /**
  * AIRecommendationsPage renders the AI management dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
  */
+// Type definitions
+interface EffectivenessByType {
+  resource_type?: string;
+  avg_effectiveness?: number | string;
+}
+
+interface TopAnxietyTrigger {
+  trigger?: string;
+  percentage?: number | string;
+}
+
+interface AIManagementResponse {
+  total_recommendations?: number;
+  average_engagement_rate?: number | string;
+  ai_accuracy_score?: number | string;
+  resources?: any[];
+  effectiveness_by_type?: EffectivenessByType[];
+  weekly_recommendations?: any;
+  top_anxiety_triggers?: TopAnxietyTrigger[];
+}
+
 const AIRecommendationsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<AIManagementResponse | null>(null);
+  const { aiStatus, updateAIStatus } = useAIStatus();
+
+  const handleLandingAIToggle = () => {
+    updateAIStatus({ landing_ai: !aiStatus?.landing_ai });
+  };
+
+  const handleAdminAIToggle = () => {
+    updateAIStatus({ admin_ai: !aiStatus?.admin_ai });
+  };
+
+  const handleMobileAIToggle = () => {
+    updateAIStatus({ mobile_ai: !aiStatus?.mobile_ai });
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -60,7 +117,7 @@ const AIRecommendationsPage: React.FC = () => {
       ? Number(data.ai_accuracy_score)
       : undefined;
 
-  const resources: ResourceRow[] = (data?.resources ?? []).map((r, i) => {
+  const resources: ResourceRow[] = (data?.resources ?? []).map((r: any, i: number) => {
     const typeStr = (r.resource_type ?? "article").toLowerCase();
     const typeLabel = typeStr.charAt(0).toUpperCase() + typeStr.slice(1);
     return {
@@ -83,19 +140,19 @@ const AIRecommendationsPage: React.FC = () => {
   const effectivenessByType = data?.effectiveness_by_type ?? [];
   const weeklyRecommendations = data?.weekly_recommendations;
   const modelScores = effectivenessByType.length
-    ? effectivenessByType.map((t) => ({
+    ? effectivenessByType.map((t: EffectivenessByType) => ({
         name: (t.resource_type ?? "")
           .replace(/_/g, " ")
-          .replace(/\b\w/g, (c) => c.toUpperCase()),
+          .replace(/\b\w/g, (c: string) => c.toUpperCase()),
         score: Number(t.avg_effectiveness) || 0,
       }))
     : [];
   const triggers = (data?.top_anxiety_triggers ?? [])
-    .map((t) => ({
+    .map((t: TopAnxietyTrigger) => ({
       name: t.trigger ?? "",
       score: Number(t.percentage) || 0,
     }))
-    .filter((t) => t.name !== "");
+    .filter((t: any) => t.name !== "");
 
   return (
     <SystemAdminLayout title="AI Management">
@@ -114,9 +171,9 @@ const AIRecommendationsPage: React.FC = () => {
               <span className="ai-controls-indicator" />
               {
                 [
-                  aiStatus.landing_ai,
-                  aiStatus.admin_ai,
-                  aiStatus.mobile_ai,
+                  aiStatus?.landing_ai,
+                  aiStatus?.admin_ai,
+                  aiStatus?.mobile_ai,
                 ].filter(Boolean).length
               }{" "}
               of 3 active
@@ -126,7 +183,7 @@ const AIRecommendationsPage: React.FC = () => {
           <Row className="g-4">
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={aiStatus.landing_ai}
+                isActive={aiStatus?.landing_ai || false}
                 onToggle={handleLandingAIToggle}
                 label="Landing Page AI"
                 description="Reception chatbot that talks about the app and directs visitors. Does not save conversations."
@@ -136,7 +193,7 @@ const AIRecommendationsPage: React.FC = () => {
             </Col>
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={aiStatus.admin_ai}
+                isActive={aiStatus?.admin_ai || false}
                 onToggle={handleAdminAIToggle}
                 label="Admin Dashboard AI"
                 description="Provides insights, growth recommendations, and analytics summaries to the system admin."
@@ -148,7 +205,7 @@ const AIRecommendationsPage: React.FC = () => {
           <AIResourcesTable resources={[]} />
           <Row className="mb-4">
             <Col md={6}>
-              <ModelPerformance performance={modelScores} />
+              <ModelPerformance />
             </Col>
             <Col md={6}>
               <TopTriggers triggers={triggers} />
@@ -157,7 +214,7 @@ const AIRecommendationsPage: React.FC = () => {
         </div>
 
         {/* Top summary metrics */}
-        <TopMetrics {...metrics} />
+        <TopMetrics totalRecommendations={totalRecommendations} engagementRate={engagementRate} averageTime="2:30" />
 
         {/* Charts side by side */}
         <Row className="mb-4">
@@ -173,7 +230,7 @@ const AIRecommendationsPage: React.FC = () => {
 
         <Row className="mb-4">
           <Col md={6}>
-            <ModelPerformance performance={modelScores} />
+            <ModelPerformance />
           </Col>
           <Col md={6}>
             <TopTriggers triggers={triggers} />
@@ -182,7 +239,7 @@ const AIRecommendationsPage: React.FC = () => {
       </Container>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant isEnabled={aiStatus.admin_ai} />
+      <AIAssistant isEnabled={aiStatus?.admin_ai || false} />
     </SystemAdminLayout>
   );
 };

@@ -1,5 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Container, Row, Col } from "react-bootstrap";
+// src/pages/Systemadmin/Hotlinepages/hotlineActivity.tsx
+import { useState, useEffect } from "react";
+import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 // Importing shared layout components
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 // Importing dashboard modules
@@ -67,8 +69,8 @@ const HotlineActivity = () => {
         return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsx(Container, { fluid: true, className: "py-4 d-flex justify-content-center align-items-center min-vh-50", children: _jsx(Spinner, { animation: "border" }) }) }));
     }
     if (error) {
-        return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalCalls: 0, avgCallTime: "0:00" }), _jsx(Row, { children: _jsx(Col, { md: 12, children: _jsx(HourlyCallChart, {}) }) }), _jsx(CallLogTable, {})] }) }));
+        return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalCalls: 0, avgCallTime: "0:00", missedCalls: 0 }), _jsx(Row, { children: _jsx(Col, { md: 12, children: _jsx(HourlyCallChart, {}) }) }), _jsx(CallLogTable, {})] }) }));
     }
-    return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, children: [_jsx(TopMetrics, { totalCalls: totalCalls, avgCallTime: avgCallTime, activeOperators: activeOperators }), _jsx(Row, { children: _jsx(Col, { md: 12, children: _jsx(HourlyCallChart, { hourlyVolume: hourlyVolume }) }) }), _jsx(CallLogTable, { logs: logs.length ? logs : undefined })] }) }));
+    return (_jsx(SystemAdminLayout, { title: "Hotline Activity", children: _jsxs(Container, { fluid: true, children: [_jsx(TopMetrics, { totalCalls: totalCalls, avgCallTime: avgCallTime, missedCalls: 0 }), _jsx(Row, { children: _jsx(Col, { md: 12, children: _jsx(HourlyCallChart, {}) }) }), _jsx(CallLogTable, { logs: logs.length ? logs : undefined })] }) }));
 };
 export default HotlineActivity;

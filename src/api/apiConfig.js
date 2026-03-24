@@ -309,6 +309,37 @@ export const adminAPI = {
         const response = await api.patch(`admin/system-settings/${id}/`, settings);
         return response;
     },
+    // AI Status Management APIs
+    toggleAdminAI: async (payload) => {
+        const response = await api.post("/admin/ai-status/toggle/", {
+            ...payload,
+            feature_name: "admin_ai",
+        });
+        return response;
+    },
+    toggleLandingAI: async (payload) => {
+        const response = await api.post("/admin/ai-status/toggle/", {
+            ...payload,
+            feature_name: "landing_ai",
+        });
+        return response;
+    },
+    toggleMobileAI: async (payload) => {
+        const response = await api.post("/admin/ai-status/toggle/", {
+            ...payload,
+            feature_name: "mobile_ai",
+        });
+        return response;
+    },
+    getAIStatus: async () => {
+        const response = await api.get("/admin/ai-status/");
+        return response;
+    },
+    // Receptionist AI Chat APIs (Public - No authentication required)
+    sendReceptionistMessage: async (payload) => {
+        const response = await api.post("/receptionist/ai-chat/", payload);
+        return response;
+    },
 };
 // employer endpoints
 // export const employerAPI = {
@@ -444,6 +475,10 @@ export const employerAPI = {
         const response = await api.get("users/");
         return response;
     },
+    updateCurrentEmployer: async (data) => {
+        const response = await api.patch("/users/", data);
+        return response;
+    },
     getbreakdownusage: async () => {
         const response = await api.get("feature-usage/");
         return response;
@@ -530,19 +565,19 @@ export const employerAPI = {
         return validateDownloadBlob(response.data, "/download/engagement/");
     },
     getReports: async () => {
-        const response = await api.post("wellness-reports/");
+        const response = await api.get("/dashboard/wellness-reports/download-summary/");
         return response;
     },
     getriskassessmentReports: async () => {
-        const response = await api.post("download/risk-assessment/");
+        const response = await api.get("/download/risk-assessment/");
         return response;
     },
     getdepartmentanalysisReports: async () => {
-        const response = await api.post("download/department-analysis/");
+        const response = await api.get("/download/department-analysis/");
         return response;
     },
     getengagementReports: async () => {
-        const response = await api.post("download/engagement/");
+        const response = await api.get("/download/engagement/");
         return response;
     },
     /**
@@ -565,8 +600,9 @@ export const employerAPI = {
         return validateDownloadBlob(response.data, url);
     },
     // Wellness Data
-    getMoodTrends: async () => {
-        const response = await api.get("dashboard/trends/");
+    getMoodTrends: async (companyId) => {
+        const url = companyId ? `/dashboard/trends/${companyId}/` : "/dashboard/trends/";
+        const response = await api.get(url);
         return response;
     },
     getWellnessMoodTrends: async (companyId) => {
@@ -589,11 +625,13 @@ export const employerAPI = {
         return response;
     },
     getEmployeeMoodDistribution: async () => {
-        const response = await api.get("mood-bar-graph/");
+        // const response = await api.get("/mood-bar-graph/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getGaugeChart: async () => {
-        const response = await api.get("company-mood/gauge-chart/");
+        // const response = await api.get("/company-mood/gauge-chart/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getRecentActivities: async () => {

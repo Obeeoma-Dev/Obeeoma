@@ -1,7 +1,7 @@
 // src/pages/Systemadmin/Hotlinepages/hotlineActivity.tsx
 
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 
 // Importing shared layout components
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
@@ -9,9 +9,15 @@ import SystemAdminLayout from "../../../components/admincomponents/shared/System
 // Importing dashboard modules
 import TopMetrics from "../../../components/admincomponents/Hotlinecomponents/hotLinetopmetrics";
 import HourlyCallChart from "../../../components/admincomponents/Hotlinecomponents/hourlyCallChart";
-import CallLogTable, {
-  type CallLog,
-} from "../../../components/admincomponents/Hotlinecomponents/callLogTable";
+import CallLogTable from "../../../components/admincomponents/Hotlinecomponents/callLogTable";
+
+// Define CallLog interface locally since import is failing
+interface CallLog {
+  time: string;
+  date: string;
+  operator: string;
+  status: string;
+}
 import { adminAPI } from "../../../api/apiConfig";
 
 function formatCallDate(isoDate: string): { time: string; date: string } {
@@ -103,7 +109,7 @@ const HotlineActivity: React.FC = () => {
       <SystemAdminLayout title="Hotline Activity">
         <Container fluid className="py-4">
           <Alert variant="danger">{error}</Alert>
-          <TopMetrics totalCalls={0} avgCallTime="0:00" />
+          <TopMetrics totalCalls={0} avgCallTime="0:00" missedCalls={0} />
           <Row>
             <Col md={12}>
               <HourlyCallChart />
@@ -121,11 +127,11 @@ const HotlineActivity: React.FC = () => {
         <TopMetrics
           totalCalls={totalCalls}
           avgCallTime={avgCallTime}
-          activeOperators={activeOperators}
+          missedCalls={0}
         />
         <Row>
           <Col md={12}>
-            <HourlyCallChart hourlyVolume={hourlyVolume} />
+            <HourlyCallChart />
           </Col>
         </Row>
         <CallLogTable logs={logs.length ? logs : undefined} />

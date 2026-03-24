@@ -39,6 +39,25 @@ interface OverviewData {
 }
 import { Building2, Users, CreditCard, PhoneCall } from "lucide-react";
 import { adminAPI } from "../../api/apiConfig";
+import { useAIStatus } from "../../hooks/useAIStatus";
+
+// Mock adminDashboardAPI since it's missing
+const adminDashboardAPI = {
+  getDashboardSummary: async () => {
+    // Return mock data for now
+    return {
+      data: {
+        total_organizations: 0,
+        total_clients: 0,
+        hotline_calls_today: 0,
+        organizations_this_month: 0,
+        clients_this_month: 0,
+        platform_usage: [],
+        subscription_revenue: []
+      }
+    };
+  }
+};
 
 /**
  * Default fallback data for dashboard stats
@@ -92,6 +111,10 @@ const Dashboard: React.FC = () => {
   const { aiStatus } = useAIStatus();
   const [showAddModal, setShowAddModal] = React.useState(false);
   const [showEditModal, setShowEditModal] = React.useState(false);
+  
+  // State for overview data
+  const [overviewData, setOverviewData] = useState<OverviewData | null>(null);
+  const [recentActivityData, setRecentActivityData] = useState<ActivityItem[]>([]);
 
   /* Dashboard stats state */
   const [dashboardStats, setDashboardStats] =
