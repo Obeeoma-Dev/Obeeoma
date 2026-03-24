@@ -95,12 +95,12 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-  // Placeholder data for subscription plans
+  // Placeholder data for subscription plans (in Naira)
   const subscriptionPlans = [
     {
       id: "1",
       name: "Freemium",
-      organization: "Acme Corp",
+      organization: "Obeema",
       monthlyPrice: 0,
       annualPrice: 0,
       employeeLimit: 10,
@@ -113,9 +113,9 @@ const SubscriptionPage: React.FC = () => {
     {
       id: "2",
       name: "Premium",
-      organization: "TechStart Inc",
-      monthlyPrice: 24.99,
-      annualPrice: 251.99,
+      organization: "Obeema",
+      monthlyPrice: 24990,
+      annualPrice: 249900,
       employeeLimit: 0,
       features: [
         "Access to basic resources",
@@ -179,14 +179,6 @@ const SubscriptionPage: React.FC = () => {
                     services
                   </p>
                 </div>
-                <Button
-                  variant="success"
-                  className="ms-auto"
-                  style={{ fontFamily: "body" }}
-                  onClick={refetchCount} // Refresh button
-                >
-                  Add Subscription
-                </Button>
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}
@@ -197,7 +189,7 @@ const SubscriptionPage: React.FC = () => {
             </Card>
 
             {/* Subscription cards grid */}
-            <SubscriptionSettingsComp plans={subscriptionPlans} />
+            <SubscriptionSettingsComp />
           </>
         )}
       </Container>

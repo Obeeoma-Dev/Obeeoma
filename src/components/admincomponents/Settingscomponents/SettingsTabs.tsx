@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tab } from "react-bootstrap";
 import AccountForm from "./AccountForm";
 import FeatureFlags from "./FeatureFlags";
-// import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
+import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncompsettings";
 // import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
 import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
 
-// Placeholder data for subscription plans
-const subscriptionPlans = [
+// Default subscription plans
+const defaultSubscriptionPlans = [
   {
     id: "1",
     name: "Freemium",
@@ -46,6 +46,9 @@ const SettingsTabs: React.FC = () => {
 
   return (
     <div className="p-3 settings-main-container">
+      {/* Settings Heading */}
+      <h1 className="h3 mb-4">Settings</h1>
+      
       {/* Tabs components with controlled activeKey to manage selected tab */}
       <Tabs
         id="settings-tabs"
@@ -78,11 +81,11 @@ const SettingsTabs: React.FC = () => {
         
 
         {/* Tab for Subscription details */}
-        {/* <Tab eventKey="subscription" title="Subscription">
+        <Tab eventKey="subscription" title="Subscription">
           <div style={{ paddingTop: 10 }}>
-            <SubscriptionSettingsComp plans={subscriptionPlans} />
+            <SubscriptionSettingsComp />
           </div>
-        </Tab> */}
+        </Tab>
 
         {/* Tab for Feature flags */}
         <Tab eventKey="feature-flags" title="Feature Flags">
