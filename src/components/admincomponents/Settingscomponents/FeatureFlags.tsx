@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Container, Card } from "react-bootstrap";
 
+// Custom CSS for green toggle switches
+const switchStyles = `
+  .form-check-input:checked {
+    background-color: #22C55E !important;
+    border-color: #22C55E !important;
+  }
+  .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25);
+  }
+`;
+
 // Define the shape of a feature flag
 interface FeatureFlag {
   id: string;
@@ -41,33 +52,36 @@ const FeatureFlags: React.FC = () => {
   };
 
   return (
-    <Card className="settings-card-compact shadow-sm border-0">
-      <Card.Header className="fw-semibold mb-2 ps-0">Feature Flags</Card.Header>
+    <>
+      <style>{switchStyles}</style>
+      <Card className="settings-card-compact shadow-sm border-0">
+        <Card.Header className="fw-semibold mb-2 ps-0">
+          Feature Flags
+        </Card.Header>
 
-      <Form>
-        <Container fluid>
-          <Row className="g-2">
-            {/* Loop through each flag and render a toggle switch */}
-            {flags.map((flag) => (
-              <Col md={6} lg={5} key={flag.id}>
-                <div className="p-2 border rounded-2 bg-light-hover transition settings-section-compact">
-                  <Form.Check
-                    type="switch"
-                    id={`switch-${flag.id}`}
-                    label={flag.label}
-                    checked={flag.enabled}
-                    onChange={() => handleToggle(flag.id)}
-                    className={
-                      flag.enabled ? "text-success fw-500" : "text-muted"
-                    }
-                  />
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </Form>
-    </Card>
+        <Form>
+          <Container fluid>
+            <Row className="g-2">
+              {/* Loop through each flag and render a toggle switch */}
+              {flags.map((flag) => (
+                <Col md={6} lg={5} key={flag.id}>
+                  <div className="p-2 border rounded-2 bg-light-hover transition settings-section-compact">
+                    <Form.Check
+                      type="switch"
+                      id={`switch-${flag.id}`}
+                      label={flag.label}
+                      checked={flag.enabled}
+                      onChange={() => handleToggle(flag.id)}
+                      className={flag.enabled ? "fw-500" : "text-muted"}
+                    />
+                  </div>
+                </Col>
+              ))}
+            </Row>
+          </Container>
+        </Form>
+      </Card>
+    </>
   );
 };
 

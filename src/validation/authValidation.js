@@ -44,7 +44,8 @@ export const contactStepSchema = yup.object().shape({
     }),
     phoneNumber: yup
         .string()
-        .matches(/^\+?[1-9]\d{9,14}$/, "Invalid phone number format") // E.164 format: + followed by country code (1-2 digits) and 9-14 digits
+        // .matches(/^\+?[1-9]\d{1,12}$/, "Invalid phone number format") // E.164 format
+        .matches(/^\+?[1-9]\d{9,14}$/, "Invalid phone number format")
         .min(10, "Phone number must be at least 10 digits")
         .max(15, "Phone number cannot exceed 15 digits")
         .required("Contact Person's Phone Number is required"),
