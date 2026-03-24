@@ -12,7 +12,6 @@ import { BlogManager } from "../../components/admincomponents/Blogmanagement/Blo
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Building2, Users, PhoneCall } from "lucide-react";
-<<<<<<< HEAD
 import { useAIStatus } from "../../hooks/useAIStatus";
 // Mock adminDashboardAPI since it's missing
 const adminDashboardAPI = {
@@ -31,8 +30,6 @@ const adminDashboardAPI = {
         };
     }
 };
-=======
->>>>>>> 87eb88844960420a100f2d1548e8d8102dfa0d8b
 /**
  * Default fallback data for dashboard stats
  * Used when API call fails or during loading

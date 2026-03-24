@@ -2,11 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
 import { Card, ButtonGroup, Button, Spinner } from "react-bootstrap";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, } from "recharts";
-<<<<<<< HEAD
 const PlatformUsageChart = ({ platformUsageData = [], subscriptionRevenueData = [], }) => {
-=======
-const PlatformUsageChart = ({ platformData = [], subscriptionData = [], }) => {
->>>>>>> 87eb88844960420a100f2d1548e8d8102dfa0d8b
     // Track which tab is currently active
     const [activeTab, setActiveTab] = useState("platform");
     const [loading, setLoading] = useState(false);
