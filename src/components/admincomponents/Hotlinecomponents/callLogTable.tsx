@@ -5,42 +5,27 @@ import { Search, Filter, MoreVertical } from "lucide-react";
 export interface CallLog {
   time: string;
   date: string;
-  reason: string;
   operator: string;
   status: string;
 }
-
-const defaultCallLogs: CallLog[] = [
-  {
-    time: "11:00 AM",
-    date: "12/04/2023",
-    reason: "Anxiety",
-    operator: "John Smith",
-    status: "Missed",
-  },
-  {
-    time: "12:30 PM",
-    date: "12/04/2023",
-    reason: "Depression",
-    operator: "Emily Brown",
-    status: "Completed",
-  },
-  {
-    time: "2:00 PM",
-    date: "12/04/2023",
-    reason: "Grief",
-    operator: "Michael Jones",
-    status: "Ongoing",
-  },
-];
 
 interface CallLogTableProps {
   logs?: CallLog[];
 }
 
 const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
-  const callLogs =
-    Array.isArray(logs) && logs.length > 0 ? logs : defaultCallLogs;
+  const callLogs = logs || [];
+
+  if (!callLogs.length) {
+    return (
+      <Card className="p-4 mb-4">
+        <div className="text-center text-muted py-4">
+          No call logs available.
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <Card className="p-4 mb-4">
       <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mb-4">
@@ -50,7 +35,7 @@ const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
           </InputGroup.Text>
           <Form.Control
             type="text"
-            placeholder="Search by reason or operator..."
+            placeholder="Search by operator..."
           />
         </InputGroup>
         <Button
@@ -69,7 +54,6 @@ const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
             <tr>
               <th>Time</th>
               <th>Date</th>
-              <th>Reason</th>
               <th>Operator</th>
               <th>Status</th>
               <th className="text-end">Actions</th>
@@ -84,9 +68,6 @@ const CallLogTable: React.FC<CallLogTableProps> = ({ logs }) => {
 
                 {/* Date */}
                 <td className="text-muted">{log.date}</td>
-
-                {/* Reason */}
-                <td>{log.reason}</td>
 
                 {/* Operator */}
                 <td className="text-muted">{log.operator}</td>

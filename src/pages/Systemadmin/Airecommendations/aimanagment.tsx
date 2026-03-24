@@ -120,23 +120,13 @@ const AIRecommendationsPage: React.FC = () => {
           .replace(/\b\w/g, (c) => c.toUpperCase()),
         score: Number(t.avg_effectiveness) || 0,
       }))
-    : [
-        { name: "Activity Assignment Templates", score: 92 },
-        { name: "Social Connection Prompts", score: 89 },
-        { name: "Personalized Coping Strategies", score: 85 },
-      ];
+    : [];
   const triggers = (data?.top_anxiety_triggers ?? [])
     .map((t) => ({
-      name: t.trigger ?? "—",
+      name: t.trigger ?? "",
       score: Number(t.percentage) || 0,
     }))
-    .filter((t) => t.name !== "—");
-  const defaultTriggers = [
-    { name: "Social situations", score: 76 },
-    { name: "Academic pressure", score: 68 },
-    { name: "Peer pressure", score: 65 },
-  ];
-  const triggerList = triggers.length ? triggers : defaultTriggers;
+    .filter((t) => t.name !== "");
 
   if (loading) {
     return (
@@ -175,7 +165,7 @@ const AIRecommendationsPage: React.FC = () => {
               <ModelPerformance performance={modelScores} />
             </Col>
             <Col md={6}>
-              <TopTriggers triggers={defaultTriggers} />
+              <TopTriggers triggers={triggers} />
             </Col>
           </Row>
         </Container>
@@ -214,7 +204,7 @@ const AIRecommendationsPage: React.FC = () => {
             <ModelPerformance performance={modelScores} />
           </Col>
           <Col md={6}>
-            <TopTriggers triggers={triggerList} />
+            <TopTriggers triggers={triggers} />
           </Col>
         </Row>
       </Container>
