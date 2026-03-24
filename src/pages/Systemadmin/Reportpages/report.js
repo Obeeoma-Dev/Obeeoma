@@ -1,19 +1,65 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import PlatformUsageChart from "../../../components/admincomponents/Reportcomponents/platformUsageChart";
 import FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
 import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
-import { Container } from "react-bootstrap";
+import { Container, Spinner, Alert } from "react-bootstrap";
 import UserEngagement from "../../../components/admincomponents/Reportcomponents/userEngagement";
-/**
- * ReportPage component renders the system admin report dashboard.
- * Sidebar and header are fixed; main content scrolls independently.
- */
+import { adminAPI } from "../../../api/apiConfig";
 const ReportPage = () => {
     const [activeTab, setActiveTab] = useState("Platform Usage");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [data, setData] = useState(null);
     const tabs = ["Platform Usage", "User Engagement", "Feedback & Testimonies"];
+    useEffect(() => {
+        let cancelled = false;
+        (async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const res = await adminAPI.getReports();
+                if (!cancelled)
+                    setData(res?.data ?? res ?? null);
+            }
+            catch (e) {
+                if (!cancelled)
+                    setError(e instanceof Error ? e.message : "Failed to load reports data");
+            }
+            finally {
+                if (!cancelled)
+                    setLoading(false);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+    if (loading) {
+        return (_jsx(SystemAdminLayout, { title: "Reports", children: _jsx(Container, { fluid: true, className: "py-4 d-flex justify-content-center align-items-center min-vh-50", children: _jsx(Spinner, { animation: "border" }) }) }));
+    }
+    if (error) {
+        return (_jsx(SystemAdminLayout, { title: "Reports", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx("div", { className: "d-flex justify-content-between align-items-center mb-4", children: _jsxs("div", { className: "d-flex gap-3", children: [_jsxs("button", { className: "btn", style: {
+                                        border: "1px solid #dee2e6",
+                                        backgroundColor: "#ffffff",
+                                        color: "#495057",
+                                        padding: "0.5rem 1rem",
+                                        borderRadius: "6px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "0.5rem",
+                                        fontFamily: "body",
+                                    }, children: [_jsx("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: _jsx("path", { d: "M2 4h12M2 8h12M2 12h8", stroke: "currentColor", strokeWidth: "1.5", strokeLinecap: "round" }) }), "Filter Data"] }), _jsx("button", { className: "btn", style: {
+                                        backgroundColor: "#3CB371",
+                                        color: "#ffffff",
+                                        padding: "0.5rem 1.5rem",
+                                        borderRadius: "6px",
+                                        border: "none",
+                                        fontFamily: "body",
+                                    }, children: "Generate New Report" })] }) }), _jsx(PlatformUsageChart, {}), _jsx(AvailableReports, {}), _jsx(CustomReportForm, {})] }) }));
+    }
     return (_jsxs(SystemAdminLayout, { title: "Reports", children: [_jsx("div", { className: "d-flex justify-content-between align-items-center mb-4", children: _jsxs("div", { className: "d-flex gap-3", children: [_jsxs("button", { className: "btn", style: {
                                 border: "1px solid #dee2e6",
                                 backgroundColor: "#ffffff",
@@ -44,6 +90,6 @@ const ReportPage = () => {
                             : "2px solid transparent",
                         cursor: "pointer",
                         transition: "all 0.2s",
-                    }, children: tab }, tab))) }), _jsxs(Container, { fluid: true, className: "px-0", children: [activeTab === "Platform Usage" && (_jsx("div", { className: "mb-5", children: _jsx(PlatformUsageChart, {}) })), activeTab === "User Engagement" && (_jsx("div", { className: "mb-5", children: _jsx(UserEngagement, {}) })), activeTab === "Feedback & Testimonies" && (_jsx("div", { className: "mb-5", children: _jsx(FeedbacknTestimonies, {}) })), _jsx("div", { className: "mb-5", children: _jsx(AvailableReports, {}) }), _jsx("div", { children: _jsx(CustomReportForm, {}) })] })] }));
+                    }, children: tab }, tab))) }), _jsxs(Container, { fluid: true, className: "px-0", children: [activeTab === "Platform Usage" && (_jsx("div", { className: "mb-5", children: _jsx(PlatformUsageChart, { data: data?.platform_usage }) })), activeTab === "User Engagement" && (_jsx("div", { className: "mb-5", children: _jsx(UserEngagement, { data: data?.user_engagement }) })), activeTab === "Feedback & Testimonies" && (_jsx("div", { className: "mb-5", children: _jsx(FeedbacknTestimonies, { feedbackData: data?.feedback_testimonies }) })), _jsx("div", { className: "mb-5", children: _jsx(AvailableReports, {}) }), _jsx("div", { children: _jsx(CustomReportForm, {}) })] })] }));
 };
 export default ReportPage;

@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button, Card, Alert, Spinner } from "react-bootstrap";
+import { adminAPI } from "../../../api/apiConfig";
 const NotificationSettings = () => {
     // Local state for toggle values
     const [preferences, setPreferences] = useState({
@@ -12,6 +13,52 @@ const NotificationSettings = () => {
     const [isSaving, setIsSaving] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
     const [saveError, setSaveError] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [loadError, setLoadError] = useState("");
+    // Fetch notification settings on component mount
+    useEffect(() => {
+        let cancelled = false;
+        (async () => {
+            try {
+                setLoading(true);
+                setLoadError("");
+                const res = await adminAPI.getSystemSettings();
+                if (!cancelled) {
+                    const data = res?.data ?? res ?? {};
+                    // Handle system settings response structure
+                    if (Array.isArray(data)) {
+                        const notificationData = data.find((setting) => setting.key === 'notifications') || {};
+                        setPreferences({
+                            systemAlerts: notificationData.systemAlerts ?? true,
+                            organizationActivity: notificationData.organizationActivity ?? true,
+                            criticalHotlineAlerts: notificationData.criticalHotlineAlerts ?? false,
+                            reportGeneration: notificationData.reportGeneration ?? true,
+                        });
+                    }
+                    else {
+                        // If it's an object, use notification properties directly
+                        setPreferences({
+                            systemAlerts: data.systemAlerts ?? true,
+                            organizationActivity: data.organizationActivity ?? true,
+                            criticalHotlineAlerts: data.criticalHotlineAlerts ?? false,
+                            reportGeneration: data.reportGeneration ?? true,
+                        });
+                    }
+                }
+            }
+            catch (e) {
+                if (!cancelled)
+                    setLoadError(e instanceof Error ? e.message : "Failed to load notification settings");
+            }
+            finally {
+                if (!cancelled)
+                    setLoading(false);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
     // Toggle handler for switches
     const handleToggle = (key) => {
         setPreferences((prev) => ({
@@ -19,21 +66,20 @@ const NotificationSettings = () => {
             [key]: !prev[key],
         }));
     };
-    // Simulated save function (replace with real API call later)
+    // Save notification settings to backend
     const handleSave = async () => {
         setIsSaving(true);
         setSaveSuccess(false);
         setSaveError("");
         try {
-            // Simulate API call delay
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            // Log the payload (replace with fetch/axios later)
-            console.log("Saving notification preferences:", preferences);
-            // Simulate success
+            await adminAPI.updateSystemSettings({
+                key: 'notifications',
+                ...preferences
+            });
             setSaveSuccess(true);
         }
-        catch {
-            setSaveError("Failed to save preferences. Please try again.");
+        catch (e) {
+            setSaveError(e instanceof Error ? e.message : "Failed to save preferences. Please try again.");
         }
         finally {
             setIsSaving(false);

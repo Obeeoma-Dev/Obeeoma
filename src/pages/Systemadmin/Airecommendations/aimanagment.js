@@ -88,29 +88,19 @@ const AIRecommendationsPage = () => {
                 .replace(/\b\w/g, (c) => c.toUpperCase()),
             score: Number(t.avg_effectiveness) || 0,
         }))
-        : [
-            { name: "Activity Assignment Templates", score: 92 },
-            { name: "Social Connection Prompts", score: 89 },
-            { name: "Personalized Coping Strategies", score: 85 },
-        ];
+        : [];
     const triggers = (data?.top_anxiety_triggers ?? [])
         .map((t) => ({
-        name: t.trigger ?? "—",
+        name: t.trigger ?? "",
         score: Number(t.percentage) || 0,
     }))
-        .filter((t) => t.name !== "—");
-    const defaultTriggers = [
-        { name: "Social situations", score: 76 },
-        { name: "Academic pressure", score: 68 },
-        { name: "Peer pressure", score: 65 },
-    ];
-    const triggerList = triggers.length ? triggers : defaultTriggers;
+        .filter((t) => t.name !== "");
     if (loading) {
         return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsx(Container, { fluid: true, className: "py-4 d-flex justify-content-center align-items-center min-vh-50", children: _jsx(Spinner, { animation: "border" }) }) }));
     }
     if (error) {
-        return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalRecommendations: 0, engagementRate: 0, aiAccuracyScore: 0 }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: [] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: defaultTriggers }) })] })] }) }));
+        return (_jsx(SystemAdminLayout, { title: "AI Management", children: _jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(Alert, { variant: "danger", children: error }), _jsx(TopMetrics, { totalRecommendations: 0, engagementRate: 0, aiAccuracyScore: 0 }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: [] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }) }));
     }
-    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { totalRecommendations: totalRecommendations, engagementRate: engagementRate, aiAccuracyScore: aiAccuracyScore }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, { effectivenessByType: effectivenessByType.length ? effectivenessByType : undefined }) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, { weeklyRecommendations: weeklyRecommendations }) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggerList }) })] })] }), _jsx(AIAssistant, {})] }));
+    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsx(TopMetrics, { totalRecommendations: totalRecommendations, engagementRate: engagementRate, aiAccuracyScore: aiAccuracyScore }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, { effectivenessByType: effectivenessByType.length ? effectivenessByType : undefined }) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, { weeklyRecommendations: weeklyRecommendations }) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, { performance: modelScores }) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(AIAssistant, {})] }));
 };
 export default AIRecommendationsPage;
