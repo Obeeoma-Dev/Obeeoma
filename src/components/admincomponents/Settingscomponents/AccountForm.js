@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
+import { adminAPI } from "../../../api/apiConfig";
 const AccountForm = () => {
     // State to hold form input values
     const [formData, setFormData] = useState({
@@ -14,26 +15,52 @@ const AccountForm = () => {
     const [loading, setLoading] = useState(true);
     // State to track error messages
     const [error, setError] = useState(null);
-    // Simulate fetching default values (e.g. from API or mock service)
+    // Fetch account data from backend API
     useEffect(() => {
-        try {
-            // Simulated delay using setTimeout
-            setTimeout(() => {
-                const defaultValues = {
-                    fullName: "Dr. Racheal Lucia",
-                    email: "racheal.lucia@obeema.com",
-                    role: "System Administrator",
-                    phone: "(555) 123-4567",
-                    bio: "Dr. Racheal is a system administrator with over 10 years of experience in mental health care.",
-                };
-                setFormData(defaultValues);
-                setLoading(false); // Stop loading once data is set
-            }, 1000); // 1 second delay
-        }
-        catch {
-            setError("Failed to load account data.");
-            setLoading(false);
-        }
+        let cancelled = false;
+        (async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const res = await adminAPI.getSystemSettings();
+                if (!cancelled) {
+                    const data = res?.data ?? res ?? {};
+                    // Handle system settings response structure
+                    if (Array.isArray(data)) {
+                        const accountData = data.find((setting) => setting.key === 'account') || {};
+                        setFormData({
+                            fullName: accountData.fullName || accountData.name || "",
+                            email: accountData.email || "",
+                            role: accountData.role || "System Administrator",
+                            phone: accountData.phone || "",
+                            bio: accountData.bio || "",
+                        });
+                    }
+                    else {
+                        // If it's an object, use account properties directly
+                        setFormData({
+                            fullName: data.fullName || data.name || "",
+                            email: data.email || "",
+                            role: data.role || "System Administrator",
+                            phone: data.phone || "",
+                            bio: data.bio || "",
+                        });
+                    }
+                }
+            }
+            catch (e) {
+                if (!cancelled) {
+                    setError(e instanceof Error ? e.message : "Failed to load account data");
+                }
+            }
+            finally {
+                if (!cancelled)
+                    setLoading(false);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
     }, []);
     // Handle input changes for all fields
     const handleChange = (e) => {
@@ -41,10 +68,18 @@ const AccountForm = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Placeholder for future API call
-        console.log("Form submitted:", formData);
+        try {
+            await adminAPI.updateSystemSettings({
+                key: 'account',
+                ...formData
+            });
+            // Show success message (you could add a success state here)
+        }
+        catch (error) {
+            console.error("Failed to save account data:", error);
+        }
     };
     // Show loading spinner while data is being fetched
     if (loading) {

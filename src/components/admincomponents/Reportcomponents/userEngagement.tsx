@@ -31,6 +31,11 @@ interface UserEngagementData {
   engagement_rate?: number;
   new_signups?: number;
   retention_rate?: number;
+  monthly_data?: Array<{
+    month: string;
+    new_signups: number;
+    active_users: number;
+  }>;
 }
 
 interface NewUserRecord {
@@ -52,11 +57,11 @@ interface ReturningUsersSummary {
 const UserEngagement: React.FC<{ data?: UserEngagementData }> = ({ data }) => {
   // Generate chart data from backend data
   const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: data?.monthly_data?.map(item => item.month) || ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [
       {
         label: "New Signups",
-        data: [65, 78, 90, 81, 96, 85, 102, 114, 95, 108, 125, 118],
+        data: data?.monthly_data?.map(item => item.new_signups) || [65, 78, 90, 81, 96, 85, 102, 114, 95, 108, 125, 118],
         borderColor: "#3CB371",
         backgroundColor: "rgba(60, 179, 113, 0.1)",
         tension: 0.4,
@@ -64,7 +69,7 @@ const UserEngagement: React.FC<{ data?: UserEngagementData }> = ({ data }) => {
       },
       {
         label: "Active Users",
-        data: [120, 135, 128, 142, 156, 165, 158, 172, 185, 178, 192, 205],
+        data: data?.monthly_data?.map(item => item.active_users) || [120, 135, 128, 142, 156, 165, 158, 172, 185, 178, 192, 205],
         borderColor: "#007bff",
         backgroundColor: "rgba(0, 123, 255, 0.1)",
         tension: 0.4,

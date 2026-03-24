@@ -3,41 +3,8 @@ import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
 
-// Placeholder data for subscription plans
-const subscriptionPlans = [
-  {
-    id: "1",
-    name: "Freemium",
-    organization: "Acme Corp",
-    monthlyPrice: 0,
-    annualPrice: 0,
-    employeeLimit: 10,
-    features: [
-      "Access to basic resources",
-      "Monthly check-ins",
-      "Email support",
-    ],
-  },
-  {
-    id: "2",
-    name: "Premium",
-    organization: "TechStart Inc",
-    monthlyPrice: 24.99,
-    annualPrice: 251.99,
-    employeeLimit: 0,
-    features: [
-      "Access to basic resources",
-      "Monthly check-ins",
-      "Email support",
-      "Access to live webinars",
-      "Client engagement tools",
-      "Dedicated support team",
-    ],
-    isPopular: true,
-  },
-];
-
 const SubscriptionSettingsPage: React.FC = () => {
+  // Subscription plans will be fetched by the SubscriptionSettingsComp component
   return (
     <div
       style={{
@@ -71,8 +38,8 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-          {/* Subscription cards grid */}
-          <SubscriptionSettingsComp plans={subscriptionPlans} />
+          {/* Subscription cards grid - will fetch data from backend */}
+          <SubscriptionSettingsComp plans={[]} />
         </div>
       </div>
     </div>

@@ -28,6 +28,7 @@ import NotFound from "./pages/NotFound";
 
 // Systemadmin routes
 import SysAdminDashboard from "./pages/Systemadmin/Dashboard";
+import OverviewPage from "./pages/Systemadmin/OverviewPage";
 import Organisation from "./pages/Systemadmin/OrganisationPages/organizations";
 import { OrganizationDetails } from "./pages/Systemadmin/OrganisationPages/organizationDetails";
 import { ContentManagement } from "./pages/Systemadmin/ContentManager/contentManagementPage";
@@ -113,6 +114,7 @@ const AppRoutes: React.FC = () => (
 
       {/* SYSTEM ADMIN */}
       <Route path="/system-admin" element={<SysAdminDashboard />} />
+      <Route path="/system-admin/overview" element={<OverviewPage />} />
       <Route path="/system-admin/organizations" element={<Organisation />} />
       <Route
         path="/systemadmin/organizations/:id"

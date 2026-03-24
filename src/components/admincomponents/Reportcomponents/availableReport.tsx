@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Button, Stack } from "react-bootstrap";
-import { FileText, Download } from "lucide-react";
+import { FileText, Download, Trash2 } from "lucide-react";
 import { DownloadPopup } from "./dowloadpopup";
 
 interface Report {
@@ -11,20 +11,16 @@ interface Report {
   size: string;
 }
 
-const reports: Report[] = [
-  {
-    id: "1",
-    title: "Monthly Usage Report",
-    type: "PDF",
-    date: "Jan 2026",
-    size: "2.3 MB",
-  },
-];
+interface AvailableReportsProps {
+  reports?: Report[];
+  onDeleteReport?: (reportId: string) => Promise<void>;
+}
 
-export function AvailableReports() {
+export function AvailableReports({ reports, onDeleteReport }: AvailableReportsProps) {
   const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
-
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+
+  const reportsData = reports || [];
 
   // Handles clicking the download button
   const handleDownloadClick = (report: Report) => {
@@ -34,6 +30,30 @@ export function AvailableReports() {
     // Open popup
     setDownloadPopupOpen(true);
   };
+
+  // Handles clicking the delete button
+  const handleDeleteClick = async (reportId: string) => {
+    if (onDeleteReport) {
+      await onDeleteReport(reportId);
+    }
+  };
+
+  if (!reportsData.length) {
+    return (
+      <Card className="p-3">
+        <Card.Body>
+          <Card.Title className="mb-4" style={{ fontFamily: "heading" }}>
+            Available Reports
+          </Card.Title>
+          <div className="text-center text-muted py-4">
+            <FileText size={48} className="mb-3" />
+            <h5>No reports available</h5>
+            <p>Generated reports will appear here</p>
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  }
 
   return (
     <Card className="p-3">
@@ -46,7 +66,7 @@ export function AvailableReports() {
 
         {/* Reports list */}
         <Stack gap={3}>
-          {reports.map((report) => (
+          {reportsData.map((report) => (
             // Individual report card
             <Card key={report.id}>
               <Card.Body>
@@ -67,13 +87,24 @@ export function AvailableReports() {
                     </div>
                   </div>
 
-                  {/* Download button */}
-                  <Button
-                    variant="outline-success"
-                    onClick={() => handleDownloadClick(report)}
-                  >
-                    <Download size={18} />
-                  </Button>
+                  {/* Action buttons */}
+                  <div className="d-flex gap-2">
+                    <Button
+                      variant="outline-success"
+                      onClick={() => handleDownloadClick(report)}
+                    >
+                      <Download size={18} />
+                    </Button>
+                    {onDeleteReport && (
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => handleDeleteClick(report.id)}
+                        title="Delete report"
+                      >
+                        <Trash2 size={18} />
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </Card.Body>
             </Card>

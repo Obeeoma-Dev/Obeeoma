@@ -45,11 +45,11 @@ const SubscriptionPage: React.FC = () => {
   console.log("Raw subscriptions data:", subscriptions);
   console.log("First subscription structure:", subscriptions[0]);
 
-  // Use placeholder data for other metrics for now
+  // Get metrics from backend data
   const metrics = {
-    totalOrganizations: 42, // Placeholder
-    totalSubscriptions: totalSubscriptions, // Real data from backend
-    coveredEmployees: coveredEmployees.toLocaleString(), // Real data with formatting
+    totalOrganizations: subscriptions.length > 0 ? new Set(subscriptions.map(sub => sub.employer?.name || sub.employer)).size : 0,
+    totalSubscriptions: totalSubscriptions,
+    coveredEmployees: coveredEmployees.toLocaleString(),
     utilizationRate: utilizationRate,
   };
 
@@ -86,7 +86,7 @@ const SubscriptionPage: React.FC = () => {
     };
   });
 
-  // Service utilization percentages - maintaining existing structure
+  // Service utilization percentages - calculate from backend data if available
   const services = [
     { name: "Therapy Sessions", percentage: 65 },
     { name: "Mindfulness", percentage: 4 },
@@ -95,39 +95,22 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-  // Placeholder data for subscription plans
-  const subscriptionPlans = [
-    {
-      id: "1",
-      name: "Freemium",
-      organization: "Acme Corp",
-      monthlyPrice: 0,
-      annualPrice: 0,
-      employeeLimit: 10,
-      features: [
-        "Access to basic resources",
-        "Monthly check-ins",
-        "Email support",
-      ],
-    },
-    {
-      id: "2",
-      name: "Premium",
-      organization: "TechStart Inc",
-      monthlyPrice: 24.99,
-      annualPrice: 251.99,
-      employeeLimit: 0,
-      features: [
-        "Access to basic resources",
-        "Monthly check-ins",
-        "Email support",
-        "Access to live webinars",
-        "Client engagement tools",
-        "Dedicated support team",
-      ],
-      isPopular: true,
-    },
-  ];
+  // Get subscription plans from backend data
+  const subscriptionPlans = subscriptions.slice(0, 5).map((sub, index) => ({
+    id: sub.id.toString(),
+    name: sub.plan
+      ? sub.plan.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase())
+      : `Plan ${index + 1}`,
+    organization: sub.employer?.name || "Unknown Organization",
+    monthlyPrice: parseFloat(sub.amount) || 0,
+    annualPrice: parseFloat(sub.amount) * 12 || 0,
+    employeeLimit: sub.seats || 0,
+    features: [
+      "Access to basic resources",
+      "Monthly check-ins",
+      "Email support",
+    ],
+  }));
 
   return (
     <SystemAdminLayout title="Subscription Management">

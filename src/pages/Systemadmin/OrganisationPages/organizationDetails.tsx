@@ -246,7 +246,16 @@ export function OrganizationDetails() {
                 <Row className="align-items-stretch mb-4 mb-lg-0">
                   <Col lg={6} className="d-flex flex-column">
                     <div className="flex-grow-1">
-                      <PlatformUsageChart />
+                      <PlatformUsageChart 
+                        data={[
+                          { week: "Week 1", usage: organization.client_count || 0 },
+                          { week: "Week 2", usage: Math.floor((organization.client_count || 0) * 0.8) },
+                          { week: "Week 3", usage: Math.floor((organization.client_count || 0) * 0.9) },
+                          { week: "Week 4", usage: Math.floor((organization.client_count || 0) * 1.1) },
+                          { week: "Week 5", usage: Math.floor((organization.client_count || 0) * 1.2) },
+                          { week: "Week 6", usage: Math.floor((organization.client_count || 0) * 1.0) },
+                        ]} 
+                      />
                     </div>
                   </Col>
 

@@ -7,38 +7,6 @@ import FeatureFlags from "./FeatureFlags";
 import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
 import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
-// Placeholder data for subscription plans
-const subscriptionPlans = [
-    {
-        id: "1",
-        name: "Freemium",
-        organization: "TechStart Inc",
-        features: [
-            "Access to basic resources",
-            "Monthly check-ins",
-            "Email support",
-        ],
-        isPopular: true,
-    },
-    {
-        id: "2",
-        name: "Premium",
-        organization: "Global Enterprise",
-        monthlyPrice: 24.99,
-        annualPrice: 251.99,
-        employeeLimit: 0,
-        features: [
-            "Access to basic resources",
-            "Monthly check-ins",
-            "Email support",
-            "Access to live webinars",
-            "Client engagement tools",
-            "Advanced analytics",
-            "Custom integrations",
-            "Priority support",
-        ],
-    },
-];
 const SettingsTabs = () => {
     // State to track which tab is currently active; default is "account"
     const [key, setKey] = useState("account");

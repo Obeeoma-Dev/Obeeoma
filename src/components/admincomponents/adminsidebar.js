@@ -62,7 +62,7 @@ const AdminSidebar = () => {
     // const currentPath = location.pathname.split("/")[2];
     // Navigate to selected menu item
     const handleMenuClick = (id) => {
-        // Overview should link to /system-admin directly
+        // Overview should link to /system-admin directly (original Dashboard)
         const path = id === "overview" ? "/system-admin" : `/system-admin/${id}`;
         navigate(path);
     };

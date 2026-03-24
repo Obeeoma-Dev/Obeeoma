@@ -4,9 +4,10 @@ import PlatformUsageChart from "../../../components/admincomponents/Reportcompon
 import FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
 import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
-import { Container, Spinner, Alert } from "react-bootstrap";
+import { Container, Spinner, Alert, Modal, Form, Button, ProgressBar } from "react-bootstrap";
 import UserEngagement from "../../../components/admincomponents/Reportcomponents/userEngagement";
 import { adminAPI } from "../../../api/apiConfig";
+import { Upload, X } from "lucide-react";
 
 interface ReportsApiResponse {
   platform_usage?: {
@@ -22,6 +23,11 @@ interface ReportsApiResponse {
     engagement_rate?: number;
     new_signups?: number;
     retention_rate?: number;
+    monthly_data?: Array<{
+      month: string;
+      new_signups: number;
+      active_users: number;
+    }>;
   };
   feedback_testimonies?: Array<{
     id?: number;
@@ -31,6 +37,13 @@ interface ReportsApiResponse {
     date?: string;
     organization?: string;
   }>;
+  available_reports?: Array<{
+    id: string;
+    title: string;
+    type: string;
+    date: string;
+    size: string;
+  }>;
 }
 
 const ReportPage: React.FC = () => {
@@ -38,8 +51,103 @@ const ReportPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<ReportsApiResponse | null>(null);
+  
+  // Upload modal state
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [reportTitle, setReportTitle] = useState("");
+  const [reportType, setReportType] = useState("Platform Usage");
 
   const tabs = ["Platform Usage", "User Engagement", "Feedback & Testimonies"];
+
+  // Handle file upload
+  const handleFileUpload = async () => {
+    if (!uploadFile || !reportTitle.trim()) {
+      alert("Please select a file and enter a report title");
+      return;
+    }
+
+    setUploading(true);
+    setUploadProgress(0);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", uploadFile);
+      formData.append("title", reportTitle);
+      formData.append("type", reportType);
+
+      // Simulate upload progress
+      const progressInterval = setInterval(() => {
+        setUploadProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return 90;
+          }
+          return prev + 10;
+        });
+      }, 200);
+
+      // Here you would make actual API call
+      // const response = await adminAPI.uploadReport(formData);
+      
+      setTimeout(() => {
+        clearInterval(progressInterval);
+        setUploadProgress(100);
+        setTimeout(() => {
+          setUploading(false);
+          setShowUploadModal(false);
+          setUploadFile(null);
+          setUploadProgress(0);
+          setReportTitle("");
+          
+          // Add the new report to the available reports
+          const newReport = {
+            id: Date.now().toString(),
+            title: reportTitle,
+            type: reportType,
+            date: new Date().toLocaleDateString(),
+            size: `${(uploadFile.size / 1024 / 1024).toFixed(2)} MB`
+          };
+          
+          setData(prev => ({
+            ...prev,
+            available_reports: [...(prev?.available_reports || []), newReport]
+          }));
+          
+          alert("Report uploaded successfully!");
+        }, 500);
+      }, 2000);
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("Failed to upload report");
+      setUploading(false);
+    }
+  };
+
+  // Handle report deletion
+  const handleDeleteReport = async (reportId: string) => {
+    if (!confirm("Are you sure you want to delete this report?")) {
+      return;
+    }
+
+    try {
+      // Here you would make actual API call
+      // await adminAPI.deleteReport(reportId);
+      
+      // Remove the report from the list
+      setData(prev => ({
+        ...prev,
+        available_reports: prev?.available_reports?.filter(report => report.id !== reportId) || []
+      }));
+      
+      alert("Report deleted successfully!");
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Failed to delete report");
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -124,13 +232,14 @@ const ReportPage: React.FC = () => {
                   border: "none",
                   fontFamily: "body",
                 }}
+                onClick={() => setShowUploadModal(true)}
               >
                 Generate New Report
               </button>
             </div>
           </div>
           <PlatformUsageChart />
-          <AvailableReports />
+          <AvailableReports reports={[]} />
           <CustomReportForm />
         </Container>
       </SystemAdminLayout>
@@ -182,6 +291,7 @@ const ReportPage: React.FC = () => {
               border: "none",
               fontFamily: "body",
             }}
+            onClick={() => setShowUploadModal(true)}
           >
             Generate New Report
           </button>
@@ -238,13 +348,100 @@ const ReportPage: React.FC = () => {
 
         {/* Available Reports Section */}
         <div className="mb-5">
-          <AvailableReports />
+          <AvailableReports reports={data?.available_reports} onDeleteReport={handleDeleteReport} />
         </div>
 
         <div>
           <CustomReportForm />
         </div>
       </Container>
+
+      {/* Upload Report Modal */}
+      <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title className="d-flex align-items-center gap-2">
+            <Upload size={20} />
+            Upload Report
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Report Title</Form.Label>
+              <Form.Control
+                type="text"
+                value={reportTitle}
+                onChange={(e) => setReportTitle(e.target.value)}
+                placeholder="Enter report title"
+                required
+              />
+            </Form.Group>
+            
+            <Form.Group className="mb-3">
+              <Form.Label>Report Type</Form.Label>
+              <Form.Select
+                value={reportType}
+                onChange={(e) => setReportType(e.target.value)}
+              >
+                <option value="Platform Usage">Platform Usage</option>
+                <option value="User Engagement">User Engagement</option>
+                <option value="Feedback & Testimonies">Feedback & Testimonies</option>
+                <option value="Health Conditions">Health Conditions</option>
+                <option value="Treatment Outcomes">Treatment Outcomes</option>
+                <option value="Organization Performance">Organization Performance</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Select File</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUploadFile(e.target.files?.[0] || null)}
+                accept=".pdf,.xlsx,.csv,.doc,.docx"
+                required
+              />
+              <Form.Text className="text-muted">
+                Supported formats: PDF, Excel, CSV, Word documents (Max 10MB)
+              </Form.Text>
+            </Form.Group>
+
+            {uploading && (
+              <div className="mb-3">
+                <div className="d-flex justify-content-between mb-1">
+                  <span>Uploading...</span>
+                  <span>{uploadProgress}%</span>
+                </div>
+                <ProgressBar now={uploadProgress} variant="success" />
+              </div>
+            )}
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowUploadModal(false)}>
+            <X size={16} className="me-2" />
+            Cancel
+          </Button>
+          <Button
+            variant="success"
+            onClick={handleFileUpload}
+            disabled={uploading || !uploadFile || !reportTitle.trim()}
+          >
+            {uploading ? (
+              <>
+                <div className="spinner-border spinner-border-sm me-2" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload size={16} className="me-2" />
+                Upload Report
+              </>
+            )}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </SystemAdminLayout>
   );
 };
