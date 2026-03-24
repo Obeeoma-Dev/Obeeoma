@@ -31,9 +31,11 @@ const options = {
         },
     },
 };
-const EffectivenessChart = ({ effectivenessByType }) => {
+const EffectivenessChart = ({ effectivenessByType, }) => {
     const labels = effectivenessByType?.length
-        ? effectivenessByType.map((t) => (t.resource_type || "").replace(/_/g, " ")).map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+        ? effectivenessByType
+            .map((t) => (t.resource_type || "").replace(/_/g, " "))
+            .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
         : defaultData.labels;
     const values = effectivenessByType?.length
         ? effectivenessByType.map((t) => Number(t.avg_effectiveness) || 0)

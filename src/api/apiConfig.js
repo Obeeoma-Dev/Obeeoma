@@ -14,19 +14,7 @@ const api = axios.create({
 });
 export const setupApiInterceptors = (store) => {
     api.interceptors.request.use((config) => {
-        // Normalize duplicate version prefix when baseURL already contains '/v1'
         const requestPath = config.url || "";
-        try {
-            const normalizedBase = (API_BASE_URL || "").replace(/\/+$|^\s+|\s+$/g, "");
-            const baseHasV1 = /\/v1(\/)?$/.test(normalizedBase);
-            if (baseHasV1 && requestPath) {
-                // remove leading '/v1' or 'v1' from the request path to avoid double '/v1/v1'
-                config.url = config.url.replace(/^\/?v1\/?/, "");
-            }
-        }
-        catch (e) {
-            // ignore normalization errors and continue
-        }
         const publicEndpoints = [
             "auth/login/",
             "auth/signup/",
@@ -109,14 +97,14 @@ export const setupApiInterceptors = (store) => {
     });
 };
 export const authAPI = {
-    // Login endpoint (baseURL already includes /api/v1, so path must not add v1 again)
+    // Login endpoint — return full axios response so authSlice thunk can use response.data
     login: async (credentials) => {
         const response = await api.post("auth/login/", credentials);
         return response;
     },
     // Register endpoint
     register: async (credentials) => {
-        const response = await api.post("/organization-signup/", {
+        const response = await api.post("/v1/organization-signup/", {
             organizationName: credentials.organizationName,
             phoneNumber: credentials.phoneNumber,
             organisationSize: credentials.organisationSize,
@@ -484,8 +472,8 @@ export const employerAPI = {
     },
     getWellnessMoodTrends: async (companyId) => {
         const url = companyId
-            ? `/v1/dashboard/trends/${companyId}/`
-            : "/v1/dashboard/trends/";
+            ? `/company-mood/dashboard-summary/${companyId}/`
+            : "/company-mood/dashboard-summary/";
         const response = await api.get(url);
         return response;
     },
@@ -498,7 +486,7 @@ export const employerAPI = {
         return response;
     },
     getWellnessTrend: async () => {
-        const response = await api.get("/v1/auth/invitations/");
+        const response = await api.get("/auth/invitations/");
         return response;
     },
     getEmployeeMoodDistribution: async () => {

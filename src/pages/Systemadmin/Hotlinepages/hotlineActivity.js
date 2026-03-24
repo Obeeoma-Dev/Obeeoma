@@ -14,7 +14,11 @@ function formatCallDate(isoDate) {
     try {
         const d = new Date(isoDate);
         return {
-            time: d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
+            time: d.toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
+            }),
             date: d.toLocaleDateString(),
         };
     }
@@ -45,7 +49,9 @@ const HotlineActivity = () => {
                     setLoading(false);
             }
         })();
-        return () => { cancelled = true; };
+        return () => {
+            cancelled = true;
+        };
     }, []);
     const totalCalls = data?.today_calls ?? 0;
     const avgCallTime = data?.average_duration ?? "0:00";
@@ -71,6 +77,7 @@ const HotlineActivity = () => {
     }));
     const operatorList = (data?.operator_performance ?? []).map((o) => ({
         name: o.name ?? "—",
+        // eslint-disable-next-line no-constant-binary-expression
         performance: Number(o.resolution_rate) ?? 0,
         calls: o.calls,
     }));

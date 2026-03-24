@@ -2,9 +2,27 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { Table, Card, Badge, Button, Form, InputGroup } from "react-bootstrap";
 import { Search, Filter, MoreVertical } from "lucide-react";
 const defaultCallLogs = [
-    { time: "11:00 AM", date: "12/04/2023", reason: "Anxiety", operator: "John Smith", status: "Missed" },
-    { time: "12:30 PM", date: "12/04/2023", reason: "Depression", operator: "Emily Brown", status: "Completed" },
-    { time: "2:00 PM", date: "12/04/2023", reason: "Grief", operator: "Michael Jones", status: "Ongoing" },
+    {
+        time: "11:00 AM",
+        date: "12/04/2023",
+        reason: "Anxiety",
+        operator: "John Smith",
+        status: "Missed",
+    },
+    {
+        time: "12:30 PM",
+        date: "12/04/2023",
+        reason: "Depression",
+        operator: "Emily Brown",
+        status: "Completed",
+    },
+    {
+        time: "2:00 PM",
+        date: "12/04/2023",
+        reason: "Grief",
+        operator: "Michael Jones",
+        status: "Ongoing",
+    },
 ];
 const CallLogTable = ({ logs }) => {
     const callLogs = Array.isArray(logs) && logs.length > 0 ? logs : defaultCallLogs;

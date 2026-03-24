@@ -251,11 +251,14 @@ const Dashboard = () => {
                             time = `${diffHours}h ago`;
                         if (diffHours >= 24)
                             time = `${diffDays}d ago`;
-                        const typeLabel = (a.activity_type || "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+                        const typeLabel = (a.activity_type || "")
+                            .replace(/_/g, " ")
+                            .replace(/\b\w/g, (c) => c.toUpperCase());
                         return {
                             id: String(a.id),
                             type: typeLabel,
-                            details: a.details || (a.organization_name ? `${a.organization_name}` : ""),
+                            details: a.details ||
+                                (a.organization_name ? `${a.organization_name}` : ""),
                             time,
                             icon: activityTypeToIcon[a.activity_type] || "Activity",
                             iconColor: "text-success",
