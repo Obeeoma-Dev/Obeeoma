@@ -9,6 +9,16 @@ import UserEngagement from "../../../components/admincomponents/Reportcomponents
 import { adminAPI } from "../../../api/apiConfig";
 import { Upload, X } from "lucide-react";
 
+interface GeneratedReport {
+  id: string;
+  title: string;
+  type: string;
+  dateRange: string;
+  format: string;
+  generatedAt: string;
+  status: 'generating' | 'completed' | 'error';
+}
+
 interface ReportsApiResponse {
   platform_usage?: {
     daily_active_users?: number;
@@ -59,6 +69,35 @@ const ReportPage: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [reportTitle, setReportTitle] = useState("");
   const [reportType, setReportType] = useState("Platform Usage");
+
+  // State for generated reports from CustomReportForm
+  const [generatedReports, setGeneratedReports] = useState<Array<{
+    id: string;
+    title: string;
+    type: string;
+    date: string;
+    size: string;
+  }>>([]);
+
+  // Handle report generation from CustomReportForm
+  const handleReportGenerated = (generatedReport: GeneratedReport) => {
+    // Add to generated reports list
+    const newReport = {
+      id: generatedReport.id,
+      title: generatedReport.title,
+      type: generatedReport.type,
+      date: new Date().toLocaleDateString(),
+      size: `${Math.floor(Math.random() * 5 + 1)} MB` // Simulated file size
+    };
+    
+    setGeneratedReports(prev => [...prev, newReport]);
+    
+    // Also add to main data state to show in AvailableReports
+    setData(prev => ({
+      ...prev,
+      available_reports: [...(prev?.available_reports || []), newReport]
+    }));
+  };
 
   const tabs = ["Platform Usage", "User Engagement", "Feedback & Testimonies"];
 
@@ -348,11 +387,18 @@ const ReportPage: React.FC = () => {
 
         {/* Available Reports Section */}
         <div className="mb-5">
-          <AvailableReports reports={data?.available_reports} onDeleteReport={handleDeleteReport} />
+          <AvailableReports 
+            reports={[
+              ...(data?.available_reports || []),
+              ...generatedReports
+            ]} 
+            onDeleteReport={handleDeleteReport}
+            onUploadReport={() => setShowUploadModal(true)}
+          />
         </div>
 
         <div>
-          <CustomReportForm />
+          <CustomReportForm onReportGenerated={handleReportGenerated} data={data || undefined} />
         </div>
       </Container>
 

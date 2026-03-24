@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Button, Stack } from "react-bootstrap";
-import { FileText, Download, Trash2 } from "lucide-react";
+import { FileText, Download, Trash2, Upload } from "lucide-react";
 import { DownloadPopup } from "./dowloadpopup";
 
 interface Report {
@@ -14,9 +14,10 @@ interface Report {
 interface AvailableReportsProps {
   reports?: Report[];
   onDeleteReport?: (reportId: string) => Promise<void>;
+  onUploadReport?: () => void;
 }
 
-export function AvailableReports({ reports, onDeleteReport }: AvailableReportsProps) {
+export function AvailableReports({ reports, onDeleteReport, onUploadReport }: AvailableReportsProps) {
   const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
@@ -60,9 +61,21 @@ export function AvailableReports({ reports, onDeleteReport }: AvailableReportsPr
       {/* Card body */}
       <Card.Body>
         {/* Section title */}
-        <Card.Title className="mb-4" style={{ fontFamily: "heading" }}>
-          Available Reports
-        </Card.Title>
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <Card.Title className="mb-0" style={{ fontFamily: "heading" }}>
+            Available Reports
+          </Card.Title>
+          {onUploadReport && (
+            <Button
+              variant="success"
+              onClick={onUploadReport}
+              className="d-flex align-items-center gap-2"
+            >
+              <Upload size={16} />
+              Upload Report
+            </Button>
+          )}
+        </div>
 
         {/* Reports list */}
         <Stack gap={3}>
