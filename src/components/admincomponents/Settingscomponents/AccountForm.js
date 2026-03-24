@@ -1,9 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState, useEffect, useCallback } from "react";
 import { Form, Button, Spinner, Alert, Card } from "react-bootstrap";
-<<<<<<< HEAD
-import { adminAPI } from "../../../api/apiConfig";
-=======
 import { Upload, X, User, Mail, FileText, Check, RotateCcw, } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
@@ -17,7 +14,6 @@ const ROLE_OPTIONS = [
     { label: "System Administrator", value: "SYSTEM_ADMINISTRATOR" },
     { label: "Other", value: "OTHER" },
 ];
->>>>>>> 15577bcd8052cd496d9e4da07a656117e290442e
 const AccountForm = () => {
     // State to hold form input values
     const [formData, setFormData] = useState({
@@ -31,56 +27,6 @@ const AccountForm = () => {
     const [errors, setErrors] = useState({});
     // State to track loading status
     const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
-    // State to track error messages
-    const [error, setError] = useState(null);
-    // Fetch account data from backend API
-    useEffect(() => {
-        let cancelled = false;
-        (async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                const res = await adminAPI.getSystemSettings();
-                if (!cancelled) {
-                    const data = res?.data ?? res ?? {};
-                    // Handle system settings response structure
-                    if (Array.isArray(data)) {
-                        const accountData = data.find((setting) => setting.key === 'account') || {};
-                        setFormData({
-                            fullName: accountData.fullName || accountData.name || "",
-                            email: accountData.email || "",
-                            role: accountData.role || "System Administrator",
-                            phone: accountData.phone || "",
-                            bio: accountData.bio || "",
-                        });
-                    }
-                    else {
-                        // If it's an object, use account properties directly
-                        setFormData({
-                            fullName: data.fullName || data.name || "",
-                            email: data.email || "",
-                            role: data.role || "System Administrator",
-                            phone: data.phone || "",
-                            bio: data.bio || "",
-                        });
-                    }
-                }
-            }
-            catch (e) {
-                if (!cancelled) {
-                    setError(e instanceof Error ? e.message : "Failed to load account data");
-                }
-            }
-            finally {
-                if (!cancelled)
-                    setLoading(false);
-            }
-        })();
-        return () => {
-            cancelled = true;
-        };
-=======
     // State for profile image
     const [profileImage, setProfileImage] = useState(null);
     const [originalProfileImage, setOriginalProfileImage] = useState(null);
@@ -116,7 +62,6 @@ const AccountForm = () => {
             setOriginalProfileImage(storedProfileImage);
         }
         setLoading(false);
->>>>>>> 15577bcd8052cd496d9e4da07a656117e290442e
     }, []);
     // Track changes when formData changes
     // Track changes when formData changes
@@ -228,21 +173,6 @@ const AccountForm = () => {
         return Object.keys(newErrors).length === 0;
     }, [formData]);
     // Handle form submission
-<<<<<<< HEAD
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await adminAPI.updateSystemSettings({
-                key: 'account',
-                ...formData
-            });
-            // Show success message (you could add a success state here)
-        }
-        catch (error) {
-            console.error("Failed to save account data:", error);
-        }
-    };
-=======
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         if (!validateForm())
@@ -264,7 +194,6 @@ const AccountForm = () => {
         setTimeout(() => setSaveSuccess(false), 3000);
         console.log("Form submitted:", formData);
     }, [formData, profileImage, validateForm]);
->>>>>>> 15577bcd8052cd496d9e4da07a656117e290442e
     // Show loading spinner while data is being fetched
     if (loading) {
         return (_jsxs("div", { className: "text-center py-5", children: [_jsx(Spinner, { animation: "border", variant: "success" }), _jsx("p", { className: "mt-3", children: "Loading account data..." })] }));

@@ -62,25 +62,6 @@ const SubscriptionPage = () => {
         { name: "Sleep Resources", percentage: 3 },
         { name: "Nutrition", percentage: 25 },
     ];
-<<<<<<< HEAD
-    // Get subscription plans from backend data
-    const subscriptionPlans = subscriptions.slice(0, 5).map((sub, index) => ({
-        id: sub.id.toString(),
-        name: sub.plan
-            ? sub.plan.replace("_", " ").replace(/\b\w/g, (l) => l.toUpperCase())
-            : `Plan ${index + 1}`,
-        organization: sub.employer?.name || "Unknown Organization",
-        monthlyPrice: parseFloat(sub.amount) || 0,
-        annualPrice: parseFloat(sub.amount) * 12 || 0,
-        employeeLimit: sub.seats || 0,
-        features: [
-            "Access to basic resources",
-            "Monthly check-ins",
-            "Email support",
-        ],
-    }));
-    return (_jsx(SystemAdminLayout, { title: "Subscription Management", children: _jsxs(Container, { fluid: true, children: [countLoading && (_jsxs("div", { className: "text-center py-4", children: [_jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading subscription count..." }) }), _jsx("p", { className: "mt-2 text-muted", children: "Loading subscription data..." })] })), countError && (_jsxs(Alert, { variant: "danger", className: "mb-4", children: [_jsx(Alert.Heading, { children: "Error Loading Subscription Count" }), _jsx("p", { children: countError }), _jsx(Button, { variant: "outline-danger", onClick: refetchCount, children: "Try Again" })] })), !countLoading && !countError && (_jsxs(_Fragment, { children: [_jsx(MetricsPanel, { ...metrics }), _jsxs(Card, { className: "shadow-sm border-0 mb-4", children: [_jsxs(Card.Header, { className: "bg-white border-bottom d-flex justify-content-between align-items-center", children: [_jsxs("div", { children: [_jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: "heading" }, children: "Recent Subscriptions" }), _jsx("p", { className: "text-muted mb-0 small mt-1", style: { fontFamily: "body" }, children: "Overview of organization subscriptions to mental health services" })] }), _jsx(Button, { variant: "success", className: "ms-auto", style: { fontFamily: "body" }, onClick: refetchCount, children: "Add Subscription" })] }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: transformedSubscriptions }) })] }), _jsx(SubscriptionSettingsComp, { plans: subscriptionPlans })] }))] }) }));
-=======
     // Placeholder data for subscription plans (in Naira)
     const subscriptionPlans = [
         {
@@ -115,6 +96,5 @@ const SubscriptionPage = () => {
         },
     ];
     return (_jsx(SystemAdminLayout, { title: "Subscription Management", children: _jsxs(Container, { fluid: true, children: [countLoading && (_jsxs("div", { className: "text-center py-4", children: [_jsx(Spinner, { animation: "border", role: "status", children: _jsx("span", { className: "visually-hidden", children: "Loading subscription count..." }) }), _jsx("p", { className: "mt-2 text-muted", children: "Loading subscription data..." })] })), countError && (_jsxs(Alert, { variant: "danger", className: "mb-4", children: [_jsx(Alert.Heading, { children: "Error Loading Subscription Count" }), _jsx("p", { children: countError }), _jsx(Button, { variant: "outline-danger", onClick: refetchCount, children: "Try Again" })] })), !countLoading && !countError && (_jsxs(_Fragment, { children: [_jsx(MetricsPanel, { ...metrics }), _jsxs(Card, { className: "shadow-sm border-0 mb-4", children: [_jsx(Card.Header, { className: "bg-white border-bottom d-flex justify-content-between align-items-center", children: _jsxs("div", { children: [_jsx("h5", { className: "mb-0 fw-bold", style: { fontFamily: "heading" }, children: "Recent Subscriptions" }), _jsx("p", { className: "text-muted mb-0 small mt-1", style: { fontFamily: "body" }, children: "Overview of organization subscriptions to mental health services" })] }) }), _jsx(Card.Body, { className: "p-0", children: _jsx(RecentSubscriptionsTable, { subscriptions: transformedSubscriptions }) })] }), _jsx(SubscriptionSettingsComp, {})] }))] }) }));
->>>>>>> 15577bcd8052cd496d9e4da07a656117e290442e
 };
 export default SubscriptionPage;

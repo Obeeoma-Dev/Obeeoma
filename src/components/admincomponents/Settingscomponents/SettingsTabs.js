@@ -7,8 +7,6 @@ import SubscriptionSettingsComp from "./Subscriptionsettingscomp/subscriptioncom
 // import AppearenceSettings from "./../Appearencesettingscomp/appearancesettings";
 import NotificationSettings from "./notificationSettings";
 import SecuritySettings from "./securitySettings";
-<<<<<<< HEAD
-=======
 // Default subscription plans
 const defaultSubscriptionPlans = [
     {
@@ -41,7 +39,6 @@ const defaultSubscriptionPlans = [
         ],
     },
 ];
->>>>>>> 15577bcd8052cd496d9e4da07a656117e290442e
 const SettingsTabs = () => {
     // State to track which tab is currently active; default is "account"
     const [key, setKey] = useState("account");
