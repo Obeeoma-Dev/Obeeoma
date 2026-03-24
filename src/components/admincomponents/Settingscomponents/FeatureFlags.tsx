@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Container, Card } from "react-bootstrap";
 
+// Custom CSS for green toggle switches
+const switchStyles = `
+  .form-check-input:checked {
+    background-color: #22C55E !important;
+    border-color: #22C55E !important;
+  }
+  .form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.25);
+  }
+`;
+
 // Define the shape of a feature flag
 interface FeatureFlag {
   id: string;
@@ -41,7 +52,9 @@ const FeatureFlags: React.FC = () => {
   };
 
   return (
-    <Card className="settings-card-compact shadow-sm border-0">
+    <>
+      <style>{switchStyles}</style>
+      <Card className="settings-card-compact shadow-sm border-0">
       <Card.Header className="fw-semibold mb-2 ps-0">Feature Flags</Card.Header>
 
       <Form>
@@ -57,9 +70,7 @@ const FeatureFlags: React.FC = () => {
                     label={flag.label}
                     checked={flag.enabled}
                     onChange={() => handleToggle(flag.id)}
-                    className={
-                      flag.enabled ? "text-success fw-500" : "text-muted"
-                    }
+                    className={flag.enabled ? "fw-500" : "text-muted"}
                   />
                 </div>
               </Col>
@@ -68,6 +79,7 @@ const FeatureFlags: React.FC = () => {
         </Container>
       </Form>
     </Card>
+    </>
   );
 };
 

@@ -117,10 +117,16 @@ const NotificationSettings: React.FC = () => {
       {/* Save button with loading spinner */}
       <div className="d-flex justify-content-end gap-2 pt-2 border-top">
         <Button
-          className="settings-save-btn"
           size="sm"
           onClick={handleSave}
           disabled={isSaving}
+          style={{
+            backgroundColor: "#22C55E",
+            borderColor: "#22C55E",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
         >
           {isSaving ? (
             <>
