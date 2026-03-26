@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   Container,
@@ -17,6 +18,20 @@ import { Search, Bell, User } from "lucide-react";
  * Includes search input, notification bell, and user profile section
  */
 const Header: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to search results page with query parameter
+      navigate(`/system-admin/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
   return (
     // Navbar container with light background and bottom border
     <Navbar
@@ -33,6 +48,7 @@ const Header: React.FC = () => {
         <Form
           className="d-flex flex-grow-1 me-auto"
           style={{ maxWidth: "500px" }}
+          onSubmit={handleSearch}
         >
           {/* Search icon positioned inside input */}
           <div className="position-relative w-100">
@@ -47,6 +63,8 @@ const Header: React.FC = () => {
               className="ps-5 border rounded-2"
               style={{ backgroundColor: "#f5f7fa", borderColor: "#e9ecef" }}
               aria-label="Search"
+              value={searchQuery}
+              onChange={handleSearchChange}
             />
           </div>
         </Form>
@@ -61,9 +79,9 @@ const Header: React.FC = () => {
               aria-label="Notifications"
               style={{ textDecoration: "none" }}
             >
-              <Bell size={22} />
+              {/* <Bell size={22} />
               {/* Red badge showing notification count */}
-              <Badge
+              {/* <Badge
                 bg="danger"
                 pill
                 className="position-absolute top-0 start-100 translate-middle text-white"
@@ -74,7 +92,7 @@ const Header: React.FC = () => {
                 }}
               >
                 2
-              </Badge>
+              </Badge> */} 
             </Button>
           </Col>
 
@@ -87,25 +105,25 @@ const Header: React.FC = () => {
                   className="text-muted small fw-500"
                   style={{ fontSize: "0.8rem" }}
                 >
-                  {" "}
-                  Dr.{" "}
+                  {/* {" "}
+                  Dr.{" "} */}
                 </div>
                 <div
                   className="fw-600 text-dark"
                   style={{ fontSize: "0.9rem" }}
                 >
                   {" "}
-                  Obeeoma Systems Adminstrator{" "}
+                  Obeeoma Systems Adminstrator Settings{" "}
                 </div>
               </div>
 
               {/* User avatar with icon */}
-              <div
+              {/* <div
                 className="bg-success rounded-circle d-flex align-items-center justify-content-center"
                 style={{ width: "40px", height: "40px" }}
               >
                 <User size={22} color="#fff" />
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>

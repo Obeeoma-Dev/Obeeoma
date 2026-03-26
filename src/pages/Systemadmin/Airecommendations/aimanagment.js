@@ -90,15 +90,15 @@ const AIRecommendationsPage = () => {
     const resources = (data?.resources ?? []).map((r, i) => {
         const typeStr = (r.resource_type ?? "article").toLowerCase();
         const typeLabel = typeStr.charAt(0).toUpperCase() + typeStr.slice(1);
+        const id = typeof r.id === "number" ? r.id : Number(r.id ?? i + 1);
         return {
-            id: r.id ?? i + 1,
+            id: Number.isFinite(id) ? id : i + 1,
             name: r.title ?? "Untitled",
             type: typeLabel,
             icon: typeToIcon[typeStr] ?? FileText,
             recommended: `${r.recommended_count ?? 0} times`,
-            // eslint-disable-next-line no-constant-binary-expression
-            engagement: Number(r.engagement_rate) ?? 0,
-            effectiveness: normalizeEffectiveness(r.effectiveness_display),
+            engagement: Number(r.engagement_rate ?? 0),
+            effectiveness: normalizeEffectiveness(r.effectiveness_display ?? "Medium"),
             lastUpdated: r.last_updated ?? "—",
             status: r.is_active ? "Active" : "Inactive",
         };
