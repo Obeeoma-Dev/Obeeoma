@@ -19,14 +19,14 @@ import { adminAPI } from "../../../api/apiConfig";
 import { useAIStatus } from "../../../hooks/useAIStatus";
 
 // Helper functions
-const typeToIcon: Record<string, any> = {
+const typeToIcon: Record<string, React.ElementType> = {
   video: Video,
   audio: Headphones,
   article: FileText,
   interactive: MousePointerClick,
 };
 
-const normalizeEffectiveness = (value: any): "High" | "Medium" | "Low" => {
+const normalizeEffectiveness = (value: string | number): "High" | "Medium" | "Low" => {
   if (typeof value === 'string') {
     const normalized = value.toLowerCase();
     if (normalized.includes('high') || normalized.includes('h')) return "High";
@@ -56,13 +56,26 @@ interface TopAnxietyTrigger {
   percentage?: number | string;
 }
 
+interface AIResourceItem {
+  id?: number | string;
+  title?: string;
+  resource_type?: string;
+  recommended_count?: number | string;
+  engagement_rate?: number | string;
+  effectiveness_display?: string | number;
+  last_updated?: string;
+  is_active?: boolean;
+}
+
+type WeeklyRecommendations = unknown;
+
 interface AIManagementResponse {
   total_recommendations?: number;
   average_engagement_rate?: number | string;
   ai_accuracy_score?: number | string;
-  resources?: any[];
+  resources?: AIResourceItem[];
   effectiveness_by_type?: EffectivenessByType[];
-  weekly_recommendations?: any;
+  weekly_recommendations?: WeeklyRecommendations;
   top_anxiety_triggers?: TopAnxietyTrigger[];
 }
 
@@ -117,20 +130,20 @@ const AIRecommendationsPage: React.FC = () => {
       ? Number(data.ai_accuracy_score)
       : undefined;
 
-  const resources: ResourceRow[] = (data?.resources ?? []).map((r: any, i: number) => {
+  const resources: ResourceRow[] = (data?.resources ?? []).map((r: AIResourceItem, i: number) => {
     const typeStr = (r.resource_type ?? "article").toLowerCase();
     const typeLabel = typeStr.charAt(0).toUpperCase() + typeStr.slice(1);
     return {
-      id: r.id ?? i + 1,
+      id: Number(r.id ?? i + 1),
       name: r.title ?? "Untitled",
       type: typeLabel,
 
-      icon: typeToIcon[typeStr] ?? FileText,
+      icon: (typeToIcon[typeStr] as React.ElementType) ?? FileText,
 
       recommended: `${r.recommended_count ?? 0} times`,
       // eslint-disable-next-line no-constant-binary-expression
       engagement: Number(r.engagement_rate) ?? 0,
-      effectiveness: normalizeEffectiveness(r.effectiveness_display),
+      effectiveness: normalizeEffectiveness(r.effectiveness_display ?? "Medium"),
 
       lastUpdated: r.last_updated ?? "—",
       status: r.is_active ? "Active" : "Inactive",
@@ -152,7 +165,7 @@ const AIRecommendationsPage: React.FC = () => {
       name: t.trigger ?? "",
       score: Number(t.percentage) || 0,
     }))
-    .filter((t: any) => t.name !== "");
+    .filter((t): t is { name: string; score: number } => t.name !== "");
 
   return (
     <SystemAdminLayout title="AI Management">
