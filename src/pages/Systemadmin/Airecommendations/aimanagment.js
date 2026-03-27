@@ -1,128 +1,152 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 // src/pages/adminpages/AIRecommendationsPage.tsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { GlobeIcon, LayoutDashboardIcon } from "lucide-react";
-import "./aiControls.css";
+import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
+import './aiControls.css';
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
-import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
+// import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
-import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
 import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 import { adminAPI } from "../../../api/apiConfig";
 import { useAIStatus } from "../../../hooks/useAIStatus";
-// Helper functions
-const typeToIcon = {
-    video: Video,
-    audio: Headphones,
-    article: FileText,
-    interactive: MousePointerClick,
-};
-const normalizeEffectiveness = (value) => {
-    if (typeof value === 'string') {
-        const normalized = value.toLowerCase();
-        if (normalized.includes('high') || normalized.includes('h'))
-            return "High";
-        if (normalized.includes('medium') || normalized.includes('m'))
-            return "Medium";
-        if (normalized.includes('low') || normalized.includes('l'))
-            return "Low";
-    }
-    if (typeof value === 'number') {
-        if (value >= 70)
-            return "High";
-        if (value >= 40)
-            return "Medium";
-        return "Low";
-    }
-    return "Medium";
-};
+/**
+ * AIRecommendationsPage renders the AI management dashboard.
+ * Sidebar and header are fixed; main content scrolls independently.
+ */
 const AIRecommendationsPage = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [data, setData] = useState(null);
+    // Placeholder metrics — replace with backend data later
+    const metrics = {
+        totalRecommendations: 1245,
+        engagementRate: 72,
+        averageTime: "5m 32s",
+    };
+    // Use enhanced AI status hook with caching
     const { aiStatus, updateAIStatus } = useAIStatus();
-    const handleLandingAIToggle = () => {
-        updateAIStatus({ landing_ai: !aiStatus?.landing_ai });
+    const [isLoading, setIsLoading] = useState(false);
+    const handleAdminAIToggle = async (enabled) => {
+        setIsLoading(true);
+        try {
+            await adminAPI.toggleAdminAI({ enabled });
+            updateAIStatus({ admin_ai: enabled });
+        }
+        catch (error) {
+            console.error('Failed to toggle Admin AI:', error);
+            // Revert the state on error
+            updateAIStatus({ admin_ai: !enabled });
+        }
+        finally {
+            setIsLoading(false);
+        }
     };
-    const handleAdminAIToggle = () => {
-        updateAIStatus({ admin_ai: !aiStatus?.admin_ai });
+    const handleLandingAIToggle = async (enabled) => {
+        setIsLoading(true);
+        try {
+            await adminAPI.toggleLandingAI({ enabled });
+            updateAIStatus({ landing_ai: enabled });
+        }
+        catch (error) {
+            console.error('Failed to toggle Landing AI:', error);
+            // Revert the state on error
+            updateAIStatus({ landing_ai: !enabled });
+        }
+        finally {
+            setIsLoading(false);
+        }
     };
-    const handleMobileAIToggle = () => {
-        updateAIStatus({ mobile_ai: !aiStatus?.mobile_ai });
+    const handleMobileAIToggle = async (enabled) => {
+        setIsLoading(true);
+        try {
+            await adminAPI.toggleMobileAI({ enabled });
+            updateAIStatus({ mobile_ai: enabled });
+        }
+        catch (error) {
+            console.error('Failed to toggle Mobile AI:', error);
+            // Revert the state on error
+            updateAIStatus({ mobile_ai: !enabled });
+        }
+        finally {
+            setIsLoading(false);
+        }
     };
-    useEffect(() => {
-        let cancelled = false;
-        (async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                const res = await adminAPI.getAIManagement();
-                if (!cancelled)
-                    setData(res?.data ?? res ?? null);
-            }
-            catch (e) {
-                if (!cancelled)
-                    setError(e instanceof Error
-                        ? e.message
-                        : "Failed to load AI management data");
-            }
-            finally {
-                if (!cancelled)
-                    setLoading(false);
-            }
-        })();
-        return () => {
-            cancelled = true;
-        };
-    }, []);
-    const totalRecommendations = data?.total_recommendations ?? 0;
-    // eslint-disable-next-line no-constant-binary-expression
-    const engagementRate = Number(data?.average_engagement_rate) ?? 0;
-    const aiAccuracyScore = data?.ai_accuracy_score != null
-        ? Number(data.ai_accuracy_score)
-        : undefined;
-    const resources = (data?.resources ?? []).map((r, i) => {
-        const typeStr = (r.resource_type ?? "article").toLowerCase();
-        const typeLabel = typeStr.charAt(0).toUpperCase() + typeStr.slice(1);
-        const id = typeof r.id === "number" ? r.id : Number(r.id ?? i + 1);
-        return {
-            id: Number.isFinite(id) ? id : i + 1,
-            name: r.title ?? "Untitled",
-            type: typeLabel,
-            icon: typeToIcon[typeStr] ?? FileText,
-            recommended: `${r.recommended_count ?? 0} times`,
-            engagement: Number(r.engagement_rate ?? 0),
-            effectiveness: normalizeEffectiveness(r.effectiveness_display ?? "Medium"),
-            lastUpdated: r.last_updated ?? "—",
-            status: r.is_active ? "Active" : "Inactive",
-        };
-    });
-    const effectivenessByType = data?.effectiveness_by_type ?? [];
-    const weeklyRecommendations = data?.weekly_recommendations;
-    const modelScores = effectivenessByType.length
-        ? effectivenessByType.map((t) => ({
-            name: (t.resource_type ?? "")
-                .replace(/_/g, " ")
-                .replace(/\b\w/g, (c) => c.toUpperCase()),
-            score: Number(t.avg_effectiveness) || 0,
-        }))
-        : [];
-    const triggers = (data?.top_anxiety_triggers ?? [])
-        .map((t) => ({
-        name: t.trigger ?? "",
-        score: Number(t.percentage) || 0,
-    }))
-        .filter((t) => t.name !== "");
-    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsxs("div", { className: "ai-controls-section", children: [_jsxs("div", { className: "ai-controls-header", children: [_jsxs("div", { children: [_jsx("h2", { className: "ai-controls-title", children: "AI Controls" }), _jsx("p", { className: "ai-controls-subtitle", children: "Independently manage AI across each part of the platform" })] }), _jsxs("div", { className: "ai-controls-status", children: [_jsx("span", { className: "ai-controls-indicator" }), [
-                                                aiStatus?.landing_ai,
-                                                aiStatus?.admin_ai,
-                                                aiStatus?.mobile_ai,
-                                            ].filter(Boolean).length, " ", "of 3 active"] })] }), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus?.landing_ai || false, onToggle: handleLandingAIToggle, label: "Landing Page AI", description: "Reception chatbot that talks about the app and directs visitors. Does not save conversations.", icon: _jsx(GlobeIcon, { size: 20 }), lastActive: "Today at 1:12 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus?.admin_ai || false, onToggle: handleAdminAIToggle, label: "Admin Dashboard AI", description: "Provides insights, growth recommendations, and analytics summaries to the system admin.", icon: _jsx(LayoutDashboardIcon, { size: 20 }), lastActive: "Today at 2:34 PM" }) })] }), _jsx(AIResourcesTable, { resources: [] }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, {}) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(TopMetrics, { totalRecommendations: totalRecommendations, engagementRate: engagementRate, averageTime: "2:30" }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(AIResourcesTable, { resources: resources }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(ModelPerformance, {}) }), _jsx(Col, { md: 6, children: _jsx(TopTriggers, { triggers: triggers }) })] })] }), _jsx(AIAssistant, { isEnabled: aiStatus?.admin_ai || false })] }));
+    // AI resource effectiveness table
+    const resources = [
+        {
+            id: 1,
+            name: "Anxiety Management Techniques",
+            type: "Article",
+            icon: FileText,
+            recommended: "156 times",
+            engagement: 78,
+            effectiveness: "High",
+            lastUpdated: "2023-09-12",
+            status: "High Effectiveness",
+        },
+        {
+            id: 2,
+            name: "Breathing Exercises for Anxiety",
+            type: "Video",
+            icon: Video,
+            recommended: "243 times",
+            engagement: 82,
+            effectiveness: "High",
+            lastUpdated: "2023-08-10",
+            status: "High Effectiveness",
+        },
+        {
+            id: 3,
+            name: "Understanding Panic Attacks",
+            type: "Article",
+            icon: FileText,
+            recommended: "124 times",
+            engagement: 65,
+            effectiveness: "Medium",
+            lastUpdated: "2023-09-05",
+            status: "High Effectiveness",
+        },
+        {
+            id: 4,
+            name: "Guided Meditation for Relief",
+            type: "Audio",
+            icon: Headphones,
+            recommended: "198 times",
+            engagement: 72,
+            effectiveness: "Medium",
+            lastUpdated: "2023-09-08",
+            status: "High Effectiveness",
+        },
+        {
+            id: 5,
+            name: "Social Anxiety Coping Strategies",
+            type: "Interactive",
+            icon: MousePointerClick,
+            recommended: "87 times",
+            engagement: 58,
+            effectiveness: "Low",
+            lastUpdated: "2023-08-28",
+            status: "High Effectiveness",
+        },
+    ];
+    // Model performance scores
+    const modelScores = [
+        { name: "Activity Assignment Templates", score: 92 },
+        { name: "Social Connection Prompts", score: 89 },
+        { name: "Personalized Coping Strategies", score: 85 },
+        { name: "Peer Support", score: 68 },
+        { name: "Family Involvement", score: 64 },
+    ];
+    // Top anxiety triggers
+    const triggers = [
+        { name: "Social situations", score: 76 },
+        { name: "Academic pressure", score: 68 },
+        { name: "Peer pressure", score: 65 },
+        { name: "Family relationships", score: 61 },
+    ];
+    return (_jsxs(SystemAdminLayout, { title: "AI Management", children: [_jsxs(Container, { fluid: true, className: "py-4", children: [_jsxs("div", { className: "ai-controls-section", children: [_jsxs("div", { className: "ai-controls-header", children: [_jsxs("div", { children: [_jsx("h2", { className: "ai-controls-title", children: "AI Controls" }), _jsx("p", { className: "ai-controls-subtitle", children: "Independently manage AI across each part of the platform" })] }), _jsxs("div", { className: "ai-controls-status", children: [_jsx("span", { className: "ai-controls-indicator" }), [aiStatus.landing_ai, aiStatus.admin_ai, aiStatus.mobile_ai].filter(Boolean).length, " of 3 active"] })] }), _jsxs(Row, { className: "g-4", children: [_jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.landing_ai, onToggle: handleLandingAIToggle, label: "Landing Page AI", description: "Reception chatbot that talks about the app and directs visitors. Does not save conversations.", icon: _jsx(GlobeIcon, { size: 20 }), lastActive: "Today at 1:12 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.admin_ai, onToggle: handleAdminAIToggle, label: "Admin Dashboard AI", description: "Provides insights, growth recommendations, and analytics summaries to the system admin.", icon: _jsx(LayoutDashboardIcon, { size: 20 }), lastActive: "Today at 2:34 PM" }) }), _jsx(Col, { xs: 12, md: 4, children: _jsx(AIStatusToggle, { isActive: aiStatus.mobile_ai, onToggle: handleMobileAIToggle, label: "Mobile App AI", description: "Recommends hotline numbers and uploaded resources to users inside the mobile app.", icon: _jsx(SmartphoneIcon, { size: 20 }), lastActive: "Today at 3:05 PM" }) })] })] }), _jsx(TopMetrics, { ...metrics }), _jsxs(Row, { className: "mb-4", children: [_jsx(Col, { md: 6, children: _jsx(EffectivenessChart, {}) }), _jsx(Col, { md: 6, children: _jsx(WeeklyRecommendationsChart, {}) })] }), _jsx(Row, { children: _jsx(ModelPerformance, {}) })] }), _jsx(AIAssistant, { isEnabled: aiStatus.admin_ai })] }));
 };
 export default AIRecommendationsPage;

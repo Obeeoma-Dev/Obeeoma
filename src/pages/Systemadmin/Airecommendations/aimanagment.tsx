@@ -3,171 +3,160 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { GlobeIcon, LayoutDashboardIcon, SmartphoneIcon } from "lucide-react";
-import "./aiControls.css";
+import './aiControls.css';
 import TopMetrics from "../../../components/admincomponents/Aicomponents/topmetric";
 import EffectivenessChart from "../../../components/admincomponents/Aicomponents/effectivenessChart";
 import WeeklyRecommendationsChart from "../../../components/admincomponents/Aicomponents/weeklyRecomendationChart";
-import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
+// import AIResourcesTable from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import ModelPerformance from "../../../components/admincomponents/Aicomponents/modelPerformance";
 import TopTriggers from "../../../components/admincomponents/Aicomponents/topTrigger";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
 import type { ResourceRow } from "../../../components/admincomponents/Aicomponents/airesourceTable";
 import { AIStatusToggle } from "../../../components/admincomponents/Aicomponents/Aitoggle";
-import { FileText, Video, Headphones, MousePointerClick, type LucideIcon } from "lucide-react";
+import { FileText, Video, Headphones, MousePointerClick } from "lucide-react";
 import { adminAPI } from "../../../api/apiConfig";
 import { useAIStatus } from "../../../hooks/useAIStatus";
-
-// Helper functions
-const typeToIcon: Record<string, LucideIcon> = {
-  video: Video,
-  audio: Headphones,
-  article: FileText,
-  interactive: MousePointerClick,
-};
-
-type EffectivenessRaw = string | number | null | undefined;
-
-const normalizeEffectiveness = (value: EffectivenessRaw): "High" | "Medium" | "Low" => {
-  if (typeof value === 'string') {
-    const normalized = value.toLowerCase();
-    if (normalized.includes('high') || normalized.includes('h')) return "High";
-    if (normalized.includes('medium') || normalized.includes('m')) return "Medium";
-    if (normalized.includes('low') || normalized.includes('l')) return "Low";
-  }
-  if (typeof value === 'number') {
-    if (value >= 70) return "High";
-    if (value >= 40) return "Medium";
-    return "Low";
-  }
-  return "Medium";
-};
 
 /**
  * AIRecommendationsPage renders the AI management dashboard.
  * Sidebar and header are fixed; main content scrolls independently.
  */
-// Type definitions
-interface EffectivenessByType {
-  resource_type?: string;
-  avg_effectiveness?: number | string;
-}
-
-interface TopAnxietyTrigger {
-  trigger?: string;
-  percentage?: number | string;
-}
-
-interface APIResourceRaw {
-  id?: number | string;
-  title?: string;
-  resource_type?: string;
-  recommended_count?: number;
-  engagement_rate?: number;
-  effectiveness_display?: string | number;
-  last_updated?: string;
-  is_active?: boolean;
-}
-
-interface AIManagementResponse {
-  total_recommendations?: number;
-  average_engagement_rate?: number | string;
-  ai_accuracy_score?: number | string;
-  resources?: APIResourceRaw[];
-  effectiveness_by_type?: EffectivenessByType[];
-  weekly_recommendations?: Record<string, unknown> | null;
-  top_anxiety_triggers?: TopAnxietyTrigger[];
-}
-
 const AIRecommendationsPage: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<AIManagementResponse | null>(null);
+  // Placeholder metrics — replace with backend data later
+  const metrics = {
+    totalRecommendations: 1245,
+    engagementRate: 72,
+    averageTime: "5m 32s",
+  };
+
+  // Use enhanced AI status hook with caching
   const { aiStatus, updateAIStatus } = useAIStatus();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLandingAIToggle = () => {
-    updateAIStatus({ landing_ai: !aiStatus?.landing_ai });
+  const handleAdminAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleAdminAI({ enabled });
+      updateAIStatus({ admin_ai: enabled });
+    } catch (error) {
+      console.error('Failed to toggle Admin AI:', error);
+      // Revert the state on error
+      updateAIStatus({ admin_ai: !enabled });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleAdminAIToggle = () => {
-    updateAIStatus({ admin_ai: !aiStatus?.admin_ai });
+  const handleLandingAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleLandingAI({ enabled });
+      updateAIStatus({ landing_ai: enabled });
+    } catch (error) {
+      console.error('Failed to toggle Landing AI:', error);
+      // Revert the state on error
+      updateAIStatus({ landing_ai: !enabled });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleMobileAIToggle = () => {
-    updateAIStatus({ mobile_ai: !aiStatus?.mobile_ai });
+  const handleMobileAIToggle = async (enabled: boolean) => {
+    setIsLoading(true);
+    try {
+      await adminAPI.toggleMobileAI({ enabled });
+      updateAIStatus({ mobile_ai: enabled });
+    } catch (error) {
+      console.error('Failed to toggle Mobile AI:', error);
+      // Revert the state on error
+      updateAIStatus({ mobile_ai: !enabled });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const res = await adminAPI.getAIManagement();
-        if (!cancelled) setData(res?.data ?? res ?? null);
-      } catch (e: unknown) {
-        if (!cancelled)
-          setError(
-            e instanceof Error
-              ? e.message
-              : "Failed to load AI management data",
-          );
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // AI resource effectiveness table
+  const resources: ResourceRow[] = [
+    {
+      id: 1,
+      name: "Anxiety Management Techniques",
+      type: "Article",
+      icon: FileText,
+      recommended: "156 times",
+      engagement: 78,
+      effectiveness: "High",
+      lastUpdated: "2023-09-12",
+      status: "High Effectiveness",
+    },
+    {
+      id: 2,
+      name: "Breathing Exercises for Anxiety",
+      type: "Video",
+      icon: Video,
+      recommended: "243 times",
+      engagement: 82,
+      effectiveness: "High",
+      lastUpdated: "2023-08-10",
+      status: "High Effectiveness",
+    },
+    {
+      id: 3,
+      name: "Understanding Panic Attacks",
+      type: "Article",
+      icon: FileText,
+      recommended: "124 times",
+      engagement: 65,
+      effectiveness: "Medium",
+      lastUpdated: "2023-09-05",
+      status: "High Effectiveness",
+    },
+    {
+      id: 4,
+      name: "Guided Meditation for Relief",
+      type: "Audio",
+      icon: Headphones,
+      recommended: "198 times",
+      engagement: 72,
+      effectiveness: "Medium",
+      lastUpdated: "2023-09-08",
+      status: "High Effectiveness",
+    },
+    {
+      id: 5,
+      name: "Social Anxiety Coping Strategies",
+      type: "Interactive",
+      icon: MousePointerClick,
+      recommended: "87 times",
+      engagement: 58,
+      effectiveness: "Low",
+      lastUpdated: "2023-08-28",
+      status: "High Effectiveness",
+    },
+  ];
 
-  const totalRecommendations = data?.total_recommendations ?? 0;
-  // eslint-disable-next-line no-constant-binary-expression
-  const engagementRate = Number(data?.average_engagement_rate) ?? 0;
+  // Model performance scores
+  const modelScores = [
+    { name: "Activity Assignment Templates", score: 92 },
+    { name: "Social Connection Prompts", score: 89 },
+    { name: "Personalized Coping Strategies", score: 85 },
+    { name: "Peer Support", score: 68 },
+    { name: "Family Involvement", score: 64 },
+  ];
 
-  const aiAccuracyScore =
-    data?.ai_accuracy_score != null
-      ? Number(data.ai_accuracy_score)
-      : undefined;
-
-  const resources: ResourceRow[] = (data?.resources ?? []).map((r: APIResourceRaw, i: number) => {
-    const typeStr = (r.resource_type ?? "article").toLowerCase();
-    const typeLabel = typeStr.charAt(0).toUpperCase() + typeStr.slice(1);
-    const id = typeof r.id === "number" ? r.id : Number(r.id ?? i + 1);
-    return {
-      id: Number.isFinite(id) ? id : i + 1,
-      name: r.title ?? "Untitled",
-      type: typeLabel,
-      icon: typeToIcon[typeStr] ?? FileText,
-      recommended: `${r.recommended_count ?? 0} times`,
-      engagement: Number(r.engagement_rate ?? 0),
-      effectiveness: normalizeEffectiveness(r.effectiveness_display ?? "Medium"),
-      lastUpdated: r.last_updated ?? "—",
-      status: r.is_active ? "Active" : "Inactive",
-    };
-  });
-
-  const effectivenessByType = data?.effectiveness_by_type ?? [];
-  const weeklyRecommendations = data?.weekly_recommendations;
-  const modelScores = effectivenessByType.length
-    ? effectivenessByType.map((t: EffectivenessByType) => ({
-        name: (t.resource_type ?? "")
-          .replace(/_/g, " ")
-          .replace(/\b\w/g, (c: string) => c.toUpperCase()),
-        score: Number(t.avg_effectiveness) || 0,
-      }))
-    : [];
-  const triggers = (data?.top_anxiety_triggers ?? [])
-    .map((t: TopAnxietyTrigger) => ({
-      name: t.trigger ?? "",
-      score: Number(t.percentage) || 0,
-    }))
-    .filter((t): t is { name: string; score: number } => t.name !== "");
+  // Top anxiety triggers
+  const triggers = [
+    { name: "Social situations", score: 76 },
+    { name: "Academic pressure", score: 68 },
+    { name: "Peer pressure", score: 65 },
+    { name: "Family relationships", score: 61 },
+  ];
 
   return (
     <SystemAdminLayout title="AI Management">
       {/* Container ensures Bootstrap spacing and responsiveness */}
       <Container fluid className="py-4">
+
         {/* AI Controls Section */}
         <div className="ai-controls-section">
           <div className="ai-controls-header">
@@ -179,21 +168,15 @@ const AIRecommendationsPage: React.FC = () => {
             </div>
             <div className="ai-controls-status">
               <span className="ai-controls-indicator" />
-              {
-                [
-                  aiStatus?.landing_ai,
-                  aiStatus?.admin_ai,
-                  aiStatus?.mobile_ai,
-                ].filter(Boolean).length
-              }{" "}
-              of 3 active
+              {[aiStatus.landing_ai, aiStatus.admin_ai, aiStatus.mobile_ai].filter(Boolean).length} of 3
+              active
             </div>
           </div>
 
           <Row className="g-4">
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={aiStatus?.landing_ai || false}
+                isActive={aiStatus.landing_ai}
                 onToggle={handleLandingAIToggle}
                 label="Landing Page AI"
                 description="Reception chatbot that talks about the app and directs visitors. Does not save conversations."
@@ -203,7 +186,7 @@ const AIRecommendationsPage: React.FC = () => {
             </Col>
             <Col xs={12} md={4}>
               <AIStatusToggle
-                isActive={aiStatus?.admin_ai || false}
+                isActive={aiStatus.admin_ai}
                 onToggle={handleAdminAIToggle}
                 label="Admin Dashboard AI"
                 description="Provides insights, growth recommendations, and analytics summaries to the system admin."
@@ -211,20 +194,21 @@ const AIRecommendationsPage: React.FC = () => {
                 lastActive="Today at 2:34 PM"
               />
             </Col>
-          </Row>
-          <AIResourcesTable resources={[]} />
-          <Row className="mb-4">
-            <Col md={6}>
-              <ModelPerformance />
-            </Col>
-            <Col md={6}>
-              <TopTriggers triggers={triggers} />
+            <Col xs={12} md={4}>
+              <AIStatusToggle
+                isActive={aiStatus.mobile_ai}
+                onToggle={handleMobileAIToggle}
+                label="Mobile App AI"
+                description="Recommends hotline numbers and uploaded resources to users inside the mobile app."
+                icon={<SmartphoneIcon size={20} />}
+                lastActive="Today at 3:05 PM"
+              />
             </Col>
           </Row>
         </div>
 
         {/* Top summary metrics */}
-        <TopMetrics totalRecommendations={totalRecommendations} engagementRate={engagementRate} averageTime="2:30" />
+        <TopMetrics {...metrics} />
 
         {/* Charts side by side */}
         <Row className="mb-4">
@@ -236,20 +220,18 @@ const AIRecommendationsPage: React.FC = () => {
           </Col>
         </Row>
 
-        <AIResourcesTable resources={resources} />
-
-        <Row className="mb-4">
-          <Col md={6}>
-            <ModelPerformance />
-          </Col>
-          <Col md={6}>
+        <Row>
+          {/* <Col md={6}> */}
+          <ModelPerformance />
+          {/* </Col> */}
+          {/* <Col md={6}>
             <TopTriggers triggers={triggers} />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
 
       {/* AI Assistant Floating Chat */}
-      <AIAssistant isEnabled={aiStatus?.admin_ai || false} />
+      <AIAssistant isEnabled={aiStatus.admin_ai} />
     </SystemAdminLayout>
   );
 };

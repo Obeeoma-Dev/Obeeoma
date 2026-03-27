@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   LineChart,
   Line,
@@ -7,43 +7,43 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-import "./modelPerformance.css";
+} from 'recharts'
+import './modelPerformance.css'
 
 const data = [
   {
-    week: "Week 1",
+    week: 'Week 1',
     value: 250,
   },
   {
-    week: "Week 2",
+    week: 'Week 2',
     value: 310,
   },
   {
-    week: "Week 3",
+    week: 'Week 3',
     value: 290,
   },
   {
-    week: "Week 4",
+    week: 'Week 4',
     value: 340,
   },
   {
-    week: "Week 5",
+    week: 'Week 5',
     value: 300,
   },
   {
-    week: "Week 6",
+    week: 'Week 6',
     value: 360,
   },
-];
+]
 
 type CustomTooltipProps = {
-  active?: boolean;
+  active?: boolean
   payload?: Array<{
-    value: number;
-  }>;
-  label?: string;
-};
+    value: number
+  }>
+  label?: string
+}
 
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (active && payload && payload.length) {
@@ -54,16 +54,18 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
           {payload[0].value} recommendations
         </p>
       </div>
-    );
+    )
   }
-  return null;
+  return null
 }
 
 export function WeeklyActivityChart() {
   return (
     <div className="weekly-activity-chart-container">
       <div className="weekly-activity-header">
-        <h3 className="weekly-activity-title">Weekly AI Activity</h3>
+        <h3 className="weekly-activity-title">
+          Weekly AI Activity
+        </h3>
         <p className="weekly-activity-subtitle">
           Volume of AI recommendations over the last 6 weeks
         </p>
@@ -88,7 +90,7 @@ export function WeeklyActivityChart() {
             dataKey="week"
             tick={{
               fontSize: 12,
-              fill: "#9ca3af",
+              fill: '#9ca3af',
             }}
             axisLine={false}
             tickLine={false}
@@ -96,7 +98,7 @@ export function WeeklyActivityChart() {
           <YAxis
             tick={{
               fontSize: 12,
-              fill: "#9ca3af",
+              fill: '#9ca3af',
             }}
             axisLine={false}
             tickLine={false}
@@ -105,7 +107,7 @@ export function WeeklyActivityChart() {
           <Tooltip
             content={<CustomTooltip />}
             cursor={{
-              stroke: "#e5e7eb",
+              stroke: '#e5e7eb',
               strokeWidth: 1,
             }}
           />
@@ -115,14 +117,14 @@ export function WeeklyActivityChart() {
             stroke="#16a34a"
             strokeWidth={2.5}
             dot={{
-              fill: "#ffffff",
-              stroke: "#16a34a",
+              fill: '#ffffff',
+              stroke: '#16a34a',
               strokeWidth: 2.5,
               r: 4,
             }}
             activeDot={{
-              fill: "#16a34a",
-              stroke: "#ffffff",
+              fill: '#16a34a',
+              stroke: '#ffffff',
               strokeWidth: 2,
               r: 6,
             }}
@@ -130,7 +132,7 @@ export function WeeklyActivityChart() {
         </LineChart>
       </ResponsiveContainer>
     </div>
-  );
+  )
 }
 
-export default WeeklyActivityChart;
+export default WeeklyActivityChart

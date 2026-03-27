@@ -12,24 +12,54 @@ import { BlogManager } from "../../components/admincomponents/Blogmanagement/Blo
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Building2, Users, PhoneCall } from "lucide-react";
+import { adminDashboardAPI } from "../../api/adminapiConfig";
 import { useAIStatus } from "../../hooks/useAIStatus";
-// Mock adminDashboardAPI since it's missing
-const adminDashboardAPI = {
-    getDashboardSummary: async () => {
-        // Return mock data for now
-        return {
-            data: {
-                total_organizations: 0,
-                total_clients: 0,
-                hotline_calls_today: 0,
-                organizations_this_month: 0,
-                clients_this_month: 0,
-                platform_usage: [],
-                subscription_revenue: []
-            }
-        };
-    }
-};
+/**
+ * Static placeholder data for recent activities
+ * Replace with API data when backend is ready
+ */
+const recentActivityData = [
+    {
+        id: "1",
+        type: "New Organization",
+        details: "Wellness Centre Inc. joined the platform",
+        time: "2 hours ago",
+        icon: "Building2", // Icon representing an organization or building
+        iconColor: "text-success", // Bootstrap background color class
+    },
+    {
+        id: "2",
+        type: "AI Recommendation",
+        details: "New AI recommendation available for review",
+        time: "1 hour ago",
+        icon: "Brain", // Icon representing AI or intelligence
+        iconColor: "text-success",
+    },
+    {
+        id: "3",
+        type: "Hotline Activity",
+        details: "12 hotline calls were received",
+        time: "45 minutes ago",
+        icon: "PhoneCall", // Icon representing phone or hotline
+        iconColor: "text-success",
+    },
+    {
+        id: "4",
+        type: "Patient Engagement",
+        details: "45 patients were engaged today",
+        time: "30 minutes ago",
+        icon: "UserPlus", // Icon representing user engagement or addition
+        iconColor: "text-success",
+    },
+    {
+        id: "5",
+        type: "Subscription",
+        details: "University Counseling Center subscribed to the platform",
+        time: "25 minutes ago",
+        icon: "CreditCard", // Icon representing financial or subscription activity
+        iconColor: "text-success",
+    },
+];
 /**
  * Default fallback data for dashboard stats
  * Used when API call fails or during loading
@@ -80,14 +110,9 @@ const Dashboard = () => {
     const { aiStatus } = useAIStatus();
     const [showAddModal, setShowAddModal] = React.useState(false);
     const [showEditModal, setShowEditModal] = React.useState(false);
-    // State for overview data
-    const [overviewData, setOverviewData] = useState(null);
-    const [recentActivityData, setRecentActivityData] = useState([]);
     /* Dashboard stats state */
     const [dashboardStats, setDashboardStats] = useState(defaultStatsData);
-    const [platformUsage, setPlatformUsage] = useState([]);
-    const [subscriptionRevenue, setSubscriptionRevenue] = useState([]);
-    const [recentActivities, setRecentActivities] = useState([]);
+    const [overviewData, setOverviewData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [refreshTrigger, setRefreshTrigger] = useState(0);
