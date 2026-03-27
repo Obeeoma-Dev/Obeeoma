@@ -273,7 +273,7 @@ jobs:
             docker rm obeeoma-frontend-new || true
             
             echo "Cleaning up Docker resources..."
-            docker system prune -f --volumes || true
+            docker system prune -f -a --volumes || true
             
             echo "Temporarily moving api directory to prevent Docker auto-discovery..."
             if [ -d "api" ]; then
