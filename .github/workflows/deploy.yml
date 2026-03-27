@@ -262,13 +262,33 @@ jobs:
             echo "REACT_APP_API_URL=/api" > api/.env
             
             echo "Stopping existing containers..."
-            docker compose -f docker-compose.yml down --remove-orphans || true
+            export COMPOSE_FILE=docker-compose.yml
+            export COMPOSE_PROJECT_NAME=obeeoma-frontend
+            docker compose --project-directory . down --remove-orphans || true
+            
+            echo "Force stopping any conflicting frontend containers..."
+            docker stop obeeoma_frontend || true
+            docker rm obeeoma_frontend || true
+            docker stop obeeoma-frontend-new || true
+            docker rm obeeoma-frontend-new || true
             
             echo "Cleaning up Docker resources..."
             docker system prune -f --volumes || true
             
-            echo "Building and starting frontend container..."
-            docker compose -f docker-compose.yml up -d --build frontend --force-recreate
+            echo "Temporarily moving api directory to prevent Docker auto-discovery..."
+            if [ -d "api" ]; then
+                mv api api_backup_$(date +%s) || true
+            fi
+            
+            echo "Creating dummy api/.env to satisfy Docker Compose..."
+            mkdir -p api
+            echo "DUMMY_ENV_FILE=true" > api/.env
+            
+            echo "Clearing Docker Compose cache..."
+            docker compose --project-directory . down --rmi all --remove-orphans || true
+            
+            echo "Building and starting frontend container ONLY..."
+            docker compose --project-directory . --project-name obeeoma-frontend up -d --build --no-deps frontend
 
             echo "Cleaning up dangling Docker images..."
             docker image prune -f
