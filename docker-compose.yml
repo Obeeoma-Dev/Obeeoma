@@ -5,44 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: obeeoma_frontend
     ports:
-      - "80:80"
+      - "3000:80"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
       - REACT_APP_API_URL=http://64.225.122.101:8000
-    depends_on:
-      - backend
-
-  backend:
-    build: ./api
-    container_name: django_backend
-    ports:
-      - "8000:8000"
-    env_file:
-      - ./api/.env
-    volumes:
-      - ./api/staticfiles:/app/staticfiles
-      - ./api/media:/app/media
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-    command: gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 120 api.wsgi:application
-
-  nginx:
-    image: nginx:alpine
-    container_name: nginx_proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./api/staticfiles:/app/staticfiles:ro
-      - ./api/media:/app/media:ro
-    depends_on:
-      - backend
-      - frontend
-    restart: unless-stopped
