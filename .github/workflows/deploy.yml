@@ -262,10 +262,13 @@ jobs:
             echo "REACT_APP_API_URL=/api" > api/.env
             
             echo "Stopping existing containers..."
-            docker compose down || true
+            docker compose -f docker-compose.yml down --remove-orphans || true
+            
+            echo "Cleaning up Docker resources..."
+            docker system prune -f --volumes || true
             
             echo "Building and starting frontend container..."
-            docker compose up -d --build frontend --force-recreate --remove-orphans
+            docker compose -f docker-compose.yml up -d --build frontend --force-recreate
 
             echo "Cleaning up dangling Docker images..."
             docker image prune -f
