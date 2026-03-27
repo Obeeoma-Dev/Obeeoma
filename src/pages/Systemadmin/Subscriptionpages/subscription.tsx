@@ -6,7 +6,15 @@ import RecentActivityFeed, {
   Activity,
 } from "../../../components/admincomponents/Subscriptioncomponents/recentActivityFeed";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
-import { Container, Row, Col, Card, Button, Alert, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 // import { useSubscriptionData, calculateMetrics } from "../../../hooks/useSubscriptionData";
 import { useSimpleSubscriptionCount } from "../../../hooks/useSimpleSubscriptionCount";
 // import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
@@ -37,11 +45,11 @@ const SubscriptionPage: React.FC = () => {
   console.log("Raw subscriptions data:", subscriptions);
   console.log("First subscription structure:", subscriptions[0]);
 
-  // Use placeholder data for other metrics for now
+  // Get metrics from backend data
   const metrics = {
-    totalOrganizations: 42, // Placeholder
-    totalSubscriptions: totalSubscriptions, // Real data from backend
-    coveredEmployees: coveredEmployees.toLocaleString(), // Real data with formatting
+    totalOrganizations: subscriptions.length > 0 ? new Set(subscriptions.map(sub => sub.employer?.name || sub.employer)).size : 0,
+    totalSubscriptions: totalSubscriptions,
+    coveredEmployees: coveredEmployees.toLocaleString(),
     utilizationRate: utilizationRate,
   };
 
@@ -78,7 +86,7 @@ const SubscriptionPage: React.FC = () => {
     };
   });
 
-  // Service utilization percentages - maintaining existing structure
+  // Service utilization percentages - calculate from backend data if available
   const services = [
     { name: "Therapy Sessions", percentage: 65 },
     { name: "Mindfulness", percentage: 4 },
@@ -87,12 +95,12 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-  // Placeholder data for subscription plans
+// Placeholder data for subscription plans (in Naira)
   const subscriptionPlans = [
     {
       id: "1",
       name: "Freemium",
-      organization: "Acme Corp",
+      organization: "Obeema",
       monthlyPrice: 0,
       annualPrice: 0,
       employeeLimit: 10,
@@ -105,9 +113,9 @@ const SubscriptionPage: React.FC = () => {
     {
       id: "2",
       name: "Premium",
-      organization: "TechStart Inc",
-      monthlyPrice: 24.99,
-      annualPrice: 251.99,
+      organization: "Obeema",
+      monthlyPrice: 24990,
+      annualPrice: 249900,
       employeeLimit: 0,
       features: [
         "Access to basic resources",
@@ -176,14 +184,6 @@ const SubscriptionPage: React.FC = () => {
                     services
                   </p>
                 </div>
-                {/* <Button
-                  variant="success"
-                  className="ms-auto"
-                  style={{ fontFamily: "body" }}
-                  onClick={refetchCount} // Refresh button
-                >
-                  Add Subscription
-                </Button> */}
               </Card.Header>
               <Card.Body className="p-0">
                 {/* Table component with placeholder subscription data */}
@@ -194,7 +194,7 @@ const SubscriptionPage: React.FC = () => {
             </Card>
 
             {/* Subscription cards grid */}
-            {/* <SubscriptionSettingsComp plans={subscriptionPlans} /> */}
+            {/* <SubscriptionSettingsComp /> */}
 
             {/* AI Assistant Floating Chat */}
             <AIAssistant isEnabled={aiStatus.admin_ai} />

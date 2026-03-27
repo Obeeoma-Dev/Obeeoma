@@ -886,7 +886,7 @@ const Register: React.FC = () => {
               style={{ padding: "2.5rem" }}
               className="d-flex flex-column col-12"
             >
-              <Link to="/employer-dashboard">
+              <Link to="/">
                 <div
                   className="d-flex flex-column align-items-center justify-content-center mb-3"
                   style={{ fontFamily: "heading" }}

@@ -78,7 +78,6 @@ export function RecentActivity() {
                 Program Settings
               </Button>
             </ListGroup.Item> */}
-            
 
             {/* Deactivate action */}
             <ListGroup.Item>
@@ -94,7 +93,6 @@ export function RecentActivity() {
                 Deactivate Organization
               </Button>
             </ListGroup.Item>
-
 
             {/* Billing history */}
             <ListGroup.Item>
@@ -113,7 +111,6 @@ export function RecentActivity() {
           </ListGroup>
         </Card>
       </Col>
-      
     </Row>
   );
 }

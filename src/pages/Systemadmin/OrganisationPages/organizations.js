@@ -6,7 +6,7 @@ import OrganizationTable from "../../../components/admincomponents/organisationc
 import OrganizationCharts from "../../../components/admincomponents/organisationcomponents/organisation.chats";
 import SystemAdminLayout from "../../../components/admincomponents/shared/SystemAdminLayout";
 import { AIAssistant } from "../../../components/Aipopup/AiAssintant";
-import { OrganizationProvider, useOrganizationContext } from "../../../contexts/OrganizationContext";
+import { OrganizationProvider, useOrganizationContext, } from "../../../contexts/OrganizationContext";
 import { useOrganizationData } from "../../../hooks/useOrganizationData";
 import { useAIStatus } from "../../../hooks/useAIStatus";
 /**

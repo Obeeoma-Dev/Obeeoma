@@ -2,12 +2,13 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import AdminSidebar from "../../../components/admincomponents/adminsidebar";
 import AdminHeader from "../../../components/admincomponents/adminheader";
 import SubscriptionSettingsComp from "../../../components/admincomponents/Settingscomponents/Subscriptionsettingscomp/subscriptioncompsettings";
-// Placeholder data for subscription plans
+// Note: SubscriptionSettingsComp now manages its own state from localStorage
+// This placeholder data is kept for reference but not used
 const subscriptionPlans = [
     {
         id: "1",
         name: "Freemium",
-        organization: "Acme Corp",
+        organization: "Obeema",
         monthlyPrice: 0,
         annualPrice: 0,
         employeeLimit: 10,
@@ -20,9 +21,9 @@ const subscriptionPlans = [
     {
         id: "2",
         name: "Premium",
-        organization: "TechStart Inc",
-        monthlyPrice: 24.99,
-        annualPrice: 251.99,
+        organization: "Obeema",
+        monthlyPrice: 24990,
+        annualPrice: 249900,
         employeeLimit: 0,
         features: [
             "Access to basic resources",
@@ -36,6 +37,7 @@ const subscriptionPlans = [
     },
 ];
 const SubscriptionSettingsPage = () => {
+    // Subscription plans will be fetched by the SubscriptionSettingsComp component
     return (_jsxs("div", { style: {
             display: "flex",
             minHeight: "100vh",
@@ -45,6 +47,6 @@ const SubscriptionSettingsPage = () => {
                             overflowY: "auto",
                             padding: "1rem",
                             backgroundColor: "#f8f9fa",
-                        }, children: _jsx(SubscriptionSettingsComp, { plans: subscriptionPlans }) })] })] }));
+                        }, children: _jsx(SubscriptionSettingsComp, {}) })] })] }));
 };
 export default SubscriptionSettingsPage;

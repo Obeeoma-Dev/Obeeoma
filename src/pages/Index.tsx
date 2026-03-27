@@ -4,8 +4,8 @@ import Features from "@/pages/landingpage/Features";
 import Benefits from "@/pages/landingpage/Benefits";
 import Footer from "@/components/shared/Footer";
 import ReceptionistFloatingChat from "../../src/components/landingpage/Contacts/ReceptionistFloatingChat";
-import { useState, useEffect } from 'react';
-import { adminAPI } from '../api/apiConfig';
+import { useState, useEffect } from "react";
+import { adminAPI } from "../api/apiConfig";
 
 const Index = () => {
   const [landingAIEnabled, setLandingAIEnabled] = useState(true);
@@ -16,7 +16,7 @@ const Index = () => {
         const response = await adminAPI.getAIStatus();
         setLandingAIEnabled(response.data.landing_ai?.is_enabled ?? true);
       } catch (error) {
-        console.error('Failed to fetch AI status:', error);
+        console.error("Failed to fetch AI status:", error);
         // Default to enabled if API fails
         setLandingAIEnabled(true);
       }

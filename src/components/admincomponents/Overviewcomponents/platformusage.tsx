@@ -13,13 +13,7 @@ import {
   Area,
 } from "recharts";
 
-import {
-  EmployeeDataPoint,
-  PlatformUsageData,
-  SubscriptionRevenueData,
-  MonthlyDataPoint
-} from "./admindashboard";
-import { adminDashboardAPI } from "../../../api/adminapiConfig";
+import { EmployeeDataPoint, PlatformUsageData, SubscriptionRevenueData } from "./admindashboard";
 
 interface PlatformUsageChartProps {
   platformUsageData?: PlatformUsageData[];
@@ -27,8 +21,8 @@ interface PlatformUsageChartProps {
 }
 
 const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
-  platformUsageData,
-  subscriptionRevenueData
+  platformUsageData = [],
+  subscriptionRevenueData = [],
 }) => {
   // Track which tab is currently active
   const [activeTab, setActiveTab] = useState<string>("platform");
@@ -36,8 +30,12 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   // State for API data
-  const [apiPlatformUsage, setApiPlatformUsage] = useState<PlatformUsageData[]>([]);
-  const [apiSubscriptionRevenue, setApiSubscriptionRevenue] = useState<SubscriptionRevenueData[]>([]);
+  const [apiPlatformUsage, setApiPlatformUsage] = useState<PlatformUsageData[]>(
+    [],
+  );
+  const [apiSubscriptionRevenue, setApiSubscriptionRevenue] = useState<
+    SubscriptionRevenueData[]
+  >([]);
 
   // Define tab options for chart navigation
   const tabs = [
@@ -46,75 +44,9 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
     { id: "subscription", label: "Subscription Revenue" },
   ];
 
-  // Fetch dashboard overview data on component mount
-  useEffect(() => {
-    const fetchOverviewData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await adminDashboardAPI.getDashboardOverview();
-        const data = response.data;
-
-        setApiPlatformUsage(data.platform_usage || []);
-        setApiSubscriptionRevenue(data.subscription_revenue || []);
-      } catch (err) {
-        console.error("Failed to fetch overview data:", err);
-        setError("Failed to load chart data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOverviewData();
-  }, []);
-
-  // Transform API data for charts
-  const transformPlatformUsage = (data: PlatformUsageData[]): EmployeeDataPoint[] => {
-    return data.map(item => ({
-      week: `Week ${item.week_number}`,
-      value: item.usage_count
-    }));
-  };
-
-  const transformSubscriptionRevenue = (data: SubscriptionRevenueData[]): MonthlyDataPoint[] => {
-    return data.map(item => ({
-      month: `${item.month} ${item.year}`,
-      value: parseFloat(item.revenue)
-    }));
-  };
-
-  // Use props data if provided, otherwise use API data
-  const platformChartData = platformUsageData
-    ? transformPlatformUsage(platformUsageData)
-    : transformPlatformUsage(apiPlatformUsage);
-
-  const subscriptionChartData = subscriptionRevenueData
-    ? transformSubscriptionRevenue(subscriptionRevenueData)
-    : transformSubscriptionRevenue(apiSubscriptionRevenue);
-
-  // Fallback data for platform usage over 6 weeks
-  const employeeData: EmployeeDataPoint[] = platformChartData.length > 0
-    ? platformChartData
-    : [
-      { week: "Week 1", value: 1800 },
-      { week: "Week 2", value: 2100 },
-      { week: "Week 3", value: 2600 },
-      { week: "Week 4", value: 2900 },
-      { week: "Week 5", value: 3200 },
-      { week: "Week 6", value: 3500 },
-    ];
-
-  // Fallback data for subscription revenue
-  const revenueData: MonthlyDataPoint[] = subscriptionChartData.length > 0
-    ? subscriptionChartData
-    : [
-      { month: "Jan 2024", value: 3200 },
-      { month: "Feb 2024", value: 3500 },
-      { month: "Mar 2024", value: 3900 },
-      { month: "Apr 2024", value: 4200 },
-      { month: "May 2024", value: 4600 },
-      { month: "Jun 2024", value: 5000 },
-    ];
+  // Use backend data or show empty state
+  const employeeData = platformUsageData;
+  const revenueData = subscriptionRevenueData;
 
   return (
     <Card className="mb-4 shadow-sm border-0">
@@ -127,10 +59,11 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
               variant="light"
               onClick={() => setActiveTab(tab.id)}
               aria-pressed={activeTab === tab.id}
-              className={`px-3 py-2 border-0 position-relative ${activeTab === tab.id
-                ? "fw-semibold text-success"
-                : "text-secondary"
-                }`}
+              className={`px-3 py-2 border-0 position-relative ${
+                activeTab === tab.id
+                  ? "fw-semibold text-success"
+                  : "text-secondary"
+              }`}
               style={{
                 backgroundColor: "transparent",
                 borderBottom:
@@ -183,59 +116,68 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
             height={300}
             style={{ fontFamily: "body" }}
           >
-            <AreaChart
-              data={employeeData}
-              margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-            >
-              {/* Clean horizontal grid */}
-              <CartesianGrid
-                stroke="#dee2e6"
-                strokeDasharray="0"
-                vertical={false}
-              />
+            {employeeData.length > 0 ? (
+              <AreaChart
+                data={employeeData}
+                margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+              >
+                {/* Clean horizontal grid */}
+                <CartesianGrid
+                  stroke="#dee2e6"
+                  strokeDasharray="0"
+                  vertical={false}
+                />
 
-              {/* X-axis with subtle styling */}
-              <XAxis
-                dataKey="week"
-                tick={{ fontSize: 12, fill: "#6c757d" }}
-                axisLine={false}
-                tickLine={false}
-              />
+                {/* X-axis with subtle styling */}
+                <XAxis
+                  dataKey="week"
+                  tick={{ fontSize: 12, fill: "#6c757d" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              {/* Y-axis with subtle styling */}
-              <YAxis
-                tick={{ fontSize: 12, fill: "#6c757d" }}
-                axisLine={false}
-                tickLine={false}
-              />
+                {/* Y-axis with subtle styling */}
+                <YAxis
+                  tick={{ fontSize: 12, fill: "#6c757d" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              {/* Minimal tooltip */}
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #dee2e6",
-                  fontSize: "0.875rem",
-                  color: "#212529",
-                }}
-              />
+                {/* Minimal tooltip */}
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #dee2e6",
+                    fontSize: "0.875rem",
+                    color: "#212529",
+                  }}
+                />
 
-              {/* Flowing green fill + line */}
-              <Area
-                type="natural"
-                dataKey="value"
-                stroke="#198754"
-                strokeWidth={3}
-                fill="#198754"
-                fillOpacity={0.1}
-                dot={{
-                  r: 3,
-                  stroke: "#198754",
-                  strokeWidth: 1,
-                  fill: "#ffffff",
-                }}
-                activeDot={{ r: 5 }}
-              />
-            </AreaChart>
+                {/* Flowing green fill + line */}
+                <Area
+                  type="natural"
+                  dataKey="value"
+                  stroke="#198754"
+                  strokeWidth={3}
+                  fill="#198754"
+                  fillOpacity={0.1}
+                  dot={{
+                    r: 3,
+                    stroke: "#198754",
+                    strokeWidth: 1,
+                    fill: "#ffffff",
+                  }}
+                  activeDot={{ r: 5 }}
+                />
+              </AreaChart>
+            ) : (
+              <div className="d-flex justify-content-center align-items-center h-100 text-muted">
+                <div className="text-center">
+                  <p>No platform usage data available</p>
+                  <small>Data will appear here once users start using the platform</small>
+                </div>
+              </div>
+            )}
           </ResponsiveContainer>
         )}
 
@@ -245,121 +187,132 @@ const PlatformUsageChart: React.FC<PlatformUsageChartProps> = ({
             height={300}
             style={{ fontFamily: "body" }}
           >
-            <LineChart
-              data={[
-                { week: "Week 1", value: 1200 },
-                { week: "Week 2", value: 1500 },
-                { week: "Week 3", value: 1800 },
-                { week: "Week 4", value: 2100 },
-                { week: "Week 5", value: 2400 },
-                { week: "Week 6", value: 2700 },
-              ]}
-              margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-            >
-              {/* Horizontal grid only */}
-              <CartesianGrid
-                stroke="#dee2e6"
-                strokeDasharray="0"
-                vertical={false}
-              />
+            {employeeData.length > 0 ? (
+              <LineChart
+                data={employeeData}
+                margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+              >
+                {/* Horizontal grid only */}
+                <CartesianGrid
+                  stroke="#dee2e6"
+                  strokeDasharray="0"
+                  vertical={false}
+                />
 
-              {/* X-axis: week labels */}
-              <XAxis
-                dataKey="week"
-                tick={{ fontSize: 12, fill: "#6c757d" }}
-                axisLine={false}
-                tickLine={false}
-              />
+                {/* X-axis: week labels */}
+                <XAxis
+                  dataKey="week"
+                  tick={{ fontSize: 12, fill: "#6c757d" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              {/* Y-axis: growth values */}
-              <YAxis
-                tick={{ fontSize: 12, fill: "#6c757d" }}
-                axisLine={false}
-                tickLine={false}
-              />
+                {/* Y-axis: growth values */}
+                <YAxis
+                  tick={{ fontSize: 12, fill: "#6c757d" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              {/* Tooltip: styled like Bootstrap */}
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #dee2e6",
-                  fontSize: "0.875rem",
-                  color: "#212529",
-                }}
-              />
+                {/* Tooltip: styled like Bootstrap */}
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #dee2e6",
+                    fontSize: "0.875rem",
+                    color: "#212529",
+                  }}
+                />
 
-              {/* Growth line: clean and smooth */}
-              <Line
-                type="natural"
-                dataKey="value"
-                stroke="#198754"
-                strokeWidth={3}
-                dot={{
-                  r: 3,
-                  stroke: "#198754",
-                  strokeWidth: 1,
-                  fill: "#ffffff",
-                }}
-                activeDot={{ r: 5 }}
-              />
-            </LineChart>
+                {/* Growth line: clean and smooth */}
+                <Line
+                  type="natural"
+                  dataKey="value"
+                  stroke="#198754"
+                  strokeWidth={3}
+                  dot={{
+                    r: 3,
+                    stroke: "#198754",
+                    strokeWidth: 1,
+                    fill: "#ffffff",
+                  }}
+                  activeDot={{ r: 5 }}
+                />
+              </LineChart>
+            ) : (
+              <div className="d-flex justify-content-center align-items-center h-100 text-muted">
+                <div className="text-center">
+                  <p>No organization growth data available</p>
+                  <small>Data will appear here once organizations start joining</small>
+                </div>
+              </div>
+            )}
           </ResponsiveContainer>
         )}
         {!loading && !error && activeTab === "subscription" && (
           <ResponsiveContainer width="100%" height={300}>
-            <AreaChart
-              data={revenueData}
-              margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
-            >
-              {/* Horizontal grid only */}
-              <CartesianGrid
-                stroke="#dee2e6"
-                strokeDasharray="0"
-                vertical={false}
-              />
+            {revenueData.length > 0 ? (
+              <AreaChart
+                data={revenueData}
+                margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+              >
+                {/* Horizontal grid only */}
+                <CartesianGrid
+                  stroke="#dee2e6"
+                  strokeDasharray="0"
+                  vertical={false}
+                />
 
-              {/* X-axis: month labels */}
-              <XAxis
-                dataKey="month"
-                tick={{ fontSize: 12, fill: "#6c757d" }}
-                axisLine={false}
-                tickLine={false}
-              />
+                {/* X-axis: week labels */}
+                <XAxis
+                  dataKey="week"
+                  tick={{ fontSize: 12, fill: "#6c757d" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              {/* Y-axis: revenue values */}
-              <YAxis
-                tick={{ fontSize: 12, fill: "#6c757d" }}
-                axisLine={false}
-                tickLine={false}
-              />
+                {/* Y-axis: revenue values */}
+                <YAxis
+                  tick={{ fontSize: 12, fill: "#6c757d" }}
+                  axisLine={false}
+                  tickLine={false}
+                />
 
-              {/* Tooltip: styled like Bootstrap */}
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #dee2e6",
-                  fontSize: "0.875rem",
-                  color: "#212529",
-                }}
-              />
+                {/* Tooltip: styled like Bootstrap */}
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #dee2e6",
+                    fontSize: "0.875rem",
+                    color: "#212529",
+                  }}
+                />
 
-              {/* Revenue line with glowing fill */}
-              <Area
-                type="natural"
-                dataKey="value"
-                stroke="#198754"
-                strokeWidth={3}
-                fill="#198754"
-                fillOpacity={0.1}
-                dot={{
-                  r: 3,
-                  stroke: "#198754",
-                  strokeWidth: 1,
-                  fill: "#ffffff",
-                }}
-                activeDot={{ r: 5 }}
-              />
-            </AreaChart>
+                {/* Revenue line with glowing fill */}
+                <Area
+                  type="natural"
+                  dataKey="value"
+                  stroke="#198754"
+                  strokeWidth={3}
+                  fill="#198754"
+                  fillOpacity={0.1}
+                  dot={{
+                    r: 3,
+                    stroke: "#198754",
+                    strokeWidth: 1,
+                    fill: "#ffffff",
+                  }}
+                  activeDot={{ r: 5 }}
+                />
+              </AreaChart>
+            ) : (
+              <div className="d-flex justify-content-center align-items-center h-100 text-muted">
+                <div className="text-center">
+                  <p>No subscription revenue data available</p>
+                  <small>Data will appear here once subscriptions are active</small>
+                </div>
+              </div>
+            )}
           </ResponsiveContainer>
         )}
       </Card.Body>

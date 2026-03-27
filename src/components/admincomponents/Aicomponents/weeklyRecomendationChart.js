@@ -1,48 +1,48 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { FileTextIcon, VideoIcon, HeadphonesIcon, ZapIcon } from 'lucide-react';
-import './weeklyRecommendationChart.css';
+import { FileTextIcon, VideoIcon, HeadphonesIcon, ZapIcon } from "lucide-react";
+import "./weeklyRecommendationChart.css";
 const typeConfig = {
     Article: {
         icon: _jsx(FileTextIcon, { size: 16 }),
-        badgeClass: 'resource-type-badge article',
+        badgeClass: "resource-type-badge article",
     },
     Video: {
         icon: _jsx(VideoIcon, { size: 16 }),
-        badgeClass: 'resource-type-badge video',
+        badgeClass: "resource-type-badge video",
     },
     Audio: {
         icon: _jsx(HeadphonesIcon, { size: 16 }),
-        badgeClass: 'resource-type-badge audio',
+        badgeClass: "resource-type-badge audio",
     },
     Interactive: {
         icon: _jsx(ZapIcon, { size: 16 }),
-        badgeClass: 'resource-type-badge interactive',
+        badgeClass: "resource-type-badge interactive",
     },
 };
 const resources = [
     {
-        name: 'Anxiety Management Techniques',
-        type: 'Article',
+        name: "Anxiety Management Techniques",
+        type: "Article",
         timesThisWeek: 156,
     },
     {
-        name: 'Breathing Exercises for Anxiety',
-        type: 'Video',
+        name: "Breathing Exercises for Anxiety",
+        type: "Video",
         timesThisWeek: 243,
     },
     {
-        name: 'Understanding Panic Attacks',
-        type: 'Article',
+        name: "Understanding Panic Attacks",
+        type: "Article",
         timesThisWeek: 124,
     },
     {
-        name: 'Guided Meditation for Relief',
-        type: 'Audio',
+        name: "Guided Meditation for Relief",
+        type: "Audio",
         timesThisWeek: 198,
     },
     {
-        name: 'Social Anxiety Coping Strategies',
-        type: 'Interactive',
+        name: "Social Anxiety Coping Strategies",
+        type: "Interactive",
         timesThisWeek: 87,
     },
 ];

@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { BlogPost } from '../components/admincomponents/Blogmanagement/BlogTable';
+import { useState, useEffect, useCallback } from "react";
+import { BlogPost } from "../components/admincomponents/Blogmanagement/BlogTable";
 
 interface UseBlogDataReturn {
   blogs: BlogPost[];
@@ -35,11 +35,11 @@ export const useBlogData = (): UseBlogDataReturn => {
   // Initialize state from localStorage or empty array
   const getInitialBlogs = useCallback((): BlogPost[] => {
     try {
-      const cached = localStorage.getItem('blogData');
+      const cached = localStorage.getItem("blogData");
       if (cached) {
         const parsedData = JSON.parse(cached);
         // Validate cache timestamp (cache for 5 minutes)
-        const cacheTimestamp = localStorage.getItem('blogDataTimestamp');
+        const cacheTimestamp = localStorage.getItem("blogDataTimestamp");
         if (cacheTimestamp) {
           const now = Date.now();
           const cacheAge = now - parseInt(cacheTimestamp);
@@ -50,7 +50,7 @@ export const useBlogData = (): UseBlogDataReturn => {
         }
       }
     } catch (error) {
-      console.error('Failed to parse cached blog data:', error);
+      console.error("Failed to parse cached blog data:", error);
     }
     return [];
   }, []);
@@ -63,70 +63,75 @@ export const useBlogData = (): UseBlogDataReturn => {
   // Function to cache blog data
   const cacheBlogData = (data: BlogPost[]) => {
     try {
-      localStorage.setItem('blogData', JSON.stringify(data));
-      localStorage.setItem('blogDataTimestamp', Date.now().toString());
+      localStorage.setItem("blogData", JSON.stringify(data));
+      localStorage.setItem("blogDataTimestamp", Date.now().toString());
     } catch (error) {
-      console.error('Failed to cache blog data:', error);
+      console.error("Failed to cache blog data:", error);
     }
   };
 
   // Function to clear cache
   const clearCache = () => {
-    localStorage.removeItem('blogData');
-    localStorage.removeItem('blogDataTimestamp');
+    localStorage.removeItem("blogData");
+    localStorage.removeItem("blogDataTimestamp");
   };
 
   // Fetch blogs from API
-  const fetchBlogs = useCallback(async (forceRefresh = false) => {
-    try {
-      setLoading(true);
-      setError(null);
+  const fetchBlogs = useCallback(
+    async (forceRefresh = false) => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      // Check cache first (unless force refresh)
-      if (!forceRefresh) {
-        const cached = getInitialBlogs();
-        if (cached.length > 0) {
-          setBlogs(cached);
-          setLoading(false);
-          return;
+        // Check cache first (unless force refresh)
+        if (!forceRefresh) {
+          const cached = getInitialBlogs();
+          if (cached.length > 0) {
+            setBlogs(cached);
+            setLoading(false);
+            return;
+          }
         }
+
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}articles/`,
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = (await response.json()) as RawBlogData[];
+        console.log("Raw API data:", data);
+
+        // Transform backend data to frontend format
+        const mapped: BlogPost[] = data.map((item) => ({
+          id: item.id,
+          title: item.title,
+          category: item.category || "Uncategorized",
+          date: item.published_date ?? "",
+          status: item.status === "published" ? "published" : "draft",
+          excerpt: item.excerpt || "",
+          imageUrl: item.featured_image || "",
+          author: item.author || "Anonymous",
+          content: item.content || "",
+          featured: item.featured ?? false,
+          views: item.views || 0,
+          confirmedReads: item.confirmed_reads || 0,
+        }));
+
+        console.log("Mapped data:", mapped);
+        setBlogs(mapped);
+        cacheBlogData(mapped);
+      } catch (err) {
+        console.error("Failed to fetch blogs:", err);
+        setError(err instanceof Error ? err.message : "Failed to load blogs");
+        // Keep existing blogs if API fails
+      } finally {
+        setLoading(false);
       }
-
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}articles/`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = (await response.json()) as RawBlogData[];
-      console.log("Raw API data:", data);
-
-      // Transform backend data to frontend format
-      const mapped: BlogPost[] = data.map((item) => ({
-        id: item.id,
-        title: item.title,
-        category: item.category || "Uncategorized",
-        date: item.published_date ?? "",
-        status: (item.status === "published" ? "published" : "draft"),
-        excerpt: item.excerpt || "",
-        imageUrl: item.featured_image || "",
-        author: item.author || "Anonymous",
-        content: item.content || "",
-        featured: item.featured ?? false,
-        views: item.views || 0,
-        confirmedReads: item.confirmed_reads || 0,
-      }));
-
-      console.log("Mapped data:", mapped);
-      setBlogs(mapped);
-      cacheBlogData(mapped);
-    } catch (err) {
-      console.error("Failed to fetch blogs:", err);
-      setError(err instanceof Error ? err.message : "Failed to load blogs");
-      // Keep existing blogs if API fails
-    } finally {
-      setLoading(false);
-    }
-  }, [getInitialBlogs]);
+    },
+    [getInitialBlogs],
+  );
 
   // Load blogs on component mount
   useEffect(() => {
@@ -136,7 +141,7 @@ export const useBlogData = (): UseBlogDataReturn => {
   // Refresh blogs function
   const refreshBlogs = () => {
     clearCache();
-    setRefreshTrigger(prev => prev + 1);
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   // Add new blog
@@ -148,8 +153,8 @@ export const useBlogData = (): UseBlogDataReturn => {
 
   // Update existing blog
   const updateBlog = (updatedBlog: BlogPost) => {
-    const updatedBlogs = blogs.map(blog => 
-      blog.id === updatedBlog.id ? updatedBlog : blog
+    const updatedBlogs = blogs.map((blog) =>
+      blog.id === updatedBlog.id ? updatedBlog : blog,
     );
     setBlogs(updatedBlogs);
     cacheBlogData(updatedBlogs);
@@ -157,7 +162,7 @@ export const useBlogData = (): UseBlogDataReturn => {
 
   // Delete blog
   const deleteBlog = (id: string) => {
-    const updatedBlogs = blogs.filter(blog => blog.id !== id);
+    const updatedBlogs = blogs.filter((blog) => blog.id !== id);
     setBlogs(updatedBlogs);
     cacheBlogData(updatedBlogs);
   };

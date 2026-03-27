@@ -23,7 +23,6 @@ export function OrganizationProfile({
 }: OrganizationProfileProps) {
   return (
     <div className="organization-profile">
-
       {/* Main organization information card */}
       <Card className="mb-3">
         <Card.Body className="d-flex flex-column">

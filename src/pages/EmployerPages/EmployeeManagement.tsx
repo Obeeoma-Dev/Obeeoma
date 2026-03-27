@@ -249,7 +249,7 @@ const EmployeeManagement = () => {
   };
 
   /* =======================
-     BULK ACTION HANDLERS
+    BULK ACTION HANDLERS
   ======================== */
   const handleBulkActivateAll = () => {
     setBulkConfirmAction("activate_all");
@@ -319,7 +319,7 @@ const EmployeeManagement = () => {
   };
 
   return (
-    <Layout title="Employee Management Portal">
+    <Layout title="Team Portal">
       <div className="container-fluid py-4 px-3">
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h2 className="h4 mb-0 fw-bold">Corporate Employee List</h2>

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Download } from "lucide-react";
-import { useAppDispatch } from "../../../hooks/redux-hooks";
-import { downloadReport } from "../../../store/slices/EmployerSlice";
 
 const PRIMARY_COLOR = "#22C55E";
 
@@ -9,16 +7,36 @@ export interface ReportType {
   name: string;
   description: string;
   defaultFrequency: string;
-  url: string;
+  fetchBlob: () => Promise<Blob>;
 }
 
 const ReportCard = ({ report }: { report: ReportType }) => {
-  const dispatch = useAppDispatch();
   const [frequency, setFrequency] = useState("Monthly");
 
-  const handleDownload = () => {
-    const fileName = `${report.name.replace(/\s/g, "_")}_${frequency}_Report.pdf`;
-    dispatch(downloadReport({ url: report.url, fileName }));
+  const handleDownload = async () => {
+    try {
+      const blob = await report.fetchBlob();
+
+      let extension = "pdf";
+      if (blob.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        extension = "xlsx";
+      } else if (blob.type && blob.type !== "application/pdf") {
+        extension = blob.type.split("/").pop() || "bin";
+      }
+
+      const fileName = `${report.name.replace(/\s/g, "_")}_${frequency}_Report.${extension}`;
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error("Failed to download report", error);
+      // Optional: show UI toast notification if app has one
+    }
   };
 
   return (

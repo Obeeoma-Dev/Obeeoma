@@ -29,12 +29,12 @@ const defaultFeatures = [
   "Dedicated support team",
 ];
 
-// Default plan data (can be replaced with props or API response)
+// Default plan data (can be replaced with props or API response) - Prices in Naira
 const defaultPlan: SubscriptionPlan = {
   name: "Basic",
-  organization: "Acme Corp",
-  monthlyPrice: 5.99,
-  annualPrice: 59.99,
+  organization: "Obeema",
+  monthlyPrice: 5990,
+  annualPrice: 59900,
   employeeLimit: 10,
   features: ["Access to basic resources", "Monthly check-ins", "Email support"],
   isPopular: false,
@@ -173,7 +173,7 @@ const SubscriptionEditor: React.FC = () => {
             <Row>
               <Col md={4}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Monthly Price (USD)</Form.Label>
+                  <Form.Label>Monthly Price (₦)</Form.Label>
                   <Form.Control
                     type="number"
                     name="monthlyPrice"
@@ -187,7 +187,7 @@ const SubscriptionEditor: React.FC = () => {
               </Col>
               <Col md={4}>
                 <Form.Group className="mb-3">
-                  <Form.Label>Annual Price (USD)</Form.Label>
+                  <Form.Label>Annual Price (₦)</Form.Label>
                   <Form.Control
                     type="number"
                     name="annualPrice"

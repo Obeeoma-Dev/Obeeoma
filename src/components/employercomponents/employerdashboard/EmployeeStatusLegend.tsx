@@ -38,12 +38,9 @@ const EmployeeStatusLegend: React.FC = () => {
   const { activeEmployees, inactiveEmployees, totalEmployees } = summary;
 
   // Increase each number after the entry
-  const displayActive = activeEmployees + 1;
-  const displayInactive = inactiveEmployees + 1;
-  const displayTotal = totalEmployees + 2;
-
-  // const activePercentage = totalEmployees > 0 ? Math.round((activeEmployees / totalEmployees) * 100) : 0;
-  // const inactivePercentage = totalEmployees > 0 ? Math.round((inactiveEmployees / totalEmployees) * 100) : 0;
+  const displayActive = activeEmployees;
+  const displayInactive = inactiveEmployees;
+  const displayTotal = totalEmployees;
 
   // Prepare data for the doughnut chart
   const data = {

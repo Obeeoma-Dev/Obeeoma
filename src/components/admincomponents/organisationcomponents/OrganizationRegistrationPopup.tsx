@@ -171,7 +171,6 @@ const OrganizationRegistrationPopup: React.FC<
     setShowConfirmPassword((prev) => !prev);
   };
 
-
   const initialValues: RegisterFormValues = {
     organizationName: "",
     contactPersonFirstName: "",
@@ -341,12 +340,16 @@ const OrganizationRegistrationPopup: React.FC<
 
         // Show success toast
         toast({
-          message: "Organization created successfully. You can now login with these credentials.",
+          message:
+            "Organization created successfully. You can now login with these credentials.",
         });
 
         // Add the new organization to the table (convert response to table format)
         const newOrg = {
-          id: response.organization?.id?.toString() || response.id?.toString() || Date.now().toString(),
+          id:
+            response.organization?.id?.toString() ||
+            response.id?.toString() ||
+            Date.now().toString(),
           name: values.organizationName,
           clients: 0,
           plan: "Freemium",
@@ -366,7 +369,8 @@ const OrganizationRegistrationPopup: React.FC<
           console.error("Error adding organization to table:", tableError);
           // Don't fail the whole registration if table update fails
           toast({
-            message: "Organization created successfully, but there was an issue updating the table. Please refresh the page.",
+            message:
+              "Organization created successfully, but there was an issue updating the table. Please refresh the page.",
           });
         }
 
@@ -381,30 +385,37 @@ const OrganizationRegistrationPopup: React.FC<
         console.error("Registration failed:", err);
 
         // Handle different types of errors
-        if (err && typeof err === 'object' && 'response' in err) {
+        if (err && typeof err === "object" && "response" in err) {
           const axiosError = err as { response?: { data?: unknown } };
           if (axiosError.response?.data) {
             const errorData = axiosError.response.data;
 
             // Handle field-specific errors
-            if (typeof errorData === 'object' && errorData !== null) {
+            if (typeof errorData === "object" && errorData !== null) {
               const errorDataObj = errorData as { [key: string]: unknown };
               const errorMessages: string[] = [];
 
               // Check for non_field_errors (like password too common)
               if (Array.isArray(errorDataObj.non_field_errors)) {
-                errorMessages.push(...(errorDataObj.non_field_errors as string[]));
+                errorMessages.push(
+                  ...(errorDataObj.non_field_errors as string[]),
+                );
               }
 
               // Check for field-specific errors
-              Object.keys(errorDataObj).forEach(field => {
-                if (field !== 'non_field_errors' && Array.isArray(errorDataObj[field])) {
-                  errorMessages.push(`${field}: ${(errorDataObj[field] as string[]).join(', ')}`);
+              Object.keys(errorDataObj).forEach((field) => {
+                if (
+                  field !== "non_field_errors" &&
+                  Array.isArray(errorDataObj[field])
+                ) {
+                  errorMessages.push(
+                    `${field}: ${(errorDataObj[field] as string[]).join(", ")}`,
+                  );
                 }
               });
 
               if (errorMessages.length > 0) {
-                setLocalError(errorMessages.join('; '));
+                setLocalError(errorMessages.join("; "));
                 return;
               }
             }
@@ -1028,7 +1039,6 @@ const OrganizationRegistrationPopup: React.FC<
           </Container>
         </Modal.Body>
       </Modal>
-
     </>
   );
 };

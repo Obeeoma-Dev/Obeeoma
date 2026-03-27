@@ -9,7 +9,15 @@ import { toast } from "react-toastify";
 
 export function BlogManager() {
   // Use the enhanced blog data hook with caching
-  const { blogs, loading, error, refreshBlogs, addBlog, updateBlog, deleteBlog } = useBlogData();
+  const {
+    blogs,
+    loading,
+    error,
+    refreshBlogs,
+    addBlog,
+    updateBlog,
+    deleteBlog,
+  } = useBlogData();
 
   const [showForm, setShowForm] = useState(false);
   const [formMode, setFormMode] = useState<"add" | "edit">("add");

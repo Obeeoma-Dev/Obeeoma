@@ -12,7 +12,14 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
-import { PencilIcon, TrashIcon, PlusIcon, EyeIcon, CheckCircleIcon, SearchIcon } from "lucide-react";
+import {
+  PencilIcon,
+  TrashIcon,
+  PlusIcon,
+  EyeIcon,
+  CheckCircleIcon,
+  SearchIcon,
+} from "lucide-react";
 import "./BlogTable.css";
 
 // Type definition for a blog post
@@ -64,10 +71,10 @@ const formatDate = (dateStr: string) => {
   return isNaN(date.getTime())
     ? "—"
     : date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
 };
 
 // Component props
@@ -82,39 +89,49 @@ type BlogTableProps = {
 
 // Categories for filter
 const BLOG_CATEGORIES = [
-  'All Categories',
-  'Innovation',
-  'Community',
-  'HR & Leadership',
-  'Self-care',
-  'Technology',
-  'Leadership',
-  'Workplace Wellness',
-  'Mental Health',
-  'Productivity',
-  'Health',
-  'Tech',
-  'Uncategorized'
+  "All Categories",
+  "Innovation",
+  "Community",
+  "HR & Leadership",
+  "Self-care",
+  "Technology",
+  "Leadership",
+  "Workplace Wellness",
+  "Mental Health",
+  "Productivity",
+  "Health",
+  "Tech",
+  "Uncategorized",
 ];
 
-type SortOption = 'recent' | 'most-viewed' | 'most-read';
+type SortOption = "recent" | "most-viewed" | "most-read";
 
 // The main BlogTable component
-export function BlogTable({ blogs, onEdit, onDelete, onAdd, loading = false, error = null }: BlogTableProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
-  const [sortBy, setSortBy] = useState<SortOption>('recent');
+export function BlogTable({
+  blogs,
+  onEdit,
+  onDelete,
+  onAdd,
+  loading = false,
+  error = null,
+}: BlogTableProps) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [sortBy, setSortBy] = useState<SortOption>("recent");
 
   // Global stats
   const totalViews = blogs.reduce((sum, p) => sum + (p.views || 0), 0);
-  const totalConfirmed = blogs.reduce((sum, p) => sum + (p.confirmedReads || 0), 0);
+  const totalConfirmed = blogs.reduce(
+    (sum, p) => sum + (p.confirmedReads || 0),
+    0,
+  );
 
   // Filter and sort blogs
   const filteredAndSortedBlogs = useMemo(() => {
     let result = [...blogs];
 
     // Category filter
-    if (selectedCategory !== 'All Categories') {
+    if (selectedCategory !== "All Categories") {
       result = result.filter(
         (p) => p.category.toLowerCase() === selectedCategory.toLowerCase(),
       );
@@ -132,15 +149,19 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd, loading = false, err
 
     // Sort
     switch (sortBy) {
-      case 'most-viewed':
+      case "most-viewed":
         result.sort((a, b) => (b.views || 0) - (a.views || 0));
         break;
-      case 'most-read':
-        result.sort((a, b) => (b.confirmedReads || 0) - (a.confirmedReads || 0));
+      case "most-read":
+        result.sort(
+          (a, b) => (b.confirmedReads || 0) - (a.confirmedReads || 0),
+        );
         break;
-      case 'recent':
+      case "recent":
       default:
-        result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        result.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        );
         break;
     }
 
@@ -193,7 +214,12 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd, loading = false, err
       {error && !loading && (
         <div className="alert alert-danger mx-3 mt-3">
           <p className="mb-0">Error loading articles: {error}</p>
-          <Button variant="outline-danger" size="sm" className="mt-2" onClick={onAdd}>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            className="mt-2"
+            onClick={onAdd}
+          >
             Retry
           </Button>
         </div>
@@ -254,128 +280,148 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd, loading = false, err
                     <th className="blogtable-header-category">Category</th>
                     <th className="blogtable-header-date">Date</th>
                     <th className="blogtable-header-status">Status</th>
-                    <th className="blogtable-header-actions text-end">Actions</th>
+                    <th className="blogtable-header-actions text-end">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
 
                 <tbody className="blogtable-tbody">
-                  {filteredAndSortedBlogs.length > 0 ? (
-                    filteredAndSortedBlogs.map((blog) => (
-                      <tr key={blog.id} className="blog-row">
-                        {/* TITLE + IMAGE */}
-                        <td>
-                          <div className="d-flex align-items-center gap-3">
-                            {(() => {
-                              const imageSrc = resolveImageSrc(blog.imageUrl);
-                              if (imageSrc) {
-                                return (
-                                  <Image
-                                    src={imageSrc}
-                                    rounded
-                                    className="blogtable-thumb"
-                                    style={{
-                                      width: "40px",
-                                      height: "40px",
-                                      objectFit: "cover",
-                                    }}
-                                    onError={(e) => {
-                                      // Replace with fallback when image fails
-                                      const target = e.target as HTMLImageElement;
-                                      const parent = target.parentElement;
-                                      if (parent) {
-                                        target.style.display = "none";
-                                        const fallback = parent.querySelector(
-                                          ".fallback-icon",
-                                        ) as HTMLElement;
-                                        if (fallback) {
-                                          fallback.style.display = "flex";
+                  {filteredAndSortedBlogs.length > 0
+                    ? filteredAndSortedBlogs.map((blog) => (
+                        <tr key={blog.id} className="blog-row">
+                          {/* TITLE + IMAGE */}
+                          <td>
+                            <div className="d-flex align-items-center gap-3">
+                              {(() => {
+                                const imageSrc = resolveImageSrc(blog.imageUrl);
+                                if (imageSrc) {
+                                  return (
+                                    <Image
+                                      src={imageSrc}
+                                      rounded
+                                      className="blogtable-thumb"
+                                      style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        objectFit: "cover",
+                                      }}
+                                      onError={(e) => {
+                                        // Replace with fallback when image fails
+                                        const target =
+                                          e.target as HTMLImageElement;
+                                        const parent = target.parentElement;
+                                        if (parent) {
+                                          target.style.display = "none";
+                                          const fallback = parent.querySelector(
+                                            ".fallback-icon",
+                                          ) as HTMLElement;
+                                          if (fallback) {
+                                            fallback.style.display = "flex";
+                                          }
                                         }
-                                      }
-                                    }}
-                                  />
-                                );
-                              } else {
-                                return (
-                                  <div
-                                    className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
-                                    style={{
-                                      width: "40px",
-                                      height: "40px",
-                                      fontSize: "18px",
-                                      color: "#6c757d",
-                                    }}
-                                  >
-                                    📄
-                                  </div>
-                                );
-                              }
-                            })()}
+                                      }}
+                                    />
+                                  );
+                                } else {
+                                  return (
+                                    <div
+                                      className="blogtable-thumb d-flex align-items-center justify-content-center bg-light rounded"
+                                      style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        fontSize: "18px",
+                                        color: "#6c757d",
+                                      }}
+                                    >
+                                      📄
+                                    </div>
+                                  );
+                                }
+                              })()}
 
-                            <span className="blogtable-title-text">{blog.title}</span>
-                          </div>
-                        </td>
+                              <span className="blogtable-title-text">
+                                {blog.title}
+                              </span>
+                            </div>
+                          </td>
 
-                        {/* CATEGORY */}
-                        <td className="text-muted" style={{ fontFamily: "body" }}>
-                          {blog.category}
-                        </td>
-
-                        {/* DATE */}
-                        <td className="text-muted" style={{ fontFamily: "body" }}>
-                          {blog.date ? formatDate(blog.date) : "—"}
-                        </td>
-
-                        {/* STATUS */}
-                        <td>
-                          <Badge
-                            className={
-                              blog.status === "published"
-                                ? "blogtable-status-published"
-                                : "blogtable-status-draft"
-                            }
+                          {/* CATEGORY */}
+                          <td
+                            className="text-muted"
+                            style={{ fontFamily: "body" }}
                           >
-                            {blog.status.charAt(0).toUpperCase() + blog.status.slice(1)}
-                          </Badge>
-                        </td>
+                            {blog.category}
+                          </td>
 
-                        {/* ACTION BUTTONS */}
-                        <td className="text-end">
-                          <div className="d-flex justify-content-end gap-2 align-items-center">
-                            {/* View Count */}
-                            <div className="blogtable-view-count d-flex align-items-center gap-1">
-                              <EyeIcon size={14} className="text-primary" />
-                              <span className="blogtable-count-text">{blog.views || 0}</span>
-                            </div>
+                          {/* DATE */}
+                          <td
+                            className="text-muted"
+                            style={{ fontFamily: "body" }}
+                          >
+                            {blog.date ? formatDate(blog.date) : "—"}
+                          </td>
 
-                            {/* Read Count */}
-                            <div className="blogtable-read-count d-flex align-items-center gap-1">
-                              <CheckCircleIcon size={14} className="text-success" />
-                              <span className="blogtable-count-text">{blog.confirmedReads || 0}</span>
-                            </div>
-
-                            {/* Edit Button */}
-                            <Button
-                              variant="light"
-                              className="blogtable-action-btn blogtable-edit-btn"
-                              onClick={() => onEdit(blog)}
-                              title="Edit article"
+                          {/* STATUS */}
+                          <td>
+                            <Badge
+                              className={
+                                blog.status === "published"
+                                  ? "blogtable-status-published"
+                                  : "blogtable-status-draft"
+                              }
                             >
-                              <PencilIcon size={16} />
-                            </Button>
+                              {blog.status.charAt(0).toUpperCase() +
+                                blog.status.slice(1)}
+                            </Badge>
+                          </td>
 
-                            {/* Delete Button */}
-                            <Button
-                              variant="light"
-                              className="blogtable-action-btn blogtable-delete-btn"
-                              onClick={() => onDelete(blog.id)}
-                              title="Delete article"
-                            >
-                              <TrashIcon size={16} />
-                            </Button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))) : null}
+                          {/* ACTION BUTTONS */}
+                          <td className="text-end">
+                            <div className="d-flex justify-content-end gap-2 align-items-center">
+                              {/* View Count */}
+                              <div className="blogtable-view-count d-flex align-items-center gap-1">
+                                <EyeIcon size={14} className="text-primary" />
+                                <span className="blogtable-count-text">
+                                  {blog.views || 0}
+                                </span>
+                              </div>
+
+                              {/* Read Count */}
+                              <div className="blogtable-read-count d-flex align-items-center gap-1">
+                                <CheckCircleIcon
+                                  size={14}
+                                  className="text-success"
+                                />
+                                <span className="blogtable-count-text">
+                                  {blog.confirmedReads || 0}
+                                </span>
+                              </div>
+
+                              {/* Edit Button */}
+                              <Button
+                                variant="light"
+                                className="blogtable-action-btn blogtable-edit-btn"
+                                onClick={() => onEdit(blog)}
+                                title="Edit article"
+                              >
+                                <PencilIcon size={16} />
+                              </Button>
+
+                              {/* Delete Button */}
+                              <Button
+                                variant="light"
+                                className="blogtable-action-btn blogtable-delete-btn"
+                                onClick={() => onDelete(blog.id)}
+                                title="Delete article"
+                              >
+                                <TrashIcon size={16} />
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    : null}
                 </tbody>
               </Table>
             </div>
@@ -385,14 +431,16 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd, loading = false, err
           {filteredAndSortedBlogs.length === 0 && (
             <div className="blogtable-empty-state text-center py-5">
               <SearchIcon size={32} className="text-muted mb-3" />
-              <p className="text-muted">No articles match your search criteria.</p>
+              <p className="text-muted">
+                No articles match your search criteria.
+              </p>
               <Button
                 variant="link"
                 className="blogtable-clear-filters"
                 onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory('All Categories');
-                  setSortBy('recent');
+                  setSearchQuery("");
+                  setSelectedCategory("All Categories");
+                  setSortBy("recent");
                 }}
               >
                 Clear all filters
@@ -404,8 +452,15 @@ export function BlogTable({ blogs, onEdit, onDelete, onAdd, loading = false, err
           {filteredAndSortedBlogs.length > 0 && (
             <div className="blogtable-results-count px-3 py-2 border-top bg-light">
               <small className="text-muted">
-                Showing <span className="fw-semibold">{Math.min(filteredAndSortedBlogs.length, 6)}</span> of{' '}
-                <span className="fw-semibold">{filteredAndSortedBlogs.length}</span> articles
+                Showing{" "}
+                <span className="fw-semibold">
+                  {Math.min(filteredAndSortedBlogs.length, 6)}
+                </span>{" "}
+                of{" "}
+                <span className="fw-semibold">
+                  {filteredAndSortedBlogs.length}
+                </span>{" "}
+                articles
               </small>
             </div>
           )}

@@ -13,7 +13,7 @@ import LogoutButton from "../../components/authenticationComponents/Logout";
 // Types and Store
 import { EmployerUser } from "@/types/employer";
 import { AppDispatch, RootState } from "../../store/store";
-import { fetchCurrentEmployer } from "../../store/slices/EmployerSlice";
+import { fetchCurrentEmployer, updateCurrentEmployer } from "../../store/slices/EmployerSlice";
 
 const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");
@@ -161,14 +161,37 @@ const EmployerAccountProfile = () => {
     }
   }, [dispatch, employer, isLoading]);
 
-  const handleSaveChanges = () => {
+  const handleSaveChanges = async () => {
     if (accountData) {
       console.log("Saving changes:", {
         accountData,
         notificationSettings,
         privacySettings,
       });
-      alert("Settings saved successfully!");
+
+      // Update localStorage first for immediate local sync
+      localStorage.setItem("employerAccountData", JSON.stringify(accountData));
+
+      try {
+        // Also send to backend
+        // Try to update Employer mapping properties to match DB fields if needed
+        const backendPayload: {
+          first_name: string;
+          last_name: string;
+          organization_name: string;
+          email: string;
+        } = {
+          first_name: accountData.firstName,
+          last_name: accountData.lastName,
+          organization_name: accountData.organizationName,
+          email: accountData.email,
+        };
+        await dispatch(updateCurrentEmployer(backendPayload)).unwrap();
+        alert("Settings saved to database successfully!");
+      } catch (err) {
+        console.error("Failed to save to database:", err);
+        alert("Settings saved locally, but failed to sync to database.");
+      }
     }
   };
 

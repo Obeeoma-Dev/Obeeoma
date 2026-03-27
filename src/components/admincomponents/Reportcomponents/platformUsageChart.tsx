@@ -1,5 +1,4 @@
 import React from "react";
-import { useList } from "@refinedev/core";
 import { Card, Spinner } from "react-bootstrap";
 import { Bar } from "react-chartjs-2";
 import {
@@ -14,54 +13,41 @@ import {
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
+interface PlatformUsageData {
+  daily_active_users?: number;
+  weekly_active_users?: number;
+  monthly_active_users?: number;
+  total_sessions?: number;
+  average_session_duration?: string;
+}
+
 interface PlatformUsageRecord {
   id: string;
   date: string;
   activeUsers: number;
 }
 
-const PlatformUsageChart: React.FC = () => {
-  const { query, result } = useList<PlatformUsageRecord>({
-    resource: "platform-usage",
-  });
-
-  const { isLoading, isError } = query;
-  const records = result?.data ?? [];
-
-  if (isLoading) {
-    return (
-      <Card className="shadow-sm border-0 text-center p-5">
-        <Spinner animation="border" />
-      </Card>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Card className="shadow-sm border-0 text-center p-5 text-danger">
-        Start logging to load platform usage data.
-      </Card>
-    );
-  }
-
-  if (!records.length) {
-    return (
-      <Card className="shadow-sm border-0 text-center p-5">
-        No platform usage data available.
-      </Card>
-    );
-  }
-
-  const labels = records.map((item) => item.date);
-  const values = records.map((item) => item.activeUsers);
-
+const PlatformUsageChart: React.FC<{ data?: PlatformUsageData }> = ({
+  data,
+}) => {
+  // Generate chart data from backend data
   const chartData = {
-    labels,
+    labels: [
+      "Daily Active",
+      "Weekly Active",
+      "Monthly Active",
+      "Total Sessions",
+    ],
     datasets: [
       {
-        label: "Active Users",
-        data: values,
-        backgroundColor: "#3CB371",
+        label: "Platform Usage Metrics",
+        data: [
+          data?.daily_active_users || 0,
+          data?.weekly_active_users || 0,
+          data?.monthly_active_users || 0,
+          data?.total_sessions || 0,
+        ],
+        backgroundColor: ["#3CB371", "#28a745", "#17a2b8", "#6c757d"],
         borderRadius: 6,
       },
     ],
@@ -71,7 +57,10 @@ const PlatformUsageChart: React.FC = () => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: false },
+      legend: {
+        display: true,
+        position: "top" as const,
+      },
       tooltip: {
         callbacks: {
           label: (context) => `${context.parsed.y?.toLocaleString()} users`,
@@ -100,12 +89,20 @@ const PlatformUsageChart: React.FC = () => {
             marginBottom: "1.5rem",
           }}
         >
-          Daily Platform Usage
+          Platform Usage Overview
         </h5>
 
         <div style={{ height: "400px" }}>
           <Bar data={chartData} options={options} />
         </div>
+
+        {data?.average_session_duration && (
+          <div className="mt-3 text-center">
+            <small className="text-muted">
+              Average Session Duration: {data.average_session_duration}
+            </small>
+          </div>
+        )}
       </Card.Body>
     </Card>
   );

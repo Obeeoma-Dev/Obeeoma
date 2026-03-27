@@ -229,10 +229,10 @@ const Layout = ({ children, title }: LayoutProps) => {
 
                     {/* 2. Contact link*/}
                     <small
-                      className="text-muted fw-medium d-block"
-                      style={{ fontFamily: "body", fontSize: "0.7rem" }}
+                      className="text-muted fw-medium d-block px-2"
+                      style={{ fontFamily: "body", fontSize: "0.8rem" }}
                     >
-                      Product of RhipFactory Nigeria ®
+                    Management Console ®
                     </small>
                   </div>
 

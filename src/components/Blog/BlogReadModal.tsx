@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import { Modal, Button, Container, Row, Col } from "react-bootstrap";
 import {
   X,
   Calendar,
@@ -9,8 +9,8 @@ import {
   ThumbsUp,
   ThumbsDown,
   Eye,
-} from 'lucide-react';
-import './BlogReadModal.css';
+} from "lucide-react";
+import "./BlogReadModal.css";
 
 interface BlogPost {
   id: string;
@@ -35,7 +35,7 @@ interface BlogReadModalProps {
   onSkipRead: (postId: string) => void;
 }
 
-type FeedbackState = 'idle' | 'prompted' | 'confirmed' | 'skipped';
+type FeedbackState = "idle" | "prompted" | "confirmed" | "skipped";
 
 export function BlogReadModal({
   post,
@@ -44,46 +44,46 @@ export function BlogReadModal({
   onConfirmRead,
   onSkipRead,
 }: BlogReadModalProps) {
-  const [feedback, setFeedback] = useState<FeedbackState>('idle');
+  const [feedback, setFeedback] = useState<FeedbackState>("idle");
   const [scrolledToBottom, setScrolledToBottom] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setFeedback('idle');
+      setFeedback("idle");
       setScrolledToBottom(false);
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const el = e.currentTarget;
     const nearBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 80;
-    if (nearBottom && feedback === 'idle') {
-      setFeedback('prompted');
+    if (nearBottom && feedback === "idle") {
+      setFeedback("prompted");
     }
   };
 
   const handleYes = () => {
     if (!post) return;
-    setFeedback('confirmed');
+    setFeedback("confirmed");
     onConfirmRead(post.id);
   };
 
   const handleNo = () => {
     if (!post) return;
-    setFeedback('skipped');
+    setFeedback("skipped");
     onSkipRead(post.id);
   };
 
   const handleClose = () => {
-    if (feedback === 'idle' && post) {
+    if (feedback === "idle" && post) {
       // Prompt before closing if they haven't responded
-      setFeedback('prompted');
+      setFeedback("prompted");
       return;
     }
     onClose();
@@ -140,7 +140,9 @@ export function BlogReadModal({
               </div>
               <div className="blog-read-modal-meta-item">
                 <Clock size={12} className="blog-read-modal-meta-icon" />
-                <span className="blog-read-modal-meta-text">{post.readTime}</span>
+                <span className="blog-read-modal-meta-text">
+                  {post.readTime}
+                </span>
               </div>
               <div className="blog-read-modal-meta-item">
                 <User size={12} className="blog-read-modal-meta-icon" />
@@ -158,7 +160,7 @@ export function BlogReadModal({
 
           {/* Full content */}
           <div className="blog-read-modal-full-content">
-            {post.fullContent.split('\n\n').map((paragraph, i) => (
+            {post.fullContent.split("\n\n").map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </div>
@@ -177,13 +179,13 @@ export function BlogReadModal({
 
           {/* Feedback section */}
           <div className="blog-read-modal-feedback">
-            {feedback === 'idle' && (
+            {feedback === "idle" && (
               <div className="blog-read-modal-feedback-idle">
                 <p>Scroll to the end to share your feedback</p>
               </div>
             )}
 
-            {feedback === 'prompted' && (
+            {feedback === "prompted" && (
               <div className="blog-read-modal-feedback-prompted">
                 <div className="blog-read-modal-feedback-header">
                   <Eye size={20} className="blog-read-modal-feedback-icon" />
@@ -213,9 +215,12 @@ export function BlogReadModal({
               </div>
             )}
 
-            {feedback === 'confirmed' && (
+            {feedback === "confirmed" && (
               <div className="blog-read-modal-feedback-confirmed">
-                <CheckCircle size={40} className="blog-read-modal-feedback-success-icon" />
+                <CheckCircle
+                  size={40}
+                  className="blog-read-modal-feedback-success-icon"
+                />
                 <h3>Thank you for reading! 🎉</h3>
                 <p className="blog-read-modal-feedback-text">
                   Your read has been confirmed and recorded.
@@ -230,7 +235,7 @@ export function BlogReadModal({
               </div>
             )}
 
-            {feedback === 'skipped' && (
+            {feedback === "skipped" && (
               <div className="blog-read-modal-feedback-skipped">
                 <h3>Thanks for your honesty!</h3>
                 <p className="blog-read-modal-feedback-text">

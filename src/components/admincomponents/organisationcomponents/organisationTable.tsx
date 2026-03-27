@@ -117,9 +117,8 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
   conditionalAPI,
 }) => {
   // State for organizations (use prop data if provided, otherwise fallback to internal state)
-  const [organizations, setOrganizations] = useState<TableOrganization[]>(
-    propOrganizations,
-  );
+  const [organizations, setOrganizations] =
+    useState<TableOrganization[]>(propOrganizations);
   const [loading, setLoading] = useState(propLoading);
   const [hasMore, setHasMore] = useState(propHasMore);
   const [page, setPage] = useState(1);
@@ -142,12 +141,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     setLoading(propLoading);
     setHasMore(propHasMore);
     setTotalCount(propTotalCount);
-  }, [
-    propOrganizations,
-    propLoading,
-    propHasMore,
-    propTotalCount,
-  ]);
+  }, [propOrganizations, propLoading, propHasMore, propTotalCount]);
 
   // Fetch organizations with pagination (fallback if no onFetchMore provided)
   const fetchOrganizations = useCallback(
@@ -175,8 +169,13 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
 
         // Handle response with simple typing
         const results = response?.data?.results || response?.data || [];
-        const totalCount = response?.data?.count || (Array.isArray(results) ? results.length : 0);
-        const hasNext = response?.data?.next !== undefined ? response?.data?.next !== null : false;
+        const totalCount =
+          response?.data?.count ||
+          (Array.isArray(results) ? results.length : 0);
+        const hasNext =
+          response?.data?.next !== undefined
+            ? response?.data?.next !== null
+            : false;
 
         // Convert to table format
         const formattedOrgs = results.map((org: DatabaseOrganization) =>
@@ -191,10 +190,12 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
             const orgMap = new Map();
 
             // Add existing organizations
-            prev.forEach(org => orgMap.set(org.id, org));
+            prev.forEach((org) => orgMap.set(org.id, org));
 
             // Add new organizations (this will overwrite duplicates with newer data)
-            formattedOrgs.forEach((org: TableOrganization) => orgMap.set(org.id, org));
+            formattedOrgs.forEach((org: TableOrganization) =>
+              orgMap.set(org.id, org),
+            );
 
             // Convert back to array
             return Array.from(orgMap.values());
@@ -230,12 +231,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
       setHasMore(true);
       fetchOrganizations(1, searchTerm);
     }
-  }, [
-    searchTerm,
-    activeTab,
-    fetchOrganizations,
-    onSearch,
-  ]);
+  }, [searchTerm, activeTab, fetchOrganizations, onSearch]);
 
   // Infinite scroll observer
   useEffect(() => {
@@ -261,14 +257,7 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [
-    loading,
-    hasMore,
-    page,
-    searchTerm,
-    fetchOrganizations,
-    onFetchMore,
-  ]);
+  }, [loading, hasMore, page, searchTerm, fetchOrganizations, onFetchMore]);
 
   // Filter organizations by tab category
   const filterByTab = (orgs: TableOrganization[], tab: string) => {
@@ -372,8 +361,9 @@ const OrganizationDashboard: React.FC<OrganizationDashboardProps> = ({
                   {/* Plan */}
                   <td>
                     <span
-                      className={`badge ${org.plan === "Premium" ? "bg-success" : "bg-secondary"
-                        }`}
+                      className={`badge ${
+                        org.plan === "Premium" ? "bg-success" : "bg-secondary"
+                      }`}
                     >
                       {org.plan}
                     </span>

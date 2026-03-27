@@ -93,7 +93,7 @@ const LoginPage = () => {
       const userRole = payload?.user?.role ?? payload?.role ?? user?.role ?? "";
       console.log("Final Role Determined:", userRole);
 
-      const destinationPath: DashboardPath = getDashboardRoute(userRole);
+      const destinationPath = getDashboardRoute(userRole);
       navigate(destinationPath, { replace: true });
     } catch (err) {
       console.error("Login failed (handled by Redux error state):", err);
@@ -129,15 +129,17 @@ const LoginPage = () => {
             className="d-flex flex-column align-items-center justify-content-center mb-4"
             style={{ fontFamily: "heading" }}
           >
-            <img
-              src={logo}
-              alt="Obeeoma Logo"
-              style={{
-                height: "50px",
-                width: "auto",
-              }}
-              className="mb-1"
-            />
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Obeeoma Logo"
+                style={{
+                  height: "50px",
+                  width: "auto",
+                }}
+                className="mb-1"
+              />
+            </Link>
           </div>
           <h3
             className="text-center mb-2 fw-semibold text-dark"

@@ -133,7 +133,7 @@ export const ChangePlanModal: React.FC<ChangePlanModalProps> = ({
                         className="fw-bold text-black"
                         style={{ fontFamily: "body" }}
                       >
-                        ₦{isAnnual ? plan.annualPrice : plan.monthlyPrice}
+                        ${isAnnual ? plan.annualPrice : plan.monthlyPrice}
                         {plan.id !== "Free Plan" && (
                           <small
                             className="fs-6 text-muted"

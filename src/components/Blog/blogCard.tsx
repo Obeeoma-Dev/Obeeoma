@@ -214,7 +214,7 @@ export function BlogCard({
               cursor: "pointer",
               color: "#666",
               fontSize: "0.85rem",
-              fontFamily: "body"
+              fontFamily: "body",
             }}
             onClick={handleEyeClick}
           >
