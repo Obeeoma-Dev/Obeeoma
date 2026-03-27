@@ -9,4 +9,4 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - REACT_APP_API_URL=http://64.225.122.101:8000
+      - REACT_APP_API_URL=/api

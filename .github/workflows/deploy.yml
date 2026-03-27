@@ -257,6 +257,10 @@ jobs:
             npm ci
             npm run build
             
+            echo "Creating .env file for frontend..."
+            mkdir -p api
+            echo "REACT_APP_API_URL=/api" > api/.env
+            
             echo "Stopping existing containers..."
             docker compose down || true
             
