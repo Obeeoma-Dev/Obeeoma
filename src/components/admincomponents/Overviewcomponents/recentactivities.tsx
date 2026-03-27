@@ -88,6 +88,7 @@ const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }) => {
                       </div>
                     </div>
 
+
                     {/* Right: Time */}
                     <div
                       className="text-muted small text-nowrap ms-3"
