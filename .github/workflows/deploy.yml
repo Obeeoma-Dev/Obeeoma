@@ -250,7 +250,7 @@ jobs:
 
             echo "Fetching latest from origin/$BRANCH..."
             git fetch --all --prune
-
+            git reset --hard origin/"$BRANCH"
             echo "Checked out $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
             
             echo "Building frontend application..."
@@ -288,7 +288,12 @@ jobs:
             docker compose --project-directory . down --rmi all --remove-orphans || true
             
             echo "Building and starting frontend container ONLY..."
-            docker compose --project-directory . --project-name obeeoma-frontend up -d --build --no-deps frontend
+            docker compose --project-directory . --project-name obeeoma-frontend build --no-cache frontend
+            docker compose --project-directory . --project-name obeeoma-frontend up -d --no-deps frontend
+
+            echo "Verifying build output and deployed files..."
+            docker exec obeeoma_frontend ls -la /usr/share/nginx/html
+            docker exec obeeoma_frontend cat /usr/share/nginx/html/index.html | head -20
 
             echo "Cleaning up dangling Docker images..."
             docker image prune -f
