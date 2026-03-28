@@ -412,7 +412,7 @@ export const adminAPI = {
   },
 
   getAIStatus: async () => {
-    const response = await api.get("/admin/ai-status/");
+    const response = await api.get("/admin/ai-management/");
     return response;
   },
 
@@ -421,7 +421,7 @@ export const adminAPI = {
     message: string;
     session_id?: string;
   }) => {
-    const response = await api.post("/receptionist/ai-chat/", payload);
+    const response = await api.post("/sana/sessions/", payload);
     return response;
   },
 };
