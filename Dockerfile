@@ -27,11 +27,11 @@ COPY --from=build /obeeoma/dist /usr/share/nginx/html
 #  Copy a custom Nginx configuration file (see Step 1.3)
 #  COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 3000 to match docker-compose.yml
-EXPOSE 3000
+# Expose port 80 (standard for web servers)
+EXPOSE 80
 
-# Create custom Nginx config for port 3000
-RUN echo 'server { listen 3000; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
+# Create custom Nginx config for port 80
+RUN echo 'server { listen 80; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
 
 # The default Nginx CMD will start the server
 CMD ["nginx", "-g", "daemon off;"]
