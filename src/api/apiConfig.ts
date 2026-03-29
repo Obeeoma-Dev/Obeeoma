@@ -421,7 +421,7 @@ export const adminAPI = {
     message: string;
     session_id?: string;
   }) => {
-    const response = await api.post("/sana/sessions/", payload);
+    const response = await api.post("/receptionist/chat/", payload);
     return response;
   },
 };
