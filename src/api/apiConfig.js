@@ -332,12 +332,12 @@ export const adminAPI = {
         return response;
     },
     getAIStatus: async () => {
-        const response = await api.get("/admin/ai-status/");
+        const response = await api.get("/admin/ai-management/");
         return response;
     },
     // Receptionist AI Chat APIs (Public - No authentication required)
     sendReceptionistMessage: async (payload) => {
-        const response = await api.post("/receptionist/ai-chat/", payload);
+        const response = await api.post("/receptionist/chat/", payload);
         return response;
     },
 };
