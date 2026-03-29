@@ -25,7 +25,9 @@ const Header: React.FC = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       // Navigate to search results page with query parameter
-      navigate(`/system-admin/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      navigate(
+        `/system-admin/search?q=${encodeURIComponent(searchQuery.trim())}`,
+      );
     }
   };
 
@@ -92,7 +94,7 @@ const Header: React.FC = () => {
                 }}
               >
                 2
-              </Badge> */} 
+              </Badge> */}
             </Button>
           </Col>
 

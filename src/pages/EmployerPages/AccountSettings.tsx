@@ -13,7 +13,10 @@ import LogoutButton from "../../components/authenticationComponents/Logout";
 // Types and Store
 import { EmployerUser } from "@/types/employer";
 import { AppDispatch, RootState } from "../../store/store";
-import { fetchCurrentEmployer, updateCurrentEmployer } from "../../store/slices/EmployerSlice";
+import {
+  fetchCurrentEmployer,
+  updateCurrentEmployer,
+} from "../../store/slices/EmployerSlice";
 
 const EmployerAccountProfile = () => {
   const [activeSection, setActiveSection] = useState("account");

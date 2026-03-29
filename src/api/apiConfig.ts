@@ -39,7 +39,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         // "auth/verify-invitation-otp/",
         "auth/mfa/setup/",
         "auth/mfa/verify/",
-        "auth/verify-password-reset-otp/"
+        "auth/verify-password-reset-otp/",
       ];
 
       const isPublicEndpoint = publicEndpoints.some(
@@ -542,7 +542,10 @@ export const adminAPI = {
 //   },
 // };
 
-const validateDownloadBlob = async (blob: Blob, endpoint: string): Promise<Blob> => {
+const validateDownloadBlob = async (
+  blob: Blob,
+  endpoint: string,
+): Promise<Blob> => {
   if (!(blob instanceof Blob)) {
     throw new Error(`Invalid blob response from ${endpoint}`);
   }
@@ -554,7 +557,9 @@ const validateDownloadBlob = async (blob: Blob, endpoint: string): Promise<Blob>
 
   if (blob.type && !allowedTypes.includes(blob.type)) {
     const text = await blob.text().catch(() => "<unreadable>");
-    console.error(`Unexpected content-type from ${endpoint}: '${blob.type}'. First 1024 chars: ${text.slice(0, 1024)}`);
+    console.error(
+      `Unexpected content-type from ${endpoint}: '${blob.type}'. First 1024 chars: ${text.slice(0, 1024)}`,
+    );
     throw new Error(`Invalid content-type (${blob.type}) from ${endpoint}`);
   }
 
@@ -656,18 +661,30 @@ export const employerAPI = {
   // Report download endpoints (return blobs)
   downloadWellnessSummaryReport: async () => {
     try {
-      const response = await api.get("/dashboard/wellness-reports/download-summary/", {
-        responseType: "blob",
-      });
-      return validateDownloadBlob(response.data, "/dashboard/wellness-reports/download-summary/");
+      const response = await api.get(
+        "/dashboard/wellness-reports/download-summary/",
+        {
+          responseType: "blob",
+        },
+      );
+      return validateDownloadBlob(
+        response.data,
+        "/dashboard/wellness-reports/download-summary/",
+      );
     } catch (error) {
-      const status = (error as { response?: { status?: number } })?.response?.status;
+      const status = (error as { response?: { status?: number } })?.response
+        ?.status;
       if (status === 406) {
-        console.warn("dashboard summary 406, trying legacy endpoint /download/wellness-summary/");
+        console.warn(
+          "dashboard summary 406, trying legacy endpoint /download/wellness-summary/",
+        );
         const response = await api.get("/download/wellness-summary/", {
           responseType: "blob",
         });
-        return validateDownloadBlob(response.data, "/download/wellness-summary/");
+        return validateDownloadBlob(
+          response.data,
+          "/download/wellness-summary/",
+        );
       }
       throw error;
     }
@@ -677,7 +694,10 @@ export const employerAPI = {
     const response = await api.get("/download/department-analysis/", {
       responseType: "blob",
     });
-    return validateDownloadBlob(response.data, "/download/department-analysis/");
+    return validateDownloadBlob(
+      response.data,
+      "/download/department-analysis/",
+    );
   },
 
   downloadRiskAssessmentReport: async () => {
@@ -695,7 +715,9 @@ export const employerAPI = {
   },
 
   getReports: async () => {
-    const response = await api.get("/dashboard/wellness-reports/download-summary/");
+    const response = await api.get(
+      "/dashboard/wellness-reports/download-summary/",
+    );
     return response;
   },
 
@@ -716,7 +738,7 @@ export const employerAPI = {
   /**
    * PDF/Blob Download Method
    */
-  getReportBlob: async (url: string, method: 'GET' | 'POST' = 'GET') => {
+  getReportBlob: async (url: string, method: "GET" | "POST" = "GET") => {
     const state = store.getState();
     const token = state.auth.token;
     const persistedToken = localStorage.getItem("token");
@@ -729,16 +751,19 @@ export const employerAPI = {
       responseType: "blob" as const,
     };
 
-    const response = method === 'POST'
-      ? await api.post(url, {}, config)
-      : await api.get(url, config);
+    const response =
+      method === "POST"
+        ? await api.post(url, {}, config)
+        : await api.get(url, config);
 
     return validateDownloadBlob(response.data, url);
   },
 
   // Wellness Data
   getMoodTrends: async (companyId?: string) => {
-    const url = companyId ? `/dashboard/trends/${companyId}/` : "/dashboard/trends/";
+    const url = companyId
+      ? `/dashboard/trends/${companyId}/`
+      : "/dashboard/trends/";
     const response = await api.get(url);
     return response;
   },

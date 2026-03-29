@@ -9,7 +9,7 @@ interface GeneratedReport {
   dateRange: string;
   format: string;
   generatedAt: string;
-  status: 'generating' | 'completed' | 'error';
+  status: "generating" | "completed" | "error";
 }
 
 interface ReportData {
@@ -47,19 +47,27 @@ interface CustomReportFormProps {
   data?: ReportData;
 }
 
-const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, data }) => {
+const CustomReportForm: React.FC<CustomReportFormProps> = ({
+  onReportGenerated,
+  data,
+}) => {
   // Local state for form fields
   const [reportType, setReportType] = useState("Platform Usage");
   const [dateRange, setDateRange] = useState("Last 30 Days");
   const [format, setFormat] = useState("PDF");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedReport, setGeneratedReport] = useState<GeneratedReport | null>(null);
+  const [generatedReport, setGeneratedReport] =
+    useState<GeneratedReport | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Generate report content based on actual data
-  const generateReportContent = (type: string, dateRange: string, format: string): string => {
+  const generateReportContent = (
+    type: string,
+    dateRange: string,
+    format: string,
+  ): string => {
     const today = new Date().toLocaleDateString();
-    
+
     if (type === "Platform Usage" && data?.platform_usage) {
       const content = [
         "PLATFORM USAGE REPORT",
@@ -72,14 +80,14 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
         `- Weekly Active Users: ${data.platform_usage.weekly_active_users || 0}`,
         `- Monthly Active Users: ${data.platform_usage.monthly_active_users || 0}`,
         `- Total Sessions: ${data.platform_usage.total_sessions || 0}`,
-        `- Average Session Duration: ${data.platform_usage.average_session_duration || 'N/A'}`,
+        `- Average Session Duration: ${data.platform_usage.average_session_duration || "N/A"}`,
         "",
         "DETAILED ANALYSIS:",
-        "This report shows platform usage metrics for the specified period. The data reflects user engagement patterns and system utilization."
+        "This report shows platform usage metrics for the specified period. The data reflects user engagement patterns and system utilization.",
       ];
       return content.join("\n");
     }
-    
+
     if (type === "User Engagement" && data?.user_engagement) {
       const content = [
         "USER ENGAGEMENT REPORT",
@@ -95,18 +103,22 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
         `- Retention Rate: ${((data.user_engagement.retention_rate || 0) * 100).toFixed(1)}%`,
         "",
         "MONTHLY BREAKDOWN:",
-        ...(data.user_engagement.monthly_data?.map(item => 
-          [`- ${item.month}: ${item.new_signups} new signups, ${item.active_users} active users`]
-        ) || ["No monthly data available"]),
+        ...(data.user_engagement.monthly_data?.map((item) => [
+          `- ${item.month}: ${item.new_signups} new signups, ${item.active_users} active users`,
+        ]) || ["No monthly data available"]),
         "",
         "DETAILED ANALYSIS:",
-        "This report provides comprehensive insights into user engagement patterns, retention metrics, and growth trends."
+        "This report provides comprehensive insights into user engagement patterns, retention metrics, and growth trends.",
       ];
       return content.join("\n");
     }
-    
+
     if (type === "Health Conditions" && data?.feedback_testimonies) {
-      const healthData = data.feedback_testimonies.filter(f => f.feedback?.toLowerCase().includes('health') || f.organization?.toLowerCase().includes('health'));
+      const healthData = data.feedback_testimonies.filter(
+        (f) =>
+          f.feedback?.toLowerCase().includes("health") ||
+          f.organization?.toLowerCase().includes("health"),
+      );
       const content = [
         "HEALTH CONDITIONS REPORT",
         `Generated: ${today}`,
@@ -115,21 +127,27 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
         "",
         "SUMMARY STATISTICS:",
         `- Total Health-related Feedback: ${healthData.length}`,
-        `- Average Rating: ${healthData.length > 0 ? (healthData.reduce((sum, f) => sum + (f.rating || 0), 0) / healthData.length).toFixed(1) : 'N/A'}`,
+        `- Average Rating: ${healthData.length > 0 ? (healthData.reduce((sum, f) => sum + (f.rating || 0), 0) / healthData.length).toFixed(1) : "N/A"}`,
         "",
         "CONDITION BREAKDOWN:",
-        ...(healthData.slice(0, 5).map(f => 
-          [`- ${f.user_name || 'Anonymous'}: ${f.feedback?.substring(0, 100) || 'No feedback'} (Rating: ${f.rating || 0}/5`]
-        ) || []),
+        ...(healthData
+          .slice(0, 5)
+          .map((f) => [
+            `- ${f.user_name || "Anonymous"}: ${f.feedback?.substring(0, 100) || "No feedback"} (Rating: ${f.rating || 0}/5`,
+          ]) || []),
         "",
         "DETAILED ANALYSIS:",
-        "This report aggregates health-related feedback and conditions reported by users, helping identify common health concerns and user satisfaction levels."
+        "This report aggregates health-related feedback and conditions reported by users, helping identify common health concerns and user satisfaction levels.",
       ];
       return content.join("\n");
     }
-    
+
     if (type === "Treatment Outcomes" && data?.feedback_testimonies) {
-      const treatmentData = data.feedback_testimonies.filter(f => f.feedback?.toLowerCase().includes('treatment') || f.feedback?.toLowerCase().includes('outcome'));
+      const treatmentData = data.feedback_testimonies.filter(
+        (f) =>
+          f.feedback?.toLowerCase().includes("treatment") ||
+          f.feedback?.toLowerCase().includes("outcome"),
+      );
       const content = [
         "TREATMENT OUTCOMES REPORT",
         `Generated: ${today}`,
@@ -138,19 +156,21 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
         "",
         "SUMMARY STATISTICS:",
         `- Treatment-related Feedback: ${treatmentData.length}`,
-        `- Success Rate: ${treatmentData.length > 0 ? Math.round((treatmentData.filter(f => f.rating && f.rating >= 4).length / treatmentData.length * 100)) : 0}%`,
+        `- Success Rate: ${treatmentData.length > 0 ? Math.round((treatmentData.filter((f) => f.rating && f.rating >= 4).length / treatmentData.length) * 100) : 0}%`,
         "",
         "OUTCOME ANALYSIS:",
-        ...(treatmentData.slice(0, 5).map(f => 
-          [`- ${f.user_name || 'Anonymous'}: ${f.feedback?.substring(0, 100) || 'No feedback'} (Rating: ${f.rating || 0}/5`]
-        ) || []),
+        ...(treatmentData
+          .slice(0, 5)
+          .map((f) => [
+            `- ${f.user_name || "Anonymous"}: ${f.feedback?.substring(0, 100) || "No feedback"} (Rating: ${f.rating || 0}/5`,
+          ]) || []),
         "",
         "DETAILED ANALYSIS:",
-        "This report focuses on treatment effectiveness and patient outcomes, providing insights into care quality and patient satisfaction."
+        "This report focuses on treatment effectiveness and patient outcomes, providing insights into care quality and patient satisfaction.",
       ];
       return content.join("\n");
     }
-    
+
     if (type === "Organization Performance") {
       const orgContent = [
         "ORGANIZATION PERFORMANCE REPORT",
@@ -167,11 +187,11 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
         "This report provides an overview of organizational performance and engagement across the platform.",
         "",
         "DETAILED ANALYSIS:",
-        "Platform performance metrics show overall system health and user adoption patterns. Use this data to identify high-performing organizations and areas needing improvement."
+        "Platform performance metrics show overall system health and user adoption patterns. Use this data to identify high-performing organizations and areas needing improvement.",
       ];
       return orgContent.join("\n");
     }
-    
+
     // Default case
     const defaultContent = [
       "GENERAL REPORT",
@@ -183,7 +203,7 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
       "No specific data available for the selected report type.",
       "",
       "DETAILED ANALYSIS:",
-      "This is a general report covering platform metrics. Please select a specific report type for detailed insights."
+      "This is a general report covering platform metrics. Please select a specific report type for detailed insights.",
     ];
     return defaultContent.join("\n");
   };
@@ -191,10 +211,10 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
   // Handle report generation
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setIsGenerating(true);
     setError(null);
-    
+
     try {
       // Create report with real data
       const newReport: GeneratedReport = {
@@ -204,26 +224,29 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
         dateRange: dateRange,
         format: format,
         generatedAt: new Date().toLocaleString(),
-        status: 'generating'
+        status: "generating",
       };
 
       setGeneratedReport(newReport);
 
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Update status to completed
-      setGeneratedReport(prev => prev ? { ...prev, status: 'completed' } : null);
-      
+      setGeneratedReport((prev) =>
+        prev ? { ...prev, status: "completed" } : null,
+      );
+
       // Call callback to notify parent component
       if (onReportGenerated && newReport) {
-        onReportGenerated({ ...newReport, status: 'completed' });
+        onReportGenerated({ ...newReport, status: "completed" });
       }
-      
     } catch (err) {
-      console.error('Report generation failed:', err);
-      setError('Failed to generate report. Please try again.');
-      setGeneratedReport(prev => prev ? { ...prev, status: 'error' } : null);
+      console.error("Report generation failed:", err);
+      setError("Failed to generate report. Please try again.");
+      setGeneratedReport((prev) =>
+        prev ? { ...prev, status: "error" } : null,
+      );
     } finally {
       setIsGenerating(false);
     }
@@ -231,21 +254,28 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
 
   // Handle download of generated report
   const handleDownload = () => {
-    if (generatedReport && generatedReport.status === 'completed') {
+    if (generatedReport && generatedReport.status === "completed") {
       // Generate real report content based on data
-      const reportContent = generateReportContent(generatedReport.type, generatedReport.dateRange, generatedReport.format);
-      
+      const reportContent = generateReportContent(
+        generatedReport.type,
+        generatedReport.dateRange,
+        generatedReport.format,
+      );
+
       // Create and download file
-      const blob = new Blob([reportContent], { 
-        type: generatedReport.format === 'PDF' ? 'application/pdf' : 
-              generatedReport.format === 'Excel' ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' :
-              'text/csv'
+      const blob = new Blob([reportContent], {
+        type:
+          generatedReport.format === "PDF"
+            ? "application/pdf"
+            : generatedReport.format === "Excel"
+              ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              : "text/csv",
       });
-      
+
       const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.download = `${generatedReport.title.replace(/\s+/g, '_')}.${generatedReport.format.toLowerCase()}`;
+      link.download = `${generatedReport.title.replace(/\s+/g, "_")}.${generatedReport.format.toLowerCase()}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -294,7 +324,10 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
 
         {/* Generated Report Status */}
         {generatedReport && (
-          <div className="mb-3 p-3 border rounded" style={{ backgroundColor: "#f8f9fa" }}>
+          <div
+            className="mb-3 p-3 border rounded"
+            style={{ backgroundColor: "#f8f9fa" }}
+          >
             <div className="d-flex align-items-center justify-content-between">
               <div>
                 <h6 className="mb-1">{generatedReport.title}</h6>
@@ -303,22 +336,18 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
                 </small>
               </div>
               <div className="d-flex gap-2">
-                {generatedReport.status === 'generating' && (
+                {generatedReport.status === "generating" && (
                   <Spinner animation="border" size="sm" />
                 )}
-                {generatedReport.status === 'completed' && (
-                  <Button 
-                    variant="success" 
-                    size="sm"
-                    onClick={handleDownload}
-                  >
+                {generatedReport.status === "completed" && (
+                  <Button variant="success" size="sm" onClick={handleDownload}>
                     <Download size={14} className="me-1" />
                     Download
                   </Button>
                 )}
-                {generatedReport.status === 'error' && (
-                  <Button 
-                    variant="outline-danger" 
+                {generatedReport.status === "error" && (
+                  <Button
+                    variant="outline-danger"
                     size="sm"
                     onClick={handleReset}
                   >
@@ -444,7 +473,9 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
             </div>
 
             {/* Action Buttons */}
-            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            <div
+              style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+            >
               <button
                 type="submit"
                 disabled={isGenerating}
@@ -475,7 +506,7 @@ const CustomReportForm: React.FC<CustomReportFormProps> = ({ onReportGenerated, 
                   </>
                 )}
               </button>
-              
+
               {generatedReport && (
                 <Button
                   variant="outline-secondary"

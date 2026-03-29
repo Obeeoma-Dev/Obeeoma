@@ -4,7 +4,15 @@ import PlatformUsageChart from "../../../components/admincomponents/Reportcompon
 import FeedbacknTestimonies from "../../../components/admincomponents/Reportcomponents/organizationFeedback";
 import { AvailableReports } from "../../../components/admincomponents/Reportcomponents/availableReport";
 import CustomReportForm from "../../../components/admincomponents/Reportcomponents/customerReportForm";
-import { Container, Spinner, Alert, Modal, Form, Button, ProgressBar } from "react-bootstrap";
+import {
+  Container,
+  Spinner,
+  Alert,
+  Modal,
+  Form,
+  Button,
+  ProgressBar,
+} from "react-bootstrap";
 import UserEngagement from "../../../components/admincomponents/Reportcomponents/userEngagement";
 import { adminAPI } from "../../../api/apiConfig";
 import { Upload, X } from "lucide-react";
@@ -16,7 +24,7 @@ interface GeneratedReport {
   dateRange: string;
   format: string;
   generatedAt: string;
-  status: 'generating' | 'completed' | 'error';
+  status: "generating" | "completed" | "error";
 }
 
 interface ReportsApiResponse {
@@ -61,7 +69,7 @@ const ReportPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<ReportsApiResponse | null>(null);
-  
+
   // Upload modal state
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
@@ -71,13 +79,15 @@ const ReportPage: React.FC = () => {
   const [reportType, setReportType] = useState("Platform Usage");
 
   // State for generated reports from CustomReportForm
-  const [generatedReports, setGeneratedReports] = useState<Array<{
-    id: string;
-    title: string;
-    type: string;
-    date: string;
-    size: string;
-  }>>([]);
+  const [generatedReports, setGeneratedReports] = useState<
+    Array<{
+      id: string;
+      title: string;
+      type: string;
+      date: string;
+      size: string;
+    }>
+  >([]);
 
   // Handle report generation from CustomReportForm
   const handleReportGenerated = (generatedReport: GeneratedReport) => {
@@ -87,15 +97,15 @@ const ReportPage: React.FC = () => {
       title: generatedReport.title,
       type: generatedReport.type,
       date: new Date().toLocaleDateString(),
-      size: `${Math.floor(Math.random() * 5 + 1)} MB` // Simulated file size
+      size: `${Math.floor(Math.random() * 5 + 1)} MB`, // Simulated file size
     };
-    
-    setGeneratedReports(prev => [...prev, newReport]);
-    
+
+    setGeneratedReports((prev) => [...prev, newReport]);
+
     // Also add to main data state to show in AvailableReports
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
-      available_reports: [...(prev?.available_reports || []), newReport]
+      available_reports: [...(prev?.available_reports || []), newReport],
     }));
   };
 
@@ -130,7 +140,7 @@ const ReportPage: React.FC = () => {
 
       // Here you would make actual API call
       // const response = await adminAPI.uploadReport(formData);
-      
+
       setTimeout(() => {
         clearInterval(progressInterval);
         setUploadProgress(100);
@@ -140,21 +150,21 @@ const ReportPage: React.FC = () => {
           setUploadFile(null);
           setUploadProgress(0);
           setReportTitle("");
-          
+
           // Add the new report to the available reports
           const newReport = {
             id: Date.now().toString(),
             title: reportTitle,
             type: reportType,
             date: new Date().toLocaleDateString(),
-            size: `${(uploadFile.size / 1024 / 1024).toFixed(2)} MB`
+            size: `${(uploadFile.size / 1024 / 1024).toFixed(2)} MB`,
           };
-          
-          setData(prev => ({
+
+          setData((prev) => ({
             ...prev,
-            available_reports: [...(prev?.available_reports || []), newReport]
+            available_reports: [...(prev?.available_reports || []), newReport],
           }));
-          
+
           alert("Report uploaded successfully!");
         }, 500);
       }, 2000);
@@ -174,13 +184,15 @@ const ReportPage: React.FC = () => {
     try {
       // Here you would make actual API call
       // await adminAPI.deleteReport(reportId);
-      
+
       // Remove the report from the list
-      setData(prev => ({
+      setData((prev) => ({
         ...prev,
-        available_reports: prev?.available_reports?.filter(report => report.id !== reportId) || []
+        available_reports:
+          prev?.available_reports?.filter((report) => report.id !== reportId) ||
+          [],
       }));
-      
+
       alert("Report deleted successfully!");
     } catch (err) {
       console.error("Delete error:", err);
@@ -387,23 +399,28 @@ const ReportPage: React.FC = () => {
 
         {/* Available Reports Section */}
         <div className="mb-5">
-          <AvailableReports 
-            reports={[
-              ...(data?.available_reports || []),
-              ...generatedReports
-            ]} 
+          <AvailableReports
+            reports={[...(data?.available_reports || []), ...generatedReports]}
             onDeleteReport={handleDeleteReport}
             onUploadReport={() => setShowUploadModal(true)}
           />
         </div>
 
         <div>
-          <CustomReportForm onReportGenerated={handleReportGenerated} data={data || undefined} />
+          <CustomReportForm
+            onReportGenerated={handleReportGenerated}
+            data={data || undefined}
+          />
         </div>
       </Container>
 
       {/* Upload Report Modal */}
-      <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)} centered size="lg">
+      <Modal
+        show={showUploadModal}
+        onHide={() => setShowUploadModal(false)}
+        centered
+        size="lg"
+      >
         <Modal.Header closeButton>
           <Modal.Title className="d-flex align-items-center gap-2">
             <Upload size={20} />
@@ -422,7 +439,7 @@ const ReportPage: React.FC = () => {
                 required
               />
             </Form.Group>
-            
+
             <Form.Group className="mb-3">
               <Form.Label>Report Type</Form.Label>
               <Form.Select
@@ -431,10 +448,14 @@ const ReportPage: React.FC = () => {
               >
                 <option value="Platform Usage">Platform Usage</option>
                 <option value="User Engagement">User Engagement</option>
-                <option value="Feedback & Testimonies">Feedback & Testimonies</option>
+                <option value="Feedback & Testimonies">
+                  Feedback & Testimonies
+                </option>
                 <option value="Health Conditions">Health Conditions</option>
                 <option value="Treatment Outcomes">Treatment Outcomes</option>
-                <option value="Organization Performance">Organization Performance</option>
+                <option value="Organization Performance">
+                  Organization Performance
+                </option>
               </Form.Select>
             </Form.Group>
 
@@ -442,7 +463,9 @@ const ReportPage: React.FC = () => {
               <Form.Label>Select File</Form.Label>
               <Form.Control
                 type="file"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUploadFile(e.target.files?.[0] || null)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUploadFile(e.target.files?.[0] || null)
+                }
                 accept=".pdf,.xlsx,.csv,.doc,.docx"
                 required
               />
@@ -474,7 +497,10 @@ const ReportPage: React.FC = () => {
           >
             {uploading ? (
               <>
-                <div className="spinner-border spinner-border-sm me-2" role="status">
+                <div
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                >
                   <span className="visually-hidden">Loading...</span>
                 </div>
                 Uploading...

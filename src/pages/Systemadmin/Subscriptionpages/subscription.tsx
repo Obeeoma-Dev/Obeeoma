@@ -47,7 +47,12 @@ const SubscriptionPage: React.FC = () => {
 
   // Get metrics from backend data
   const metrics = {
-    totalOrganizations: subscriptions.length > 0 ? new Set(subscriptions.map(sub => sub.employer?.name || sub.employer)).size : 0,
+    totalOrganizations:
+      subscriptions.length > 0
+        ? new Set(
+            subscriptions.map((sub) => sub.employer?.name || sub.employer),
+          ).size
+        : 0,
     totalSubscriptions: totalSubscriptions,
     coveredEmployees: coveredEmployees.toLocaleString(),
     utilizationRate: utilizationRate,
@@ -95,7 +100,7 @@ const SubscriptionPage: React.FC = () => {
     { name: "Nutrition", percentage: 25 },
   ];
 
-// Placeholder data for subscription plans (in Naira)
+  // Placeholder data for subscription plans (in Naira)
   const subscriptionPlans = [
     {
       id: "1",

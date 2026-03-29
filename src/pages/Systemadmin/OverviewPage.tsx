@@ -65,7 +65,9 @@ const OverviewPage: React.FC = () => {
     hotlineCallsToday: 0,
   });
   const [platformUsage, setPlatformUsage] = useState<PlatformUsageData[]>([]);
-  const [subscriptionRevenue, setSubscriptionRevenue] = useState<SubscriptionData[]>([]);
+  const [subscriptionRevenue, setSubscriptionRevenue] = useState<
+    SubscriptionData[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -92,11 +94,11 @@ const OverviewPage: React.FC = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Fetch dashboard summary
         const dashboardResponse = await adminAPI.getDashboardSummary();
         const data = dashboardResponse.data || dashboardResponse;
-        
+
         // Transform stats
         setStats({
           totalOrganizations: data.total_organizations || 0,
@@ -111,7 +113,7 @@ const OverviewPage: React.FC = () => {
           usage.map((u: { week_number: number; usage_count: number }) => ({
             week: `Week ${u.week_number}`,
             value: u.usage_count,
-          }))
+          })),
         );
 
         // Transform subscription revenue data
@@ -120,7 +122,7 @@ const OverviewPage: React.FC = () => {
           revenue.map((r: { month: string; revenue: number }) => ({
             month: r.month,
             value: r.revenue,
-          }))
+          })),
         );
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
@@ -161,7 +163,7 @@ const OverviewPage: React.FC = () => {
 
       // Here you would make actual API call
       // await adminAPI.uploadReport(formData);
-      
+
       setTimeout(() => {
         clearInterval(progressInterval);
         setUploadProgress(100);
@@ -185,7 +187,9 @@ const OverviewPage: React.FC = () => {
     try {
       // Here you would make actual API call
       // await adminAPI.generateReport(reportForm);
-      alert(`Generating ${reportForm.reportType} report for ${reportForm.dateRange} in ${reportForm.format} format`);
+      alert(
+        `Generating ${reportForm.reportType} report for ${reportForm.dateRange} in ${reportForm.format} format`,
+      );
       setShowGenerateModal(false);
     } catch (err) {
       console.error("Generation error:", err);
@@ -195,7 +199,10 @@ const OverviewPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
         <Spinner animation="border" variant="success" />
         <span className="ms-3">Loading overview...</span>
       </div>
@@ -273,7 +280,9 @@ const OverviewPage: React.FC = () => {
               <div className="d-flex align-items-center justify-content-between">
                 <div>
                   <p className="text-muted mb-1 small">Total Clients</p>
-                  <h3 className="mb-0 fw-bold">{stats.totalClients.toLocaleString()}</h3>
+                  <h3 className="mb-0 fw-bold">
+                    {stats.totalClients.toLocaleString()}
+                  </h3>
                   <Badge bg="success" className="mt-2">
                     <TrendingUp size={12} className="me-1" />
                     +8% this week
@@ -292,7 +301,9 @@ const OverviewPage: React.FC = () => {
               <div className="d-flex align-items-center justify-content-between">
                 <div>
                   <p className="text-muted mb-1 small">Monthly Revenue</p>
-                  <h3 className="mb-0 fw-bold">${stats.monthlyRevenue.toLocaleString()}</h3>
+                  <h3 className="mb-0 fw-bold">
+                    ${stats.monthlyRevenue.toLocaleString()}
+                  </h3>
                   <Badge bg="success" className="mt-2">
                     <TrendingUp size={12} className="me-1" />
                     +15% growth
@@ -335,7 +346,9 @@ const OverviewPage: React.FC = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <h5 className="mb-1 fw-semibold">Platform Usage Overview</h5>
-                  <p className="text-muted mb-0 small">Weekly active users and engagement</p>
+                  <p className="text-muted mb-0 small">
+                    Weekly active users and engagement
+                  </p>
                 </div>
                 <Button variant="outline-light" size="sm">
                   <Filter size={16} />
@@ -345,31 +358,52 @@ const OverviewPage: React.FC = () => {
             <Card.Body>
               <ResponsiveContainer width="100%" height={300}>
                 {platformUsage.length > 0 ? (
-                  <AreaChart data={platformUsage} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                  <AreaChart
+                    data={platformUsage}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                  >
                     <defs>
-                      <linearGradient id="colorUsage" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#3CB371" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#3CB371" stopOpacity={0} />
+                      <linearGradient
+                        id="colorUsage"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#3CB371"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#3CB371"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                    <XAxis 
-                      dataKey="week" 
-                      tick={{ fill: '#6c757d', fontSize: 12 }}
-                      axisLine={{ stroke: '#e9ecef' }}
-                      tickLine={{ stroke: '#e9ecef' }}
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      vertical={false}
+                      stroke="#f0f0f0"
                     />
-                    <YAxis 
-                      tick={{ fill: '#6c757d', fontSize: 12 }}
-                      axisLine={{ stroke: '#e9ecef' }}
-                      tickLine={{ stroke: '#e9ecef' }}
+                    <XAxis
+                      dataKey="week"
+                      tick={{ fill: "#6c757d", fontSize: 12 }}
+                      axisLine={{ stroke: "#e9ecef" }}
+                      tickLine={{ stroke: "#e9ecef" }}
                     />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: '#ffffff', 
-                        border: '1px solid #e9ecef',
-                        borderRadius: '8px',
-                        fontSize: '12px'
+                    <YAxis
+                      tick={{ fill: "#6c757d", fontSize: 12 }}
+                      axisLine={{ stroke: "#e9ecef" }}
+                      tickLine={{ stroke: "#e9ecef" }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #e9ecef",
+                        borderRadius: "8px",
+                        fontSize: "12px",
                       }}
                     />
                     <Area
@@ -386,9 +420,12 @@ const OverviewPage: React.FC = () => {
                       <div className="mb-3">
                         <TrendingUp size={48} className="text-muted" />
                       </div>
-                      <h6 className="text-muted mb-2">No Platform Activity Yet</h6>
+                      <h6 className="text-muted mb-2">
+                        No Platform Activity Yet
+                      </h6>
                       <p className="text-muted small mb-0">
-                        Platform usage data will be displayed here as users begin engaging with the system
+                        Platform usage data will be displayed here as users
+                        begin engaging with the system
                       </p>
                     </div>
                   </div>
@@ -404,31 +441,40 @@ const OverviewPage: React.FC = () => {
             <Card.Header className="bg-white border-0 pt-4 pb-0">
               <div>
                 <h5 className="mb-1 fw-semibold">Revenue Trends</h5>
-                <p className="text-muted mb-0 small">Monthly subscription revenue</p>
+                <p className="text-muted mb-0 small">
+                  Monthly subscription revenue
+                </p>
               </div>
             </Card.Header>
             <Card.Body>
               <ResponsiveContainer width="100%" height={300}>
                 {subscriptionRevenue.length > 0 ? (
-                  <BarChart data={subscriptionRevenue} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                    <XAxis 
-                      dataKey="month" 
-                      tick={{ fill: '#6c757d', fontSize: 12 }}
-                      axisLine={{ stroke: '#e9ecef' }}
-                      tickLine={{ stroke: '#e9ecef' }}
+                  <BarChart
+                    data={subscriptionRevenue}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      vertical={false}
+                      stroke="#f0f0f0"
                     />
-                    <YAxis 
-                      tick={{ fill: '#6c757d', fontSize: 12 }}
-                      axisLine={{ stroke: '#e9ecef' }}
-                      tickLine={{ stroke: '#e9ecef' }}
+                    <XAxis
+                      dataKey="month"
+                      tick={{ fill: "#6c757d", fontSize: 12 }}
+                      axisLine={{ stroke: "#e9ecef" }}
+                      tickLine={{ stroke: "#e9ecef" }}
                     />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: '#ffffff', 
-                        border: '1px solid #e9ecef',
-                        borderRadius: '8px',
-                        fontSize: '12px'
+                    <YAxis
+                      tick={{ fill: "#6c757d", fontSize: 12 }}
+                      axisLine={{ stroke: "#e9ecef" }}
+                      tickLine={{ stroke: "#e9ecef" }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #e9ecef",
+                        borderRadius: "8px",
+                        fontSize: "12px",
                       }}
                     />
                     <Bar dataKey="value" fill="#3CB371" radius={[8, 8, 0, 0]} />
@@ -439,9 +485,12 @@ const OverviewPage: React.FC = () => {
                       <div className="mb-3">
                         <CreditCard size={48} className="text-muted" />
                       </div>
-                      <h6 className="text-muted mb-2">No Revenue Data Available</h6>
+                      <h6 className="text-muted mb-2">
+                        No Revenue Data Available
+                      </h6>
                       <p className="text-muted small mb-0">
-                        Subscription revenue information will appear here as organizations subscribe to services
+                        Subscription revenue information will appear here as
+                        organizations subscribe to services
                       </p>
                     </div>
                   </div>
@@ -453,7 +502,11 @@ const OverviewPage: React.FC = () => {
       </Row>
 
       {/* Upload Report Modal */}
-      <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)} centered>
+      <Modal
+        show={showUploadModal}
+        onHide={() => setShowUploadModal(false)}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Upload Report</Modal.Title>
         </Modal.Header>
@@ -463,12 +516,16 @@ const OverviewPage: React.FC = () => {
               <Form.Label>Report Type</Form.Label>
               <Form.Select
                 value={reportForm.reportType}
-                onChange={(e) => setReportForm({...reportForm, reportType: e.target.value})}
+                onChange={(e) =>
+                  setReportForm({ ...reportForm, reportType: e.target.value })
+                }
               >
                 <option value="Platform Usage">Platform Usage</option>
                 <option value="Health Conditions">Health Conditions</option>
                 <option value="Treatment Outcomes">Treatment Outcomes</option>
-                <option value="Organization Performance">Organization Performance</option>
+                <option value="Organization Performance">
+                  Organization Performance
+                </option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -476,7 +533,9 @@ const OverviewPage: React.FC = () => {
               <Form.Control
                 type="file"
                 ref={fileInputRef}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUploadFile(e.target.files?.[0] || null)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUploadFile(e.target.files?.[0] || null)
+                }
                 accept=".pdf,.xlsx,.csv"
               />
               <Form.Text className="text-muted">
@@ -505,7 +564,12 @@ const OverviewPage: React.FC = () => {
           >
             {uploading ? (
               <>
-                <Spinner as="span" animation="border" size="sm" className="me-2" />
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  className="me-2"
+                />
                 Uploading...
               </>
             ) : (
@@ -519,7 +583,11 @@ const OverviewPage: React.FC = () => {
       </Modal>
 
       {/* Generate Report Modal */}
-      <Modal show={showGenerateModal} onHide={() => setShowGenerateModal(false)} centered>
+      <Modal
+        show={showGenerateModal}
+        onHide={() => setShowGenerateModal(false)}
+        centered
+      >
         <Modal.Header closeButton>
           <Modal.Title>Generate Report</Modal.Title>
         </Modal.Header>
@@ -529,19 +597,25 @@ const OverviewPage: React.FC = () => {
               <Form.Label>Report Type</Form.Label>
               <Form.Select
                 value={reportForm.reportType}
-                onChange={(e) => setReportForm({...reportForm, reportType: e.target.value})}
+                onChange={(e) =>
+                  setReportForm({ ...reportForm, reportType: e.target.value })
+                }
               >
                 <option value="Platform Usage">Platform Usage</option>
                 <option value="Health Conditions">Health Conditions</option>
                 <option value="Treatment Outcomes">Treatment Outcomes</option>
-                <option value="Organization Performance">Organization Performance</option>
+                <option value="Organization Performance">
+                  Organization Performance
+                </option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Date Range</Form.Label>
               <Form.Select
                 value={reportForm.dateRange}
-                onChange={(e) => setReportForm({...reportForm, dateRange: e.target.value})}
+                onChange={(e) =>
+                  setReportForm({ ...reportForm, dateRange: e.target.value })
+                }
               >
                 <option value="Last 7 Days">Last 7 Days</option>
                 <option value="Last 30 Days">Last 30 Days</option>
@@ -554,7 +628,9 @@ const OverviewPage: React.FC = () => {
               <Form.Label>Format</Form.Label>
               <Form.Select
                 value={reportForm.format}
-                onChange={(e) => setReportForm({...reportForm, format: e.target.value})}
+                onChange={(e) =>
+                  setReportForm({ ...reportForm, format: e.target.value })
+                }
               >
                 <option value="PDF">PDF</option>
                 <option value="Excel">Excel</option>
@@ -564,7 +640,10 @@ const OverviewPage: React.FC = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowGenerateModal(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowGenerateModal(false)}
+          >
             Cancel
           </Button>
           <Button variant="success" onClick={handleGenerateReport}>

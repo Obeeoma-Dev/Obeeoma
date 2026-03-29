@@ -331,25 +331,27 @@ const EditProfileSection: React.FC<EditProfileSectionProps> = ({
               </div>
               <div className="row g-3">
                 <div className="col-12 col-md-6">
-                <label htmlFor="email" className="form-label fw-medium">
-                 Email Address *
-                </label>
-                <div className="position-relative">
-                  <Mail
-                    size={16}
-                    className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-                  />
-                  <input
-                    id="email"
-                    type="email"
-                    className={`form-control ps-5 ${errors.email ? "is-invalid" : ""}`}
-                    value={localData.email || ""}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder="Enter email address"
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
+                  <label htmlFor="email" className="form-label fw-medium">
+                    Email Address *
+                  </label>
+                  <div className="position-relative">
+                    <Mail
+                      size={16}
+                      className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                    />
+                    <input
+                      id="email"
+                      type="email"
+                      className={`form-control ps-5 ${errors.email ? "is-invalid" : ""}`}
+                      value={localData.email || ""}
+                      onChange={(e) =>
+                        handleInputChange("email", e.target.value)
+                      }
+                      placeholder="Enter email address"
+                    />
+                    {errors.email && (
+                      <div className="invalid-feedback">{errors.email}</div>
+                    )}
                   </div>
                 </div>
               </div>

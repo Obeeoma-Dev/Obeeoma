@@ -18,7 +18,10 @@ const ReportCard = ({ report }: { report: ReportType }) => {
       const blob = await report.fetchBlob();
 
       let extension = "pdf";
-      if (blob.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+      if (
+        blob.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      ) {
         extension = "xlsx";
       } else if (blob.type && blob.type !== "application/pdf") {
         extension = blob.type.split("/").pop() || "bin";

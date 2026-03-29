@@ -36,9 +36,8 @@ const AccountForm: React.FC = () => {
           const data = res?.data ?? res ?? {};
           // Handle system settings response structure
           if (Array.isArray(data)) {
-             
             const accountData =
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any --- IGNORE ---
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any --- IGNORE ---
               data.find((setting: any) => setting.key === "account") || {};
             setAccount({
               name: accountData.name || "",

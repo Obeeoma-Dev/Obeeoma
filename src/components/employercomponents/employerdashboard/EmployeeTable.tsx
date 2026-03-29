@@ -56,7 +56,7 @@ const EmployeeTable = ({ employees }: { employees: Employee[] }) => {
   }, [selectedEmployee, viewMode]);
 
   const handleBackToTable = () => {
-    setSelectedEmployee(null); 
+    setSelectedEmployee(null);
     setViewMode("table");
     setFormData({});
     setValidationErrors({});

@@ -73,7 +73,7 @@ const SubscriptionSettingsPage: React.FC = () => {
             backgroundColor: "#f8f9fa",
           }}
         >
-{/* Subscription cards grid */}
+          {/* Subscription cards grid */}
           <SubscriptionSettingsComp />
         </div>
       </div>

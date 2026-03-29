@@ -36,9 +36,8 @@ const NotificationSettings: React.FC = () => {
           const data = res?.data ?? res ?? {};
           // Handle system settings response structure
           if (Array.isArray(data)) {
-             
             const notificationData =
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any --- IGNORE ---
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any --- IGNORE ---
               data.find((setting: any) => setting.key === "notifications") ||
               {};
             setPreferences({

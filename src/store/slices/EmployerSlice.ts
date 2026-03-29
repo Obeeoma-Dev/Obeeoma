@@ -218,23 +218,26 @@ export const fetchEmployerEngagement = createAsyncThunk<
 
 export const downloadReport = createAsyncThunk<
   void,
-  { url: string; fileName: string; method?: 'GET' | 'POST' },
+  { url: string; fileName: string; method?: "GET" | "POST" },
   { rejectValue: string }
->("employer/downloadReport", async ({ url, fileName, method = 'GET' }, { rejectWithValue }) => {
-  try {
-    const blob = await employerAPI.getReportBlob(url, method);
-    const downloadUrl = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.setAttribute("download", fileName);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(downloadUrl);
-  } catch (error) {
-    return rejectWithValue(getErrorMessage(error));
-  }
-});
+>(
+  "employer/downloadReport",
+  async ({ url, fileName, method = "GET" }, { rejectWithValue }) => {
+    try {
+      const blob = await employerAPI.getReportBlob(url, method);
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+);
 
 export const fetchEmployerReports = createAsyncThunk<
   Report[],
@@ -408,16 +411,23 @@ export const updateEmployee = createAsyncThunk<
     const id = updatedData.id;
     // Map fields to match Django backend expectations
     const payload: Record<string, unknown> = {};
-    if (updatedData.emailAddress !== undefined) payload.email = updatedData.emailAddress;
-    if (updatedData.employeedepartment !== undefined) payload.department = updatedData.employeedepartment;
+    if (updatedData.emailAddress !== undefined)
+      payload.email = updatedData.emailAddress;
+    if (updatedData.employeedepartment !== undefined)
+      payload.department = updatedData.employeedepartment;
     if (updatedData.status !== undefined) payload.status = updatedData.status;
-    if (updatedData.phoneNumber !== undefined) payload.phone = updatedData.phoneNumber;
+    if (updatedData.phoneNumber !== undefined)
+      payload.phone = updatedData.phoneNumber;
 
     // Let's provide BOTH standard and `emp`-prefixed keys to be safe with Django serialization
-    if (updatedData.emailAddress !== undefined) payload.empemail = updatedData.emailAddress;
-    if (updatedData.employeedepartment !== undefined) payload.empdepartment = updatedData.employeedepartment;
-    if (updatedData.employeedepartment !== undefined) payload.employeedepartment = updatedData.employeedepartment;
-    if (updatedData.status !== undefined) payload.empstatus = updatedData.status;
+    if (updatedData.emailAddress !== undefined)
+      payload.empemail = updatedData.emailAddress;
+    if (updatedData.employeedepartment !== undefined)
+      payload.empdepartment = updatedData.employeedepartment;
+    if (updatedData.employeedepartment !== undefined)
+      payload.employeedepartment = updatedData.employeedepartment;
+    if (updatedData.status !== undefined)
+      payload.empstatus = updatedData.status;
 
     // Call the API
     const response = await employerAPI.updateEmployee(id, payload);
@@ -428,10 +438,17 @@ export const updateEmployee = createAsyncThunk<
     const responseData = response as any;
     const finalEmployee: Employee = {
       id: Number(id),
-      emailAddress: responseData.email || payload.email || updatedData.emailAddress || "",
-      employeedepartment: responseData.department || payload.department || updatedData.employeedepartment || "",
-      phoneNumber: responseData.phone || payload.phone || updatedData.phoneNumber || "",
-      status: responseData.status || payload.status || updatedData.status || "active",
+      emailAddress:
+        responseData.email || payload.email || updatedData.emailAddress || "",
+      employeedepartment:
+        responseData.department ||
+        payload.department ||
+        updatedData.employeedepartment ||
+        "",
+      phoneNumber:
+        responseData.phone || payload.phone || updatedData.phoneNumber || "",
+      status:
+        responseData.status || payload.status || updatedData.status || "active",
     };
 
     return finalEmployee;

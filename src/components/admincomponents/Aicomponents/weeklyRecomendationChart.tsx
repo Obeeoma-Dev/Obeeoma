@@ -1,68 +1,68 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
-import { FileTextIcon, VideoIcon, HeadphonesIcon, ZapIcon } from 'lucide-react'
-import './weeklyRecommendationChart.css'
+import React from "react";
+import { Card } from "react-bootstrap";
+import { FileTextIcon, VideoIcon, HeadphonesIcon, ZapIcon } from "lucide-react";
+import "./weeklyRecommendationChart.css";
 
-type ResourceType = 'Article' | 'Video' | 'Audio' | 'Interactive'
+type ResourceType = "Article" | "Video" | "Audio" | "Interactive";
 
 type Resource = {
-  name: string
-  type: ResourceType
-  timesThisWeek: number
-}
+  name: string;
+  type: ResourceType;
+  timesThisWeek: number;
+};
 
 const typeConfig: Record<
   ResourceType,
   {
-    icon: React.ReactNode
-    badgeClass: string
+    icon: React.ReactNode;
+    badgeClass: string;
   }
 > = {
   Article: {
     icon: <FileTextIcon size={16} />,
-    badgeClass: 'resource-type-badge article',
+    badgeClass: "resource-type-badge article",
   },
   Video: {
     icon: <VideoIcon size={16} />,
-    badgeClass: 'resource-type-badge video',
+    badgeClass: "resource-type-badge video",
   },
   Audio: {
     icon: <HeadphonesIcon size={16} />,
-    badgeClass: 'resource-type-badge audio',
+    badgeClass: "resource-type-badge audio",
   },
   Interactive: {
     icon: <ZapIcon size={16} />,
-    badgeClass: 'resource-type-badge interactive',
+    badgeClass: "resource-type-badge interactive",
   },
-}
+};
 
 const resources: Resource[] = [
   {
-    name: 'Anxiety Management Techniques',
-    type: 'Article',
+    name: "Anxiety Management Techniques",
+    type: "Article",
     timesThisWeek: 156,
   },
   {
-    name: 'Breathing Exercises for Anxiety',
-    type: 'Video',
+    name: "Breathing Exercises for Anxiety",
+    type: "Video",
     timesThisWeek: 243,
   },
   {
-    name: 'Understanding Panic Attacks',
-    type: 'Article',
+    name: "Understanding Panic Attacks",
+    type: "Article",
     timesThisWeek: 124,
   },
   {
-    name: 'Guided Meditation for Relief',
-    type: 'Audio',
+    name: "Guided Meditation for Relief",
+    type: "Audio",
     timesThisWeek: 198,
   },
   {
-    name: 'Social Anxiety Coping Strategies',
-    type: 'Interactive',
+    name: "Social Anxiety Coping Strategies",
+    type: "Interactive",
     timesThisWeek: 87,
   },
-]
+];
 
 export function ResourceRecommendations() {
   return (
@@ -78,25 +78,16 @@ export function ResourceRecommendations() {
 
       <div className="resource-recommendations-list">
         {resources.map((resource) => {
-          const config = typeConfig[resource.type]
+          const config = typeConfig[resource.type];
           return (
-            <div
-              key={resource.name}
-              className="resource-item"
-            >
+            <div key={resource.name} className="resource-item">
               {/* Icon */}
-              <div className="resource-icon-container">
-                {config.icon}
-              </div>
+              <div className="resource-icon-container">{config.icon}</div>
 
               {/* Name + Badge */}
               <div className="resource-content">
-                <p className="resource-name">
-                  {resource.name}
-                </p>
-                <span className={config.badgeClass}>
-                  {resource.type}
-                </span>
+                <p className="resource-name">{resource.name}</p>
+                <span className={config.badgeClass}>{resource.type}</span>
               </div>
 
               {/* Times */}
@@ -107,11 +98,11 @@ export function ResourceRecommendations() {
                 <p className="resource-label">this week</p>
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
-export default ResourceRecommendations
+export default ResourceRecommendations;

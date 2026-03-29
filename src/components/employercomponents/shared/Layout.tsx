@@ -232,7 +232,7 @@ const Layout = ({ children, title }: LayoutProps) => {
                       className="text-muted fw-medium d-block px-2"
                       style={{ fontFamily: "body", fontSize: "0.8rem" }}
                     >
-                    Management Console ®
+                      Management Console ®
                     </small>
                   </div>
 

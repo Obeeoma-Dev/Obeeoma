@@ -47,7 +47,13 @@ export function PlatformUsageChart({ data = [] }: PlatformUsageChartProps) {
               >
                 {/* Gradient definition for area fill */}
                 <defs>
-                  <linearGradient id="usageGradient" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient
+                    id="usageGradient"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
                     <stop offset="5%" stopColor="#20c997" stopOpacity={0.3} />
                     <stop offset="95%" stopColor="#20c997" stopOpacity={0} />
                   </linearGradient>
@@ -97,7 +103,10 @@ export function PlatformUsageChart({ data = [] }: PlatformUsageChartProps) {
               <div className="d-flex justify-content-center align-items-center h-100 text-muted">
                 <div className="text-center">
                   <p>No platform usage data available</p>
-                  <small>Usage data will appear here once the organization starts using the platform</small>
+                  <small>
+                    Usage data will appear here once the organization starts
+                    using the platform
+                  </small>
                 </div>
               </div>
             )}

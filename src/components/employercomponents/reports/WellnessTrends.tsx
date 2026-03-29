@@ -73,36 +73,47 @@ const WellnessTrends: React.FC<{ companyId?: string }> = ({ companyId }) => {
           return d;
         });
 
-        const transformedData: MoodPoint[] = last10Days.map((dateObj, index) => {
-          // Format date as YYYY-MM-DD to match backend
-          const dateString = dateObj.toISOString().split('T')[0];
+        const transformedData: MoodPoint[] = last10Days.map(
+          (dateObj, index) => {
+            // Format date as YYYY-MM-DD to match backend
+            const dateString = dateObj.toISOString().split("T")[0];
 
-          // Format display date as Day 1 to Day 10
-          const displayDate = `Day ${index + 1}`;
+            // Format display date as Day 1 to Day 10
+            const displayDate = `Day ${index + 1}`;
 
-          // Find the corresponding mood record for this date
-          const record = trends.find((item) => {
-            if (typeof item.date !== "string") return false;
-            const recordDate = new Date(item.date).toISOString().split("T")[0];
-            return recordDate === dateString;
-          });
+            // Find the corresponding mood record for this date
+            const record = trends.find((item) => {
+              if (typeof item.date !== "string") return false;
+              const recordDate = new Date(item.date)
+                .toISOString()
+                .split("T")[0];
+              return recordDate === dateString;
+            });
 
-          const rawScore = typeof record?.average_mood_score === "number" ? record.average_mood_score : undefined;
-          const score = rawScore !== undefined && rawScore >= 0 && rawScore <= 5 ? (rawScore / 5) * 100 : 50;
+            const rawScore =
+              typeof record?.average_mood_score === "number"
+                ? record.average_mood_score
+                : undefined;
+            const score =
+              rawScore !== undefined && rawScore >= 0 && rawScore <= 5
+                ? (rawScore / 5) * 100
+                : 50;
 
-          if (!record) {
-            console.debug(`WellnessTrends: no matching trend for ${dateString}`);
-          } 
+            if (!record) {
+              console.debug(
+                `WellnessTrends: no matching trend for ${dateString}`,
+              );
+            }
 
-          return {
-            date: displayDate,
-            score: Math.round(score),
-            emoji: getEmojiFromScore(score),
-          };
-        });
+            return {
+              date: displayDate,
+              score: Math.round(score),
+              emoji: getEmojiFromScore(score),
+            };
+          },
+        );
 
         setMoodData(transformedData);
-        
       } catch (error) {
         console.error("Failed to fetch the mood data:", error);
         // Keep using dummy data if API fails

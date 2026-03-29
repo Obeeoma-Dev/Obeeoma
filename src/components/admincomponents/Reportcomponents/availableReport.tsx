@@ -17,7 +17,11 @@ interface AvailableReportsProps {
   onUploadReport?: () => void;
 }
 
-export function AvailableReports({ reports, onDeleteReport, onUploadReport }: AvailableReportsProps) {
+export function AvailableReports({
+  reports,
+  onDeleteReport,
+  onUploadReport,
+}: AvailableReportsProps) {
   const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
