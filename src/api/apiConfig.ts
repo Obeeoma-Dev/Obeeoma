@@ -40,6 +40,7 @@ export const setupApiInterceptors = (store: { getState: () => RootState }) => {
         "auth/mfa/setup/",
         "auth/mfa/verify/",
         "auth/verify-password-reset-otp/",
+        "receptionist/chat/"
       ];
 
       const isPublicEndpoint = publicEndpoints.some(
